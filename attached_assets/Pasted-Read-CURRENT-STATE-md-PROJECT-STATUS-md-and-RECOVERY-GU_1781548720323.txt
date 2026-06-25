@@ -1,0 +1,87 @@
+Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md in full. These are your source of truth. Follow the RECOVERY_GUIDE.md step by step to restore and run the project.
+STEP 1 — Environment Setup:
+
+Read RECOVERY_GUIDE.md and install all required dependencies exactly as documented:
+
+Run the exact npm/pnpm install commands from the guide
+Set up all environment variables listed in the guide
+Run database migrations as documented
+Verify the database connection works
+
+STEP 2 — Start All Services:
+
+Start every service documented in RECOVERY_GUIDE.md in the correct order:
+
+Database (if needed)
+API server
+Marketplace (web frontend)
+Mobile (if documented)
+
+After starting, verify each service is running by checking its health endpoint or port. Report exact status of each service.
+STEP 3 — Verify Core Features:
+
+Test these to confirm the project is running correctly:
+
+API health check — report response
+Search endpoint: GET /api/search?q=هاتف — report response
+Frontend loads without errors — report status
+Admin panel accessible — report status
+
+If anything fails: fix it before moving to the next step. Do not skip errors.
+STEP 4 — Scan Actual Codebase:
+
+After confirming everything runs, scan the actual current codebase by reading these files in full:
+
+artifacts/api-server/src/services/searchProcessor.ts
+artifacts/api-server/src/services/searchCache.ts (if exists)
+artifacts/api-server/src/routes/search.ts
+artifacts/api-server/src/db/schema.ts
+artifacts/api-server/src/scripts/generateEmbeddings.ts (if exists)
+artifacts/embedding-service/main.py (if exists)
+artifacts/marketplace/src/pages/search/index.tsx
+artifacts/api-server/package.json
+.replit
+
+STEP 5 — Update Recovery Files:
+
+Compare what is ACTUALLY in the code vs what is documented. Then rewrite all three files to reflect the true current state:
+CURRENT_STATE.md must document:
+
+Every feature that actually exists in the code right now
+Current search pipeline version and all steps
+Whether semantic search / embedding service exists in code
+Whether cache layer exists and how it works
+Current database schema including all new columns
+All active API endpoints
+Frontend pages and components current state
+
+PROJECT_STATUS.md must document:
+
+All completed phases with accurate descriptions
+What was the last thing implemented
+Current known issues or limitations
+What is working vs what is partially implemented
+
+RECOVERY_GUIDE.md must document:
+
+Exact steps to restore the project from scratch
+All environment variables needed
+How to start each service
+How to run migrations
+How to run the embedding backfill if needed
+All npm/pip commands needed
+
+IMPORTANT:
+
+Do NOT change any code — only update the 3 documentation files
+If something exists in code but not fully working (like embedding service pending pip install), document it as "implemented but requires setup"
+Do NOT remove accurate information from old recovery files
+After finishing, output a summary of:
+
+Which services are running and on which ports
+What changed between old and new documentation
+Any issues found during restoration
+
+
+
+TypeScript check: run npx tsc --noEmit across all packages and report the result. Must be 0 errors.

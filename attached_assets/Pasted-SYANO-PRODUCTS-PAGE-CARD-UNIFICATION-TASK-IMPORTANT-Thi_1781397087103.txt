@@ -1,0 +1,317 @@
+SYANO (سوق سوريا) — PRODUCTS PAGE CARD UNIFICATION TASK
+
+IMPORTANT:
+
+This is NOT a redesign task.
+
+This is NOT a new UI concept.
+
+This is NOT an opportunity to create a different product card.
+
+The Homepage Product Card is the official visual reference for the entire marketplace.
+
+Your goal is to make Product Cards on the Products Page visually and structurally identical to the Product Cards used on the Homepage.
+
+---
+
+PROJECT CONTEXT
+
+Brand:
+SYANO
+سوق سوريا
+
+Current Homepage:
+Homepage V7
+
+Homepage Product Cards are already approved and represent the target marketplace quality.
+
+The Products Page currently uses a different card implementation and must be aligned with the Homepage.
+
+Do NOT change:
+
+* Navbar
+* Filters
+* Search
+* Categories
+* RTL support
+* Language system
+* Currency system
+* API integrations
+* Data fetching logic
+
+Only improve Product Card consistency.
+
+---
+
+PRIMARY OBJECTIVE
+
+Refactor the Products Page so that it uses the same Product Card component, design system, styling rules, spacing, hierarchy, hover effects, badges, pricing layout, and visual language already used on the Homepage.
+
+The Homepage Product Card must become the single source of truth.
+
+Avoid duplicated card implementations.
+
+---
+
+REQUIRED IMPLEMENTATION
+
+1. IDENTIFY CARD COMPONENTS
+
+Locate:
+
+* Homepage Product Card component
+* Products Page Product Card component
+
+Compare both implementations.
+
+Determine whether:
+
+* A shared ProductCard component already exists
+  OR
+* Multiple card implementations exist
+
+---
+
+2. CREATE A SINGLE SOURCE OF TRUTH
+
+Preferred architecture:
+
+<ProductCard />
+
+or
+
+<ProductCard variant="default" />
+
+The Products Page should reuse the Homepage card rather than maintaining a separate visual implementation.
+
+Remove UI divergence.
+
+Do NOT duplicate styles.
+
+---
+
+3. MATCH HOMEPAGE VISUAL DESIGN EXACTLY
+
+Products Page cards must match Homepage cards in:
+
+* Card border radius
+* Card background
+* Card shadow
+* Card hover animation
+* Image presentation
+* Image sizing
+* Typography
+* Price styling
+* Badge styling
+* Spacing
+* Internal layout
+* CTA button styling
+
+No visual differences should remain unless absolutely required by functionality.
+
+---
+
+4. IMAGE SYSTEM
+
+Use the same image behavior as Homepage cards:
+
+* Same aspect ratio
+* Same object-fit behavior
+* Same image container height
+* Same corner radius treatment
+* Same hover interaction
+
+All cards must appear visually consistent in the grid.
+
+---
+
+5. PRODUCT TITLE
+
+Use Homepage title styling exactly:
+
+* Same font size
+* Same font weight
+* Same line-height
+* Same truncation behavior
+* Same max lines
+
+Long product names must not break grid consistency.
+
+---
+
+6. CATEGORY LABEL
+
+Match Homepage implementation:
+
+* Same position
+* Same typography
+* Same opacity
+* Same spacing
+
+---
+
+7. BADGES
+
+Products Page must support the same badges used by Homepage:
+
+Examples:
+
+* جديد
+* حصري
+* عرض محدود
+* الأكثر مبيعاً
+
+Use the exact same badge styles.
+
+No alternative badge designs.
+
+---
+
+8. RATING SYSTEM
+
+If Homepage cards display:
+
+⭐ Rating
+Review Count
+
+Then Products Page cards must display them identically.
+
+Match:
+
+* Position
+* Color
+* Typography
+* Spacing
+
+---
+
+9. PRICE SECTION
+
+Use Homepage pricing layout exactly:
+
+Current Price
+
+Old Price (if discounted)
+
+Discount display
+
+Match:
+
+* Colors
+* Font sizes
+* Font weights
+* Alignment
+* Spacing
+
+Pricing hierarchy must remain identical.
+
+---
+
+10. ADD TO CART CTA
+
+Homepage button design is the reference.
+
+Products Page must use:
+
+* Same button
+* Same icon
+* Same hover behavior
+* Same sizing
+* Same placement
+
+Do NOT use alternative circular cart buttons if Homepage uses a different CTA style.
+
+---
+
+11. STORE / SELLER INFORMATION
+
+Preserve backend data.
+
+However visually follow Homepage hierarchy.
+
+Avoid large seller labels that increase card height.
+
+Keep the card clean and premium.
+
+---
+
+12. GRID CONSISTENCY
+
+Ensure:
+
+* Equal card heights
+* Equal image heights
+* Equal content spacing
+* Equal alignment of prices
+* Equal alignment of CTA buttons
+
+The grid should feel premium and balanced.
+
+---
+
+13. RESPONSIVE BEHAVIOR
+
+Preserve existing responsive breakpoints.
+
+Verify:
+
+Desktop
+Tablet
+Mobile
+
+Cards must remain visually identical to Homepage behavior across all screen sizes.
+
+---
+
+14. PERFORMANCE
+
+Do not introduce:
+
+* unnecessary rerenders
+* duplicated components
+* duplicated styling systems
+
+Prefer reusing existing Homepage card architecture.
+
+---
+
+15. VALIDATION CHECKLIST
+
+Before completion verify:
+
+✓ Products Page card matches Homepage card
+
+✓ Same spacing
+
+✓ Same hover effects
+
+✓ Same image behavior
+
+✓ Same typography
+
+✓ Same badges
+
+✓ Same pricing design
+
+✓ Same CTA design
+
+✓ Same responsiveness
+
+✓ No regression in RTL
+
+✓ No regression in translations
+
+✓ No regression in currency switching
+
+✓ No API changes
+
+---
+
+FINAL GOAL
+
+A user should not be able to visually distinguish between:
+
+* Homepage Product Cards
+* Products Page Product Cards
+
+They must feel like the same design system component reused across the entire SYANO marketplace.

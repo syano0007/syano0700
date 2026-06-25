@@ -1,0 +1,262 @@
+STOP.
+
+DO NOT START PHASE A5.
+
+Before any new courier/tracking development, perform a full system verification and visibility audit for everything built in:
+
+* Courier V3.2
+* Courier V3.3 A1
+* Courier V3.3 A2
+* Courier V3.3 A3
+* Courier V3.3 A4
+
+The goal is to verify that the features actually exist in the running product and can be used end-to-end by real users.
+
+====================================================
+PHASE 0 — ADMIN PAGE VISIBILITY AUDIT
+=====================================
+
+Investigate why the newly created admin pages are not visible.
+
+Verify:
+
+* /admin/delivery-missions
+* /admin/courier-availability
+* /admin/courier-locations
+* /admin/tracking-monitor
+
+Check:
+
+1. App.tsx route registration
+2. AdminLayout navigation links
+3. Role guards
+4. Permission middleware
+5. Route ordering
+6. Sidebar rendering
+7. Hidden feature flags
+8. Navigation badges
+9. Broken imports
+10. Runtime errors
+
+For every page answer:
+
+* Does route exist?
+* Does page render?
+* Is it accessible from sidebar?
+* Is it accessible manually?
+* Is it accessible for admin account?
+
+Fix every issue discovered.
+
+====================================================
+PHASE 1 — REAL ACCOUNT TESTING
+==============================
+
+Use actual project accounts.
+
+DO NOT mock anything.
+
+Identify:
+
+Admin account
+Seller account
+Courier account
+Customer account
+
+Log in with each role.
+
+Verify role permissions.
+
+Document exactly which accounts were used.
+
+====================================================
+PHASE 2 — COMPLETE DELIVERY FLOW TEST
+=====================================
+
+Execute a REAL workflow.
+
+Customer:
+
+* create order
+
+Seller:
+
+* process order
+* mark ready_for_pickup
+
+System:
+
+* create delivery mission
+
+Courier:
+
+* go ONLINE
+* receive mission offer
+* accept mission
+
+System:
+
+* switch ONLINE → BUSY
+
+Courier:
+
+* update location
+
+System:
+
+* create tracking session
+
+Courier:
+
+* pick up order
+
+Courier:
+
+* move location several times
+
+Customer:
+
+* verify tracking visibility
+
+Seller:
+
+* verify tracking visibility
+
+Courier:
+
+* mark delivered
+
+System:
+
+* stop tracking session
+* BUSY → ONLINE
+
+Verify every step succeeds.
+
+====================================================
+PHASE 3 — GPS TEST
+==================
+
+Verify:
+
+PATCH /api/courier/location
+
+actually updates:
+
+* currentLat
+* currentLng
+* speed
+* heading
+* accuracy
+
+Verify:
+
+tracking_positions
+
+records new entries.
+
+Verify:
+
+courier-locations page updates.
+
+Verify:
+
+tracking-monitor page updates.
+
+====================================================
+PHASE 4 — UI VERIFICATION
+=========================
+
+For every page:
+
+Take screenshots.
+
+Verify:
+
+* no blank sections
+* no broken cards
+* no missing data
+* no console errors
+* no 404s
+* no permission failures
+
+Pages:
+
+Courier Dashboard
+Delivery Missions
+Courier Availability
+Courier Locations
+Tracking Monitor
+
+====================================================
+PHASE 5 — DEFECT REPORT
+=======================
+
+Produce:
+
+COURIER_SYSTEM_AUDIT.md
+
+Include:
+
+SECTION A
+Pages found
+
+SECTION B
+Pages missing
+
+SECTION C
+Broken routes
+
+SECTION D
+Broken permissions
+
+SECTION E
+Broken UI
+
+SECTION F
+Broken APIs
+
+SECTION G
+Tracking failures
+
+SECTION H
+GPS failures
+
+SECTION I
+Mission assignment failures
+
+SECTION J
+Recommended fixes
+
+====================================================
+PHASE 6 — FIX EVERYTHING
+========================
+
+Fix every discovered issue.
+
+Do not postpone.
+
+Do not leave TODOs.
+
+Do not move to A5 until:
+
+* every page is visible
+* every route works
+* every role works
+* full delivery workflow succeeds
+* tracking works end-to-end
+* screenshots prove functionality
+
+====================================================
+FINAL OUTPUT
+============
+
+Provide:
+
+1. List of all discovered issues.
+2. List of all fixes applied.
+3. Screenshots proving pages work.
+4. End-to-end workflow results.
+5. Confirmation whether system is truly ready for A5.
+
+DO NOT START A5 UNTIL THIS AUDIT IS COMPLETE.

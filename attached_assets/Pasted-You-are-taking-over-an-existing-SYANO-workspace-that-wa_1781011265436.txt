@@ -1,0 +1,293 @@
+You are taking over an existing SYANO (سوق سوريا) workspace that was migrated from another Replit account.
+
+CRITICAL RULES
+
+* Do NOT assume anything.
+* Do NOT trust previous summaries.
+* Do NOT trust recovery files blindly.
+* Verify everything from the actual codebase.
+* Do NOT modify code yet.
+* Do NOT create new features.
+* Do NOT run refactors.
+* Do NOT update documentation yet.
+* First perform a complete forensic audit.
+
+Your goal is to determine the EXACT current state of the workspace and verify whether the latest VariantBuilder fixes were actually completed before the previous session stopped.
+
+---
+
+## PHASE 1 — LOAD MEMORY
+
+Read ALL project-memory files completely:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* PROJECT_STATE.md
+* CURRENT_TASK.md
+* DATABASE_STATE.md
+* KNOWN_ISSUES.md
+* CHANGELOG.md
+* API_STATE.md
+* AUTH_STATE.md
+* PERFORMANCE_STATE.md
+* VARIANT_SYSTEM_STATE.md
+
+Then summarize:
+
+1. Last documented checkpoint
+2. Last documented VariantBuilder work
+3. Last documented mobile fixes
+4. Last documented RTL fixes
+5. Last documented toggle fixes
+
+---
+
+## PHASE 2 — VERIFY WORKSPACE
+
+Verify:
+
+* pnpm install status
+* node_modules present
+* all workspaces compile
+* lib declarations build
+
+Verify:
+
+* API Server
+* Marketplace
+* Mobile
+
+Verify:
+
+* Database
+* Table count
+* Additive migration columns
+
+Verify:
+
+* Root Owner account
+
+Report everything.
+
+---
+
+## PHASE 3 — GIT AUDIT
+
+Check:
+
+* git status
+* uncommitted changes
+* staged files
+* modified files
+
+Report:
+
+1. Clean working tree?
+2. Modified files?
+3. Any unfinished work?
+
+---
+
+## PHASE 4 — DEBUG ARTIFACT AUDIT
+
+Search entire repository for:
+
+* vb-debug
+* vb-test
+* temporary routes
+* temporary pages
+* diagnostic pages
+* audit pages
+* screenshot pages
+
+Verify whether the previous agent removed everything.
+
+Report exact file names.
+
+---
+
+## PHASE 5 — VARIANTBUILDER FORENSIC AUDIT
+
+Read the entire:
+
+VariantBuilder.tsx
+
+Do NOT summarize.
+
+Verify every claimed fix.
+
+---
+
+## CHECKLIST A
+
+Verify whether these fixes actually exist in code:
+
+1. Mobile Generate button full-width
+2. Mobile bulk toolbar stacking
+3. Mobile variant cards
+4. Touch target improvements
+5. Group header wrapping
+6. PreviewSidebar layout
+7. RTL logical spacing
+8. Removal of old sky-* colors
+9. i18n localization keys
+10. Responsive breakpoints
+
+---
+
+## CHECKLIST B
+
+Investigate the toggle specifically.
+
+The user reported:
+
+Arabic RTL still broken.
+
+Symptoms:
+
+* Thumb escapes outside track.
+* Thumb appears above status text.
+* Toggle looks correct in English.
+* Toggle still broken in Arabic.
+
+Verify:
+
+1. Current implementation
+2. Old implementation remnants
+3. Actual DOM structure
+4. Actual CSS classes
+5. Whether multiple toggle implementations exist
+
+---
+
+## CHECKLIST C
+
+The previous agent claimed:
+
+* left/right implementation
+* rtl/ltr implementation
+* flex implementation
+
+Determine:
+
+1. Which implementation actually exists now.
+2. Whether the final flex implementation was truly committed.
+3. Whether the code currently matches the last report.
+
+---
+
+## PHASE 6 — REAL UI VERIFICATION
+
+Login using:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+If account does not exist:
+
+Use Root Owner account.
+
+Then open:
+
+Seller Dashboard
+→ Products
+→ Add Product
+
+Switch language:
+
+Arabic
+English
+
+Verify the REAL page.
+
+NOT a debug page.
+
+NOT a temporary page.
+
+NOT a mock page.
+
+Verify:
+
+1. Variant enable toggle
+2. Group toggles
+3. Generate combinations section
+4. Mobile layout
+5. RTL behavior
+
+Take screenshots.
+
+Use actual rendered UI as the source of truth.
+
+---
+
+## PHASE 7 — DETERMINE WHERE THE PREVIOUS AGENT STOPPED
+
+I need a precise answer:
+
+Did the previous agent stop:
+
+A) Before implementing the final toggle fix
+
+B) After implementing it but before testing
+
+C) After testing but before cleanup
+
+D) After cleanup but before documentation updates
+
+E) Fully completed
+
+Provide evidence.
+
+---
+
+## PHASE 8 — RECOVERY CHECKPOINT STATUS
+
+Verify whether recovery files already contain:
+
+* latest mobile fixes
+* latest toggle fixes
+* latest VariantBuilder work
+
+Report:
+
+MATCHES CODE
+or
+OUT OF DATE
+
+for every file.
+
+---
+
+## FINAL REPORT
+
+Provide:
+
+1. Current workspace health score /10
+2. VariantBuilder health score /10
+3. Mobile UX score /10
+4. RTL correctness score /10
+5. Toggle correctness score /10
+6. Documentation accuracy score /10
+
+Then answer:
+
+A) Is the workspace safe to continue development?
+
+B) Did the previous agent finish the work?
+
+C) What exactly remains unresolved?
+
+D) What should be fixed next?
+
+IMPORTANT:
+
+DO NOT CHANGE ANY FILES.
+
+DO NOT WRITE CODE.
+
+DO NOT UPDATE DOCUMENTATION.
+
+AUDIT ONLY.

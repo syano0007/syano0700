@@ -1,0 +1,249 @@
+STEP 1 — Pre-Implementation Inventory (MANDATORY — do not skip)
+Read these files in full before touching anything:
+
+artifacts/api-server/src/services/searchProcessor.ts
+artifacts/api-server/src/routes/search.ts
+artifacts/api-server/src/db/schema.ts
+artifacts/api-server/src/services/searchCache.ts
+artifacts/api-server/src/scripts/generateEmbeddings.ts
+artifacts/embedding-service/main.py
+artifacts/api-server/package.json
+.replit
+replit.nix (if exists)
+
+After reading, produce a written inventory of exactly:
+
+Current Node.js server port
+Python 3 availability and version
+pip availability
+Current free disk space: run df -h and report output
+Whether pgvector extension exists: run SELECT * FROM pg_extension WHERE extname = 'vector';
+Whether embedding column exists on products table
+Whether searchCache.ts exists and is integrated in search.ts
+Whether generateEmbeddings.ts exists and is wired to package.json
+Whether embedding-service/main.py exists
+Whether EMBEDDING_SERVICE_URL is set in environment
+Current searchMode returned by /api/search?q=هاتف right now
+
+Do NOT begin any implementation until this inventory is written in full.
+
+STEP 2 — Free Disk Space
+Run ALL of these cleanup commands in order and report output of each:
+df -h
+pip cache purge
+npm cache clean --force
+find . -name "*.log" -delete
+find . -name ".DS_Store" -delete
+find ~/.cache -type f -name "*.tmp" -delete 2>/dev/null || true
+df -h
+Report: free space before and after cleanup.
+
+STEP 3 — Install Python Dependencies
+Try this exact command first (CPU-only torch — much smaller footprint):
+pip install --no-cache-dir fastapi uvicorn sentence-transformers torch --index-url https://download.pytorch.org/whl/cpu numpy
+If it succeeds: report "Full install succeeded" and go to STEP 4.
+If it fails with disk error: report exact error, then run this fallback:
+pip install --no-cache-dir fastapi uvicorn numpy
+If fallback succeeds: replace artifacts/embedding-service/main.py with a lightweight TF-IDF multilingual embedder that:
+
+Requires NO model download
+Works with Arabic and English natively
+Produces 384-dimensional vectors using TF-IDF + character n-grams
+Exposes the same API: GET /health, POST /embed/query, POST /embed/batch
+Returns same response shape as the original main.py
+Has full graceful degradation
+
+Report which path was taken: full transformer model OR lightweight TF-IDF.
+
+STEP 4 — Enable pgvector
+Run this SQL and report the exact output:
+sqlSELECT * FROM pg_available_extensions WHERE name = 'vector';
+If vector is available:
+
+Run: CREATE EXTENSION IF NOT EXISTS vector;
+Run the existing migration that adds the embedding column and IVFFlat index
+Report: extension enabled, column added, index created
+
+If vector is NOT available:
+
+Report: "pgvector not available on this PostgreSQL instance"
+Do NOT crash or modify any code — graceful degradation is already implemented
+Document this limitation in CURRENT_STATE.md
+
+
+STEP 5 — Start Embedding Service
+Start the embedding service:
+cd artifacts/embedding-service && uvicorn main:app --host 0.0.0.0 --port 8001 &
+Wait 45 seconds for model to load (transformer) or 5 seconds (TF-IDF).
+Then verify it is running:
+curl http://localhost:8001/health
+Expected response:
+json{ "status": "ok", "model": "multilingual-e5-small", "vector_dimensions": 384 }
+Then test Arabic embedding:
+curl -X POST http://localhost:8001/embed/query \
+  -H "Content-Type: application/json" \
+  -d '{"text":"هاتف ذكي سامسونج"}'
+Expected: embedding array of exactly 384 numbers, processing_ms logged.
+Then test English embedding:
+curl -X POST http://localhost:8001/embed/query \
+  -H "Content-Type: application/json" \
+  -d '{"text":"samsung smartphone"}'
+Expected: embedding array of 384 numbers — DIFFERENT from Arabic but semantically similar.
+Then test batch:
+curl -X POST http://localhost:8001/embed/batch \
+  -H "Content-Type: application/json" \
+  -d '{"texts":["هاتف","لابتوب","فستان"],"type":"passage"}'
+Expected: 3 embeddings, each exactly 384 dimensions.
+If any test fails: fix before continuing. Do not proceed with broken embedding service.
+
+STEP 6 — Set Environment Variable and Wire Service
+Set the environment variable permanently:
+EMBEDDING_SERVICE_URL=http://localhost:8001
+Add the embedding service as a permanent workflow in .replit so it starts automatically alongside the Node.js server on every replit start. It must run in parallel — not replace any existing workflow.
+Verify the Node.js server reads EMBEDDING_SERVICE_URL correctly by checking the startup log for:
+
+[embeddings] Embedding service ready at http://localhost:8001
+
+STEP 7 — Run Product Embedding Backfill
+First check how many products need embedding:
+sqlSELECT COUNT(*) FROM products WHERE embedding IS NULL;
+SELECT COUNT(*) FROM products WHERE embedding IS NOT NULL;
+If any products have embedding IS NULL: run the backfill:
+pnpm embed:generate
+OR if that script doesn't exist:
+npx tsx artifacts/api-server/src/scripts/generateEmbeddings.ts
+Monitor output and report:
+
+Total products processed
+Total succeeded
+Total failed (list IDs if any)
+Total time taken
+Average ms per product
+
+After backfill, verify:
+sqlSELECT COUNT(*) FROM products WHERE embedding IS NULL;
+Expected: 0
+
+STEP 8 — Verify Full Hybrid Search
+Restart the API server so it picks up EMBEDDING_SERVICE_URL.
+Then test ALL of these queries and report searchMode + first 3 results for each:
+Query 1: GET /api/search?q=هاتف
+
+Expected: result_count > 0, searchMode = "fts_only" (single short word)
+
+Query 2: GET /api/search?q=بدي شي لأمي
+
+Expected: searchMode = "hybrid", relevant gift products in results
+This proves semantic understanding — no product has "لأمي" in its title
+
+Query 3: GET /api/search?q=شي يناسب الشتاء
+
+Expected: searchMode = "hybrid", winter items (coats, heaters, warm clothing)
+This proves cross-lingual semantic matching
+
+Query 4: GET /api/search?q=شي للطبخ بيوفر وقت
+
+Expected: searchMode = "hybrid", kitchen appliances in results
+
+Query 5: GET /api/search?q=laptop
+
+Expected: Arabic-named laptop products appear even if their titles are in Arabic
+
+Query 6: Run Query 1 twice in a row
+
+First call: _cache.hit = false
+Second call: _cache.hit = true
+Report: response time of first vs second call
+
+
+STEP 9 — Verify Cache and Admin Endpoints
+Test cache stats:
+GET /api/admin/search/cache
+Expected: hitRate > 0, size > 0 after the queries above.
+Test cache invalidation:
+DELETE /api/admin/search/cache
+Then run any cached query again.
+
+Expected: _cache.hit = false (cache was cleared).
+
+STEP 10 — Graceful Degradation Test
+Stop the embedding service process.
+
+Run: GET /api/search?q=بدي شي لأمي
+
+Expected: search works perfectly, searchMode = "fts_only", no 500 errors.
+Restart the embedding service.
+
+Wait 35 seconds (health check interval).
+
+Run the same search again.
+
+Expected: searchMode = "hybrid" (auto-recovered without restart).
+Report: did auto-recovery work? yes/no
+
+STEP 11 — Performance Benchmark
+Run each query 3 times and log all 3 response times + average:
+P1: GET /api/search?q=هاتف (cache hit after first call)
+
+Target: under 10ms on cache hit
+
+P2: GET /api/search?q=بدي شي رخيص لأمي (hybrid cold)
+
+Target: under 200ms
+
+P3: GET /api/search?q=xyzغيرموجود (fallback L4)
+
+Target: under 200ms
+
+P4: GET /api/search?q=سامسونج جالاكسي (brand — fts_only)
+
+Target: under 150ms
+
+Flag any query that exceeds its target.
+
+STEP 12 — TypeScript Verification
+Run across ALL packages:
+npx tsc --noEmit
+Must return 0 errors. If there are errors: fix every single one before reporting done. Do not leave TypeScript errors.
+
+FINAL REPORT — output this exact structure:
+INFRASTRUCTURE:
+  Embedding service running: yes/no — port 8001
+  Model type used: [transformer multilingual-e5-small / lightweight TF-IDF]
+  Model load time: Xms
+  pgvector enabled: yes/no
+  Embedding column exists: yes/no
+  IVFFlat index created: yes/no
+  EMBEDDING_SERVICE_URL set: yes/no
+
+BACKFILL:
+  Products embedded: X / Y total
+  Failed: X (IDs if any)
+  Duration: Xs
+
+HYBRID SEARCH:
+  searchMode=hybrid confirmed: yes/no
+  "بدي شي لأمي" first 3 results: [list]
+  "شي يناسب الشتاء" first 3 results: [list]
+  "شي للطبخ بيوفر وقت" first 3 results: [list]
+
+CACHE:
+  Cache hit confirmed: yes/no
+  Invalidation confirmed: yes/no
+  Hit rate after tests: X%
+  Response time improvement: Xms → Xms
+
+GRACEFUL DEGRADATION:
+  Service-down test: search worked? yes/no — mode: fts_only?
+  Auto-recovery after 35s: yes/no
+
+PERFORMANCE:
+  P1 cached: avg Xms [target <10ms] — PASS/FAIL
+  P2 hybrid cold: avg Xms [target <200ms] — PASS/FAIL
+  P3 fallback: avg Xms [target <200ms] — PASS/FAIL
+  P4 brand FTS: avg Xms [target <150ms] — PASS/FAIL
+
+TYPESCRIPT: 0 errors confirmed ✓
+
+READY FOR PRODUCTION: yes / no
+  [If no: list exactly what needs fixing]

@@ -1,0 +1,196 @@
+Before writing any code, perform a full layout audit of the `/products` page (`http://localhost:5173/products`).
+
+This is a **layout regression**, not a feature request.
+
+The page worked correctly before the recent UI/VariantBuilder improvements.
+
+Do NOT apply CSS hacks.
+Do NOT use absolute positioning.
+Do NOT use negative margins.
+Do NOT hide overflow to mask the issue.
+
+Your goal is to identify and fix the ROOT CAUSE.
+
+---
+
+# Current Problems
+
+## 1. Product cards overlap the footer
+
+The cards are escaping the normal document flow.
+
+Instead of pushing the page downward naturally, they appear on top of the footer.
+
+This usually indicates one of:
+
+* broken CSS Grid
+* broken Flex layout
+* missing wrapper
+* incorrect parent height
+* absolute positioning
+* overflow:hidden on parent
+* fixed height container
+* missing flex-wrap
+* wrong display property
+
+Inspect the complete hierarchy:
+
+Page
+→ Layout
+→ Main Content
+→ Products Container
+→ Products Grid/List
+→ Product Card
+→ Footer
+
+Find exactly where the flow breaks.
+
+The footer must always appear AFTER the products section.
+
+---
+
+## 2. Desktop width is wasted
+
+The page currently uses only part of the available desktop width.
+
+Large empty spaces exist while cards remain compressed.
+
+Use the available content width efficiently.
+
+Target behavior:
+
+Desktop:
+3-4 columns depending on available width
+
+Tablet:
+2 columns
+
+Mobile:
+1 column
+
+Recommended implementation:
+
+```css
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+gap: 24px;
+align-items: start;
+width: 100%;
+```
+
+Do not hardcode the number of columns.
+
+---
+
+## 3. Product Card clipping
+
+Text is cut off on the right side:
+
+* بواسطة amer
+* تعديل
+* action buttons
+* metadata rows
+
+Fix:
+
+* internal padding
+* width calculations
+* RTL spacing
+* flex shrink behavior
+* button layout
+
+No text should be clipped.
+
+No element should overflow outside the card.
+
+---
+
+## 4. RTL Verification
+
+The marketplace is Arabic-first.
+
+Verify:
+
+* direction: rtl
+* proper inline spacing
+* text alignment
+* icon alignment
+* button positioning
+
+RTL must work naturally without overflow.
+
+---
+
+## 5. Responsive Behavior
+
+Mobile (<768px)
+
+* One card per row
+* Full width
+* No horizontal scrolling
+* Footer below products
+
+Tablet
+
+* Two cards
+
+Desktop
+
+* Three or four cards
+* Full container width utilization
+* Footer naturally below content
+
+---
+
+## 6. Constraints
+
+Do NOT modify:
+
+* Product APIs
+* Database
+* Backend
+* Seller logic
+* Cart logic
+* Variant system
+* Business logic
+
+Fix only the layout.
+
+---
+
+## 7. Required Investigation
+
+Before editing, identify:
+
+* Which parent container causes the overflow.
+* Which CSS rule breaks the normal flow.
+* Why the footer overlap started after recent UI changes.
+* Whether the regression comes from ProductsPage, ProductGrid, ProductCard, Layout, or shared Container components.
+
+---
+
+## Final Validation
+
+After implementation verify:
+
+✅ Cards remain inside normal document flow.
+
+✅ Footer never overlaps.
+
+✅ No text clipping.
+
+✅ Desktop uses available width efficiently.
+
+✅ Mobile layout remains excellent.
+
+✅ RTL preserved.
+
+✅ No horizontal scrolling.
+
+✅ No CSS hacks introduced.
+
+Finally, explain:
+
+1. Root cause.
+2. Files modified.
+3. Why the fix is structurally correct instead of a visual workaround.

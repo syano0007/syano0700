@@ -1,0 +1,76 @@
+You are upgrading the SYANO (سوق سوريا) Marketplace Homepage UI/UX.
+
+This is a production-grade multi-vendor digital marketplace serving Aleppo and surrounding Syrian cities.
+
+Do NOT break existing backend APIs, database models (44 tables), or search pipelines.
+Do NOT modify embedding service interactions or map configurations.
+Do NOT break existing routing or page paths.
+
+Preserve:
+- Full RTL (Arabic native) & LTR (English) support via logical properties.
+- Responsive web behavior (Vite 7 + React 19 + Tailwind v4 + Wouter).
+- Existing state management and TanStack Query data fetching.
+- Mobile app parity layouts.
+
+==================================================
+GOAL
+==================================================
+Enhance the Categories Scrolling Carousel below the Hero Grid as shown in "Screenshot (446).jpg". 
+The focus is to enlarge the category circle containers and unify their inner backgrounds into a consistent, premium e-commerce design asset layer.
+
+==================================================
+PART 1 — CATEGORIES SCROLLING CAROUSEL PREMIUM POLISH & ENLARGEMENT
+==================================================
+Current UI Analysis from "Screenshot (446).jpg":
+- The category cards use small circular containers containing busy photographic background environments (e.g., full rooms, desks, tracks), which causes visual crowding and minimizes the actual product scale.
+
+Modifications & Grid Refinement:
+- Card Size Enlargement:
+  * Increase the dimensions of the circular category image containers globally (e.g., scale up from current size to `w-20 h-20` or `w-24 h-24` depending on viewport matrix) to make them prominent and luxurious.
+- Unified Inner Background & Object Isolation:
+  * Completely remove the raw photographic background environment around the elements.
+  * Ensure every category image container uses a strict unified background color (e.g., a solid light neutral hue like `bg-neutral-100`, `bg-gray-50`, or a customized off-white preset).
+  * Set the inner image or vector asset rendering layer to use `object-contain` or `p-3`/`p-4` padding properties so the core product asset stands isolated, crisp, centered, and clean inside its unified circular frame.
+- Circular Card Hover State:
+  * Maintain or enhance a smooth micro-interaction upon hover (e.g., smooth elevation via `hover:shadow-md` or dynamic subtle scaling `hover:-translate-y-1 transition-all duration-200`).
+- Category Text Layout & Typography:
+  * Improve vertical separation beneath the newly enlarged circles using strict logical top margins (`mt-3`).
+  * Ensure the text labels remain perfectly centered with a clean typeface spec (`font-medium text-xs md:text-sm`).
+
+==================================================
+PART 2 — MAIN HEADER & INTERACTIVE NAVIGATION REFINEMENT
+==================================================
+- Maintain the upgraded layout: SYANO Logo -> Search Input -> Quick Action Icons (Favorites, Cart, Settings) -> Login Button.
+- Keep the generous horizontal gaps (`gap-x-4` to `gap-x-6`) between action icons.
+- Preserve the enhanced, interactive rounded Login Button ("تسجيل الدخول") with its transition states.
+
+==================================================
+PART 3 — HERO BANNER GRID & INSTANT NAVIGATION
+==================================================
+- Preserve the resolved grid structure from "Screenshot (446).jpg" with unique high-resolution placeholder images across all slots (No duplication).
+- Ensure all banner items and CTA blocks continue to use `wouter`'s client-side routing `<Link>` wrapper component to perform instant, lightweight state-driven internal transitions without a full browser reload or hydration flickering.
+- Retain the base text-protection linear gradients and typography overlays on all grid blocks.
+
+==================================================
+PART 4 — TAILWIND V4 & LOGICAL COMPLIANCE RULES
+==================================================
+- Write clean, precise Tailwind v4 markup.
+- Absolutely FORBID hardcoded left/right layout utility values (`ml-`, `mr-`, `pl-`, `pr-`, `left-`, `right-`).
+- Mandate logical properties globally to secure simultaneous Arabic (RTL) and English (LTR) interface accuracy:
+  * Use `ms-*` instead of `ml-*`
+  * Use `me-*` instead of `mr-*`
+  * Use `ps-*` instead of `pl-*`
+  * Use `pe-*` instead of `pr-*`
+  * Use `start-*` / `end-*` instead of `left-*` / `right-*`
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring the update complete, perform the following verification protocols:
+✓ Category circle containers are visibly enlarged and uniform across viewports.
+✓ All category background wrappers are strictly unified into a solid modern light tone with isolated centered object frames.
+✓ Clicking any banner image triggers instant internal wouter client-side navigation without full webpage reloads.
+✓ Hero banner asset composition matches the layout in "Screenshot (446).jpg" with zero asset duplication.
+✓ Layout scaling is fully verified across Desktop, Tablet, and Mobile adaptive breakpoints.
+✓ RTL layout rendering is perfect with zero overlapping elements or flipped directional spacing.
+✓ Verify TypeScript compilation = 0 errors across the entire `artifacts/marketplace` package directory structure.

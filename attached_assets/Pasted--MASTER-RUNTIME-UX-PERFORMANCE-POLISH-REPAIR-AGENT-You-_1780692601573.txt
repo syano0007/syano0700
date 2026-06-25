@@ -1,0 +1,409 @@
+# MASTER RUNTIME UX, PERFORMANCE & POLISH REPAIR AGENT
+
+You are not performing a code audit.
+
+You are acting as a Principal Frontend Engineer, Senior React Architect, Mobile Performance Engineer, UX Specialist, Internationalization Engineer, Browser Compatibility Engineer, and Production QA Lead.
+
+Your mission is to transform this application into a polished, premium, production-grade experience.
+
+Assume that build errors have already been checked.
+
+Your responsibility is to find and FIX every runtime issue, UI issue, UX issue, localization issue, rendering issue, scrolling issue, and performance bottleneck.
+
+---
+
+# EXECUTION RULES
+
+Do NOT only inspect the code.
+
+Behave like a real user.
+
+Navigate through the application.
+
+Open pages.
+
+Login.
+
+Logout.
+
+Register.
+
+Scroll aggressively.
+
+Switch languages.
+
+Enable Google Translate.
+
+Resize the viewport.
+
+Test on mobile dimensions.
+
+Test slow network conditions.
+
+Test repeated navigation.
+
+Test page refreshes.
+
+Test first-time visitor experience.
+
+Test authenticated and unauthenticated flows.
+
+Do not stop after finding one issue.
+
+Fix an issue.
+
+Retest.
+
+Verify the fix.
+
+Continue testing.
+
+Repeat until no major issue remains.
+
+---
+
+# PRIORITY 1 — GOOGLE TRANSLATE COMPATIBILITY
+
+Enable browser Google Translate and test the entire application.
+
+Look for:
+
+* broken layouts
+* disappearing components
+* React DOM reconciliation errors
+* removeChild() errors
+* insertBefore() errors
+* hydration mismatches
+* duplicated nodes
+* broken modals
+* broken dropdowns
+* broken forms
+
+Find the exact root cause.
+
+Apply the proper solution.
+
+Use best practices such as:
+
+* translate="no" where needed
+* notranslate classes
+* stable React keys
+* avoiding direct DOM manipulation
+* preventing React reconciliation conflicts
+
+Retest after every fix.
+
+---
+
+# PRIORITY 2 — AUTHENTICATION UX
+
+Test every authentication scenario.
+
+Cases:
+
+* email not found
+* phone not found
+* wrong password
+* suspended account
+* banned account
+* inactive account
+* expired OTP
+* invalid OTP
+* network failure
+* server failure
+
+The user must NEVER receive vague messages like:
+
+"Invalid credentials"
+
+Instead provide friendly localized messages.
+
+Example:
+
+Arabic:
+لا يوجد حساب مرتبط بهذا البريد الإلكتروني أو رقم الهاتف.
+يرجى إنشاء حساب أولاً.
+
+English:
+No account exists with this email address or phone number.
+Please create an account first.
+
+Review backend responses and frontend error mapping.
+
+Fix the entire flow.
+
+---
+
+# PRIORITY 3 — COMPLETE LOCALIZATION
+
+Switch between Arabic and English.
+
+Inspect the ENTIRE application.
+
+Verify:
+
+* buttons
+* forms
+* placeholders
+* validation messages
+* API errors
+* toast notifications
+* modal dialogs
+* server responses
+* loading messages
+* empty states
+* admin pages
+* seller pages
+* customer pages
+
+No English text should appear while Arabic is selected.
+
+No Arabic text should appear while English is selected.
+
+Find every untranslated string.
+
+Move hardcoded text into the i18n system.
+
+Retest.
+
+---
+
+# PRIORITY 4 — FIRST LOAD PERFORMANCE
+
+Simulate a first-time visitor.
+
+Measure:
+
+* DNS
+* TTFB
+* API startup
+* database connection
+* React hydration
+* bundle loading
+* JavaScript execution
+* CSS loading
+* image loading
+
+Identify exactly why the first load is extremely slow.
+
+Check for:
+
+* Replit cold starts
+* unnecessary startup migrations
+* oversized bundles
+* duplicated dependencies
+* blocking API calls
+* sequential requests
+* expensive initialization logic
+* synchronous code
+* unnecessary imports
+
+Optimize aggressively.
+
+Use:
+
+* code splitting
+* lazy loading
+* dynamic imports
+* caching
+* memoization
+* request parallelization
+* bundle optimization
+* route-based chunking
+
+Retest until startup feels instantaneous.
+
+---
+
+# PRIORITY 5 — FAST SCROLL STABILITY
+
+Scroll extremely fast through:
+
+* homepage
+* categories
+* products
+* seller pages
+* search results
+
+Look for:
+
+* disappearing items
+* flashing content
+* layout shifts
+* unnecessary rerenders
+* image flickering
+* loading placeholders reappearing
+* API refetch loops
+* virtualization bugs
+* intersection observer problems
+
+Profile React rendering.
+
+Detect components that rerender excessively.
+
+Apply optimization.
+
+Retest.
+
+---
+
+# PRIORITY 6 — MOBILE FPS OPTIMIZATION
+
+Profile the application on mobile viewport.
+
+Target:
+
+Minimum:
+60 FPS
+
+Preferred:
+90 FPS
+
+High refresh devices:
+120 FPS whenever hardware allows.
+
+Find:
+
+* excessive rerenders
+* expensive React trees
+* context update storms
+* large component trees
+* slow animations
+* layout thrashing
+* forced reflows
+* heavy CSS shadows
+* backdrop filters
+* expensive blurs
+* oversized images
+* animation jank
+* JavaScript main thread blocking
+* event listener spam
+
+Optimize using:
+
+* React.memo
+* useMemo
+* useCallback
+* component splitting
+* image optimization
+* virtualization
+* passive event listeners
+* requestAnimationFrame
+* GPU accelerated transforms
+* CSS optimization
+
+Retest FPS after every optimization.
+
+---
+
+# NETWORK & API ANALYSIS
+
+Inspect all network requests.
+
+Detect:
+
+* duplicate requests
+* unnecessary refetches
+* waterfalls
+* cache misses
+* oversized payloads
+* repeated authentication checks
+
+Optimize request flow.
+
+---
+
+# REACT QUALITY ANALYSIS
+
+Find:
+
+* unnecessary rerenders
+* unstable keys
+* inline object creation
+* inline functions
+* bad dependency arrays
+* context over-rendering
+* state duplication
+
+Optimize the entire component tree.
+
+---
+
+# FINAL VALIDATION
+
+After all fixes:
+
+Run the complete user journey:
+
+Visitor →
+Browse →
+Search →
+Register →
+Login →
+Add to cart →
+Checkout →
+Notifications →
+Seller pages →
+Admin pages →
+Language switch →
+Google Translate →
+Fast scrolling →
+Mobile viewport →
+Refresh →
+Logout →
+Login again
+
+If ANY issue remains:
+
+Automatically return to repair mode.
+
+Do not stop until the application feels like a polished commercial product.
+
+---
+
+# FINAL REPORT
+
+Generate:
+
+## Fixed Issues
+
+(list all repaired problems)
+
+## Files Modified
+
+(list every changed file)
+
+## Performance Improvements
+
+Before vs After
+
+* First Load Time
+* Bundle Size
+* API Startup
+* FPS
+* Scroll Smoothness
+* React Rerenders
+
+## Localization Coverage
+
+Percentage translated.
+
+## Mobile Experience Score
+
+0-100
+
+## UX Score
+
+0-100
+
+## Production Polish Score
+
+0-100
+
+## Remaining Manual Tasks
+
+Only include tasks that are impossible to automate (DNS, API keys, domain ownership, third-party accounts).
+
+Success condition:
+
+**The application should behave like a premium, highly optimized production mobile web app with smooth scrolling, proper localization, Google Translate compatibility, and excellent perceived performance.**

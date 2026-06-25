@@ -1,0 +1,174 @@
+You are performing a **targeted regression-fix audit**. Do NOT implement new features, redesign UI, refactor code, or change architecture. Your only goal is to restore behavior that previously worked before the workspace migration.
+
+## Rules
+
+* First audit the current implementation completely before editing anything.
+* Find the exact root cause for each issue.
+* Prefer restoring previous behavior over inventing a new solution.
+* Make the smallest additive changes possible.
+* Preserve TypeScript safety.
+* Do not break API compatibility.
+* Do not modify the Variant System currently under development.
+* After fixing, run TypeScript checks and verify the affected flows manually.
+
+---
+
+# Issue 1 — Notifications ignore current language
+
+Current problem:
+Even when the UI language is Arabic, notifications are created and displayed in English.
+
+Audit all of the following:
+
+* NotificationProvider
+* notification service/helpers
+* createNotification()
+* toast generation
+* SSE notification events
+* backend notification creation
+* any hardcoded notification strings
+
+Determine whether:
+
+* backend is storing English text,
+* frontend is rendering hardcoded English,
+* or translation keys are bypassed.
+
+Required behavior:
+
+* If language = Arabic → notifications appear in Arabic.
+* If language = English → notifications appear in English.
+* Existing i18n infrastructure must be used.
+* Do not duplicate translation logic.
+
+Verify:
+
+* new order
+* order status update
+* seller application update
+* new message
+* admin notifications
+* push notifications (if applicable)
+
+---
+
+# Issue 2 — Seller permissions are not revoked
+
+Current bug:
+
+Admin:
+Pending → Approved
+(user becomes seller)
+
+Then:
+
+Approved → Rejected
+
+BUT the user still has seller permissions and seller dashboard access.
+
+Audit the complete seller approval flow:
+
+* seller_applications table
+* users.role
+* account_status
+* auth middleware
+* JWT/session payload
+* seller dashboard guards
+* seller API route guards
+
+Required behavior:
+
+Pending -> Approved
+
+* user.role = seller
+* seller access granted
+
+Approved -> Rejected
+
+* user.role reverts to customer (or previous role)
+* seller access removed immediately
+* seller dashboard becomes inaccessible
+* seller-only APIs return 403
+* current session/JWT must reflect the new permissions
+  (refresh, invalidate, or re-read role properly)
+
+Test this exact sequence:
+
+Pending
+→ Approved
+→ Login as seller
+→ Rejected
+→ Refresh
+→ Verify seller dashboard blocked
+→ Verify seller APIs blocked
+
+No stale permissions may remain.
+
+---
+
+# Issue 3 — Original Price input starts with unwanted zero
+
+Current bug:
+
+The Original Price field contains an initial "0", causing values like:
+
+0500
+01200
+
+instead of:
+
+500
+1200
+
+Audit:
+
+* New Product page
+* Edit Product page
+* Variant pricing fields
+* Any shared NumberInput component
+
+Required behavior:
+
+* Numeric fields start visually empty.
+* Placeholder may be shown.
+* User typing should never prepend an unwanted zero.
+* Clearing the field should produce an empty state, not 0.
+* Backend validation should still work correctly.
+
+Verify:
+
+* original price
+* sale price
+* variant price
+* compare-at price
+* stock fields (if shared component)
+
+---
+
+# Regression Validation
+
+After fixes:
+
+Run full TypeScript validation.
+
+Verify manually:
+
+✅ Login
+✅ Seller approval
+✅ Seller rejection
+✅ Notifications in Arabic
+✅ Notifications in English
+✅ Product creation
+✅ Product editing
+✅ Variant pricing inputs
+✅ No console errors
+✅ No TypeScript errors
+✅ No API regressions
+
+Finally provide:
+
+1. Root cause of each issue.
+2. Files modified.
+3. Exact fixes applied.
+4. Verification results.
+5. Confirmation that no unrelated code was changed.

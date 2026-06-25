@@ -1,0 +1,36 @@
+You are executing a Pixel-Perfect Visual Overlay Upgrade to mimic Amazon's exact hero billboard gradient fadeout under the grid rows, as seen in "Screenshot (457).jpg".
+
+The Goal:
+The main promo banner container must extend vertically downward behind the 4 master grid cards. As it flows downward under the cards, its opacity must smoothly fade out to 0% using a linear gradient blur, seamlessly melting into the website's native light-gray background.
+
+==================================================
+THE TECHNICAL STEP-BY-STEP FIX
+==================================================
+1. Target the Hero Banner / Slider Parent Container:
+   - Ensure the wrapper holding the slider has absolute or relative relative tracking and zero overflow-hidden restrictions at its bottom seam.
+   - Extend the container's lower padding or positioning so the banner asset structure stretches down directly underneath the grid card area.
+
+2. Inject the Amazon Gradient Fade Mask:
+   - Create or update the overlay div locked on top of the banner image (or apply this via Tailwind's background utilities / custom inline style mask):
+   - Element configuration:
+     ```typescript
+     // Inside the banner image wrapper or absolute overlay mask:
+     className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f8f9fa] pointer-events-none"
+     ```
+     *(Note: Replace `#f8f9fa` with the exact body/page background color of SYANO so it blends into nothingness).*
+   
+   - Alternative high-end CSS mask implementation if standard tailwind gradient gaps appear:
+     `style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}`
+     This forces the image asset itself to smoothly dissolve into transparency right where the 2x2 grid cards begin to sit over it.
+
+3. Grid Card Container Layering Check:
+   - Ensure the outer master grid wrapper (`-mt-16 relative z-10`) does NOT have a solid color backdrop that cuts the banner. It must remain transparent so the fading banner underneath is clearly visible between the card gaps.
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The promo banner does not end abruptly in a sharp line.
+✓ The image smoothly washes away/fades out to 0% opacity behind the 4 master grid cards.
+✓ The gaps between the cards show the faded banner colors seamlessly blending into the site background.
+✓ Verify TypeScript compilation = 0 errors across the frontend path.

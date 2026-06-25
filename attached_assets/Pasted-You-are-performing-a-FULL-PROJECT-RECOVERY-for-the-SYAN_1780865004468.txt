@@ -1,0 +1,345 @@
+You are performing a FULL PROJECT RECOVERY for the SYANO marketplace after the project has been moved to a new Replit account/workspace.
+
+This is NOT a feature task.
+This is NOT a refactor task.
+This is NOT an optimization task.
+
+Your ONLY objective is to restore the entire project to the exact working state it had before the migration.
+
+VERY IMPORTANT:
+
+• Do NOT assume anything.
+• Audit first.
+• Verify every phase before continuing.
+• Never skip a failed step.
+• Never continue while there are unresolved errors.
+• If a phase is incomplete, completely finish it before moving to the next phase.
+
+==================================================
+PHASE 1 — WORKSPACE RECOVERY
+============================
+
+Check:
+
+* node_modules
+* pnpm workspace
+* lockfile integrity
+* generated packages
+* build artifacts
+
+If dependencies are missing:
+
+* run pnpm install
+* rebuild all generated packages
+
+Verify:
+
+* no missing modules
+* no broken imports
+* no package resolution errors
+
+==================================================
+PHASE 2 — ENVIRONMENT AUDIT
+===========================
+
+Verify ALL required environment variables and secrets exist.
+
+Audit:
+
+DATABASE_URL
+SESSION_SECRET
+SITE_URL
+CORS_ORIGIN
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_EMAIL
+VITE_SUPPORT_PHONE
+REPLIT_DEV_DOMAIN
+REPLIT_DOMAINS
+REPL_ID
+
+Do NOT modify values unless missing.
+
+Report any missing secrets before continuing.
+
+==================================================
+PHASE 3 — DATABASE RECOVERY
+===========================
+
+Audit current database state.
+
+Check:
+
+* tables
+* indexes
+* constraints
+* enums
+* triggers
+* columns added after the original schema backup
+
+If database is empty:
+
+Restore schema completely.
+
+Expected current database includes:
+
+users
+products
+categories
+product_variants
+product_variant_groups
+product_variant_options
+product_variant_values
+variant_images
+orders
+order_items
+order_status_history
+cart_items
+seller_applications
+notifications
+conversations
+messages
+platform_settings
+reviews
+seller_reviews
+store_follows
+push_subscriptions
+admin_audit_log
+verification_audit_log
+
+Verify total expected table count.
+
+Also verify newer additions exist:
+
+reset_otp_hash
+reset_otp_expires_at
+reset_otp_attempts
+reset_otp_locked_until
+
+(or equivalent naming used in current schema)
+
+Do NOT continue until database matches current codebase.
+
+==================================================
+PHASE 4 — ADMIN ACCOUNT RECOVERY
+================================
+
+Verify administrator account exists.
+
+Required account:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Requirements:
+
+role = admin
+account_status = active
+email_verified = true
+
+If missing:
+
+Run the existing seed-admin process.
+
+Verify:
+
+* login succeeds
+* JWT issued correctly
+* wrong password returns INVALID_PASSWORD
+* unknown email returns USER_NOT_FOUND
+* exactly ONE admin account exists
+
+==================================================
+PHASE 5 — BUILD GENERATED LIBRARIES
+===================================
+
+Verify generated workspace libraries are built.
+
+Including:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+
+Build missing declaration files.
+
+Verify:
+
+Marketplace TypeScript = 0 errors
+API TypeScript = 0 errors
+Mobile TypeScript = 0 errors
+
+Do NOT ignore TypeScript failures.
+
+==================================================
+PHASE 6 — SERVICE RECOVERY
+==========================
+
+Verify all services run correctly.
+
+API Server
+Marketplace (Vite)
+Mobile (Expo)
+
+Restart if necessary.
+
+Confirm:
+
+* API starts successfully
+* Marketplace renders
+* Mobile bundler runs
+* no startup crashes
+
+==================================================
+PHASE 7 — AUTHENTICATION SYSTEM
+===============================
+
+Verify:
+
+POST /auth/login
+POST /auth/forgot-password
+POST /auth/verify-reset-otp
+POST /auth/reset-password
+
+Verify both:
+
+Marketplace forgot-password flow
+Mobile forgot-password flow
+
+Confirm UI pages still exist.
+
+==================================================
+PHASE 8 — FEATURE PRESERVATION AUDIT
+====================================
+
+Verify these systems still exist:
+
+Guest Cart
+Seller Dashboard
+Admin Dashboard
+Messaging
+Notifications
+Store Follow
+Reviews
+Seller Reviews
+Product Variants
+Variant Builder
+Variant Images
+Suspension System
+Google Translate protection
+Push Notifications
+Mobile App
+
+Do NOT rewrite anything.
+Only verify integrity.
+
+==================================================
+PHASE 9 — PERFORMANCE FEATURES AUDIT
+====================================
+
+Verify previously implemented optimizations still exist.
+
+Confirm:
+
+React.memo usage
+Lazy routes (except Home page if now eager by design)
+RoutePreloader
+Service Worker
+Skeleton shimmer
+Self-hosted Inter font
+Inline API prefetch
+React Query cache seeding
+content-visibility sections
+Cache-Control headers
+gzip compression
+ETags
+Scroll optimizations
+Passive listeners
+FlatList tuning
+transition-all removals
+backdrop-blur removals
+
+Do NOT add new optimizations.
+Only ensure nothing was lost.
+
+==================================================
+PHASE 10 — LOCALIZATION
+=======================
+
+Verify:
+
+Arabic translations
+English translations
+Mobile i18n
+RTL support
+Pagination translations
+Auth translations
+Forgot-password translations
+
+Ensure language switching still works.
+
+==================================================
+PHASE 11 — FUNCTIONAL TESTING
+=============================
+
+Verify:
+
+Admin login
+Wrong password handling
+Unknown user handling
+
+Products endpoint
+Best sellers endpoint
+Settings endpoint
+
+Protected endpoints return Unauthorized when expected.
+
+Marketplace loads correctly.
+
+==================================================
+PHASE 12 — FINAL VALIDATION
+===========================
+
+Do NOT finish until ALL of the following pass:
+
+✓ API running
+✓ Marketplace running
+✓ Mobile running
+✓ Database restored
+✓ Admin account working
+✓ Forgot-password working
+✓ TypeScript 0 errors
+✓ No console errors
+✓ No HMR issues
+✓ No missing tables
+✓ No missing generated libraries
+✓ No broken routes
+✓ No broken translations
+✓ No broken performance features
+✓ No broken scroll optimizations
+
+Take a final screenshot.
+
+Then generate a COMPLETE recovery report containing:
+
+* what was missing,
+* what was restored,
+* what was already healthy,
+* every verification performed,
+* current database status,
+* current admin status,
+* TypeScript status,
+* services status.
+
+IMPORTANT:
+
+Do NOT suggest new features.
+Do NOT suggest sample data.
+Do NOT suggest demo products.
+Do NOT suggest optimizations.
+Do NOT ask what to do next.
+
+The task is finished ONLY when the project is fully restored to the exact state it had before the migration.

@@ -1,0 +1,163 @@
+CRITICAL PRODUCTION BUG INVESTIGATION
+
+There is a production-breaking bug in the deployed marketplace.
+
+Current symptom:
+User registration fails with:
+
+"Registration failed"
+"Failed to fetch"
+
+This happens on the live deployed website.
+
+YOUR TASK IS NOT TO GUESS.
+YOUR TASK IS TO FIND THE ROOT CAUSE, PROVE IT, FIX IT, TEST IT, AND VERIFY IT.
+
+MANDATORY PROCESS:
+
+PHASE 1 — INVESTIGATION ONLY
+
+1. Trace the complete registration flow:
+
+Frontend Register Page
+↓
+API Client
+↓
+HTTP Request
+↓
+Backend Route
+↓
+Validation
+↓
+Database
+↓
+Response
+
+2. Identify exactly where the failure occurs.
+
+3. Check:
+
+- Browser Network requests
+- Console errors
+- API logs
+- Server logs
+- Deployment logs
+- Environment variables
+- Database connectivity
+- CORS configuration
+- API base URL
+- Production build configuration
+- Reverse proxy configuration
+- Authentication middleware
+- Session configuration
+- Cookies
+- CSRF protections
+- Register endpoint routing
+
+4. Determine if the error is:
+
+A) Frontend bug
+B) Backend bug
+C) Deployment bug
+D) Database bug
+E) Environment variable bug
+F) CORS bug
+G) Networking bug
+H) Build bug
+
+DO NOT EDIT ANY CODE YET.
+
+First produce:
+
+ROOT CAUSE REPORT
+
+For every discovered issue provide:
+
+- exact file
+- exact line
+- exact cause
+- impact
+- confidence level
+
+Only after the root cause is confirmed proceed.
+
+------------------------------------------------
+
+PHASE 2 — FIX
+
+Fix ONLY confirmed root causes.
+
+Rules:
+
+- Do not rewrite unrelated code.
+- Do not refactor unrelated systems.
+- Do not change UI.
+- Do not modify authentication logic unless proven broken.
+- Do not introduce new dependencies unless absolutely required.
+
+------------------------------------------------
+
+PHASE 3 — VERIFICATION
+
+After every fix:
+
+1. Create a brand new test account.
+2. Verify account exists in database.
+3. Verify login works.
+4. Verify logout works.
+5. Verify session persists.
+6. Verify registration works on deployed production URL.
+7. Verify registration works on local environment.
+8. Verify no console errors.
+9. Verify no backend errors.
+10. Verify no new TypeScript errors.
+
+------------------------------------------------
+
+PHASE 4 — REGRESSION CHECK
+
+Re-test:
+
+- Register
+- Login
+- Logout
+- Forgot password
+- Profile page
+- Cart
+- Checkout
+- Seller registration
+- Admin login
+
+Ensure nothing broke.
+
+------------------------------------------------
+
+FINAL REPORT FORMAT
+
+### ROOT CAUSE
+(detailed explanation)
+
+### FILES CHANGED
+(list)
+
+### FIXES APPLIED
+(list)
+
+### TESTS PERFORMED
+(list)
+
+### PRODUCTION RESULT
+PASS / FAIL
+
+### REMAINING RISKS
+(list)
+
+IMPORTANT:
+
+Do not stop after finding one issue.
+
+Continue until registration works successfully on the deployed website.
+
+If multiple issues exist, fix all of them.
+
+Do not mark task complete until a real user account can be created successfully on production.

@@ -1,0 +1,277 @@
+The migration and database restoration are complete.
+
+The project is now running on the new Replit account.
+
+Your mission is NOT to inspect code only.
+
+Your mission is to fully reactivate, validate, repair, and production-test the entire platform until it behaves exactly like the original environment.
+
+IMPORTANT:
+
+Do not assume any system works simply because the code exists.
+
+Actually execute, verify, and test every feature.
+
+A feature is considered working ONLY if you successfully perform the action and observe the expected result.
+
+For every feature produce one of:
+
+PASS
+FAIL
+NOT TESTABLE
+
+with evidence.
+
+====================================================
+PHASE 1 — ENVIRONMENT REACTIVATION
+==================================
+
+Verify:
+
+* all required secrets
+* database connectivity
+* session system
+* authentication
+* notification services
+* push notification configuration
+* VAPID keys
+* background services
+* sitemap services
+* SEO services
+
+Detect:
+
+* missing secrets
+* invalid secrets
+* disabled integrations
+* broken environment configuration
+
+Automatically repair anything safe to repair.
+
+====================================================
+PHASE 2 — DATABASE VALIDATION
+=============================
+
+Verify:
+
+* row counts
+* foreign keys
+* indexes
+* enum values
+* relationships
+
+Confirm restored data is usable.
+
+Verify:
+
+* users
+* sellers
+* products
+* categories
+* orders
+* reviews
+* seller reviews
+* conversations
+* messages
+* notifications
+* store follows
+* settings
+
+====================================================
+PHASE 3 — AUTHENTICATION
+========================
+
+Actually test:
+
+* signup
+* login
+* logout
+* session persistence
+* admin access
+* seller access
+* customer access
+
+Verify:
+
+* role permissions
+* protected routes
+* cookies
+* session refresh
+
+====================================================
+PHASE 4 — MARKETPLACE TESTING
+=============================
+
+Actually test:
+
+* browse products
+* open product page
+* image gallery
+* search
+* category filtering
+* pagination
+* add to cart
+* remove from cart
+* wishlist
+* checkout
+* create order
+
+Verify expected database updates occur.
+
+====================================================
+PHASE 5 — SELLER SYSTEM
+=======================
+
+Actually test:
+
+* seller dashboard
+* seller analytics
+* store page
+* store branding
+* store logo
+* store banner
+* create product
+* edit product
+* delete product
+* product images
+* product gallery
+
+====================================================
+PHASE 6 — STORE ECOSYSTEM
+=========================
+
+Actually test:
+
+* store page
+* follow store
+* unfollow store
+* follower count updates
+* store statistics
+* trust metrics
+* seller reviews
+
+====================================================
+PHASE 7 — MESSAGING SYSTEM
+==========================
+
+Actually test:
+
+* start conversation
+* send message
+* receive message
+* unread counters
+* conversation history
+* notification generation
+
+Verify messages persist in the database.
+
+====================================================
+PHASE 8 — NOTIFICATIONS
+=======================
+
+Actually test:
+
+* in-app notifications
+* SSE delivery
+* read/unread state
+* follow notifications
+* message notifications
+* seller notifications
+
+====================================================
+PHASE 9 — ADMIN SYSTEM
+======================
+
+Actually test:
+
+* admin login
+* admin dashboard
+* seller approval
+* moderation
+* product management
+* order management
+* settings
+
+====================================================
+PHASE 10 — SEO & INDEXING
+=========================
+
+Verify:
+
+* sitemap.xml
+* sitemap-pages.xml
+* sitemap-products.xml
+* sitemap-categories.xml
+* sitemap-stores.xml
+* robots.txt
+* structured data
+* Open Graph
+* canonical tags
+
+====================================================
+PHASE 11 — MOBILE-FIRST VALIDATION
+==================================
+
+Highest priority.
+
+Test all important pages on:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+Verify:
+
+* no horizontal scrolling
+* no clipping
+* no hidden buttons
+* no broken navigation
+* no broken modals
+* no overlap
+* smooth scrolling
+
+====================================================
+PHASE 12 — PERFORMANCE
+======================
+
+Verify:
+
+* page transition speed
+* search speed
+* product loading speed
+* store page speed
+* messaging speed
+* dashboard speed
+
+Fix:
+
+* N+1 queries
+* missing indexes
+* unnecessary renders
+* cache issues
+
+====================================================
+PHASE 13 — FINAL PRODUCTION REPORT
+==================================
+
+Provide:
+
+1. PASS list
+2. FAIL list
+3. FIXES APPLIED
+4. MISSING SECRETS
+5. DISABLED SERVICES
+6. SECURITY RISKS
+7. PERFORMANCE RISKS
+8. SEO STATUS
+9. MOBILE STATUS
+10. PRODUCTION READINESS SCORE
+
+Do not stop until the platform has been validated end-to-end.
+
+Actually execute features whenever possible.
+
+Code inspection alone is not sufficient.

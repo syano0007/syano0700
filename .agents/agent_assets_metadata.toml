@@ -1,0 +1,31 @@
+uploads = []
+
+[[generated]]
+id = "xMbh872VnqiFDTjkI4qNB"
+uri = "file://artifacts/mobile/assets/images/icon.png"
+type = "image"
+title = "generated_image"
+
+[[outputs]]
+id = "b0J5NlumBiylpUEUyrKmA"
+uri = "file://DELIVERY_ASSIGNMENT_CERTIFICATION.md"
+type = "text"
+title = "SYANO Delivery Assignment Certification — 10/10 PASS"
+
+[[outputs]]
+id = "80PCcolPHMEX9DZLrXnzX"
+uri = "file://attached_assets/syano-logo-updated.png"
+type = "image"
+title = "SYANO Logo — Brand Green #276221"
+
+[[outputs]]
+id = "Jl32gO2R9mfypwBIflVMv"
+uri = "file://SYANO_PLATFORM_DISCOVERY_REPORT.md"
+type = "text"
+title = "SYANO Platform Discovery Report"
+
+[[outputs]]
+id = "ed8JX_oTu1UcTs-h1oxSO"
+uri = "file://FULL_PLATFORM_RUNTIME_CERTIFICATION.md"
+type = "text"
+title = "SYANO Full Platform Runtime Certification"

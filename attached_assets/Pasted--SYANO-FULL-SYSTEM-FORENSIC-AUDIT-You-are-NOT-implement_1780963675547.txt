@@ -1,0 +1,497 @@
+# SYANO FULL SYSTEM FORENSIC AUDIT
+
+You are NOT implementing a feature.
+
+You are acting as a senior software auditor whose only task is to verify that the entire SYANO marketplace was restored correctly after migration to a new Replit workspace.
+
+Your mission is to inspect the project from top to bottom and detect ANY missing feature, broken dependency, missing migration, lost data, missing table, broken route, broken asset, or regression.
+
+Do NOT modify code unless an actual problem is proven.
+
+Do NOT create placeholder data.
+
+Do NOT seed fake products.
+
+Do NOT simplify anything.
+
+---
+
+# STEP 1 — READ PROJECT MEMORY
+
+Before doing anything, locate and read ALL workspace memory/recovery files.
+
+Examples:
+
+* CURRENT_TASK.md
+* PROJECT_MEMORY.md
+* RECOVERY.md
+* RESTORE.md
+* NOTES.md
+* CHECKPOINT files
+* Internal workspace memory files
+* Any previous recovery reports
+
+Treat these files as the authoritative description of the project.
+
+---
+
+# STEP 2 — DATABASE FORENSIC AUDIT
+
+Connect to PostgreSQL.
+
+Do NOT trust previous reports.
+
+Actually inspect the database.
+
+## Verify:
+
+* total table count
+* schema names
+* indexes
+* constraints
+* sequences
+* triggers
+* foreign keys
+
+Generate a complete list of every table.
+
+Compare against the Drizzle schema.
+
+Verify that NO expected table is missing.
+
+In previous verified checkpoints the workspace contained approximately:
+
+* users
+* products
+* product_variants
+* product_variant_groups
+* product_variant_options
+* product_variant_values
+* variant_images
+* orders
+* order_items
+* order_status_history
+* cart_items
+* notifications
+* push_subscriptions
+* messages
+* conversations
+* reviews
+* seller_reviews
+* store_follows
+* seller_applications
+* platform_settings
+* admin_audit_log
+* verification_audit_log
+
+If the current count differs (for example 21 instead of 22), identify EXACTLY:
+
+* which table disappeared
+* why
+* whether it was merged, renamed, dropped, or never restored
+
+Do not guess.
+
+Actually inspect the schema.
+
+---
+
+# STEP 3 — COLUMN AUDIT
+
+For every important table verify expected columns exist.
+
+Especially users table.
+
+Verify presence of:
+
+* otp_hash
+* otp_expires_at
+* otp_attempts
+* otp_locked_until
+* reset_otp_hash
+* reset_otp_expires_at
+* reset_otp_attempts
+* reset_otp_locked_until
+
+Verify all recent migration columns exist.
+
+Report any missing column.
+
+---
+
+# STEP 4 — API AUDIT
+
+Verify every major API endpoint.
+
+Actually call them.
+
+Examples:
+
+* /api/products
+* /api/products/best-sellers
+* /api/settings
+* /api/auth/me
+* /api/cart
+* /api/orders
+* /api/notifications
+* /api/messages
+* /api/seller-applications
+
+Verify:
+
+* HTTP status
+* response structure
+* no server errors
+
+---
+
+# STEP 5 — FRONTEND AUDIT
+
+Open the marketplace.
+
+Navigate manually through every major page.
+
+Verify:
+
+Home
+
+Products
+
+Product Details
+
+Categories
+
+Search
+
+Cart
+
+Checkout
+
+Profile
+
+Orders
+
+Messages
+
+Notifications
+
+Seller Dashboard
+
+Seller Products
+
+Add Product
+
+Edit Product
+
+Admin Dashboard
+
+Admin Seller Applications
+
+Settings pages
+
+Verify:
+
+* layout
+* RTL
+* spacing
+* responsiveness
+* assets
+* icons
+* images
+* logo
+* footer
+* navigation
+* no console errors
+
+---
+
+# STEP 6 — PRODUCT SYSTEM AUDIT
+
+Verify:
+
+Products load.
+
+Product images load.
+
+Product details open.
+
+Add to cart works.
+
+Cart persists.
+
+Checkout works.
+
+Orders save correctly.
+
+Stock updates correctly.
+
+Sales count works.
+
+Best sellers endpoint works.
+
+---
+
+# STEP 7 — VARIANT SYSTEM AUDIT
+
+Verify the entire upgraded Variant Builder still exists.
+
+Check:
+
+Preset groups
+
+Custom groups
+
+Tag input
+
+Suggestion chips
+
+Live preview
+
+Bulk actions
+
+Generate combinations
+
+Variant images
+
+RTL
+
+Responsive layout
+
+Product page variant selector
+
+Variant stock logic
+
+No regression allowed.
+
+---
+
+# STEP 8 — NOTIFICATION SYSTEM AUDIT
+
+Verify:
+
+Arabic notifications display correctly.
+
+English notifications display correctly.
+
+Language switching works.
+
+Seller approval notification.
+
+Seller rejection notification.
+
+Order notifications.
+
+SSE connection.
+
+Role change refresh.
+
+---
+
+# STEP 9 — SELLER SYSTEM AUDIT
+
+Submit seller application.
+
+Approve seller.
+
+Reject seller.
+
+Verify rejected seller loses permissions immediately.
+
+Verify refreshAuth.
+
+Verify SSE role_changed event.
+
+Verify customer role restoration.
+
+---
+
+# STEP 10 — ASSET AUDIT
+
+Verify:
+
+Logo
+
+Favicon
+
+Product images
+
+Category images
+
+Icons
+
+Public assets
+
+No broken URLs.
+
+No missing files.
+
+---
+
+# STEP 11 — MOBILE AUDIT
+
+Verify Expo workspace.
+
+No broken imports.
+
+No TypeScript errors.
+
+No missing shared packages.
+
+---
+
+# STEP 12 — TYPESCRIPT AUDIT
+
+Build:
+
+shared libs
+
+api-server
+
+marketplace
+
+mobile
+
+Verify:
+
+ZERO structural errors.
+
+Report warnings separately.
+
+---
+
+# STEP 13 — REGRESSION AUDIT
+
+Compare current workspace against project memory.
+
+Detect anything that disappeared after migration.
+
+Examples:
+
+* missing features
+* missing routes
+* missing tables
+* missing columns
+* missing assets
+* missing UI
+* missing translations
+* missing database data
+
+---
+
+# IMPORTANT
+
+Do NOT create fake products.
+
+Do NOT seed sample data.
+
+Do NOT rebuild features.
+
+Do NOT redesign UI.
+
+Do NOT silently modify anything.
+
+First perform a COMPLETE forensic audit.
+
+Only after proving a defect exists may you propose a repair.
+
+---
+
+# FINAL REPORT
+
+Produce a structured report including:
+
+## Environment
+
+Dependencies
+
+Services
+
+Database
+
+TypeScript
+
+---
+
+## Database
+
+Table count
+
+Complete table list
+
+Missing tables
+
+Missing columns
+
+Migration status
+
+---
+
+## Backend
+
+API status
+
+Broken endpoints
+
+---
+
+## Frontend
+
+Working pages
+
+Broken pages
+
+Console errors
+
+Missing assets
+
+Logo status
+
+Footer status
+
+---
+
+## Variant System
+
+Pass / Fail
+
+---
+
+## Notifications
+
+Pass / Fail
+
+---
+
+## Seller System
+
+Pass / Fail
+
+---
+
+## Mobile
+
+Pass / Fail
+
+---
+
+## Regression Summary
+
+List EVERY difference between the current workspace and the latest verified checkpoint.
+
+Explicitly answer:
+
+1. Does the workspace fully match the previous verified state?
+
+2. Why is the database table count different (21 vs 22)?
+
+3. Is any data missing?
+
+4. Is any feature missing?
+
+5. Is any migration missing?
+
+6. Is the project safe to continue development on?
+
+Do not estimate.
+
+Verify everything directly from the actual workspace.

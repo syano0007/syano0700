@@ -1,0 +1,242 @@
+هات:
+
+SYANO — Phase 11 — Prompt 4: Data Quality
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Your job is to detect and surface data quality issues to sellers and admins. Do not delete any product, user, or order. Do not modify any existing data. Only add detection, flagging, and UI indicators.
+
+WHAT TO DETECT
+For Products — flag if any of these are true:
+
+images array is empty or null
+description is empty, null, or under 20 characters
+description_ar is empty, null, or under 20 characters
+name_ar is empty or null
+price is 0 or null
+stock is 0 (out of stock — not hidden, just flagged)
+embedding is null (not yet embedded — affects search quality)
+
+For Stores — flag if any of these are true:
+
+logo is null or empty
+description is empty or null
+description_ar is empty or null
+
+
+STEP 1 — BACKEND: Add Data Quality Endpoints
+Endpoint 1 — Seller: own product quality
+File: artifacts/api-server/src/routes/seller.ts
+GET /api/seller/products/quality-report
+
+Requires requireAuth + requireRole('seller')
+Returns only the seller's own products that have quality issues
+Response shape:
+
+typescript{
+  total_products: number,
+  flagged_count: number,
+  products: Array<{
+    id: number,
+    name: string,
+    name_ar: string,
+    issues: string[] // e.g. ['missing_images', 'short_description_ar', 'not_embedded']
+  }>
+}
+Endpoint 2 — Admin: platform-wide quality report
+File: artifacts/api-server/src/routes/admin.ts
+GET /api/admin/products/quality-report
+
+Requires requireAuth + requireRole('admin')
+Returns platform-wide counts and flagged products
+Response shape:
+
+typescript{
+  total_products: number,
+  flagged_count: number,
+  flagged_percentage: number,
+  breakdown: {
+    missing_images: number,
+    short_description: number,
+    short_description_ar: number,
+    missing_name_ar: number,
+    zero_price: number,
+    out_of_stock: number,
+    not_embedded: number
+  },
+  products: Array<{
+    id: number,
+    name: string,
+    name_ar: string,
+    seller_id: number,
+    store_name: string,
+    issues: string[]
+  }>
+}
+Endpoint 3 — Admin: store quality report
+File: artifacts/api-server/src/routes/admin.ts
+GET /api/admin/stores/quality-report
+
+Requires requireAuth + requireRole('admin')
+Response shape:
+
+typescript{
+  total_stores: number,
+  flagged_count: number,
+  stores: Array<{
+    id: number,
+    name: string,
+    seller_id: number,
+    issues: string[] // e.g. ['missing_logo', 'missing_description_ar']
+  }>
+}
+
+STEP 2 — FRONTEND: Seller Quality Banner
+File: artifacts/marketplace/src/pages/seller/products.tsx
+Add a dismissible banner at the top of the seller products page.
+
+Fetch GET /api/seller/products/quality-report on page load
+If flagged_count === 0 — show nothing
+If flagged_count > 0 — show a yellow warning banner:
+
+tsx<div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4 mb-6 flex items-start gap-3">
+  <AlertTriangle className="w-5 h-5 text-yellow-500 mt-0.5 shrink-0" />
+  <div className="flex-1">
+    <p className="font-semibold text-sm">{t('seller.quality.banner_title')}</p>
+    <p className="text-sm text-muted-foreground mt-1">{t('seller.quality.banner_subtitle', { count: flaggedCount })}</p>
+  </div>
+  <Button variant="ghost" size="sm" onClick={() => setDismissed(true)}>✕</Button>
+</div>
+
+STEP 3 — FRONTEND: Seller Product Card Issue Badges
+File: wherever the seller product card/row component is defined
+For each flagged product in the seller's product list, show small issue badges:
+tsx{product.issues.includes('missing_images') && (
+  <span className="text-xs bg-destructive/10 text-destructive px-2 py-0.5 rounded-full">
+    {t('seller.quality.missing_images')}
+  </span>
+)}
+{product.issues.includes('short_description_ar') && (
+  <span className="text-xs bg-yellow-500/10 text-yellow-600 px-2 py-0.5 rounded-full">
+    {t('seller.quality.short_description_ar')}
+  </span>
+)}
+{product.issues.includes('not_embedded') && (
+  <span className="text-xs bg-blue-500/10 text-blue-600 px-2 py-0.5 rounded-full">
+    {t('seller.quality.not_embedded')}
+  </span>
+)}
+Add badges for all issue types. Use existing color tokens only.
+
+STEP 4 — FRONTEND: Admin Quality Dashboard Section
+File: artifacts/marketplace/src/pages/admin/index.tsx
+Add a new "Data Quality" section to the admin dashboard after the existing stats section.
+Show:
+
+Total flagged products count with percentage
+Breakdown of each issue type as a simple list with counts
+Link to products list filtered by quality issues
+Total flagged stores count
+Link to stores list
+
+Do not build a new page — add it as a section inside the existing admin dashboard.
+
+I18N KEYS
+Add to both ar.json and en.json:
+json"seller": {
+  "quality": {
+    "banner_title": "منتجات تحتاج إلى تحسين",
+    "banner_subtitle": "{{count}} منتج يحتاج إلى مراجعة",
+    "missing_images": "بدون صور",
+    "short_description_ar": "وصف عربي قصير",
+    "short_description": "وصف قصير",
+    "missing_name_ar": "بدون اسم عربي",
+    "zero_price": "السعر صفر",
+    "out_of_stock": "نفد المخزون",
+    "not_embedded": "خارج البحث الذكي"
+  }
+}
+json"seller": {
+  "quality": {
+    "banner_title": "Products need attention",
+    "banner_subtitle": "{{count}} products need review",
+    "missing_images": "No images",
+    "short_description_ar": "Short Arabic description",
+    "short_description": "Short description",
+    "missing_name_ar": "Missing Arabic name",
+    "zero_price": "Price is zero",
+    "out_of_stock": "Out of stock",
+    "not_embedded": "Not in smart search"
+  }
+}
+json"admin": {
+  "quality": {
+    "section_title": "جودة البيانات",
+    "flagged_products": "منتج يحتاج مراجعة",
+    "flagged_stores": "متجر يحتاج مراجعة",
+    "view_all": "عرض الكل"
+  }
+}
+
+CONSTRAINTS
+
+Do not delete any product, store, order, or user
+Do not modify any existing data in the database
+Do not redesign any existing page
+Do not change colors, spacing, or typography beyond what is specified
+Do not use any in TypeScript
+Do not break existing API response shapes — only add new endpoints
+Every string must use i18n
+RTL Arabic and LTR English must both work
+Light mode and dark mode must both work
+Mobile 375px must work
+
+
+AFTER ALL FIXES
+Run TypeScript check:
+cd artifacts/api-server && npx tsc --noEmit
+cd artifacts/marketplace && npx tsc --noEmit
+Must return 0 errors.
+
+UPDATE RECOVERY FILES
+CURRENT_STATE.md
+## Session: Phase 11 — Prompt 4 (June 16, 2026)
+Status: Complete
+
+Added:
+- GET /api/seller/products/quality-report endpoint
+- GET /api/admin/products/quality-report endpoint
+- GET /api/admin/stores/quality-report endpoint
+- Seller products page: quality warning banner
+- Seller products page: per-product issue badges
+- Admin dashboard: Data Quality section
+- i18n keys added to ar.json and en.json
+- TypeScript: 0 errors
+
+Next: Phase 11 — Prompt 5 (Mobile Readiness)
+PROJECT_STATUS.md
+Phase 11 — Launch Preparation
+- Prompt 1 (Audit): ✅ Complete
+- Prompt 2 (Critical & High Fixes): ✅ Complete
+- Prompt 3 (Error Handling): ✅ Complete
+- Prompt 4 (Data Quality): ✅ Complete
+- Prompt 5 (Mobile Readiness): ⏳ Not started
+RECOVERY_GUIDE.md
+Last session: Phase 11 Prompt 4 — Data Quality complete
+Next session must start with: Phase 11 — Prompt 5 (Mobile Readiness)
+Do not re-run Prompt 4 — it is complete.
+
+When done, report:
+✅ Seller quality endpoint: added
+✅ Admin products quality endpoint: added
+✅ Admin stores quality endpoint: added
+✅ Seller banner: added
+✅ Product issue badges: added
+✅ Admin quality section: added
+✅ i18n keys: added to both files
+✅ TypeScript: 0 errors
+✅ Recovery files: updated

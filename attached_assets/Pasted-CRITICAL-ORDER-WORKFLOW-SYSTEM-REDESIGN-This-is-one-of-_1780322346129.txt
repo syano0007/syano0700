@@ -1,0 +1,260 @@
+CRITICAL ORDER WORKFLOW SYSTEM REDESIGN
+
+This is one of the most important marketplace systems.
+
+The goal is to build a professional order lifecycle similar to Amazon, Noon, Trendyol, Etsy and Shopify marketplaces.
+
+Do NOT implement a simple status field.
+
+Build a complete order workflow architecture.
+
+══════════════════════════════════════
+OBJECTIVE
+══════════════════════════════════════
+
+Create a structured order lifecycle with clear state transitions.
+
+Every order must move through a controlled workflow.
+
+No invalid transitions should be possible.
+
+══════════════════════════════════════
+CURRENT SYSTEM AUDIT
+══════════════════════════════════════
+
+Before implementing:
+
+Audit:
+
+* Database schema
+* Orders table
+* Seller dashboard
+* Customer dashboard
+* Notifications
+* Checkout flow
+* Inventory updates
+
+Identify all areas affected by order status changes.
+
+Provide implementation plan before coding.
+
+══════════════════════════════════════
+ORDER LIFECYCLE
+══════════════════════════════════════
+
+Implement the following workflow:
+
+Pending
+↓
+Processing
+↓
+Shipped
+↓
+Delivered
+
+The workflow must be strictly one-directional.
+
+No backward transitions.
+
+Examples:
+
+Allowed:
+
+Pending → Processing
+
+Processing → Shipped
+
+Shipped → Delivered
+
+Not allowed:
+
+Delivered → Shipped
+
+Shipped → Pending
+
+Processing → Pending
+
+══════════════════════════════════════
+ORDER CANCELLATION
+══════════════════════════════════════
+
+Customer may cancel only before shipment.
+
+Allowed:
+
+Pending → Cancelled
+
+Processing → Cancelled
+
+Not allowed:
+
+Shipped → Cancelled
+
+Delivered → Cancelled
+
+After cancellation:
+
+Seller loses permission to modify the order.
+
+Cancelled orders become locked.
+
+══════════════════════════════════════
+SHIPPING STAGE
+══════════════════════════════════════
+
+When seller changes order status to:
+
+Shipped
+
+The system must require:
+
+* Estimated delivery time
+* Shipping company (optional)
+* Tracking number (optional)
+
+Estimated delivery time should be defined by the seller at shipment time.
+
+Not before.
+
+Not by the customer.
+
+══════════════════════════════════════
+SELLER PERMISSIONS
+══════════════════════════════════════
+
+Seller may:
+
+* Accept orders
+* Process orders
+* Ship orders
+* Mark delivered
+
+Seller may NOT:
+
+* Reverse statuses
+* Edit cancelled orders
+* Modify completed orders improperly
+
+══════════════════════════════════════
+CUSTOMER EXPERIENCE
+══════════════════════════════════════
+
+Customer must clearly see:
+
+* Current status
+* Estimated delivery date
+* Shipping information
+* Tracking information
+
+Provide a professional tracking experience.
+
+══════════════════════════════════════
+INVENTORY INTEGRATION
+══════════════════════════════════════
+
+Inventory must remain synchronized.
+
+Audit:
+
+* Stock reduction
+* Order cancellation behavior
+* Delivered orders
+
+Prevent stock inconsistencies.
+
+══════════════════════════════════════
+NOTIFICATION SYSTEM
+══════════════════════════════════════
+
+Send notifications whenever:
+
+* Order created
+* Processing started
+* Order shipped
+* Order delivered
+* Order cancelled
+
+Both seller and customer should receive relevant notifications.
+
+══════════════════════════════════════
+ORDER HISTORY
+══════════════════════════════════════
+
+Store a complete timeline.
+
+Example:
+
+Order Created
+10:30
+
+Processing Started
+11:15
+
+Shipped
+14:45
+
+Delivered
+2 days later
+
+History must remain permanently available.
+
+══════════════════════════════════════
+MOBILE EXPERIENCE
+══════════════════════════════════════
+
+Verify:
+
+* Customer dashboard
+* Seller dashboard
+* Tracking UI
+* Order details
+
+on all mobile breakpoints.
+
+══════════════════════════════════════
+BACKWARD COMPATIBILITY
+══════════════════════════════════════
+
+Existing orders must remain valid.
+
+Do not break existing order records.
+
+Provide migration strategy if needed.
+
+══════════════════════════════════════
+TESTING
+══════════════════════════════════════
+
+Test:
+
+* Order creation
+* Status transitions
+* Cancellation
+* Shipment
+* Delivery
+* Notifications
+* Inventory updates
+* Mobile
+* Desktop
+* Arabic
+* English
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Provide:
+
+1. Database changes.
+2. Workflow diagram.
+3. API changes.
+4. Seller dashboard changes.
+5. Customer dashboard changes.
+6. Notification changes.
+7. Inventory integration details.
+8. Files modified.
+9. Screenshots.
+
+Success criteria:
+
+The marketplace must have a professional, secure, one-directional order workflow that prevents invalid states, improves transparency, and scales with future marketplace growth.

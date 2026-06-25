@@ -1,0 +1,148 @@
+You are a senior search systems + frontend UX engineer working on a multilingual premium ecommerce marketplace.
+
+Your task is to FIX and UPGRADE the search system professionally.
+
+CURRENT ISSUES:
+
+10. SEARCH DOES NOT HANDLE MULTIPLE LANGUAGES INTELLIGENTLY
+    Currently, if a user searches in English, Arabic results may not appear properly (and vice versa).
+
+11. SEARCH RESULT CLICK BUG
+    When the user clicks a search result or suggestion, the app does NOT navigate to the product page and instead stays on the homepage.
+
+These issues MUST be fully fixed.
+
+---
+
+## PART 1 — MULTILINGUAL / SMART SEARCH
+
+GOAL:
+Users should find products regardless of the language they type.
+
+EXAMPLES:
+
+* User types in English → Arabic products appear
+* User types in Arabic → English products appear
+* Transliteration/partial matching should work
+* Suggestions should remain intelligent and fast
+
+REQUIREMENTS:
+
+1. IMPLEMENT MULTILINGUAL SEARCH MATCHING
+   Support:
+
+* Arabic
+* English
+* mixed input
+
+2. NORMALIZE SEARCH INPUT
+   Handle:
+
+* uppercase/lowercase
+* Arabic character normalization
+* spacing differences
+* punctuation removal
+* diacritics normalization
+* Unicode-safe comparison
+
+3. SMART MATCHING
+   Search should match:
+
+* product titles
+* translated titles
+* keywords
+* tags
+* categories
+* seller metadata if available
+
+4. SEARCH SUGGESTIONS
+   Autocomplete suggestions must:
+
+* remain fast
+* feel intelligent
+* rank relevant products first
+* support multilingual matching
+
+5. OPTIONAL INTELLIGENT IMPROVEMENTS
+   If architecture allows:
+
+* fuzzy matching
+* typo tolerance
+* transliteration matching
+* synonym support
+
+6. PERFORMANCE
+   Search must remain:
+
+* fast on mobile
+* optimized for large product counts
+* production-ready
+
+---
+
+## PART 2 — SEARCH RESULT NAVIGATION BUG
+
+CURRENT BUG:
+Clicking a search result/suggestion does NOT open the product page.
+
+REQUIRED FIX:
+When user clicks:
+
+* search result
+* autocomplete item
+* suggestion dropdown item
+
+The app MUST:
+
+* navigate correctly to the product page
+* close the search dropdown
+* preserve proper routing behavior
+
+VERIFY:
+
+* desktop
+* mobile
+* touch devices
+* keyboard navigation
+
+---
+
+## PART 3 — UX / MOBILE QUALITY
+
+Ensure search UX feels:
+
+* premium
+* modern
+* instant
+* responsive
+* mobile-first
+
+Verify:
+
+* touch friendliness
+* keyboard behavior
+* dropdown positioning
+* no overlap issues
+* smooth animations
+
+---
+
+## PART 4 — FINAL QA
+
+Test the following cases:
+
+Arabic → Arabic product
+English → Arabic product
+Arabic → English product
+Mixed-language query
+Typo query
+Partial word query
+Mobile search
+Desktop search
+Suggestion click
+Keyboard enter navigation
+
+Ensure ALL work correctly.
+
+FINAL RESULT:
+The marketplace search should feel like a modern world-class ecommerce platform with intelligent multilingual product discovery and flawless navigation behavior.

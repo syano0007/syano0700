@@ -1,0 +1,221 @@
+SYANO — HERO BANNER RTL FORENSIC FIX + PROJECT CLEANUP
+
+STOP.
+
+Do not create new components.
+
+Do not redesign.
+
+Do not add workarounds.
+
+Do not add locale-specific hacks.
+
+First verify the forensic findings.
+
+---
+
+# PHASE 1 — PROVE THE ROOT CAUSE
+
+Inspect:
+
+HeroBannerCarousel.tsx
+
+Verify:
+
+1. Outer viewport container
+2. Overflow hidden container
+3. Track container
+4. Indicators container
+
+Document:
+
+* computed direction
+* computed transform
+* flex direction
+* visual order
+
+Do not modify anything until verified.
+
+---
+
+# PHASE 2 — FIX RTL CORRECTLY
+
+The goal:
+
+Use ONE coordinate system.
+
+Requirements:
+
+Apply:
+
+direction: ltr
+
+to ALL carousel layout layers:
+
+1. Outer overflow-hidden viewport
+2. Track container
+3. Indicators container
+
+Result:
+
+* slide 0 = first slide
+* slide 1 = second slide
+* indicators match slides
+* drag directions match indicators
+* Arabic and English behave identically
+
+Do NOT:
+
+* invert transforms
+* invert indexes
+* add RTL conditionals
+* add locale math
+
+One coordinate system only.
+
+---
+
+# PHASE 3 — VERIFY BANNER VISIBILITY
+
+After fix:
+
+Verify:
+
+* banner 1 visible
+* banner 2 visible
+* banner 3 visible
+* all banners visible
+
+Check:
+
+* translateX values
+* viewport clipping
+* overflow behavior
+
+Confirm:
+
+No black slides.
+
+No empty slides.
+
+No hidden slides.
+
+---
+
+# PHASE 4 — VERIFY INDICATORS
+
+Verify:
+
+* dot 1 = slide 1
+* dot 2 = slide 2
+* dot 3 = slide 3
+
+Arabic:
+
+must match.
+
+English:
+
+must match.
+
+No mirrored behavior.
+
+---
+
+# PHASE 5 — PERFORMANCE AUDIT
+
+Inspect:
+
+HeroBannerCarousel
+
+Verify:
+
+No:
+
+* render loops
+* duplicated intervals
+* duplicated timers
+* duplicated listeners
+* duplicated API calls
+
+Audit:
+
+/api/banners
+
+Verify:
+
+Only expected requests.
+
+---
+
+# PHASE 6 — REMOVE DEV ARTIFACTS
+
+Search entire project.
+
+Remove:
+
+* temporary recovery reports
+* temporary certification files
+* debug reports
+* forensic reports
+* duplicate recovery documents
+* obsolete migration reports
+* stale investigation files
+
+Only remove files that are:
+
+* unused
+* temporary
+* diagnostic
+
+Do NOT remove production files.
+
+---
+
+# PHASE 7 — RECOVERY FILE CONSOLIDATION
+
+Verify only ONE recovery authority exists:
+
+SYANO_MASTER_RECOVERY.md
+
+All other recovery files:
+
+must either:
+
+* be removed
+  or
+* contain a redirect only
+
+No duplicated recovery logic.
+
+No conflicting recovery instructions.
+
+---
+
+# PHASE 8 — FINAL VALIDATION
+
+Verify:
+
+✅ Arabic carousel works
+
+✅ English carousel works
+
+✅ No black banners
+
+✅ Indicators correct
+
+✅ Drag correct
+
+✅ Auto-slide correct
+
+✅ No performance regression
+
+✅ No duplicated API calls
+
+✅ No unused diagnostic files
+
+✅ Recovery documentation consolidated
+
+✅ TypeScript = 0 new errors
+
+Only finish after all checks pass.

@@ -1,0 +1,249 @@
+SYANO — DOCUMENTATION CONSOLIDATION & CLEANUP
+
+MISSION
+
+Perform a complete forensic audit of all project documentation.
+
+DO NOT touch application code.
+
+DO NOT modify database schema.
+
+DO NOT modify workflows.
+
+DO NOT modify runtime services.
+
+This task is documentation consolidation only.
+
+======================================================================
+OBJECTIVE
+======================================================================
+
+The repository contains many recovery, audit, certification, parity,
+status, bootstrap and historical files created across many sessions.
+
+Many are:
+
+- duplicated
+- partially outdated
+- superseded
+- contradictory
+- no longer used
+
+Your goal is to determine which documentation files are still necessary
+and which should be removed.
+
+The final result must be:
+
+- minimal
+- accurate
+- current
+- non-duplicated
+- internally consistent
+
+======================================================================
+SOURCE OF TRUTH RULE
+======================================================================
+
+Never trust documentation.
+
+Always verify against:
+
+1. Actual code
+2. Actual database
+3. Actual running services
+
+If documentation conflicts with reality:
+
+Reality wins.
+
+======================================================================
+PHASE 1 — INVENTORY
+======================================================================
+
+Scan the entire repository.
+
+Create a list of every documentation file.
+
+Examples:
+
+*.md
+*.txt
+*.rst
+recovery files
+audit files
+certification files
+bootstrap files
+status files
+
+Generate:
+
+DOCUMENTATION_INVENTORY.md
+
+For each file include:
+
+- file name
+- purpose
+- last relevance
+- duplicated by
+- still needed? yes/no
+
+======================================================================
+PHASE 2 — DUPLICATE ANALYSIS
+======================================================================
+
+Detect files that contain overlapping information.
+
+Examples:
+
+CURRENT_STATE
+PROJECT_STATUS
+RECOVERY_REPORT
+CERTIFICATION_REPORT
+
+Determine:
+
+- which file should remain
+- which files are obsolete
+
+Generate:
+
+DOCUMENTATION_DUPLICATES_REPORT.md
+
+======================================================================
+PHASE 3 — CONSOLIDATION PLAN
+======================================================================
+
+Create a final minimal documentation structure.
+
+Target:
+
+5-8 files maximum.
+
+Preferred final structure:
+
+AGENT_BOOTSTRAP.md
+CURRENT_STATE.md
+RECOVERY_GUIDE.md
+PROJECT_STATUS.md
+KNOWN_ISSUES.md
+CHANGELOG.md
+
+Only keep additional files if absolutely necessary.
+
+======================================================================
+PHASE 4 — UPDATE SURVIVING FILES
+======================================================================
+
+For every file that survives:
+
+Rewrite and synchronize content.
+
+Requirements:
+
+- all numbers must match
+- all ports must match
+- all table counts must match
+- all service statuses must match
+- all parity percentages must match
+- all roadmap phases must match
+
+Remove:
+
+- stale information
+- historical session notes
+- obsolete audits
+- superseded certifications
+
+Keep only current verified state.
+
+======================================================================
+PHASE 5 — SAFE DELETION
+======================================================================
+
+Delete documentation files ONLY if:
+
+1. Their information exists elsewhere.
+2. They are obsolete.
+3. They are historical-only.
+4. They are duplicated.
+5. They are not referenced by active tooling.
+
+Before deleting:
+
+Verify repository references.
+
+Do not delete files referenced by:
+
+scripts
+automation
+recovery tooling
+manifest generation
+
+======================================================================
+PHASE 6 — AGENT STARTUP OPTIMIZATION
+======================================================================
+
+Update AGENT_BOOTSTRAP.md.
+
+Goal:
+
+A future Replit Agent should understand the entire project from:
+
+AGENT_BOOTSTRAP.md
++
+CURRENT_STATE.md
+
+without reading dozens of files.
+
+AGENT_BOOTSTRAP.md must contain:
+
+- project identity
+- architecture
+- services
+- database
+- roles
+- completed systems
+- current priorities
+- recovery procedure
+- startup checklist
+
+======================================================================
+PHASE 7 — FINAL VALIDATION
+======================================================================
+
+Verify:
+
+- no contradictions remain
+- no duplicated status files remain
+- no duplicated certification files remain
+- all surviving files agree with each other
+
+======================================================================
+FINAL DELIVERABLE
+======================================================================
+
+Generate:
+
+DOCUMENTATION_CLEANUP_REPORT.md
+
+Include:
+
+1. Files kept
+2. Files deleted
+3. Reason for each deletion
+4. Final documentation structure
+5. Verification that all surviving files are synchronized
+
+IMPORTANT
+
+Do NOT modify code.
+
+Do NOT modify APIs.
+
+Do NOT modify database schema.
+
+Do NOT modify mobile app.
+
+Do NOT modify marketplace.
+
+Documentation cleanup only.

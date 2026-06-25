@@ -1,0 +1,360 @@
+Perform a COMPLETE enterprise-grade PERFORMANCE & SPEED transformation across the entire Syano marketplace platform. Treat this project as a world-class ecommerce optimization mission for a large-scale marketplace similar to Amazon, Noon, Alibaba, or Shopify.
+
+The PRIMARY OBJECTIVE is to make Syano feel:
+- instant
+- ultra-fast
+- lightweight
+- fluid
+- responsive
+- premium
+- reliable even on extremely weak internet connections and low-end mobile devices in Syria
+
+This is NOT a basic optimization task.
+This is a full platform-wide performance engineering overhaul.
+
+The final experience must feel like:
+- a native mobile app
+- lightning-fast ecommerce platform
+- premium modern marketplace
+- highly optimized production system
+
+==================================================
+GLOBAL PERFORMANCE ENGINEERING
+==================================================
+
+Deeply analyze and optimize:
+- frontend rendering
+- backend APIs
+- database queries
+- routing/navigation
+- asset delivery
+- image loading
+- state management
+- hydration behavior
+- animation performance
+- memory usage
+- CPU usage
+- network requests
+- caching strategy
+- scrolling performance
+- mobile rendering
+
+DO NOT rebuild the platform.
+DO NOT break existing functionality.
+Carefully optimize the CURRENT architecture professionally.
+
+==================================================
+CORE PERFORMANCE GOALS
+==================================================
+
+The entire marketplace must:
+- load extremely fast
+- feel instant during navigation
+- remain smooth on low-end devices
+- remain usable on weak Syrian internet
+- avoid UI freezing
+- avoid scroll lag
+- avoid heavy rendering
+- avoid unnecessary data usage
+- maintain stable responsiveness at all times
+
+==================================================
+LIGHTHOUSE & CORE WEB VITALS
+==================================================
+
+Aggressively optimize for:
+- PageSpeed Insights
+- Lighthouse
+- Core Web Vitals
+
+Target improvements:
+- extremely fast LCP
+- near-zero CLS
+- very responsive INP
+- fast FCP
+- fast Speed Index
+- reduced TBT
+
+Fix ALL causes of:
+- layout shifts
+- delayed rendering
+- blocking resources
+- oversized bundles
+- slow interactions
+- hydration mismatches
+- excessive JavaScript execution
+
+==================================================
+FRONTEND RENDERING OPTIMIZATION
+==================================================
+
+Audit ALL frontend rendering behavior.
+
+Implement:
+- route-based code splitting
+- dynamic imports
+- tree shaking
+- memoization
+- optimized state updates
+- component virtualization where beneficial
+- efficient suspense/loading strategies
+- reduced rerenders
+- optimized reconciliation
+- lightweight rendering patterns
+
+Remove:
+- unnecessary rerenders
+- expensive computations
+- oversized component trees
+- duplicate rendering work
+
+==================================================
+IMAGE & MEDIA OPTIMIZATION
+==================================================
+
+Build a premium image delivery system.
+
+Requirements:
+- convert images to WebP/AVIF where possible
+- responsive image sizes
+- optimized thumbnails
+- aggressive compression without visible quality loss
+- lazy loading below the fold
+- blur placeholders
+- skeleton loaders
+- optimized sliders/banners
+- bandwidth-aware loading
+- mobile-specific image sizing
+
+Ensure:
+- products appear instantly
+- banners load quickly
+- categories feel lightweight
+- scrolling remains smooth
+
+==================================================
+MOBILE PERFORMANCE PRIORITY
+==================================================
+
+Mobile optimization is the HIGHEST PRIORITY.
+
+Optimize specifically for:
+- low-end Android phones
+- weak CPUs
+- low RAM devices
+- unstable Syrian internet
+- older mobile browsers
+
+Ensure:
+- smooth scrolling
+- smooth gestures
+- instant tap response
+- no lag spikes
+- low memory usage
+- lightweight animations
+- responsive UI even under stress
+
+==================================================
+NETWORK & API OPTIMIZATION
+==================================================
+
+Deeply optimize backend communication.
+
+Implement:
+- request deduplication
+- caching layers
+- stale-while-revalidate strategies
+- compressed payloads
+- optimized pagination
+- minimized API payload sizes
+- batched requests where appropriate
+- smart retry handling
+- timeout handling
+- optimistic UI updates
+
+Prevent:
+- duplicate fetching
+- waterfall requests
+- blocking network chains
+- oversized JSON payloads
+
+==================================================
+DATABASE & BACKEND OPTIMIZATION
+==================================================
+
+Audit and optimize backend/database performance.
+
+Requirements:
+- optimized queries
+- indexing improvements
+- reduced query cost
+- reduced response times
+- scalable architecture
+- efficient pagination
+- optimized joins
+- minimized server load
+
+Ensure the marketplace remains scalable as traffic grows.
+
+==================================================
+SCROLLING & INTERACTION PERFORMANCE
+==================================================
+
+Optimize ALL scrolling and interactions.
+
+Requirements:
+- ultra-smooth scrolling
+- zero scroll jank
+- instant touch response
+- optimized wheel/touch behavior
+- lightweight interactions
+- responsive animations
+
+Use:
+- passive listeners
+- GPU acceleration where beneficial
+- requestAnimationFrame where appropriate
+- efficient transform-based animations
+
+Avoid:
+- forced reflows
+- layout thrashing
+- expensive paints
+- blocking operations
+
+==================================================
+PERCEIVED PERFORMANCE UX
+==================================================
+
+Improve perceived speed dramatically.
+
+Implement:
+- premium skeleton loaders
+- shimmer placeholders
+- progressive rendering
+- intelligent preloading
+- smooth transitions
+- instant-feeling navigation
+- graceful loading states
+
+The site should FEEL extremely fast even before everything finishes loading.
+
+==================================================
+PRODUCT DISCOVERY OPTIMIZATION
+==================================================
+
+Optimize:
+- homepage
+- discover page
+- category browsing
+- product grids
+- search experience
+- filters
+
+Requirements:
+- instant-feeling product loading
+- smooth infinite scroll
+- optimized product rendering
+- fast filters
+- responsive search
+- lightweight category browsing
+
+==================================================
+MEMORY & CPU OPTIMIZATION
+==================================================
+
+Reduce:
+- memory leaks
+- excessive memory usage
+- CPU spikes
+- rendering bottlenecks
+- background processing overhead
+
+Ensure long browsing sessions remain smooth.
+
+==================================================
+HIGH REFRESH RATE OPTIMIZATION
+==================================================
+
+Ensure ultra-smooth behavior on:
+- 120Hz
+- 144Hz
+- 165Hz
+- 240Hz displays
+
+Animations and scrolling must remain:
+- fluid
+- stable
+- premium
+- responsive
+
+==================================================
+SEO & PERFORMANCE BALANCE
+==================================================
+
+Maintain strong SEO while optimizing speed.
+
+Ensure:
+- crawlability remains intact
+- metadata remains correct
+- sitemap works
+- structured data remains valid
+- SSR/hydration remains stable if applicable
+
+==================================================
+RTL & ARABIC PERFORMANCE
+==================================================
+
+Optimize Arabic RTL rendering carefully.
+
+Ensure:
+- proper Arabic font loading
+- optimized typography
+- no RTL layout instability
+- lightweight Arabic rendering
+- smooth Arabic UI behavior
+
+==================================================
+AUTOMATIC PERFORMANCE AUDIT
+==================================================
+
+Automatically detect and fix:
+- performance bottlenecks
+- oversized bundles
+- render-blocking resources
+- unused JS/CSS
+- hydration issues
+- memory leaks
+- layout instability
+- expensive animations
+- mobile lag
+- slow routes
+- heavy components
+- duplicate dependencies
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+Before finishing:
+- test ALL pages on mobile and desktop
+- test weak internet conditions
+- test low-end Android devices
+- test long browsing sessions
+- test heavy product browsing
+- test scrolling smoothness
+- test navigation speed
+- test Lighthouse/PageSpeed improvements
+- test Core Web Vitals improvements
+- verify no broken functionality
+- verify no responsive regressions
+- verify no UI glitches
+- verify no console errors
+- verify smooth 120Hz+ behavior
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class optimized ecommerce marketplace
+- ultra-fast on weak Syrian internet
+- premium and native-app-like
+- smooth and lightweight
+- enterprise-grade and production-ready

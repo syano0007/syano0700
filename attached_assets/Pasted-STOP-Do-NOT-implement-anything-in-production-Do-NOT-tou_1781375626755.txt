@@ -1,0 +1,293 @@
+STOP.
+
+Do NOT implement anything in production.
+
+Do NOT touch HeroV4.tsx.
+
+Do NOT modify the live marketplace.
+
+Work ONLY on the HeroMockup canvas.
+
+Current status is NOT approved yet.
+
+The design is closer, but it is still visibly different from the approved reference.
+
+The goal is no longer "similar".
+
+The goal is:
+
+PIXEL-PERFECT MATCH.
+
+Use the approved screenshot as the ONLY source of truth.
+
+No assumptions.
+
+No interpretation.
+
+No creativity.
+
+No redesign.
+
+Only visual matching.
+
+---
+
+# WORKFLOW
+
+Before changing anything:
+
+Open BOTH:
+
+1. Reference screenshot
+2. HeroMockup Canvas
+
+Side-by-side.
+
+100% zoom.
+
+Compare visually.
+
+Do not estimate.
+
+Measure.
+
+---
+
+# CRITICAL REMAINING DIFFERENCES
+
+## 1. STATISTICS ROW
+
+Current:
+
+12,000+
+25,000+
+500+
+
+still does NOT match.
+
+Problems:
+
+* numbers too large
+* numbers too heavy
+* spacing different
+* labels different scale
+* visual balance incorrect
+
+Match EXACTLY:
+
+* font size
+* font weight
+* spacing
+* baseline alignment
+* distance from divider lines
+
+Reference wins.
+
+Copy it exactly.
+
+---
+
+## 2. CTA BUTTONS
+
+Buttons still differ.
+
+Reference:
+
+* softer pill shape
+* slightly different radius
+* exact padding
+* exact vertical centering
+* exact icon alignment
+
+Current version still feels heavier.
+
+Match EXACTLY.
+
+---
+
+## 3. SEARCH BAR
+
+Current search bar is too large.
+
+Reference search bar:
+
+* narrower
+* shorter
+* less dominant
+* more breathing room around it
+
+Match:
+
+* width
+* height
+* border radius
+* padding
+* icon placement
+
+exactly.
+
+---
+
+## 4. HERO IMAGE PANEL
+
+Still incorrect.
+
+Reference image:
+
+* visibly wider
+* dominates more horizontal space
+* fills left side more aggressively
+
+Current version still feels compressed.
+
+Increase width until side-by-side comparison matches.
+
+Do NOT guess.
+
+---
+
+## 5. IMAGE POSITIONING
+
+Reference image container:
+
+* starts slightly more left
+* occupies more area
+* has different inner padding
+
+Current image is still inset too much.
+
+Match screenshot geometry exactly.
+
+---
+
+## 6. BACKGROUND COLOR
+
+Still not identical.
+
+Reference background:
+
+* slightly darker
+* cleaner
+* deeper black
+
+Match the exact tone.
+
+Use screenshot comparison.
+
+---
+
+## 7. GRID SYSTEM
+
+Current grid still differs.
+
+Match:
+
+* opacity
+* spacing
+* brightness
+* visibility
+
+Reference grid is subtle.
+
+Current version remains too visible.
+
+---
+
+## 8. NAVBAR
+
+Still not identical.
+
+Match:
+
+* height
+* blur
+* opacity
+* border color
+* spacing between menu items
+* search positioning
+
+exactly.
+
+---
+
+## 9. TYPOGRAPHY
+
+Headline is closer but still not perfect.
+
+Match EXACTLY:
+
+* Cairo weight
+* letter spacing
+* line height
+* line breaks
+* line widths
+
+Compare letter-by-letter.
+
+Reference wins.
+
+Copy it.
+
+---
+
+## 10. OVERALL VISUAL BALANCE
+
+The entire hero must be judged as a silhouette.
+
+When looking from far away:
+
+Reference and Mockup should look nearly identical.
+
+Current version still reveals differences immediately.
+
+Fix balance.
+
+---
+
+# IMPLEMENTATION LOCK
+
+NO HeroV4.tsx
+
+NO marketplace code
+
+NO production changes
+
+NO commits
+
+NO deployment
+
+ONLY HeroMockup canvas.
+
+---
+
+# APPROVAL REQUIREMENT
+
+After fixes:
+
+Generate a side-by-side validation table.
+
+For every section:
+
+* Headline
+* Search bar
+* Navbar
+* Image panel
+* Floating cards
+* CTA buttons
+* Statistics row
+* Grid
+* Background
+
+Provide:
+
+PASS / FAIL
+
+Do NOT use percentages.
+
+Do NOT say 98% or 99%.
+
+Only report PASS if the visual difference is genuinely difficult to notice side-by-side.
+
+Keep refining until all sections pass.
+
+Only then ask for approval.

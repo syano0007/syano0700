@@ -1,0 +1,202 @@
+SYANO (سوق سوريا)
+
+PRODUCTS PAGE CARD REPLACEMENT TASK
+
+IMPORTANT:
+
+Do NOT redesign the Products Page cards.
+
+Do NOT create a new card implementation.
+
+Do NOT attempt to visually imitate the Homepage cards.
+
+Instead:
+
+Use the exact same card component currently used in the Homepage "Trending Products" section.
+
+---
+
+PRIMARY OBJECTIVE
+
+The Trending Products card on Homepage is the approved and canonical product card design for the SYANO marketplace.
+
+The Products Page must use the exact same implementation.
+
+No visual recreation.
+
+No parallel card systems.
+
+No duplicated styling.
+
+---
+
+TASK
+
+Locate the card component currently rendered inside:
+
+Homepage
+→ Trending Products Section
+
+Identify:
+
+* Component file
+* Styling source
+* Variants
+* Shared utilities
+* Rating logic
+* Price logic
+* Currency logic
+* Badge logic
+* Wishlist logic
+* Cart logic
+
+---
+
+REFACTOR REQUIREMENT
+
+Replace the Products Page card implementation.
+
+Do NOT maintain a separate visual card.
+
+Products Page should directly render the same card component used by Trending Products.
+
+Example:
+
+Before:
+
+<ProductsCard />
+
+After:
+
+<TrendingProductCard />
+
+or
+
+<ProductCard variant="trending" />
+
+depending on project architecture.
+
+---
+
+STRICT REQUIREMENT
+
+The Products Page card must inherit:
+
+✓ Image layout
+
+✓ Aspect ratio
+
+✓ Typography
+
+✓ Product title styling
+
+✓ Rating display
+
+✓ Review count display
+
+✓ Badge system
+
+✓ Pricing hierarchy
+
+✓ Old price display
+
+✓ Discount display
+
+✓ Add button
+
+✓ Hover animation
+
+✓ Border radius
+
+✓ Shadows
+
+✓ Motion effects
+
+✓ Responsive behavior
+
+✓ RTL behavior
+
+✓ Currency behavior
+
+✓ Translation behavior
+
+---
+
+DO NOT RECREATE
+
+Do not:
+
+* rewrite card CSS
+* copy styles manually
+* build a similar version
+* approximate the design
+
+Reuse the existing implementation directly.
+
+---
+
+DATA MAPPING
+
+If Products Page data shape differs from Trending Products data shape:
+
+Create an adapter layer.
+
+Map Products Page API data into the structure expected by the Trending Products card.
+
+Preserve:
+
+* API compatibility
+* database compatibility
+* currency conversion
+* translations
+
+---
+
+VALIDATION
+
+After implementation verify:
+
+Homepage Trending Card
+
+and
+
+Products Page Card
+
+are rendered from the same source component.
+
+---
+
+SUCCESS CRITERIA
+
+✓ One card system
+
+✓ One source of truth
+
+✓ No duplicated card implementations
+
+✓ Products Page visually identical to Trending Products
+
+✓ Ratings visible
+
+✓ Proper price hierarchy
+
+✓ Consistent typography
+
+✓ Consistent spacing
+
+✓ Consistent hover effects
+
+✓ Consistent responsiveness
+
+✓ No regressions
+
+---
+
+FINAL GOAL
+
+A user should not be able to distinguish between:
+
+* Homepage Trending Products Cards
+* Products Page Product Cards
+
+because both are rendered from the exact same component and design system implementation.

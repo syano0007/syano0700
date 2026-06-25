@@ -1,0 +1,196 @@
+STOP.
+
+There is a visual consistency issue in the Navbar.
+
+The Notification button does not match the rest of the action icons.
+
+This task is ONLY about the Notification icon/button.
+
+Do NOT modify anything else.
+
+Do NOT redesign the Navbar.
+
+Do NOT change layout.
+
+Do NOT change spacing.
+
+Do NOT touch other components.
+
+---
+
+# CURRENT PROBLEM
+
+The Notification button has a different visual style from the other action buttons.
+
+This breaks the design system.
+
+Users should immediately recognize it as part of the same icon group.
+
+---
+
+# DESIGN REFERENCE
+
+Use the existing buttons as the source of truth:
+
+* Cart button
+* Wishlist button
+* Messages button
+* Settings button
+
+The Notification button must look like it belongs to this exact family.
+
+---
+
+# REQUIRED
+
+Match EXACTLY:
+
+* width
+* height
+* border radius
+* padding
+* icon sizing
+* icon alignment
+* background color
+* hover state
+* active state
+* border style
+* shadow style
+* transition behavior
+
+---
+
+# UNREAD BADGE
+
+If unread notifications exist:
+
+Display badge.
+
+But:
+
+The badge must integrate naturally.
+
+Do NOT make it oversized.
+
+Do NOT use a different design language.
+
+Badge styling should match existing counter badges used elsewhere in the Navbar.
+
+---
+
+# LIGHT THEME
+
+Verify:
+
+* background
+* border
+* hover state
+* icon color
+* badge color
+
+must match the other action buttons.
+
+---
+
+# DARK THEME
+
+Verify:
+
+* background
+* border
+* hover state
+* icon color
+* badge color
+
+must match the other action buttons.
+
+---
+
+# RTL VALIDATION
+
+Verify:
+
+Arabic layout.
+
+Notification button must align correctly with:
+
+* Messages
+* Wishlist
+* Cart
+* Settings
+
+No spacing inconsistencies.
+
+---
+
+# RESPONSIVE VALIDATION
+
+Verify:
+
+Desktop
+
+Tablet
+
+Mobile
+
+Notification button must remain visually identical to the rest of the action icons.
+
+---
+
+# NAVBAR CONSISTENCY AUDIT
+
+After implementation:
+
+Compare:
+
+Notification
+
+Messages
+
+Wishlist
+
+Cart
+
+Settings
+
+They must use:
+
+* identical container style
+* identical dimensions
+* identical interaction states
+
+The only difference should be the icon itself and unread badge.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Notification button matches Cart button
+
+✅ Notification button matches Wishlist button
+
+✅ Notification button matches Messages button
+
+✅ Notification button matches Settings button
+
+✅ Badge works
+
+✅ Light theme verified
+
+✅ Dark theme verified
+
+✅ Desktop verified
+
+✅ Tablet verified
+
+✅ Mobile verified
+
+✅ RTL verified
+
+✅ No layout changes
+
+✅ No Navbar redesign
+
+Do not finish until the Notification button is visually indistinguishable from the other Navbar action buttons.

@@ -1,0 +1,145 @@
+import React from 'react';
+
+const showcaseData = {
+  mainFeature: {
+    title: "منظومة صالة المعيشة الذكية",
+    subtitle: "The Smart Living Lounge",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1200&auto=format&fit=crop", 
+    hotspots: [
+      { text: "ديكور معاصر", top: "52%", right: "65%" },
+      { text: "أتمتة منزلية", top: "62%", right: "45%" },
+      { text: "تجربة ترفيهية", top: "72%", right: "52%" }
+    ],
+    link: "/category/living-room"
+  },
+  subFeatures: [
+    {
+      title: "الصحة والعافية",
+      subtitle: "Wellness & Fitness",
+      tags: ["تدريب ذكي", "تغذية طبيعية", "عناية متكاملة"],
+      image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop",
+      link: "/category/wellness"
+    },
+    {
+      title: "أزياء الأطفال والمناسبات",
+      subtitle: "Special Occasions & Kids Wear",
+      tags: ["ألعاب ذكية", "تفصيل فاخر"],
+      image: "https://images.unsplash.com/photo-1539248443280-14af3191726d?q=80&w=600&auto=format&fit=crop",
+      link: "/category/kids"
+    }
+  ]
+};
+
+export const HeroShowcase: React.FC = () => {
+  return (
+    // الخلفية الزيتية العميقة الفاخرة المأخوذة من التصميم الأصلي مباشرة
+    <section className="relative w-full bg-gradient-to-br from-[#14231a] via-[#1a2e22] to-[#111c15] py-12 px-4 md:px-8 lg:px-16 overflow-hidden min-h-[620px] flex items-center shadow-inner">
+      
+      {/* الخطوط الانسيابية الذهبية والبيضاء الفاخرة الممتدة عبر القسم */}
+      <div className="absolute inset-0 w-full h-full opacity-30 pointer-events-none z-0">
+        <svg className="w-full h-full" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-100,300 C300,100 600,500 1100,200 C1400,50 1500,400 1700,300" stroke="#a3b899" strokeWidth="1.5" fill="none" />
+          <path d="M-50,350 C350,150 650,550 1150,250 C1450,100 1550,450 1750,350" stroke="#ffffff" strokeWidth="0.5" strokeDasharray="8 4" fill="none" />
+          <path d="M100,700 C500,500 800,800 1300,550" stroke="#a3b899" strokeWidth="1" fill="none" />
+        </svg>
+      </div>
+
+      {/* عناصر أوراق الشجر النباتية الشفافة المدمجة في الزوايا لتطابق الصورة */}
+      <div className="absolute -top-10 -right-10 w-64 h-64 pointer-events-none opacity-20 z-10 transform scale-x-[-1] rotate-45">
+        <svg fill="#a3b899" viewBox="0 0 24 24"><path d="M17,8C15.3,8 13,9.6 11,11C9,12.4 7,14 5.3,14C4.3,14 3.3,13.7 2.4,13.2C3,15.6 5,18.1 7.4,19.3C9.8,20.5 12.5,20.1 14.7,18.5C16.9,16.9 18.1,14.3 18.5,11.5C18.9,8.7 18.2,5.7 17,3C17.3,4.7 17.3,6.4 17,8Z"/></svg>
+      </div>
+      <div className="absolute -bottom-10 -left-10 w-64 h-64 pointer-events-none opacity-15 z-10 transform -rotate-45">
+        <svg fill="#a3b899" viewBox="0 0 24 24"><path d="M17,8C15.3,8 13,9.6 11,11C9,12.4 7,14 5.3,14C4.3,14 3.3,13.7 2.4,13.2C3,15.6 5,18.1 7.4,19.3C9.8,20.5 12.5,20.1 14.7,18.5C16.9,16.9 18.1,14.3 18.5,11.5C18.9,8.7 18.2,5.7 17,3C17.3,4.7 17.3,6.4 17,8Z"/></svg>
+      </div>
+
+      {/* حاوية شبكية مرنة تضمن بقاء الكرت الكبير على اليسار والصغيرة على اليمين */}
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 w-full relative z-10" dir="ltr">
+        
+        {/* 1. الكرت الرئيسي الكبير (صالة المعيشة / المطبخ) */}
+        <div 
+          onClick={() => window.location.href = showcaseData.mainFeature.link}
+          className="w-full lg:w-2/3 relative overflow-hidden rounded-[2.5rem] h-[380px] md:h-[480px] lg:h-[540px] shadow-[0_30px_60px_rgba(0,0,0,0.4)] group cursor-pointer border border-white/10 transition-all duration-500 hover:-translate-y-1"
+        >
+          <img 
+            src={showcaseData.mainFeature.image} 
+            alt={showcaseData.mainFeature.title}
+            className="absolute inset-0 object-cover w-full h-full transition-transform duration-1000 group-hover:scale-103"
+          />
+          {/* التدرج الداكن العالي النقاء لظهور النصوص بوضوح */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+
+          {/* العنوان والنص الفرعي ممركزين في أعلى المنتصف/اليمين بدقة */}
+          <div className="absolute top-10 left-6 right-6 text-center z-20 flex flex-col gap-1" dir="rtl">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-white tracking-wide drop-shadow-md">
+              {showcaseData.mainFeature.title}
+            </h2>
+            <p className="text-xs md:text-sm font-medium text-gray-300 uppercase tracking-widest opacity-90">
+              {showcaseData.mainFeature.subtitle}
+            </p>
+          </div>
+
+          {/* الكبسولات التفاعلية العائمة فوق قطع الأثاث تماماً كالصورة الأصلية */}
+          {showcaseData.mainFeature.hotspots.map((spot, idx) => (
+            <div 
+              key={idx}
+              style={{ top: spot.top, [window.innerWidth > 768 ? 'right' : 'left']: spot.right }}
+              className="absolute z-20 hidden md:block transform translate-x-1/2"
+              dir="rtl"
+            >
+              <span className="bg-black/30 backdrop-blur-xl border border-white/20 text-white text-[11px] px-4 py-2 rounded-full shadow-lg whitespace-nowrap">
+                • {spot.text}
+              </span>
+            </div>
+          ))}
+          
+          {/* كبسولات احتياطية تظهر في أسفل الشاشات الصغيرة فقط لعدم تشتيت التصميم */}
+          <div className="absolute bottom-6 right-6 flex md:hidden flex-wrap gap-2 z-20" dir="rtl">
+            {showcaseData.mainFeature.hotspots.map((spot, idx) => (
+              <span key={idx} className="bg-black/40 backdrop-blur-md border border-white/10 text-white text-[10px] px-3 py-1 rounded-full">
+                {spot.text}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* 2. العمود الجانبي المكدس (الكروت الصغرى لليمين) */}
+        <div className="w-full lg:w-1/3 flex flex-col gap-6 min-h-[540px]">
+          {showcaseData.subFeatures.map((item, index) => (
+            <div 
+              key={index}
+              onClick={() => window.location.href = item.link}
+              className="flex-1 relative overflow-hidden rounded-[2.5rem] min-h-[250px] shadow-[0_25px_50px_rgba(0,0,0,0.3)] group cursor-pointer border border-white/10 transition-all duration-500 hover:-translate-y-1"
+            >
+              <img 
+                src={item.image} 
+                alt={item.title}
+                className="absolute inset-0 object-cover w-full h-full transition-transform duration-1000 group-hover:scale-103"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30" />
+
+              {/* نصوص الكروت الفرعية */}
+              <div className="absolute top-8 left-6 right-6 text-center z-20 flex flex-col gap-1" dir="rtl">
+                <h3 className="text-xl md:text-2xl font-black text-white drop-shadow-sm">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] md:text-xs font-light text-gray-300 uppercase tracking-widest">
+                  {item.subtitle}
+                </p>
+              </div>
+
+              {/* كبسولات الوسوم السفلية الفاخرة */}
+              <div className="absolute bottom-6 left-4 right-4 flex flex-wrap gap-2 justify-center z-20" dir="rtl">
+                {item.tags.map((tag, idx) => (
+                  <span key={idx} className="bg-white/10 backdrop-blur-md border border-white/10 text-white font-medium text-[10px] md:text-[11px] px-3.5 py-1.5 rounded-xl">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+};

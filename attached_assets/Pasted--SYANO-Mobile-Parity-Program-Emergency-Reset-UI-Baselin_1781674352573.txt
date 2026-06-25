@@ -1,0 +1,306 @@
+# SYANO Mobile Parity Program — Emergency Reset & UI Baseline Correction
+
+## CRITICAL INSTRUCTION
+
+STOP all new mobile feature development immediately.
+
+Do NOT start:
+
+* M2 Seller Dashboard
+* M3 Courier Systems
+* M4 Customer Systems
+* M5 Notifications
+* M6 Admin
+* M7 Final Polish
+
+Until this audit and correction phase is fully completed.
+
+---
+
+# PROBLEM
+
+The mobile application is not currently a true mobile version of the web platform.
+
+The project goal is:
+
+> Mobile App = Native wrapper around the exact SYANO experience.
+
+A user should not feel they are using a different product.
+
+Right now there are clear signs that mobile contains:
+
+* outdated screens
+* old designs
+* legacy layouts
+* components that no longer exist on web
+* duplicated UI logic
+* custom mobile implementations that diverge from web
+
+Example:
+
+Current login screen shown in mobile preview is NOT the current SYANO login experience.
+
+The web version has evolved significantly.
+
+The mobile app is visually behind.
+
+This is unacceptable.
+
+---
+
+# OBJECTIVE
+
+Before building any additional parity features:
+
+Perform a COMPLETE parity audit between:
+
+```text
+artifacts/marketplace
+```
+
+and
+
+```text
+artifacts/mobile-app
+```
+
+and establish a clean baseline.
+
+---
+
+# PHASE M0.5 — WEB IS SOURCE OF TRUTH
+
+New permanent rule:
+
+```text
+WEB = SOURCE OF TRUTH
+```
+
+Mobile must follow web.
+
+Never the opposite.
+
+If web and mobile differ:
+
+Web wins.
+
+Always.
+
+---
+
+# PHASE M0.6 — AUTH SYSTEM AUDIT
+
+Audit ALL authentication screens.
+
+Compare:
+
+Web:
+
+* Login
+* Register
+* Forgot Password
+* Verification Flows
+* Role Selection
+* Redirect Behavior
+
+Against mobile equivalents.
+
+For every mismatch:
+
+Document it.
+
+Then fix it.
+
+---
+
+# PHASE M0.7 — LOGIN SCREEN REBUILD
+
+The current mobile login screen must be compared pixel-by-pixel against the current web login experience.
+
+Requirements:
+
+* Same structure
+* Same branding
+* Same spacing
+* Same typography hierarchy
+* Same colors
+* Same buttons
+* Same role selection behavior
+* Same validation UX
+* Same error handling
+* Same loading states
+
+Do NOT keep old mobile-only designs.
+
+Replace them.
+
+---
+
+# PHASE M0.8 — DESIGN TOKEN UNIFICATION
+
+Create a single source of design values.
+
+Verify mobile uses the same:
+
+* colors
+* radius
+* shadows
+* spacing scale
+* typography scale
+* icon sizing
+* badges
+* chips
+* cards
+* status colors
+
+as web.
+
+If duplicates exist:
+
+Remove duplication.
+
+Use shared constants.
+
+---
+
+# PHASE M0.9 — SCREEN INVENTORY
+
+Generate a full report.
+
+For EVERY mobile screen:
+
+Determine:
+
+```text
+MATCHES WEB
+PARTIALLY MATCHES
+OUTDATED
+MISSING
+```
+
+Create:
+
+MOBILE_PARITY_STATUS.md
+
+with percentages.
+
+---
+
+# PHASE M0.10 — COMPONENT INVENTORY
+
+Audit all major UI components.
+
+Examples:
+
+* ProductCard
+* SellerCard
+* ReviewCard
+* RatingStars
+* SearchBar
+* Filters
+* Bottom Sheets
+* Modals
+* Empty States
+* Error States
+* Loading Skeletons
+* Profile Cards
+
+Compare against web versions.
+
+List all mismatches.
+
+---
+
+# PHASE M0.11 — ROUTING AUDIT
+
+Compare:
+
+All web routes
+
+vs
+
+All mobile routes.
+
+Generate:
+
+```text
+ROUTE_PARITY_REPORT.md
+```
+
+Show:
+
+* Existing
+* Missing
+* Outdated
+
+---
+
+# PHASE M0.12 — DO NOT BUILD NEW FEATURES YET
+
+Do NOT implement new seller, courier, customer, notification, admin, or loyalty features during this phase.
+
+This phase is:
+
+```text
+Audit
+Fix
+Normalize
+Synchronize
+```
+
+Only.
+
+---
+
+# PHASE M0.13 — RECOVERY DOCUMENTATION
+
+After completion update ALL recovery files:
+
+* replit.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+
+Add:
+
+```text
+Mobile Baseline Correction Completed
+```
+
+Include:
+
+* screens fixed
+* components synchronized
+* auth parity status
+* remaining parity gaps
+
+---
+
+# VALIDATION
+
+Before marking complete verify:
+
+✅ Login screen matches current web version
+
+✅ Register screen matches current web version
+
+✅ Auth flows match web
+
+✅ Design tokens unified
+
+✅ No legacy mobile-only auth UI remains
+
+✅ Web is documented as source of truth
+
+✅ Screen inventory generated
+
+✅ Component inventory generated
+
+✅ Route inventory generated
+
+✅ Recovery files updated
+
+Do NOT continue to M2 until every item above is verified.

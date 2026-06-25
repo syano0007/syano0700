@@ -1,0 +1,268 @@
+⚠️ CRITICAL NOTE — READ BEFORE DOING ANYTHING:
+The Embedding Service is intentionally running on TF-IDF fallback mode.
+Do NOT install sentence-transformers. Do NOT install torch. Do NOT download any model files.
+Do NOT run any pip install command related to ML/AI libraries.
+The TF-IDF fallback is sufficient for all development sessions.
+The full model will only be installed once, during final pre-launch testing.
+Treat the Embedding Service as FROZEN — do not touch it.
+
+This is a critical session-end task. Execute every step completely and in order. Do not skip any step. Do not summarize. Show full output for every step.
+
+═══════════════════════════════════════
+PART 1 — FIX AND VERIFY OTP FLOW
+═══════════════════════════════════════
+
+STEP 1.1 — Verify environment variables are loaded:
+Run a Node.js inline script (node -e "...") that prints:
+  - process.env.ENABLE_EMAIL_VERIFICATION
+  - "RESEND_API_KEY loaded: " + (!!process.env.RESEND_API_KEY)
+  - "EMAIL_FROM: " + process.env.EMAIL_FROM
+
+If ENABLE_EMAIL_VERIFICATION is undefined → restart the API Server workflow, then retry this step until it prints "true".
+If RESEND_API_KEY is false → restart the API Server workflow, then retry until it prints true.
+Do not proceed to STEP 1.2 until both are confirmed.
+
+STEP 1.2 — Test OTP registration end-to-end:
+Send POST /api/auth/register with:
+  - email: syano.otp.test.final@gmail.com
+  - password: Test1234!
+  - name: OTP Final Test
+
+Expected behavior:
+  - Response must NOT contain a JWT token
+  - Response must contain { requiresVerification: true } or equivalent
+  - If a JWT is returned → ENABLE_EMAIL_VERIFICATION is not being read correctly in auth.ts — debug line by line until fixed
+
+Show: full raw API response body
+Show: Resend API response (email ID or error object)
+Show: all server logs generated during this request
+
+STEP 1.3 — Verify OTP email was sent:
+Confirm Resend returned a successful email ID (not an error).
+If Resend returned an error → show the full error and fix it before continuing.
+
+STEP 1.4 — Clean up:
+Delete the test user syano.otp.test.final@gmail.com from the database.
+Confirm deletion with a SELECT query.
+
+═══════════════════════════════════════
+PART 2 — BULLETPROOF RECOVERY SYSTEM
+═══════════════════════════════════════
+
+STEP 2.1 — Read all existing recovery files before writing anything:
+Read and print the current contents of:
+  - CURRENT_STATE.md
+  - PROJECT_STATUS.md
+  - RECOVERY_GUIDE.md
+  - replit.md (or README.md or AGENT.md — whichever exists)
+
+STEP 2.2 — Overwrite CURRENT_STATE.md with exactly this content (no additions, no omissions):
+
+# SYANO — Current State
+Last updated: June 16, 2026
+
+## Project Identity
+- Name: SYANO — سوق سوريا
+- Type: Multi-vendor marketplace
+- Domain: syanomarket.online
+- GitHub: https://github.com/syano0007/syano07007
+- Status: Pre-launch — Phase 11 in progress
+
+## Active Phase
+Phase 11 — Launch Preparation
+Completed: Prompts 1, 2, 3, 4, 5, 6, 7
+Remaining: Prompt 8 (SEO Layer), Prompt 9 (Accessibility), Prompt 10 (Performance Baseline)
+
+## Last Session Work — June 16, 2026
+1. Resend email service — artifacts/api-server/src/services/emailService.ts
+   - sendWelcomeEmail() ✅
+   - sendPasswordResetEmail() ✅
+   - sendOtpEmail() ✅ — routes through verification.ts → dispatchOtp()
+   - resend npm package installed via pnpm
+   - Lazy initialization — graceful degradation if RESEND_API_KEY is missing
+
+2. Domain syanomarket.online verified on Resend:
+   - DKIM ✅  SPF ✅  MX ✅
+
+3. Email OTP verification on registration:
+   - DB columns added: users.email_otp, users.email_otp_expires_at, users.email_verified
+   - POST /api/auth/register → sends OTP email when ENABLE_EMAIL_VERIFICATION=true
+   - POST /api/auth/verify-email → verifies OTP, issues JWT
+   - POST /api/auth/resend-otp → resends OTP (60s rate limit enforced)
+   - Frontend OTP verification screen added
+
+4. Required Replit Secrets — ALL must be set before starting:
+   SESSION_SECRET
+   RESEND_API_KEY
+   EMAIL_FROM              = noreply@syanomarket.online
+   CORS_ORIGIN             = https://syanomarket.online
+   SITE_URL                = https://syanomarket.online
+   ROOT_ADMIN_PASSWORD
+   VAPID_EMAIL             = mailto:admin@syanomarket.online
+   VAPID_PRIVATE_KEY
+   VAPID_PUBLIC_KEY
+   VITE_SUPPORT_PHONE
+   EMBEDDING_SERVICE_URL   = http://localhost:8001
+   ENABLE_EMAIL_VERIFICATION = true
+
+5. Embedding Service:
+   - Status: Running on TF-IDF fallback — INTENTIONAL
+   - Do NOT install sentence-transformers or torch during development
+   - Full model (449MB) will be installed once during final pre-launch testing only
+   - Model: paraphrase-multilingual-MiniLM-L12-v2 (384 dimensions)
+
+## Database State
+- 33 tables, fully migrated
+- 42 products with vector embeddings
+- pgvector enabled — vector(384) on products table
+- Additive-only migrations — never drop or alter columns
+
+## Test Accounts
+- Admin:   delewatiamer7@gmail.com
+- Seller:  delewatiamer8@gmail.com
+- Courier: delewatiamer9@gmail.com
+
+STEP 2.3 — Overwrite RECOVERY_GUIDE.md with exactly this content:
+
+# SYANO — Recovery Guide
+Last updated: June 16, 2026
+
+## HOW TO RECOVER ON A NEW REPLIT ACCOUNT
+
+### Step 1 — Set all Secrets
+Go to Replit → Secrets and confirm every one of these is set:
+  SESSION_SECRET
+  RESEND_API_KEY
+  EMAIL_FROM              = noreply@syanomarket.online
+  CORS_ORIGIN             = https://syanomarket.online
+  SITE_URL                = https://syanomarket.online
+  ROOT_ADMIN_PASSWORD
+  VAPID_EMAIL             = mailto:admin@syanomarket.online
+  VAPID_PRIVATE_KEY
+  VAPID_PUBLIC_KEY
+  VITE_SUPPORT_PHONE
+  EMBEDDING_SERVICE_URL   = http://localhost:8001
+  ENABLE_EMAIL_VERIFICATION = true
+
+### Step 2 — Start all three workflows
+These three workflows must all be running:
+  - API Server          → port 8080
+  - Marketplace (web)   → port 5000
+  - Embedding Service   → port 8001
+
+If any is stopped → restart it and wait for it to fully start before continuing.
+
+### Step 3 — Push database schema
+Run: cd artifacts/api-server && npx drizzle-kit push
+This is safe to run multiple times — additive only, never destructive.
+
+### Step 4 — Verify all three services are healthy
+  GET http://localhost:8080/api/healthz  → must return { "status": "ok" }
+  GET http://localhost:5000              → must return HTTP 200
+  GET http://localhost:8001/health       → must return { "status": "ok" }
+
+### Step 5 — Read CURRENT_STATE.md
+Read CURRENT_STATE.md in full to know exactly where development stopped.
+
+## EMAIL SERVICE
+- Provider: Resend (resend.com)
+- Verified domain: syanomarket.online (DKIM ✅ SPF ✅ MX ✅)
+- From address: noreply@syanomarket.online
+- Required secrets: RESEND_API_KEY, EMAIL_FROM
+- Service file: artifacts/api-server/src/services/emailService.ts
+- OTP flow: POST /api/auth/register → OTP email → POST /api/auth/verify-email → JWT
+
+## EMBEDDING SERVICE
+- Status on startup: TF-IDF fallback — this is correct and intentional
+- Do NOT install sentence-transformers or torch during any development session
+- Do NOT download model files during development
+- Only before final production launch:
+    pip install --no-cache-dir sentence-transformers torch==2.4.0+cpu --index-url https://download.pytorch.org/whl/cpu
+    Then restart the Embedding Service workflow
+    Then run: cd artifacts/api-server && npm run embed:generate
+
+## ARCHITECTURE RULES — NEVER VIOLATE
+- No `any` TypeScript type — 0 errors mandatory
+- No dropping or altering existing DB columns — additive migrations only
+- No breaking existing API response shapes — add optional fields only
+- No hardcoded visible text — all strings via i18n (ar.json / en.json)
+- No redesigning existing pages or components
+- All components must work in all four combinations: AR RTL + EN LTR × dark + light
+- Mobile minimum width: 375px
+- Use logical Tailwind classes: ms- not ml-, ps- not pl-, start- not left-
+
+STEP 2.4 — Update PROJECT_STATUS.md:
+Prepend exactly this block at the very top of the file (do not replace the rest):
+
+# SYANO — Project Status
+Last updated: June 16, 2026
+
+## Phase 11 — Launch Preparation
+- Prompt 1  — Launch Readiness Audit     ✅ Complete
+- Prompt 2  — Critical & High Fixes      ✅ Complete
+- Prompt 3  — Error Handling Layer       ✅ Complete
+- Prompt 4  — Data Quality               ✅ Complete
+- Prompt 5  — Mobile Readiness           ✅ Complete
+- Prompt 6  — Security Review            ✅ Complete
+- Prompt 7  — Email OTP Verification     ✅ Complete
+- Prompt 8  — SEO Layer                  ⏳ Next
+- Prompt 9  — Accessibility              ⏳ Not started
+- Prompt 10 — Performance Baseline       ⏳ Not started
+
+---
+
+STEP 2.5 — Update replit.md (or README.md — whichever exists at root):
+Prepend exactly this block at the very top:
+
+# SYANO — syanomarket.online
+Last verified working: June 16, 2026
+Workflows: API Server ✅ | Marketplace ✅ | Embedding Service ✅ (TF-IDF mode)
+Secrets: All 12 loaded ✅
+Email OTP: Verified end-to-end ✅
+Next task: Phase 11 — Prompt 8 — SEO Layer
+
+---
+
+═══════════════════════════════════════
+PART 3 — FINAL VERIFICATION
+═══════════════════════════════════════
+
+STEP 3.1 — TypeScript check — zero errors required:
+Run: cd artifacts/api-server && npx tsc --noEmit
+Run: cd artifacts/marketplace && npx tsc --noEmit
+If any errors exist → fix every single one before continuing.
+Show full output of both commands.
+
+STEP 3.2 — Health check all three services:
+GET http://localhost:8080/api/healthz  → expect { "status": "ok" }
+GET http://localhost:5000              → expect HTTP 200
+GET http://localhost:8001/health       → expect { "status": "ok" }
+Show the actual response for each.
+
+STEP 3.3 — Confirm recovery files were written correctly:
+Print the full contents of:
+  - CURRENT_STATE.md
+  - RECOVERY_GUIDE.md
+  - PROJECT_STATUS.md (first 30 lines)
+
+STEP 3.4 — Print final summary table:
+Show a table with every check performed in this session:
+
+| Check | Expected | Actual | Status |
+|---|---|---|---|
+| ENABLE_EMAIL_VERIFICATION | "true" | ? | ✅/❌ |
+| RESEND_API_KEY loaded | true | ? | ✅/❌ |
+| OTP registration response | requiresVerification:true | ? | ✅/❌ |
+| Resend email sent | email ID returned | ? | ✅/❌ |
+| Test user cleaned up | deleted | ? | ✅/❌ |
+| CURRENT_STATE.md written | ✅ | ? | ✅/❌ |
+| RECOVERY_GUIDE.md written | ✅ | ? | ✅/❌ |
+| PROJECT_STATUS.md updated | ✅ | ? | ✅/❌ |
+| replit.md updated | ✅ | ? | ✅/❌ |
+| API Server TypeScript | 0 errors | ? | ✅/❌ |
+| Marketplace TypeScript | 0 errors | ? | ✅/❌ |
+| API Server health | 200 OK | ? | ✅/❌ |
+| Marketplace health | 200 OK | ? | ✅/❌ |
+| Embedding Service health | 200 OK | ? | ✅/❌ |
+
+If any row shows ❌ → fix it immediately. Do not finish until every row is ✅.

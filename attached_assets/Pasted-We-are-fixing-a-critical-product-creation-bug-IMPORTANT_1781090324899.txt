@@ -1,0 +1,141 @@
+We are fixing a critical product creation bug.
+
+IMPORTANT:
+
+Do NOT redesign anything.
+Do NOT touch layout.
+Do NOT modify styling.
+Do NOT refactor unrelated code.
+Do NOT work on variants, specifications, desktop width, or dropdowns.
+
+Focus ONLY on the publish failure.
+
+PROBLEM
+
+Creating a product fails during publish.
+
+Error:
+
+Expected number, received string
+
+The product is not created.
+
+GOAL
+
+Find the exact root cause and permanently fix it.
+
+PHASE 1 — ROOT CAUSE ANALYSIS
+
+Do NOT guess.
+
+Trace the complete submission flow:
+
+ProductWizard
+→ new.tsx
+→ form state
+→ API client
+→ validation schema
+→ API route
+→ database insert
+
+Inspect every field being submitted.
+
+Identify:
+
+* Which field is expected as number
+* Which field is arriving as string
+* Where conversion should happen
+* Why validation is failing
+
+Check all numeric fields including:
+
+* price
+* salePrice
+* stock
+* quantity
+* weight
+* dimensions
+* variant prices
+* variant stock
+* specification values if relevant
+
+PHASE 2 — DEBUG LOGGING
+
+Add temporary debugging.
+
+Before validation log:
+
+* raw payload
+* payload types
+* transformed payload
+
+Determine the exact field causing the failure.
+
+Do not stop until the exact field is identified.
+
+PHASE 3 — FIX
+
+Implement the smallest safe fix.
+
+Requirements:
+
+* Numbers must always arrive as numbers
+* Empty values must be handled safely
+* Optional numeric fields must remain optional
+* Existing products must continue working
+* Variant products must continue working
+* Non-variant products must continue working
+
+Do not introduce breaking changes.
+
+PHASE 4 — VALIDATION
+
+Test:
+
+1. Simple product
+
+* name
+* price
+* stock
+
+Publish successfully.
+
+2. Product with sale price
+
+Publish successfully.
+
+3. Product with variants
+
+Publish successfully.
+
+4. Product without variants
+
+Publish successfully.
+
+5. Product edit page
+
+Still works.
+
+PHASE 5 — REPORT
+
+Provide:
+
+1. Exact root cause
+2. File
+3. Line
+4. Failing field
+5. Why it failed
+6. Fix applied
+7. Verification results
+
+IMPORTANT
+
+Do not move to any other issue.
+
+Do not modify UI.
+
+Do not redesign ProductWizard.
+
+Do not touch Variants layout.
+
+Fix ONLY the publish failure until product creation succeeds reliably.

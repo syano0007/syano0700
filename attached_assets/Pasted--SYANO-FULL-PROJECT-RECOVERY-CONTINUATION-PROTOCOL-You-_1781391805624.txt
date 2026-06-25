@@ -1,0 +1,320 @@
+# SYANO — FULL PROJECT RECOVERY & CONTINUATION PROTOCOL
+
+You are joining an EXISTING production-scale marketplace project.
+
+Project name:
+
+SYANO (سوق سوريا)
+
+This is NOT a new project.
+Do NOT redesign anything.
+Do NOT create a new architecture.
+Do NOT assume documentation is correct until verified.
+
+Your first and only task is COMPLETE RECOVERY and VALIDATION of the current project state.
+
+---
+
+## PHASE 1 — READ ALL RECOVERY FILES
+
+Before touching any code, read ALL recovery and memory files.
+
+Required files:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+RECOVERY_COMPLETE.md
+CHANGELOG.md
+AUDIT_REPORT.md
+
+docs/*
+recovery/*
+memory/*
+.agents/memory/*
+project-memory/*
+
+Read everything completely.
+
+Build an understanding of:
+
+* current homepage version
+* current navbar version
+* theme system
+* language system
+* currency system
+* API architecture
+* database architecture
+* seller systems
+* courier systems
+* admin systems
+* wishlist system
+* cart system
+* mobile app
+
+Do NOT start implementation before reading.
+
+---
+
+## PHASE 2 — RECOVER ENVIRONMENT
+
+Verify:
+
+pnpm-lock.yaml
+package.json
+workspace configuration
+shared libraries
+
+Install dependencies.
+
+Build all shared packages.
+
+Required:
+
+pnpm install
+
+Build:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+
+Resolve any dependency issue found.
+
+---
+
+## PHASE 3 — DATABASE RECOVERY
+
+Verify database configuration.
+
+Run all required schema and migration steps.
+
+Validate:
+
+* tables
+* enums
+* indexes
+* foreign keys
+
+Confirm database integrity.
+
+Verify existence of:
+
+users
+products
+orders
+categories
+delivery_zones
+seller_applications
+couriers
+reviews
+notifications
+messages
+conversations
+wishlists
+hero_banners
+
+and every production table.
+
+Report actual counts.
+
+Do not rely on documentation.
+
+Use real database inspection.
+
+---
+
+## PHASE 4 — START ALL SERVICES
+
+Start:
+
+1. API Server
+2. Marketplace (Vite)
+3. Mobile (Expo)
+
+All services must be running simultaneously.
+
+Verify:
+
+API:
+
+GET /api/healthz
+
+Must return OK.
+
+Verify no startup crashes.
+
+---
+
+## PHASE 5 — REAL RUNTIME AUDIT
+
+Do NOT perform a documentation audit.
+
+Perform a LIVE audit.
+
+Actually run the system.
+
+Verify:
+
+Homepage
+Navbar
+Theme switching
+Language switching
+Currency switching
+Cart
+Wishlist
+Products
+Categories
+Store pages
+Seller dashboard
+Courier dashboard
+Admin dashboard
+Notifications
+Messaging
+Search
+
+Test real functionality.
+
+---
+
+## PHASE 6 — HOMEPAGE VALIDATION
+
+Determine actual homepage version.
+
+Verify:
+
+* Homepage V7 status
+* Hero implementation
+* Category sections
+* Product sections
+* Store sections
+* Seller CTA
+* Courier CTA
+
+Verify homepage uses REAL API DATA.
+
+No assumptions.
+
+---
+
+## PHASE 7 — WISHLIST VALIDATION
+
+Verify complete wishlist system.
+
+Guest mode:
+
+* Add product
+* Remove product
+* Refresh
+* Persistence
+* Navbar counter
+* Wishlist page
+
+Authenticated mode:
+
+* Add product
+* Remove product
+* API persistence
+* Merge guest wishlist on login
+
+Verify runtime behavior.
+
+---
+
+## PHASE 8 — CART VALIDATION
+
+Verify:
+
+Guest cart
+
+Authenticated cart
+
+Navbar counters
+
+Checkout flow
+
+Cart persistence
+
+Login merge behavior
+
+Use real testing.
+
+---
+
+## PHASE 9 — FIX EVERYTHING FOUND
+
+IMPORTANT:
+
+Do NOT only report problems.
+
+Any issue found must be:
+
+1. Diagnosed
+2. Fixed
+3. Retested
+4. Verified
+
+Includes:
+
+* TypeScript errors
+* Runtime errors
+* Build failures
+* Broken endpoints
+* UI regressions
+* State bugs
+* Data loading issues
+
+Continue until the platform is stable.
+
+---
+
+## PHASE 10 — UPDATE RECOVERY FILES
+
+When recovery is complete update:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+CHANGELOG.md
+
+Update them with REAL verified findings.
+
+Not assumptions.
+
+---
+
+## FINAL REPORT
+
+Provide a complete report containing:
+
+1. Files read
+2. Services started
+3. Database status
+4. Table counts
+5. Product count
+6. Seller count
+7. Store count
+8. Homepage version
+9. Navbar version
+10. Theme status
+11. Language status
+12. Currency status
+13. Wishlist status
+14. Cart status
+15. API status
+16. Mobile status
+17. Bugs found
+18. Bugs fixed
+19. Remaining issues
+20. Final recovery confidence score
+
+Recovery is NOT complete until:
+
+* API is running
+* Marketplace is running
+* Mobile is running
+* Database is verified
+* Runtime testing is completed
+* All discovered issues are fixed
+* Recovery files are updated
+
+Only then continue implementation work.

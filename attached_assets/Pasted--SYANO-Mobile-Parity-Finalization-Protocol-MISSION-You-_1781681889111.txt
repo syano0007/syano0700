@@ -1,0 +1,434 @@
+# SYANO Mobile Parity Finalization Protocol
+
+## MISSION
+
+You are NOT building new features.
+
+You are NOT improving UX.
+
+You are NOT choosing what to work on.
+
+You are NOT estimating parity.
+
+You are NOT creating new roadmaps.
+
+Your only mission is:
+
+**Make the Expo mobile application become a 1:1 implementation of the existing web platform.**
+
+The web platform is the source of truth.
+
+The mobile app must become indistinguishable from the web version in behavior, business logic, permissions, workflows, states, API usage, translations, and visual structure.
+
+---
+
+# ABSOLUTE RULES
+
+## DO NOT
+
+❌ Invent new phases
+
+❌ Create new audits
+
+❌ Create new parity reports
+
+❌ Create new roadmaps
+
+❌ Create new TODO lists
+
+❌ Skip ahead
+
+❌ Choose your own priorities
+
+❌ Add new features that do not already exist on web
+
+❌ Improve things "later"
+
+❌ Stop after a few fixes
+
+❌ Claim percentages without verification
+
+---
+
+# REQUIRED SOURCE FILES
+
+Before touching any code:
+
+Read completely:
+
+```text
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+```
+
+These files are now the official parity authority.
+
+---
+
+# WORKFLOW
+
+You must process parity gaps in the exact order documented.
+
+Do NOT reorder.
+
+Do NOT skip.
+
+Do NOT jump ahead.
+
+---
+
+# EXECUTION METHOD
+
+For EACH missing screen, route, component, workflow, feature, permission, or state:
+
+## STEP 1
+
+Read the web implementation.
+
+Read ALL files involved.
+
+Understand:
+
+* UI
+* UX
+* business logic
+* API usage
+* loading states
+* error states
+* empty states
+* permissions
+* translations
+
+---
+
+## STEP 2
+
+Read the mobile implementation.
+
+Compare line-by-line.
+
+---
+
+## STEP 3
+
+Implement missing functionality.
+
+The mobile version must match web.
+
+---
+
+## STEP 4
+
+Verify.
+
+Do not assume.
+
+Verify.
+
+---
+
+# PARITY REQUIREMENTS
+
+The mobile implementation must match web in:
+
+## UI
+
+Same layout hierarchy.
+
+Same sections.
+
+Same cards.
+
+Same actions.
+
+Same labels.
+
+Same navigation.
+
+---
+
+## UX
+
+Same user flow.
+
+Same interaction flow.
+
+Same confirmations.
+
+Same warnings.
+
+Same success states.
+
+---
+
+## Business Logic
+
+Same conditions.
+
+Same permissions.
+
+Same validations.
+
+Same restrictions.
+
+Same status transitions.
+
+---
+
+## API
+
+Same endpoints.
+
+Same payloads.
+
+Same mutations.
+
+Same queries.
+
+Same filters.
+
+Same pagination.
+
+---
+
+## States
+
+Same:
+
+Loading
+
+Error
+
+Empty
+
+Success
+
+Offline
+
+Unauthorized
+
+Permission denied
+
+Not found
+
+---
+
+## Roles
+
+All role behavior must match web:
+
+### Customer
+
+### Seller
+
+### Courier
+
+### Admin
+
+No exceptions.
+
+---
+
+# AUTH VERIFICATION
+
+Before any further parity work:
+
+Perform complete authentication verification.
+
+Verify:
+
+## Login
+
+Email
+
+Phone
+
+Password
+
+Invalid password
+
+Unknown account
+
+Rate limiting
+
+Suspended account
+
+Session persistence
+
+Logout
+
+Refresh token
+
+---
+
+## Registration
+
+Email registration
+
+Phone registration
+
+Validation
+
+Duplicate email
+
+Duplicate phone
+
+Password rules
+
+---
+
+## Session Restore
+
+Cold launch
+
+App restart
+
+Token restore
+
+Expired token
+
+Invalid token
+
+---
+
+Do not continue until auth is verified.
+
+---
+
+# ROUTE-BY-ROUTE MODE
+
+After auth passes:
+
+Process routes sequentially.
+
+Example:
+
+```text
+Route 1
+Verify
+Fix
+Complete
+
+Route 2
+Verify
+Fix
+Complete
+
+Route 3
+Verify
+Fix
+Complete
+```
+
+Continue until every route in:
+
+```text
+MOBILE_PARITY_AUDIT.md
+```
+
+is complete.
+
+---
+
+# COMPLETION CRITERIA
+
+A route is NOT complete unless:
+
+✅ UI parity
+
+✅ UX parity
+
+✅ Business logic parity
+
+✅ API parity
+
+✅ Loading parity
+
+✅ Error parity
+
+✅ Empty state parity
+
+✅ Permission parity
+
+✅ Translation parity
+
+✅ Navigation parity
+
+---
+
+# NO PERCENTAGES
+
+Do NOT claim:
+
+"85%"
+
+"90%"
+
+"95%"
+
+unless verified route-by-route.
+
+Use only:
+
+```text
+Completed Routes: X / Total Routes: Y
+```
+
+---
+
+# DOCUMENTATION
+
+After EVERY completed route:
+
+Update:
+
+```text
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+```
+
+immediately.
+
+Do not leave documentation outdated.
+
+---
+
+# STOP CONDITION
+
+Do NOT stop because:
+
+* a feature is large
+* a feature is difficult
+* many files are required
+
+Continue until every documented parity gap is eliminated.
+
+The goal is not improvement.
+
+The goal is not approximation.
+
+The goal is:
+
+**WEB = MOBILE**

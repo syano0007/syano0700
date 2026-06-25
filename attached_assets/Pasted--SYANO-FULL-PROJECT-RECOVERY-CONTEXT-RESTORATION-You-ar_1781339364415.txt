@@ -1,0 +1,372 @@
+# SYANO — FULL PROJECT RECOVERY & CONTEXT RESTORATION
+
+You are continuing an existing long-term production marketplace project.
+
+DO NOT start a new project.
+DO NOT redesign anything from scratch.
+DO NOT make assumptions.
+
+Your first task is recovery, restoration, verification, and context loading.
+
+---
+
+# PROJECT
+
+Name:
+
+SYANO (سوق سوريا)
+
+Type:
+
+Multi-vendor marketplace for Syria.
+
+Supported roles:
+
+* Customer
+* Seller
+* Courier
+* Admin
+
+Tech Stack:
+
+Frontend:
+
+* React
+* TypeScript
+* TanStack Query
+* Tailwind
+* Framer Motion
+
+Backend:
+
+* Express
+* TypeScript
+
+Database:
+
+* PostgreSQL
+* Drizzle ORM
+
+Mobile:
+
+* Expo React Native
+
+---
+
+# RECOVERY PROCEDURE
+
+Before touching any code:
+
+Read and verify ALL recovery files:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+
+Read them completely.
+
+Then build a full internal understanding of:
+
+* current roadmap
+* completed systems
+* pending systems
+* known issues
+* architecture
+
+---
+
+# VERIFY SYSTEM HEALTH
+
+Run full audit:
+
+Environment:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_EMAIL
+
+Database:
+
+Verify:
+
+* tables
+* enums
+* migrations
+* trust tables
+* review tables
+* hero banner tables
+
+Bootstrap Accounts:
+
+Admin:
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Verify login tokens.
+
+Services:
+
+Verify:
+
+* API
+* Marketplace
+* Mobile
+
+TypeScript:
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+* mobile
+
+Must finish with:
+
+0 TypeScript errors.
+
+---
+
+# CURRENT PLATFORM STATUS
+
+Recovery Score:
+
+95/100
+
+Reason:
+
+HeroBanner recovery module fails because:
+
+home.tsx currently uses the new premium homepage implementation rather than HeroBannerCarousel.
+
+This is expected.
+
+Do NOT revert it.
+
+---
+
+# COMPLETED SYSTEMS
+
+Trust System V1
+
+Completed.
+
+Review System V2
+
+Completed.
+
+Includes:
+
+* product reviews
+* store reviews
+* review eligibility
+* seller replies
+* review notifications
+* trust integration
+* analytics integration
+
+Courier System
+
+Completed.
+
+Seller System
+
+Completed.
+
+Notifications
+
+Completed.
+
+Analytics
+
+Completed.
+
+Store Settings V4
+
+Completed.
+
+---
+
+# HOMEPAGE STATUS
+
+The old homepage has been replaced.
+
+The new premium homepage is already implemented.
+
+Current homepage includes:
+
+## Hero
+
+* Ken Burns animation
+* floating cards
+* premium dark style
+* stats bar
+* RTL layout
+
+## Categories
+
+* dark cards
+* overlays
+* category counts
+
+## Deals
+
+* real API data
+* countdown timer
+* badges
+
+## Trusted Stores
+
+* featured sellers
+* verified badges
+
+## Trending
+
+* trending products
+
+## New Arrivals
+
+* asymmetric layout
+
+## CTA
+
+* seller onboarding
+* courier onboarding
+
+## Recently Viewed
+
+* integrated
+
+---
+
+# IMPORTANT
+
+The premium homepage is already LIVE.
+
+Do NOT:
+
+* rebuild homepage
+* revert homepage
+* recreate homepage
+
+Treat current homepage as latest approved state.
+
+---
+
+# HOMEPAGE DESIGN HISTORY
+
+A dedicated Canvas/Mockup phase was completed.
+
+Pixel-level audit was performed.
+
+Final parity:
+
+~98.5%
+
+The remaining differences were only:
+
+* stock photography vs reference photography
+
+No major layout issues remain.
+
+---
+
+# HERO BANNER SYSTEM
+
+Infrastructure completed:
+
+* hero_banners table
+* admin CRUD
+* analytics
+* impression tracking
+* click tracking
+
+Status:
+
+Operational.
+
+Current DB:
+
+0 banners.
+
+This means:
+
+Fallback homepage content may appear.
+
+Do NOT remove banner system.
+
+---
+
+# ROADMAP PRIORITIES
+
+Current SYANO roadmap priority:
+
+1. Order Fulfillment Workflow Completion V1
+2. Courier Operations Dashboard V2
+3. Seller Order Management V2
+4. Seller Analytics Dashboard V2
+5. Trust System V1
+6. Seller Store Pages V2
+7. Messaging V2
+8. Search & Discovery V2
+9. Follow System Expansion
+10. Waitlist / Lead Capture System
+11. Launch Preparation Layer
+
+Performance & Scalability comes after those.
+
+---
+
+# CRITICAL RULES
+
+Do NOT:
+
+* rewrite architecture
+* restart systems
+* remove compatibility
+* break APIs
+* remove migrations
+* change branding
+
+Always preserve:
+
+* RTL
+* Arabic
+* English
+* Mobile
+* Existing APIs
+* Existing data
+
+---
+
+# OUTPUT REQUIRED
+
+Before doing any new task:
+
+Provide:
+
+1. Recovery summary
+2. Recovery score
+3. Services status
+4. TypeScript status
+5. Database status
+6. Current roadmap understanding
+7. Current homepage understanding
+8. Any blockers
+
+Only after recovery is fully complete may implementation begin.

@@ -1,0 +1,222 @@
+HOME PAGE POLISH — RTL CATEGORY BAR + MOBILE SIDE BANNERS
+
+IMPORTANT
+
+Do NOT redesign the homepage.
+
+Do NOT touch:
+
+* Banner APIs
+* Admin banner system
+* Product sections
+* Search
+* Routing
+* Header structure
+
+Only implement the following two fixes.
+
+==================================================
+FIX 1 — QUICK CATEGORIES BAR (ARABIC RTL)
+=========================================
+
+Current problem:
+
+In Arabic:
+
+The quick categories row does NOT use the full available width.
+
+English looks correct.
+
+Arabic feels compressed.
+
+---
+
+REQUIRED
+
+Make Arabic category navigation occupy the same visual width as English.
+
+Requirements:
+
+* Use full available horizontal space.
+* Proper RTL distribution.
+* Consistent spacing.
+* No compressed grouping.
+* No empty side gaps.
+* No visual imbalance.
+
+Arabic and English should feel identical in quality.
+
+---
+
+SCROLL BEHAVIOR
+
+Current problem:
+
+The category bar remains fixed at the top separately.
+
+This creates double-sticky behavior.
+
+---
+
+REQUIRED
+
+When user scrolls:
+
+Navbar
++
+Quick Categories
+
+must move together as ONE sticky block.
+
+Behavior:
+
+Initial state:
+
+Navbar
+Quick Categories
+
+Scrolling:
+
+Both remain attached.
+
+Quick Categories should sit directly below Navbar.
+
+No gap.
+
+No independent sticky behavior.
+
+No jumping.
+
+No flickering.
+
+No double headers.
+
+---
+
+VISUAL RESULT
+
+Sticky area:
+
+┌────────────────────────────┐
+│ Navbar                     │
+├────────────────────────────┤
+│ Quick Categories           │
+└────────────────────────────┘
+
+Single sticky container.
+
+==================================================
+FIX 2 — MOBILE SIDE BANNERS
+===========================
+
+Current problem:
+
+Mobile layout:
+
+Banner A
+
+Banner B
+
+Banner C
+
+Banner B and Banner C appear as full-width stacked rectangles.
+
+This wastes vertical space.
+
+---
+
+REQUIRED
+
+Mobile only:
+
+Banner A
+(full width)
+
+Below it:
+
+┌──────────────┬──────────────┐
+│ Banner B     │ Banner C     │
+└──────────────┴──────────────┘
+
+Two equal cards side-by-side.
+
+---
+
+MOBILE SPEC
+
+Banner A:
+
+height:
+220–260px
+
+Banner B:
+
+square ratio
+
+Banner C:
+
+square ratio
+
+Example:
+
+aspect-ratio: 1/1
+
+---
+
+TABLET
+
+Keep current desktop-style layout.
+
+Only mobile changes.
+
+---
+
+RESPONSIVE
+
+Desktop:
+
+70 / 30 layout
+
+Tablet:
+
+70 / 30 layout
+
+Mobile:
+
+Banner A
+
+↓
+
+Banner B + Banner C side-by-side
+
+==================================================
+VALIDATION
+==========
+
+Verify:
+
+✅ Arabic category bar uses full width
+
+✅ Arabic spacing equals English spacing
+
+✅ Categories and navbar move together
+
+✅ No separate sticky behavior
+
+✅ No layout jump
+
+✅ Mobile side banners appear side-by-side
+
+✅ Mobile side banners are square
+
+✅ Desktop unchanged
+
+✅ Tablet unchanged
+
+✅ RTL preserved
+
+✅ English preserved
+
+✅ TypeScript 0 errors
+
+Only finish after visual verification.

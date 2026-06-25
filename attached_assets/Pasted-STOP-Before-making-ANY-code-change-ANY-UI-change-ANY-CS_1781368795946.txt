@@ -1,0 +1,192 @@
+STOP.
+
+Before making ANY code change, ANY UI change, ANY CSS change, ANY component change, you MUST follow this process.
+
+Failure to follow this process means the task is incomplete.
+
+---
+
+# MANDATORY DESIGN APPROVAL WORKFLOW
+
+You are NOT allowed to implement immediately.
+
+You are NOT allowed to modify production UI.
+
+You are NOT allowed to modify React components.
+
+You are NOT allowed to modify CSS.
+
+You are NOT allowed to create commits.
+
+You are NOT allowed to write implementation code.
+
+UNTIL I APPROVE THE DESIGN.
+
+---
+
+# PHASE 1 — ANALYZE THE REFERENCE IMAGE
+
+The attached image is the source of truth.
+
+Your first task is to analyze it completely.
+
+Identify:
+
+* layout
+* spacing
+* typography
+* hierarchy
+* shadows
+* border radius
+* image sizes
+* card sizes
+* colors
+* grid opacity
+* animations
+* proportions
+
+---
+
+# PHASE 2 — CREATE CANVAS MOCKUP
+
+Create a Canvas mockup.
+
+NOT CODE.
+
+NOT IMPLEMENTATION.
+
+CANVAS ONLY.
+
+The Canvas mockup must reproduce the reference image with 97%+ visual accuracy.
+
+The Canvas should show:
+
+* exact layout
+* exact spacing
+* exact typography
+* exact image placement
+* exact card placement
+* exact proportions
+
+---
+
+# PHASE 3 — SHOW THE MOCKUP
+
+Present the Canvas mockup.
+
+Then STOP.
+
+Do NOT continue.
+
+Do NOT implement.
+
+Do NOT edit files.
+
+Do NOT write code.
+
+Do NOT touch the current homepage.
+
+---
+
+# PHASE 4 — WAIT FOR APPROVAL
+
+After presenting the Canvas mockup:
+
+Wait for feedback.
+
+I may request:
+
+* spacing changes
+* typography changes
+* image changes
+* card changes
+* alignment changes
+
+You must update the Canvas mockup only.
+
+Still no code.
+
+---
+
+# PHASE 5 — FINAL APPROVAL
+
+After I explicitly say:
+
+APPROVED
+
+or
+
+IMPLEMENT
+
+Only then continue.
+
+If I do not explicitly approve:
+
+DO NOT IMPLEMENT.
+
+---
+
+# PHASE 6 — IMPLEMENTATION
+
+After approval:
+
+Create a checklist comparing:
+
+Current Homepage
+vs
+Approved Canvas Mockup
+
+List every required change.
+
+Then implement.
+
+---
+
+# PHASE 7 — VALIDATION
+
+After implementation verify:
+
+✅ Canvas approved first
+
+✅ Homepage matches approved Canvas
+
+✅ No regressions
+
+✅ No TypeScript errors
+
+✅ No console errors
+
+✅ No API errors
+
+---
+
+# CRITICAL RULE
+
+If you are about to modify code before presenting a Canvas mockup:
+
+STOP.
+
+Create the Canvas mockup first.
+
+Canvas approval is mandatory.
+
+Implementation without approval is forbidden.
+
+---
+
+# RESPONSE FORMAT
+
+Your next response should be ONLY:
+
+1. Screenshot analysis
+2. Canvas mockup creation
+
+Nothing else.
+
+No implementation.
+
+No coding.
+
+No file modifications.
+
+Wait for approval.

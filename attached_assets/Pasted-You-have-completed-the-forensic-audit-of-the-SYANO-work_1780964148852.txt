@@ -1,0 +1,232 @@
+You have completed the forensic audit of the SYANO (سوق سوريا) workspace.
+
+Now your task is to repair ONLY the confirmed remaining defects.
+
+Do NOT redesign the project.
+Do NOT refactor working systems.
+Do NOT create placeholder data.
+Do NOT add new features.
+
+Use the previous forensic audit as the source of truth.
+
+---
+
+# OBJECTIVE
+
+Bring the workspace to a fully healthy state identical to the latest verified checkpoint.
+
+Fix every confirmed remaining issue.
+
+---
+
+# 1 — LOGO / BRANDING ASSET AUDIT
+
+Completely verify all branding assets.
+
+Check:
+
+* Navbar logo
+* Mobile navbar logo
+* Footer logo
+* Favicon
+* OpenGraph image
+* Manifest icons
+* PWA icons
+* Apple touch icons
+* Any shared branding component
+
+For every logo/image:
+
+* Verify the physical file exists.
+* Verify the import path.
+* Verify the public URL.
+* Verify Vite resolves it correctly.
+* Verify there are no 404 errors.
+* Verify both light and dark themes.
+* Verify RTL layouts.
+* Verify desktop and mobile.
+
+If any logo asset is missing:
+
+* Find the correct existing project asset.
+* Restore the original path.
+* Do NOT replace it with placeholders.
+* Do NOT invent new branding.
+
+---
+
+# 2 — STATIC ASSET VERIFICATION
+
+Verify:
+
+* fonts
+* images
+* icons
+* category images
+* product placeholders
+* favicon
+* manifest
+* sw.js
+* robots.txt
+* sitemap
+
+There must be ZERO missing static assets.
+
+Fix every broken import or missing public path.
+
+---
+
+# 3 — DATABASE DATA RECOVERY CHECK
+
+The forensic audit reported:
+
+"Schema restored correctly, but product/order/user/review data is absent."
+
+Determine EXACTLY why.
+
+Check whether:
+
+* data.sql exists
+* backup dumps exist
+* JSON seed files exist
+* previous workspace exports exist
+* hidden backup files exist
+
+If actual backup data exists anywhere inside the workspace:
+
+Restore it.
+
+If no backup data exists anywhere:
+
+DO NOT generate fake data.
+DO NOT seed demo products.
+
+Simply report that the original data cannot be recovered from the current repository.
+
+---
+
+# 4 — VERIFY ALL RECENT REPAIRS
+
+Confirm that these repairs still work correctly:
+
+✅ reset_otp_* columns
+
+✅ variant_images table
+
+✅ Inter font
+
+✅ Products page footer/layout fix
+
+Verify nothing regressed.
+
+---
+
+# 5 — COMPLETE UI AUDIT
+
+Open and visually verify:
+
+* Home
+* Products
+* Product Details
+* Categories
+* Cart
+* Checkout
+* Messages
+* Notifications
+* Seller Dashboard
+* Add Product
+* Edit Product
+* Admin
+* Mobile preview
+
+Verify:
+
+* logos
+* images
+* spacing
+* RTL
+* footer
+* navigation
+* no clipping
+* no overlapping
+* no missing assets
+
+---
+
+# 6 — CONSOLE CLEANUP
+
+Check browser console.
+
+Fix only REAL errors such as:
+
+* 404 assets
+* failed imports
+* missing public files
+
+Ignore harmless development warnings.
+
+---
+
+# 7 — TYPESCRIPT
+
+Do not rewrite code to remove old implicit-any warnings.
+
+Only ensure there are no NEW structural errors caused by the recovery process.
+
+---
+
+# IMPORTANT RULES
+
+* Never create placeholder logos.
+* Never generate fake products.
+* Never rebuild working features.
+* Never modify Variant Builder.
+* Never modify Notifications.
+* Never modify Seller System.
+* Never redesign UI.
+
+Repair only verified defects.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+## Assets
+
+* Navbar logo
+* Footer logo
+* Favicon
+* PWA icons
+* Fonts
+
+Status: PASS / FAIL
+
+---
+
+## Database
+
+* Schema
+* Tables
+* Real data availability
+
+---
+
+## Recovery
+
+List every file modified.
+
+---
+
+## Remaining Issues
+
+If anything still cannot be repaired, explain exactly why.
+
+Finally answer:
+
+1. Is every logo and branding asset working?
+2. Are there any missing files?
+3. Is any real project data still missing?
+4. Is the workspace now identical to the latest verified checkpoint?
+5. Is it safe to continue development?

@@ -1,0 +1,327 @@
+You are upgrading the SYANO homepage Hero Banner system from a functional carousel into a flagship marketplace-grade experience comparable to Amazon, Noon, Trendyol, and modern premium e-commerce platforms.
+
+CRITICAL INSTRUCTION:
+
+Before changing anything:
+
+1. Audit the entire current Hero Banner implementation.
+2. Verify autoplay behavior actually works without user interaction.
+3. Verify the Admin Hero Banner page exists.
+4. Verify the route is reachable.
+5. Verify it is linked inside the Admin Navigation.
+6. Verify analytics tracking still works.
+7. Verify RTL behavior.
+8. Verify mobile behavior.
+9. Verify desktop behavior.
+10. Do not implement assumptions.
+
+Fix existing problems before adding enhancements.
+
+---
+
+PRIMARY GOAL
+
+Transform the homepage hero into a premium flagship section that immediately communicates quality, trust, and professionalism.
+
+The current implementation feels like a generic slider.
+
+The new implementation must feel like a major marketplace.
+
+---
+
+DESIGN REFERENCES
+
+Target quality:
+
+* Amazon
+* Noon
+* Trendyol
+* AliExpress Homepage
+* Apple-style motion quality
+
+Not a simple image slider.
+
+Not a generic carousel.
+
+Must feel expensive.
+
+---
+
+VISUAL UPGRADE REQUIREMENTS
+
+Replace basic slide transitions with:
+
+* Cross Fade
+* Scale Transition
+* Parallax Layers
+* Motion Depth
+
+No abrupt transitions.
+
+Everything must feel smooth and premium.
+
+---
+
+KEN BURNS EFFECT
+
+Every slide background must slowly animate.
+
+Example:
+
+Scale:
+
+1.00 → 1.08
+
+during the slide duration.
+
+Movement must be subtle and elegant.
+
+No aggressive zoom.
+
+GPU accelerated.
+
+---
+
+TEXT ANIMATION SYSTEM
+
+Content must reveal progressively:
+
+1. Badge
+2. Title
+3. Description
+4. CTA
+
+Each element:
+
+* fade
+* translate
+* stagger timing
+
+Motion should feel luxurious.
+
+---
+
+TYPOGRAPHY
+
+Current typography is too weak.
+
+Upgrade:
+
+* Larger hero title
+* Stronger hierarchy
+* Better line heights
+* Better spacing
+* Better readability
+
+Must work perfectly in Arabic and English.
+
+---
+
+CTA BUTTON
+
+Current CTA is too basic.
+
+Upgrade:
+
+* premium hover
+* subtle glow
+* smooth transitions
+* hover lift
+* focus state
+
+No flashy effects.
+
+Premium only.
+
+---
+
+PROGRESS INDICATORS
+
+Remove all basic dot indicators.
+
+Replace with:
+
+Animated progress bars.
+
+Each slide:
+
+* shows progression
+* fills gradually
+* indicates remaining time
+
+Must resemble modern premium carousels.
+
+---
+
+REMOVE VIDEO-LIKE CONTROL
+
+Remove the play/pause style button currently displayed beside the progress indicators.
+
+The carousel should:
+
+* autoplay automatically
+* loop infinitely
+* require no manual play button
+
+Only keep:
+
+* progress indicators
+* slide counter
+* arrows (optional)
+
+---
+
+AUTOPLAY
+
+Must:
+
+* start automatically
+* continue automatically
+* loop infinitely
+
+Pause only:
+
+* while hovering
+* while focused
+
+Resume automatically afterward.
+
+---
+
+MOBILE EXPERIENCE
+
+Current mobile experience is not premium enough.
+
+Requirements:
+
+* mobile-first layout
+* larger visual impact
+* better text sizing
+* proper safe-area support
+
+Hero height:
+
+approximately:
+
+60vh–70vh
+
+depending on screen size.
+
+No clipped content.
+
+No overflow.
+
+No layout shifts.
+
+---
+
+DESKTOP EXPERIENCE
+
+Hero should dominate the fold.
+
+Large visual presence.
+
+Balanced spacing.
+
+Professional composition.
+
+Premium marketplace feeling.
+
+---
+
+GRADIENT SYSTEM
+
+Current overlays are weak.
+
+Create layered gradients:
+
+* readability gradient
+* brand gradient
+* depth gradient
+
+Text must remain readable on every banner image.
+
+---
+
+PERFORMANCE
+
+Maintain:
+
+* smooth 60fps animation
+* no jank
+* no layout shift
+* no excessive rerenders
+
+Use GPU-friendly transforms.
+
+---
+
+ADMIN PANEL
+
+Verify:
+
+/admin/hero-banners
+
+exists and works.
+
+If missing:
+
+* fix routing
+* fix navigation links
+* fix visibility
+
+Admin must be able to:
+
+* create
+* edit
+* reorder
+* activate
+* deactivate
+
+without regression.
+
+---
+
+RTL
+
+Must remain perfect.
+
+Arabic is primary.
+
+Nothing may break RTL behavior.
+
+---
+
+VALIDATION
+
+Before finishing verify:
+
+✅ Autoplay works
+
+✅ Infinite loop works
+
+✅ Progress bars work
+
+✅ Play button removed
+
+✅ Admin page reachable
+
+✅ Admin navigation link exists
+
+✅ Mobile optimized
+
+✅ Desktop optimized
+
+✅ RTL preserved
+
+✅ Analytics preserved
+
+✅ No layout shift
+
+✅ No console errors
+
+✅ No TypeScript errors
+
+✅ Performance remains smooth
+
+Only deliver a production-quality flagship hero experience.

@@ -1,0 +1,222 @@
+PHASE A7 FINALIZATION — DO NOT START A8 YET
+
+A7 is NOT considered complete until the following issues are fixed and fully verified.
+
+---
+
+## GOAL
+
+Close all remaining A7 gaps and perform a real end-to-end operational validation using actual system flows.
+
+Do NOT begin A8.
+
+---
+
+PART 1 — MISSION WORKSPACE MUST BECOME
+THE COURIER HOME SCREEN
+-----------------------
+
+Current implementation:
+
+Profile
+→ Courier
+→ Mission Workspace
+
+This is NOT the desired UX.
+
+Required behavior:
+
+Courier Login
+↓
+Courier Main Screen
+===================
+
+Mission Workspace
+
+Mission Workspace becomes the operational home of the courier.
+
+When courier has:
+
+NO ACTIVE MISSION:
+
+* Show waiting state
+* Show availability state
+* Show statistics
+* Show incoming offers
+
+ACTIVE OFFER:
+
+* Open directly into offer workflow
+
+ACTIVE MISSION:
+
+* Open directly into mission workflow
+
+The courier should not need to enter Profile to access daily work.
+
+Review:
+
+* navigation structure
+* tabs
+* default courier route
+* deep links
+* startup routing
+
+Implement the cleanest architecture possible.
+
+---
+
+PART 2 — REMOVE ANY REMAINING
+DUPLICATED COURIER FLOWS
+------------------------
+
+Audit all courier screens.
+
+Identify:
+
+* duplicate mission screens
+* duplicate tracking screens
+* duplicate offer screens
+* duplicate status screens
+
+Mission Workspace must become the single operational source of truth.
+
+Do not break existing functionality.
+
+---
+
+## PART 3 — REAL END-TO-END VALIDATION
+
+NO FAKE SQL TESTS.
+
+NO MANUAL DATABASE INSERTS.
+
+NO SIMULATED MISSIONS.
+
+Perform a real operational test using actual application workflows.
+
+Flow:
+
+Seller:
+
+* create real order
+
+Admin:
+
+* prepare order
+* trigger assignment engine
+
+Courier:
+
+* receive offer
+* accept offer
+* navigate to store
+* mark picked up
+* navigate to customer
+* mark delivered
+
+Customer:
+
+* view tracking
+
+Seller:
+
+* view tracking
+
+Admin:
+
+* view tracking
+
+Verify:
+
+* assignment
+* ETA
+* route rendering
+* tracking updates
+* status transitions
+* mission events
+* courier availability transitions
+* auto BUSY
+* auto ONLINE
+
+---
+
+## PART 4 — SCREENSHOT EVIDENCE
+
+Capture screenshots proving:
+
+1. Courier workspace idle
+2. Courier offer received
+3. Offer accepted
+4. Pickup stage
+5. Delivery stage
+6. Customer tracking page
+7. Seller tracking page
+8. Admin tracking monitor
+9. Delivery completed
+
+---
+
+## PART 5 — BUG HUNT
+
+Act as a completely new engineer.
+
+Assume you have never seen this project before.
+
+Audit:
+
+* navigation
+* UX
+* routing
+* courier workflow
+* tracking flow
+* state transitions
+* loading states
+* edge cases
+
+Identify and fix any A7-related issues discovered.
+
+---
+
+## PART 6 — REPORT
+
+Produce:
+
+A7_FINAL_VALIDATION_REPORT.md
+
+Include:
+
+* issues found
+* fixes applied
+* screenshots collected
+* workflow verification
+* remaining risks
+* certification status
+
+---
+
+## SUCCESS CRITERIA
+
+A7 is complete only if:
+
+✓ Mission Workspace is the courier home screen
+
+✓ No duplicate courier workflow remains
+
+✓ Real operational flow completed
+
+✓ Customer tracking verified
+
+✓ Seller tracking verified
+
+✓ Admin tracking verified
+
+✓ Courier tracking verified
+
+✓ Availability transitions verified
+
+✓ Screenshots collected
+
+✓ Validation report generated
+
+Only after certification may A8 begin.

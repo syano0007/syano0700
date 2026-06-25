@@ -1,0 +1,97 @@
+This is a strong analysis and I agree with the overall diagnosis.
+
+The current homepage behaves more like a landing page than a marketplace. The core issue is not the image itself — it is the lack of commerce signals above the fold. Products, prices, sellers, deals, and trust should be visible immediately.
+
+Of the three options, Option C is clearly the strongest direction for SYANO. It preserves brand identity while introducing real marketplace content above the fold, which is critical for a growing marketplace that is still building awareness and trust.
+
+I want to proceed with Option C, but with the following requirements:
+
+### Hero Requirements
+
+The new hero must not become another oversized visual block.
+
+Desktop:
+
+* Keep hero height controlled.
+* Avoid 75vh / 80vh / 90vh style layouts.
+* Target a compact premium layout with a maximum visual height around 500–520px.
+
+Mobile:
+
+* Prioritize product visibility.
+* Users should reach real products within 0–1 scroll.
+* Avoid full-screen hero behavior.
+
+### Product Mosaic Requirements
+
+I agree with HeroProductMosaic.
+
+However:
+
+* No Unsplash images.
+* No generic stock photography.
+* No placeholder marketing imagery.
+
+Fallback behavior should use:
+
+* Category tiles
+* Project assets
+* Marketplace-specific visuals
+* Real platform content
+
+The homepage should remain premium even when there are zero banners and zero deals.
+
+### Marketplace Requirements
+
+While implementing Option C, keep the homepage marketplace-first:
+
+Above the fold should communicate:
+
+* Products
+* Categories
+* Trust
+* Active marketplace activity
+
+Not just branding.
+
+The search experience should also be considered part of discovery. Review whether the homepage can better encourage search-driven shopping rather than relying entirely on browsing.
+
+### Hero Banner V3
+
+Do not remove the Hero Banner V3 system.
+
+Instead:
+
+* Treat Hero Banner V3 as an enhancement layer.
+* V4 must work perfectly with zero banner records.
+* When banners exist, they enhance the experience.
+* When banners do not exist, the homepage must still feel complete and premium.
+
+### Documentation Requirements (Mandatory)
+
+After implementation is completed, update all recovery and project documentation.
+
+Required updates:
+
+* RECOVERY_GUIDE.md
+* .agents/memory/MEMORY.md
+* .agents/memory/homepage-v4.md
+* hero-banner-system.md
+* homepage architecture documentation
+* project state documentation
+* endpoint documentation
+
+Document:
+
+* new components
+* removed components
+* section hierarchy
+* HeroProductMosaic behavior
+* fallback logic
+* new queries
+* modified endpoints
+* new dependencies
+
+Do not consider the task complete until documentation and recovery files are updated.
+
+Once these requirements are accepted, proceed with Option C implementation.

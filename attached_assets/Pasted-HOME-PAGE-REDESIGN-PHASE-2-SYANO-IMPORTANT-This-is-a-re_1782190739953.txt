@@ -1,0 +1,316 @@
+HOME PAGE REDESIGN — PHASE 2
+SYANO (سوق سوريا)
+
+IMPORTANT
+
+This is a redesign of the homepage layout only.
+
+Do NOT modify:
+
+- Header behavior
+- Search logic
+- Routing
+- Product cards
+- APIs
+- Mobile navigation
+- Seller/Admin/Courier pages
+
+Preserve:
+
+- Current SYANO design language
+- Current colors
+- Current spacing system
+- RTL support
+- EN support
+- Existing banner management system
+
+==================================================
+SECTION 1 — QUICK CATEGORIES BAR
+==================================================
+
+Move Quick Categories directly below the Navbar.
+
+New structure:
+
+Navbar
+↓
+Quick Categories
+↓
+Hero Banner Area
+
+--------------------------------------------------
+
+DESIGN REQUIREMENTS
+
+Do NOT use:
+
+- Pills
+- Chips
+- Buttons
+- Background blocks
+- Borders
+- Shadows
+
+Use text-only navigation similar to:
+
+- Noon
+- Amazon Departments
+- Trendyol Category Strip
+
+Example:
+
+إلكترونيات
+أزياء
+هواتف
+منزل ومطبخ
+سيارات
+رياضة
+ألعاب
+عقارات
+خدمات
+
+--------------------------------------------------
+
+STYLE
+
+Desktop:
+
+- font-size: 14px–15px
+- medium weight
+- muted color
+- hover → theme primary color
+- hover → subtle underline or border-bottom
+
+--------------------------------------------------
+
+WIDTH CONTROL
+
+CRITICAL
+
+Do NOT allow the category row to become extremely long.
+
+Requirements:
+
+- Maximum one visible row
+- No wrapping
+- No second line
+- Horizontal scrolling allowed
+- Hide scrollbar elegantly
+- Center vertically
+
+Desktop target:
+
+Height ≈ 44px–52px
+
+Mobile target:
+
+Height ≈ 40px–48px
+
+Categories must remain readable.
+
+--------------------------------------------------
+
+RESPONSIVE
+
+Desktop:
+
+single horizontal row
+
+Tablet:
+
+single horizontal row
+
+Mobile:
+
+single horizontal row
+horizontal swipe scrolling
+
+No wrapping.
+
+No overflow breaking layout.
+
+==================================================
+SECTION 2 — HERO BANNER AREA
+==================================================
+
+Move banner section lower so it has breathing room below categories.
+
+Reduce overall height.
+
+Current hero is too tall.
+
+--------------------------------------------------
+
+NEW LAYOUT
+
+Desktop:
+
+70% main banner
+30% side banners
+
+Structure:
+
+┌──────────────────────────────┬──────────┐
+│                              │ Banner B │
+│                              ├──────────┤
+│          Banner A            │ Banner C │
+│                              │          │
+└──────────────────────────────┴──────────┘
+
+--------------------------------------------------
+
+Banner A
+
+Main rotating slider.
+
+Uses existing banner management system.
+
+Supports:
+
+- autoplay
+- indicators
+- swipe
+- RTL
+- EN
+
+Width:
+
+70%
+
+Height:
+
+380–450px
+
+NOT taller.
+
+--------------------------------------------------
+
+Banner B
+
+Static promotional banner.
+
+Uses banner management system.
+
+--------------------------------------------------
+
+Banner C
+
+Static promotional banner.
+
+Uses banner management system.
+
+--------------------------------------------------
+
+IMPORTANT
+
+Do NOT create fake banners.
+
+Do NOT hardcode images.
+
+Connect all three slots to the existing admin banner system.
+
+Admin must be able to manage:
+
+- Main Banner A
+- Side Banner B
+- Side Banner C
+
+==================================================
+SECTION 3 — MOBILE LAYOUT
+==================================================
+
+CRITICAL
+
+Mobile must NOT use desktop layout.
+
+Use:
+
+Banner A
+Banner B
+Banner C
+
+stacked vertically.
+
+Example:
+
+Banner A
+
+Banner B
+
+Banner C
+
+--------------------------------------------------
+
+Mobile heights:
+
+Banner A:
+220–260px
+
+Banner B:
+110–140px
+
+Banner C:
+110–140px
+
+--------------------------------------------------
+
+No horizontal overflow.
+
+No cropped content.
+
+No layout shift.
+
+==================================================
+SECTION 4 — UX REQUIREMENTS
+==================================================
+
+Maintain:
+
+- Fast loading
+- Smooth transitions
+- Proper image lazy loading
+- Accessibility
+- RTL correctness
+
+Avoid:
+
+- Huge empty spaces
+- Oversized hero sections
+- Multiple category rows
+- Heavy animations
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+Verify:
+
+✅ Quick categories directly under navbar
+
+✅ Categories are text-only
+
+✅ Categories stay on one row
+
+✅ Categories scroll horizontally on mobile
+
+✅ No wrapping
+
+✅ Hero section reduced in height
+
+✅ 70/30 desktop banner layout
+
+✅ Mobile banner stacking
+
+✅ Banner system connected to admin management
+
+✅ Arabic RTL preserved
+
+✅ English preserved
+
+✅ No overflow
+
+✅ No layout regressions
+
+✅ Fully responsive
+
+Build a premium marketplace homepage similar in quality to Noon, Amazon, and Trendyol while staying consistent with the SYANO design system.

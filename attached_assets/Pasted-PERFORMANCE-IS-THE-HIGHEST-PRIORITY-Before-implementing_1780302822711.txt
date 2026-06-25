@@ -1,0 +1,140 @@
+PERFORMANCE IS THE HIGHEST PRIORITY
+
+Before implementing any feature, remember:
+
+The primary goal of Syano is NOT adding more features.
+
+The primary goal is delivering an extremely fast and smooth user experience.
+
+══════════════════════════════════════
+PERFORMANCE FIRST PRINCIPLE
+══════════════════════════════════════
+
+For every implementation decision ask:
+
+"Will this make the marketplace faster or slower?"
+
+If a feature adds unnecessary weight, complexity, network requests, database load, rendering load, or image load, redesign it.
+
+Never sacrifice performance for convenience.
+
+══════════════════════════════════════
+MOBILE FIRST PERFORMANCE
+══════════════════════════════════════
+
+Most users will browse from mobile devices.
+
+The marketplace must feel:
+
+* Instant
+* Smooth
+* Responsive
+* Lightweight
+
+Users should never feel:
+
+* Lag
+* Stuttering
+* Delayed navigation
+* Slow image loading
+* Heavy scrolling
+
+══════════════════════════════════════
+TARGET EXPERIENCE
+══════════════════════════════════════
+
+The marketplace should feel comparable to:
+
+* Amazon
+* Shopify stores
+* Etsy
+* Noon
+
+When a user:
+
+* Opens the homepage
+* Opens a product
+* Opens search
+* Opens a seller store
+* Opens cart
+* Opens checkout
+
+The response should feel nearly immediate.
+
+══════════════════════════════════════
+DO NOT OVERFETCH DATA
+══════════════════════════════════════
+
+Only load data that is actually needed.
+
+Never fetch:
+
+* Full product descriptions for listings
+* Full image galleries for cards
+* Unused metadata
+* Large payloads
+
+Load additional data only when required.
+
+══════════════════════════════════════
+DO NOT OVERLOAD THE CLIENT
+══════════════════════════════════════
+
+Avoid:
+
+* Unnecessary React re-renders
+* Heavy state updates
+* Excessive API requests
+* Duplicate queries
+* Large bundles
+
+Keep the frontend as light as possible.
+
+══════════════════════════════════════
+IMAGE PERFORMANCE
+══════════════════════════════════════
+
+Images are expected to become the largest performance cost.
+
+Treat image optimization as critical infrastructure.
+
+Every image should be:
+
+* Optimized
+* Compressed
+* Properly sized
+* Lazy loaded
+* Responsive
+
+Never send oversized assets to mobile devices.
+
+══════════════════════════════════════
+DATABASE PERFORMANCE
+══════════════════════════════════════
+
+Assume future scale:
+
+* 10,000+ products
+* 100,000+ images
+* Thousands of sellers
+
+Design queries and indexes accordingly.
+
+Avoid solutions that work only at small scale.
+
+══════════════════════════════════════
+SUCCESS CRITERIA
+══════════════════════════════════════
+
+The implementation is successful only if:
+
+1. The marketplace is noticeably faster than before.
+2. Mobile performance improves significantly.
+3. Scrolling feels smoother.
+4. Navigation feels faster.
+5. Product pages open faster.
+6. Search feels more responsive.
+7. Image loading is optimized.
+8. New features do not introduce performance regressions.
+
+If a choice exists between a more complex feature and better performance, prioritize performance.

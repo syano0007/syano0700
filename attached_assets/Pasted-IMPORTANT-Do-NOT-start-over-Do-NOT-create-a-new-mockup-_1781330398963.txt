@@ -1,0 +1,238 @@
+IMPORTANT:
+
+Do NOT start over.
+
+Do NOT create a new mockup.
+
+Do NOT rebuild the homepage from scratch.
+
+Do NOT discard the current Canva/mockup work.
+
+The current mockup is now the baseline.
+
+You must CONTINUE FROM THE CURRENT VERSION and improve it.
+
+This is a refinement pass, not a redesign pass.
+
+---
+
+CURRENT OBJECTIVE
+
+The structure is much closer than before.
+
+The problem now is visual accuracy.
+
+The mockup still does not match the screenshots closely enough.
+
+You must continue iterating on the EXISTING Canva/mockup design until it becomes nearly identical to the screenshots.
+
+---
+
+CRITICAL RULE
+
+The screenshots remain the source of truth.
+
+However:
+
+You must compare the screenshots against the CURRENT MOCKUP and improve the current mockup.
+
+Do NOT replace it.
+
+Do NOT restart.
+
+Do NOT redesign sections that are already correct.
+
+Only fix the remaining differences.
+
+---
+
+MOST IMPORTANT ISSUE
+
+The screenshots have a specific premium atmosphere that is still missing.
+
+The differences are now mostly caused by:
+
+1. Background treatment
+2. Container widths
+3. Edge alignment
+4. Horizontal spacing
+5. Vertical spacing
+6. Section proportions
+7. Hero scale
+8. Visual depth
+9. Ambient lighting
+10. Padding consistency
+
+---
+
+BACKGROUND REFINEMENT
+
+Keep the current layout.
+
+Only improve the background.
+
+Match the screenshots more closely:
+
+* deep black base
+* cinematic dark atmosphere
+* layered radial glows
+* ambient lighting
+* subtle luxury gradients
+* soft depth
+* premium marketplace feel
+
+The page must feel expensive.
+
+The page must not feel flat.
+
+---
+
+CONTAINER & ALIGNMENT AUDIT
+
+Compare the screenshots and the CURRENT MOCKUP.
+
+Audit:
+
+* left padding
+* right padding
+* content width
+* container width
+* section alignment
+* edge spacing
+
+Do not guess.
+
+Match the screenshots.
+
+The content should visually sit in exactly the same positions.
+
+---
+
+HERO REFINEMENT
+
+Keep the existing hero structure.
+
+Do not rebuild it.
+
+Only refine:
+
+* image scale
+* image crop
+* image position
+* headline width
+* line breaks
+* spacing
+* overlay card positions
+* glow intensity
+* visual balance
+
+The hero should feel almost identical to the screenshots.
+
+---
+
+CATEGORY SECTION
+
+Keep the current category section.
+
+Do not redesign it.
+
+Refine:
+
+* card proportions
+* card height
+* card width
+* image crop
+* overlay darkness
+* text positioning
+* spacing above and below
+
+Match the screenshots more closely.
+
+---
+
+FEATURED DEALS
+
+Keep the current structure.
+
+Refine:
+
+* image size
+* badge size
+* countdown placement
+* card spacing
+* pricing hierarchy
+* button proportions
+
+---
+
+NEW ARRIVALS
+
+Keep the current structure.
+
+Refine:
+
+* large card proportions
+* supporting card proportions
+* image scale
+* spacing between columns
+* overall balance
+
+---
+
+TRUSTED STORES
+
+Keep the current structure.
+
+Refine:
+
+* card dimensions
+* image height
+* logo size
+* typography sizing
+* spacing
+
+---
+
+GLOBAL SPACING PASS
+
+This is critical.
+
+The screenshots have luxury spacing.
+
+Review every section and compare with the screenshots.
+
+Adjust:
+
+* margins
+* gaps
+* paddings
+* vertical rhythm
+
+Anything that feels crowded is wrong.
+
+Anything that feels compressed is wrong.
+
+---
+
+VISUAL DIFF PROCESS
+
+Use the CURRENT MOCKUP as the baseline.
+
+Create a list of all remaining differences between:
+
+A) Current mockup
+B) Screenshots
+
+Then fix only those differences.
+
+Continue iterating on the existing design.
+
+Do not restart.
+
+Do not redesign.
+
+Do not rebuild.
+
+Only refine until similarity reaches approximately 98–100%.
+
+The final result should feel like the screenshots were recreated directly inside SYANO.

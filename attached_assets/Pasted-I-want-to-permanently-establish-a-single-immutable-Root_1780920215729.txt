@@ -1,0 +1,167 @@
+I want to permanently establish a single immutable Root Owner account for this project.
+
+This must become part of the project's core bootstrap and recovery logic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ROOT OWNER ACCOUNT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+This account is the permanent owner of the platform.
+
+It must survive:
+
+* Fresh Replit workspaces
+* Empty databases
+* drizzle-kit push
+* Database resets
+* Recovery sessions
+* Future migrations
+* Project transfers to other accounts
+
+No other default admin account should ever be created.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BOOTSTRAP LOGIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Find the existing startup/bootstrap logic that creates the default admin.
+
+Replace all old hardcoded admin emails and credentials.
+
+Remove any typo variants such as:
+
+* [delewaitamer7@gmail.com](mailto:delewaitamer7@gmail.com)
+* any previous default bootstrap admin
+* any temporary recovery admin
+
+On every API startup:
+
+1. Search for a user with:
+   [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+2. If the user does not exist:
+
+   * create it
+
+3. If the user exists:
+   automatically repair and enforce:
+
+   role = "admin"
+   account_status = "active"
+   is_verified = true
+
+4. Never create a duplicate admin account.
+
+5. Never generate a random recovery admin.
+
+6. If another bootstrap admin exists, migrate it to this account or remove the old bootstrap identity safely.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERMANENT PROTECTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This Root Owner account must be protected.
+
+It should never accidentally lose ownership.
+
+If someone changes it in the database:
+
+* role != admin
+* account_status != active
+* is_verified != true
+
+the next API startup should automatically restore the correct values.
+
+This account should not be removable by normal admin panel operations.
+
+Prevent accidental deletion or demotion through UI actions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUTHENTICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verify that:
+
+* Login works.
+* JWT generation works.
+* Auth middleware recognizes this account as admin.
+* Seller/Admin dashboards work normally.
+* Existing permissions remain unchanged.
+
+Do not modify the authentication architecture.
+
+Only make the bootstrap owner deterministic and permanent.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT MEMORY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Update all persistent memory files so future AI sessions automatically know this account is the permanent Root Owner.
+
+Update:
+
+* project-memory/PROJECT_STATE.md
+* project-memory/AUTH_STATE.md
+* project-memory/DATABASE_STATE.md
+* project-memory/RECOVERY_GUIDE.md
+* project-memory/CHANGELOG.md
+* project-memory/CURRENT_TASK.md (if appropriate)
+
+Add a clear note that:
+
+"The permanent Root Owner account for this project is:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Recovery sessions, database resets, and workspace transfers must always restore this exact account and must never generate another bootstrap admin identity."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOVERY SYSTEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Future recovery sessions must automatically restore this account without requiring the user to mention it again.
+
+The RECOVERY_GUIDE should explicitly instruct future AI sessions to:
+
+* check for this exact account,
+* create it if missing,
+* repair it if modified,
+* never create another default admin.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After implementation:
+
+1. Verify the bootstrap code.
+2. Verify the database record.
+3. Restart the API.
+4. Confirm login using:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+5. Confirm JWT generation.
+6. Confirm admin permissions.
+7. Confirm no secondary bootstrap admin exists.
+8. Confirm future recoveries will recreate this exact account.
+
+Do NOT refactor unrelated code.
+Do NOT redesign the auth system.
+Do NOT change any business logic.
+
+Only make the Root Owner account permanent, self-healing, and part of the project's recovery infrastructure.

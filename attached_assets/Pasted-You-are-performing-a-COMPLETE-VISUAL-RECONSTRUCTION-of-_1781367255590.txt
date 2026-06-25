@@ -1,0 +1,355 @@
+You are performing a COMPLETE VISUAL RECONSTRUCTION of the SYANO (سوق سوريا) homepage using reference screenshots that I will provide one by one.
+
+IMPORTANT:
+
+This is NOT a redesign.
+
+This is NOT an inspiration task.
+
+This is NOT a modernization task.
+
+Your job is to reverse-engineer the screenshots and recreate them with 97%+ visual accuracy.
+
+Think like a senior UI engineer recreating an existing production website pixel-by-pixel.
+
+---
+
+# CRITICAL WORKFLOW
+
+DO NOT IMPLEMENT ANY CODE IMMEDIATELY.
+
+DO NOT MODIFY THE EXISTING HOMEPAGE FIRST.
+
+DO NOT TOUCH PRODUCTION UI BEFORE APPROVAL.
+
+You MUST FOLLOW THIS EXACT PROCESS.
+
+---
+
+## PHASE 1 — SCREENSHOT ANALYSIS
+
+I will upload screenshots one by one.
+
+For EACH screenshot:
+
+1. Analyze it completely.
+2. Identify exactly which section it represents.
+3. Measure visually:
+
+   * layout
+   * spacing
+   * paddings
+   * margins
+   * widths
+   * heights
+   * typography
+   * shadows
+   * gradients
+   * borders
+   * radii
+   * image ratios
+   * card proportions
+   * animations
+   * colors
+
+---
+
+## PHASE 2 — CANVAS MOCKUP
+
+For EACH screenshot:
+
+Create a dedicated Canvas mockup that reproduces ONLY the section shown in that screenshot.
+
+Example:
+
+If screenshot = Hero
+
+Canvas should contain ONLY:
+
+* navbar
+* hero
+* floating cards
+* stats row
+
+Nothing else.
+
+If screenshot = Categories
+
+Canvas should contain ONLY:
+
+* categories section
+
+Nothing else.
+
+If screenshot = Product Cards
+
+Canvas should contain ONLY:
+
+* product cards section
+
+Nothing else.
+
+---
+
+## PHASE 3 — WAIT FOR APPROVAL
+
+After creating the Canvas mockup:
+
+STOP.
+
+Wait for approval.
+
+Do NOT continue.
+
+Do NOT generate the next section.
+
+Do NOT implement code.
+
+Wait for my feedback.
+
+---
+
+## PHASE 4 — REPEAT
+
+Repeat the same process for every screenshot I upload.
+
+One screenshot at a time.
+
+One Canvas section at a time.
+
+Always wait for approval.
+
+---
+
+## PHASE 5 — COMPLETE HOMEPAGE MOCKUP
+
+After ALL screenshots have been approved:
+
+Create a COMPLETE homepage mockup in Canvas.
+
+Combine all approved sections into one page.
+
+The complete mockup should represent the final homepage.
+
+---
+
+## PHASE 6 — FINAL APPROVAL
+
+Present the complete homepage mockup.
+
+STOP.
+
+Wait for approval.
+
+DO NOT IMPLEMENT YET.
+
+---
+
+## PHASE 7 — IMPLEMENTATION
+
+ONLY AFTER FINAL APPROVAL:
+
+Implement the approved design into the actual SYANO homepage.
+
+Preserve all existing functionality.
+
+Only change visuals.
+
+---
+
+# VISUAL ACCURACY REQUIREMENTS
+
+Target:
+
+97%+ similarity.
+
+The screenshots are the source of truth.
+
+If the current design differs from the screenshots:
+
+FOLLOW THE SCREENSHOTS.
+
+Never improvise.
+
+Never redesign.
+
+Never modernize.
+
+Replicate.
+
+---
+
+# NAVBAR
+
+Match exactly:
+
+* logo
+* spacing
+* search width
+* icon positions
+* account controls
+* cart
+* wishlist
+* currency selector
+* theme switcher
+
+Pixel-accurate.
+
+---
+
+# HERO
+
+Match exactly:
+
+* split layout
+* floating cards
+* badges
+* CTA buttons
+* statistics row
+* image proportions
+* typography
+* grid background
+
+---
+
+# CATEGORY SECTION
+
+Match exactly:
+
+* card size
+* image treatment
+* overlays
+* typography
+* spacing
+
+---
+
+# PRODUCT CARDS
+
+Match exactly:
+
+* image ratios
+* dimensions
+* spacing
+* buttons
+* badges
+* hover states
+* shadows
+
+Use real product functionality.
+
+No fake content.
+
+No fake ratings.
+
+---
+
+# THEME SYSTEM
+
+Support:
+
+* Dark mode
+* Light mode
+
+Follow screenshot colors exactly.
+
+Do not invent colors.
+
+---
+
+# RESPONSIVENESS
+
+After desktop is approved:
+
+Create matching versions for:
+
+* 1440px
+* 1280px
+* 1024px
+* 768px
+* 390px
+
+Maintain visual identity.
+
+---
+
+# FUNCTIONALITY MUST REMAIN
+
+Preserve:
+
+* cart
+* wishlist
+* currency switching
+* localization
+* theme switching
+* search
+* seller pages
+* product pages
+* authentication
+
+No regressions.
+
+---
+
+# DOCUMENTATION
+
+After final implementation:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* Homepage Architecture documentation
+* Recovery artifacts
+
+Document the homepage reconstruction process.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Every screenshot received its own Canvas mockup
+
+✅ Every section approved before continuing
+
+✅ Complete homepage mockup created
+
+✅ Complete homepage approved
+
+✅ Only then implementation started
+
+✅ Hero matches screenshots
+
+✅ Navbar matches screenshots
+
+✅ Categories match screenshots
+
+✅ Product cards match screenshots
+
+✅ Footer matches screenshots
+
+✅ Dark mode matches screenshots
+
+✅ Light mode matches screenshots
+
+✅ Mobile verified
+
+✅ Desktop verified
+
+✅ No TypeScript errors
+
+✅ No console errors
+
+✅ No API errors
+
+Provide a final report describing any remaining differences and why they cannot be reduced further.
+
+Target visual similarity:
+
+97%+ minimum.
+
+DO NOT SKIP THE CANVAS PHASE.
+DO NOT IMPLEMENT BEFORE APPROVAL.
+THE SCREENSHOTS ARE THE SOURCE OF TRUTH.

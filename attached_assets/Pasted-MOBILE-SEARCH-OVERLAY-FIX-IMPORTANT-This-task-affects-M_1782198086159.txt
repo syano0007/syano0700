@@ -1,0 +1,232 @@
+MOBILE SEARCH OVERLAY FIX
+
+IMPORTANT:
+
+This task affects MOBILE ONLY.
+
+Do NOT modify:
+
+- desktop search
+- tablet search
+- hero banners
+- quick categories layout
+- navbar structure
+
+Target:
+
+< 768px only
+
+------------------------------------------------
+
+CURRENT PROBLEM
+
+When the user taps the search field:
+
+- the search dropdown opens
+- green background remains visible
+- quick categories bar remains visible
+- search UI feels layered incorrectly
+- categories appear behind/under search
+
+This feels broken.
+
+------------------------------------------------
+
+DESIRED BEHAVIOR
+
+Use a true search overlay.
+
+Similar to:
+
+- Noon
+- Trendyol
+- Amazon App
+
+Flow:
+
+Tap Search
+
+↓
+
+Search Overlay opens
+
+↓
+
+Entire page behind search becomes inactive
+
+↓
+
+Quick Categories disappear
+
+↓
+
+Hero banners disappear
+
+↓
+
+Focus remains on search
+
+------------------------------------------------
+
+REQUIRED IMPLEMENTATION
+
+When search is active:
+
+Show full-screen overlay.
+
+Example:
+
+position: fixed
+
+inset: 0
+
+z-index higher than:
+
+- navbar
+- categories
+- banners
+- content
+
+------------------------------------------------
+
+BACKGROUND
+
+Replace current green appearance.
+
+Use:
+
+Option A:
+
+white background
+
+or
+
+Option B:
+
+white panel
++
+backdrop blur
+
+Preferred:
+
+backdrop-blur-sm
++
+bg-black/30
+
+------------------------------------------------
+
+QUICK CATEGORIES
+
+When search opens:
+
+Hide categories completely.
+
+Requirements:
+
+- no visibility
+- no overlap
+- no pointer events
+- no rendering conflicts
+
+The categories must not be visible behind search.
+
+------------------------------------------------
+
+BANNERS
+
+When search opens:
+
+Hide hero area completely.
+
+User should only see:
+
+- search field
+- search suggestions
+- recent searches
+- results
+
+------------------------------------------------
+
+ANIMATION
+
+Use smooth transition.
+
+Examples:
+
+opacity
+
+translateY
+
+duration 150–250ms
+
+No sudden jumps.
+
+------------------------------------------------
+
+SCROLL LOCK
+
+When overlay opens:
+
+Disable page scroll.
+
+When overlay closes:
+
+Restore scroll.
+
+------------------------------------------------
+
+Z-INDEX VALIDATION
+
+Verify search overlay appears above:
+
+Navbar
+
+Quick Categories
+
+Hero Banner
+
+Floating Buttons
+
+Everything else
+
+------------------------------------------------
+
+MOBILE VALIDATION
+
+Test:
+
+320px
+
+360px
+
+390px
+
+412px
+
+430px
+
+Verify:
+
+✅ search overlay covers page
+
+✅ categories hidden
+
+✅ banners hidden
+
+✅ background dimmed or blurred
+
+✅ no green panel issue
+
+✅ no overlap
+
+✅ smooth animation
+
+✅ scroll locked
+
+✅ desktop unchanged
+
+✅ tablet unchanged
+
+✅ TypeScript = 0 errors
+
+Only ship after visual verification.

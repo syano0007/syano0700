@@ -1,0 +1,393 @@
+Perform a COMPLETE enterprise-grade REALTIME NOTIFICATION & EVENT SYSTEM transformation across the entire Syano marketplace platform. Treat this as a world-class ecommerce communication architecture similar to Amazon, Noon, Shopify, and modern enterprise marketplaces.
+
+IMPORTANT:
+The current platform lacks proper notifications and realtime communication between:
+- customers
+- sellers
+- admins
+
+This creates a dead and unresponsive marketplace experience.
+
+The goal is to build a FULLY CONNECTED realtime ecosystem where EVERY important action inside the marketplace generates the correct notifications instantly for the correct users.
+
+The platform must feel:
+- alive
+- responsive
+- realtime
+- professional
+- interactive
+- trustworthy
+- modern
+- enterprise-grade
+
+==================================================
+CORE OBJECTIVE
+==================================================
+
+Create a COMPLETE realtime notification infrastructure across the ENTIRE marketplace.
+
+EVERY important action, event, status change, approval, rejection, order update, moderation action, or user interaction MUST generate the correct notifications automatically.
+
+Notifications must work for:
+- customers
+- sellers
+- admins
+
+==================================================
+NOTIFICATION SYSTEM ARCHITECTURE
+==================================================
+
+Design a scalable enterprise notification system with:
+- realtime notifications
+- persistent notification history
+- unread/read states
+- notification categories
+- notification priorities
+- action-based notifications
+- role-based notifications
+- mobile-friendly notification UX
+- scalable backend event handling
+
+The system must feel:
+- instant
+- reliable
+- professional
+- modern
+
+==================================================
+REALTIME NOTIFICATIONS
+==================================================
+
+Implement realtime updates across the platform.
+
+Notifications should appear instantly without page refresh whenever possible.
+
+Requirements:
+- realtime notification delivery
+- instant unread count updates
+- smooth notification animations
+- responsive dropdown/panel updates
+- background updates
+- live admin monitoring
+
+Avoid:
+- delayed notification rendering
+- duplicate notifications
+- broken realtime sync
+- stale notification states
+
+==================================================
+GLOBAL NOTIFICATION CENTER
+==================================================
+
+Build a premium centralized notification center.
+
+Requirements:
+- unread badge counter
+- grouped notifications
+- notification categories
+- timestamps
+- read/unread states
+- mark as read
+- mark all as read
+- responsive mobile UI
+- infinite scrolling/pagination if needed
+- notification filtering
+
+The notification center must feel:
+- premium
+- modern
+- app-like
+- responsive
+
+==================================================
+CUSTOMER NOTIFICATIONS
+==================================================
+
+Customers MUST receive notifications for ALL important actions including:
+
+==================================================
+ORDER EVENTS
+==================================================
+
+- order placed successfully
+- seller accepted order
+- seller rejected order
+- order status changed
+- order processing started
+- order shipped
+- order delivered
+- order cancelled
+- refund approved/rejected
+- payment confirmed
+- payment failed
+
+==================================================
+ACCOUNT & MARKETPLACE EVENTS
+==================================================
+
+- account updates
+- password/security alerts
+- wishlist/product availability
+- promotional notifications (optional)
+- review replies
+- support responses
+
+==================================================
+SELLER NOTIFICATIONS
+==================================================
+
+Sellers MUST receive realtime notifications for:
+
+==================================================
+ORDER EVENTS
+==================================================
+
+- new order received
+- order cancelled
+- order updated
+- customer message/support issue
+- payment confirmation
+- refund requests
+
+==================================================
+SELLER ACCOUNT EVENTS
+==================================================
+
+- seller verification approved
+- seller verification rejected
+- seller verification under review
+- product approved/rejected
+- moderation warnings
+- admin messages
+- low stock alerts
+- product reports
+
+==================================================
+ADMIN NOTIFICATIONS
+==================================================
+
+Admins MUST receive notifications for ALL critical marketplace activity.
+
+==================================================
+ADMIN EVENTS
+==================================================
+
+- new seller application
+- seller verification requests
+- new products pending approval
+- reported products
+- reported sellers
+- suspicious activity
+- large order activity
+- refund requests
+- support escalations
+- failed payments
+- system warnings
+- marketplace abuse reports
+
+The admin panel must feel:
+- alive
+- monitored
+- enterprise-grade
+
+==================================================
+ORDER STATUS AUTOMATION
+==================================================
+
+Implement automatic notification chains for order lifecycle.
+
+Example flow:
+1. Customer places order
+→ Seller instantly notified
+
+2. Seller views/accepts order
+→ Customer instantly notified
+
+3. Seller changes status to processing
+→ Customer notified
+
+4. Seller marks shipped
+→ Customer notified
+
+5. Delivered/cancelled/refunded
+→ Both parties notified appropriately
+
+This entire workflow must feel seamless and realtime.
+
+==================================================
+SELLER VERIFICATION WORKFLOW
+==================================================
+
+Implement full notification flow for seller onboarding.
+
+Example:
+- seller applies
+→ admin notified
+
+- admin reviews application
+→ seller notified
+
+- seller approved/rejected
+→ seller receives detailed notification
+
+- moderation updates
+→ seller notified immediately
+
+==================================================
+PRODUCT MODERATION NOTIFICATIONS
+==================================================
+
+Implement notifications for:
+- product approval
+- product rejection
+- moderation changes
+- listing removal
+- stock warnings
+- product reports
+
+==================================================
+NOTIFICATION UX/UI
+==================================================
+
+Design a premium notification experience.
+
+Requirements:
+- modern dropdown/panel
+- beautiful unread indicators
+- smooth animations
+- clear icons
+- categorized styling
+- responsive layouts
+- touch-friendly mobile UX
+- proper spacing
+- professional typography
+
+The experience must feel:
+- premium
+- polished
+- native-app-like
+
+==================================================
+MOBILE NOTIFICATION EXPERIENCE
+==================================================
+
+Mobile notification UX is CRITICAL.
+
+Requirements:
+- instant mobile updates
+- responsive notification center
+- smooth scrolling
+- thumb-friendly interactions
+- optimized rendering
+- no lag on weak devices
+
+Ensure notifications feel excellent on:
+- Android phones
+- iPhones
+- weak Syrian internet
+- low-end devices
+
+==================================================
+NOTIFICATION PRIORITIES
+==================================================
+
+Implement notification importance levels.
+
+Examples:
+- critical
+- important
+- normal
+- informational
+
+Critical notifications should stand out appropriately.
+
+==================================================
+PERFORMANCE & SCALABILITY
+==================================================
+
+The notification system must remain lightweight and scalable.
+
+Optimize:
+- realtime subscriptions
+- rendering performance
+- notification queries
+- unread counters
+- pagination
+- caching
+- websocket/event handling if applicable
+
+Avoid:
+- memory leaks
+- excessive rerenders
+- duplicate listeners
+- performance bottlenecks
+
+==================================================
+MULTILINGUAL SUPPORT
+==================================================
+
+Ensure FULL support for:
+- Arabic RTL
+- English LTR
+
+Translate ALL notification content professionally.
+
+Requirements:
+- Arabic-friendly wording
+- proper RTL rendering
+- localized timestamps
+- clean multilingual formatting
+
+==================================================
+SMART NOTIFICATION BEHAVIOR
+==================================================
+
+Implement intelligent behavior such as:
+- prevent duplicate spam notifications
+- batch repetitive notifications if needed
+- auto-hide less important notifications
+- prioritize important events
+- graceful fallback behavior
+
+==================================================
+AUDIT & AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically scan and fix:
+- missing notifications
+- broken event chains
+- delayed updates
+- duplicate notifications
+- unread counter bugs
+- mobile notification issues
+- RTL rendering problems
+- stale notification states
+- performance bottlenecks
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test ALL customer notifications
+- test ALL seller notifications
+- test ALL admin notifications
+- test order lifecycle notifications
+- test seller verification flow
+- test moderation notifications
+- test mobile notification UX
+- test realtime updates
+- test Arabic RTL rendering
+- test desktop responsiveness
+- verify no notification duplication
+- verify unread counts update correctly
+- verify smooth performance
+- verify no console errors
+
+FINAL RESULT MUST FEEL LIKE:
+- a living realtime marketplace ecosystem
+- enterprise-grade ecommerce infrastructure
+- premium modern notification experience
+- highly responsive and trustworthy
+- production-ready and scalable

@@ -1,0 +1,180 @@
+SYANO — ENVIRONMENT RESTORE + RESUME FROM LAST VERIFIED CHECKPOINT
+
+IMPORTANT
+
+This is NOT a new development task.
+
+Your first responsibility is to restore the project environment and resume exactly from the latest verified project state.
+
+Do NOT implement new features.
+Do NOT modify business logic.
+Do NOT refactor code.
+Do NOT investigate new issues yet.
+
+==================================================
+GOAL
+====
+
+Restore the environment and return the project to the exact last verified checkpoint so development can continue safely.
+
+==================================================
+STEP 1 — READ PROJECT STATE
+===========================
+
+Read ALL recovery and memory files first.
+
+Required:
+
+* project-memory/CURRENT_STATE.md
+* project-memory/CURRENT_TASK.md
+* project-memory/DATABASE_STATE.md
+* project-memory/API_STATE.md
+* project-memory/KNOWN_ISSUES.md
+* project-memory/RECOVERY_GUIDE.md
+* project-memory/CHANGELOG.md
+* .agents/memory/MEMORY.md
+* All recent handoff/recovery files
+
+Identify:
+
+* Last verified checkpoint
+* Last completed feature
+* Last git commit
+* Current expected database state
+* Current expected environment state
+
+==================================================
+STEP 2 — VERIFY WORKSPACE
+=========================
+
+Inspect:
+
+* git status
+* current branch
+* current commit
+* modified files
+* untracked files
+
+Report:
+
+* Any local changes
+* Any unfinished implementations
+* Any interrupted work
+
+Do NOT change anything yet.
+
+==================================================
+STEP 3 — RESTORE ENVIRONMENT
+============================
+
+Restore the environment completely.
+
+Verify:
+
+* node_modules
+* workspace dependencies
+* workspace libraries
+* generated types
+* build artifacts
+
+Perform all required restore steps.
+
+==================================================
+STEP 4 — DATABASE RESTORE
+=========================
+
+Inspect database state.
+
+If database is empty:
+
+* Recreate schema using the project's official process
+* Rebuild all expected tables
+
+Verify final table count.
+
+Verify schema matches Drizzle definitions.
+
+Report exact results.
+
+==================================================
+STEP 5 — LIBRARY REBUILD
+========================
+
+Rebuild all shared libraries required by the project.
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+Ensure generated types are current.
+
+==================================================
+STEP 6 — START SERVICES
+=======================
+
+Start and verify:
+
+* API Server
+* Marketplace
+* Mobile App
+* PostgreSQL connectivity
+
+Verify each service individually.
+
+==================================================
+STEP 7 — POST-RESTORE VALIDATION
+================================
+
+Verify the latest completed work still exists:
+
+* Product Wizard
+* Variant System
+* Delivery Zones
+* Admin Notifications
+* Suggested Attributes relocation
+
+Verify no regressions.
+
+Verify workspace is healthy.
+
+==================================================
+STEP 8 — RESUME POINT
+=====================
+
+Determine exactly where development should continue.
+
+The next planned work after restore is:
+
+1. Recently Viewed Products (fully functional implementation)
+2. Product Wizard stock / variants UX improvement
+
+Do NOT implement them yet.
+
+Only verify that the project is ready.
+
+==================================================
+FINAL REPORT
+============
+
+Provide:
+
+1. Current branch
+2. Current commit
+3. Workspace status
+4. Database status
+5. Table count
+6. API status
+7. Marketplace status
+8. Mobile status
+9. Recovery status
+10. Last verified checkpoint
+11. Confirmation that environment restoration is complete
+12. Confirmation that development can safely resume from the latest checkpoint
+
+IMPORTANT
+
+Do not begin feature development.
+
+Environment restore and validation only.

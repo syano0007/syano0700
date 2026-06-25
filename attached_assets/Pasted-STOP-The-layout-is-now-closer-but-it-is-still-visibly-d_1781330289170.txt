@@ -1,0 +1,205 @@
+STOP.
+
+The layout is now closer, but it is still visibly different from the screenshots.
+
+This is no longer a structure problem.
+
+This is now a PIXEL-PERFECT REFINEMENT PASS.
+
+Do not redesign anything.
+
+Do not change the hierarchy.
+
+Do not move to implementation.
+
+Keep working on the mockup only.
+
+---
+
+MOST IMPORTANT ISSUE
+
+The screenshots have a very specific premium atmosphere that is still missing.
+
+The differences are mainly caused by:
+
+1. Background treatment
+2. Container widths
+3. Horizontal spacing
+4. Vertical spacing
+5. Edge alignment
+6. Visual breathing room
+7. Hero composition scale
+8. Section proportions
+
+---
+
+BACKGROUND RECREATION
+
+The screenshots use a very specific layered background system.
+
+Your current version does not match it.
+
+Recreate the background exactly:
+
+* Deep black base
+* Large radial glows
+* Soft spotlight gradients
+* Subtle grid texture
+* Dark luxury atmosphere
+* Layered depth
+* Ambient lighting effect
+
+The page should not feel flat.
+
+The page should feel cinematic.
+
+The screenshots have depth.
+
+Recreate that depth.
+
+---
+
+CONTAINER SYSTEM
+
+Audit every section.
+
+Compare the screenshots and your design.
+
+Measure:
+
+* left padding
+* right padding
+* max-width
+* content width
+* gap sizes
+
+The screenshots have very precise alignment.
+
+Your version still feels wider and less controlled.
+
+Adjust all containers until section alignment visually matches the screenshots.
+
+---
+
+HERO SECTION
+
+Do another screenshot comparison.
+
+Match:
+
+* image scale
+* image crop
+* image position
+* headline width
+* headline wrapping
+* spacing between title and CTA
+* spacing between CTA and stats
+* card overlay positions
+* glow intensity
+
+The hero must feel almost identical.
+
+---
+
+CATEGORY SECTION
+
+Still not matching.
+
+Focus on:
+
+* card width
+* card height
+* overlay darkness
+* image crop
+* bottom text position
+* section spacing above and below
+
+The visual weight must match the screenshots.
+
+---
+
+FEATURED DEALS
+
+Audit:
+
+* countdown placement
+* card width
+* image height
+* badge size
+* price hierarchy
+* button size
+* spacing between cards
+
+Match the screenshots precisely.
+
+---
+
+NEW ARRIVALS
+
+Match:
+
+* large card proportion
+* supporting card proportion
+* image scale
+* spacing between columns
+* section padding
+
+The current version still feels different.
+
+---
+
+TRUSTED STORES
+
+Reduce visual differences.
+
+Match:
+
+* card ratio
+* image height
+* logo size
+* button placement
+* spacing
+
+---
+
+GLOBAL SPACING AUDIT
+
+This is critical.
+
+The screenshots have a luxury characteristic:
+
+LARGE BREATHING ROOM.
+
+Audit every section:
+
+* top padding
+* bottom padding
+* gaps
+* margins
+
+If any area feels crowded, it is wrong.
+
+If any area feels compressed, it is wrong.
+
+Match the screenshots exactly.
+
+---
+
+FINAL TASK
+
+Perform a complete visual diff between:
+
+A) Your current mockup
+B) The screenshots
+
+Create a list of every remaining visual mismatch.
+
+Then correct all of them.
+
+Do not stop until the homepage looks like the screenshots were directly recreated inside SYANO.
+
+Target similarity:
+
+98–100%.
+
+Anything that still looks "inspired by" instead of "rebuilt from" must be corrected.

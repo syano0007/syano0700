@@ -1,0 +1,265 @@
+SYANO — FULL RECOVERY & STARTUP MODE
+(LATEST PROJECT STATE)
+
+IMPORTANT:
+
+Do NOT implement features.
+
+Do NOT modify UI.
+
+Do NOT start audits.
+
+Do NOT start roadmap work.
+
+Do NOT build the Hero Banner system yet.
+
+Your only goal is restoring the project to the exact latest state and verifying everything is operational.
+
+==================================================
+PHASE 1 — ENVIRONMENT VALIDATION
+================================
+
+Verify all required secrets exist:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_EMAIL / VAPID_SUBJECT
+
+Report missing values.
+
+Stop if environment is incomplete.
+
+==================================================
+PHASE 2 — INSTALLATION
+======================
+
+Run:
+
+pnpm install --force
+
+Verify:
+
+* workspace resolution
+* no missing packages
+* no broken dependencies
+
+==================================================
+PHASE 3 — DATABASE RESTORE
+==========================
+
+Restore:
+
+psql "$DATABASE_URL" -f schema.sql
+
+Then run:
+
+run-migrations.ts
+
+Verify:
+
+* 27 tables
+* notification_type enum = latest version
+* order_status enum = 15 values
+* role enum complete
+* delivery_zones = 40 rows
+* seller_verification_log exists
+* users.verified_by exists
+
+Verify all systems added after launch:
+
+Trust System V1
+Store Pages V2
+Store Settings V3
+Store Review System V2
+Seller Reply System
+
+All columns must exist.
+
+==================================================
+PHASE 4 — BUILD SHARED LIBRARIES
+================================
+
+Build:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+Verify successful compilation.
+
+==================================================
+PHASE 5 — BOOTSTRAP ACCOUNTS
+============================
+
+Verify permanent accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+00Amer00
+
+Verify:
+
+Admin:
+
+* active
+
+Seller:
+
+* active
+* approved seller application
+* store slug = syano-test-store
+
+Courier:
+
+* active
+* approved courier profile
+
+Issue tokens successfully.
+
+==================================================
+PHASE 6 — START SERVICES
+========================
+
+Start:
+
+* API
+* Marketplace
+* Mobile
+
+Verify:
+
+GET /api/healthz
+
+returns:
+
+{"status":"ok"}
+
+==================================================
+PHASE 7 — TYPESCRIPT VALIDATION
+===============================
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+* mobile
+
+Result:
+
+0 TypeScript errors.
+
+==================================================
+PHASE 8 — RECOVERY CHECK
+========================
+
+Run:
+
+GET /api/admin/recovery-check
+
+Expected:
+
+confidenceScore = 100
+
+Verify ALL modules pass.
+
+Current expected count:
+
+20 modules
+
+No failures.
+
+No deductions.
+
+==================================================
+PHASE 9 — REVIEW SYSTEM VALIDATION
+==================================
+
+Verify the systems restored correctly:
+
+Product Reviews
+
+Store Reviews
+
+Seller Replies
+
+Trust Integration
+
+Review Notifications
+
+Store Rating
+
+Reply Notifications
+
+Analytics Integration
+
+Verify endpoints exist.
+
+No implementation.
+
+Only verification.
+
+==================================================
+PHASE 10 — DOCUMENTATION SYNC
+=============================
+
+Verify consistency of:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Do not rewrite.
+
+Only verify.
+
+==================================================
+PHASE 11 — FINAL REPORT
+=======================
+
+Return ONLY:
+
+1. Environment Status
+2. Database Status
+3. Bootstrap Accounts Status
+4. Services Status
+5. TypeScript Status
+6. Recovery Check Score
+7. Review System Status
+8. Missing Items
+
+==================================================
+CRITICAL RULE
+=============
+
+When recovery reaches:
+
+100/100
+
+and all services are running,
+
+STOP.
+
+Do not begin Hero Banner work.
+
+Do not begin audits.
+
+Do not begin roadmap tasks.
+
+Wait for the next prompt.

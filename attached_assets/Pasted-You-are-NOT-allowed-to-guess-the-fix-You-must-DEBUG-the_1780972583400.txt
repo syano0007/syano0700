@@ -1,0 +1,284 @@
+You are NOT allowed to guess the fix.
+
+You must DEBUG the Variant Builder visually and structurally until ALL RTL and mobile layout issues are completely eliminated.
+
+## CRITICAL RULES
+
+* Do NOT rewrite the VariantBuilder.
+* Do NOT change any business logic.
+* Do NOT change APIs.
+* Do NOT change database schema.
+* Do NOT remove existing features.
+* Do NOT introduce regressions.
+* Preserve all current functionality.
+* Preserve TypeScript = 0 errors.
+* Preserve RTL support everywhere.
+
+---
+
+# PHASE 1 — VISUAL AUDIT
+
+Do NOT edit anything yet.
+
+You must first:
+
+1. Start all services.
+2. Login automatically using the Root Owner account.
+3. Open:
+
+Seller Dashboard
+→ Products
+→ Add Product
+
+4. Enable Variants.
+
+Then inspect the page at ALL of these widths:
+
+* 320px
+* 360px
+* 390px
+* 412px
+* 768px
+* 1024px
+* 1440px
+
+Test BOTH:
+
+* Arabic (RTL)
+* English (LTR)
+
+Take screenshots mentally (or with browser automation) and identify EVERY issue.
+
+Do not stop after finding one problem.
+
+Build a complete defect list.
+
+---
+
+# PHASE 2 — FIND ROOT CAUSES
+
+Do NOT patch symptoms.
+
+For every issue explain:
+
+* why it happens
+* which container causes it
+* which flex/grid calculation fails
+* whether overflow-hidden clips it
+* whether min-width/max-width causes it
+* whether md/lg breakpoints are wrong
+* whether RTL logical properties are missing
+
+You must identify the ACTUAL root cause.
+
+---
+
+# PHASE 3 — FIX ALL REMAINING RTL ISSUES
+
+Currently several controls still move toward the wrong side in Arabic.
+
+Audit EVERY occurrence of:
+
+margin-left
+margin-right
+padding-left
+padding-right
+left
+right
+translate-x
+justify-start
+justify-end
+text-left
+text-right
+absolute positioning
+
+Replace with logical equivalents whenever appropriate:
+
+ms-
+me-
+ps-
+pe-
+start-
+end-
+text-start
+text-end
+
+Verify visually that Arabic behaves naturally.
+
+Buttons must never slide toward the physical right if they should align to the logical end.
+
+---
+
+# PHASE 4 — FIX MOBILE LAYOUT COMPLETELY
+
+Current mobile layout is still inconsistent.
+
+Fix ALL of these:
+
+## Group header
+
+* nothing clipped
+* nothing hidden
+* no button half-visible
+* no icon cut off
+* title truncates gracefully
+
+## Variant toggle
+
+* proper spacing
+* proper alignment
+* minimum 44x44 touch targets
+
+## Manage combinations
+
+* buttons never overlap
+* buttons never stack incorrectly
+* controls never leave viewport
+
+## Variant cards
+
+* image
+* checkbox
+* title
+* status
+* inputs
+
+must look like one coherent card.
+
+No broken rows.
+
+No floating controls.
+
+## Bulk toolbar
+
+Must stack perfectly.
+
+No partial visibility.
+
+No horizontal scrolling.
+
+## Quick-add chips
+
+Never clip.
+
+Wrap naturally.
+
+Touch friendly.
+
+## Custom attribute input row
+
+Input + Add button + Close button
+
+must ALWAYS stay usable.
+
+No forced wrapping that hides controls.
+
+---
+
+# PHASE 5 — REMOVE ALL OVERFLOW
+
+Search entire VariantBuilder for:
+
+overflow-hidden
+
+If any overflow-hidden is hiding UI elements rather than serving a visual purpose, replace it with a safer layout solution.
+
+No control may disappear because of clipping.
+
+---
+
+# PHASE 6 — ELIMINATE HORIZONTAL SCROLL
+
+At every width:
+
+320
+360
+390
+412
+768
+
+There must be:
+
+* zero horizontal scrollbar
+* zero clipped content
+* zero partially visible buttons
+
+---
+
+# PHASE 7 — VERIFY THE ENTIRE ADD PRODUCT PAGE
+
+Do NOT only inspect VariantBuilder.
+
+Audit the entire Add Product page:
+
+* image uploader
+* category selector
+* title fields
+* description
+* pricing
+* inventory
+* shipping
+* variants
+* submit buttons
+
+Make sure VariantBuilder changes did not break neighboring sections.
+
+---
+
+# PHASE 8 — FINAL VISUAL QA
+
+Re-open the page.
+
+Test again:
+
+Arabic:
+320
+360
+390
+412
+768
+1024
+1440
+
+English:
+320
+360
+390
+412
+768
+1024
+1440
+
+Do NOT finish until ALL of these are true:
+
+✅ No clipped buttons
+
+✅ No clipped text
+
+✅ No half-visible controls
+
+✅ No horizontal scrolling
+
+✅ No overlapping elements
+
+✅ No controls outside viewport
+
+✅ RTL behaves correctly
+
+✅ LTR behaves correctly
+
+✅ Mobile looks intentional
+
+✅ Tablet looks intentional
+
+✅ Desktop unchanged
+
+✅ TypeScript = 0 errors
+
+✅ Browser console = 0 errors
+
+If even ONE of these fails, continue debugging instead of declaring success.
+
+Your goal is NOT to modify code.
+
+Your goal is to make the Variant Builder feel production-ready on Arabic mobile devices without introducing any regressions.

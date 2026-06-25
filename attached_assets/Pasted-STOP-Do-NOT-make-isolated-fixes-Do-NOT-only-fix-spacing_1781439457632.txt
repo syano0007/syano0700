@@ -1,0 +1,435 @@
+STOP.
+
+Do NOT make isolated fixes.
+
+Do NOT only fix spacing.
+
+Do NOT only fix translations.
+
+Perform a COMPLETE Seller Verification System Audit and a COMPLETE Platform Health Audit.
+
+This task includes:
+
+1. Seller Verification Page UI Audit
+2. Seller Verification Translation Audit
+3. Platform Endpoint Audit
+4. Admin Dashboard Audit
+5. Full Functional Validation
+
+Nothing should be left unchecked.
+
+---
+
+# PART 1 — SELLER VERIFICATION PAGE
+
+Target:
+
+Admin Dashboard
+
+Seller Verification
+
+Vendor Approval Workflow
+
+Seller Review Screen
+
+All related pages.
+
+---
+
+## UI / SPACING AUDIT
+
+Current issues:
+
+* content touches edges
+* inconsistent spacing
+* cramped layout
+* weak hierarchy
+
+Audit:
+
+* page container
+* cards
+* seller profile section
+* business information
+* uploaded documents
+* verification images
+* metadata
+* notes
+* approval actions
+* rejection actions
+
+Fix:
+
+* padding
+* margins
+* spacing
+* alignment
+* card consistency
+
+Match the quality level of:
+
+* Homepage V7
+* Current Navbar
+* Seller Dashboard
+
+---
+
+## TRANSLATION AUDIT
+
+Current issue:
+
+Some texts are untranslated.
+
+Some keys are broken.
+
+Some areas mix Arabic and English.
+
+This is unacceptable.
+
+Audit the ENTIRE Seller Verification workflow.
+
+Verify:
+
+Arabic:
+
+* 100% Arabic
+
+English:
+
+* 100% English
+
+No mixed language content.
+
+No fallback keys.
+
+No:
+
+seller_verification.title
+
+admin.approve
+
+verification_pending
+
+or similar raw translation keys visible.
+
+---
+
+## RTL / LTR AUDIT
+
+Verify:
+
+Arabic:
+
+* RTL layout
+
+English:
+
+* LTR layout
+
+Check:
+
+* headings
+* cards
+* labels
+* buttons
+* metadata
+* tables
+* forms
+
+Everything must switch correctly.
+
+---
+
+# PART 2 — FULL SITE TRANSLATION AUDIT
+
+Audit the entire platform.
+
+Verify:
+
+Homepage
+
+Navbar
+
+Footer
+
+Product pages
+
+Category pages
+
+Store pages
+
+Wishlist
+
+Cart
+
+Checkout
+
+Seller dashboard
+
+Courier dashboard
+
+Admin dashboard
+
+Settings
+
+Notifications
+
+Messages
+
+Authentication
+
+Orders
+
+Trust system
+
+Verification system
+
+No untranslated text allowed.
+
+No mixed-language pages allowed.
+
+No visible translation keys allowed.
+
+---
+
+# PART 3 — ENDPOINT HEALTH AUDIT
+
+Use REAL endpoints.
+
+Do NOT assume functionality.
+
+Actually test.
+
+Audit all major API routes.
+
+---
+
+## Core
+
+GET /api/healthz
+
+GET /api/products
+
+GET /api/categories
+
+GET /api/stores
+
+GET /api/search
+
+---
+
+## Auth
+
+Login
+
+Register
+
+Profile
+
+Session
+
+---
+
+## Seller
+
+Store profile
+
+Products
+
+Orders
+
+Analytics
+
+Trust
+
+Verification
+
+---
+
+## Courier
+
+Profile
+
+Orders
+
+Status
+
+Operations dashboard
+
+---
+
+## Admin
+
+Stats
+
+Users
+
+Stores
+
+Products
+
+Trust
+
+Verification
+
+Recovery check
+
+---
+
+## Wishlist
+
+GET
+
+POST
+
+DELETE
+
+---
+
+## Cart
+
+Add
+
+Remove
+
+Update
+
+Checkout
+
+---
+
+# PART 4 — REAL ACCOUNT TESTING
+
+Use the actual platform accounts.
+
+Admin:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Do NOT stop because login is required.
+
+Actually authenticate.
+
+Actually verify.
+
+Actually test.
+
+---
+
+# PART 5 — FUNCTIONAL VALIDATION
+
+Verify:
+
+Theme switching
+
+Language switching
+
+Currency switching
+
+Wishlist
+
+Cart
+
+Orders
+
+Seller dashboard
+
+Courier dashboard
+
+Admin dashboard
+
+Trust system
+
+Store pages
+
+Product pages
+
+Homepage
+
+Navbar
+
+Footer
+
+---
+
+# PART 6 — RECOVERY & DOCUMENTATION
+
+After fixes:
+
+Update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+Recovery audit files
+
+Endpoint documentation
+
+Admin verification documentation
+
+Translation documentation
+
+Only document the REAL current state.
+
+No fictional documentation.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Seller Verification spacing fixed
+
+✅ Seller Verification translations fixed
+
+✅ No translation keys visible
+
+✅ Arabic works
+
+✅ English works
+
+✅ RTL works
+
+✅ LTR works
+
+✅ Endpoints healthy
+
+✅ API responses valid
+
+✅ Admin account verified
+
+✅ Seller account verified
+
+✅ Courier account verified
+
+✅ Theme switching works
+
+✅ Currency switching works
+
+✅ Wishlist works
+
+✅ Cart works
+
+✅ Homepage works
+
+✅ Recovery docs updated
+
+✅ Endpoint docs updated
+
+✅ TypeScript = 0 errors
+
+✅ No console errors
+
+✅ No API errors
+
+Do not finish until every validation item passes.

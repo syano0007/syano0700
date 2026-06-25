@@ -1,0 +1,180 @@
+Perform a FULL MOBILE SIDEBAR & SETTINGS LAYOUT AUDIT.
+
+This is NOT a translation issue.
+
+This is a responsive layout issue causing labels to be truncated and hidden on mobile devices.
+
+Current examples:
+
+* "العملة" becomes "الع..."
+* "تبديل السمة" becomes "تبدي..."
+* Labels are cut off in both Arabic and English
+* Preference rows are not allocating enough width for text
+
+Audit the ENTIRE codebase for similar issues.
+
+---
+
+PHASE 1 — ROOT CAUSE ANALYSIS
+
+Inspect every mobile sidebar, drawer, sheet, settings panel, preferences panel, profile menu and account menu.
+
+Find all cases where text is being truncated because of:
+
+* truncate
+* text-ellipsis
+* overflow-hidden
+* whitespace-nowrap
+* flex-shrink
+* min-width constraints
+* fixed widths
+* incorrect flex layouts
+* incorrect RTL handling
+
+Do not patch individual strings.
+
+Find the structural cause.
+
+---
+
+PHASE 2 — MOBILE SIDEBAR FIX
+
+Audit the sidebar component itself.
+
+Verify:
+
+* drawer width
+* sheet width
+* sidebar width
+* content width
+* padding
+* gap spacing
+* flex distribution
+
+Ensure labels always have enough space.
+
+Requirements:
+
+* Arabic labels fully visible
+* English labels fully visible
+* No clipping
+* No ellipsis
+* No hidden text
+
+---
+
+PHASE 3 — SETTINGS ROWS
+
+Audit rows containing:
+
+Language
+
+Currency
+
+Theme
+
+Notifications
+
+Profile
+
+Account
+
+Privacy
+
+Security
+
+Any preference item
+
+Requirements:
+
+* Label area expands correctly
+* Controls do not push labels out
+* Text wraps if necessary
+* Text remains readable
+
+---
+
+PHASE 4 — RTL & LTR VALIDATION
+
+Test:
+
+Arabic mode
+
+English mode
+
+Verify:
+
+* alignment
+* spacing
+* icon positions
+* text positions
+* button positions
+
+No overlap.
+
+No clipping.
+
+No truncation.
+
+---
+
+PHASE 5 — GLOBAL SEARCH
+
+Search entire codebase for:
+
+truncate
+text-ellipsis
+overflow-hidden
+whitespace-nowrap
+flex-shrink
+max-w-*
+w-*
+min-w-*
+
+Find every mobile navigation, drawer, sidebar, settings panel, and preference component affected.
+
+Fix all occurrences where text visibility is harmed.
+
+---
+
+PHASE 6 — RESPONSIVE TESTING
+
+Verify on:
+
+320px
+360px
+375px
+390px
+414px
+
+for both:
+
+Arabic
+English
+
+Requirements:
+
+* Every label fully visible
+* No clipped text
+* No hidden words
+* No ellipsis in settings rows
+* No overflow
+
+---
+
+PHASE 7 — REPORT
+
+Provide:
+
+1. Root cause found.
+2. Files modified.
+3. Components modified.
+4. Every truncation bug fixed.
+5. Screenshots before/after.
+6. Verification in Arabic.
+7. Verification in English.
+8. Verification on all mobile widths.
+
+Do not stop after fixing the currently visible examples.
+
+Audit and fix the entire mobile sidebar/settings system globally.

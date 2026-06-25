@@ -1,0 +1,252 @@
+STOP.
+
+Do NOT redesign anything.
+
+Do NOT change layout.
+
+Do NOT touch the hero proportions.
+
+Do NOT modify the image width.
+
+Do NOT modify floating cards.
+
+Do NOT modify headline size.
+
+Do NOT modify stats size.
+
+Everything that already matches the reference must remain locked.
+
+This task only fixes the remaining visual mismatches.
+
+Use the approved reference screenshot as the ONLY source of truth.
+
+Canvas mockup only.
+
+NO production implementation.
+
+NO HeroV4 changes.
+
+NO homepage changes.
+
+ONLY HeroMockup.
+
+--------------------------------------------------
+REMAINING DIFFERENCES TO FIX
+--------------------------------------------------
+
+# 1. DESCRIPTION TEXT CONTRAST
+
+Current issue:
+
+The text:
+
+"منتجات متنوعة. متاجر موثوقة. وتجربة تسوق حديثة تجمع أفضل المتاجر السورية في مكان واحد."
+
+still looks weaker than the reference.
+
+In the reference:
+
+- brighter
+- cleaner
+- higher contrast
+- easier to read
+
+Required:
+
+Match exactly:
+
+- color
+- opacity
+- font rendering
+- weight
+- anti-aliasing appearance
+- contrast against background
+
+DO NOT:
+
+- increase font size
+- change line breaks
+- change width
+
+Only improve visual clarity until it matches the reference.
+
+Also audit every secondary paragraph text inside the hero.
+
+Any text using the same style must match the same contrast level.
+
+--------------------------------------------------
+
+# 2. NAVBAR SPACING AUDIT
+
+Current navbar still differs.
+
+Do a complete geometry comparison.
+
+Match exactly:
+
+- left padding
+- right padding
+- vertical padding
+- gaps between controls
+- search spacing
+- button spacing
+- icon spacing
+- logo spacing
+
+Compare at 100% zoom.
+
+The navbar should occupy the exact same visual footprint as the reference.
+
+No guessing.
+
+Measure.
+
+--------------------------------------------------
+
+# 3. SEARCH BAR DIMENSIONS
+
+Search area still feels different.
+
+Match exactly:
+
+- width
+- height
+- border radius
+- internal padding
+- icon position
+- placeholder position
+- placeholder opacity
+
+Do not approximate.
+
+Match the reference.
+
+--------------------------------------------------
+
+# 4. ICON SIZES
+
+Audit all navbar icons.
+
+Match exactly:
+
+- search icon
+- cart icon
+- wishlist icon
+- theme icon
+- currency icon
+
+Current icons feel slightly oversized.
+
+Reference icons are cleaner and slightly smaller.
+
+Match:
+
+- icon size
+- stroke thickness
+- optical weight
+
+--------------------------------------------------
+
+# 5. BUTTON BORDER RADIUS
+
+Buttons are still not identical.
+
+Reference buttons use a softer radius.
+
+Match exactly:
+
+Primary button:
+"تسوق الآن"
+
+Secondary button:
+"تصفح المتاجر"
+
+Required:
+
+- radius
+- height
+- width
+- internal padding
+- visual silhouette
+
+Do NOT change typography.
+
+Only geometry.
+
+--------------------------------------------------
+
+# 6. BUTTON TEXT CLARITY
+
+Current button labels are readable but not as crisp.
+
+Do NOT make them larger.
+
+Instead match:
+
+- weight
+- color
+- opacity
+- contrast
+- rendering
+
+Reference text appears cleaner and more defined.
+
+Primary CTA text remains BLACK.
+
+Do not change that.
+
+--------------------------------------------------
+
+# 7. VISUAL POLISH PASS
+
+After fixes:
+
+Open:
+
+Reference screenshot
+
+and
+
+Mockup
+
+side by side.
+
+Zoom 100%.
+
+Inspect only:
+
+- navbar
+- search
+- CTA buttons
+- description paragraph
+
+Refine until differences become difficult to notice.
+
+--------------------------------------------------
+
+SUCCESS CRITERIA
+
+✅ Description text contrast matches reference
+
+✅ Secondary text matches reference
+
+✅ Navbar spacing matches reference
+
+✅ Search dimensions match reference
+
+✅ Icon sizes match reference
+
+✅ CTA border radius matches reference
+
+✅ CTA text clarity matches reference
+
+✅ No layout changes
+
+✅ No hero restructuring
+
+✅ No production code
+
+Canvas mockup only.
+
+Target:
+98%+ visual similarity before implementation approval.

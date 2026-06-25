@@ -1,0 +1,401 @@
+CRITICAL PRODUCT VARIANTS SYSTEM REDESIGN
+
+This task is one of the most important architectural upgrades in the marketplace.
+
+Do NOT implement a simple solution.
+
+Do NOT add a few extra fields.
+
+Build a true marketplace-grade variants system similar to Amazon, Shopify, Etsy, Noon and Trendyol.
+
+══════════════════════════════════════
+OBJECTIVE
+══════════════════════════════════════
+
+A single product must be able to contain multiple purchasable variants.
+
+Examples:
+
+T-Shirt:
+
+Colors:
+
+* Black
+* White
+* Blue
+
+Sizes:
+
+* S
+* M
+* L
+* XL
+
+Phone:
+
+Storage:
+
+* 128GB
+* 256GB
+* 512GB
+
+Color:
+
+* Black
+* Silver
+* Blue
+
+Shoes:
+
+Size:
+
+* 40
+* 41
+* 42
+* 43
+* 44
+
+Color:
+
+* Black
+* White
+
+The system must support all of these scenarios.
+
+══════════════════════════════════════
+CURRENT SYSTEM AUDIT
+══════════════════════════════════════
+
+Before writing code:
+
+Audit the current:
+
+* Database schema
+* Product creation flow
+* Product editing flow
+* Inventory management
+* Cart system
+* Checkout system
+* Orders system
+* Product page
+
+Identify every place affected by variants.
+
+Provide the implementation plan before coding.
+
+══════════════════════════════════════
+DATABASE ARCHITECTURE
+══════════════════════════════════════
+
+Design a scalable architecture.
+
+Avoid storing variants as comma-separated text.
+
+Avoid storing variants as unstructured JSON blobs if it causes future limitations.
+
+Use a proper relational structure.
+
+Example:
+
+Product
+↓
+ProductVariant
+↓
+Variant Options
+
+Each variant must have its own:
+
+* ID
+* SKU
+* Stock quantity
+* Price adjustment
+* Status
+* Image (optional)
+
+The design must support future growth.
+
+══════════════════════════════════════
+SUPPORTED ATTRIBUTES
+══════════════════════════════════════
+
+Support:
+
+* Color
+* Size
+* Storage
+* Version
+* Material
+* Model
+* Custom attributes
+
+Seller must be able to create custom variant groups.
+
+Example:
+
+Attribute Name:
+Flavor
+
+Values:
+
+* Chocolate
+* Vanilla
+* Strawberry
+
+══════════════════════════════════════
+VARIANT GENERATION
+══════════════════════════════════════
+
+The seller should not manually create every combination.
+
+Example:
+
+Color:
+Black
+White
+
+Size:
+S
+M
+L
+
+The system should generate:
+
+Black / S
+Black / M
+Black / L
+
+White / S
+White / M
+White / L
+
+Automatically.
+
+══════════════════════════════════════
+INVENTORY MANAGEMENT
+══════════════════════════════════════
+
+Every variant must have:
+
+* Separate stock quantity
+* Separate SKU
+* Separate availability
+
+Example:
+
+Black / M
+Stock = 20
+
+Black / L
+Stock = 3
+
+White / M
+Stock = 0
+
+Out-of-stock variants must be handled correctly.
+
+══════════════════════════════════════
+PRICING
+══════════════════════════════════════
+
+Support:
+
+Base Product Price
+
+Optional Variant Price Difference
+
+Example:
+
+Product:
+100
+
+128GB:
++0
+
+256GB:
++20
+
+512GB:
++50
+
+Displayed price must update automatically.
+
+══════════════════════════════════════
+VARIANT IMAGES
+══════════════════════════════════════
+
+Variants may optionally have their own image.
+
+Example:
+
+Black Variant:
+Black product image
+
+White Variant:
+White product image
+
+Changing color should update displayed images.
+
+══════════════════════════════════════
+PRODUCT PAGE EXPERIENCE
+══════════════════════════════════════
+
+Professional UX required.
+
+Example:
+
+Color:
+○ Black
+○ White
+○ Blue
+
+Size:
+○ S
+○ M
+○ L
+○ XL
+
+Selecting options should:
+
+* Update image
+* Update stock
+* Update price
+* Update availability
+
+Instantly.
+
+══════════════════════════════════════
+CART SYSTEM
+══════════════════════════════════════
+
+Cart must store:
+
+Product ID
++
+Variant ID
+
+Example:
+
+T-Shirt
+Black
+Size M
+
+Must be treated as a different cart item from:
+
+T-Shirt
+White
+Size M
+
+══════════════════════════════════════
+ORDERS SYSTEM
+══════════════════════════════════════
+
+Orders must preserve:
+
+* Selected variant
+* Variant name
+* SKU
+* Selected options
+
+Even if product data changes later.
+
+══════════════════════════════════════
+SELLER DASHBOARD
+══════════════════════════════════════
+
+Seller must be able to:
+
+* Create variants
+* Edit variants
+* Disable variants
+* Update stock
+* Update pricing
+* Manage variant images
+
+From one interface.
+
+══════════════════════════════════════
+SEARCH & FILTERS
+══════════════════════════════════════
+
+Ensure variants do not break:
+
+* Search
+* Categories
+* Best Offers
+* Featured Products
+* Store Pages
+
+══════════════════════════════════════
+MOBILE EXPERIENCE
+══════════════════════════════════════
+
+This is critical.
+
+Test thoroughly on:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+Variant selection must be:
+
+* Clear
+* Fast
+* Touch-friendly
+* Responsive
+
+No overflow.
+No broken layouts.
+
+══════════════════════════════════════
+BACKWARD COMPATIBILITY
+══════════════════════════════════════
+
+Existing products without variants must continue working normally.
+
+Do not break existing inventory.
+
+Do not break existing orders.
+
+Do not break existing product pages.
+
+══════════════════════════════════════
+TESTING
+══════════════════════════════════════
+
+Test:
+
+* Product creation
+* Product editing
+* Inventory updates
+* Cart
+* Checkout
+* Orders
+* Mobile
+* Desktop
+* Arabic
+* English
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Provide:
+
+1. Database changes.
+2. API changes.
+3. Frontend changes.
+4. Seller dashboard changes.
+5. Product page changes.
+6. Cart changes.
+7. Order changes.
+8. Mobile compatibility results.
+9. Files modified.
+10. Screenshots.
+
+Success criteria:
+
+The marketplace must support professional product variants exactly as expected in modern e-commerce platforms while remaining fast, scalable, and fully compatible with existing products.

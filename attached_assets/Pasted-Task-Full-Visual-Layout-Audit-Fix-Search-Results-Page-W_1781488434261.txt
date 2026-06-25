@@ -1,0 +1,120 @@
+Task: Full Visual Layout Audit & Fix — Search Results Page (Web + Mobile)
+
+Context: Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md first.
+
+REPORTED ISSUE: The search results page is visually broken on BOTH desktop
+and mobile — multiple elements overlap each other and layout is misaligned.
+This is a VISUAL BUG-FIX PASS ONLY. Do not build new features.
+
+CRITICAL — DO NOT IMPLEMENT "SAVE SEARCH" OR "RECENTLY SEARCHED": Both were
+explicitly rejected in previous passes. This decision is final. Do not
+propose either feature again in this task or any future task.
+
+CONFIRMED BUGS — START HERE (screenshots attached separately for your
+reference; described precisely below so you can locate the exact code):
+
+Bug A — Desktop (1280px), Arabic, dark theme, /shop?q=...:
+The filter sidebar block (containing the "24 المنتجات" product count, the
+"الفئات" / category icon, and the rest of the filter sidebar: الفئة dropdown,
+ترتيب حسب dropdown, السعر range inputs, التقييم stars, checkboxes) is NOT
+rendering inside its own sidebar column. Instead it is rendering OVERLAPPING
+on top of the product grid — specifically on top of the 3rd product card
+(Tom Ford Tobacco Vanille EDP). The product grid (3 columns) and the filter
+sidebar appear to be occupying the same grid area / stacked via absolute or
+overlapping flex placement instead of being side-by-side columns. Expected:
+in RTL, the filter sidebar should be a separate column on the RIGHT, with its
+own width, and the product grid should be a separate column to its LEFT, with
+appropriate gap between them — neither should overlap the other.
+
+Bug B — Mobile (375px), Arabic, dark theme, /shop?q=...:
+The same filter block (product count "24 المنتجات", category icon/label
+"الفئات", and the "الأحدث" sort dropdown) is rendering as a single cramped
+horizontal row at the top of the results, with all elements squeezed
+together and overlapping/touching each other with no spacing. On mobile,
+this filter bar should either: stack vertically with proper spacing between
+each control, OR collapse into a "Filters" button that opens a bottom sheet/
+drawer (check if this pattern already exists elsewhere in the mobile app,
+e.g. in another list/browse screen, and reuse it if so). Do not invent a new
+mobile filter pattern if an existing one is already used elsewhere in the
+codebase.
+
+For BOTH bugs: trace the actual component tree and CSS/Tailwind classes for
+the search results page's top section (where product count + category +
+sort live) and the main layout container (sidebar + grid). Identify exactly
+why these are overlapping/cramped (e.g. missing flex container, wrong
+position/absolute, missing width constraints, wrong grid-template, flex-wrap
+without gap, RTL flex-direction not applied to this specific block, etc.)
+before writing any fix.
+
+STEP 1 — Capture current broken state (before any fixes):
+Take full-page screenshots of the search results page (marketplace web
+/shop or /search route with an active query like ?q=laptop, AND the mobile
+Expo equivalent) across this full matrix:
+- Breakpoints: 1280px (desktop), 768px (tablet), 375px (mobile)
+- Languages: Arabic (RTL) and English (LTR)
+- Themes: light and dark
+That is up to 12 web screenshots + mobile screenshots at 375px in both
+languages and themes. Capture the FULL page (scroll to bottom to include
+Related Searches), not just the top fold.
+
+STEP 2 — Diagnose every visual problem found in each screenshot, including
+but not limited to:
+- Bugs A and B above (confirmed, start here)
+- Any other overlapping elements (e.g. filter chips overlapping each other
+  or page content, Related Searches overlapping the footer or last product
+  row)
+- Elements extending beyond the viewport / causing horizontal scroll
+- Misaligned sidebar vs. product grid vs. NLP banner
+- Incorrect spacing/padding/margins between sections
+- z-index stacking issues (elements rendering on top of others incorrectly)
+- RTL-specific issues: sidebar on wrong side, icons not mirrored, text
+  alignment wrong, flex/grid direction not flipped for Arabic
+- Text overflow, truncation, or wrapping problems
+- Dark mode contrast issues (invisible text, wrong backgrounds) appearing
+  ONLY as a side effect of the layout bugs (do not redesign colors)
+- Mobile chip rows (sort/filter chips) colliding with product grid or each
+  other
+- Related Searches section colliding with adjacent content
+
+For each issue, identify the ROOT CAUSE by inspecting the actual CSS/Tailwind
+classes, flex/grid container structure, conditional RTL classes, dir
+attributes, and component nesting — do not guess.
+
+STEP 3 — Fix every issue found using ONLY:
+- Existing Tailwind utility classes already used elsewhere in this project
+- Existing layout patterns (check how other pages structure sidebar + main
+  content, e.g. seller dashboard or admin pages, for reference)
+- Existing RTL conditional patterns already used in the codebase
+- For Bug B specifically: reuse an existing mobile filter/sort UI pattern
+  from elsewhere in the app if one exists, rather than inventing a new one
+NO new colors, NO new component patterns, NO new CSS files, NO new layout
+libraries. If a fix requires restructuring the container hierarchy
+(e.g. wrapping sidebar + grid in a proper flex/grid parent with correct
+gap/order for RTL), do that restructuring carefully and explain why.
+
+STEP 4 — After ALL fixes are applied, re-capture the SAME full matrix of
+screenshots (12 web + mobile 375px in both languages/themes) to confirm
+every issue is resolved, with special attention to re-confirming Bugs A and
+B specifically are fixed in BOTH languages and both themes (not just the
+Arabic/dark combination where they were first observed). Do this as a final
+verification pass, not incrementally per fix, to save time — but if a fix
+breaks something else, go back and resolve it before this final pass.
+
+STEP 5 — Run npx tsc --noEmit across all packages. Must be 0 errors.
+
+FINAL REPORT must include:
+- A numbered list of every issue found, with: which breakpoint/language/
+  theme/platform it appeared in, the root cause, and the exact fix applied
+  (file + class/structure change)
+- Explicit confirmation that Bugs A and B are resolved, with before/after
+  screenshots for each
+- Before/after screenshot pairs for each breakpoint × language × theme
+  combination where ANY issue existed
+- Confirmation that combined filters (category + price + rating + store +
+  onSale + inStock) still work correctly with AND logic after layout changes
+- Confirmation of 0 TypeScript errors
+- Explicit confirmation that "Save Search" and "Recently Searched" were not
+  implemented or proposed
+
+Do not: introduce new colors/fonts/spacing scales, change unrelated pages,
+or implement any feature beyond fixing the layout issues described above.

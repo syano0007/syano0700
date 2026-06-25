@@ -1,0 +1,347 @@
+# SYANO — FULL RUNTIME RECOVERY, VALIDATION & REAL-WORLD AUDIT
+
+STOP.
+
+Before any feature work, redesign, refactor, optimization, or implementation:
+
+Perform a complete runtime recovery and validation audit of the entire SYANO platform.
+
+This is NOT a code audit.
+
+This is NOT a documentation audit.
+
+This is NOT a static analysis task.
+
+I want real-world verification.
+
+---
+
+## PRIMARY OBJECTIVE
+
+Recover the project to the last known working state and verify every major system through actual execution.
+
+Do not assume anything is working because:
+
+* code exists
+* documentation exists
+* endpoints exist
+* components exist
+* files exist
+
+Everything must be verified through runtime behavior.
+
+---
+
+PHASE 1
+RECOVERY FILE REVIEW
+--------------------
+
+First read and analyze all recovery and state files.
+
+Review everything relevant including:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* KNOWN_ISSUES.md
+* AUDIT_REPORT.md
+* MEMORY.md
+* homepage documentation
+* hero banner documentation
+* project-memory files
+* API state files
+* database state files
+* any recovery-related artifacts
+
+Build a complete understanding of the last known project state.
+
+---
+
+PHASE 2
+ENVIRONMENT RECOVERY
+--------------------
+
+Recover the environment completely.
+
+Verify:
+
+* dependencies installed
+* environment variables loaded
+* database connectivity
+* migrations
+* build status
+* API startup
+* marketplace startup
+* mobile startup
+
+Start every service required.
+
+Resolve startup issues if found.
+
+Do not stop until all services are running.
+
+---
+
+PHASE 3
+DATABASE VERIFICATION
+---------------------
+
+Verify the actual database.
+
+Do not rely on documentation.
+
+Confirm:
+
+* actual table count
+* actual enum values
+* actual indexes
+* actual constraints
+* actual row counts
+
+Verify:
+
+* users
+* products
+* categories
+* orders
+* reviews
+* hero_banners
+* seller applications
+* couriers
+* notifications
+
+Provide actual findings.
+
+---
+
+PHASE 4
+API VERIFICATION
+----------------
+
+Test endpoints through execution.
+
+Do not rely on route definitions.
+
+Verify:
+
+Authentication
+Products
+Search
+Orders
+Reviews
+Messaging
+Notifications
+Trust
+Couriers
+Seller Stores
+Admin
+Hero Banners
+
+Confirm:
+
+* response codes
+* response payloads
+* runtime behavior
+* authorization
+
+Identify broken endpoints.
+
+---
+
+PHASE 5
+HOMEPAGE VALIDATION
+-------------------
+
+This is the highest-priority verification area.
+
+Run the marketplace.
+
+Open the actual homepage.
+
+Inspect the rendered experience.
+
+Verify:
+
+* Homepage version
+* Hero implementation
+* Hero V4 existence
+* HeroProductMosaic
+* Search prominence
+* Categories
+* Deals
+* Best Sellers
+* Verified Stores
+* New Arrivals
+* Recently Viewed
+* Footer
+
+Do not infer.
+
+Visually inspect.
+
+---
+
+## HERO BANNER VALIDATION
+
+Verify through runtime behavior:
+
+* hero_banners table
+* banner data count
+* autoplay
+* transitions
+* swipe support
+* keyboard support
+* tracking
+* analytics
+* fallback behavior
+
+Test both:
+
+A) With banner data
+
+B) With zero banner data
+
+Verify actual rendering.
+
+---
+
+PHASE 6
+RESPONSIVE VALIDATION
+---------------------
+
+Inspect:
+
+Desktop
+Tablet
+Mobile
+
+Verify:
+
+* layout integrity
+* spacing
+* overflow
+* responsiveness
+* product visibility
+* category visibility
+
+---
+
+PHASE 7
+RTL VALIDATION
+--------------
+
+Switch to Arabic.
+
+Verify:
+
+* RTL alignment
+* typography
+* spacing
+* navigation
+* homepage
+* seller pages
+* admin pages
+
+Identify actual visual issues.
+
+---
+
+PHASE 8
+USER FLOW TESTING
+-----------------
+
+Perform real user journeys.
+
+Customer:
+
+* browse
+* search
+* product page
+* add to cart
+* checkout
+* order history
+
+Seller:
+
+* dashboard
+* products
+* orders
+* analytics
+* store page
+
+Courier:
+
+* dashboard
+* assignments
+
+Admin:
+
+* dashboard
+* verification
+* banners
+* orders
+
+Verify behavior end-to-end.
+
+---
+
+PHASE 9
+SCREENSHOT EVIDENCE
+-------------------
+
+Provide screenshots.
+
+Required:
+
+* Desktop Homepage
+* Mobile Homepage
+* Hero Area
+* Product Mosaic
+* Categories
+* Seller Dashboard
+* Admin Dashboard
+* Hero Banner State
+* Hero Fallback State
+
+Do not provide conclusions without visual evidence.
+
+---
+
+PHASE 10
+FINAL REPORT
+------------
+
+Produce a report containing:
+
+1. Recovery Status
+2. Services Status
+3. Database Status
+4. API Status
+5. Homepage Status
+6. Hero Banner Status
+7. Mobile Status
+8. RTL Status
+9. User Flow Results
+10. Screenshots
+11. Bugs Found
+12. False Assumptions Found
+13. Documentation Accuracy
+14. Recommended Next Action
+
+---
+
+## CRITICAL RULE
+
+Do not tell me something works because code exists.
+
+Do not tell me something works because documentation says so.
+
+Do not tell me something works because routes are present.
+
+Only report features that have been verified through actual runtime execution and visual inspection.
+
+Runtime verification takes precedence over code inspection.
+
+Visual evidence takes precedence over documentation.
+
+Actual behavior takes precedence over assumptions.

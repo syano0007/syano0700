@@ -1,0 +1,155 @@
+import React from 'react';
+
+// مصفوفة البيانات الديناميكية - مجهزة للتعديل السريع في أي وقت
+const showcaseData = {
+  mainFeature: {
+    title: "صالة المعيشة الذكية",
+    subtitle: "The Smart Living Lounge",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1200&auto=format&fit=crop", 
+    // الكبسولات التفاعلية الموزعة بدقة فوق أجزاء الصورة
+    hotspots: [
+      { text: "ديكور معاصر", top: "45%", left: "25%" },
+      { text: "أتمتة منزلية", top: "60%", left: "42%" },
+      { text: "تجربة ترفيهية", top: "72%", left: "38%" }
+    ],
+    link: "/category/living-room"
+  },
+  subFeatures: [
+    {
+      title: "الصحة والعافية",
+      subtitle: "Wellness & Fitness",
+      tags: ["تدريب ذكي", "تغذية طبيعية", "عناية متكاملة"],
+      image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop",
+      link: "/category/wellness"
+    },
+    {
+      title: "أزياء الأطفال والمناسبات",
+      subtitle: "Special Occasions & Kids Wear",
+      tags: ["تفصيل فاخر", "احتفالات عائلية"],
+      image: "https://images.unsplash.com/photo-1539248443280-14af3191726d?q=80&w=600&auto=format&fit=crop",
+      link: "/category/kids"
+    }
+  ]
+};
+
+export const HeroShowcase: React.FC = () => {
+  return (
+    <section className="relative w-full bg-[#eef2f0] dark:bg-[#0f1411] py-10 px-4 md:px-12 lg:px-20 overflow-hidden min-h-[680px] flex items-center transition-colors duration-300">
+      
+      {/* 1. الخطوط المنحنية الشبكية الخلفية (Elegant Vector Mesh) */}
+      <div className="absolute inset-0 w-full h-full opacity-35 dark:opacity-15 pointer-events-none -z-10">
+        <svg className="w-full h-full" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-200,100 C150,-50 500,300 900,100 C1300,-100 1500,200 1700,50" stroke="#a3b899" strokeWidth="1.2" fill="none" />
+          <path d="M-150,150 C200,0 550,350 950,150 C1350,-50 1550,250 1750,100" stroke="#879b7d" strokeWidth="0.8" strokeDasharray="6 4" fill="none" />
+          <path d="M-100,200 C250,50 600,400 1000,200 C1400,0 1600,300 1800,150" stroke="#a3b899" strokeWidth="1" fill="none" />
+        </svg>
+      </div>
+
+      {/* 2. أوراق الشجر الجانبية لتأطير الواجهة (Premium Foliage Accents) */}
+      {/* الطرف الأيمن العلوي */}
+      <div className="absolute -top-10 -right-16 w-72 h-72 pointer-events-none opacity-85 dark:opacity-45 z-20 select-none">
+        <img 
+          src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?q=80&w=500&auto=format&fit=crop" 
+          className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-screen transform scale-x-[-1] rotate-45 pointer-events-none"
+          alt=""
+        />
+      </div>
+      {/* الطرف الأيسر الأوسط */}
+      <div className="absolute top-1/4 -left-20 w-64 h-80 pointer-events-none opacity-90 dark:opacity-50 z-20 select-none">
+        <img 
+          src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?q=80&w=500&auto=format&fit=crop" 
+          className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-screen transform rotate-12 pointer-events-none"
+          alt=""
+        />
+      </div>
+
+      {/* 3. شبكة العرض الفاخرة (The Editorial Grid) */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 w-full relative z-10">
+        
+        {/* الكرت الرئيسي الكبير (Main Feature Side) */}
+        <div 
+          onClick={() => window.location.href = showcaseData.mainFeature.link}
+          className="lg:col-span-2 relative overflow-hidden rounded-[2.5rem] h-[420px] md:h-[520px] lg:h-[580px] shadow-[0_35px_80px_rgba(20,30,24,0.18)] dark:shadow-[0_45px_100px_rgba(0,0,0,0.75)] group cursor-pointer border border-white/60 dark:border-neutral-800/60 transition-all duration-500 hover:-translate-y-1.5"
+        >
+          {/* خلفية الصورة مع تأثير تمدد انسيابي عميق */}
+          <img 
+            src={showcaseData.mainFeature.image} 
+            alt={showcaseData.mainFeature.title}
+            className="absolute inset-0 object-cover w-full h-full transition-transform duration-[1200ms] ease-out group-hover:scale-103"
+          />
+          {/* الظلال السينمائية المتدرجة لحماية النصوص والأزرار */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30 dark:from-black/90 dark:via-black/35 dark:to-black/40" />
+
+          {/* العنوان الرئيسي: متموضع في أعلى اليمين بدقة متناهية كالتصميم تماماً */}
+          <div className="absolute top-8 md:top-12 right-8 md:right-14 text-right z-20 flex flex-col gap-1 max-w-[80%]">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-white tracking-tight drop-shadow-md">
+              {showcaseData.mainFeature.title}
+            </h2>
+            <p className="text-xs md:text-sm font-medium text-gray-300 uppercase tracking-widest">
+              {showcaseData.mainFeature.subtitle}
+            </p>
+          </div>
+
+          {/* الكبسولات التفاعلية العائمة (Interactive Hotspots) الموزعة فوق الأثاث */}
+          {showcaseData.mainFeature.hotspots.map((spot, idx) => (
+            <div 
+              key={idx}
+              style={{ top: spot.top, left: spot.left }}
+              className="absolute z-20 hidden md:flex items-center transform -translate-x-1/2 -translate-y-1/2 group-hover:scale-105 transition-transform duration-300"
+            >
+              <span className="bg-black/35 backdrop-blur-xl border border-white/15 text-white font-medium text-[11px] lg:text-xs px-4 py-2 rounded-xl shadow-lg transition-all hover:bg-white/10 whitespace-nowrap">
+                {spot.text}
+              </span>
+            </div>
+          ))}
+          
+          {/* سهم تصفح ناعم في الزاوية السفلية */}
+          <div className="absolute bottom-8 left-8 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg className="w-5 h-5 transform rotate-180" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+
+        {/* العمود الجانبي الأيمن: كروت الفئات المكدسة (Stacked Column) */}
+        <div className="flex flex-col gap-6 h-auto lg:h-[580px] w-full">
+          {showcaseData.subFeatures.map((item, index) => (
+            <div 
+              key={index}
+              onClick={() => window.location.href = item.link}
+              className="flex-1 relative overflow-hidden rounded-[2.5rem] h-[260px] lg:h-full shadow-[0_25px_60px_rgba(20,30,24,0.12)] dark:shadow-[0_35px_80px_rgba(0,0,0,0.65)] group cursor-pointer border border-white/50 dark:border-neutral-800/50 transition-all duration-500 hover:-translate-y-1.5"
+            >
+              <img 
+                src={item.image} 
+                alt={item.title}
+                className="absolute inset-0 object-cover w-full h-full transition-transform duration-[1200ms] ease-out group-hover:scale-103"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20 dark:from-black/95 dark:via-black/35" />
+
+              {/* نصوص الكروت الفرعية - ممركزة في الأعلى بأناقة */}
+              <div className="absolute top-6 md:top-8 left-6 right-6 text-center z-20 flex flex-col gap-1">
+                <h3 className="text-xl md:text-2xl font-extrabold text-white tracking-tight drop-shadow-sm">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] md:text-xs font-light text-gray-300 uppercase tracking-widest">
+                  {item.subtitle}
+                </p>
+              </div>
+
+              {/* كبسولات الوسوم السفلية للفرز السريع */}
+              <div className="absolute bottom-6 left-4 right-4 flex flex-wrap gap-2 justify-center z-20">
+                {item.tags.map((tag, idx) => (
+                  <span 
+                    key={idx}
+                    className="bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/10 text-white font-medium text-[10px] md:text-[11px] px-3.5 py-1.5 rounded-xl transition-all hover:bg-white/20"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+};

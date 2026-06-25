@@ -1,0 +1,228 @@
+SYANO — FULL RECOVERY & STARTUP MODE
+
+IMPORTANT:
+
+Do NOT build any features.
+
+Do NOT modify any code.
+
+Do NOT start audits.
+
+Do NOT start roadmap work.
+
+Your only goal is restoring the project to the exact state of the previous environment.
+
+==================================================
+PHASE 1 — ENVIRONMENT VALIDATION
+================================
+
+Verify all required secrets exist:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_EMAIL / VAPID_SUBJECT
+
+Report any missing values.
+
+Do not continue until environment is valid.
+
+==================================================
+PHASE 2 — INSTALLATION
+======================
+
+Run full installation:
+
+pnpm install --force
+
+Verify:
+
+* workspace packages resolve
+* no missing dependencies
+* no broken symlinks
+* no missing lockfile references
+
+==================================================
+PHASE 3 — DATABASE RESTORE
+==========================
+
+Restore database:
+
+psql "$DATABASE_URL" -f schema.sql
+
+Then execute:
+
+run-migrations.ts
+
+Verify:
+
+* 27 tables
+* notification_type = 31 values
+* order_status = 15 values
+* role enum complete
+* delivery_zones = 40 rows
+* seller_verification_log exists
+* verified_by exists
+* Trust System columns exist
+* Store Settings V3 columns exist
+
+==================================================
+PHASE 4 — BUILD SHARED LIBRARIES
+================================
+
+Build:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+
+Verify successful compilation.
+
+==================================================
+PHASE 5 — BOOTSTRAP ACCOUNTS
+============================
+
+Verify permanent accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+00Amer00
+
+Verify:
+
+Admin:
+
+* active
+
+Seller:
+
+* active
+* approved seller application
+* store slug = syano-test-store
+
+Courier:
+
+* active
+* approved courier profile
+
+Issue tokens successfully.
+
+==================================================
+PHASE 6 — START SERVICES
+========================
+
+Start:
+
+* API
+* Marketplace
+* Mobile
+
+Verify:
+
+GET /api/healthz
+
+returns:
+
+{"status":"ok"}
+
+==================================================
+PHASE 7 — TYPESCRIPT VALIDATION
+===============================
+
+Verify:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+api-server
+marketplace
+mobile
+
+Result:
+
+0 TypeScript errors.
+
+==================================================
+PHASE 8 — RECOVERY CHECK
+========================
+
+Run:
+
+GET /api/admin/recovery-check
+
+Expected:
+
+confidenceScore = 100
+
+Verify ALL modules pass.
+
+Current expected count:
+
+19 modules
+
+No failures allowed.
+
+==================================================
+PHASE 9 — DOCUMENTATION SYNC
+============================
+
+Verify consistency of:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Do not rewrite.
+
+Only confirm synchronization.
+
+==================================================
+PHASE 10 — FINAL REPORT
+=======================
+
+Return ONLY:
+
+1. Environment Status
+2. Database Status
+3. Bootstrap Account Status
+4. Services Status
+5. TypeScript Status
+6. Recovery Check Score
+7. Any Missing Items
+
+If score is not 100/100:
+
+STOP
+
+Fix recovery issues first.
+
+==================================================
+CRITICAL RULE
+=============
+
+When recovery reaches:
+
+100/100
+
+and all services are running,
+
+STOP.
+
+Do not begin audits.
+
+Do not begin feature work.
+
+Wait for the next prompt.

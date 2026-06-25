@@ -1,0 +1,112 @@
+Build a COMPLETE production-ready verification system for Syano.
+
+Goal:
+Users must verify either their email OR their phone number before they can fully use the platform.
+
+Architecture requirements:
+
+1. Single identity field
+
+* User enters either email or phone in the same field.
+* System automatically detects which type was entered.
+
+2. Registration flow
+
+* Create account in unverified state.
+* User must verify ownership before account becomes active.
+
+3. Login flow
+
+* If account is not verified:
+
+  * Do not grant full access.
+  * Redirect to verification screen.
+  * Allow OTP resend.
+
+4. OTP requirements
+
+* 6-digit numeric code.
+* Randomly generated.
+* Expires after 10 minutes.
+* Single use only.
+* Stored as a hash, never plaintext.
+
+5. Security
+
+* Rate limiting:
+
+  * Maximum 5 OTP requests per hour per user.
+  * Maximum 5 OTP requests per hour per IP.
+* Verification attempts limited.
+* Temporary lockout after repeated failures.
+* Prevent brute-force attacks.
+
+6. Email verification
+
+* Use Resend.
+* Create branded Syano verification emails.
+* Arabic and English support.
+
+7. Phone verification
+
+* Use Twilio Verify (or equivalent provider abstraction).
+* Architecture must allow changing SMS providers later.
+
+8. Database
+   Add proper verification fields:
+
+* isVerified
+* verifiedAt
+* verificationMethod
+* otpHash
+* otpExpiresAt
+* otpAttempts
+
+Do not store OTP in plaintext.
+
+9. UX
+
+* Mobile-first.
+* Fast and responsive.
+* Countdown timer before resend.
+* Clear success and error states.
+* RTL support.
+* Arabic and English localization.
+
+10. Performance
+
+* No unnecessary API calls.
+* No polling.
+* Minimal database queries.
+* Handle verification in O(1) lookups.
+
+11. Reliability
+
+* Handle expired codes.
+* Handle duplicate requests.
+* Handle network failures.
+* Handle provider failures gracefully.
+
+12. Admin
+
+* Admin can manually verify users if necessary.
+* Audit trail for verification events.
+
+Before implementation:
+Provide the complete architecture, database changes, API endpoints, security model, and user flows.
+
+After implementation:
+Test every flow end-to-end:
+
+* Email registration
+* Email verification
+* Phone registration
+* Phone verification
+* Login with verified account
+* Login with unverified account
+* OTP expiration
+* OTP resend
+* Wrong code attempts
+
+Do not use mock verification.
+Implement a real working production-ready verification system.

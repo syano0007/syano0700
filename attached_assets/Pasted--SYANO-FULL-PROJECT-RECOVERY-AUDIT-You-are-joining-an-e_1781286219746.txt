@@ -1,0 +1,203 @@
+# SYANO (سوق سوريا) — FULL PROJECT RECOVERY & AUDIT
+
+You are joining an existing production-scale project.
+
+Project Name:
+SYANO (سوق سوريا)
+
+Type:
+Multi-Vendor Marketplace
+
+This is NOT a store.
+This is NOT a single-vendor ecommerce website.
+
+This is a full marketplace platform similar in concept to:
+- Amazon
+- Noon
+- Trendyol
+
+--------------------------------------------------
+FIRST TASK
+RECOVER PROJECT STATE
+--------------------------------------------------
+
+Before making ANY code changes:
+
+Perform a complete recovery audit of the entire codebase.
+
+Do NOT implement anything.
+
+Do NOT refactor anything.
+
+Do NOT generate new features.
+
+Do NOT modify files.
+
+Only audit and recover state.
+
+--------------------------------------------------
+RECOVERY OBJECTIVES
+--------------------------------------------------
+
+Determine:
+
+1. Current architecture
+2. Current feature completion status
+3. Active systems
+4. Database structure
+5. API structure
+6. Homepage implementation status
+7. Marketplace readiness
+8. Technical debt
+9. Missing documentation
+10. Deployment readiness
+
+--------------------------------------------------
+REQUIRED AUDIT AREAS
+--------------------------------------------------
+
+Frontend:
+- React architecture
+- Routing
+- Layout system
+- Marketplace pages
+- Homepage
+- Seller pages
+- Admin pages
+- Mobile responsiveness
+- RTL support
+
+Backend:
+- Express architecture
+- Route organization
+- Middleware
+- Authentication
+- Authorization
+- Validation
+
+Database:
+- PostgreSQL schema
+- Tables
+- Relationships
+- Marketplace entities
+- Orders
+- Sellers
+- Trust system
+- Reviews
+- Courier system
+
+Marketplace Systems:
+- Product system
+- Categories
+- Search
+- Orders
+- Fulfillment
+- Courier operations
+- Reviews
+- Seller trust
+- Seller stores
+- Notifications
+- Admin tools
+
+--------------------------------------------------
+VERIFY EXISTING SYSTEMS
+--------------------------------------------------
+
+Confirm whether these systems exist and are operational:
+
+- Trust System
+- Review System V2
+- Seller Replies
+- Review Analytics
+- Courier System
+- Order Fulfillment
+- Seller Dashboard
+- Admin Dashboard
+- Marketplace Products
+- Store Reviews
+- Product Reviews
+- Notifications
+
+For each system provide:
+
+- Exists?
+- Complete?
+- Operational?
+- Issues?
+- Missing work?
+
+--------------------------------------------------
+HOMEPAGE AUDIT
+--------------------------------------------------
+
+Homepage is currently a major focus.
+
+Audit:
+
+- Current homepage architecture
+- Hero implementation
+- Hero Banner V3
+- Fallback system
+- Category sections
+- Product sections
+- Trust sections
+- Mobile homepage
+- RTL homepage
+
+Verify whether:
+
+- hero_banners table exists
+- hero banner admin exists
+- autoplay exists
+- tracking exists
+- fallback exists
+- real banner data exists
+
+Do not assume functionality.
+Verify actual implementation.
+
+--------------------------------------------------
+DOCUMENTATION AUDIT
+--------------------------------------------------
+
+Locate and review:
+
+- RECOVERY_GUIDE.md
+- MEMORY.md
+- homepage documentation
+- hero banner documentation
+- API documentation
+- project state files
+
+Identify outdated documentation.
+
+--------------------------------------------------
+DELIVERABLE FORMAT
+--------------------------------------------------
+
+Produce a structured recovery report containing:
+
+1. Executive Summary
+2. Project Health Score
+3. System Inventory
+4. Database Inventory
+5. API Inventory
+6. Homepage Status
+7. Marketplace Readiness
+8. Missing Features
+9. Risks
+10. Recommended Next Priorities
+
+--------------------------------------------------
+IMPORTANT
+--------------------------------------------------
+
+Do not write code.
+
+Do not modify files.
+
+Do not start implementation.
+
+Recover the project state first.
+
+I want a complete understanding of the current project before any new work begins.

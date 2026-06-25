@@ -1,0 +1,513 @@
+# SYANO Mobile Parity Program
+
+# PHASE M0 — Complete Mobile Audit & Parity Matrix
+
+## Objective
+
+Before implementing ANY mobile features, perform a complete audit of the entire SYANO ecosystem.
+
+Do NOT build anything.
+
+Do NOT modify anything.
+
+Do NOT create new screens.
+
+Do NOT write new business logic.
+
+This phase is AUDIT ONLY.
+
+The goal is to discover every feature, page, workflow, API integration, permission layer, and business system that exists on the web platform and compare it against the current mobile application.
+
+At the end of this phase we must know EXACTLY:
+
+* What exists on Web
+* What exists on Mobile
+* What is missing
+* What is partially implemented
+* What must be migrated
+
+No guessing.
+
+No assumptions.
+
+No estimates.
+
+Only verified findings.
+
+---
+
+# CRITICAL RULES
+
+## DO NOT BUILD FEATURES
+
+This phase is NOT implementation.
+
+You are NOT allowed to:
+
+* create screens
+* create components
+* create routes
+* create APIs
+* modify business logic
+* refactor systems
+
+Only audit and document.
+
+---
+
+## DO NOT SKIP SYSTEMS
+
+Audit the ENTIRE project.
+
+Not only customer pages.
+
+Not only mobile routes.
+
+Everything.
+
+---
+
+# SECTION 1 — WEB ROUTE AUDIT
+
+Discover every route/page in the web marketplace.
+
+Create:
+
+```text
+WEB ROUTES MATRIX
+```
+
+Example:
+
+```text
+/
+
+/shop
+
+/search
+
+/product/:slug
+
+/store/:slug
+
+/messages
+
+/orders
+
+/support
+
+/admin
+
+/admin/support
+
+/admin/delivery-missions
+
+...
+```
+
+For every route include:
+
+```text
+Route
+Purpose
+Role Access
+Exists On Mobile?
+```
+
+---
+
+# SECTION 2 — MOBILE ROUTE AUDIT
+
+Discover every route/page inside:
+
+```text
+artifacts/mobile
+```
+
+Create:
+
+```text
+MOBILE ROUTES MATRIX
+```
+
+For every route include:
+
+```text
+Route
+Purpose
+Equivalent Web Route
+Status
+```
+
+Status:
+
+```text
+MATCHED
+
+PARTIAL
+
+MISSING
+```
+
+---
+
+# SECTION 3 — FEATURE INVENTORY
+
+Audit every major feature system.
+
+Create:
+
+```text
+FEATURE PARITY MATRIX
+```
+
+For every feature:
+
+```text
+Feature Name
+
+Web Status
+
+Mobile Status
+
+Parity %
+```
+
+---
+
+## Marketplace
+
+Audit:
+
+* Homepage V7
+* Hero System
+* Categories
+* Product Listing
+* Product Details
+* Variant System
+* Reviews
+* Related Products
+* Store Pages
+* Follow System
+
+---
+
+## Search & Discovery V2
+
+Audit:
+
+* Search Suggestions
+* Trending Searches
+* Search Results
+* Search Filters
+* Search Sorting
+* Categories Tab
+* Stores Tab
+* Semantic Search
+* Synonyms
+
+---
+
+## Customer Systems
+
+Audit:
+
+* Cart
+* Checkout
+* Orders
+* Order Timeline
+* Addresses
+* Wishlist
+* Notifications
+* Profile
+
+---
+
+## Messaging V2
+
+Audit:
+
+* Conversations
+* Typing Indicators
+* Read Receipts
+* Attachments
+* Archive
+* Mute
+* Order Conversations
+
+---
+
+## AI Support
+
+Audit:
+
+* Smart Support
+* Ticket Creation
+* Escalation
+* Ticket Tracking
+* Admin Ticket Management
+
+---
+
+## Seller Systems
+
+Audit:
+
+* Seller Dashboard
+* Seller Analytics
+* Product Management
+* Variant Management
+* Store Management
+* Seller Orders
+* Verification
+* Followers
+
+---
+
+## Courier Systems
+
+Audit:
+
+* Courier Dashboard
+* Availability System
+* Mission Offers
+* Mission Assignment
+* Delivery Missions
+* Mission History
+
+---
+
+## Admin Systems
+
+Audit:
+
+* Admin Dashboard
+* Moderation
+* Categories
+* Sellers
+* Couriers
+* Support Tickets
+* Delivery Missions
+* Courier Availability
+* Dispatch Alerts
+
+---
+
+# SECTION 4 — API CONSUMPTION AUDIT
+
+Audit every major API used by web.
+
+Verify if mobile consumes it.
+
+Create:
+
+```text
+API PARITY MATRIX
+```
+
+Example:
+
+```text
+GET /api/search/suggestions
+
+Web:
+YES
+
+Mobile:
+NO
+```
+
+Example:
+
+```text
+POST /api/support/message
+
+Web:
+YES
+
+Mobile:
+NO
+```
+
+---
+
+# SECTION 5 — ROLE AUDIT
+
+Audit parity by role.
+
+---
+
+## Customer
+
+Create:
+
+```text
+CUSTOMER PARITY REPORT
+```
+
+List:
+
+* Existing
+* Missing
+* Partial
+
+---
+
+## Seller
+
+Create:
+
+```text
+SELLER PARITY REPORT
+```
+
+List:
+
+* Existing
+* Missing
+* Partial
+
+---
+
+## Courier
+
+Create:
+
+```text
+COURIER PARITY REPORT
+```
+
+List:
+
+* Existing
+* Missing
+* Partial
+
+---
+
+## Admin
+
+Create:
+
+```text
+ADMIN PARITY REPORT
+```
+
+List:
+
+* Existing
+* Missing
+* Partial
+
+---
+
+# SECTION 6 — DESIGN PARITY AUDIT
+
+Compare mobile UI against web UI.
+
+Audit:
+
+* colors
+* spacing
+* typography
+* cards
+* buttons
+* shadows
+* borders
+* animations
+* loading states
+* empty states
+
+Create:
+
+```text
+DESIGN PARITY REPORT
+```
+
+Identify all mismatches.
+
+---
+
+# SECTION 7 — FINAL GAP REPORT
+
+Generate:
+
+```text
+MOBILE PARITY MASTER REPORT
+```
+
+Include:
+
+```text
+Total Web Features
+
+Total Mobile Features
+
+Matched Features
+
+Partial Features
+
+Missing Features
+
+Parity Percentage
+```
+
+---
+
+# SECTION 8 — MIGRATION ROADMAP
+
+After the audit ONLY.
+
+Generate:
+
+```text
+M1 Marketplace Parity
+
+M2 Customer Systems
+
+M3 Messaging & AI Support
+
+M4 Seller Systems
+
+M5 Courier Systems
+
+M6 Admin Systems
+
+M7 Pixel Perfect Final Parity
+```
+
+For every phase:
+
+```text
+Features Included
+
+Estimated Scope
+
+Dependencies
+```
+
+---
+
+# OUTPUT REQUIREMENTS
+
+Generate files:
+
+```text
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+
+MOBILE_PARITY_ROADMAP.md
+```
+
+Do NOT implement features.
+
+Do NOT modify mobile.
+
+Do NOT modify web.
+
+Audit only.
+
+The final result must provide a complete, verified map of everything required to make the SYANO mobile application a 100% functional and visual clone of the web platform.

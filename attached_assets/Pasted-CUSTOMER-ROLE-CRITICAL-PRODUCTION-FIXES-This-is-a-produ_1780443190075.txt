@@ -1,0 +1,189 @@
+CUSTOMER ROLE - CRITICAL PRODUCTION FIXES
+
+This is a production-critical task.
+
+Do NOT apply quick patches.
+Do NOT make assumptions.
+Perform a complete root-cause investigation for each issue before implementing fixes.
+
+Problem:
+The first visit to the website or any major page feels too slow.
+
+Investigate:
+
+Initial bundle size
+Route lazy loading
+Vite chunk splitting
+Dynamic imports
+React Query startup
+Authentication initialization
+Notification initialization
+Translation loading
+Image loading
+API waterfalls
+Database query timing
+Cold-start bottlenecks
+
+Requirements:
+
+Measure actual bottlenecks
+Eliminate unnecessary blocking requests
+Implement route prefetching where appropriate
+Implement query prefetching where appropriate
+Optimize first paint
+Optimize first contentful render
+Optimize first interaction
+
+Goal:
+
+The site should feel instant on first visit.
+
+Provide:
+
+Root cause
+Before/after measurements
+Files modified
+
+Problem:
+
+The variant system exists but customers cannot clearly see or interact with variants from product cards and shopping flow.
+
+Audit:
+
+Product card
+Product details page
+Cart
+Checkout
+Order creation
+Seller product creation
+Seller product editing
+
+Verify:
+
+Variant selection
+Stock tracking
+Price differences
+Variant images
+Variant labels
+Variant availability
+
+Requirements:
+
+Variants must be visible and understandable
+Customer must know exactly what variant is being purchased
+Variant information must persist correctly into cart and order records
+
+Fix all missing functionality.
+
+Problem:
+
+Currently customers must log in before adding items to cart.
+
+Required behavior:
+
+Guest users can:
+
+Browse products
+Add products to cart
+Update quantities
+Remove items
+
+Without logging in.
+
+Only when proceeding to checkout:
+
+Login
+OR
+Create account
+
+should be required.
+
+Requirements:
+
+Local cart persistence
+Merge guest cart into user cart after login
+No data loss
+No duplicate cart items
+Mobile and desktop support
+
+Audit entire cart flow before implementing.
+
+Problem:
+
+The "Contact Seller" page/interface exists but messaging flow appears incomplete or non-functional.
+
+Audit:
+
+UI
+API
+Database
+Conversations
+Message creation
+Seller inbox
+Customer inbox
+Notifications
+
+Verify:
+
+Message is created
+Message reaches seller
+Seller can reply
+Customer receives reply
+Conversation updates automatically
+
+Fix all missing links in the flow.
+
+Problem:
+
+Users often need to manually refresh the page before seeing updates.
+
+Examples:
+
+Orders
+Messages
+Notifications
+Dashboard stats
+Cart updates
+Seller updates
+Customer updates
+
+Audit all update mechanisms.
+
+Check:
+
+React Query
+SSE
+WebSocket usage
+Cache invalidation
+Query keys
+Polling
+Optimistic updates
+Refetch triggers
+
+Requirements:
+
+After any successful action:
+
+UI updates immediately
+Related counters update immediately
+Notifications update immediately
+Messages update immediately
+Orders update immediately
+
+No manual refresh should be required.
+
+Investigate first.
+Produce root cause for each issue.
+Rank fixes by impact.
+Implement fixes.
+Verify every flow end-to-end.
+Test mobile and desktop.
+Produce final report:
+Root cause
+Files modified
+Database changes
+API changes
+Performance improvements
+Remaining risks
+
+Do not stop until all five issues are fully verified.

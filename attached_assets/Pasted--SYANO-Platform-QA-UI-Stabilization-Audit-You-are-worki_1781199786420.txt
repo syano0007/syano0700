@@ -1,0 +1,454 @@
+# SYANO — Platform QA & UI Stabilization Audit
+
+You are working on the production SYANO (سوق سوريا) codebase.
+
+Current platform state:
+
+✅ Order Fulfillment Workflow V1 complete
+
+✅ Courier Operations Dashboard V2 complete
+
+✅ Seller Orders V2 complete
+
+✅ Seller Analytics Dashboard V2 complete
+
+✅ Trust System V1 complete
+
+✅ TypeScript = 0 errors
+
+Your task is NOT to build new features.
+
+Your task is to fix platform quality issues and verify the entire seller/admin experience.
+
+---
+
+# CRITICAL RULES
+
+Do NOT create new roadmap features.
+
+Do NOT redesign the platform.
+
+Do NOT remove existing functionality.
+
+Do NOT change branding.
+
+Do NOT modify colors unless required for usability.
+
+Do NOT break RTL.
+
+Do NOT break mobile.
+
+Do NOT stop after fixing code.
+
+You MUST verify everything yourself.
+
+You MUST login and test all affected areas.
+
+You MUST take screenshots as proof.
+
+---
+
+# PART 1 — PERMANENT TEST ACCOUNTS
+
+The following accounts must always exist after recovery.
+
+Implement self-healing bootstrap logic similar to Root Owner.
+
+If account missing:
+
+* create automatically
+* repair automatically
+* preserve password
+
+Required accounts:
+
+Seller:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+seller
+
+Status:
+active
+
+---
+
+Courier:
+
+Email:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+courier
+
+Status:
+active
+
+---
+
+Requirements:
+
+* run on startup
+* idempotent
+* never create duplicates
+* never overwrite valid accounts
+* survive database recovery
+* survive schema restore
+* survive migration runs
+
+Must behave exactly like bootstrapRootAdmin()
+
+---
+
+# PART 2 — TRANSLATION AUDIT
+
+There are many translation problems.
+
+Perform a FULL audit.
+
+Check:
+
+Admin dashboard
+
+Seller dashboard
+
+Courier dashboard
+
+Trust pages
+
+Analytics pages
+
+Orders pages
+
+Delivery pages
+
+Profile pages
+
+Settings pages
+
+Notifications
+
+Tables
+
+Dialogs
+
+Filters
+
+Cards
+
+Empty states
+
+Error states
+
+Success messages
+
+Validation messages
+
+Breadcrumbs
+
+Buttons
+
+Status labels
+
+Tooltips
+
+Charts
+
+Tabs
+
+Navigation
+
+Sidebar
+
+Mobile pages
+
+---
+
+Find:
+
+* raw keys showing
+* missing translations
+* English text inside Arabic mode
+* Arabic text inside English mode
+* duplicated translations
+* inconsistent terminology
+* placeholder text
+* untranslated status values
+
+Fix all of them.
+
+---
+
+# PART 3 — RESPONSIVE LAYOUT AUDIT
+
+There are many spacing/layout issues.
+
+Perform a complete UI audit.
+
+Check:
+
+Desktop
+Laptop
+Tablet
+Mobile
+
+For every major page.
+
+---
+
+Find and fix:
+
+text touching screen edges
+
+cards touching viewport edges
+
+tables overflowing
+
+bad padding
+
+bad margins
+
+broken flex layouts
+
+RTL alignment issues
+
+header overlap
+
+footer overlap
+
+button wrapping issues
+
+chart overflow
+
+modal overflow
+
+drawer overflow
+
+badge clipping
+
+long text clipping
+
+mobile horizontal scrolling
+
+empty state alignment
+
+sidebar spacing issues
+
+trust page layout issues
+
+analytics layout issues
+
+seller orders layout issues
+
+admin delivery layout issues
+
+courier dashboard layout issues
+
+---
+
+Requirements:
+
+Use existing design language.
+
+Preserve current shadows.
+
+Preserve current border radius.
+
+Preserve current spacing scale.
+
+Make layouts feel premium.
+
+---
+
+# PART 4 — REAL ACCOUNT TESTING
+
+This is mandatory.
+
+Use ALL accounts:
+
+Root Owner
+
+Seller
+
+Courier
+
+Customer
+
+Guest
+
+---
+
+You must login with each role.
+
+Navigate every dashboard section.
+
+Open every major page.
+
+Interact with:
+
+orders
+
+analytics
+
+trust
+
+delivery
+
+products
+
+profile
+
+notifications
+
+settings
+
+messaging
+
+applications
+
+reviews
+
+followers
+
+courier workflows
+
+seller workflows
+
+admin workflows
+
+---
+
+Do not assume pages work.
+
+Actually test them.
+
+---
+
+# PART 5 — SCREENSHOT VERIFICATION
+
+For every issue fixed:
+
+Take screenshots.
+
+At minimum capture:
+
+Admin Dashboard
+
+Seller Dashboard
+
+Courier Dashboard
+
+Seller Analytics
+
+Seller Orders
+
+Trust Page
+
+Store Page
+
+Delivery Dashboard
+
+Mobile Seller Dashboard
+
+Mobile Courier Dashboard
+
+Mobile Trust Page
+
+---
+
+Before/after screenshots preferred.
+
+Use screenshots to verify fixes.
+
+---
+
+# PART 6 — FINAL VALIDATION
+
+Before finishing:
+
+Run:
+
+TypeScript
+
+API startup
+
+Marketplace startup
+
+Mobile startup
+
+Authentication
+
+Trust System
+
+Seller Analytics
+
+Seller Orders
+
+Courier Dashboard
+
+Admin Dashboard
+
+Translation audit
+
+Responsive audit
+
+---
+
+Verify:
+
+✅ 0 TypeScript errors
+
+✅ permanent seller account exists
+
+✅ permanent courier account exists
+
+✅ translations clean
+
+✅ no raw keys visible
+
+✅ no major spacing issues
+
+✅ no mobile overflow
+
+✅ no desktop overflow
+
+✅ screenshots captured
+
+✅ no regressions
+
+---
+
+# PART 7 — DOCUMENTATION
+
+After completion update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+Include:
+
+* accounts bootstrap implementation
+* translation fixes
+* responsive fixes
+* screenshots summary
+* pages audited
+* issues found
+* issues fixed
+* remaining issues (if any)
+
+Do not mark task complete until every verification step has passed.

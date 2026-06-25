@@ -1,0 +1,325 @@
+## SYANO Search System — Comprehensive Audit & Stress Test
+## Phase 8 Complete Validation (Steps 1–5)
+
+---
+
+### MISSION
+Run a full systematic audit of the entire SYANO search system that was built across Phase 8 Steps 1–5. This is NOT a feature build. This is a deep validation pass using 1,200+ unique non-repeating Arabic and English test words/phrases to confirm everything works correctly end-to-end.
+
+Do not modify working code. Fix only what is broken. Document everything.
+
+---
+
+### SYSTEM OVERVIEW (what we built)
+- Step 1: searchProcessor.ts — Arabic/English text cleaning, stemming, normalization, hamza unification, glued-word splitting (شاحنسريع → شاحنة سريعة), plural/singular handling
+- Step 2: fts_vector column + GIN index on products table, auto-update DB trigger
+- Step 3: Intent analysis backend — price intent (رخيص/cheap), quality intent (أفضل/best), category mapping (بواط → shoes/أحذية), Intent Chips on Shop page UI
+- Step 4: /api/search/suggestions endpoint — returns intent/category/store/trending suggestions, debounced 200ms, parallel DB queries, query_logs table
+- Step 5: Hybrid Ranking — 65% FTS + 20% exact-match bonus + 25% trigram (typo resistance)
+
+---
+
+### AUDIT AXIS 1 — searchProcessor.ts Unit Tests
+
+Create a test file: `server/tests/searchProcessor.audit.ts`
+
+Run the searchProcessor against ALL of the following inputs and verify correct output.
+
+**Arabic normalization (hamza & letter unification):**
+أحمد احمد إحمد اكل أكل إكل اوروبا أوروبا إوروبا امريكا أمريكا إمريكا اسلام إسلام أسلام الاردن الأردن الإردن اطار أطار إطار امانة أمانة إمانة اعلان أعلان إعلان اطفال أطفال إطفال
+
+**Tashkeel (diacritics) removal:**
+مُحَمَّد مَحَلّ سُوقٌ تَسَوُّق بَضَائِع مُنْتَجَات أَسْعَار خِدْمَات مَتَاجِر عُرُوض
+
+**Glued Arabic words (must split correctly):**
+شاحنسريع موبايلرخيص حذاءرياضي تلفزيونكبير سيارةجديدة عطرفرنسي حقيبةجلد ساعةذهب كمبيوترمحمول طابعةليزر شاشةعريضة كرسيمكتب ثلاجةكبيرة غسالةاوتوماتيك مكيفسبليت
+
+**Plural to singular (Arabic morphology):**
+موبايلات هواتف أجهزة تلفزيونات سيارات حقائب أحذية ملابس ساعات عطور كتب طاولات كراسي شاشات طابعات كاميرات سماعات مكيفات ثلاجات غسالات مراوح أدوات ألعاب مجوهرات
+
+**English plural normalization:**
+phones mobiles laptops tablets headphones speakers cameras printers monitors keyboards mice bags shoes clothes watches perfumes books chairs tables fridges washers fans tools toys accessories chargers cables
+
+**Mixed Arabic-English inputs (code-switching):**
+موبايل samsung هاتف iphone لابتوب dell تلفزيون lg ثلاجة samsung غسالة bosch كاميرا canon سماعات sony عطر chanel ساعة rolex حذاء nike ملابس zara حقيبة gucci
+
+---
+
+### AUDIT AXIS 2 — Full-Text Search (FTS) Engine Tests
+
+Test the search API endpoint: GET /api/search?q={query}
+Confirm: results returned, response under 50ms, fts_vector used (check query plan with EXPLAIN ANALYZE)
+
+**Category: Electronics — Arabic queries:**
+موبايل هاتف جوال تلفون سمارت فون آيفون اندرويد شاشة لابتوب كمبيوتر حاسوب تابلت آيباد ساعة ذكية سماعة بلوتوث شاحن كابل باور بانك طابعة ماوس كيبورد راوتر مودم فلاش ميموري كارت بطاقة ذاكرة هارد داخلي خارجي
+
+**Category: Electronics — English queries:**
+mobile phone smartphone iphone android tablet ipad laptop computer monitor printer keyboard mouse router modem charger cable powerbank earphone headphone speaker bluetooth smartwatch memory card hard drive flash
+
+**Category: Fashion & Clothing — Arabic:**
+قميص بنطلون فستان تنورة جاكيت معطف شال وشاح حذاء صندل بوت كعب رياضي كاجوال رسمي جينز تيشيرت هودي بلوزة سترة كنزة ملابس داخلية بيجاما جوارب قفازات حزام نظارة شمس
+
+**Category: Fashion — English:**
+shirt pants dress skirt jacket coat scarf sandal boots heels sneakers casual formal jeans tshirt hoodie blouse sweater underwear pajama socks gloves belt sunglasses cap hat
+
+**Category: Home & Kitchen — Arabic:**
+ثلاجة غسالة مكيف مروحة مدفأة سخان موقد فرن ميكروويف خلاط محضر طنجرة ضغط قدر مقلاة سكين شوكة ملعقة طبق كوب وعاء صحن زجاجة ترموس طاولة كرسي أريكة سرير وسادة بطانية ستارة
+
+**Category: Home — English:**
+fridge washing machine air conditioner fan heater oven microwave blender mixer pressure cooker pan knife fork spoon plate cup bowl thermos table chair sofa bed pillow blanket curtain mat lamp shelf
+
+**Category: Beauty & Personal Care — Arabic:**
+عطر كريم مرطب شامبو بلسم صابون غسول مزيل عرق حمام زيت طبيعي ماسك وجه مكياج كحل ماسكارا احمر شفاه مسحوق فرشاة مرآة مشط ماكينة حلاقة موس شيفرة
+
+**Category: Beauty — English:**
+perfume cream moisturizer shampoo conditioner soap cleanser deodorant shower oil mask foundation lipstick mascara eyeliner powder brush mirror comb razor shaver foam
+
+**Category: Sports & Outdoors — Arabic:**
+كرة قدم كرة سلة تنس بدل رياضية حذاء رياضي معدات رياضة دراجة لياقة حديد وزن جهاز رياضي حبل قفز خيمة نظارة سباحة زعانف كرة طائرة ملاكمة قفازات ملعب
+
+**Category: Sports — English:**
+football basketball tennis gym equipment sportswear running shoes bicycle fitness weights treadmill jumping rope tent swimming goggles fins volleyball boxing gloves
+
+**Category: Toys & Children — Arabic:**
+لعبة طفل دمية سيارة صغيرة قطار ألغاز ليغو أحجية كتاب أطفال مرسمة ألوان طبشور صلصال سيكل ثلاثي عجلات دراجة أطفال بازل سبورة منزلية مسرح دمى
+
+**Category: Automotive — Arabic:**
+زيت محرك فلتر هواء شمعة إشعال بطارية سيارة إطار كاوتش مرايا جانبية مساحة زجاج مفتاح عجلة قير راديو سيارة شاشة سيارة كاميرا خلفية جهاز تتبع
+
+---
+
+### AUDIT AXIS 3 — Intent Analysis Engine Tests
+
+For each query below, confirm the backend correctly detects the intent AND returns results sorted accordingly.
+
+**Price-LOW intent detection (must sort: cheapest first):**
+رخيص أرخص بسعر مناسب اقتصادي أقل سعر توفير محدود الميزانية بروموشن خصم عرض أوفر اشتر بأقل بيع رخيص موبايل رخيص لابتوب رخيص حذاء رخيص ثلاجة رخيصة كاميرا رخيصة cheap affordable budget lowest price discount sale offer
+
+**Price-HIGH / Premium intent (must sort: expensive/premium first):**
+فاخر ممتاز أفضل جودة بريميوم أصلي احترافي راقي high-end premium luxury best quality professional original authentic
+
+**Rating / Quality intent (must sort: highest rated first):**
+أفضل تقييم الأعلى تقييم موثوق مضمون مجرب أنصح به ينصح أكثر مبيعاً الأكثر طلباً best rated top reviewed recommended trusted most popular bestseller
+
+**New / Latest intent (must sort: newest first):**
+جديد أحدث اخر اصدار حديث latest newest just arrived new arrival 2024 2025
+
+**Availability intent (must filter: in-stock only):**
+متوفر موجود في المخزن يوجد available in stock
+
+---
+
+### AUDIT AXIS 4 — Typo Resistance (Trigram Engine)
+
+Confirm trigram (25% weight in hybrid ranking) returns correct results despite typos.
+
+**English typos (must still find correct products):**
+iphon iphone15 samsng galaxi laptp computr printr monitr keyborad haedphone speakr bluetoth chargr cabl tablat ipd smartwach washng machne refridgerator aircondtioner microwav blnder
+
+**Arabic typos / spelling variants:**
+موبيل موبايلة هاتفف سماعه سماعات كومبيوتر كمبيوتير لاب توب لابتوب تلفزيون تلفزيونات ثلاجه غساله مكيف مكيفات كريمه عطره حقيبه حذاءه صندله ساعه
+
+**Missing spaces / glued English:**
+samsunggalaxy iphonecase laptopbag phoneholder
+
+---
+
+### AUDIT AXIS 5 — Autocomplete API Tests (/api/search/suggestions)
+
+Test: GET /api/search/suggestions?q={prefix}&lang=ar
+Test: GET /api/search/suggestions?q={prefix}&lang=en
+
+**2-character Arabic prefixes (must return suggestions within 100ms):**
+مو ها لا تل ثل غس مك سم كا شا عط حق حذ سا نظ كر طا مق فر جا كت عر ما يد أد رخ أف جد
+
+**2-character English prefixes:**
+mo ph la tv fr wa ac sa sm ca sh pe ba bo he sp bl ch ke pr sc ta cu wa jo
+
+**Full Arabic prefix phrases:**
+موبايل سا | هاتف آي | لابتوب ر | ثلاجة س | غسالة أ | مكيف سب | سماعة بل | كاميرا ك | حذاء ري | عطر فر
+
+**Suggestion type verification — for each result confirm:**
+- type field is one of: intent / category / store / trending
+- label field is non-empty in requested language
+- query field is a valid search string
+- meta field present when applicable (product count, store rating)
+- response time logged in processingTimeMs field
+
+**query_logs table verification:**
+After running 50+ searches, confirm:
+SELECT query, COUNT(*) FROM query_logs GROUP BY query ORDER BY COUNT(*) DESC LIMIT 10;
+Should return the most searched terms. Verify the table is being populated.
+
+---
+
+### AUDIT AXIS 6 — Category Mapping Tests
+
+Confirm these Arabic colloquial/slang words correctly map to standard categories:
+
+بواط → أحذية (shoes)
+شنط → حقائب (bags)
+موبايلات → إلكترونيات (electronics)
+عربيات → سيارات / إكسسوارات سيارات
+فساتين → ملابس نساء
+بدل → ملابس رجالية
+تياب → ملابس
+جزم → أحذية
+طناجر → أدوات مطبخ
+ديكور → أثاث ومنزل
+ألعاب أطفال → لعب وأطفال
+عطورات → عطور ومستحضرات
+كريمات → عناية بالبشرة
+برفانات → عطور
+موتوسيكل → مركبات
+دراجات → رياضة ومركبات
+
+---
+
+### AUDIT AXIS 7 — Performance Benchmarks
+
+Run these checks and report actual measured numbers:
+
+**DB query speed:**
+EXPLAIN ANALYZE SELECT * FROM products WHERE fts_vector @@ plainto_tsquery('arabic', 'موبايل');
+→ Must show "Index Scan using products_fts_idx" (not Seq Scan)
+→ Execution time must be < 50ms
+
+EXPLAIN ANALYZE SELECT * FROM products WHERE name ILIKE '%موبايل%';
+→ Compare: must be SLOWER than fts_vector query (proves GIN index is working)
+
+**Suggestions API speed:**
+Run 20 consecutive requests to /api/search/suggestions?q=مو&lang=ar
+→ Average response time must be < 100ms
+→ No request above 200ms
+
+**Concurrent load test:**
+Simulate 10 parallel requests to /api/search?q=موبايل
+→ All must respond under 200ms
+→ No 500 errors
+
+**Hybrid ranking formula verification:**
+Run: SELECT id, name, ts_rank(fts_vector, query) as fts_score FROM products, plainto_tsquery('arabic', 'موبايل') query ORDER BY fts_score DESC LIMIT 10;
+→ Confirm scores are non-zero and results are relevance-ordered
+
+---
+
+### AUDIT AXIS 8 — UI/UX Integration Tests
+
+**Shop page (existing):**
+□ Intent Chips render correctly in Arabic RTL
+□ Intent Chips render correctly in English LTR
+□ Clicking a chip filters results correctly
+□ Results update without full page reload
+□ URL params update correctly (/shop?q=...&intent=...)
+□ No layout broken in dark mode
+□ No layout broken on mobile (375px width)
+
+**Navbar Autocomplete dropdown (Step 4):**
+□ Dropdown appears after typing 2 characters
+□ Debounce 200ms confirmed (no API call on every keystroke)
+□ Dropdown shows: recent searches section (if any)
+□ Dropdown shows: suggestions section with icons
+□ Dropdown shows: trending section
+□ Arrow key DOWN moves highlight to next item
+□ Arrow key UP moves highlight to previous item
+□ Enter key executes search on highlighted item
+□ Escape key closes dropdown
+□ Click outside closes dropdown
+□ Clicking a suggestion navigates correctly
+□ Store suggestions show rating
+□ Category suggestions show product count
+□ RTL layout correct for Arabic (icons on right)
+□ LTR layout correct for English (icons on left)
+□ Loading skeleton shows during API call
+□ Empty state message shows when no suggestions
+□ AbortController cancels in-flight requests on new keystroke
+
+**Search results page / Shop page after search:**
+□ Results grid renders correctly
+□ Product cards show real data (no fake/placeholder)
+□ Sorting by price works (low to high, high to low)
+□ Filtering by category works
+□ Pagination or infinite scroll works
+□ No broken images
+□ Product count displayed is accurate
+
+---
+
+### OUTPUT FORMAT REQUIRED
+
+After running all tests, generate a full report in this exact structure:
+
+```
+SYANO SEARCH SYSTEM — AUDIT REPORT
+====================================
+Date: [today]
+Total tests run: [number]
+Passed: [number]
+Failed: [number]
+Warnings: [number]
+
+AXIS 1 — searchProcessor.ts
+Status: PASS / FAIL
+Issues found: [list or "none"]
+Details: [any anomalies]
+
+AXIS 2 — FTS Engine
+Status: PASS / FAIL
+Slowest query: [query] — [Xms]
+Issues: [list or "none"]
+
+AXIS 3 — Intent Analysis
+Status: PASS / FAIL
+Undetected intents: [list or "none"]
+Wrong sort order cases: [list or "none"]
+
+AXIS 4 — Typo Resistance
+Status: PASS / FAIL
+Failed typos (no results returned): [list]
+Trigram not kicking in cases: [list]
+
+AXIS 5 — Autocomplete API
+Status: PASS / FAIL
+Avg response time: [Xms]
+Slowest prefix: [prefix] — [Xms]
+Missing suggestion types: [list]
+query_logs populated: YES / NO
+
+AXIS 6 — Category Mapping
+Status: PASS / FAIL
+Unmapped colloquial words: [list]
+
+AXIS 7 — Performance
+FTS index type: Index Scan / Seq Scan (must be Index Scan)
+FTS avg speed: [Xms]
+Suggestions avg speed: [Xms]
+Concurrent load result: PASS / FAIL
+
+AXIS 8 — UI/UX
+Shop page RTL: PASS / FAIL
+Autocomplete keyboard nav: PASS / FAIL
+Dark mode: PASS / FAIL
+Mobile layout: PASS / FAIL
+Broken items found: [list or "none"]
+
+CRITICAL ISSUES (block production):
+[list any P0 bugs found]
+
+NON-CRITICAL ISSUES (can fix later):
+[list any P1/P2 issues]
+
+RECOMMENDATION:
+[ ] System is production-ready — all axes passing
+[ ] System needs fixes before production — see critical issues above
+```
+
+---
+
+### AFTER AUDIT COMPLETE:
+1. Fix ALL critical issues found before marking Phase 8 done
+2. Update CURRENT_STATE.md with audit results summary
+3. Update PROJECT_STATUS.md: Phase 8 = complete if all axes pass
+4. Update RECOVERY_GUIDE.md with final system architecture notes
+
+DO NOT skip any axis. DO NOT summarize without running actual tests.
+Report real numbers from real DB queries and API calls.

@@ -1,0 +1,514 @@
+Task: Search Understanding — Full Audit & Implementation
+Phase: Search Improvement — Axis 5 (Understanding / NLP)
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file. Then read the
+full source of ALL of these files before writing a single line:
+  - artifacts/server/src/services/searchProcessor.ts (full file)
+  - artifacts/server/src/routes/search.ts (full file)
+  - artifacts/server/src/db/schema.ts (full file)
+  - artifacts/server/src/db/ (list every file in this directory)
+  - artifacts/marketplace/src/pages/search/index.tsx (full file)
+  - artifacts/marketplace/src/components/Navbar.tsx (full file)
+
+After reading, list every function, every table, and every NLP-related
+feature that already exists. Do not assume anything — report what is
+actually in the code.
+
+PERMANENT REJECTIONS — never propose or implement any of these:
+  - Vector embeddings or semantic search requiring external AI APIs
+    (OpenAI, Cohere, HuggingFace, etc.) — no external API calls
+  - Any new npm package that is not already installed in the project
+  - New DB tables for storing embeddings or vectors
+  - ML model inference at query time
+  - Any feature not explicitly listed in this task
+Stop immediately if you are about to propose one of these.
+
+════════════════════════════════════════════════════════════════════
+PHASE 1 — AUDIT CURRENT UNDERSTANDING SYSTEM (no code changes yet)
+════════════════════════════════════════════════════════════════════
+
+AUDIT A — Synonym System
+  Report:
+    - Does a synonyms table exist in schema.ts? If yes: what columns,
+      what data is in it, how many rows?
+    - Is there any synonym expansion logic in searchProcessor.ts?
+      If yes: exactly how does it work — does it expand the query
+      before FTS, after, or both? Is it bidirectional?
+    - Are Arabic synonyms handled separately from English? How?
+    - What happens when a user searches "موبايل" — does the system
+      also search for "هاتف", "جوال", "تليفون"?
+    - What happens when a user searches "phone" — does it also match
+      "mobile", "smartphone", "handset"?
+    - List every synonym pair currently defined if a table exists.
+
+AUDIT B — Intent Detection
+  Report:
+    - Is there any intent detection logic in searchProcessor.ts?
+      (e.g. detecting that "بدي شي رخيص" means price_filter=low,
+      or "العاب اطفال" means category=toys)
+    - If yes: what intents are detected, what signals trigger each,
+      and what action does each intent take (modify query, add filter,
+      boost category)?
+    - Is intent detection used in the autocomplete suggestions? If yes,
+      how is the intent badge (amber pill) populated?
+    - Does intent detection work for Arabic colloquial Syrian dialect?
+      (e.g. "شو في" = "what is available", "بكم هاد" = "how much is this")
+    - List every intent currently defined if they exist.
+
+AUDIT C — Arabic Language Processing
+  Report:
+    - What Arabic normalization is currently applied before search?
+      List every transformation (alef normalization, tashkeel removal,
+      hamza normalization, ta marbuta normalization, etc.)
+    - Is stemming or root extraction applied? If yes: what library or
+      algorithm is used?
+    - Is there any handling for Syrian dialect vs Modern Standard Arabic?
+      (e.g. "شنطة" vs "حقيبة", "مشتل" vs "بستان")
+    - Does the FTS configuration use Arabic dictionary/thesaurus?
+      Check the PostgreSQL FTS config being used (simple, arabic, or
+      custom).
+    - Is there any query expansion for Arabic morphological variants?
+      (e.g. searching "كتاب" should also match "كتب", "كتيب")
+
+AUDIT D — Query Understanding Pipeline
+  Report:
+    - What is the exact sequence of transformations applied to a raw
+      query before it hits the DB? (e.g. trim → normalize → expand
+      synonyms → detect intent → build FTS query)
+    - Is there any query classification? (e.g. is this a product name
+      search, a category browse, a brand search, a price search?)
+    - Is there any handling for mixed Arabic-English queries?
+      (e.g. "iPhone رخيص" or "samsung هاتف")
+    - Is there any handling for common misspellings beyond the
+      "Did you mean" trigram correction already implemented?
+    - What is the maximum query length accepted? Is there any
+      query sanitization beyond Zod validation?
+
+AUDIT E — Zero-Result Analysis
+  Report:
+    - How many zero-result queries are in query_logs or search_queries?
+    - What are the top 10 zero-result queries? (run the query)
+    - What pattern do they follow? (misspellings, missing synonyms,
+      dialect words, brand names not in DB, etc.)
+    - This analysis directly informs what synonyms and intents to add.
+
+════════════════════════════════════════════════════════════════════
+PHASE 2 — IMPLEMENT IMPROVEMENTS (based on audit findings)
+════════════════════════════════════════════════════════════════════
+
+After completing Phase 1 and reporting ALL audit findings, implement
+the following. If something already exists and works correctly,
+skip it and note it as "already implemented — no change needed."
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 1 — Synonym System (build or extend)
+──────────────────────────────────────────────────────────────────
+
+Goal: when a user searches for any word, the system automatically
+also searches for all known synonyms of that word.
+
+  1a. If a synonyms table does NOT exist:
+      Create a migration (additive only — never destructive) adding:
+        search_synonyms table with columns:
+          id: serial primary key
+          term: text not null (the canonical term)
+          synonym: text not null (the equivalent word)
+          language: text not null ('ar' or 'en' or 'both')
+          is_bidirectional: boolean default true
+          created_at: timestamp default now()
+        Index on (term, language) and (synonym, language).
+      Do not add columns to any existing table.
+
+  1b. Seed the synonyms table with the following initial data.
+      These are the most common Syrian marketplace search equivalents.
+      Add ALL of them — do not skip any:
+
+      Arabic mobile/phone synonyms (bidirectional, language: 'ar'):
+        موبايل ↔ هاتف
+        موبايل ↔ جوال
+        موبايل ↔ تليفون
+        موبايل ↔ بيجر (keep for completeness)
+        هاتف ↔ جوال
+        هاتف ↔ تليفون
+
+      Arabic clothing synonyms (bidirectional, language: 'ar'):
+        شنطة ↔ حقيبة
+        شنطة ↔ كيس
+        بنطلون ↔ بنطال
+        بنطلون ↔ سروال
+        فستان ↔ ثوب
+        جاكيت ↔ جاكتة
+        جاكيت ↔ معطف
+        تيشيرت ↔ قميص
+        حذاء ↔ كندرة
+        حذاء ↔ جزمة
+
+      Arabic electronics synonyms (bidirectional, language: 'ar'):
+        تلفزيون ↔ تلفاز
+        تلفزيون ↔ شاشة
+        كمبيوتر ↔ حاسوب
+        كمبيوتر ↔ جهاز
+        لابتوب ↔ حاسوب محمول
+        لابتوب ↔ كمبيوتر محمول
+        سماعة ↔ سماعات
+        شاحن ↔ شارجر
+
+      Arabic home synonyms (bidirectional, language: 'ar'):
+        ثلاجة ↔ برادة
+        غسالة ↔ وشاشة (Syrian dialect)
+        مكيف ↔ ايركون
+        مكيف ↔ كيف
+        طباخ ↔ فرن
+        طباخ ↔ بوتاجاز
+
+      English synonyms (bidirectional, language: 'en'):
+        phone ↔ mobile
+        phone ↔ smartphone
+        phone ↔ handset
+        laptop ↔ notebook
+        laptop ↔ computer
+        tv ↔ television
+        tv ↔ screen
+        bag ↔ handbag
+        bag ↔ purse
+        shoes ↔ sneakers
+        shoes ↔ footwear
+
+      Cross-language synonyms (bidirectional, language: 'both'):
+        موبايل ↔ mobile
+        لابتوب ↔ laptop
+        تيشيرت ↔ t-shirt
+        جاكيت ↔ jacket
+        شاحن ↔ charger
+        سماعة ↔ headphones
+        تلفزيون ↔ tv
+
+  1c. Synonym expansion logic in searchProcessor.ts:
+      Before building the FTS query, look up all synonyms for each
+      term in the user's query. Add them to the search using OR logic.
+      Example: query "موبايل" → expanded to:
+        "موبايل OR هاتف OR جوال OR تليفون OR mobile"
+      Rules:
+        - Expansion must happen AFTER Arabic normalization (so
+          normalized forms are looked up, not raw input).
+        - Expansion must be additive — original query terms always
+          included, never replaced.
+        - Maximum expanded terms: 10 total (original + synonyms).
+          If expansion would exceed 10 terms, take the top synonyms
+          by frequency in query_logs (most searched first).
+        - Cache synonym lookups in memory (simple JS Map) with a
+          5-minute TTL to avoid DB round-trips on every search.
+          Invalidate cache when synonyms table is updated.
+        - The synonym lookup must be a single DB query using IN clause,
+          not one query per term.
+        - Log synonym expansions in the existing logging system
+          (add expanded_terms field to query log if schema allows,
+          otherwise log to console in dev mode only).
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 2 — Intent Detection (build or extend)
+──────────────────────────────────────────────────────────────────
+
+Goal: detect the user's intent from natural language and translate
+it into structured search parameters automatically.
+
+  2a. Intent definitions — implement detection for ALL of these:
+      Each intent has: trigger patterns, detected language, action.
+
+      INTENT: price_low
+        Triggers (Arabic): رخيص, رخيصة, بسعر مناسب, بسعر رخيص,
+          ارخص, اقل سعر, بكم, بكميات, اوفر, اقتصادي, مو غالي,
+          مش غالي, ما غالي, بسيط, بدجت منخفض, (Syrian) بزبون
+        Triggers (English): cheap, affordable, budget, low price,
+          inexpensive, economical, value
+        Action: add sort=price_asc to search params, boost products
+          in bottom 30% of price range
+
+      INTENT: price_high
+        Triggers (Arabic): غالي, فاخر, بريميوم, احسن جودة,
+          فخم, راقي, luxury
+        Triggers (English): expensive, premium, luxury, high-end,
+          quality, best
+        Action: add sort=price_desc, boost products in top 30% of
+          price range
+
+      INTENT: new_arrivals
+        Triggers (Arabic): جديد, وصل حديثاً, اخر وصول, جديدة,
+          احدث, وصل هلق, (Syrian) طازج
+        Triggers (English): new, latest, just arrived, recent,
+          newest
+        Action: boost freshness_score weight to 0.4 (from 0.10),
+          reduce quality_score weight proportionally
+
+      INTENT: on_sale
+        Triggers (Arabic): عرض, عروض, تخفيض, تخفيضات, خصم,
+          خصومات, سعر مخفض, اوفر عرض
+        Triggers (English): sale, discount, offer, deal, promotion,
+          reduced
+        Action: filter to products where discount_percentage > 0
+          (if discount column exists), or where sale_price < price
+
+      INTENT: category_browse
+        Triggers: when query is ONLY a category name with no product
+          keywords (e.g. "إلكترونيات", "ملابس", "أحذية",
+          "electronics", "clothing", "shoes")
+        Action: redirect to /categories/{matched_category_slug}
+          instead of search results. Return intent_action: 'redirect'
+          in API response with the target URL.
+        Category list to match against: read from the categories
+          table in the DB — do not hardcode category names.
+
+      INTENT: gift
+        Triggers (Arabic): هدية, هدايا, مناسبة, عيد, اهداء,
+          هدية لـ, هدية لأمي, هدية لزوجتي, هدية للاطفال
+        Triggers (English): gift, present, for her, for him,
+          for kids, birthday, occasion
+        Action: boost is_featured products, add tag filter for
+          "gift" if tag system exists
+
+  2b. Intent detection implementation:
+      Add an detectIntent(query: string, language: 'ar' | 'en' | 'mixed')
+      function in searchProcessor.ts that:
+        - Takes the normalized query
+        - Returns: { intent: string | null, confidence: number,
+            modifiers: Record<string, unknown> }
+        - Uses simple keyword matching (no ML — pattern matching only)
+        - Supports multiple intents in one query (e.g. "هدية رخيصة"
+          → both gift + price_low)
+        - Is case-insensitive and diacritic-insensitive for Arabic
+        - Syrian dialect patterns take priority over MSA patterns
+          (check dialect triggers first)
+        - If no intent detected: returns { intent: null, confidence: 0,
+            modifiers: {} }
+        - Confidence scoring: exact match = 1.0, partial match = 0.6
+
+  2c. Intent application in search pipeline:
+      After intent detection, apply the modifiers to the search:
+        - price_low/price_high: adjust ranking weights dynamically
+        - new_arrivals: boost freshness weight
+        - on_sale: add WHERE clause for discounted products
+        - category_browse: return redirect action, skip product search
+        - gift: adjust ranking weights, add featured boost
+      Include detected_intent in the API response (always, not just
+      debug mode) so the frontend can display intent feedback to user.
+
+  2d. Frontend intent feedback:
+      In artifacts/marketplace/src/pages/search/index.tsx:
+      When the API response includes detected_intent (not null),
+      show a small pill/badge below the search bar:
+        Arabic example: "يبدو إنك تبحث عن: منتجات رخيصة"
+        English example: "Searching for: budget products"
+      Use existing Badge or pill component. Use existing color tokens.
+      Add i18n strings under search.intent.{intent_name} keys.
+      The pill must have an X button to dismiss it (clears intent
+      from this search only, does not affect future searches).
+      Do not show the pill when intent is null.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 3 — Mixed Language Query Handling
+──────────────────────────────────────────────────────────────────
+
+Goal: queries mixing Arabic and English (e.g. "iPhone رخيص",
+"samsung هاتف", "laptop جديد") must work correctly.
+
+  3a. Language detection per query token:
+      Split the query into tokens. For each token, detect if it
+      is Arabic script, Latin script, or numeric. Apply the
+      appropriate normalization to each token independently.
+      Arabic tokens → Arabic normalization pipeline
+      Latin tokens → lowercase only
+      Numeric tokens → kept as-is
+
+  3b. Mixed query FTS construction:
+      Build separate FTS sub-queries for Arabic tokens and English
+      tokens, then combine with OR. This ensures PostgreSQL uses the
+      correct text search configuration for each language.
+      Example: "iPhone رخيص" →
+        english_fts: to_tsquery('english', 'iphone')
+        arabic_fts: to_tsquery('arabic', 'رخيص') -- or 'simple'
+        combined: english_fts || arabic_fts
+
+  3c. Cross-language synonym expansion for mixed queries:
+      When a mixed query is detected, also expand using the
+      cross-language synonyms (language: 'both') from the synonyms
+      table. So "موبايل iPhone" also searches for "mobile iPhone
+      هاتف جوال".
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 4 — Query Understanding Enhancements
+──────────────────────────────────────────────────────────────────
+
+  4a. Brand name protection:
+      Build a brands list from existing product data:
+        SELECT DISTINCT brand FROM products WHERE brand IS NOT NULL
+      Cache this list in memory (refresh every 10 minutes).
+      When a query contains a known brand name: apply an exact-match
+      boost for that brand (multiply brand-matching products' text
+      score by 1.5). This ensures "Samsung" always returns Samsung
+      products first, not generic "phone" results.
+
+  4b. Numeric query handling:
+      If query contains a number:
+        - 4-digit number (e.g. 2024) → likely a year, boost products
+          with that year in title/description
+        - Number with currency context (e.g. "بكم", "price", "سعر"
+          near the number) → treat as price filter, add WHERE price
+          BETWEEN (number * 0.8) AND (number * 1.2)
+        - Pure numeric query (only digits) → search in product
+          model numbers and SKUs in addition to title
+
+  4c. Stop word refinement for Arabic:
+      Add a Syrian-Arabic stop word list to the search pipeline.
+      These words should be stripped from queries before FTS
+      (they add noise, not signal):
+        بدي, بدو, بدها, بدنا, بدكم, بدهم (Syrian "want")
+        في, من, على, إلى, عن, مع, هاد, هاي, هدا, هاي
+        شو, شوف, كيف, وين, ليش, امتى
+        بس, لكن, يعني, هلق, هون, هناك
+      CRITICAL: strip stop words ONLY when the remaining query has
+      at least 1 non-stop-word token. If stripping would result in
+      an empty query, keep the original query unchanged.
+
+  4d. Query length handling:
+      - Query longer than 100 characters: truncate to 100 chars,
+        log a warning, continue processing.
+      - Query with more than 8 tokens after stop word removal:
+        take only the 8 highest-IDF tokens (most rare/specific).
+        Implement IDF approximation using term frequency in
+        query_logs — rarer search terms have higher IDF.
+      - Single character query: return empty results immediately
+        without hitting the DB. Add to i18n:
+        search.error.queryTooShort: "اكتب كلمة كاملة للبحث" /
+        "Type a full word to search"
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS (non-negotiable)
+════════════════════════════════════════════════════════════════════
+
+- No external API calls at query time (no OpenAI, no Cohere, nothing).
+- No new npm packages.
+- No new DB tables except search_synonyms (if it doesn't exist).
+- No changes to existing DB columns or existing tables (except
+  adding search_synonyms).
+- All new visible strings → ar.json and en.json only. No hardcoded
+  strings anywhere.
+- All colors → existing Tailwind tokens only.
+- RTL: all new UI elements must render correctly in Arabic.
+- Dark mode: all new UI elements must use existing dark mode tokens.
+- Mobile 375px: all new UI elements must work without overflow.
+- TypeScript: all new code fully typed. No `any`.
+- Performance: total added latency from all improvements must be
+  < 50ms on average. Synonym lookup uses in-memory cache. Intent
+  detection is pure JS (no DB query). Brand list is cached.
+- The search pipeline sequence after all improvements must be:
+    1. Validate & sanitize query (Zod + length check)
+    2. Detect language per token
+    3. Apply Arabic normalization to Arabic tokens
+    4. Strip Syrian stop words (if residual query non-empty)
+    5. Look up synonyms (cache first, DB fallback)
+    6. Detect intent
+    7. Apply brand boost if brand detected
+    8. Handle numeric tokens
+    9. Build FTS query (mixed language aware)
+    10. Execute DB query with multi-signal ranking (Axis 4)
+    11. Apply seller diversity post-processing
+    12. Return results with intent + ranking metadata
+  Document this pipeline as a comment block at the top of
+  searchProcessor.ts.
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION MATRIX
+════════════════════════════════════════════════════════════════════
+
+Run every test below and screenshot or log the result:
+
+SYNONYM EXPANSION:
+  - Search "موبايل" → confirm results include products with "هاتف"
+    and "جوال" in their titles (if such products exist)
+  - Search "phone" → confirm results include "mobile" and "smartphone"
+    products
+  - Search "شنطة" → confirm results include "حقيبة" products
+  - Check API response for expanded_terms field in debug mode
+
+INTENT DETECTION:
+  - Search "بدي شي رخيص" → confirm intent pill shows "منتجات رخيصة",
+    results sorted by price ascending
+  - Search "عروض وتخفيضات" → confirm on_sale intent detected,
+    results filtered to discounted products only
+  - Search "هدية لأمي" → confirm gift intent detected
+  - Search "إلكترونيات" → confirm category_browse intent,
+    API returns redirect action to /categories/electronics
+  - Search "iPhone جديد" → confirm new_arrivals intent + mixed
+    language handling
+  - Dismiss intent pill (X button) → confirm pill disappears,
+    search remains active
+
+MIXED LANGUAGE:
+  - Search "iPhone رخيص" → confirm iPhone products appear + price_low
+    intent detected
+  - Search "samsung هاتف" → confirm Samsung products appear +
+    synonym expansion for هاتف
+  - Search "laptop جديد" → confirm laptops appear + new_arrivals intent
+
+BRAND BOOST:
+  - Search "samsung" → confirm Samsung-branded products appear above
+    generic products with similar text scores
+  - Search "apple" → same confirmation for Apple products
+
+NUMERIC:
+  - Search "بدي شي ب 5000" → confirm price filter applied ±20%
+  - Search a product model number → confirm SKU/model search active
+
+STOP WORDS:
+  - Search "بدي هاتف" → confirm processed as "هاتف" only
+  - Search "بدي" alone → confirm original query kept (not emptied)
+  - Search "شو في من موبايلات" → confirm processed as "موبايلات"
+
+PIPELINE:
+  - Add ?debug=ranking to any search → confirm rankingBreakdown
+    now includes synonym_expanded: boolean and detected_intent fields
+
+After all tests, run:
+  npx tsc --noEmit
+across ALL 6 packages. Must return 0 errors.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE
+════════════════════════════════════════════════════════════════════
+
+PHASE 1 AUDIT RESULTS:
+  Audit A (Synonym System):
+    [what exists, what's missing, synonym table data if present]
+  Audit B (Intent Detection):
+    [what exists, every intent defined, gaps found]
+  Audit C (Arabic Processing):
+    [every normalization step confirmed, stemming status,
+     dialect handling status, FTS config used]
+  Audit D (Query Pipeline):
+    [exact current sequence documented step by step]
+  Audit E (Zero-Result Analysis):
+    [top 10 zero-result queries, pattern analysis]
+
+PHASE 2 IMPLEMENTATION:
+  Improvement 1 — Synonyms:
+    [migration created or skipped, seed data confirmed,
+     cache implementation confirmed, sample expansion logged]
+  Improvement 2 — Intent Detection:
+    [every intent implemented, frontend pill screenshots AR + EN,
+     dismiss button confirmed working]
+  Improvement 3 — Mixed Language:
+    [token splitting confirmed, mixed FTS query example shown]
+  Improvement 4 — Query Enhancements:
+    [brand list count, numeric handling confirmed, stop word
+     list applied, pipeline comment block added to code]
+
+PIPELINE SEQUENCE: confirmed as comment block in searchProcessor.ts
+
+TYPESCRIPT: "0 errors across all 6 packages confirmed"
+
+FEATURE REJECTIONS CONFIRMED:
+  "Vector embeddings — not implemented, not proposed"
+  "External AI APIs — not implemented, not proposed"
+  "New npm packages — not installed, not proposed"
+ 

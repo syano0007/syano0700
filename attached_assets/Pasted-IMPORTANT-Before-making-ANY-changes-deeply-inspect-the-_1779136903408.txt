@@ -1,0 +1,270 @@
+IMPORTANT:
+Before making ANY changes, deeply inspect the ENTIRE multilingual/i18n architecture of the Syano marketplace.
+
+Analyze:
+- translation system
+- language provider/context
+- RTL/LTR handling
+- routing
+- navbar
+- seller pages
+- authentication pages
+- dashboard pages
+- discover/products pages
+- admin pages
+- notification system
+- buttons
+- placeholders
+- validation messages
+- dynamic text
+- loading states
+- fallback translations
+- responsive layouts
+- mobile rendering
+
+DO NOT rebuild the app.
+DO NOT regenerate unrelated components.
+ONLY fix and improve the current architecture professionally.
+
+==================================================
+MAIN ISSUE TO FIX
+==================================================
+
+The marketplace language is set to Arabic,
+BUT many pages/components still display English text.
+
+Examples include:
+- seller verification pages
+- buttons
+- placeholders
+- form labels
+- status text
+- notifications
+- validation messages
+- dashboard sections
+- loading states
+- empty states
+
+This creates an inconsistent and unprofessional experience.
+
+==================================================
+GOAL
+==================================================
+
+Create a FULLY CONSISTENT professional multilingual system where:
+
+- Arabic is fully supported everywhere
+- English is fully supported everywhere
+- Language switching updates ALL text instantly
+- No mixed Arabic/English UI remains
+- RTL works perfectly
+- Mobile and desktop both work flawlessly
+
+==================================================
+SECTION 1 — FULL LANGUAGE AUDIT
+==================================================
+
+Perform a COMPLETE scan of the entire project and identify:
+
+- hardcoded English text
+- untranslated labels
+- untranslated placeholders
+- untranslated buttons
+- untranslated notifications
+- untranslated validation messages
+- untranslated form text
+- untranslated product UI
+- untranslated seller UI
+- untranslated admin UI
+- untranslated dynamic states
+- untranslated modals
+- untranslated alerts
+- untranslated dropdowns
+- untranslated loading/error states
+
+Fix EVERYTHING.
+
+==================================================
+SECTION 2 — PROFESSIONAL I18N SYSTEM
+==================================================
+
+Implement or improve a centralized professional translation architecture.
+
+Requirements:
+- clean translation files
+- scalable structure
+- reusable translation keys
+- no duplicated text
+- instant language switching
+- proper fallback handling
+- future-ready architecture
+
+==================================================
+SUPPORTED LANGUAGES
+==================================================
+
+1. Arabic (default)
+2. English
+
+==================================================
+SECTION 3 — RTL/LTR FIXES
+==================================================
+
+Ensure FULL RTL support for Arabic.
+
+Fix:
+- alignment
+- spacing
+- icon direction
+- padding/margins
+- dropdowns
+- forms
+- navigation
+- cards
+- tables
+- modals
+- mobile layouts
+
+Arabic pages MUST feel naturally Arabic.
+
+English pages MUST switch cleanly to LTR.
+
+==================================================
+SECTION 4 — SELLER SYSTEM TRANSLATIONS
+==================================================
+
+Completely fix seller verification pages.
+
+Translate EVERYTHING including:
+- Become a Seller
+- Store Information
+- Phone Number
+- Store Name
+- Main Category
+- Store Description
+- Status labels
+- Review flow
+- Seller dashboard
+- Notifications
+- Validation messages
+
+Nothing should remain in English when Arabic is selected.
+
+==================================================
+SECTION 5 — GLOBAL UI CONSISTENCY
+==================================================
+
+Ensure language consistency across:
+- homepage
+- discover page
+- product pages
+- seller pages
+- cart
+- checkout
+- orders
+- notifications
+- admin dashboard
+- profile pages
+- footer
+- mobile app screens
+- modals
+- dropdowns
+- search UI
+
+==================================================
+SECTION 6 — DYNAMIC CONTENT HANDLING
+==================================================
+
+Ensure dynamic UI text also translates correctly.
+
+Examples:
+- loading...
+- success messages
+- error messages
+- empty states
+- notifications
+- order statuses
+- seller statuses
+- product moderation statuses
+
+==================================================
+SECTION 7 — PERFORMANCE & STABILITY
+==================================================
+
+Optimize the multilingual system for:
+- weak internet
+- mobile devices
+- fast switching
+- minimal rerenders
+- lightweight translation loading
+
+Ensure no:
+- flashing
+- hydration issues
+- layout jumps
+- broken RTL rendering
+
+==================================================
+SECTION 8 — RESPONSIVE TESTING
+==================================================
+
+Thoroughly test ALL pages on:
+- desktop
+- tablet
+- mobile
+
+Verify:
+- RTL alignment
+- spacing
+- text overflow
+- button sizes
+- dropdown rendering
+- navbar behavior
+- seller forms
+- product cards
+
+==================================================
+SECTION 9 — AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically scan for and fix:
+- mixed-language components
+- untranslated keys
+- broken RTL
+- inconsistent spacing
+- alignment bugs
+- mobile UI issues
+- overflow problems
+- hidden text
+- invalid fallback behavior
+
+==================================================
+SECTION 10 — FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+- verify every page supports Arabic correctly
+- verify every page supports English correctly
+- verify language switching is instant
+- verify no hardcoded English remains
+- verify RTL/LTR behavior
+- verify mobile responsiveness
+- verify desktop responsiveness
+- verify notifications are translated
+- verify validation messages are translated
+- verify seller system translations
+- verify admin dashboard translations
+- verify discover page translations
+- verify product pages translations
+- verify no visual regressions occurred
+
+FINAL RESULT MUST FEEL:
+- premium
+- polished
+- modern
+- fully multilingual
+- marketplace-grade
+- professionally localized
+- production-ready
+- seamless on desktop and mobile

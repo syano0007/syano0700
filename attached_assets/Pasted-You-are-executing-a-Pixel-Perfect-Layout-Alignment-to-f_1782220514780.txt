@@ -1,0 +1,39 @@
+You are executing a Pixel-Perfect Layout Alignment to fix the hero banner gradient blend and remove the bottom action text links based on "Screenshot (462).jpg".
+
+Current Visual Bugs to Fix:
+1. The hero banner gradient is fading out too early (turning gray/white before it even goes deep behind the grid cards). We want the image fully visible at the top, and to fade out smoothly ONLY at the bottom section behind the cards.
+2. Completely strip out any remaining bottom text links or buttons (like "تسوق الآن", "شاهد جميع العروض") from all 4 master cards as requested.
+
+==================================================
+PART 1 — DELAYING THE AMAZON GRADIENT FADEOUT (THE 70% RULE)
+==================================================
+1. Target the Hero Banner / Slider Container or its absolute overlay element:
+   - Ensure the banner element extends completely downwards behind the overlapping grid card deck.
+   - Adjust the background gradient stops so the image stays 100% solid and un-faded through the top 60%-70% of its height, and smoothly dissolves into the exact page background color (`#f8f9fa` or the active clean off-white background) ONLY in the bottom 30%.
+   
+   - Replace the previous gradient classes with this strict progression:
+     `className="absolute inset-0 bg-gradient-to-b from-transparent from-60% via-transparent via-70% to-[#f8f9fa] to-100% pointer-events-none"`
+   
+   - Or if using an explicit CSS mask layout (Recommended for perfect asset blending):
+     `style={{ maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)' }}`
+
+This guarantees the billboard looks solid at the top fold and melts flawlessly into the layout background exactly underneath the card rows, matching "Screenshot (457).jpg".
+
+==================================================
+PART 2 — STRICT REMOVAL OF ALL BOTTOM LINKS/BUTTONS
+==================================================
+1. Open the 4 master grid cards component:
+   - Completely REMOVE the bottom text links/CTAs (e.g., "Shop Now", "تسوق الآن", "شاهد جميع المنتجات", "شاهد جميع العروض").
+   - Let the card content lock cleanly directly below the 2x2 grid labels.
+   - Refactor the card shell to dynamic content height:
+     `className="w-full h-auto flex flex-col p-4 md:p-5 bg-white rounded-xl shadow-md border border-gray-100/60"`
+   - Ensure the inner 2x2 grid ends with a clean base padding: `className="grid grid-cols-2 gap-2 md:gap-3 w-full mt-3 mb-1"`
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The banner image does NOT turn silver/gray at the top; it is fully vibrant behind the upper part of the cards.
+✓ The gradient blend effect happens strictly behind the lower quadrant of the cards, melting seamlessly into the site body.
+✓ No bottom text links exist under any card.
+✓ TypeScript compilation = 0 errors.

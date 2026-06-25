@@ -1,0 +1,299 @@
+STOP.
+
+Do NOT add new features.
+
+Do NOT redesign again.
+
+Do NOT create another navbar variation.
+
+The approved homepage design is now the source of truth.
+
+The priority is:
+
+1. Restore the NEW approved navbar from the design.
+2. Make the homepage fully functional.
+3. Ensure displayed stores and products are REAL.
+4. Update recovery files and endpoint documentation after completion.
+
+---
+
+## PHASE 1 — IMPLEMENT THE APPROVED NAVBAR
+
+IMPORTANT:
+
+Use the NEW navbar from the approved homepage design.
+
+NOT the old marketplace navbar.
+
+NOT the current navbar.
+
+NOT a hybrid navbar.
+
+The approved design navbar becomes the new base navbar.
+
+Match exactly:
+
+* layout
+* spacing
+* proportions
+* search box
+* icon sizes
+* button sizes
+* typography
+* alignment
+* hover behavior
+
+The approved mockup navbar is now the source of truth.
+
+---
+
+## PHASE 2 — RE-ADD OLD FUNCTIONALITY
+
+After the new navbar is implemented:
+
+Reintroduce the useful functionality that existed before.
+
+Integrate them INSIDE the new navbar design.
+
+Keep:
+
+* Logo
+* Search
+* Theme switcher
+* Currency switcher
+* Wishlist
+* Cart
+* Login
+* Register
+
+Then carefully add:
+
+* Seller shortcuts (if authenticated seller)
+* Courier shortcuts (if authenticated courier)
+* Admin shortcuts (if authenticated admin)
+
+BUT:
+
+They must visually fit inside the new navbar design.
+
+Do NOT restore the old navbar layout.
+
+Only restore functionality.
+
+---
+
+## PHASE 3 — PRODUCTS MUST BE REAL
+
+The homepage must not show fake showcase products.
+
+Every product visible on:
+
+* Hero cards
+* Featured Deals
+* Trending
+* New Arrivals
+* Recently Viewed
+
+must exist in the database.
+
+Requirements:
+
+* real product IDs
+* real product images
+* real prices
+* real stock
+* real store ownership
+
+No fake cards.
+
+No mock products.
+
+No placeholder products.
+
+---
+
+## PHASE 4 — STORES MUST BE REAL
+
+Every displayed store must exist.
+
+Verify:
+
+* seller exists
+* store exists
+* slug works
+* store page opens
+* products belong to that store
+
+No showcase-only stores.
+
+No fake storefronts.
+
+---
+
+## PHASE 5 — BUTTON AUDIT
+
+Audit every homepage button.
+
+Examples:
+
+Hero:
+
+* تسوق الآن
+* تصفح المتاجر
+
+Deals:
+
+* add to cart
+
+Products:
+
+* product click
+* wishlist
+* add to cart
+
+Stores:
+
+* visit store
+
+Join section:
+
+* seller CTA
+* courier CTA
+
+All buttons must work.
+
+No dead links.
+
+---
+
+## PHASE 6 — BACKEND INTEGRATION
+
+Verify every homepage section uses real APIs.
+
+Examples:
+
+/api/products
+/api/products/categories
+/api/products/trending
+/api/products/new-arrivals
+/api/sellers/featured
+/api/wishlist
+/api/cart
+
+Validate:
+
+* response
+* loading
+* empty state
+* error handling
+
+---
+
+## PHASE 7 — ACCOUNT TESTING
+
+Use actual platform accounts.
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Actually authenticate.
+
+Do not stop testing because login appears.
+
+Verify authenticated flows.
+
+---
+
+## PHASE 8 — RECOVERY FILES
+
+After completion update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+Recovery audit files
+
+Homepage architecture docs
+
+Recovery endpoint documentation
+
+Bootstrap documentation
+
+Document:
+
+* new navbar architecture
+* homepage data sources
+* product requirements
+* store requirements
+* authentication-aware navbar behavior
+
+---
+
+## PHASE 9 — ENDPOINT DOCUMENTATION
+
+Update all homepage-related endpoint docs.
+
+Document:
+
+* products endpoints
+* stores endpoints
+* wishlist endpoints
+* cart endpoints
+* navbar dependencies
+
+Ensure future recovery restores this exact state.
+
+---
+
+FINAL VALIDATION
+
+Verify:
+
+✅ New approved navbar implemented
+
+✅ Old functionality merged into new navbar
+
+✅ Wishlist visible
+
+✅ Cart visible
+
+✅ Theme switcher works
+
+✅ Currency switcher works
+
+✅ Admin flow works
+
+✅ Seller flow works
+
+✅ Courier flow works
+
+✅ Homepage products are real
+
+✅ Homepage stores are real
+
+✅ Store pages open correctly
+
+✅ Product pages open correctly
+
+✅ Buttons work
+
+✅ APIs connected
+
+✅ Recovery files updated
+
+✅ Endpoint docs updated
+
+✅ 0 TypeScript errors
+
+✅ 0 console errors
+
+✅ 0 API errors
+
+Do not finish until all checks pass.

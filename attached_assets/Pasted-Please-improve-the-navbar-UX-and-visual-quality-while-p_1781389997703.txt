@@ -1,0 +1,80 @@
+Please improve the navbar UX and visual quality while preserving the existing Homepage V7 architecture and all current functionality.
+
+Navbar Improvements:
+
+1. Authentication Buttons
+
+* Review the "Log in" and "Sign up" buttons.
+* Improve typography, spacing, padding, height, alignment, font weight, and visual balance.
+* Ensure both buttons look premium and consistent with the overall SYANO design system.
+* Verify hover, focus, and active states.
+* Ensure excellent appearance in both Light and Dark themes.
+* Verify desktop and mobile layouts.
+
+2. Settings Button
+
+* Replace the large "Settings" button with a compact gear icon button only.
+* Keep all existing functionality intact.
+* Clicking the gear icon must still open the settings panel containing:
+
+  * Theme switching
+  * Language switching
+  * Currency switching
+* Ensure accessibility and tooltip support if appropriate.
+
+3. Wishlist Button
+
+* Add a heart icon button to the navbar.
+* Connect it to the existing Wishlist system.
+* Verify navigation works correctly.
+* Verify wishlist count badge if supported.
+* Test authenticated and unauthenticated states.
+* Confirm no console errors.
+
+4. Cart Button
+
+* Add a dedicated cart icon button in the navbar.
+* Connect it to the existing cart system.
+* Verify navigation works correctly.
+* Verify item count badge updates correctly.
+* Test guest cart and authenticated cart behavior.
+* Confirm no console errors.
+
+5. Functional Validation
+   After implementation, verify:
+
+* Login button works
+* Sign up button works
+* Settings icon works
+* Wishlist icon works
+* Cart icon works
+* Theme switching works
+* Language switching works
+* Currency switching works
+* RTL layout remains correct
+* Mobile navbar remains responsive
+* Dark theme remains unchanged
+* Light theme remains polished
+
+6. Quality Requirements
+
+* Premium marketplace appearance
+* Apple / Shopify / Stripe quality level
+* Minimal visual clutter
+* Proper spacing between all navbar actions
+* Consistent icon sizing
+* Consistent button heights
+* No overlapping elements
+* No layout shifts
+
+7. Final Deliverable
+   Provide:
+
+* Desktop screenshot
+* Mobile screenshot
+* List of changes made
+* Any issues found and fixed during implementation
+
+Do not redesign the navbar architecture.
+Do not remove existing functionality.
+Only improve the UX, visual polish, and navigation actions.

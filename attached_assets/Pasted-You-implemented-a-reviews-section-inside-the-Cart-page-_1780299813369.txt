@@ -1,0 +1,144 @@
+You implemented a reviews section inside the Cart page.
+
+That is NOT what was requested.
+
+Do not modify the Cart page.
+
+Do not add review widgets below cart items.
+
+Do not add review panels inside the shopping cart.
+
+══════════════════════════════════════
+ACTUAL REQUIREMENT
+══════════════════════════════════════
+
+The issue is inside the Product Card component.
+
+The rating/reviews area inside product cards is inconsistent and sometimes missing.
+
+I need the Product Card itself to be fixed everywhere.
+
+══════════════════════════════════════
+TARGET COMPONENT
+══════════════════════════════════════
+
+Find the reusable Product Card component used across the marketplace.
+
+Audit all product card variants.
+
+This includes:
+
+* Homepage products
+* Featured products
+* Best offers
+* Search results
+* Category pages
+* Store pages
+* Related products
+* Wishlist
+* Any reusable product card component
+
+══════════════════════════════════════
+REQUIRED PRODUCT CARD STRUCTURE
+══════════════════════════════════════
+
+Every card should contain:
+
+1. Product image
+2. Product title
+3. Price
+4. Rating stars
+5. Review count
+6. Seller information
+
+The rating section must remain visible.
+
+Do NOT remove ratings.
+
+Do NOT hide ratings.
+
+Do NOT collapse ratings on mobile.
+
+══════════════════════════════════════
+MOBILE REQUIREMENTS
+══════════════════════════════════════
+
+Focus heavily on mobile.
+
+The rating area must:
+
+* Stay visible
+* Stay aligned
+* Not wrap incorrectly
+* Not overlap seller information
+* Not break Arabic layout
+* Not break English layout
+
+Test:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+══════════════════════════════════════
+IMAGE PRIORITY
+══════════════════════════════════════
+
+The product image should be visually larger than the text section.
+
+Maintain a professional marketplace appearance similar to:
+
+* Amazon
+* Etsy
+* Noon
+
+Do not allow text blocks to dominate the card.
+
+══════════════════════════════════════
+DO NOT TOUCH
+══════════════════════════════════════
+
+Do not modify:
+
+* Cart page
+* Checkout page
+* Order pages
+
+Those are unrelated to this task.
+
+══════════════════════════════════════
+MANDATORY VALIDATION
+══════════════════════════════════════
+
+Provide screenshots showing:
+
+1. Homepage product cards.
+2. Search result cards.
+3. Category cards.
+4. Arabic mobile.
+5. English mobile.
+
+The screenshots must clearly show:
+
+* Rating stars visible.
+* Review count visible.
+* Seller information visible.
+* Image larger than text.
+* Consistent card structure.
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Product card component modified.
+2. Files modified.
+3. Rating implementation used.
+4. Mobile testing results.
+5. Screenshots.
+
+Do not mark complete until the Product Card itself is fixed everywhere.

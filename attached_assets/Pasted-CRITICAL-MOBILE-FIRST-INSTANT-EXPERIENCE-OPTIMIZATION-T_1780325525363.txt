@@ -1,0 +1,281 @@
+CRITICAL MOBILE-FIRST INSTANT EXPERIENCE OPTIMIZATION
+
+This task is specifically focused on MOBILE DEVICES.
+
+Mobile experience is the highest priority.
+
+Desktop optimization is secondary.
+
+The marketplace must feel like a modern native mobile application rather than a traditional website.
+
+══════════════════════════════════════
+PRIMARY OBJECTIVE
+══════════════════════════════════════
+
+When a mobile user taps any button, card, link, menu item, notification, category, product, store, cart icon, checkout button, or dashboard item:
+
+The destination should appear immediately or almost immediately.
+
+Users should never feel that they are waiting.
+
+The experience should feel comparable to:
+
+* TikTok
+* Instagram
+* Amazon App
+* Temu
+* AliExpress App
+
+══════════════════════════════════════
+MOBILE-FIRST REQUIREMENT
+══════════════════════════════════════
+
+Optimize specifically for:
+
+320px
+
+360px
+
+375px
+
+390px
+
+414px
+
+430px
+
+Do NOT optimize primarily for desktop.
+
+Assume the majority of users are mobile users.
+
+══════════════════════════════════════
+INSTANT NAVIGATION
+══════════════════════════════════════
+
+Current behavior to eliminate:
+
+User taps
+↓
+Waits
+↓
+Loading
+↓
+Page appears
+
+Desired behavior:
+
+User taps
+↓
+Navigation begins instantly
+↓
+Destination layout appears immediately
+↓
+Content loads progressively
+
+The user should feel that the page already opened.
+
+══════════════════════════════════════
+TOUCH RESPONSE OPTIMIZATION
+══════════════════════════════════════
+
+Every tap must feel responsive.
+
+Avoid:
+
+Tap
+↓
+No visible reaction
+↓
+Delay
+↓
+Page change
+
+Instead:
+
+Tap
+↓
+Immediate visual feedback
+↓
+Immediate navigation
+
+Every interaction should feel alive.
+
+══════════════════════════════════════
+MOBILE ROUTE PREFETCHING
+══════════════════════════════════════
+
+Implement intelligent mobile-focused prefetching.
+
+Examples:
+
+Visible product cards:
+
+* Prefetch likely product pages
+
+Visible category cards:
+
+* Prefetch category resources
+
+Cart page:
+
+* Prefetch checkout resources
+
+Store page:
+
+* Prefetch store resources
+
+Dashboard pages:
+
+* Prefetch likely next screens
+
+Use intelligent strategies.
+
+Avoid wasteful preloading.
+
+══════════════════════════════════════
+SKELETON-FIRST MOBILE UX
+══════════════════════════════════════
+
+Never block the entire screen while waiting.
+
+Avoid:
+
+* White screens
+* Empty screens
+* Long spinners
+* Full-page loading states
+
+Instead:
+
+Display the page structure immediately.
+
+Use polished skeleton loaders.
+
+Hydrate content progressively.
+
+Maintain visual stability.
+
+══════════════════════════════════════
+MOBILE SCROLL PERFORMANCE
+══════════════════════════════════════
+
+Audit:
+
+Homepage
+
+Categories
+
+Product pages
+
+Store pages
+
+Cart
+
+Checkout
+
+Orders
+
+Seller dashboard
+
+Customer dashboard
+
+Ensure:
+
+* Smooth scrolling
+* No stutters
+* No frame drops
+* No scroll lag
+
+Target:
+
+Consistently smooth experience.
+
+══════════════════════════════════════
+MOBILE NETWORK OPTIMIZATION
+══════════════════════════════════════
+
+Assume users may have:
+
+* Slow mobile data
+* Weak connections
+* Older devices
+
+Optimize perceived performance.
+
+Minimize waiting wherever possible.
+
+══════════════════════════════════════
+PERCEIVED SPEED OVER RAW SPEED
+══════════════════════════════════════
+
+The goal is not only technical performance.
+
+The goal is user perception.
+
+Users should feel:
+
+"This app is fast."
+
+Even when some data is still loading in the background.
+
+══════════════════════════════════════
+VALIDATION
+══════════════════════════════════════
+
+Verify all mobile navigation flows:
+
+Homepage → Product
+
+Homepage → Category
+
+Homepage → Store
+
+Homepage → Cart
+
+Cart → Checkout
+
+Orders
+
+Notifications
+
+Customer Dashboard
+
+Seller Dashboard
+
+Admin Pages
+
+Search Results
+
+Every transition should feel immediate.
+
+══════════════════════════════════════
+CRITICAL SAFETY REQUIREMENT
+══════════════════════════════════════
+
+Do NOT break:
+
+* Authentication
+* Registration
+* Seller system
+* Products
+* Variants
+* Cart
+* Checkout
+* Orders
+* Notifications
+* Search
+* Mobile navigation
+
+All existing functionality must remain intact.
+
+No regressions are acceptable.
+
+══════════════════════════════════════
+SUCCESS CRITERIA
+══════════════════════════════════════
+
+The marketplace should feel like a premium native mobile application.
+
+Users should be able to tap anywhere and feel that the destination opens instantly or near-instantly.
+
+The experience must prioritize smoothness, responsiveness, and perceived speed above all else while preserving full functionality and stability.

@@ -1,0 +1,410 @@
+You are implementing the first production version of the SYANO (سوق سوريا) delivery system.
+
+IMPORTANT:
+
+This is for the initial launch inside Aleppo only.
+
+DO NOT implement external shipping companies.
+
+DO NOT implement live GPS tracking yet.
+
+DO NOT implement maps yet.
+
+DO NOT implement route optimization yet.
+
+DO NOT implement real-time courier location yet.
+
+The goal is to build a scalable courier network architecture that can later evolve into live tracking.
+
+This is an enhancement of the existing marketplace, NOT a rewrite.
+
+---
+
+## PHASE 0 — RECOVERY & VERIFICATION
+
+Before making any changes:
+
+1. Verify workspace recovery state.
+2. Verify latest checkpoint was restored.
+3. Verify all services run:
+
+   * API
+   * Marketplace
+   * Mobile
+4. Verify latest VariantBuilder fixes still exist.
+5. Verify Add Product page.
+6. Verify Edit Product page.
+7. Verify seller account:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+8. Verify admin account.
+
+Do NOT proceed until recovery verification passes.
+
+---
+
+## PHASE 1 — DELIVERY ARCHITECTURE
+
+Introduce a new delivery model:
+
+Order
+→ Seller
+→ Courier
+→ Customer
+
+The platform manages its own courier network.
+
+No shipping companies.
+
+No DHL.
+
+No Aramex.
+
+No external providers.
+
+---
+
+## PHASE 2 — COURIER ENTITY
+
+Create a courier system.
+
+Add Courier model:
+
+* id
+* userId
+* status
+* active
+* city
+* district
+* phone
+* vehicleType
+* rating
+* completedDeliveries
+* createdAt
+* updatedAt
+
+Status values:
+
+* pending
+* approved
+* suspended
+
+Vehicle types:
+
+* motorcycle
+* scooter
+* car
+* bicycle
+
+Use additive migrations only.
+
+---
+
+## PHASE 3 — COURIER APPLICATION FLOW
+
+Add courier application support.
+
+User can apply as courier.
+
+Admin can:
+
+* approve
+* reject
+* suspend
+
+Only approved couriers can receive deliveries.
+
+---
+
+## PHASE 4 — ORDER DELIVERY STATES
+
+Extend order lifecycle.
+
+Add states:
+
+* pending
+* confirmed
+* preparing
+* ready_for_pickup
+* courier_assigned
+* picked_up
+* in_transit
+* delivered
+* cancelled
+
+Preserve backward compatibility.
+
+Do not break existing orders.
+
+---
+
+## PHASE 5 — COURIER ASSIGNMENTS
+
+Create CourierAssignment model.
+
+Fields:
+
+* id
+* orderId
+* courierId
+* status
+* assignedAt
+* acceptedAt
+* pickedUpAt
+* deliveredAt
+* notes
+
+Statuses:
+
+* assigned
+* accepted
+* picked_up
+* delivered
+* cancelled
+
+One active courier assignment per order.
+
+---
+
+## PHASE 6 — ADMIN DELIVERY MANAGEMENT
+
+Add admin delivery dashboard.
+
+Admin can:
+
+* see ready orders
+* assign courier
+* reassign courier
+* cancel assignment
+* view delivery history
+
+Use current SYANO design language.
+
+No admin-looking ugly tables.
+
+Responsive.
+
+RTL-safe.
+
+---
+
+## PHASE 7 — COURIER PANEL
+
+Create courier dashboard.
+
+Sections:
+
+1. New Assignments
+2. Active Deliveries
+3. Completed Deliveries
+4. Earnings Summary
+
+Actions:
+
+* Accept
+* Reject
+* Picked Up
+* Delivered
+
+---
+
+## PHASE 8 — CUSTOMER ORDER TRACKING
+
+Customer must see delivery progress.
+
+Timeline example:
+
+✓ Order Placed
+
+✓ Confirmed
+
+✓ Preparing
+
+✓ Ready For Pickup
+
+✓ Courier Assigned
+
+✓ Picked Up
+
+○ In Transit
+
+○ Delivered
+
+No map.
+
+No GPS.
+
+Timeline only.
+
+Fully localized:
+
+Arabic + English.
+
+---
+
+## PHASE 9 — SELLER EXPERIENCE
+
+Seller can:
+
+* mark order ready
+* see assigned courier
+* see delivery progress
+
+Seller cannot edit courier assignment.
+
+Only admin manages assignment.
+
+---
+
+## PHASE 10 — DELIVERY FEES
+
+Implement simple city-based delivery pricing.
+
+Create DeliveryZone model:
+
+* id
+* nameAr
+* nameEn
+* fee
+
+Examples:
+
+Al Furqan
+Al Hamdaniyah
+Al Zahraa
+Salah Al Din
+
+Order stores:
+
+* deliveryFee
+
+Snapshot value at checkout.
+
+Future fee changes must not affect existing orders.
+
+---
+
+## PHASE 11 — COURIER EARNINGS
+
+Create CourierWalletTransaction.
+
+Fields:
+
+* id
+* courierId
+* orderId
+* amount
+* type
+* createdAt
+
+Types:
+
+* delivery_fee
+* adjustment
+
+Show earnings summary in courier dashboard.
+
+No payout system yet.
+
+Only accounting.
+
+---
+
+## PHASE 12 — API SUPPORT
+
+Add APIs:
+
+Courier:
+
+* apply
+* approve
+* suspend
+* assignments
+* earnings
+
+Orders:
+
+* assign courier
+* update delivery state
+* tracking timeline
+
+Maintain backward compatibility.
+
+---
+
+## PHASE 13 — MOBILE SUPPORT
+
+Expo app must support:
+
+* courier dashboard
+* delivery timeline
+* assignment management
+
+No degraded experience.
+
+---
+
+## PHASE 14 — FUTURE PREPARATION
+
+Design architecture so future phases can add:
+
+* GPS
+* maps
+* live courier location
+* ETA
+* route optimization
+
+WITHOUT database rewrites.
+
+Do not implement these features now.
+
+Only prepare architecture.
+
+---
+
+## FINAL VALIDATION
+
+Verify:
+
+✅ Existing orders still work
+
+✅ Existing products still work
+
+✅ Existing sellers still work
+
+✅ Existing checkout still works
+
+✅ Existing mobile app still works
+
+✅ Arabic RTL preserved
+
+✅ English preserved
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+✅ Additive migrations only
+
+---
+
+## CHECKPOINT
+
+After successful implementation:
+
+1. Update ALL recovery files.
+2. Update ALL project memory files.
+3. Create a new recovery checkpoint.
+4. Document every new table.
+5. Document every new API.
+6. Document delivery workflow.
+7. Save this state as the latest stable checkpoint.
+
+Do not skip documentation.
+Do not skip recovery updates.
+Do not skip checkpoint creation.

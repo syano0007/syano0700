@@ -1,0 +1,648 @@
+⚠️ CRITICAL NOTE — READ BEFORE DOING ANYTHING:
+The Embedding Service is intentionally running on TF-IDF fallback mode.
+Do NOT install sentence-transformers. Do NOT install torch. Do NOT download any model files.
+Do NOT run any pip install command related to ML/AI libraries.
+Treat the Embedding Service as FROZEN — do not touch it.
+
+TARGET:
+- All API endpoints respond under 100ms cold, under 20ms cached
+- Database queries under 50ms for all product/search/order queries
+- System handles 200 concurrent users without degradation
+- Zero N+1 queries anywhere in the codebase
+
+This is Phase 12 — Performance & Scalability.
+Execute every step completely and in order. Do not skip any step. Do not summarize. Show full output for every step.
+
+═══════════════════════════════════════
+PART 0 — READ EVERYTHING FIRST
+═══════════════════════════════════════
+
+STEP 0.1 — Read all recovery files before writing a single line:
+Read in full:
+  - CURRENT_STATE.md
+  - RECOVERY_GUIDE.md
+  - PROJECT_STATUS.md
+
+STEP 0.2 — Read all files you will touch before touching them:
+Read in full:
+  - artifacts/api-server/src/index.ts (or app.ts — main entry point)
+  - artifacts/api-server/src/db/index.ts (or wherever the Drizzle db instance is created)
+  - artifacts/api-server/src/routes/products.ts
+  - artifacts/api-server/src/routes/search.ts (if exists, else note it)
+  - artifacts/api-server/src/services/searchProcessor.ts
+  - artifacts/api-server/src/services/searchCache.ts
+  - artifacts/api-server/package.json
+  - artifacts/api-server/drizzle.config.ts (or drizzle.config.js)
+  - replit.nix (or .replit — to check if Redis is available in this environment)
+
+Do not write a single line of code until all files above are read.
+
+═══════════════════════════════════════
+PART 1 — MEASURE BEFORE OPTIMIZING
+═══════════════════════════════════════
+
+STEP 1.1 — Baseline API response time measurement:
+Using curl with timing, measure cold response time for ALL of these endpoints:
+  curl -o /dev/null -s -w "%{time_total}s\n" http://localhost:8080/api/healthz
+  curl -o /dev/null -s -w "%{time_total}s\n" http://localhost:8080/api/products
+  curl -o /dev/null -s -w "%{time_total}s\n" http://localhost:8080/api/products
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/products?page=1&pageSize=20"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/products/categories"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/search?q=هاتف"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/search?q=هاتف"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/sellers/directory"
+
+Run each twice — first is cold, second shows any in-memory cache effect.
+Record every result. This is the BEFORE baseline. Do not skip any endpoint.
+
+STEP 1.2 — Check if Redis is available in this Replit environment:
+Run: redis-cli ping
+If it returns PONG → Redis is available. Note: USE_REDIS=true
+If it returns an error or command not found → Redis is not available. Note: USE_REDIS=false
+Do not install Redis. Do not change .replit or replit.nix. Only detect what is already there.
+
+STEP 1.3 — Identify slow database queries:
+Add temporary query timing to the products list endpoint and search endpoint.
+Wrap the main DB query in each with:
+  const t0 = Date.now();
+  const result = await db.query...;
+  console.log(`[PERF] products list query: ${Date.now() - t0}ms`);
+Make one request to each endpoint, capture the log output, then REMOVE the timing code immediately after.
+Show exact query times from the logs.
+
+STEP 1.4 — Check for N+1 queries:
+Read the products list handler in full.
+Read the search results handler in full.
+Check: does the handler make one DB call to get products and then individual calls per product to get seller/store/category data?
+If yes → that is an N+1 query. Note exactly which relations are fetched in loops.
+List every N+1 found with the file path and line range.
+
+═══════════════════════════════════════
+PART 2 — DATABASE INDEXES
+═══════════════════════════════════════
+
+STEP 2.1 — Read the full database schema:
+Read ALL schema files in artifacts/api-server/src/db/schema/ (or wherever schema is defined).
+List every table and every column.
+Note which columns have existing indexes.
+
+STEP 2.2 — Add missing performance indexes via Drizzle migration:
+Create a new migration file in the correct migrations folder.
+Add these indexes (check each one does NOT already exist before adding):
+
+On products table:
+  - Index on (seller_id) — for fetching seller's products
+  - Index on (category_id) — for category filtering
+  - Index on (is_active, created_at DESC) — for active product listings sorted by newest
+  - Index on (is_active, price ASC) — for price-sorted listings
+  - Index on (is_active, is_featured) — for featured products queries
+  - Index on (subcategory) — if subcategory column exists
+  - Index on (name) with GIN/trgm for text search — only if pg_trgm extension is available
+  - Partial index: WHERE is_active = true — reduces index size for active-only queries
+
+On orders table:
+  - Index on (buyer_id, created_at DESC) — for customer order history
+  - Index on (seller_id, created_at DESC) — for seller order management
+  - Index on (courier_id, status) — for courier active orders
+  - Index on (status, created_at DESC) — for admin order management
+  - Index on (created_at DESC) — for time-based queries
+
+On order_items table:
+  - Index on (order_id) — for fetching items per order
+  - Index on (product_id) — for product sales history
+
+On conversations table (if exists):
+  - Index on (buyer_id, updated_at DESC)
+  - Index on (seller_id, updated_at DESC)
+  - Index on (updated_at DESC) — for recent conversations
+
+On messages table (if exists):
+  - Index on (conversation_id, created_at ASC) — for message history
+  - Index on (created_at DESC) — for recent messages
+
+On users table:
+  - Confirm unique index on (email) exists
+  - Index on (role) — for role-based queries
+  - Index on (created_at DESC) — for user listing
+
+On reviews table (if exists):
+  - Index on (product_id, created_at DESC)
+  - Index on (seller_id, rating)
+  - Index on (buyer_id)
+
+For each index:
+  - Check if it already exists before adding
+  - Use Drizzle's index() syntax in the schema file
+  - Never drop existing indexes
+  - Never alter existing columns
+
+STEP 2.3 — Run the migration:
+cd artifacts/api-server && npx drizzle-kit push
+Show full output. Confirm 0 errors.
+
+STEP 2.4 — Verify indexes were created:
+Run this SQL query via the DB connection to list all indexes on key tables:
+  SELECT indexname, tablename, indexdef 
+  FROM pg_indexes 
+  WHERE tablename IN ('products', 'orders', 'order_items', 'users', 'conversations', 'messages', 'reviews')
+  ORDER BY tablename, indexname;
+Show full output.
+
+═══════════════════════════════════════
+PART 3 — FIX N+1 QUERIES
+═══════════════════════════════════════
+
+STEP 3.1 — Fix N+1 in products list endpoint:
+If N+1 was found in STEP 1.4:
+For the products list query — use Drizzle's with() or leftJoin() to fetch all needed relations in a single query:
+  - Product data
+  - Seller/store name and logo
+  - Category name
+  - Average rating (if fetched separately — move to a subquery or aggregate in main query)
+  - Review count (same — aggregate in main query)
+
+Pattern:
+  const products = await db
+    .select({
+      id: productsTable.id,
+      name: productsTable.name,
+      name_ar: productsTable.name_ar,
+      price: productsTable.price,
+      // ... all needed columns
+      sellerName: sellersTable.store_name,
+      sellerLogo: sellersTable.logo_url,
+    })
+    .from(productsTable)
+    .leftJoin(sellersTable, eq(productsTable.seller_id, sellersTable.id))
+    .where(eq(productsTable.is_active, true))
+    .orderBy(desc(productsTable.created_at))
+    .limit(pageSize)
+    .offset(offset);
+
+Do not change the API response shape. Do not change any existing field names or types.
+Do not use `any` TypeScript type.
+
+STEP 3.2 — Fix N+1 in search results:
+If the search handler fetches product details individually after getting IDs:
+Refactor to fetch all product data + seller data in one batched query using:
+  WHERE id = ANY(ARRAY[id1, id2, id3, ...])
+using Drizzle's inArray() operator.
+
+Do not touch the search algorithm or ranking logic in searchProcessor.ts.
+Only fix the data fetching after ranking is done.
+
+STEP 3.3 — Fix N+1 in order detail endpoint (if exists):
+If order detail fetches order_items in a loop:
+Replace with a single query joining orders + order_items + products in one call.
+
+═══════════════════════════════════════
+PART 4 — IN-PROCESS CACHING LAYER
+═══════════════════════════════════════
+
+NOTE: This step implements in-process caching (no Redis required).
+If Redis WAS available (detected in STEP 1.2) → implement Redis caching instead and skip this part.
+If Redis was NOT available → implement the in-process LRU cache described below.
+
+STEP 4.1 — Create a generic cache service:
+Create file: artifacts/api-server/src/services/cacheService.ts
+
+Requirements:
+  - Uses the existing LRU cache pattern already in searchCache.ts as reference
+  - Generic typed cache: CacheService<T>
+  - Constructor params: maxSize (number), defaultTtlMs (number)
+  - Methods:
+      get(key: string): T | undefined
+      set(key: string, value: T, ttlMs?: number): void
+      delete(key: string): void
+      deleteByPrefix(prefix: string): void  — deletes all keys starting with prefix
+      clear(): void
+      size(): number
+      stats(): { size: number; hits: number; misses: number; hitRate: number }
+  - Internal: track hit/miss counts for monitoring
+  - Thread-safe: Node.js is single-threaded, no locking needed
+  - No `any` TypeScript type
+  - Export as: export const cacheService = new CacheService<unknown>(1000, 5 * 60 * 1000)
+  - Also export the class for typed instantiation
+
+STEP 4.2 — Create typed cache instances:
+In artifacts/api-server/src/services/cacheService.ts, also export:
+
+  // Products list cache — invalidated on product create/update/delete
+  export const productsCache = new CacheService<ProductsListResponse>(200, 60 * 1000);
+
+  // Product detail cache — TTL 5 minutes
+  export const productDetailCache = new CacheService<ProductDetailResponse>(500, 5 * 60 * 1000);
+
+  // Categories cache — invalidated rarely, TTL 1 hour
+  export const categoriesCache = new CacheService<CategoriesResponse>(10, 60 * 60 * 1000);
+
+  // Sellers directory cache — TTL 2 minutes
+  export const sellersCache = new CacheService<SellersResponse>(100, 2 * 60 * 1000);
+
+Use the actual TypeScript response types from the existing codebase — read them before writing these.
+If the exact types are not exported → inline them or use the actual return type of the query.
+
+STEP 4.3 — Apply cache to products list endpoint:
+In artifacts/api-server/src/routes/products.ts — products list handler:
+  
+  Cache key pattern: `products:list:${page}:${pageSize}:${category}:${sort}:${minPrice}:${maxPrice}:${search}`
+  
+  Logic:
+    1. Build cache key from all query params
+    2. Check productsCache.get(cacheKey)
+    3. If hit → return cached response with header X-Cache: HIT
+    4. If miss → run existing DB query, store result, return with header X-Cache: MISS
+  
+  Cache invalidation:
+    On POST /api/products (create) → productsCache.clear()
+    On PUT/PATCH /api/products/:id (update) → productsCache.deleteByPrefix("products:list:")
+    On DELETE /api/products/:id → productsCache.deleteByPrefix("products:list:")
+  
+  Do not change the response shape. Do not change existing middleware or auth checks.
+
+STEP 4.4 — Apply cache to product detail endpoint:
+  Cache key: `product:detail:${id}`
+  TTL: 5 minutes
+  On update/delete of that product → productDetailCache.delete(`product:detail:${id}`)
+  Add X-Cache header.
+
+STEP 4.5 — Apply cache to categories endpoint:
+  Cache key: `categories:all`
+  TTL: 1 hour
+  On any category change → categoriesCache.clear()
+  Add X-Cache header.
+
+STEP 4.6 — Apply cache to sellers directory endpoint:
+  Cache key: `sellers:directory:${page}:${pageSize}`
+  TTL: 2 minutes
+  On seller status change → sellersCache.clear()
+  Add X-Cache header.
+
+STEP 4.7 — Add cache stats admin endpoint:
+In the admin routes file (read it first to find the correct location):
+  GET /api/admin/cache-stats
+  Returns:
+    {
+      products: productsCache.stats(),
+      productDetail: productDetailCache.stats(),
+      categories: categoriesCache.stats(),
+      sellers: sellersCache.stats(),
+      search: searchCache stats (read from existing searchCache.ts if it exposes stats)
+    }
+  Auth: admin only — use existing admin auth middleware
+
+═══════════════════════════════════════
+PART 5 — DATABASE CONNECTION POOLING
+═══════════════════════════════════════
+
+STEP 5.1 — Read current DB connection config:
+Read artifacts/api-server/src/db/index.ts in full.
+Note: how is the connection pool configured? What is max connections?
+
+STEP 5.2 — Optimize connection pool:
+If using pg (node-postgres) or postgres.js — update pool config:
+  
+  For node-postgres (Pool):
+    max: 20,              // max 20 simultaneous connections
+    min: 2,               // keep 2 connections warm
+    idleTimeoutMillis: 30000,   // close idle connections after 30s
+    connectionTimeoutMillis: 5000,  // fail fast if no connection available in 5s
+    statement_timeout: 10000,   // kill queries running over 10 seconds
+  
+  For postgres.js:
+    max: 20,
+    idle_timeout: 30,
+    connect_timeout: 5,
+    max_lifetime: 1800,   // recycle connections after 30 minutes
+  
+  Do not change the Drizzle ORM layer. Only change the underlying driver config.
+  Do not change DATABASE_URL handling.
+
+STEP 5.3 — Add connection pool monitoring:
+In artifacts/api-server/src/index.ts, log pool stats every 5 minutes in development:
+  if (process.env.NODE_ENV !== "production") {
+    setInterval(() => {
+      // log pool.totalCount, pool.idleCount, pool.waitingCount (for pg Pool)
+      // or equivalent for postgres.js
+    }, 5 * 60 * 1000);
+  }
+
+═══════════════════════════════════════
+PART 6 — QUERY OPTIMIZATION
+═══════════════════════════════════════
+
+STEP 6.1 — Add EXPLAIN ANALYZE to slow queries:
+For the products list query and the search query:
+Run EXPLAIN ANALYZE via the DB and show the query plan.
+Look for: Seq Scan on large tables (bad), Index Scan (good), nested loops on large sets (bad).
+Show full EXPLAIN output for both queries.
+
+STEP 6.2 — Fix any sequential scans found:
+If EXPLAIN shows Seq Scan on products table for the list query:
+  - Confirm the index from STEP 2.2 was created
+  - Run: ANALYZE products; to update statistics
+  - Re-run EXPLAIN to confirm Index Scan is now used
+
+STEP 6.3 — Optimize the search query count(*):
+If the products list endpoint runs two queries (one for data, one for total count):
+Replace the separate COUNT(*) query with a window function in the main query:
+  SELECT *, COUNT(*) OVER() AS total_count FROM products WHERE ...
+This eliminates one round-trip to the database.
+Only do this if the current code runs a separate COUNT query — read it first.
+
+STEP 6.4 — Add query timeout protection:
+Wrap every database query in the products and search routes with a timeout:
+  const QUERY_TIMEOUT_MS = 8000;
+  const result = await Promise.race([
+    db.query...,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Query timeout")), QUERY_TIMEOUT_MS)
+    ),
+  ]);
+Handle the timeout error gracefully — return 503 with retry-after header.
+Do not use `any` TypeScript type.
+
+═══════════════════════════════════════
+PART 7 — LOAD TESTING
+═══════════════════════════════════════
+
+STEP 7.1 — Check if autocannon or k6 is available:
+Run: which autocannon || which k6 || npx autocannon --version
+If autocannon is available → use it.
+If neither → install autocannon locally: cd artifacts/api-server && pnpm add -D autocannon
+
+STEP 7.2 — Run load test on products endpoint:
+Using autocannon:
+  npx autocannon -c 50 -d 10 -p 10 http://localhost:8080/api/products
+  
+  Parameters:
+    -c 50  = 50 concurrent connections
+    -d 10  = 10 seconds duration
+    -p 10  = 10 requests pipelined per connection
+  
+  Show full results including:
+    - Requests per second (target: > 500 req/s)
+    - Average latency (target: < 100ms)
+    - 99th percentile latency (target: < 500ms)
+    - Error count (target: 0)
+
+STEP 7.3 — Run load test on search endpoint:
+  npx autocannon -c 30 -d 10 "http://localhost:8080/api/search?q=%D9%87%D8%A7%D8%AA%D9%81"
+  
+  Show full results.
+  Target: > 200 req/s, < 200ms average latency.
+
+STEP 7.4 — Run load test on health endpoint (baseline):
+  npx autocannon -c 100 -d 5 http://localhost:8080/api/healthz
+  
+  This shows the raw Node.js throughput. Should be > 2000 req/s.
+
+STEP 7.5 — If any load test shows errors or timeouts:
+Read the API server error logs during the test.
+Identify the bottleneck (DB connections? event loop blocking? memory?).
+Fix the bottleneck before continuing.
+Re-run the failing load test and confirm it passes.
+
+═══════════════════════════════════════
+PART 8 — MEMORY AND EVENT LOOP
+═══════════════════════════════════════
+
+STEP 8.1 — Check for memory leaks:
+Add to artifacts/api-server/src/index.ts:
+  if (process.env.NODE_ENV !== "production") {
+    setInterval(() => {
+      const mem = process.memoryUsage();
+      console.log(`[MEM] heapUsed=${Math.round(mem.heapUsed/1024/1024)}MB heapTotal=${Math.round(mem.heapTotal/1024/1024)}MB rss=${Math.round(mem.rss/1024/1024)}MB`);
+    }, 60 * 1000);
+  }
+
+Start the server, make 100 requests to /api/products, wait 2 minutes, check if heap is growing.
+Show memory logs. If heap grows > 50MB during test → investigate and fix before continuing.
+
+STEP 8.2 — Check for blocking event loop:
+Search the entire codebase (artifacts/api-server/src/) for:
+  - fs.readFileSync (blocking) → replace with fs.promises.readFile
+  - JSON.parse on very large strings in request handlers (> 10MB) → stream instead
+  - any synchronous loops over large arrays (> 1000 items) in request handlers
+  - crypto operations on the main thread → move to worker thread if > 1ms
+
+List every instance found. Fix any that are in the hot path (called on every request).
+
+STEP 8.3 — Verify graceful shutdown:
+In artifacts/api-server/src/index.ts:
+Confirm a SIGTERM/SIGINT handler exists that:
+  1. Stops accepting new connections
+  2. Waits for in-flight requests to complete (max 10 seconds)
+  3. Closes the DB connection pool
+  4. Exits cleanly
+
+If it doesn't exist → add it:
+  const shutdown = async () => {
+    console.log("[SHUTDOWN] Closing server...");
+    server.close(async () => {
+      await pool.end(); // or sql.end() for postgres.js
+      console.log("[SHUTDOWN] Done");
+      process.exit(0);
+    });
+    setTimeout(() => process.exit(1), 10000);
+  };
+  process.on("SIGTERM", shutdown);
+  process.on("SIGINT", shutdown);
+
+═══════════════════════════════════════
+PART 9 — AFTER MEASUREMENT COMPARISON
+═══════════════════════════════════════
+
+STEP 9.1 — Re-run all baseline measurements from STEP 1.1:
+Repeat every curl timing measurement:
+  curl -o /dev/null -s -w "%{time_total}s\n" http://localhost:8080/api/products
+  curl -o /dev/null -s -w "%{time_total}s\n" http://localhost:8080/api/products
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/products/categories"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/search?q=هاتف"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/search?q=هاتف"
+  curl -o /dev/null -s -w "%{time_total}s\n" "http://localhost:8080/api/sellers/directory"
+
+STEP 9.2 — Print before/after comparison table:
+| Endpoint | Before (cold) | After (cold) | After (cached) | Target | Status |
+|---|---|---|---|---|---|
+| GET /api/products | ?ms | ?ms | ?ms | <100ms cold / <20ms cached | ✅/❌ |
+| GET /api/products/categories | ?ms | ?ms | ?ms | <50ms cold / <5ms cached | ✅/❌ |
+| GET /api/search?q=هاتف | ?ms | ?ms | ?ms | <200ms cold / <20ms cached | ✅/❌ |
+| GET /api/sellers/directory | ?ms | ?ms | ?ms | <100ms cold / <20ms cached | ✅/❌ |
+
+═══════════════════════════════════════
+PART 10 — TYPESCRIPT CHECK
+═══════════════════════════════════════
+
+STEP 10.1 — Zero errors required:
+Run: cd artifacts/api-server && npx tsc --noEmit
+Run: cd artifacts/marketplace && npx tsc --noEmit
+If any errors exist → fix every single one before continuing.
+Show full output of both commands.
+
+STEP 10.2 — Confirm all 3 workflows are running:
+GET http://localhost:8080/api/healthz → expect { "status": "ok" }
+GET http://localhost:5000 → expect HTTP 200
+GET http://localhost:8001/health → expect { "status": "ok" }
+
+═══════════════════════════════════════
+PART 11 — UPDATE RECOVERY FILES
+═══════════════════════════════════════
+
+STEP 11.1 — Overwrite CURRENT_STATE.md with exactly this content:
+
+# SYANO — Current State
+Last updated: June 16, 2026
+
+## Project Identity
+- Name: SYANO — سوق سوريا
+- Type: Multi-vendor marketplace
+- Domain: syanomarket.online
+- GitHub: https://github.com/syano0007/syano07007
+- Status: Pre-launch — Phase 12 complete
+
+## Phase 12 — Performance & Scalability — COMPLETE ✅
+
+### What was built:
+1. Database indexes added on: products, orders, order_items, users, conversations, messages, reviews
+   - All indexes additive — no existing columns altered
+2. N+1 queries fixed: products list + search results now use single joined queries
+3. In-process LRU cache service: artifacts/api-server/src/services/cacheService.ts
+   - productsCache: 200 entries, 60s TTL
+   - productDetailCache: 500 entries, 5min TTL
+   - categoriesCache: 10 entries, 1hr TTL
+   - sellersCache: 100 entries, 2min TTL
+4. Cache applied to: products list, product detail, categories, sellers directory
+   - X-Cache: HIT/MISS header on all cached endpoints
+   - Admin endpoint: GET /api/admin/cache-stats
+5. DB connection pool optimized: max=20, min=2, idle=30s, connect timeout=5s
+6. Query timeout protection: 8s timeout on all product/search queries → 503 on timeout
+7. Graceful shutdown: SIGTERM/SIGINT handler closes connections cleanly
+8. Load test results (autocannon):
+   - /api/products: [fill in actual req/s] req/s, [fill in] ms avg latency
+   - /api/search: [fill in actual req/s] req/s, [fill in] ms avg latency
+9. Memory monitoring: heapUsed logged every 60s in dev
+10. Web Vitals already tracked from Phase 11
+
+### Performance results:
+[Fill in actual before/after numbers from STEP 9.2]
+
+## Next Phase
+Phase 13 — AI Agent (Customer Service)
+
+## Required Replit Secrets — ALL must be set:
+   SESSION_SECRET
+   RESEND_API_KEY
+   EMAIL_FROM              = noreply@syanomarket.online
+   CORS_ORIGIN             = https://syanomarket.online
+   SITE_URL                = https://syanomarket.online
+   ROOT_ADMIN_PASSWORD
+   VAPID_EMAIL             = mailto:admin@syanomarket.online
+   VAPID_PRIVATE_KEY
+   VAPID_PUBLIC_KEY
+   VITE_SUPPORT_PHONE
+   EMBEDDING_SERVICE_URL   = http://localhost:8001
+   ENABLE_EMAIL_VERIFICATION = true
+
+## Embedding Service
+- Status: TF-IDF fallback — INTENTIONAL — do not install sentence-transformers
+- Full model installed only once before final production launch
+
+## Database State
+- 33+ tables, fully migrated with performance indexes
+- 42 products with vector embeddings
+- pgvector enabled — vector(384) on products table
+
+## Test Accounts
+- Admin:   delewatiamer7@gmail.com
+- Seller:  delewatiamer8@gmail.com
+- Courier: delewatiamer9@gmail.com
+
+STEP 11.2 — Update PROJECT_STATUS.md:
+Prepend exactly this block at the very top:
+
+# SYANO — Project Status
+Last updated: June 16, 2026
+
+## Phase 11 — Launch Preparation — COMPLETE ✅
+All 10 prompts complete.
+
+## Phase 12 — Performance & Scalability — COMPLETE ✅
+- DB indexes on all major tables ✅
+- N+1 queries eliminated ✅
+- In-process LRU cache (products, detail, categories, sellers) ✅
+- Connection pool optimized (max=20) ✅
+- Query timeout protection (8s) ✅
+- Load tested: 50 concurrent users ✅
+- Graceful shutdown ✅
+
+## Next
+Phase 13 — AI Agent (Customer Service)
+
+---
+
+STEP 11.3 — Update RECOVERY_GUIDE.md:
+Find the section "## EMBEDDING SERVICE" and confirm this line is still present:
+  "Do NOT install sentence-transformers or torch during any development session"
+If missing → add it back. Do not change anything else.
+
+STEP 11.4 — Update replit.md (or README.md — whichever exists at root):
+Prepend exactly this block at the very top:
+
+# SYANO — syanomarket.online
+Last verified working: June 16, 2026
+Phase 11 — Launch Preparation: COMPLETE ✅
+Phase 12 — Performance & Scalability: COMPLETE ✅
+Workflows: API Server ✅ | Marketplace ✅ | Embedding Service ✅ (TF-IDF mode)
+Secrets: All 12 loaded ✅
+Next: Phase 13 — AI Agent (Customer Service)
+
+---
+
+═══════════════════════════════════════
+PART 12 — FINAL SUMMARY TABLE
+═══════════════════════════════════════
+
+STEP 12.1 — Print final summary table:
+
+| Check | Expected | Actual | Status |
+|---|---|---|---|
+| Baseline measurements recorded | ✅ | ? | ✅/❌ |
+| Redis availability checked | detected | ? | ✅/❌ |
+| Slow queries identified | ✅ | ? | ✅/❌ |
+| N+1 queries found and fixed | ✅ | ? | ✅/❌ |
+| DB indexes added (products) | ✅ | ? | ✅/❌ |
+| DB indexes added (orders) | ✅ | ? | ✅/❌ |
+| DB indexes added (users) | ✅ | ? | ✅/❌ |
+| DB indexes added (conversations) | ✅ | ? | ✅/❌ |
+| DB migration pushed | 0 errors | ? | ✅/❌ |
+| cacheService.ts created | ✅ | ? | ✅/❌ |
+| Products list cached | ✅ | ? | ✅/❌ |
+| Product detail cached | ✅ | ? | ✅/❌ |
+| Categories cached | ✅ | ? | ✅/❌ |
+| Sellers directory cached | ✅ | ? | ✅/❌ |
+| X-Cache header on cached endpoints | HIT/MISS | ? | ✅/❌ |
+| Admin cache-stats endpoint | ✅ | ? | ✅/❌ |
+| Connection pool max=20 | ✅ | ? | ✅/❌ |
+| Query timeout 8s protection | ✅ | ? | ✅/❌ |
+| Graceful shutdown handler | ✅ | ? | ✅/❌ |
+| Load test products (50 concurrent) | >500 req/s | ? | ✅/❌ |
+| Load test search (30 concurrent) | >200 req/s | ? | ✅/❌ |
+| Memory stable under load | heap stable | ? | ✅/❌ |
+| No blocking sync operations | ✅ | ? | ✅/❌ |
+| After: /api/products cold | <100ms | ? | ✅/❌ |
+| After: /api/products cached | <20ms | ? | ✅/❌ |
+| After: /api/search cold | <200ms | ? | ✅/❌ |
+| After: /api/search cached | <20ms | ? | ✅/❌ |
+| After: /api/categories cached | <5ms | ? | ✅/❌ |
+| API Server TypeScript | 0 errors | ? | ✅/❌ |
+| Marketplace TypeScript | 0 errors | ? | ✅/❌ |
+| API Server health | 200 OK | ? | ✅/❌ |
+| Marketplace health | 200 OK | ? | ✅/❌ |
+| Embedding Service health | 200 OK | ? | ✅/❌ |
+| CURRENT_STATE.md updated | ✅ | ? | ✅/❌ |
+| PROJECT_STATUS.md updated | ✅ | ? | ✅/❌ |
+| RECOVERY_GUIDE.md verified | ✅ | ? | ✅/❌ |
+| replit.md updated | ✅ | ? | ✅/❌ |
+
+If any row shows ❌ → fix it immediately. Do not finish until every row is ✅.

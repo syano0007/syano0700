@@ -1,0 +1,326 @@
+# SYANO — Recovery + Homepage V4 Visual Audit
+
+Before making ANY code changes, perform a full recovery and validation of the project, then execute a professional visual audit of the homepage.
+
+---
+
+## PHASE 1 — FULL PROJECT RECOVERY
+
+Recover the project to the latest working state.
+
+Validate:
+
+### Environment
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_EMAIL
+
+---
+
+### Database
+
+Verify:
+
+* all tables exist
+* hero_banners table exists
+* review tables exist
+* trust system tables exist
+* courier tables exist
+
+Verify row counts.
+
+---
+
+### Services
+
+Start and verify:
+
+* API server
+* Marketplace
+* Mobile (if applicable)
+
+Verify health endpoints.
+
+---
+
+### TypeScript
+
+Run:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+
+Goal:
+
+0 TypeScript errors.
+
+---
+
+### Recovery Check
+
+Run full recovery check.
+
+Target:
+
+100/100
+
+Report all failures if any exist.
+
+Do not continue until recovery is healthy.
+
+---
+
+# PHASE 2 — HOMEPAGE V4 VISUAL AUDIT
+
+DO NOT IMPLEMENT ANYTHING YET.
+
+I want a brutally honest visual audit.
+
+Analyze the CURRENT homepage.
+
+Compare it against:
+
+* Amazon
+* Noon
+* Trendyol
+
+Specifically evaluate:
+
+## Hero Section
+
+* visual quality
+* premium feel
+* trustworthiness
+* conversion potential
+* spacing
+* typography
+* hierarchy
+* animation quality
+
+---
+
+## Categories Strip
+
+Evaluate:
+
+* visual noise
+* clutter
+* usefulness
+* whether it hurts premium appearance
+
+I currently suspect it creates visual clutter.
+
+Confirm or reject.
+
+---
+
+## Trust Bar
+
+Evaluate:
+
+* placement
+* usefulness
+* visual weight
+* whether it is helping or hurting the page
+
+---
+
+## Deals Panel
+
+Evaluate:
+
+* usefulness
+* whether users actually benefit
+* whether it competes with the hero visually
+
+---
+
+## Above The Fold
+
+Evaluate:
+
+* what users see immediately
+* whether it feels like a serious marketplace
+* whether it feels like a startup landing page
+
+---
+
+## Premium Score
+
+Give honest scores:
+
+* Amazon comparison
+* Noon comparison
+* Trendyol comparison
+
+Example:
+
+Visual Quality: 72/100
+
+Do not inflate numbers.
+
+---
+
+# PHASE 3 — IDENTIFY PROBLEMS
+
+List:
+
+### Critical Problems
+
+Things actively hurting quality.
+
+### Medium Problems
+
+Things reducing polish.
+
+### Minor Problems
+
+Nice-to-have improvements.
+
+---
+
+# PHASE 4 — HOMEPAGE V4 ARCHITECTURE
+
+Design a completely improved homepage architecture.
+
+Do NOT implement.
+
+Create a detailed plan.
+
+Goal:
+
+A homepage that feels:
+
+* luxury
+* modern
+* premium
+* uncluttered
+* conversion-focused
+
+---
+
+Requirements:
+
+### Hero
+
+Must feel world-class.
+
+Closer to:
+
+* Amazon modern campaigns
+* Noon premium campaigns
+
+Not a generic carousel.
+
+---
+
+### Categories
+
+Decide:
+
+* keep
+* redesign
+* move
+* collapse
+* remove
+
+Explain why.
+
+---
+
+### Trust Signals
+
+Decide:
+
+* keep
+* redesign
+* relocate
+
+Explain why.
+
+---
+
+### Product Discovery
+
+Explain:
+
+* best sellers
+* featured products
+* recommendations
+
+and how they should appear.
+
+---
+
+### Visual Density
+
+Goal:
+
+Less clutter.
+
+More confidence.
+
+More breathing room.
+
+---
+
+### Animation Strategy
+
+Evaluate current animations.
+
+Propose improvements.
+
+Requirements:
+
+* smooth
+* premium
+* subtle
+* GPU accelerated
+
+No flashy gimmicks.
+
+No unnecessary motion.
+
+---
+
+# PHASE 5 — VISUAL MOCKUP PLAN
+
+Describe exactly what Homepage V4 should look like.
+
+Include:
+
+* layout structure
+* section order
+* spacing philosophy
+* animation philosophy
+* typography hierarchy
+* trust placement
+* category placement
+
+I want enough detail that implementation can begin afterward.
+
+---
+
+# IMPORTANT
+
+DO NOT:
+
+* implement
+* modify files
+* create banners
+* seed data
+* change layouts
+
+This phase is audit and planning only.
+
+I want the most honest, critical, professional UX/UI review possible.
+
+The goal is to determine whether the current Hero Banner V3 is actually premium enough or whether Homepage V4 should be redesigned before further work.

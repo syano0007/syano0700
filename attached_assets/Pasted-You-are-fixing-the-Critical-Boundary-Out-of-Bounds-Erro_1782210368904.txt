@@ -1,0 +1,41 @@
+You are fixing the Critical Boundary Out-of-Bounds Error shown in "Screenshot (449).jpg".
+
+Current Symptom:
+The map prints "الموقع خارج نطاق التوصيل المدعوم" (Location outside the supported delivery zone) because the codebase strictly cross-references the active coordinates with a fixed geo-fence array of 40 specific delivery zones.
+
+Do NOT break backend database order mutations, user sessions, or checkout price totals.
+Do NOT modify core tile rendering properties.
+
+==================================================
+GOAL
+==================================================
+Completely REMOVE the hardcoded geographical boundary restriction/validation. Re-architect the system so that ANY coordinate inside Syria is automatically marked as valid, supported, and accepted for delivery.
+
+==================================================
+PART 1 — REMOVING THE GEOMETRIC BOUNDS CONSTRAINT
+==================================================
+- Locate the proximity matching function or checking hook inside the Map Modal logic (e.g., inside coordinate change handlers, `useMapEvents`, or point-in-polygon verification structures).
+- Remove the code that explicitly throws a validation error or displays the warning layout block when a coordinate doesn't intersect with the 40 old `delivery_zones` records.
+- Force the check condition to return `true` or bypass the validation array globally.
+
+==================================================
+PART 2 — EXPANDING DELIVERY TO ALL OF SYRIA DYNAMICALLY
+==================================================
+- When a user moves the pin anywhere on the Syrian map layer (as shown in "Screenshot (449).jpg"):
+  * Instead of returning an error state, dynamically construct a fallback delivery zone state payload.
+  * If the pinpoint doesn't match an explicit zone record, automatically instantiate or assign a generic dynamic zone object (e.g., `zoneName: "توصيل لكافة مناطق سوريا"`, `zoneId: 1` or a default general fallback identifier).
+- Remove the warning text banner entirely from the UI layer to allow the primary "تأكيد الموقع" (Confirm Location) button to remain active, clickable, and green under all spatial coordinates.
+
+==================================================
+PART 3 — PROFILE & CHECKOUT SYNC COMPLIANCE
+==================================================
+- Ensure the profile update payload smoothly accepts these free-form coordinate updates without a backend rejection check.
+- On the `/checkout` view, ensure the calculation pipeline computes a baseline shipping fee seamlessly for any dynamic location context selected, without throwing a runtime execution exception.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The warning message "الموقع خارج نطاق التوصيل المدعوم" is completely eliminated from the modal view.
+✓ Selecting any residential area or neighborhood allows instant confirmation without blockages.
+✓ Verify TypeScript compilation = 0 errors across the frontend `artifacts/marketplace` directory tree.

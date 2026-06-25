@@ -1,0 +1,289 @@
+SYANO سوق سوريا
+
+CRITICAL TASK — PIXEL PERFECT DESIGN RECONSTRUCTION
+
+IMPORTANT:
+
+You previously implemented your own interpretation of the homepage.
+
+That is NOT the task.
+
+This task requires visual reconstruction of the attached reference image.
+
+The attached image is the source of truth.
+
+You must replicate it as closely as possible.
+
+==================================================
+MANDATORY WORKFLOW
+==================
+
+DO NOT start coding immediately.
+
+First:
+
+PHASE 1 — DESIGN RECONSTRUCTION
+
+Import the attached image.
+
+Analyze it visually.
+
+Rebuild the entire homepage layout inside Canvas mode.
+
+Treat it like a UI designer rebuilding an existing design.
+
+Measure and map:
+
+* section order
+* spacing
+* card sizes
+* typography scale
+* image proportions
+* CTA sizing
+* padding
+* margins
+* alignment
+* visual hierarchy
+
+Create a complete design reconstruction plan.
+
+Only after the Canvas reconstruction is finished:
+
+Proceed to implementation.
+
+==================================================
+PIXEL PERFECT REQUIREMENT
+=========================
+
+This is NOT:
+
+* inspiration
+* enhancement
+* redesign
+* modernization
+
+This IS:
+
+Pixel-perfect reconstruction.
+
+Your goal is that a side-by-side comparison between:
+
+A) Reference image
+
+B) Implemented homepage
+
+shows minimal visual differences.
+
+==================================================
+DO NOT INTERPRET
+================
+
+Do NOT:
+
+* improve the design
+* simplify the design
+* replace sections
+* invent new layouts
+* create your own premium version
+
+Recreate the attached image.
+
+==================================================
+SECTION-BY-SECTION COMPARISON
+=============================
+
+Before coding:
+
+Generate a comparison table.
+
+For every homepage section:
+
+Show:
+
+Reference Design
+↓
+
+Current Implementation
+↓
+
+Required Changes
+
+Continue until every visual difference is identified.
+
+==================================================
+HERO SECTION
+============
+
+The hero section must be reconstructed from the image.
+
+Match:
+
+* composition
+* image proportions
+* content positioning
+* overlay density
+* text placement
+* CTA placement
+* section height
+* whitespace
+
+Do NOT create a new hero.
+
+Recreate the hero shown in the image.
+
+==================================================
+TYPOGRAPHY REPLICATION
+======================
+
+Match:
+
+* font sizes
+* font weights
+* line heights
+* heading scale
+* section title scale
+
+The current implementation still differs from the image.
+
+Correct all typography mismatches.
+
+==================================================
+CARD SYSTEM REPLICATION
+=======================
+
+Match the image exactly.
+
+Replicate:
+
+* category cards
+* product cards
+* store cards
+
+Match:
+
+* width
+* height
+* radius
+* spacing
+* hover behavior
+* image ratio
+
+==================================================
+VISUAL HIERARCHY
+================
+
+The visual weight of each section must match the image.
+
+Currently:
+
+Join Syano has too much visual dominance.
+
+Correct this.
+
+Match the image hierarchy exactly.
+
+==================================================
+TRUST MESSAGE CLEANUP
+=====================
+
+The current implementation reintroduced trust messaging.
+
+Remove duplicated trust content.
+
+Follow the reference image.
+
+Do not add additional trust strips.
+
+Do not add repeated trust blocks.
+
+==================================================
+CANVAS VALIDATION
+=================
+
+Before implementation:
+
+Create a Canvas reconstruction.
+
+Then compare:
+
+Canvas Reconstruction
+vs
+Reference Image
+
+List remaining differences.
+
+Only proceed when the reconstruction is visually accurate.
+
+==================================================
+IMPLEMENTATION PHASE
+====================
+
+Convert the Canvas reconstruction into production React code.
+
+Preserve:
+
+* APIs
+* routing
+* business logic
+* database integration
+* marketplace functionality
+
+Only replace presentation.
+
+==================================================
+FINAL VALIDATION
+================
+
+After implementation:
+
+Capture:
+
+1. Desktop screenshot
+2. Tablet screenshot
+3. Mobile screenshot
+
+Create side-by-side comparisons with the reference image.
+
+For each viewport provide:
+
+* similarity assessment
+* remaining visual differences
+
+If major differences remain:
+
+continue iterating.
+
+==================================================
+RECOVERY REQUIREMENTS
+=====================
+
+After successful implementation:
+
+Update:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* homepage recovery snapshots
+* recovery references
+
+Ensure future recoveries restore the new homepage.
+
+==================================================
+COMPLETION RULE
+===============
+
+The task is NOT complete when the homepage looks "better".
+
+The task is complete only when:
+
+the implemented homepage visually matches the attached reference image as closely as possible.
+
+Think like a frontend engineer reproducing a Dribbble/Figma design from a screenshot.
+
+The attached image is the specification.
+
+Not inspiration.
+Not guidance.
+Not a suggestion.
+
+It is the design specification.

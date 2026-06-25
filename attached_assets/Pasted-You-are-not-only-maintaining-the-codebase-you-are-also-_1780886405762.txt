@@ -1,0 +1,340 @@
+You are not only maintaining the codebase — you are also responsible for maintaining a permanent project state system that survives workspace migrations, new AI sessions, and account transfers.
+
+## Objective
+
+Create and maintain a persistent "Project Memory Layer" inside the repository itself.
+
+After EVERY successful change, bug fix, refactor, optimization, migration, feature addition, or schema modification, you MUST automatically update the project state files.
+
+These files become the single source of truth for future sessions.
+
+---
+
+# Create these files if they do not exist
+
+/project-memory/
+
+```
+PROJECT_STATE.md
+CURRENT_TASK.md
+CHANGELOG.md
+KNOWN_ISSUES.md
+DATABASE_STATE.md
+API_STATE.md
+PERFORMANCE_STATE.md
+AUTH_STATE.md
+VARIANT_SYSTEM_STATE.md
+RECOVERY_GUIDE.md
+```
+
+---
+
+# PROJECT_STATE.md
+
+Always contain:
+
+* Current project name
+* Current stable checkpoint
+* Overall completion percentage
+* Last successful verification date
+* Last successful TypeScript status
+* Last successful service status
+* Current active feature under development
+* Next planned feature
+* Features completed
+* Features intentionally not started
+* Current architecture summary
+* Important implementation decisions
+* Libraries added manually
+* Files requiring special care
+* Things that must NEVER be regenerated automatically
+
+Example:
+
+Current Stable Checkpoint:
+
+* Authentication fully working
+* Guest cart working
+* Seller dashboard working
+* Admin dashboard working
+* Notifications working
+* Messaging working
+* Performance optimization completed:
+  ✓ React.memo
+  ✓ Stable callbacks
+  ✓ Bundle splitting
+  ✓ Virtualized product grid
+  ✓ Frame pacing
+  ✓ Long task elimination
+  ✓ Memory optimization
+
+Current Active Task:
+Modern Variant System redesign.
+
+Next Planned Task:
+CPU profiling infrastructure.
+
+---
+
+# CURRENT_TASK.md
+
+Always contain:
+
+Current feature being developed.
+
+Sections:
+
+Goal:
+Progress:
+Files modified:
+Pending steps:
+Risks:
+Rollback strategy:
+
+Whenever the feature is completed:
+
+* Mark it COMPLETE.
+* Automatically move the next planned feature into Current Task.
+
+---
+
+# CHANGELOG.md
+
+Append every completed modification.
+
+Use chronological format:
+
+## YYYY-MM-DD HH:mm
+
+Added:
+Fixed:
+Changed:
+Removed:
+Database impact:
+API impact:
+Frontend impact:
+Mobile impact:
+Performance impact:
+Breaking changes:
+Verification status:
+
+Never delete previous entries.
+
+---
+
+# KNOWN_ISSUES.md
+
+Maintain all known bugs.
+
+Each issue contains:
+
+ID:
+Priority:
+Description:
+Current status:
+Affected files:
+Possible root cause:
+Temporary workaround:
+Resolved in version:
+
+When fixed:
+
+Move to RESOLVED section.
+
+Never silently remove issues.
+
+---
+
+# DATABASE_STATE.md
+
+Always track:
+
+Total tables
+Schema version
+Extra columns added manually
+Additive migrations
+Seed requirements
+Admin account requirements
+Critical constraints
+
+Include exact table list.
+
+Whenever schema changes:
+Update immediately.
+
+---
+
+# API_STATE.md
+
+Track:
+
+OpenAPI status
+Orval generation status
+Manual schema extensions
+Custom generated types
+Special route behaviors
+Authentication middleware
+Rate limits
+Known route exceptions
+
+Whenever API changes:
+Update immediately.
+
+---
+
+# PERFORMANCE_STATE.md
+
+Maintain:
+
+Completed optimizations:
+
+React.memo
+Stable callbacks
+Bundle splitting
+Virtualization
+Frame pacing
+Long task elimination
+Memory optimization
+
+Pending:
+
+CPU profiling
+
+Record every optimization:
+
+Reason:
+Files:
+Measured impact:
+Verification:
+
+Never remove completed optimizations.
+
+---
+
+# AUTH_STATE.md
+
+Track:
+
+Authentication flow
+JWT
+Session secret
+OTP reset flow
+Admin account requirements
+Required DB columns
+Role system
+Account status logic
+
+Store current known-good admin credentials format
+(without exposing secrets).
+
+Document login expectations.
+
+---
+
+# VARIANT_SYSTEM_STATE.md
+
+Track:
+
+Current implementation state.
+
+If redesign starts:
+
+Architecture decisions
+Database changes
+Frontend UI decisions
+Cart behavior
+Checkout behavior
+Inventory behavior
+Pricing behavior
+Image behavior
+
+Update continuously during implementation.
+
+---
+
+# RECOVERY_GUIDE.md
+
+This file is the most important.
+
+It must allow another AI session to continue instantly without asking the user for context.
+
+Always include:
+
+Current stable checkpoint.
+
+Required recovery order:
+
+1. pnpm install
+2. Verify environment variables
+3. Verify database
+4. Push schema only if DB empty
+5. Verify admin account
+6. Verify authentication
+7. Verify services
+8. Read PROJECT_STATE.md
+9. Read CURRENT_TASK.md
+10. Continue from CURRENT_TASK
+
+Also include:
+
+DO NOT:
+
+* Regenerate OpenAPI unless necessary.
+* Rewrite authentication.
+* Rewrite performance optimizations.
+* Remove additive migrations.
+* Replace manually extended generated types.
+* Rebuild completed systems.
+
+Current known issues:
+(list automatically from KNOWN_ISSUES.md)
+
+Current active feature:
+(sync automatically from CURRENT_TASK.md)
+
+---
+
+# Automatic maintenance rules
+
+After ANY successful modification:
+
+1. Update CURRENT_TASK progress.
+2. Append CHANGELOG.
+3. Update PROJECT_STATE if milestone changed.
+4. Update DATABASE_STATE if schema changed.
+5. Update API_STATE if API changed.
+6. Update PERFORMANCE_STATE if optimization changed.
+7. Update AUTH_STATE if auth changed.
+8. Update VARIANT_SYSTEM_STATE if variants changed.
+9. Sync RECOVERY_GUIDE with latest state.
+
+Never ask the user whether these files should be updated.
+
+Treat them as mandatory project infrastructure.
+
+---
+
+# Recovery behavior
+
+At the beginning of every future session:
+
+BEFORE making any code changes:
+
+Read:
+
+* PROJECT_STATE.md
+* CURRENT_TASK.md
+* CHANGELOG.md
+* KNOWN_ISSUES.md
+* DATABASE_STATE.md
+* API_STATE.md
+* PERFORMANCE_STATE.md
+* AUTH_STATE.md
+* VARIANT_SYSTEM_STATE.md
+* RECOVERY_GUIDE.md
+
+Reconstruct the entire project state from these files.
+
+Only after understanding them completely may you modify the codebase.
+
+These files are the authoritative memory of the project and override assumptions based on a fresh workspace.

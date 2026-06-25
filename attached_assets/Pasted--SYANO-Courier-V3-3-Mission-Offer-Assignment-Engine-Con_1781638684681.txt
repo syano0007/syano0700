@@ -1,0 +1,595 @@
+# SYANO — Courier V3.3
+
+# Mission Offer & Assignment Engine
+
+## Context
+
+You are implementing the next phase of the SYANO delivery system.
+
+Completed:
+
+✅ Delivery Mission Layer
+
+✅ Courier Availability System
+
+✅ ONLINE / OFFLINE / BUSY State Machine
+
+✅ Automatic Availability Synchronization
+
+✅ Assignment Foundation Fields
+
+Do NOT rebuild anything.
+
+Extend only.
+
+---
+
+# CRITICAL RULES
+
+## DO NOT IMPLEMENT
+
+❌ GPS Tracking
+
+❌ Live Maps
+
+❌ Customer Tracking Map
+
+❌ Wallet
+
+❌ Earnings
+
+❌ Settlement
+
+❌ Proof Of Delivery
+
+❌ Route Optimization
+
+❌ Distance Pricing
+
+Those belong to later phases.
+
+---
+
+# BUSINESS GOAL
+
+When a seller prepares an order:
+
+```text
+READY_FOR_PICKUP
+```
+
+The platform must automatically find couriers.
+
+The platform must offer the mission.
+
+The platform must assign the mission.
+
+The platform must handle timeouts.
+
+The platform must handle re-offers.
+
+The platform must handle failures.
+
+Exactly like a real delivery network.
+
+---
+
+# DELIVERY ASSIGNMENT MODEL
+
+This is the official SYANO assignment strategy.
+
+---
+
+## STEP 1
+
+Mission created.
+
+Status:
+
+```text
+PENDING
+```
+
+---
+
+## STEP 2
+
+Find available couriers.
+
+Criteria:
+
+Courier must be:
+
+```text
+ONLINE
+Accepting Deliveries = true
+No Active Mission
+Approved
+Active
+```
+
+---
+
+## STEP 3
+
+Calculate nearest couriers.
+
+Use courier location.
+
+Use pickup location.
+
+Sort by distance ascending.
+
+---
+
+## STEP 4
+
+Take:
+
+```text
+Nearest 3 Couriers
+```
+
+Only.
+
+Not 5.
+
+Not all.
+
+Exactly 3.
+
+---
+
+## STEP 5
+
+Send mission offer.
+
+Status:
+
+```text
+OFFERED
+```
+
+for all 3.
+
+---
+
+## STEP 6
+
+Start countdown.
+
+```text
+60 seconds
+```
+
+Mission offer expires automatically.
+
+---
+
+## STEP 7
+
+First courier who accepts:
+
+Wins mission.
+
+Immediately:
+
+```text
+Mission
+→ ASSIGNED
+
+Courier
+→ BUSY
+```
+
+---
+
+## STEP 8
+
+Automatically cancel offers for remaining couriers.
+
+Status:
+
+```text
+EXPIRED
+```
+
+---
+
+# TIMEOUT LOGIC
+
+If nobody accepts.
+
+---
+
+Round 1:
+
+Nearest 3
+
+Wait:
+
+```text
+60 sec
+```
+
+---
+
+Round 2:
+
+Next nearest 3
+
+Wait:
+
+```text
+60 sec
+```
+
+---
+
+Round 3:
+
+Next nearest 3
+
+Wait:
+
+```text
+60 sec
+```
+
+---
+
+After 3 rounds:
+
+Status:
+
+```text
+NO_COURIER_FOUND
+```
+
+---
+
+Create:
+
+```text
+Dispatch Alert
+```
+
+for admin.
+
+---
+
+# DATABASE
+
+Use additive migrations only.
+
+---
+
+Create:
+
+Mission Offer table.
+
+Example:
+
+```ts
+MissionOffer
+
+id
+
+missionId
+
+courierId
+
+status
+
+offeredAt
+
+expiresAt
+
+respondedAt
+```
+
+---
+
+Statuses:
+
+```text
+OFFERED
+
+ACCEPTED
+
+DECLINED
+
+EXPIRED
+
+CANCELLED
+```
+
+---
+
+Do not modify existing mission table destructively.
+
+---
+
+# ASSIGNMENT ENGINE
+
+Create reusable service:
+
+```ts
+findNearestCouriers()
+
+createMissionOffers()
+
+expireMissionOffers()
+
+assignMissionToCourier()
+
+startAssignmentRound()
+
+runAssignmentEngine()
+```
+
+---
+
+Keep services reusable.
+
+Future GPS system will consume them.
+
+---
+
+# COURIER EXPERIENCE
+
+Create courier mission offer UI.
+
+---
+
+When courier receives offer:
+
+Show:
+
+```text
+New Delivery Mission
+```
+
+Card.
+
+---
+
+Display:
+
+Pickup Area
+
+Delivery Area
+
+Estimated Distance
+
+Mission ID
+
+Countdown Timer
+
+---
+
+Buttons:
+
+```text
+Accept
+Decline
+```
+
+---
+
+If timer reaches zero:
+
+Offer disappears.
+
+Status:
+
+```text
+EXPIRED
+```
+
+---
+
+# ACCEPT FLOW
+
+Courier presses:
+
+```text
+Accept
+```
+
+---
+
+System:
+
+Locks mission.
+
+Assigns courier.
+
+Changes status.
+
+Marks BUSY.
+
+Cancels all other offers.
+
+---
+
+Must be atomic.
+
+Prevent race conditions.
+
+If two couriers press accept simultaneously:
+
+Only one wins.
+
+---
+
+# DECLINE FLOW
+
+Courier presses:
+
+```text
+Decline
+```
+
+---
+
+Status:
+
+```text
+DECLINED
+```
+
+---
+
+System continues waiting for remaining couriers.
+
+---
+
+# ADMIN VISIBILITY
+
+Add Assignment Monitoring.
+
+---
+
+Admin should see:
+
+Mission
+
+Current Round
+
+Offers Sent
+
+Accepted
+
+Declined
+
+Expired
+
+Assigned Courier
+
+---
+
+Read-only.
+
+No manual overrides yet.
+
+---
+
+# DELIVERY MISSION PAGE
+
+Add assignment visibility.
+
+Show:
+
+```text
+Searching For Courier
+```
+
+while offers active.
+
+---
+
+Show:
+
+```text
+Courier Assigned
+```
+
+after success.
+
+---
+
+Show:
+
+```text
+No Courier Found
+```
+
+after all rounds fail.
+
+---
+
+# PERFORMANCE
+
+Assignment Engine must support:
+
+Thousands of missions.
+
+Thousands of couriers.
+
+Avoid N² queries.
+
+Use indexes.
+
+Batch operations.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Nearest 3 selected
+
+✅ Offers created
+
+✅ Countdown works
+
+✅ Accept works
+
+✅ Decline works
+
+✅ Timeout works
+
+✅ Round 2 works
+
+✅ Round 3 works
+
+✅ No Courier Found works
+
+✅ BUSY synchronization works
+
+✅ Race conditions prevented
+
+✅ Admin monitoring works
+
+✅ Courier UI works
+
+✅ Existing missions still work
+
+✅ Existing orders still work
+
+✅ Existing sellers still work
+
+✅ Existing customers still work
+
+✅ Mobile works
+
+✅ TypeScript = 0 errors
+
+---
+
+# RECOVERY FILES
+
+After implementation is complete:
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+
+Document:
+
+* Mission Offer System
+* Assignment Engine
+* Offer Lifecycle
+* Round Logic
+* Admin Monitoring
+* Courier Acceptance Flow
+
+Do not finish until recovery files are fully updated and verified.

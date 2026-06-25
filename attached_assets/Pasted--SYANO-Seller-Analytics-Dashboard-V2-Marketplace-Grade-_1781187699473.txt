@@ -1,0 +1,557 @@
+# SYANO — Seller Analytics Dashboard V2 (Marketplace Grade)
+
+Read everything before coding.
+
+This is Roadmap Project #4.
+
+Order Fulfillment Workflow V1 is complete.
+
+Courier Operations Dashboard V2 is complete.
+
+Seller Order Management V2 is complete.
+
+This project upgrades seller analytics into a professional marketplace-grade business intelligence dashboard similar to:
+
+* Amazon Seller Central
+* Shopify Analytics
+* Noon Seller Hub
+* Trendyol Partner Dashboard
+
+The goal is NOT adding a few statistic cards.
+
+The goal is creating a real analytics system sellers can use to understand and grow their business.
+
+---
+
+# CRITICAL RULES
+
+Do not break:
+
+* Orders
+* Products
+* Variants
+* Courier System
+* Seller Dashboard
+* Existing APIs
+
+Use additive migrations only.
+
+No fake data.
+
+No placeholders.
+
+All analytics must come from real database records.
+
+Arabic and English must remain fully supported.
+
+RTL must remain perfect.
+
+Mobile support required.
+
+TypeScript must finish with 0 errors.
+
+---
+
+# PHASE 1 — ANALYTICS AUDIT
+
+Before implementation:
+
+Audit all available data sources.
+
+Read:
+
+* orders
+* order_items
+* products
+* seller_reviews
+* reviews
+* store_follows
+* users
+* notifications
+* courier_assignments
+
+Identify all metrics that can be generated from existing data.
+
+Return a detailed analytics capability report before implementation starts.
+
+---
+
+# PHASE 2 — ANALYTICS ARCHITECTURE
+
+Build a reusable analytics layer.
+
+Create centralized analytics services.
+
+Do NOT calculate metrics separately inside components.
+
+All calculations must originate from shared services.
+
+Design for future scalability.
+
+Target:
+
+100
+1000
+10000
+100000
+
+orders without redesign.
+
+---
+
+# PHASE 3 — MAIN SELLER ANALYTICS DASHBOARD
+
+Create a dedicated analytics dashboard.
+
+Route:
+
+/seller/analytics
+
+Modern marketplace-quality design.
+
+No admin-looking UI.
+
+No raw tables.
+
+Premium cards and charts.
+
+---
+
+# PHASE 4 — CORE KPI SYSTEM
+
+Top KPI section.
+
+Display:
+
+Total Revenue
+Total Orders
+Average Order Value
+Completed Orders
+Cancelled Orders
+Refunded Orders
+Followers
+Store Rating
+
+Show:
+
+Current Value
+Trend
+Change %
+
+Examples:
+
++12%
+-3%
++27%
+
+Compared to previous period.
+
+---
+
+# PHASE 5 — DATE FILTERING SYSTEM
+
+Support:
+
+Today
+
+Yesterday
+
+Last 7 Days
+
+Last 30 Days
+
+Last 90 Days
+
+This Month
+
+Last Month
+
+This Year
+
+Custom Range
+
+All analytics must react instantly.
+
+---
+
+# PHASE 6 — SALES ANALYTICS
+
+Create:
+
+Revenue Over Time
+
+Charts:
+
+Daily
+Weekly
+Monthly
+
+Show:
+
+Revenue
+Orders
+Average Order Value
+
+Interactive charts.
+
+Professional quality.
+
+---
+
+# PHASE 7 — ORDER ANALYTICS
+
+Track:
+
+Pending Orders
+
+Preparing Orders
+
+Ready Orders
+
+In Delivery
+
+Delivered
+
+Cancelled
+
+Refunded
+
+Display:
+
+Counts
+Percentages
+Trends
+
+---
+
+# PHASE 8 — PRODUCT PERFORMANCE
+
+Top Products section.
+
+Display:
+
+Product Image
+
+Product Name
+
+Units Sold
+
+Revenue Generated
+
+Conversion Rate
+
+Views
+
+Trend
+
+Allow sorting.
+
+---
+
+# PHASE 9 — CUSTOMER ANALYTICS
+
+Display:
+
+Unique Customers
+
+Returning Customers
+
+Repeat Purchase Rate
+
+Average Orders Per Customer
+
+Customer Retention
+
+Growth Trends
+
+---
+
+# PHASE 10 — STORE GROWTH ANALYTICS
+
+Track:
+
+Followers Growth
+
+Reviews Growth
+
+Rating Changes
+
+Store Activity
+
+Order Volume Growth
+
+Revenue Growth
+
+---
+
+# PHASE 11 — DELIVERY ANALYTICS
+
+Use courier/order data.
+
+Display:
+
+Delivered Orders
+
+Failed Deliveries
+
+Delivery Success Rate
+
+Average Delivery Time
+
+Cancellation Rate
+
+---
+
+# PHASE 12 — FINANCIAL ANALYTICS
+
+Display:
+
+Gross Revenue
+
+Net Revenue
+
+Delivery Fees
+
+Refund Impact
+
+Average Order Value
+
+Revenue By Day
+
+Revenue By Product
+
+Revenue By Category
+
+---
+
+# PHASE 13 — CHART SYSTEM
+
+Use professional chart components.
+
+Required:
+
+Line Charts
+
+Bar Charts
+
+Area Charts
+
+Pie Charts
+
+Responsive.
+
+Mobile friendly.
+
+No clutter.
+
+---
+
+# PHASE 14 — INSIGHTS ENGINE
+
+Generate business insights.
+
+Examples:
+
+Your revenue increased 18% this week.
+
+Product X generated 32% of total revenue.
+
+Cancellation rate increased by 5%.
+
+Followers grew 24% this month.
+
+Insights must be generated from real metrics.
+
+No hardcoded text.
+
+---
+
+# PHASE 15 — EXPORT SYSTEM
+
+Support export:
+
+CSV
+
+Excel
+
+Export:
+
+Orders
+
+Revenue
+
+Products
+
+Analytics Reports
+
+---
+
+# PHASE 16 — MOBILE EXPERIENCE
+
+Expo app must support:
+
+Analytics dashboard
+
+Charts
+
+KPIs
+
+Insights
+
+Filters
+
+No degraded implementation.
+
+---
+
+# PHASE 17 — ADMIN ANALYTICS VALIDATION
+
+Admin should be able to verify seller analytics calculations.
+
+Create audit endpoints if necessary.
+
+Prevent discrepancies.
+
+---
+
+# PHASE 18 — PERFORMANCE REVIEW
+
+Audit:
+
+Database queries
+
+Indexes
+
+Aggregations
+
+Heavy reports
+
+N+1 issues
+
+Add indexes where necessary.
+
+Document all changes.
+
+---
+
+# PHASE 19 — FULL PLATFORM TESTING
+
+Create:
+
+Admin
+
+Seller
+
+Customer
+
+Courier
+
+Test data
+
+Generate realistic orders.
+
+Verify:
+
+All KPIs
+
+All charts
+
+All filters
+
+All exports
+
+All calculations
+
+Web
+
+Mobile
+
+API
+
+---
+
+# PHASE 20 — GLOBAL PLATFORM AUDIT
+
+After implementation:
+
+Audit entire platform.
+
+Inspect:
+
+Seller Dashboard
+
+Orders
+
+Products
+
+Variants
+
+Analytics
+
+Notifications
+
+Mobile
+
+Permissions
+
+Performance
+
+Fix any issues discovered.
+
+No regressions allowed.
+
+---
+
+# PHASE 21 — UPDATE RECOVERY FILES
+
+Mandatory.
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+KNOWN_ISSUES.md
+
+RECOVERY_GUIDE.md
+
+MEMORY.md
+
+Document:
+
+Analytics architecture
+
+KPIs
+
+Charts
+
+Services
+
+Export system
+
+Indexes
+
+Testing results
+
+Future expansion notes
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+1. Analytics Architecture
+2. KPI List
+3. Chart List
+4. APIs Added
+5. DB Changes
+6. Performance Changes
+7. Mobile Features
+8. Export Features
+9. Testing Results
+10. Screenshots
+11. Roadmap Position
+
+Do not mark complete until all analytics are tested with real data.

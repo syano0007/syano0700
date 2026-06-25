@@ -1,0 +1,56 @@
+You are executing the Global Map Engine Stabilization, Independent Driver App Parity Sync, and Premium Category Cards UI Re-Architecture for SYANO (سوق سوريا).
+
+This unified prompt combines the map viewport freezing fixes (seen in "Screenshot (453).jpg" and "Screenshot (454).jpg") and the enlarged Noon-style category cards UI scaling (seen in "Screenshot (452).jpg").
+
+Do NOT mix or merge the distinct visual styles of the Client and Driver maps. 
+Do NOT break existing backend APIs, category query hooks, or database schemas.
+
+Preserve:
+- Strict RTL/LTR logical formatting and translation configurations.
+- Zero TypeScript errors across both api-server and frontend workspace structures.
+
+==================================================
+PART 1 — CLIENT MAP MODAL RE-ARCHITECTURE & STABILIZATION
+==================================================
+1. Fix Zoom Flickering & Gray Canvas (LocationMapModal.tsx):
+   - Remove any direct dynamic reactive state bindings mapped onto `<MapContainer center={...} zoom={...}>` which cause destructive canvas unmounts.
+   - Implement an inner view coordinator component (e.g., `<ClientViewportController />`) leveraging Leaflet’s `useMap()` hook to alter view bounds natively and imperatively via `map.setView` or `map.flyTo` upon coordinate changes.
+   - Inject strict performance caching properties to the customer `<TileLayer />`:
+     * `keepBuffer={16}` (Pre-caches 16 rows/columns of adjacent tile grids).
+     * `updateWhenIdle={false}` (Retrieves tile assets instantly mid-drag/zoom).
+     * `updateWhenZooming={false}` (Stretches existing cached textures during scaling instead of flashing temporary gray voids).
+2. Debounce Network Fetching:
+   - Ensure all coordinate reverse-geocoding lookup routines triggered via `onMoveEnd` or `onZoomEnd` are bound inside a strict **300ms debounce loop** to avoid flooding the network thread.
+
+==================================================
+PART 2 — INDEPENDENT DRIVER MAP PERFORMANCE UPGRADE
+==================================================
+1. Apply Performance Optimization Separately:
+   - Locate the map module utilized within the driver app tracking framework (e.g., `DriverMap.tsx` or delivery dispatcher view). 
+   - Do NOT modify the driver's unique utility panels, buttons, routing paths, or layout architecture. Keep the driver design completely separate from the client's floating layout.
+   - Isolate the driver's `<MapContainer>` using a standalone viewport controller (e.g., `<DriverViewportController />`) leveraging `useMap()` to prevent unmounting side-effects.
+   - Pass identical performance attributes to the driver map’s `<TileLayer />`: `keepBuffer={16}`, `updateWhenIdle={false}`, and `updateWhenZooming={false}` to guarantee high-speed map tile loading while driving.
+
+==================================================
+PART 3 — CATEGORY CARDS UP-SCALING & FULL-BLEED IMAGES (NOON STYLE)
+==================================================
+Re-architect the homepage category component layout from its current miniature icon layout seen in "Screenshot (452).jpg" to match the luxurious vertical card layout of Noon:
+1. Card Dimensions & Frame:
+   - Scale up individual card containers explicitly: Set the desktop/tablet outer card wrapper to a minimum dimension format (e.g., `w-[135px] h-[175px]` or responsive flex-basis equivalents like `min-w-[130px]`).
+   - Maintain the prominent rounded corner mask (`rounded-2xl` or `rounded-[20px]`) with a clean, solid light background color (`bg-neutral-100` or `bg-gray-50`) and zero frame borders.
+2. Image Dominance Fill (90% - 100%):
+   - Expand the upper image block height to occupy 75% to 80% of the entire vertical card frame.
+   - COMPLETELY STRIP OUT aggressive inner layout paddings. Reduce padding to `p-0` or `p-1`.
+   - Apply strict full-bleed object fitting methods (`object-cover` or high-resolution optimized `object-contain w-full h-full`) so the core product asset expands fully to fill 90% to 100% of the card's background width/height boundaries.
+3. Typography Position:
+   - Center-align text titles (`text-center`) perfectly at the remaining lower 20% baseline row.
+   - Apply a clean, bold weight configuration (`text-xs md:text-sm font-semibold text-neutral-800 mt-1`) with line-clamps to secure absolute visual grid uniformity.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Zooming out inside the client map modal responds instantly with zero gray canvas flicker.
+✓ Driver map receives the identical loading performance layer but maintains its entirely separate utility UI layout.
+✓ Category cards are visibly expanded, and product images dominate 90%-100% of the upper card background.
+✓ Verify TypeScript compilation = 0 errors across all frontend and delivery workspace directories.

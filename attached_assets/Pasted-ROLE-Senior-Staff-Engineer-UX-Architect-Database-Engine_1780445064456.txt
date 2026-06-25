@@ -1,0 +1,308 @@
+ROLE: Senior Staff Engineer + UX Architect + Database Engineer + QA Auditor
+
+MISSION:
+Perform a complete forensic audit and implementation pass for the entire Seller system. Investigate the real root causes first, then implement production-grade fixes. Do not use temporary workarounds or superficial UI patches.
+
+IMPORTANT RULES
+
+Read all related files before modifying anything.
+Trace the full data flow:
+Database → API → Business Logic → React Query → Components → UI.
+Identify dependencies before making changes.
+Prevent regressions.
+No TODOs.
+No placeholders.
+No assumptions.
+Verify every change after implementation.
+Produce a final report containing:
+Root Cause
+Files Modified
+Exact Fix Applied
+Validation Results
+
+There are layout, wrapping, and RTL issues across seller pages.
+
+Requirements:
+
+Audit all seller-facing pages:
+Seller Dashboard
+Products
+Orders
+Analytics
+Store Settings
+Add Product
+Edit Product
+Detect and fix:
+Overflow issues
+Text clipping
+Broken flex layouts
+Broken grid layouts
+Wrapping issues
+RTL issues
+Mobile responsiveness issues
+Verify proper rendering on:
+320px
+360px
+390px
+430px
+768px
+1024px
+Desktop
+Replace physical directional classes:
+
+Replace:
+
+text-left
+text-right
+ml-*
+mr-*
+pl-*
+pr-*
+left-*
+right-*
+
+With logical RTL-safe classes:
+
+text-start
+text-end
+ms-*
+me-*
+ps-*
+pe-*
+start-*
+end-*
+Ensure no component can extend outside the viewport.
+
+Currently sellers do not have a proper way to access and manage their storefront.
+
+Requirements:
+
+Add a clear button inside Seller Dashboard:
+View Store
+عرض المتجر
+Navigate directly to the seller store page.
+Create a dedicated Store Management section.
+
+Allow sellers to edit:
+
+Store Name
+Arabic Store Name
+Description
+Arabic Description
+Logo
+Banner
+Social Links
+Contact Information
+Store Theme
+Store Colors
+Ensure changes appear instantly on the storefront.
+No page refresh required.
+Synchronize all caches correctly.
+
+The Add Product page lacks a real discount system.
+
+Requirements:
+
+Add support for:
+
+Original Price
+Sale Price
+Discount Percentage
+
+Rules:
+
+Discount percentage auto-calculates.
+Validation required.
+Prevent invalid values.
+Sale Price must never exceed Original Price.
+
+Display discount information everywhere:
+
+Product Cards
+Product Details
+Store Page
+Search Results
+Featured Products
+Recommendations
+
+Show badges such as:
+
+-20%
+-35%
+-50%
+
+Ensure calculations remain consistent across frontend and backend.
+
+The current variant system is too limited and not production-ready.
+
+Rebuild the entire variant architecture.
+
+Must support:
+
+Color
+Size
+Storage
+Material
+Weight
+Custom Attributes
+
+Example:
+
+Product:
+T-Shirt
+
+Color:
+
+Red
+Blue
+Black
+
+Size:
+
+S
+M
+L
+XL
+
+Generate variant combinations automatically.
+
+Examples:
+
+Red + M
+Red + L
+Blue + XL
+
+Each variant must have:
+
+Price
+Stock
+SKU
+Image
+
+Display:
+
+Available Variants Count
+Starting Price
+Variant Preview
+
+When a variant is selected:
+
+Update instantly:
+
+Price
+Stock
+SKU
+Image
+
+No refresh.
+No navigation.
+
+Audit existing tables:
+
+variants
+variant_options
+product_variants
+
+If schema is insufficient:
+
+Design and migrate to a scalable production-ready structure.
+
+Preserve existing data whenever possible.
+
+Remove the manual Featured Product system completely.
+
+Remove:
+
+Featured Toggle
+Featured Checkbox
+Featured Button
+
+From:
+
+Add Product
+Edit Product
+Seller Dashboard
+
+Products become Featured automatically.
+
+Rule:
+
+sales_count >= FEATURED_THRESHOLD
+
+Default:
+
+FEATURED_THRESHOLD = 15
+
+Must be configurable.
+
+Whenever an order is completed:
+
+Increment sales_count
+Recalculate featured status
+
+If threshold reached:
+
+featured = true
+
+If threshold no longer met:
+
+featured = false
+
+All seller changes must appear instantly.
+
+No manual refresh.
+
+Use:
+
+React Query invalidation
+Optimistic Updates
+Cache Synchronization
+Existing SSE infrastructure if available
+
+Verify all related views update correctly.
+
+Audit all seller permissions.
+
+Verify sellers can:
+
+Manage products
+Manage store settings
+Manage branding
+Manage inventory
+Manage discounts
+Manage variants
+
+Verify sellers cannot:
+
+Access admin functionality
+Modify other stores
+Modify other sellers' products
+
+Fix any permission gaps discovered.
+
+After implementation:
+
+Test every seller page.
+Test every button.
+Test every form.
+Test every API endpoint.
+Test every mutation.
+Test every query.
+Test every permission rule.
+Test mobile and desktop layouts.
+Test RTL and LTR modes.
+Test live updates.
+
+Generate a final report containing:
+
+Root Cause of every issue
+Files modified
+Database changes
+API changes
+Frontend changes
+Additional bugs discovered
+Validation evidence
+Mobile verification
+Desktop verification
+
+Do not stop until the entire Seller workflow is production-ready, fully functional, mobile-safe, desktop-safe, RTL-safe, and free of regressions.

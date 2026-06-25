@@ -1,0 +1,541 @@
+Task: Search Retrieval — Full Audit & Implementation
+Phase: Search Improvement — Axis 6 (Retrieval / Fallback / Result Quality)
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file. Then read the
+full source of ALL of these files before writing a single line:
+  - artifacts/server/src/services/searchProcessor.ts (full file)
+  - artifacts/server/src/routes/search.ts (full file)
+  - artifacts/server/src/db/schema.ts (full file)
+  - artifacts/server/src/db/migrations/ (list every file, read the
+    latest 3 migration files in full)
+  - artifacts/marketplace/src/pages/search/index.tsx (full file)
+  - artifacts/marketplace/src/pages/shop/index.tsx (full file,
+    if it exists — skip if not found)
+  - artifacts/server/src/db/seed.ts (full file, if exists)
+
+After reading, produce a written inventory of:
+  - Every retrieval mechanism currently active (FTS, trigram, hybrid)
+  - The exact ranking formula with all weights
+  - The exact fallback chain when zero results are returned
+  - Whether search_synonyms table was created by Phase 5
+  - Current zero-result rate from query_logs (run the query)
+  - Top 20 zero-result queries from query_logs (run the query)
+Do NOT skip this inventory. Do NOT begin Phase 2 until it is written.
+
+PERMANENT REJECTIONS — never propose or implement any of these:
+  - Vector embeddings or semantic search (OpenAI, Cohere, etc.)
+  - Any new npm package not already installed
+  - New DB tables beyond what is explicitly listed in this task
+  - ML model inference at query time
+  - Breaking changes to existing API response shape
+  - Removing or modifying existing ranking weights without
+    explicit instruction
+Stop and report if you are about to do any of these.
+
+════════════════════════════════════════════════════════════════════
+PHASE 1 — AUDIT CURRENT RETRIEVAL SYSTEM (no code changes yet)
+════════════════════════════════════════════════════════════════════
+
+AUDIT A — FTS Coverage
+  Report:
+    - What columns are indexed in the FTS vector?
+      (title, description, brand, tags, category — which ones?)
+    - What PostgreSQL text search configuration is used?
+      (simple, arabic, english, or custom?)
+    - Is the fts_vector column kept up to date via trigger or
+      manually updated? Show the trigger definition if it exists.
+    - What is the current ts_rank formula? Show the exact SQL.
+    - Are Arabic and English indexed in the same vector or separately?
+    - What happens when a product has both Arabic and English text?
+      Does FTS handle it correctly or does one language dominate?
+
+AUDIT B — Trigram / Fuzzy Search
+  Report:
+    - Is pg_trgm extension enabled? Run:
+        SELECT * FROM pg_extension WHERE extname = 'pg_trgm';
+    - Is there a GIN trigram index on any column?
+      Show all trigram indexes.
+    - At what similarity threshold does trigram matching activate?
+      (pg_trgm.similarity_threshold value)
+    - Is trigram used for "did you mean" suggestions only, or also
+      in the main result ranking?
+    - What is the maximum trigram distance that returns a result?
+
+AUDIT C — Ranking Formula
+  Report:
+    - Write out the COMPLETE current ranking formula as a comment,
+      showing every signal and its weight coefficient.
+      Example format:
+        final_score =
+          (text_score     × 0.65) +
+          (quality_score  × 0.20) +
+          (freshness_score× 0.10) +
+          (seller_score   × 0.05)
+    - What is text_score exactly? (ts_rank only? ts_rank + trigram?)
+    - What is quality_score based on? (rating, review count, both?)
+    - What is freshness_score based on? (created_at recurrence?)
+    - What is seller_score based on? (seller trust level, ratings?)
+    - Are weights modified dynamically by intent detection?
+      (from Phase 5) — if yes, show the modifier values.
+    - Is there a diversity post-processing step? How does it work
+      exactly? (max N products per seller?)
+
+AUDIT D — Fallback Chain
+  Report:
+    - When a search returns 0 results, what happens right now?
+      Does it return empty, or does it try a fallback?
+    - Is there any "broaden query" logic? (remove one word at a time,
+      try partial match, etc.)
+    - Is there any "category fallback"? (show top products from
+      the most likely category)
+    - Is there any "trending fallback"? (show trending/featured
+      products when nothing matches)
+    - What does the frontend show when results = 0?
+      (empty state component, suggestions, nothing?)
+    - Check the empty state component — does it show any recovery
+      options, or just a "no results" message?
+
+AUDIT E — Result Diversity & Coverage
+  Report:
+    - Can one seller dominate the first page of results?
+      (e.g., 10 out of 10 results from same seller)
+    - Is there any category diversity enforcement?
+      (e.g., max 3 results from same category)
+    - For broad queries (e.g., "phone"), does the system surface
+      products from multiple price ranges, or only expensive/cheap?
+    - Are out-of-stock products excluded from results?
+      Check if stock/inventory status is factored into retrieval.
+    - Are inactive/deleted/draft products excluded?
+      Check the WHERE clause in the search query.
+
+AUDIT F — Search Index Health
+  Report:
+    - Run: SELECT COUNT(*) FROM products WHERE fts_vector IS NULL;
+      (products missing FTS index)
+    - Run: SELECT COUNT(*) FROM products WHERE fts_vector = '';
+      (empty FTS vectors)
+    - Run this to find the most common zero-result queries:
+        SELECT query_text, COUNT(*) as frequency
+        FROM query_logs
+        WHERE result_count = 0
+        GROUP BY query_text
+        ORDER BY frequency DESC
+        LIMIT 20;
+      (adjust table/column names to match actual schema)
+    - Are there products that should be findable but have NULL or
+      empty fts_vector? (products added before the trigger existed?)
+    - What percentage of products have non-null fts_vector?
+
+════════════════════════════════════════════════════════════════════
+PHASE 2 — IMPLEMENT IMPROVEMENTS (based on audit findings)
+════════════════════════════════════════════════════════════════════
+
+After writing the full audit, implement the following in order.
+If something already exists and is working correctly, skip it
+and note "already implemented — no change needed."
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 1 — Multi-Column FTS Coverage
+──────────────────────────────────────────────────────────────────
+
+Goal: ensure every searchable product field contributes to retrieval.
+
+  1a. Audit which columns are missing from fts_vector.
+      The fts_vector must include ALL of these with correct weights:
+        title_ar     → weight 'A' (highest — exact product name)
+        title_en     → weight 'A'
+        brand        → weight 'B' (brand name matters a lot)
+        tags         → weight 'B' (tags are curated keywords)
+        description_ar → weight 'C' (body text, lower weight)
+        description_en → weight 'C'
+        category_name  → weight 'C' (denormalized or via join)
+
+      PostgreSQL weight mapping:
+        'A' → ts_rank multiplier 1.0
+        'B' → ts_rank multiplier 0.4
+        'C' → ts_rank multiplier 0.2
+        'D' → ts_rank multiplier 0.1 (do not use)
+
+  1b. If any column is missing from fts_vector:
+      Write an ADDITIVE migration (never destructive) that:
+        - Adds missing columns to the tsvector expression
+        - Uses to_tsvector('simple', ...) for ALL text (both Arabic
+          and English — 'simple' config is language-agnostic and
+          handles both correctly without stemming conflicts)
+        - COALESCE every text column to '' to handle NULLs:
+            COALESCE(title_ar, '') || ' ' || COALESCE(brand, '')
+        - Updates the trigger function to include new columns
+        - Runs UPDATE products SET fts_vector = [new expression]
+          to backfill all existing products
+        - Creates index if missing:
+            CREATE INDEX CONCURRENTLY IF NOT EXISTS
+              idx_products_fts ON products USING GIN(fts_vector);
+
+  1c. Verify after migration:
+      SELECT COUNT(*) FROM products WHERE fts_vector IS NULL;
+      Must return 0.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 2 — Ranking Formula Calibration
+──────────────────────────────────────────────────────────────────
+
+Goal: results that match the query best AND are highest quality
+should rank first — not just results with the most keyword matches.
+
+  2a. Replace the current ranking formula with this calibrated version.
+      Implement it as named SQL expressions (not magic numbers):
+
+      text_score     = ts_rank_cd(fts_vector, query, 32)
+                       (32 = normalize by document length)
+      quality_score  = (
+                         COALESCE(average_rating, 0) / 5.0 * 0.6 +
+                         LEAST(COALESCE(review_count, 0), 50) / 50.0 * 0.4
+                       )
+                       (capped at 50 reviews to prevent monopoly)
+      freshness_score = GREATEST(0,
+                          1 - EXTRACT(EPOCH FROM
+                            (NOW() - created_at)) / (86400 * 90)
+                        )
+                        (decays linearly to 0 over 90 days)
+      seller_score   = CASE seller_trust_level
+                         WHEN 'verified'  THEN 1.0
+                         WHEN 'trusted'   THEN 0.75
+                         WHEN 'standard'  THEN 0.5
+                         ELSE 0.3
+                       END
+                       (adjust column/values to match actual schema)
+      stock_score    = CASE
+                         WHEN stock_quantity > 10 THEN 1.0
+                         WHEN stock_quantity > 0  THEN 0.6
+                         ELSE 0.0
+                       END
+                       (out of stock = 0, low stock penalized)
+
+      final_score =
+        (text_score     × 0.55) +
+        (quality_score  × 0.20) +
+        (freshness_score× 0.10) +
+        (seller_score   × 0.08) +
+        (stock_score    × 0.07)
+
+      CRITICAL: adjust column names to match actual schema.
+      If a column does not exist (e.g. stock_quantity, trust_level),
+      use a sensible constant (e.g. stock_score = 1.0) and add
+      a TODO comment — do not invent columns.
+
+  2b. Intent weight overrides from Phase 5:
+      Preserve the existing intent modifier system from Phase 5.
+      When intent modifiers are active, they override the base weights.
+      The override must be applied AFTER base formula is defined,
+      not by duplicating the formula.
+
+  2c. Add ?debug=ranking to show score breakdown:
+      When debug=ranking is in query params (and user is admin),
+      include in each result:
+        _debug: {
+          text_score: number,
+          quality_score: number,
+          freshness_score: number,
+          seller_score: number,
+          stock_score: number,
+          final_score: number,
+          synonym_expanded: boolean,
+          detected_intent: string | null
+        }
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 3 — Smart Fallback Chain
+──────────────────────────────────────────────────────────────────
+
+Goal: zero results should NEVER be the final answer.
+Always give the user something useful to continue their journey.
+
+  3a. Implement a 4-level fallback chain in search.ts.
+      Execute levels in order — stop at first level that returns
+      results. Each level must complete in < 20ms.
+
+      LEVEL 1 — Relaxed FTS (try immediately after zero results):
+        Remove the least significant token from the query
+        (shortest word first, or last word if equal length).
+        Re-run the FTS query with the shortened query.
+        If results > 0: return them with a flag
+          fallback: { level: 1, original_query: '...', 
+                      relaxed_query: '...' }
+
+      LEVEL 2 — Trigram fuzzy match:
+        Use pg_trgm similarity search on product titles only.
+        Threshold: similarity > 0.25 (low threshold = more results).
+        Limit: 10 results maximum.
+        If results > 0: return them with flag
+          fallback: { level: 2, match_type: 'fuzzy' }
+
+      LEVEL 3 — Category inference fallback:
+        Take the original query. Check if any token matches
+        a category name (case-insensitive, normalized).
+        If matched: return top 12 products from that category
+        ordered by final_score (quality + freshness only,
+        no text_score since we're not matching text).
+        Return with flag: fallback: { level: 3, 
+          inferred_category: '...' }
+
+      LEVEL 4 — Trending products fallback:
+        Return top 12 featured/trending products globally,
+        ordered by (quality_score × 0.7 + freshness_score × 0.3).
+        These are products where is_featured = true OR
+        where they have the highest review counts in last 30 days.
+        Return with flag: fallback: { level: 4,
+          reason: 'no_match_found' }
+
+      Rules for all fallback levels:
+        - Never run the next level if the previous returned results.
+        - Always include the fallback metadata in the API response.
+        - Log every fallback activation to query_logs with a
+          fallback_level column (add it if missing via migration).
+        - The main search endpoint returns fallback results with
+          HTTP 200, not 404.
+
+  3b. Add fallback_level column to query_logs (if missing):
+      Write an additive migration:
+        ALTER TABLE query_logs
+          ADD COLUMN IF NOT EXISTS fallback_level integer DEFAULT NULL;
+        (NULL = no fallback needed, 1-4 = which level activated)
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 4 — Empty State Recovery UI
+──────────────────────────────────────────────────────────────────
+
+Goal: when the user sees zero results, show them a recovery UI
+that helps them find what they're looking for instead of a dead end.
+
+  4a. In artifacts/marketplace/src/pages/search/index.tsx:
+      Detect fallback levels from the API response and render
+      different UI for each case:
+
+      When fallback.level = 1 (relaxed query):
+        Show yellow info banner:
+          AR: "ما لقينا نتائج لـ '{original}' — عم نعرضلك نتائج لـ '{relaxed}'"
+          EN: "No results for '{original}' — showing results for '{relaxed}'"
+        Show the results normally below the banner.
+
+      When fallback.level = 2 (fuzzy match):
+        Show subtle info banner:
+          AR: "نتائج مشابهة لـ '{query}'"
+          EN: "Approximate matches for '{query}'"
+
+      When fallback.level = 3 (category fallback):
+        Show category header:
+          AR: "منتجات من فئة '{category}'"
+          EN: "Products from '{category}' category"
+
+      When fallback.level = 4 (trending fallback):
+        Show a distinct section header:
+          AR: "المنتجات الأكثر شعبية"
+          EN: "Trending products"
+        Show a "Try different keywords" search tip below.
+
+      When truly zero (all 4 fallbacks failed — extremely rare):
+        Show the full empty state:
+          - Large icon (existing empty state icon)
+          - AR: "ما في نتائج لـ '{query}'"
+          - EN: "No results for '{query}'"
+          - Show 3 suggested searches based on top queries
+            from query_logs (fetch from a lightweight endpoint)
+          - Show "Browse all categories" button linking to /shop
+          - Show "Contact seller" button linking to /messages
+
+  4b. Suggested searches endpoint:
+      Add GET /api/search/suggestions/popular?limit=3
+        Returns top 3 most searched queries from query_logs
+        that had result_count > 0.
+        No auth required (public endpoint).
+        Cache result for 5 minutes in memory.
+        Response: { suggestions: string[] }
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 5 — Out-of-Stock & Status Filtering
+──────────────────────────────────────────────────────────────────
+
+Goal: only show products that can actually be purchased.
+
+  5a. Add explicit status filtering to the search WHERE clause.
+      Products must meet ALL of these conditions to appear:
+        - status = 'active' (or equivalent active status value
+          in your schema — check products table for actual values)
+        - is_deleted = false (or deleted_at IS NULL)
+        - seller is active (join to sellers/users table,
+          check seller status = 'active')
+      If a column does not exist, add a TODO and skip that condition.
+
+  5b. Stock display logic (do NOT filter out, just deprioritize):
+      Keep out-of-stock products in results (buyers may want to
+      wishlist them) but apply stock_score = 0.0 penalty from
+      the ranking formula in Improvement 2.
+      Add an "out of stock" badge to those products in the
+      existing product card component — check if it already exists
+      before adding.
+
+  5c. Add ?include_out_of_stock=true param to search endpoint
+      (admin/seller only — check role before allowing):
+      When true: ignore stock_score penalty, show all products.
+      This lets sellers audit their own inventory findability.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 6 — Search Index Repair & Maintenance
+──────────────────────────────────────────────────────────────────
+
+Goal: ensure no product is invisible in search due to missing index.
+
+  6a. Backfill missing fts_vector values:
+      Run (in the migration from Improvement 1, or separately):
+        UPDATE products
+        SET fts_vector = [full tsvector expression]
+        WHERE fts_vector IS NULL OR fts_vector = '';
+      Log how many rows were updated.
+
+  6b. Add a maintenance endpoint (admin only):
+      POST /api/admin/search/reindex
+        Re-runs the fts_vector UPDATE for all products.
+        Returns: { updated: number, duration_ms: number }
+        Rate limited: max 1 call per 10 minutes.
+        Useful after bulk product imports or schema changes.
+
+  6c. Add a search health endpoint (admin only):
+      GET /api/admin/search/health
+        Returns:
+          {
+            total_products: number,
+            indexed_products: number,         (fts_vector IS NOT NULL)
+            unindexed_products: number,       (fts_vector IS NULL)
+            zero_result_rate_7d: number,      (percentage)
+            avg_results_per_query_7d: number,
+            fallback_rate_7d: number,         (queries that hit fallback)
+            top_zero_result_queries: string[] (top 5)
+          }
+        This powers future monitoring dashboards.
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS (non-negotiable)
+════════════════════════════════════════════════════════════════════
+
+- No external API calls at query time.
+- No new npm packages.
+- Only new DB columns/indexes allowed — no table drops, no column
+  drops, no data loss. Every migration is additive only.
+- All migrations use IF NOT EXISTS / IF EXISTS guards.
+- All new visible strings → ar.json and en.json only.
+- All colors → existing Tailwind tokens only.
+- RTL: all new UI elements render correctly in Arabic layout.
+- Dark mode: all new UI elements use existing dark mode tokens.
+- Mobile 375px: all fallback banners and empty states work without
+  overflow or horizontal scroll.
+- TypeScript: all new code fully typed. No `any`. No `as unknown`.
+- Performance targets:
+    Main search query (with ranking): < 80ms
+    Each fallback level: < 20ms
+    Trending fallback: < 15ms (it's a simple ORDER BY)
+    Total added latency from all improvements: < 40ms average
+- The fallback chain must short-circuit — never run all 4 levels
+  if an earlier level found results.
+- The search pipeline sequence (from Phase 5) must be preserved
+  exactly. Retrieval improvements slot into steps 10-12 only:
+    Step 10: Execute DB query with multi-signal ranking (THIS PHASE)
+    Step 11: Apply fallback chain if results = 0 (THIS PHASE)
+    Step 12: Apply seller diversity post-processing
+    Step 13: Return results with full metadata
+- Add the updated pipeline sequence as a comment block at the
+  top of searchProcessor.ts (replace the Phase 5 comment block).
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION MATRIX
+════════════════════════════════════════════════════════════════════
+
+Run every test and log the result:
+
+FTS COVERAGE:
+  - Search "Samsung" → confirm brand-named products appear
+  - Search a word that only appears in description, not title →
+    confirm it returns results (tests description indexing)
+  - Search a tag keyword → confirm products with that tag appear
+  - Run: SELECT COUNT(*) FROM products WHERE fts_vector IS NULL;
+    Must return 0
+
+RANKING:
+  - Search any broad term → confirm results are ordered by
+    final_score (log the _debug scores for top 3 results)
+  - Confirm out-of-stock products appear but rank below in-stock
+  - Confirm verified seller products rank above unverified at same
+    text_score
+  - Add ?debug=ranking to a search → confirm _debug object present
+
+FALLBACK CHAIN:
+  - Search a nonsense string (e.g. "xzqwpfkj") →
+    confirm Level 4 (trending) fallback activates
+  - Search a slightly misspelled word (e.g. "سامسونق" for "سامسونج")
+    → confirm Level 2 (fuzzy) activates
+  - Search a partial query (e.g. remove last word from a
+    known 2-word query) → confirm Level 1 (relaxed) activates
+  - Confirm fallback_level is logged in query_logs for each test
+  - Confirm the correct UI banner appears for each fallback level
+
+EMPTY STATE:
+  - Trigger the Level 4 fallback → confirm "Trending products"
+    header appears, not a blank page
+  - Trigger true zero results (if possible) → confirm empty state
+    shows suggested searches and Browse/Contact buttons
+  - Test empty state in Arabic RTL → confirm layout is correct
+  - Test empty state on 375px mobile → confirm no overflow
+
+STATUS FILTERING:
+  - Confirm inactive/draft products do not appear in results
+  - Confirm out-of-stock products appear but with lower ranking
+  - Test ?include_out_of_stock=true as admin → confirm all products
+    shown including out-of-stock
+
+REINDEX ENDPOINT:
+  - POST /api/admin/search/reindex → confirm { updated, duration_ms }
+  - GET /api/admin/search/health → confirm all fields populated
+
+After all tests, run:
+  npx tsc --noEmit
+across ALL packages. Must return 0 errors.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE
+════════════════════════════════════════════════════════════════════
+
+PHASE 1 AUDIT RESULTS:
+  Audit A (FTS Coverage):
+    [columns indexed, weights, trigger status, config used]
+  Audit B (Trigram):
+    [extension status, indexes, threshold, usage scope]
+  Audit C (Ranking Formula):
+    [exact formula with all weights documented]
+  Audit D (Fallback Chain):
+    [current fallback status — what existed before this phase]
+  Audit E (Result Diversity):
+    [seller/category diversity, stock filtering status]
+  Audit F (Index Health):
+    [null fts_vector count, top zero-result queries, % indexed]
+
+PHASE 2 IMPLEMENTATION:
+  Improvement 1 — FTS Coverage:
+    [columns added, migration run, backfill count]
+  Improvement 2 — Ranking:
+    [new formula documented, debug mode confirmed]
+  Improvement 3 — Fallback Chain:
+    [all 4 levels implemented, fallback_level column added,
+     sample test showing each level activating]
+  Improvement 4 — Empty State UI:
+    [all 4 fallback banners confirmed, empty state confirmed,
+     popular suggestions endpoint confirmed]
+  Improvement 5 — Stock/Status Filtering:
+    [active-only filter confirmed, out-of-stock badge added]
+  Improvement 6 — Index Maintenance:
+    [reindex endpoint, health endpoint, 0 unindexed products]
+
+PIPELINE COMMENT BLOCK: updated in searchProcessor.ts ✓
+
+TYPESCRIPT: "0 errors across all packages confirmed" ✓
+
+PERFORMANCE: "all targets met — logged response times" ✓

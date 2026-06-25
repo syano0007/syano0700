@@ -1,0 +1,435 @@
+# SYANO — REPLACE PRODUCTS PAGE WITH SHOP PAGE (SEARCH & DISCOVERY V2)
+
+STOP.
+
+The old Products page is no longer the primary discovery experience.
+
+Phase 8 introduced a much more powerful Search & Discovery system.
+
+The old Products page should be retired and replaced by the new Shop experience.
+
+---
+
+# GOAL
+
+Replace:
+
+```text
+المنتجات
+Products
+```
+
+with:
+
+```text
+تسوق
+Shop
+```
+
+across the entire platform.
+
+The new Shop page becomes the single discovery hub.
+
+---
+
+# CRITICAL RULES
+
+Do NOT break routing.
+
+Do NOT break SEO.
+
+Do NOT break bookmarks.
+
+Do NOT remove functionality.
+
+Do NOT remove existing APIs.
+
+Maintain backward compatibility.
+
+TypeScript must finish with:
+
+0 errors.
+
+---
+
+# PART 1 — NAVBAR UPDATE
+
+Replace:
+
+Arabic:
+
+```text
+المنتجات
+```
+
+English:
+
+```text
+Products
+```
+
+with:
+
+Arabic:
+
+```text
+تسوق
+```
+
+English:
+
+```text
+Shop
+```
+
+Apply everywhere:
+
+* Desktop Navbar
+* Mobile Navbar
+* Drawer Navigation
+* Footer Links
+* Any navigation menus
+
+---
+
+# PART 2 — SHOP BECOMES PRIMARY DISCOVERY HUB
+
+The new Shop page must be the Search & Discovery V2 page.
+
+This page should remain the central location for:
+
+* Product discovery
+* Search
+* Filtering
+* Sorting
+* Store discovery
+* Category discovery
+
+Do NOT create a second duplicate page.
+
+---
+
+# PART 3 — ROUTING MIGRATION
+
+Current:
+
+```text
+/products
+```
+
+New primary route:
+
+```text
+/ shop
+```
+
+Requirements:
+
+* /shop becomes canonical
+* /products must continue working
+* /products should redirect to /shop
+  OR render the same page internally
+
+No broken links.
+
+No 404s.
+
+---
+
+# PART 4 — UPDATE ALL INTERNAL LINKS
+
+Audit the entire codebase.
+
+Find every navigation path pointing to:
+
+```text
+/products
+```
+
+Replace with:
+
+```text
+/shop
+```
+
+Examples:
+
+Navbar
+
+Hero buttons
+
+Category buttons
+
+Featured sections
+
+Home sections
+
+Recommendation cards
+
+Footer
+
+Mobile navigation
+
+Search overlay
+
+Empty states
+
+Anywhere users navigate to products.
+
+---
+
+# PART 5 — CTA MIGRATION
+
+Every button that previously opened the Products page must now open Shop.
+
+Examples:
+
+Hero CTA
+
+"Browse Products"
+
+"View All Products"
+
+"Explore Products"
+
+Category CTAs
+
+Search shortcuts
+
+Trending shortcuts
+
+Discovery shortcuts
+
+Everything must point to Shop.
+
+---
+
+# PART 6 — SEARCH SYSTEM INTEGRATION
+
+The Shop page must remain fully integrated with:
+
+Search V2
+
+including:
+
+* Product results
+* Store results
+* Category results
+* Filters
+* Sort options
+* Suggestions
+* Trending searches
+
+No functionality loss.
+
+---
+
+# PART 7 — URL STATE PRESERVATION
+
+Verify:
+
+Search queries continue working.
+
+Examples:
+
+```text
+/shop?q=phone
+/shop?q=perfume
+/shop?q=fashion
+```
+
+Must behave correctly.
+
+Filters must continue working.
+
+Sorting must continue working.
+
+---
+
+# PART 8 — CATEGORY DISCOVERY
+
+Category cards should route to:
+
+```text
+/shop
+```
+
+with the correct category filter applied.
+
+Example:
+
+Electronics
+
+→
+
+```text
+/shop?category=electronics
+```
+
+---
+
+# PART 9 — STORE DISCOVERY
+
+Store shortcuts should continue working.
+
+Do NOT break store pages.
+
+---
+
+# PART 10 — MOBILE NAVIGATION
+
+Update:
+
+Bottom navigation
+
+Drawer
+
+Header
+
+Search shortcuts
+
+Any mobile entry points
+
+to use:
+
+Shop
+
+instead of:
+
+Products.
+
+---
+
+# PART 11 — SEO SAFETY
+
+Maintain:
+
+Existing products URLs.
+
+Existing category URLs.
+
+Existing store URLs.
+
+Only migrate the listing/discovery page.
+
+Do NOT affect indexed product pages.
+
+---
+
+# PART 12 — VISUAL CONSISTENCY
+
+The label:
+
+```text
+تسوق
+Shop
+```
+
+must match:
+
+* typography
+* spacing
+* hover states
+* active states
+
+used by the rest of the navigation.
+
+---
+
+# PART 13 — FULL SITE AUDIT
+
+After implementation:
+
+Search entire codebase for:
+
+```text
+/products
+Products
+المنتجات
+```
+
+Verify no outdated references remain unless intentionally preserved for redirects.
+
+---
+
+# PART 14 — END-TO-END TESTING
+
+Verify:
+
+Desktop
+
+Tablet
+
+Mobile
+
+Guest
+
+Customer
+
+Seller
+
+Admin
+
+All routes behave correctly.
+
+---
+
+# PART 15 — RECOVERY FILES
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+Document:
+
+Products page retired.
+
+Shop page is now the primary discovery experience.
+
+Routing migration completed.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Navbar uses "تسوق / Shop"
+
+✅ Mobile navigation updated
+
+✅ Desktop navigation updated
+
+✅ Hero buttons updated
+
+✅ Category buttons updated
+
+✅ Discovery buttons updated
+
+✅ Search overlay updated
+
+✅ /shop works
+
+✅ /products still works safely
+
+✅ No broken links
+
+✅ Search still works
+
+✅ Filters still works
+
+✅ Sorting still works
+
+✅ Mobile verified
+
+✅ Desktop verified
+
+✅ TypeScript = 0
+
+✅ Recovery files updated
+
+Do not finish until every path that previously led to the old Products experience now correctly leads to the new Shop experience.

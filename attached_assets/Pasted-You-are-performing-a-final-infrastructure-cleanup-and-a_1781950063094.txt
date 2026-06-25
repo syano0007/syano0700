@@ -1,0 +1,233 @@
+You are performing a **final infrastructure cleanup and activation pass** for the SYANO (سوق سوريا) project.
+
+## Goal
+
+1. Permanently register the real transformer embedding stack in project dependencies.
+2. Ensure only the intended production workflows are used.
+3. Remove any custom/temporary workflows that were created during debugging.
+4. Leave the project in a clean, reproducible state for future agents.
+
+---
+
+# PART 1 — Permanently Register Sentence Transformers
+
+Current state:
+
+* sentence-transformers is installed and working
+* transformer embeddings are already active
+* model: `paraphrase-multilingual-MiniLM-L12-v2`
+* pgvector embeddings rebuilt successfully
+
+Problem:
+
+The package was installed manually and may disappear after environment rebuilds.
+
+Required:
+
+Add all required dependencies to the project's permanent dependency files.
+
+Update:
+
+* pyproject.toml
+* requirements.txt (if present)
+
+Ensure these packages are declared:
+
+* sentence-transformers
+* transformers
+* torch
+* huggingface-hub
+* accelerate
+* safetensors
+
+Use versions compatible with the currently working environment.
+
+Do NOT downgrade anything currently functioning.
+
+---
+
+# PART 2 — Verify Embedding Service Startup
+
+Audit:
+
+* embedding-service startup script
+* pyproject configuration
+* runtime imports
+
+Verify that after a fresh environment rebuild:
+
+* sentence-transformers loads automatically
+* transformer backend is selected automatically
+* TF-IDF fallback is only used when transformer loading genuinely fails
+
+Required startup log:
+
+Embedding backend: sentence-transformers
+Model: paraphrase-multilingual-MiniLM-L12-v2
+
+Verify startup path.
+
+Do NOT assume.
+
+---
+
+# PART 3 — Workflow Cleanup
+
+Current desired workflows:
+
+### Production Workflows
+
+1. API Server
+2. Embedding Service
+3. Marketplace Web
+4. Mobile Expo
+
+These are the ONLY workflows that should remain as active project workflows.
+
+---
+
+Audit all workflows.
+
+Identify:
+
+* temporary workflows
+* debugging workflows
+* duplicated workflows
+* custom workflows created during activation/testing
+
+Examples:
+
+* Start application duplicates
+* temporary embedding workflows
+* temporary API workflows
+* one-off testing workflows
+* manually created replacement workflows
+
+Remove ONLY unnecessary duplicates.
+
+Do NOT remove any workflow required by Replit's artifact system.
+
+If a workflow is artifact-managed:
+
+* keep it
+* document it
+* do not break it
+
+---
+
+# PART 4 — Workflow Validation
+
+After cleanup verify:
+
+API Server:
+
+* builds
+* starts
+* healthy
+
+Embedding Service:
+
+* starts
+* loads transformer backend
+
+Marketplace:
+
+* starts
+* serves frontend
+
+Mobile:
+
+* starts normally
+
+---
+
+# PART 5 — Infrastructure Verification
+
+Verify:
+
+## Embeddings
+
+* transformer backend active
+* 42/42 products indexed
+* pgvector operational
+
+## Maps
+
+* Leaflet operational
+* OSRM reachable
+* ETA service operational
+
+## Routing
+
+* route generation operational
+
+## Database
+
+* all 44 tables present
+
+---
+
+# PART 6 — Documentation
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* replit.md
+* AGENT_BOOTSTRAP.md
+
+Add:
+
+## Embedding Infrastructure
+
+Backend:
+sentence-transformers
+
+Model:
+paraphrase-multilingual-MiniLM-L12-v2
+
+Dimensions:
+384
+
+Persistence:
+Declared in pyproject.toml
+
+Startup:
+Automatic
+
+Fallback:
+TF-IDF only if transformer initialization fails
+
+---
+
+## Workflow State
+
+List every remaining workflow.
+
+Clearly mark:
+
+* Production
+* Artifact-managed
+* Optional
+
+---
+
+# FINAL OUTPUT
+
+Provide a final report containing:
+
+1. Dependencies added
+2. Workflow inventory before cleanup
+3. Workflow inventory after cleanup
+4. Transformer startup verification
+5. Embedding verification
+6. Map verification
+7. Routing verification
+8. Database verification
+9. Documentation updated
+
+Do not stop at partial completion.
+
+Do not skip verification.
+
+Actually inspect the project state and verify every claim before reporting success.

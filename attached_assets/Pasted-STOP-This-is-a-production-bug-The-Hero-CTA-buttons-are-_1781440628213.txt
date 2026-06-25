@@ -1,0 +1,228 @@
+STOP.
+
+This is a production bug.
+
+The Hero CTA buttons are currently broken.
+
+Users cannot navigate from the homepage.
+
+This must be fixed immediately.
+
+---
+
+# BUG
+
+Homepage Hero section
+
+Buttons:
+
+1. تسوق الآن
+2. استكشف المتاجر
+
+are not working.
+
+Problem exists on:
+
+* Desktop
+* Mobile
+
+The buttons appear correctly but navigation is broken.
+
+---
+
+# REQUIRED FIX
+
+Audit the Hero section implementation.
+
+Find the root cause.
+
+Verify:
+
+* Link component
+* Router integration
+* onClick handlers
+* Navigation wrappers
+* Event propagation
+* Mobile rendering
+* Desktop rendering
+
+Do NOT apply temporary fixes.
+
+Fix the actual issue.
+
+---
+
+# BUTTON 1
+
+## تسوق الآن
+
+Must navigate to:
+
+/products
+
+(or the current marketplace products browsing route if the project uses a different canonical route)
+
+Verify:
+
+* Desktop click works
+* Mobile tap works
+* Keyboard navigation works
+
+---
+
+# BUTTON 2
+
+## استكشف المتاجر
+
+Must navigate to:
+
+/stores
+
+(or the current store-directory route if the project uses a different canonical route)
+
+Verify:
+
+* Desktop click works
+* Mobile tap works
+* Keyboard navigation works
+
+---
+
+# STORE DIRECTORY VALIDATION
+
+If a dedicated stores page does not exist:
+
+Create the correct production-ready store directory page.
+
+Requirements:
+
+* Uses real seller data
+* Uses real stores
+* Connected to API
+* Search support
+* Responsive
+* Matches current SYANO design system
+
+Do NOT create placeholder content.
+
+---
+
+# ROUTING AUDIT
+
+Verify routing system.
+
+Check:
+
+* React Router
+* Link components
+* Route definitions
+* Lazy loading
+* Mobile navigation
+
+Ensure:
+
+No broken routes.
+
+No console errors.
+
+No 404s.
+
+---
+
+# ENDPOINT VALIDATION
+
+Verify the pages reached by these buttons actually work.
+
+Check API calls.
+
+Check data loading.
+
+Check empty states.
+
+Check loading states.
+
+---
+
+# MOBILE VALIDATION
+
+Verify on:
+
+* Desktop
+* Tablet
+* Mobile
+
+Buttons must be:
+
+* clickable
+* tappable
+* accessible
+
+No overlapping elements.
+
+No invisible overlays blocking clicks.
+
+---
+
+# FULL HOMEPAGE CTA AUDIT
+
+Audit all homepage CTA buttons.
+
+Verify every button on homepage:
+
+* navigates correctly
+* loads correctly
+* works on desktop
+* works on mobile
+
+---
+
+# RECOVERY DOCUMENTATION
+
+After fixing:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* Homepage architecture documentation
+* Routing documentation
+* Recovery audit files
+
+Document:
+
+* Hero CTA bug fix
+* Current homepage routes
+* Store directory route
+* Products route
+
+Ensure recovery files reflect the new final state.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ تسوق الآن works
+
+✅ استكشف المتاجر works
+
+✅ Desktop verified
+
+✅ Mobile verified
+
+✅ Store page loads
+
+✅ Product page loads
+
+✅ No console errors
+
+✅ No routing errors
+
+✅ No API errors
+
+✅ Recovery files updated
+
+✅ Documentation updated
+
+Do not finish until both Hero buttons are fully functional and recovery documentation has been updated.

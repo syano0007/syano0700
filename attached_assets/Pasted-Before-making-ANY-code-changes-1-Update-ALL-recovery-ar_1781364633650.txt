@@ -1,0 +1,671 @@
+Before making ANY code changes:
+
+1. Update ALL recovery artifacts.
+2. Update CURRENT_STATE.md.
+3. Update RECOVERY_GUIDE.md.
+4. Update recovery audit files.
+5. Update homepage architecture documentation.
+6. Update endpoint documentation.
+7. Update implementation notes.
+8. Document every change introduced by this task.
+
+The recovery documentation MUST reflect the final state after completion.
+
+---
+
+# SYANO — HOMEPAGE V6 REFINEMENT + LOCALIZATION AUDIT
+
+IMPORTANT:
+
+Do NOT redesign the homepage.
+
+Do NOT replace the existing architecture.
+
+Do NOT create a new homepage.
+
+Build on top of the current Homepage V6 implementation.
+
+Preserve:
+
+* HeroV4
+* Banner system
+* Wishlist system
+* Theme system
+* Currency system
+* Current routing
+* Current APIs
+
+Improve only the areas listed below.
+
+---
+
+# 1. RESTORE THE PREMIUM PRODUCT CARD DESIGN
+
+Current issue:
+
+The latest ProductCard implementation is functionally correct but visually worse than the previously approved premium homepage card design.
+
+Restore the previous premium visual design.
+
+Restore:
+
+* proportions
+* image sizing
+* spacing
+* typography
+* badge placement
+* hover effects
+* premium shadows
+* visual hierarchy
+* luxury marketplace appearance
+
+BUT keep all current functionality.
+
+---
+
+## Ratings
+
+Do NOT display fake ratings.
+
+Rules:
+
+If real reviews exist:
+
+* show real rating
+* show real review count
+
+If no reviews exist:
+
+* hide rating row entirely
+
+Never fabricate:
+
+* stars
+* rating values
+* review counts
+
+---
+
+## Cart Buttons
+
+Buttons:
+
+* أضف
+* أضف إلى السلة
+
+must:
+
+* instantly add product to cart
+* update cart counter
+* show success feedback
+* preserve optimistic updates
+
+WITHOUT opening the product page.
+
+WITHOUT redirecting.
+
+WITHOUT page refresh.
+
+---
+
+## Currency
+
+Verify immediate currency updates.
+
+Currencies:
+
+* SYP
+* USD
+
+Must update correctly everywhere:
+
+* homepage
+* hot deals
+* trending
+* recently viewed
+* wishlist
+* categories
+* search results
+* product grids
+* store pages
+
+No stale prices.
+
+No cached currency bugs.
+
+---
+
+## Product Card Standardization
+
+The restored premium card becomes:
+
+THE SINGLE PRODUCT CARD SYSTEM.
+
+Everywhere.
+
+No alternative designs.
+
+No duplicated implementations.
+
+No special homepage cards.
+
+Use the same component throughout the marketplace.
+
+---
+
+# 2. RESTORE THE PREMIUM GRID BACKGROUND
+
+Current issue:
+
+The premium grid background from the approved Canvas design disappeared.
+
+Restore it.
+
+---
+
+## Dark Mode
+
+Use:
+
+* subtle premium grid
+* very low opacity
+* luxury marketplace feel
+
+No visual noise.
+
+---
+
+## Light Mode
+
+Use:
+
+* subtle light grid
+* visible but elegant
+* clean and premium
+
+No excessive contrast.
+
+---
+
+Apply to:
+
+* homepage
+* hero area
+* overall page background
+
+Must match the approved Canvas design.
+
+---
+
+# 3. HERO RIGHT PANEL MUST ADAPT TO THEME
+
+Current issue:
+
+The hero content panel remains dark even in light mode.
+
+Looks broken.
+
+---
+
+## Dark Mode
+
+Current dark version is acceptable.
+
+Keep it.
+
+---
+
+## Light Mode
+
+Use:
+
+* white
+* off-white
+* light gray
+* premium glass effect
+
+Ensure:
+
+* proper contrast
+* readable text
+* readable buttons
+
+No pure black panel in light mode.
+
+---
+
+Verify:
+
+* dark mode
+* light mode
+
+Both must feel intentional and premium.
+
+---
+
+# 4. RESTORE THE APPROVED CANVAS NAVBAR DESIGN
+
+Current issue:
+
+Navbar visually drifted away from the approved Canvas version.
+
+Restore the approved Canvas navbar design.
+
+Preserve:
+
+* spacing
+* proportions
+* alignment
+* typography
+* hierarchy
+* premium appearance
+
+BUT keep all functionality.
+
+---
+
+Required controls:
+
+* logo
+* search
+* currency switcher
+* theme switcher
+* wishlist
+* cart
+* login
+* register
+
+Do not remove functionality.
+
+Improve visuals only.
+
+---
+
+## Navigation Audit
+
+Verify every navbar action.
+
+Especially:
+
+* Wishlist button
+* Cart button
+* Search
+* Category navigation
+
+Remove any broken or dead navigation.
+
+Verify every destination.
+
+---
+
+# 5. WISHLIST SYSTEM AUDIT
+
+Perform full wishlist verification.
+
+---
+
+## Navbar
+
+Verify:
+
+* icon visible
+* count badge visible
+* count updates instantly
+
+---
+
+## Product Cards
+
+Heart button:
+
+* save
+* unsave
+* toggle
+
+must work correctly.
+
+---
+
+## Wishlist Page
+
+Verify:
+
+* load items
+* remove items
+* add to cart
+
+All working.
+
+---
+
+## Routing
+
+Verify:
+
+/wishlist
+
+loads correctly from navbar.
+
+---
+
+# 6. RECENTLY VIEWED SECTION
+
+Current issue:
+
+Recently Viewed cards differ visually from the main product card design.
+
+Use the exact same ProductCard component.
+
+No visual differences.
+
+No custom implementation.
+
+Must be identical.
+
+---
+
+# 7. CATEGORY IMAGE AUDIT
+
+Current issue:
+
+Category cards become too dark in light mode.
+
+Fix category images.
+
+Requirements:
+
+Dark Mode:
+
+* keep current premium dark appearance
+
+Light Mode:
+
+* improve image visibility
+* reduce dark overlay
+* preserve readability
+
+Must remain visually premium.
+
+---
+
+# 8. STOCK DISPLAY RULES
+
+Current issue:
+
+Stock messaging is inconsistent.
+
+Rules:
+
+If stock is healthy:
+
+* show nothing
+
+If stock is low:
+
+Display:
+
+* Only X left
+
+If out of stock:
+
+Display:
+
+* Out of Stock
+
+No unnecessary stock labels.
+
+---
+
+# 9. ENGLISH LANGUAGE QA & LOCALIZATION AUDIT
+
+Current issue:
+
+English mode is not fully correct.
+
+Perform a complete localization audit.
+
+---
+
+## Homepage
+
+Verify:
+
+* Hero
+* Categories
+* Hot Deals
+* Trending
+* New Arrivals
+* Recently Viewed
+* CTA
+* Footer
+
+All text translated.
+
+No Arabic strings remaining.
+
+No mixed-language UI.
+
+---
+
+## Navbar
+
+Verify:
+
+* Search placeholder
+* Wishlist
+* Cart
+* Login
+* Register
+* Theme
+* Currency
+
+All translated correctly.
+
+---
+
+## RTL / LTR
+
+Arabic:
+
+* RTL
+
+English:
+
+* LTR
+
+Verify:
+
+* spacing
+* alignment
+* paddings
+* margins
+* icons
+* arrows
+* badges
+* cards
+
+No RTL leakage.
+
+No LTR leakage.
+
+---
+
+## Product Cards
+
+Verify:
+
+* titles
+* buttons
+* badges
+* stock labels
+* prices
+
+All display correctly in English.
+
+No overflow.
+
+No clipping.
+
+No broken layouts.
+
+---
+
+## Section Headers
+
+Verify translations for:
+
+* Popular Categories
+* Hot Deals
+* Trending Products
+* New Arrivals
+* Recently Viewed
+* Verified Stores
+* Join SYANO
+
+No Arabic fallbacks.
+
+---
+
+## Currency + Language Matrix
+
+Test:
+
+* Arabic + SYP
+* Arabic + USD
+* English + SYP
+* English + USD
+
+Verify:
+
+* formatting
+* symbols
+* alignment
+* card layouts
+
+remain correct.
+
+---
+
+## Missing Translation Audit
+
+Search the entire marketplace.
+
+Find:
+
+* hardcoded Arabic strings
+* hardcoded English strings
+* untranslated labels
+
+Move everything into the i18n system.
+
+---
+
+# 10. FULL QA PASS
+
+Use actual platform accounts.
+
+Do NOT stop testing when authentication appears.
+
+Actually authenticate and verify.
+
+Accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+---
+
+Verify:
+
+* Homepage
+* Hero
+* Navbar
+* Theme switching
+* Currency switching
+* Wishlist
+* Cart
+* Product cards
+* Categories
+* Hot deals
+* Trending
+* New arrivals
+* Recently viewed
+* Footer
+
+Desktop:
+
+* Chrome
+* Edge
+
+Mobile:
+
+* Responsive layouts
+* Touch interactions
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ 0 TypeScript errors
+
+✅ 0 console errors
+
+✅ 0 API errors
+
+✅ Recovery docs updated
+
+✅ CURRENT_STATE updated
+
+✅ RECOVERY_GUIDE updated
+
+✅ Endpoint docs updated
+
+✅ Premium product cards restored
+
+✅ Fake ratings removed
+
+✅ Real ratings only
+
+✅ Instant add-to-cart works
+
+✅ Currency switching works
+
+✅ Single card system across site
+
+✅ Grid background restored
+
+✅ Light mode grid restored
+
+✅ Dark mode grid restored
+
+✅ Hero theme adaptation works
+
+✅ Canvas navbar design restored
+
+✅ Wishlist verified
+
+✅ Recently viewed uses same ProductCard
+
+✅ Category images fixed
+
+✅ English localization fixed
+
+✅ Arabic localization preserved
+
+✅ RTL verified
+
+✅ LTR verified
+
+✅ Desktop verified
+
+✅ Mobile verified
+
+Only finish when every item above passes.

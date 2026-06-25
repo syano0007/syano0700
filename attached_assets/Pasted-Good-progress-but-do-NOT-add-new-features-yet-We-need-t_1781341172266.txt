@@ -1,0 +1,226 @@
+Good progress, but do NOT add new features yet.
+
+We need to fix the following issues first.
+
+### 1. Hero Banner Regression
+
+The previous Hero was closer to the target.
+
+I do NOT want the entire banner content to change.
+
+Desired behavior:
+
+* Right side content remains fixed.
+* Headline remains fixed.
+* CTA remains fixed.
+* Stats remain fixed.
+* Floating cards remain fixed.
+
+ONLY the large visual/image area on the left should rotate between images.
+
+Think:
+
+* Amazon
+* Noon
+* Trendyol
+
+The hero layout must remain stable.
+
+Only the background/media panel changes.
+
+Do not rebuild HeroV4.
+
+Refine the existing implementation.
+
+---
+
+### 2. Categories Section
+
+For "الفئات الأكثر شيوعاً"
+
+Do NOT use random placeholder images.
+
+Use the actual category images/icons already defined in the marketplace.
+
+Each category card should display:
+
+* Real category image
+* Real category title
+* Real category count
+
+The section must visually match the rest of the platform.
+
+---
+
+### 3. Buttons Audit
+
+Many buttons appear visually correct but are not functioning.
+
+Perform a complete click audit.
+
+Verify:
+
+* أضف
+* أضف للسلة
+* عرض المنتج
+* زيارة المتجر
+* كل العروض
+* CTA buttons
+* Category navigation
+* Banner CTA
+
+Every visible button must either:
+
+* Perform the correct action
+  OR
+* Be intentionally disabled with explanation
+
+No dead buttons.
+
+Provide a report of every button tested.
+
+---
+
+### 4. Currency System Audit
+
+Current issue:
+
+Pricing appears only in Syrian Pounds.
+
+Verify the entire currency switcher.
+
+Requirements:
+
+* USD works
+* SYP works
+* Prices update instantly
+* Product cards update
+* Product pages update
+* Cart updates
+* Checkout updates
+
+Do not assume.
+
+Test both currencies manually.
+
+Use real accounts and real navigation.
+
+---
+
+### 5. Recently Viewed Placement
+
+Move:
+
+"شاهدتها مؤخراً"
+
+FROM:
+
+Below CTA section
+
+TO:
+
+Immediately after
+
+"وصل حديثاً"
+
+and before
+
+"انضم إلى سيانو"
+
+Order should become:
+
+1. الفئات الأكثر شيوعاً
+2. العروض المميزة
+3. المتاجر الموثوقة
+4. المنتجات الرائجة
+5. وصل حديثاً
+6. شاهدتها مؤخراً
+7. انضم إلى سيانو
+8. Footer
+
+---
+
+### 6. Full Verification Pass
+
+Before making any new feature:
+
+Perform a complete homepage QA pass.
+
+Check:
+
+* Hero
+* Categories
+* Deals
+* Stores
+* Trending
+* New Arrivals
+* Recently Viewed
+* CTA
+* Footer
+
+Verify:
+
+* Desktop
+* Tablet
+* Mobile
+* Dark mode
+* Light mode
+
+No assumptions.
+
+No "should work".
+
+Actually test and verify.
+
+Provide a detailed report before moving on to any new feature.
+
+---
+
+### 7. Recovery Files & Endpoint Synchronization
+
+After all fixes are completed:
+
+Update ALL recovery artifacts to reflect the new project state.
+
+This includes:
+
+* Recovery reports
+* Recovery documentation
+* Recovery prompts
+* Recovery instructions
+* Recovery checkpoints
+* Recovery validation scripts
+* Recovery score logic
+* Recovery status files
+
+Verify that all recovery files describe the CURRENT implementation and not an outdated state.
+
+Also audit all recovery-related endpoints.
+
+Verify:
+
+* Recovery endpoint
+* Recovery validation endpoint
+* Health endpoints
+* Status endpoints
+* Audit endpoints
+* Bootstrap verification endpoints
+
+Requirements:
+
+* No outdated references
+* No stale recovery information
+* No incorrect homepage references
+* No references to removed implementations
+* No references to deprecated Hero versions
+
+Recovery documentation and recovery endpoints must accurately represent the latest verified state of SYANO.
+
+At the end provide:
+
+* Updated recovery status
+* Updated recovery score
+* Updated endpoint audit report
+* Updated project state summary
+
+Do not leave recovery files or recovery endpoints out of sync with the actual codebase.

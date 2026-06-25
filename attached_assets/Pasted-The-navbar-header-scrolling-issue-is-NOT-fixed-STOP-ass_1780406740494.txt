@@ -1,0 +1,93 @@
+The navbar/header scrolling issue is NOT fixed.
+
+STOP assuming it is fixed.
+
+I have visually verified it multiple times.
+
+The logo, search area, cart icon, notifications icon, account controls, and the entire top header are STILL pinned to the viewport while scrolling.
+
+The header is behaving like a floating overlay.
+
+I need the exact original behavior:
+
+When the user scrolls down:
+
+* The entire header must scroll away with the page.
+* The logo must move with the page.
+* The search bar must move with the page.
+* The cart icon must move with the page.
+* The notification icon must move with the page.
+* The account controls must move with the page.
+
+Nothing in the marketplace header should remain attached to the viewport.
+
+IMPORTANT:
+
+Do NOT just remove classes blindly.
+
+Do NOT assume the issue is Navbar.tsx.
+
+Find the REAL source.
+
+Perform a full investigation.
+
+Search the ENTIRE codebase for:
+
+* sticky
+* fixed
+* top-0
+* top:
+* position: sticky
+* position: fixed
+* z-50
+* z-[...]
+* safe-area wrappers
+* notch wrappers
+* mobile header containers
+* floating navigation containers
+* layout wrappers
+* app shell wrappers
+* portal-based headers
+* global header components
+
+Check:
+
+* Navbar.tsx
+* Layout.tsx
+* App.tsx
+* MarketplaceLayout
+* MobileNavigation
+* Header wrappers
+* Any parent component that wraps the navbar
+
+I want proof.
+
+Show:
+
+1. The exact component responsible.
+2. The exact file.
+3. The exact line numbers.
+4. The exact CSS/Tailwind classes causing it.
+5. Why previous fixes failed.
+6. What was actually changed.
+
+Then verify the result by:
+
+* Scrolling on desktop
+* Scrolling on mobile
+* Taking screenshots before and after
+* Confirming the header completely leaves the viewport during scroll
+
+Success criteria:
+
+If I scroll 3–4 screens down the homepage:
+
+The logo must no longer be visible.
+
+The cart icon must no longer be visible.
+
+The notifications icon must no longer be visible.
+
+The entire header must have scrolled away with the page.
+
+Do not stop until this behavior is verified visually.

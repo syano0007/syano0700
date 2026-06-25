@@ -1,0 +1,311 @@
+Use the attached screenshot as the ONLY source of truth.
+
+The screenshot is already approved.
+
+Do NOT redesign.
+
+Do NOT modernize.
+
+Do NOT improve.
+
+Do NOT reinterpret.
+
+Do NOT add your own ideas.
+
+The goal is to reproduce the Hero section with **97–99% visual accuracy** and make only one functional enhancement:
+
+**Replace the static hero image with a rotating image carousel while preserving the exact design.**
+
+---
+
+# MANDATORY WORKFLOW
+
+Before modifying any production code:
+
+1. Create a Canvas mockup.
+2. Recreate the Hero section exactly as shown in the screenshot.
+3. Replace only the large left image area with a carousel concept.
+4. Generate a side-by-side comparison:
+
+   * Screenshot
+   * Canvas mockup
+5. Verify visual similarity.
+6. Do NOT implement production code until the mockup matches the screenshot.
+
+Canvas mockup approval is required before implementation.
+
+---
+
+# ABSOLUTE DESIGN LOCK
+
+Everything outside the large left image container is locked.
+
+You are NOT allowed to modify:
+
+* Hero dimensions
+* Hero height
+* Hero width
+* Container width
+* Grid background
+* Typography
+* Colors
+* Shadows
+* Border radius
+* Headline
+* Description
+* Badge
+* CTA buttons
+* Statistics row
+* Navbar
+* Section spacing
+* Overall layout
+
+The Hero must remain visually identical.
+
+---
+
+# ONLY CHANGE ALLOWED
+
+Replace the large static image area on the left with a rotating image carousel.
+
+Nothing else.
+
+---
+
+# HERO LAYOUT
+
+Keep the exact split layout.
+
+Right side:
+
+* badge
+* headline
+* description
+* CTA buttons
+* statistics row
+
+must remain exactly where they are.
+
+Do not move them.
+
+Do not resize them.
+
+Do not change spacing.
+
+---
+
+# LEFT HERO IMAGE AREA
+
+The carousel must remain inside the existing image container.
+
+Keep:
+
+* exact width
+* exact height
+* exact border radius
+* exact shadow
+* exact positioning
+
+No layout shift.
+
+No resizing.
+
+No movement.
+
+No new spacing.
+
+No visual redesign.
+
+---
+
+# CAROUSEL CONTENT
+
+Use multiple slides.
+
+Examples:
+
+* Electronics
+* Fashion
+* Perfumes
+* Home & Living
+* Accessories
+
+Slides should feel consistent with the marketplace.
+
+---
+
+# FLOATING PRODUCT CARDS
+
+Keep all floating cards.
+
+Match exactly:
+
+* positions
+* dimensions
+* spacing
+* shadows
+* border radius
+
+Cards may update their content according to the current slide.
+
+Example:
+
+Electronics slide → electronics product card
+
+Fashion slide → fashion product card
+
+Perfume slide → perfume product card
+
+But their appearance and positioning must remain identical.
+
+---
+
+# GRID BACKGROUND
+
+The grid visible in the screenshot is approved.
+
+Keep it exactly.
+
+Do not:
+
+* remove it
+* weaken it
+* strengthen it
+* replace it
+
+Match the screenshot.
+
+---
+
+# TYPOGRAPHY LOCK
+
+Keep the exact headline:
+
+اكتشف آلاف المنتجات من المتاجر السورية
+
+Do not alter:
+
+* font size
+* weight
+* alignment
+* line breaks
+* spacing
+
+The headline must remain visually identical.
+
+---
+
+# DESCRIPTION LOCK
+
+Keep the same description styling.
+
+Do not change:
+
+* font size
+* spacing
+* alignment
+
+---
+
+# CTA BUTTON LOCK
+
+Keep:
+
+* same dimensions
+* same radius
+* same spacing
+* same icon placement
+
+No redesign.
+
+No visual changes.
+
+---
+
+# STATISTICS ROW LOCK
+
+Keep:
+
+* 12,000+
+* 25,000+
+* 500+
+
+Same layout.
+
+Same typography.
+
+Same spacing.
+
+Same positioning.
+
+---
+
+# RESPONSIVENESS
+
+After desktop is matched:
+
+Create responsive versions for:
+
+* 1280px
+* 1024px
+* 768px
+* 390px
+
+Preserve the same visual identity.
+
+---
+
+# DO NOT TOUCH
+
+This task is Hero only.
+
+Do NOT modify:
+
+* Categories section
+* Product sections
+* Product cards outside Hero
+* Footer
+* Homepage structure
+* Navbar structure
+
+Only the Hero section.
+
+---
+
+# FINAL VALIDATION
+
+Provide:
+
+1. Canvas mockup screenshot
+2. Side-by-side comparison
+3. Production screenshot
+
+Verify:
+
+✅ 97–99% visual similarity to the screenshot
+
+✅ Hero dimensions unchanged
+
+✅ Split layout unchanged
+
+✅ Carousel added
+
+✅ Multiple hero images added
+
+✅ Floating cards preserved
+
+✅ Grid background preserved
+
+✅ Typography preserved
+
+✅ CTA buttons preserved
+
+✅ Statistics row preserved
+
+✅ Desktop verified
+
+✅ Mobile verified
+
+The only intentional difference from the screenshot should be:
+
+**the large left image area rotates through multiple slides while everything else remains visually identical.**

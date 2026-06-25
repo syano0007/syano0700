@@ -1,0 +1,479 @@
+STOP.
+
+There are critical theme system and navigation UI bugs.
+
+Do NOT apply temporary fixes.
+
+Find the root cause.
+
+Fix the architecture properly.
+
+---
+
+# BUG 1 — THEME RESETS TO DARK MODE
+
+Current behavior:
+
+User selects:
+
+Light Theme
+
+Then:
+
+* Login
+* Register
+* Refresh page
+* Navigate to another page
+
+and the site automatically returns to Dark Theme.
+
+This is incorrect.
+
+---
+
+# REQUIRED BEHAVIOR
+
+Theme selection must persist.
+
+If user selects:
+
+Light Theme
+
+The entire platform must remain Light Theme.
+
+Even after:
+
+* login
+* register
+* logout
+* page refresh
+* route changes
+* browser restart
+
+until user manually changes it.
+
+---
+
+# AUDIT THEME SYSTEM
+
+Verify:
+
+Theme Provider
+
+Theme Context
+
+Theme Storage
+
+Theme Initialization
+
+Theme Hydration
+
+Theme Hooks
+
+Navbar Theme Controls
+
+Mobile Theme Controls
+
+---
+
+# STORAGE
+
+Verify persistence layer.
+
+Examples:
+
+localStorage
+
+cookies
+
+user preferences
+
+database settings
+
+or existing architecture.
+
+---
+
+# FIX
+
+Ensure theme is loaded BEFORE page render.
+
+Avoid:
+
+Theme flash
+
+Hydration mismatch
+
+Dark-mode fallback
+
+Theme jumping
+
+---
+
+# BUG 2 — MOBILE NAVBAR ALWAYS DARK
+
+Current behavior:
+
+Desktop:
+
+Light Theme works.
+
+Mobile Navbar:
+
+Always dark.
+
+Even when entire site is Light Theme.
+
+This is broken.
+
+---
+
+# REQUIRED BEHAVIOR
+
+Mobile Navbar must inherit current theme.
+
+Light Theme:
+
+Navbar must be light.
+
+Dark Theme:
+
+Navbar must be dark.
+
+---
+
+# AUDIT
+
+Check:
+
+Mobile Drawer
+
+Mobile Navigation
+
+Mobile Menu
+
+Mobile Header
+
+Mobile Navbar Container
+
+Theme classes
+
+Theme tokens
+
+Tailwind classes
+
+CSS variables
+
+---
+
+# BUG 3 — NOTIFICATION ICON MISSING ON DESKTOP NAVBAR
+
+Current behavior:
+
+Notification icon is not visible in the Desktop Navbar.
+
+Users cannot access notifications properly.
+
+---
+
+# REQUIRED BEHAVIOR
+
+Desktop Navbar must display:
+
+* Notification icon
+* Notification badge
+* Unread count
+
+when applicable.
+
+Verify:
+
+* icon rendering
+* visibility
+* spacing
+* responsive behavior
+* click functionality
+
+Must match current SYANO design system.
+
+Do NOT add placeholder icons.
+
+Use the existing notification infrastructure.
+
+---
+
+# BUG 4 — MESSAGES ICON MISSING ON MOBILE HOMEPAGE NAVBAR
+
+Current behavior:
+
+On Mobile Homepage:
+
+Messages icon is missing.
+
+Expected location:
+
+Near:
+
+* Cart icon
+* Wishlist icon
+* Settings area
+
+Users should be able to access messaging directly.
+
+---
+
+# REQUIRED BEHAVIOR
+
+Mobile Navbar must display:
+
+* Messages icon
+* Cart icon
+* Wishlist icon
+* Settings icon/menu
+
+in the correct layout.
+
+Verify:
+
+* icon visibility
+* spacing
+* alignment
+* RTL compatibility
+* theme compatibility
+
+Must appear consistently.
+
+---
+
+# NAVBAR VALIDATION
+
+Audit both:
+
+Desktop Navbar
+
+Mobile Navbar
+
+Verify:
+
+* Notifications
+* Messages
+* Wishlist
+* Cart
+* Settings
+* Authentication controls
+
+No missing actions.
+
+No hidden icons.
+
+No theme-related visibility issues.
+
+---
+
+# VERIFY ALL NAVIGATION STATES
+
+Test:
+
+Homepage
+
+Products
+
+Stores
+
+Wishlist
+
+Cart
+
+Login
+
+Register
+
+Seller Pages
+
+Admin Pages
+
+Courier Pages
+
+Theme must remain consistent.
+
+Icons must remain visible.
+
+---
+
+# LANGUAGE + THEME INTERACTION
+
+Verify:
+
+Arabic
+
+English
+
+Dark Theme
+
+Light Theme
+
+All combinations.
+
+No resets.
+
+No theme switching during language changes.
+
+---
+
+# AUTHENTICATION FLOW
+
+Test:
+
+Login
+
+Logout
+
+Register
+
+Session restore
+
+Remember-me
+
+Refresh
+
+Theme must remain unchanged.
+
+Icons must remain visible.
+
+---
+
+# PAGE TRANSITIONS
+
+Verify:
+
+Client-side routing
+
+Server rendering
+
+Hydration
+
+Theme must survive:
+
+every route change.
+
+---
+
+# MOBILE VALIDATION
+
+Test:
+
+iPhone
+
+Android
+
+Tablet
+
+Verify:
+
+Mobile Navbar
+
+Mobile Drawer
+
+Mobile Menu
+
+Messages icon
+
+Cart icon
+
+Wishlist icon
+
+Settings icon
+
+Everything must respect active theme.
+
+---
+
+# ENDPOINT VALIDATION
+
+If notifications/messages depend on APIs:
+
+Verify:
+
+load
+
+refresh
+
+unread counts
+
+badge updates
+
+all function correctly.
+
+---
+
+# RECOVERY DOCUMENTATION
+
+After fixing:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* Theme architecture documentation
+* Navbar architecture documentation
+* Recovery audit files
+
+Document:
+
+* Theme persistence fix
+* Mobile navbar theme synchronization fix
+* Notification icon restoration
+* Mobile messages icon restoration
+* Theme hydration behavior
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Light Theme persists
+
+✅ Dark Theme persists
+
+✅ Login does not reset theme
+
+✅ Register does not reset theme
+
+✅ Refresh does not reset theme
+
+✅ Route changes do not reset theme
+
+✅ Browser restart preserves theme
+
+✅ Mobile navbar follows theme
+
+✅ Mobile drawer follows theme
+
+✅ Notification icon visible on Desktop Navbar
+
+✅ Notification badge works
+
+✅ Messages icon visible on Mobile Homepage
+
+✅ Cart icon visible
+
+✅ Wishlist icon visible
+
+✅ Settings icon visible
+
+✅ Desktop verified
+
+✅ Mobile verified
+
+✅ Arabic verified
+
+✅ English verified
+
+✅ No hydration issues
+
+✅ No theme flash
+
+✅ Recovery files updated
+
+Do not finish until all theme, notification, and messaging navigation issues are fully fixed.

@@ -1,0 +1,259 @@
+You are upgrading the SYANO (سوق سوريا) checkout and delivery-address experience.
+
+This task is NOT only a UI change.
+
+You must connect the checkout address flow to the existing Delivery Zones system already present in the project.
+
+Before making changes:
+
+* Read all recovery files.
+* Read all memory files.
+* Read delivery-related code.
+* Read checkout flow.
+* Read order creation flow.
+* Read delivery zone APIs.
+* Understand the current database schema.
+
+Preserve all existing functionality.
+
+Do NOT break checkout.
+
+Do NOT break orders.
+
+Do NOT break delivery calculations.
+
+Do NOT break RTL.
+
+Do NOT break mobile.
+
+Do NOT remove existing fields unless absolutely necessary.
+
+Use additive changes only.
+
+---
+
+## GOAL
+
+At checkout:
+
+The customer must explicitly choose their delivery zone from the existing delivery zones configured in the system.
+
+After selecting the zone:
+
+The customer must enter the exact delivery address/details beneath it.
+
+This creates a structured delivery flow:
+
+1. Delivery Zone
+2. Detailed Address
+3. Checkout
+
+---
+
+## CURRENT PROBLEM
+
+The checkout currently allows entering address information without a strong connection to delivery zones.
+
+This causes:
+
+* inconsistent addresses
+* delivery confusion
+* courier assignment issues
+* incorrect delivery pricing
+
+---
+
+## REQUIRED CHECKOUT FLOW
+
+Section:
+
+Delivery Information
+
+---
+
+Delivery Zone *
+
+[ Select Zone ▼ ]
+
+---
+
+Detailed Address *
+
+[ Building ]
+[ Street ]
+[ Apartment ]
+[ Landmark ]
+
+or
+
+single multiline address field if that better matches current architecture.
+
+---
+
+Optional Notes
+
+[ Delivery instructions ]
+
+---
+
+---
+
+## DELIVERY ZONE INTEGRATION
+
+Use the existing delivery zones already stored in the system.
+
+Customer must select one.
+
+After selection:
+
+Show:
+
+* zone name
+* delivery fee (if available)
+* estimated delivery information (if available)
+
+Example:
+
+Aleppo - Al Furqan
+
+Delivery Fee:
+5,000 SYP
+
+---
+
+## ORDER STORAGE
+
+Orders must save:
+
+* zoneId
+* zoneName
+* deliveryAddress
+* deliveryNotes
+
+If already supported:
+
+reuse existing fields.
+
+If not:
+
+use additive migration only.
+
+---
+
+## CHECKOUT VALIDATION
+
+Customer cannot place order unless:
+
+* delivery zone selected
+* address entered
+
+Show localized validation messages.
+
+Arabic and English.
+
+---
+
+## MOBILE EXPERIENCE
+
+Must be excellent on mobile.
+
+Zone selector:
+
+* full width
+* easy touch target
+* searchable if many zones exist
+
+Address:
+
+* large comfortable field
+* no cramped layout
+
+---
+
+## SELLER / COURIER COMPATIBILITY
+
+Ensure selected zone flows correctly into:
+
+* order details
+* seller order view
+* courier workflow
+* delivery assignment flow
+
+No regressions.
+
+---
+
+## TESTING
+
+Verify:
+
+✅ Checkout loads delivery zones
+
+✅ Zone selection works
+
+✅ Delivery fee updates correctly
+
+✅ Address saves correctly
+
+✅ Orders store zone information
+
+✅ Seller sees zone information
+
+✅ Courier sees zone information
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ Arabic works
+
+✅ English works
+
+✅ TypeScript = 0 errors
+
+---
+
+## CRITICAL PROJECT MEMORY UPDATE
+
+AFTER ALL WORK IS COMPLETE:
+
+Update ALL recovery and project-memory files.
+
+This is mandatory.
+
+Update:
+
+* .local/RECOVERY.md
+* .agents/memory/*
+* any project recovery documentation
+
+Document:
+
+1. What was changed
+2. Files modified
+3. Database changes
+4. Checkout flow changes
+5. Delivery-zone integration details
+6. Validation logic
+7. Testing results
+
+The recovery files must become the new source of truth.
+
+A future restoration on another account must be able to fully restore this feature simply by reading the recovery files and memory files.
+
+Do not finish until recovery documentation has been updated and verified.
+
+---
+
+## FINAL REPORT
+
+Before finishing provide:
+
+1. Root cause analysis
+2. Files changed
+3. Database changes
+4. API changes
+5. Checkout changes
+6. Validation results
+7. Recovery files updated
+8. Confirmation that restoration documentation reflects the new state

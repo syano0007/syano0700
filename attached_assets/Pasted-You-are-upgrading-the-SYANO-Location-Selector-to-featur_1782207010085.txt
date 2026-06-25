@@ -1,0 +1,66 @@
+You are upgrading the SYANO (سوق سوريا) Location Selector to feature a Live Map Interaction System identical to premium apps like Noon.
+
+This is a production digital marketplace. 
+
+Do NOT break existing backend APIs, database models, or core routing.
+Do NOT break existing user session handling or authentication layers.
+
+Preserve:
+- Full RTL (Arabic native) & LTR (English) support.
+- Responsive web views (Desktop popup / Mobile sheet).
+- Zero TypeScript errors across the entire `artifacts/marketplace` workspace.
+
+==================================================
+GOAL
+==================================================
+Enhance the Navbar Location Selector button so that clicking it opens an interactive Map Modal. The user can visually pick their exact location pinpoint on the map, which automatically syncs, updates, and persists directly into their Profile/Account database state.
+
+==================================================
+PART 1 — NAVBAR LOCATION MAP PIN TRIGGER
+==================================================
+- Clicking the Location Selector button in the Navbar MUST open a Centered Modal View (Desktop) or a Full-Screen/Bottom-Sheet View (Mobile).
+- Ensure the background dark overlay handles backdrops correctly (`backdrop-blur-sm bg-black/50`).
+
+==================================================
+PART 2 — INTERACTIVE MAP MODAL COMPONENT (NOON STYLE)
+==================================================
+- Inside the Modal, render a live map container using the project's native layout tools (`react-leaflet`, `leaflet`, and OpenStreetMap tiles).
+- Ensure `import "leaflet/dist/leaflet.css";` is verified inside the module context to avoid broken grey tile views.
+- Map Initialization & Viewport Settings:
+  * Default Center: Set coordinates to Aleppo center or the user's previously saved latitude/longitude if available.
+  * Zoom Level: High close-up zoom (e.g., zoom=14 or 15) for precise urban positioning.
+- Real-time Marker Pinning:
+  * Display a clear interactive Location Pin Marker (e.g., Lucide `MapPin` or custom Leaflet marker) anchored to the center of the map.
+  * Implement an event listener (`useMapEvents` or dragging events) so that when the user drags/pans the map, the marker updates or captures the changing Center coordinates (`lat`, `lng`) in real-time.
+- Visual Address Preview Strip:
+  * Below the live map element inside the modal, show a responsive bottom status box.
+  * Display a loading spinner/state while coordinates change, and dynamically display the nearest match or selected zone name.
+
+==================================================
+PART 3 — PROFILE PERSISTENCE & AUTO-SAVE MECHANISM
+==================================================
+- Action Button: Add a primary action button labeled "تأكيد الموقع" (Confirm Location).
+- Mutation Logic:
+  * Clicking "تأكيد الموقع" must instantly invoke the profile patch mutation wrapper.
+  * Save the selected coordinates and match them with the correct available `delivery_zones` option based on proximity or explicit selection context.
+- UI Hydration & State Sync:
+  * Once the mutation response returns success, instantly close the Map Modal.
+  * Update the global state context so that the Navbar location button label changes dynamically from "اختر موقعك..." to the newly saved region text (e.g., "حلب، الجميلية").
+  * Ensure the new values are immediately visible inside the Personal Address section on the `/account` profile dashboard page without requiring a page refresh.
+
+==================================================
+PART 4 — TAILWIND V4 & LOGICAL COMPLIANCE RULES
+==================================================
+- Write clean, precise Tailwind v4 markup.
+- Absolutely FORBID hardcoded left/right layout utility values (`ml-`, `mr-`, `pl-`, `pr-`, `left-`, `right-`).
+- Mandate logical properties globally to secure simultaneous Arabic (RTL) and English (LTR) interface accuracy (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`).
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Clicking the location indicator opens the Leaflet Map component cleanly.
+✓ OpenStreetMap tiles render perfectly with clear zoom controls and zero gray background glitches.
+✓ Moving the map or tracking the marker extracts the exact positional parameters accurately.
+✓ Confirming location triggers an immediate save, updates the Navbar label text dynamically, and auto-populates the address inputs inside the `/account` user control profile panel.
+✓ Verify TypeScript compilation = 0 errors across the entire `artifacts/marketplace` package directory structure.

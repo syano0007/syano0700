@@ -1,0 +1,84 @@
+CRITICAL MESSAGING UX FIX
+
+I found two messaging bugs affecting BOTH seller and customer messaging pages.
+
+IMPORTANT:
+Do not make assumptions.
+Read the entire messaging flow first before editing.
+Identify the exact root cause.
+After each fix, verify the original requirement again before continuing.
+
+========================================
+BUG 1 — MESSAGE SIDES ARE WRONG
+========================================
+
+Currently messages from both participants appear on the same side of the conversation.
+
+This makes it difficult to know who sent each message.
+
+Requirements:
+
+- Messages sent by the currently logged-in user must appear on one side.
+- Messages sent by the other participant must appear on the opposite side.
+- Determine ownership using:
+
+message.senderId === currentUser.id
+
+NOT by role (seller/customer).
+
+The UI must clearly distinguish:
+
+- Current user's messages
+- Other participant's messages
+
+Verify:
+
+- Seller view
+- Customer view
+- Desktop
+- Mobile
+- Arabic RTL
+- English LTR
+
+========================================
+BUG 2 — CONVERSATION OPENS AT BOTTOM
+========================================
+
+When clicking a conversation, the page opens already scrolled near the bottom.
+
+Requirements:
+
+- Opening a conversation must start from the top of the page.
+- Auto-scroll to latest message should happen ONLY when appropriate.
+- Initial page navigation must not force the viewport to the bottom.
+- Find any scrollIntoView(), window.scrollTo(), auto-scroll effect, or message-end refs causing this.
+
+Verify:
+
+- Seller inbox
+- Customer inbox
+- Mobile
+- Desktop
+
+========================================
+MANDATORY PROCESS
+========================================
+
+1. Read all messaging-related files first.
+2. Find the exact root cause of each bug.
+3. Implement the smallest safe fix.
+4. After each fix:
+   - verify the bug is gone
+   - verify no regression was introduced
+5. Test:
+   - seller -> customer
+   - customer -> seller
+   - existing conversation
+   - newly created conversation
+6. Report:
+   - root cause
+   - files changed
+   - exact fix applied
+   - verification results
+
+Do not stop until both bugs are fully fixed and verified.

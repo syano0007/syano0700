@@ -1,0 +1,315 @@
+You are continuing the SYANO (سوق سوريا) project after a Replit migration.
+
+CRITICAL RULE:
+
+DO NOT implement any new features.
+
+DO NOT modify business logic.
+
+DO NOT start any new tasks.
+
+Your first and only goal is to restore, verify, and confirm the latest checkpoint state.
+
+---
+
+# PHASE 1 — READ ALL RECOVERY FILES
+
+Read ALL project memory, recovery, changelog, state, checkpoint, and documentation files before doing anything else.
+
+Examples include (but are not limited to):
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* variant-system.md
+* delivery-system.md
+* project-state files
+* agent memory files
+* checkpoint files
+* migration notes
+
+Read everything first.
+
+Do NOT skip this step.
+
+---
+
+# PHASE 2 — RESTORE ENVIRONMENT
+
+Verify:
+
+* node_modules
+* workspace dependencies
+* pnpm packages
+* lib packages
+* shared packages
+
+If dependencies are missing:
+
+* install them
+* repair workspace links
+* repair hoisting issues
+
+---
+
+# PHASE 3 — DATABASE RECOVERY
+
+Verify database state.
+
+Check:
+
+* tables exist
+* enums exist
+* migrations applied
+
+Verify specifically:
+
+Users
+Products
+Variants
+Orders
+Delivery
+Couriers
+Notifications
+
+If database is empty:
+
+* rebuild schema
+* apply migrations
+* restore required seed data
+
+---
+
+# PHASE 4 — ACCOUNT VERIFICATION
+
+Verify Root Owner exists.
+
+Verify:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Verify seller account exists:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+If missing:
+
+* recreate
+* restore correct roles
+* restore correct statuses
+
+---
+
+# PHASE 5 — START SERVICES
+
+Verify:
+
+API Server
+
+Marketplace
+
+Mobile App
+
+Start all services.
+
+Confirm:
+
+* running
+* healthy
+* no startup crashes
+
+---
+
+# PHASE 6 — VARIANT SYSTEM AUDIT
+
+Verify latest Variant System exists.
+
+Check:
+
+VariantBuilder.tsx
+
+Add Product page
+
+Edit Product page
+
+Variant groups
+
+Variant combinations
+
+Variant images
+
+Variant pricing
+
+Variant stock
+
+RTL support
+
+Verify latest toggle fixes are still present.
+
+Specifically inspect:
+
+/seller/products/new
+
+/seller/products/:id/edit
+
+Confirm no old translate-x based toggle implementation remains.
+
+Confirm thumb stays inside track.
+
+---
+
+# PHASE 7 — DELIVERY SYSTEM AUDIT
+
+Verify delivery system exists.
+
+Check:
+
+delivery_zones
+
+couriers
+
+courier_assignments
+
+courier_wallet_transactions
+
+Verify:
+
+Admin Delivery page
+
+Courier Dashboard
+
+Courier Application page
+
+Courier Status page
+
+Customer → Courier promotion workflow
+
+Admin courier approval workflow
+
+Seller Ready For Pickup workflow
+
+Order delivery statuses
+
+Verify latest implementation survived migration.
+
+---
+
+# PHASE 8 — REAL WEBSITE VERIFICATION
+
+Use the REAL application.
+
+DO NOT:
+
+* create debug pages
+* create temporary routes
+* create test screens
+* create fake pages
+
+Use the real website.
+
+Login using:
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+00Amer00
+
+Verify:
+
+Homepage
+
+Customer Dashboard
+
+Seller Dashboard
+
+Add Product
+
+Edit Product
+
+Courier Apply
+
+Courier Status
+
+Courier Dashboard
+
+Admin Delivery
+
+---
+
+# PHASE 9 — VERIFY LATEST CHANGES
+
+Explicitly verify the latest saved checkpoint includes:
+
+1. Variant system improvements
+
+2. Add Product toggle fix
+
+3. Edit Product toggle fix
+
+4. Delivery system
+
+5. Courier promotion system
+
+6. Courier dashboard
+
+7. Courier application workflow
+
+8. Admin courier approval workflow
+
+Report if ANY of these are missing.
+
+---
+
+# PHASE 10 — FINAL RECOVERY REPORT
+
+Produce a complete report:
+
+## Recovery Status
+
+## What Was Restored
+
+## What Was Missing
+
+## What Was Repaired
+
+## What Already Existed
+
+## Service Status
+
+* API
+* Marketplace
+* Mobile
+
+## Database Status
+
+## Variant System Status
+
+## Delivery System Status
+
+## Courier System Status
+
+## Authentication Status
+
+## Remaining Issues
+
+## Checkpoint Match %
+
+State clearly:
+
+"Workspace matches latest checkpoint"
+
+or
+
+"Workspace does NOT fully match latest checkpoint"
+
+with exact reasons.
+
+DO NOT begin new development until this report is complete.

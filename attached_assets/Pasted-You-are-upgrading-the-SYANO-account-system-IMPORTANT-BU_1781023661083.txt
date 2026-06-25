@@ -1,0 +1,367 @@
+You are upgrading the SYANO (سوق سوريا) account system.
+
+## IMPORTANT BUSINESS RULE
+
+SYANO does NOT support multi-role accounts.
+
+A user can only have ONE active account type at a time.
+
+Allowed account types:
+
+* customer
+* seller
+* courier
+* admin
+
+Examples:
+
+✅ customer → seller
+
+✅ customer → courier
+
+✅ seller → customer (admin action)
+
+✅ courier → customer (admin action)
+
+❌ seller + courier
+
+❌ customer + seller
+
+❌ customer + courier
+
+❌ seller + courier + customer
+
+Never allow multiple roles simultaneously.
+
+---
+
+# GOAL
+
+Implement a promotion workflow similar to the current seller application flow.
+
+Every new account starts as:
+
+```ts
+accountType = "customer"
+```
+
+Users can then request promotion to:
+
+* seller
+* courier
+
+After approval, the account type changes.
+
+No new account is created.
+
+No second login is created.
+
+No duplicate user record is created.
+
+The same user is upgraded.
+
+---
+
+# PART 1 — Database Design
+
+Review the current account system.
+
+If role currently contains:
+
+* customer
+* seller
+* courier
+* admin
+
+keep backward compatibility.
+
+If needed:
+
+Add:
+
+```ts
+account_type
+```
+
+or equivalent.
+
+Use additive migrations only.
+
+Do NOT break existing seller accounts.
+
+Do NOT break admin accounts.
+
+Do NOT break authentication.
+
+---
+
+# PART 2 — Customer Dashboard
+
+Inside customer account area add:
+
+```text
+Become a Seller
+Become a Courier
+```
+
+Only visible when:
+
+```ts
+accountType === "customer"
+```
+
+---
+
+# PART 3 — Courier Application
+
+Create a courier application flow.
+
+Fields:
+
+* Full Name
+* Phone Number
+* City
+* District
+* Transportation Type
+
+Options:
+
+* Motorcycle
+* Car
+* Bicycle
+* Walking
+
+Optional:
+
+* National ID image
+* Notes
+
+Status:
+
+```ts
+pending
+approved
+rejected
+```
+
+---
+
+# PART 4 — Admin Review
+
+Add:
+
+```text
+Admin
+ → Courier Applications
+```
+
+Features:
+
+* View applications
+* Approve
+* Reject
+* Suspend
+
+When approved:
+
+```ts
+user.accountType = "courier"
+```
+
+The user keeps:
+
+* same account
+* same email
+* same password
+* same user id
+
+Only account type changes.
+
+---
+
+# PART 5 — Seller Review
+
+Keep existing seller workflow.
+
+After approval:
+
+```ts
+user.accountType = "seller"
+```
+
+Do NOT create secondary roles.
+
+---
+
+# PART 6 — Navigation Rules
+
+Customer sees:
+
+* Orders
+* Wishlist
+* Addresses
+* Become Seller
+* Become Courier
+
+Seller sees:
+
+* Products
+* Orders
+* Analytics
+* Store Settings
+
+Courier sees:
+
+* Courier Dashboard
+* Available Deliveries
+* Active Deliveries
+* Earnings
+* Wallet
+
+Seller pages must disappear for couriers.
+
+Courier pages must disappear for sellers.
+
+---
+
+# PART 7 — Route Protection
+
+Protect routes strictly.
+
+Examples:
+
+```ts
+/seller/*
+```
+
+Only seller/admin.
+
+---
+
+```ts
+/courier/*
+```
+
+Only courier/admin.
+
+---
+
+```ts
+/checkout
+```
+
+Customer only.
+
+---
+
+# PART 8 — Admin Controls
+
+Admin can:
+
+* promote customer → seller
+* promote customer → courier
+* demote seller → customer
+* demote courier → customer
+* suspend seller
+* suspend courier
+
+No multi-role support.
+
+---
+
+# PART 9 — Existing Delivery System
+
+Review all delivery-related code.
+
+Ensure it works with:
+
+```ts
+accountType === "courier"
+```
+
+instead of any temporary courier implementation.
+
+Update:
+
+* courier dashboard
+* courier APIs
+* courier assignments
+* earnings
+* wallet
+
+to use the promoted account model.
+
+---
+
+# PART 10 — UI Quality
+
+Must match existing SYANO design.
+
+Requirements:
+
+* RTL support
+* Arabic support
+* English support
+* Mobile support
+* No placeholder UI
+* No admin-looking forms
+* Reusable components
+
+---
+
+# PART 11 — Validation
+
+Verify:
+
+✅ Existing customers still work
+
+✅ Existing sellers still work
+
+✅ Existing admins still work
+
+✅ Customer can request courier upgrade
+
+✅ Admin can approve courier
+
+✅ Approved courier can access courier dashboard
+
+✅ Courier cannot access seller dashboard
+
+✅ Seller cannot access courier dashboard
+
+✅ Same user account retained
+
+✅ Same email retained
+
+✅ Same password retained
+
+✅ Same user ID retained
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+# RECOVERY FILES
+
+After implementation:
+
+Update ALL project recovery and memory files.
+
+Update:
+
+* CHANGELOG
+* CURRENT_STATE
+* RECOVERY_GUIDE
+* MEMORY
+* variant-system.md
+* delivery-system.md
+
+or equivalent project memory files.
+
+Record this as a new verified checkpoint.
+
+Create a detailed implementation summary inside recovery files.
+
+Do not finish until all recovery files are updated and saved.

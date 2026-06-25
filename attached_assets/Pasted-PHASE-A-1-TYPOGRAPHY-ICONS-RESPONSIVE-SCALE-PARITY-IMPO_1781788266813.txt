@@ -1,0 +1,308 @@
+PHASE A.1 — TYPOGRAPHY, ICONS & RESPONSIVE SCALE PARITY
+
+IMPORTANT:
+
+DO NOT add new sections.
+
+DO NOT redesign anything.
+
+DO NOT touch business logic.
+
+DO NOT add features.
+
+DO NOT modify APIs.
+
+DO NOT modify backend.
+
+DO NOT modify embedding service.
+
+This phase is ONLY about visual scale parity.
+
+The goal is to make Mobile feel like Web before continuing the homepage parity work.
+
+---
+
+## PROBLEM
+
+The mobile homepage now contains most sections from the web homepage.
+
+However:
+
+* typography does not match
+* icon sizes do not match
+* spacing rhythm does not match
+* card proportions do not match
+* visual density does not match
+
+The web version feels balanced and responsive.
+
+The mobile version feels manually sized.
+
+---
+
+TASK 1
+BUILD A RESPONSIVE DESIGN TOKEN SYSTEM
+--------------------------------------
+
+Audit web design tokens.
+
+Extract:
+
+* font sizes
+* font weights
+* line heights
+* icon sizes
+* border radius values
+* spacing values
+* container widths
+* gaps
+
+Create a mobile token system derived from web.
+
+Example:
+
+Typography:
+
+display
+hero
+h1
+h2
+h3
+body-lg
+body
+body-sm
+caption
+
+Spacing:
+
+xs
+sm
+md
+lg
+xl
+2xl
+
+Radius:
+
+sm
+md
+lg
+xl
+2xl
+
+Icons:
+
+xs
+sm
+md
+lg
+xl
+
+Everything must come from one centralized file.
+
+No hardcoded random numbers.
+
+---
+
+TASK 2
+REMOVE FIXED FONT SIZES
+-----------------------
+
+Find all places in homepage components using:
+
+fontSize: 13
+fontSize: 15
+fontSize: 17
+fontSize: 24
+
+etc.
+
+Replace with design tokens.
+
+No arbitrary font sizes.
+
+---
+
+TASK 3
+MATCH WEB TYPOGRAPHY
+--------------------
+
+Use the web homepage as source of truth.
+
+Compare:
+
+Hero title
+Section titles
+Category names
+Product titles
+Store names
+CTA labels
+Footer text
+
+Make mobile visually proportional.
+
+When comparing screenshots side by side:
+
+the hierarchy must feel identical.
+
+---
+
+TASK 4
+ICON SCALE PARITY
+-----------------
+
+Audit every icon used on homepage.
+
+Cart
+Notifications
+Store
+Categories
+Social icons
+Footer icons
+
+Many icons are currently oversized.
+
+Match web proportions.
+
+Do NOT enlarge.
+
+Do NOT shrink blindly.
+
+Use web as source of truth.
+
+---
+
+TASK 5
+SPACING RHYTHM PARITY
+---------------------
+
+Audit all homepage sections.
+
+Compare:
+
+distance between title and content
+
+distance between cards
+
+distance between sections
+
+distance inside cards
+
+distance between icon and text
+
+Match web rhythm.
+
+Current mobile has inconsistent spacing.
+
+Fix all inconsistencies.
+
+---
+
+TASK 6
+CARD PROPORTION PARITY
+----------------------
+
+Audit:
+
+Hero card
+
+Product cards
+
+Deal cards
+
+Store cards
+
+Category cards
+
+Footer cards
+
+Current mobile cards have different visual density.
+
+Adjust:
+
+padding
+
+gap
+
+border radius
+
+image ratio
+
+content spacing
+
+until they visually match web.
+
+---
+
+TASK 7
+DARK THEME PARITY
+-----------------
+
+Current mobile dark mode is closer to AMOLED black.
+
+Web uses softer dark surfaces.
+
+Use web as source of truth.
+
+Match:
+
+backgrounds
+
+surface colors
+
+secondary surfaces
+
+border colors
+
+hover/pressed states
+
+text contrast
+
+No pure black.
+
+---
+
+TASK 8
+ANIMATION PREPARATION
+---------------------
+
+Do NOT add animations yet.
+
+But prepare reusable motion constants:
+
+duration-fast
+duration-normal
+duration-slow
+
+scale-hover
+scale-press
+
+These will be used later.
+
+---
+
+## VALIDATION
+
+After implementation:
+
+Compare mobile and web side-by-side.
+
+Check:
+
+✅ typography hierarchy matches
+
+✅ icons match
+
+✅ spacing rhythm matches
+
+✅ card density matches
+
+✅ dark mode matches
+
+✅ no arbitrary font sizes remain
+
+✅ no random spacing values remain
+
+✅ design tokens centralized
+
+Do not continue with Hero redesign, Navbar parity, Footer redesign, or animations until this typography and scale parity phase is complete.

@@ -1,0 +1,243 @@
+SYANO سوق سوريا
+
+PROJECT RECOVERY & BOOTSTRAP TASK
+
+IMPORTANT:
+
+This project has been moved to a new Replit account.
+
+Your first and only objective is to restore, validate, and boot the project using the existing recovery files and project state.
+
+Do NOT redesign anything.
+
+Do NOT refactor anything.
+
+Do NOT upgrade dependencies unless required for startup.
+
+Do NOT modify homepage, UI, database schema, APIs, or business logic unless necessary to restore functionality.
+
+The goal is to recover the project exactly as it existed before migration.
+
+==================================================
+RECOVERY PHASE 1
+PROJECT ANALYSIS
+================
+
+Inspect the project and identify:
+
+1. Recovery files
+2. Recovery snapshots
+3. Project state files
+4. Startup configuration
+5. Environment requirements
+6. Database configuration
+7. Build configuration
+8. Runtime configuration
+9. Existing endpoints
+10. Existing services
+
+Generate a recovery report before making changes.
+
+==================================================
+RECOVERY PHASE 2
+PROJECT RESTORATION
+===================
+
+Use all available recovery resources to restore:
+
+* frontend
+* backend
+* database connectivity
+* API layer
+* marketplace systems
+* seller systems
+* courier systems
+* admin systems
+* review systems
+* trust systems
+
+Restore the project to the latest recoverable operational state.
+
+==================================================
+RECOVERY PHASE 3
+DEPENDENCY VALIDATION
+=====================
+
+Verify:
+
+* package.json
+* package-lock.json
+* node_modules requirements
+* build dependencies
+* runtime dependencies
+
+Install only missing dependencies required for successful startup.
+
+Avoid unnecessary package upgrades.
+
+==================================================
+RECOVERY PHASE 4
+ENVIRONMENT VALIDATION
+======================
+
+Inspect and validate:
+
+* environment variables
+* secrets
+* runtime configuration
+* database connection settings
+
+Identify missing variables.
+
+Provide a list of required secrets if any are unavailable.
+
+Do NOT invent values.
+
+==================================================
+RECOVERY PHASE 5
+DATABASE VALIDATION
+===================
+
+Verify:
+
+* database connection
+* migrations
+* schema health
+* table accessibility
+
+Inspect:
+
+* users
+* stores
+* products
+* orders
+* reviews
+* trust system
+* courier system
+* hero banner system
+
+Confirm that the database structure matches application expectations.
+
+Do NOT modify schema unless required for recovery.
+
+==================================================
+RECOVERY PHASE 6
+APPLICATION STARTUP
+===================
+
+Start the application.
+
+Verify:
+
+* frontend boot
+* backend boot
+* API boot
+* routing
+* database communication
+
+Resolve startup failures.
+
+Document all fixes performed.
+
+==================================================
+RECOVERY PHASE 7
+SYSTEM HEALTH CHECK
+===================
+
+Verify:
+
+✓ Authentication
+
+✓ Marketplace browsing
+
+✓ Product loading
+
+✓ Store loading
+
+✓ Orders
+
+✓ Reviews
+
+✓ Trust system
+
+✓ Courier system
+
+✓ Admin system
+
+✓ Homepage
+
+✓ API endpoints
+
+✓ Database communication
+
+==================================================
+RECOVERY PHASE 8
+ENDPOINT VALIDATION
+===================
+
+Audit all registered endpoints.
+
+Verify:
+
+* route registration
+* API responses
+* server startup
+* frontend integration
+
+Identify:
+
+* broken endpoints
+* missing handlers
+* startup failures
+
+Repair only what is required for successful operation.
+
+==================================================
+RECOVERY PHASE 9
+PROJECT STATE UPDATE
+====================
+
+After successful recovery:
+
+Update:
+
+* recovery files
+* restoration references
+* recovery snapshots
+* project state files
+
+Ensure future recovery operations restore the newly validated operational state.
+
+==================================================
+FINAL REPORT
+============
+
+Provide:
+
+1. Recovery status
+2. Startup status
+3. Database status
+4. Missing secrets report
+5. Dependency report
+6. Endpoint report
+7. System health report
+8. Modified files list
+9. Updated recovery files list
+
+Do not proceed to feature development until the project reaches a verified operational state.
+
+Success criteria:
+
+✓ Project boots successfully
+
+✓ Frontend operational
+
+✓ Backend operational
+
+✓ Database connected
+
+✓ Endpoints verified
+
+✓ Recovery files updated
+
+✓ Recovery state validated

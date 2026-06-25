@@ -1,0 +1,50 @@
+You are a Senior Full-Stack React/TypeScript Engineer working on Syano Marketplace.
+
+Project Rules (Strict):
+- Mobile-First is the top priority
+- Perfect RTL + LTR support
+- Use Tailwind CSS
+- High performance on mobile devices
+
+Fix ALL the following issues:
+
+1. **Customer Role Permissions**:
+   - Completely hide/remove all seller-related buttons, links, and access for users with role "customer".
+
+2. **Mobile Performance & Lag**:
+   - Fix all lag, jank, and freezing on mobile (especially 60fps devices).
+   - Optimize components with proper useMemo, useCallback, and React.memo.
+
+3. **Navigation "Home" Translation**:
+   - Fix "Home" text so it correctly displays "الرئيسية" in Arabic and "Home" in English.
+
+4. **Cart Page Layout**:
+   - For each product in Cart:
+     - Product details first
+     - Then Customer Reviews section (star ratings + actual comments/reviews)
+     - Then "You May Also Like" / Recommended products
+   - Reviews must come BEFORE recommendations.
+
+5. **Seller Inventory Page Language Issues**:
+   - Fix all Arabic/English translation problems on Seller Inventory page.
+
+6. **Inventory Button on Mobile**:
+   - Fix "المخزون" / "Inventory" button so text is fully visible and not cut off on mobile.
+
+7. **Mobile Search Filters - Price Input Bug (Critical)**:
+   - In the mobile search filter drawer/sheet:
+     - When user focuses and types in "Minimum Price" or "Maximum Price" input fields, the drawer MUST NOT close automatically.
+     - The input must NOT lose focus while typing (prevent re-render that causes blur).
+     - User must be able to type full numbers comfortably without the keyboard disappearing or panel closing.
+   - Only close the filter panel when user explicitly clicks "Apply Filters" button or the close icon.
+
+Provide complete fixed code for the affected filter components.
+Focus heavily on fixing the price input stability in the mobile filter drawer.
+Use controlled inputs properly and prevent unwanted re-renders.
+
+Structure your response:
+- Explanation for each fix
+- Files/components modified
+- Full updated code
+
+Start fixing now.

@@ -1,0 +1,90 @@
+BUG FIX — WISHLIST PAGE NAVBAR OVERLAP (DO NOT REDESIGN ANYTHING)
+
+There is a layout bug on the Wishlist page.
+
+Current issue:
+The fixed/sticky navbar is overlapping the page content.
+The wishlist content starts underneath the navbar instead of below it.
+
+Evidence:
+The first banner ("سجل دخولك لحفظ قائمتك بشكل دائم...") is partially hidden behind the navbar.
+
+Goal:
+Fix the overlap correctly across the entire application architecture.
+
+IMPORTANT:
+Do NOT use hacks.
+Do NOT add random margins.
+Do NOT hardcode pixel values.
+Do NOT modify the visual design.
+Do NOT redesign the navbar.
+Do NOT change spacing on pages that already work.
+
+Required investigation:
+
+1. Inspect Navbar implementation.
+2. Determine whether navbar is:
+   - fixed
+   - sticky
+   - absolute
+3. Find the global page layout wrapper.
+4. Find how other pages compensate for navbar height.
+5. Compare Wishlist page with:
+   - Home page
+   - Products page
+   - Stores page
+   - Cart page
+
+Required fix:
+
+The page content must always start below the navbar.
+
+Implement a reusable architecture-level solution:
+
+Preferred approach:
+- Create a shared layout offset system.
+- Navbar height should be measured from the actual component.
+- Main content should automatically receive the correct top spacing.
+- Desktop and mobile heights must both be supported.
+
+Validation checklist:
+
+Desktop:
+✅ Wishlist banner fully visible
+✅ No content hidden behind navbar
+✅ Navbar remains fixed/sticky
+✅ No visual changes
+
+Mobile:
+✅ No overlap
+✅ No content clipping
+✅ Correct spacing
+
+Regression testing:
+
+Verify:
+- Homepage
+- Products page
+- Product details
+- Stores page
+- Cart page
+- Wishlist page
+- Login page
+- Register page
+
+Ensure:
+✅ No new gaps above content
+✅ No double spacing
+✅ No CLS/layout jumps
+✅ RTL still works
+✅ Dark mode unchanged
+✅ Light mode unchanged
+
+After fixing:
+
+Provide:
+1. Root cause
+2. Files modified
+3. Exact solution used
+4. Before/after behavior
+5. Confirmation that all tested pages pass validation

@@ -1,0 +1,221 @@
+# SYANO — FULL RECOVERY & RESUME PROTOCOL
+
+Do NOT start any feature work yet.
+
+Your first task is to fully recover, verify, and resume the project from the exact last known state.
+
+---
+
+# PHASE 1 — ENVIRONMENT RECOVERY
+
+Verify:
+
+DATABASE_URL
+SESSION_SECRET
+SITE_URL
+CORS_ORIGIN
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_SUBJECT
+
+Report any missing values.
+
+---
+
+# PHASE 2 — INSTALLATION
+
+Run:
+
+pnpm install --force
+
+Verify:
+
+* no missing packages
+* no broken dependencies
+* workspace packages resolve correctly
+
+---
+
+# PHASE 3 — DATABASE RECOVERY
+
+Restore database using:
+
+schema.sql
+
+Then verify:
+
+* 27/27 tables exist
+* notification_type enum = 31 values
+* order_status enum = 15 values
+* delivery_zones = 40
+* seller_verification_log exists
+* users.verified_by exists
+
+Then run all startup migrations.
+
+Report exact counts.
+
+---
+
+# PHASE 4 — BOOTSTRAP ACCOUNT VERIFICATION
+
+Verify these permanent recovery accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+00Amer00
+
+Verify:
+
+* account exists
+* role correct
+* login works
+* seller application exists
+* courier profile exists
+* approved state exists
+* verified state exists
+
+Do NOT recreate if already present.
+
+Only repair if missing.
+
+---
+
+# PHASE 5 — SERVICE RECOVERY
+
+Start:
+
+API
+Marketplace
+Mobile
+
+Verify:
+
+/api/healthz
+
+returns:
+
+{"status":"ok"}
+
+Report status of all services.
+
+---
+
+# PHASE 6 — TYPESCRIPT VALIDATION
+
+Validate:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+artifacts/api-server
+artifacts/marketplace
+artifacts/mobile
+
+Goal:
+
+0 errors
+
+Fix any issues before continuing.
+
+---
+
+# PHASE 7 — RECOVERY CHECK VALIDATION
+
+Run:
+
+GET /api/admin/recovery-check
+
+Verify:
+
+* confidenceScore
+* modules
+* failures
+* warnings
+
+Expected:
+
+100/100
+
+If score is below 100:
+
+investigate
+fix
+rerun
+
+until score reaches maximum possible value.
+
+---
+
+# PHASE 8 — DOCUMENTATION AUDIT
+
+Read:
+
+CURRENT_STATE.md
+CHANGELOG.md
+KNOWN_ISSUES.md
+RECOVERY_GUIDE.md
+MEMORY.md
+AUDIT_REPORT.md
+
+Build a complete understanding of:
+
+* completed roadmap items
+* pending roadmap items
+* recovery architecture
+* known issues
+* recent work
+
+Do NOT rely on assumptions.
+
+---
+
+# PHASE 9 — CURRENT PROJECT STATE REPORT
+
+After recovery is complete produce a report:
+
+Recovery Status
+Database Status
+Service Status
+TypeScript Status
+Recovery Check Status
+Permanent Account Status
+
+Then list:
+
+COMPLETED ROADMAP ITEMS
+
+and
+
+REMAINING ROADMAP ITEMS
+
+exactly as documented.
+
+---
+
+# PHASE 10 — RESUME MODE
+
+After the report:
+
+STOP.
+
+Do NOT begin any new feature.
+
+Wait for my next instruction.
+
+Your goal is only:
+
+Recover
+Verify
+Audit
+Resume
+
+without changing project behavior.

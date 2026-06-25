@@ -1,0 +1,301 @@
+You must first read and understand ALL recovery/state files before making any changes:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* DATABASE_STATE.md
+* variant-system.md
+* delivery-system.md
+* courier-promotion.md
+* root-owner-bootstrap.md
+* Any additional recovery, checkpoint, state, migration, or handoff files
+
+After reading them, perform a full UI/UX audit of the SYANO (سوق سوريا) marketplace frontend.
+
+IMPORTANT:
+
+* This is an enhancement of the current design.
+* Do NOT redesign the brand.
+* Do NOT change colors.
+* Do NOT change typography.
+* Do NOT change the SYANO visual identity.
+* Preserve RTL support.
+* Preserve Arabic and English.
+* Preserve all existing functionality.
+* Preserve all routes and APIs.
+* Mobile-first improvements only.
+* TypeScript must finish with 0 NEW errors.
+* No regressions.
+
+---
+
+## TASK 1 — MOBILE PRODUCT CARD GRID
+
+Current problem:
+
+On mobile, product cards consume almost the entire width.
+
+Result:
+
+Only 1 product appears per row.
+
+This feels outdated and wastes vertical space.
+
+Required:
+
+Convert the homepage featured products section and all product grids to a modern mobile marketplace layout similar to:
+
+* Amazon
+* Noon
+* Trendyol
+* AliExpress
+
+Target:
+
+Mobile:
+
+2 cards per row
+
+Tablet:
+
+3 cards per row
+
+Desktop:
+
+Keep current desktop behavior unless improvement is needed.
+
+Requirements:
+
+* Equal card heights
+* Consistent spacing
+* No layout jumps
+* Product image remains dominant
+* Price always visible
+* Discount badge remains visible
+* Seller name remains visible
+* Rating remains visible
+
+The cards must feel denser and more professional.
+
+---
+
+## TASK 2 — MOBILE CATEGORY GRID
+
+Current problem:
+
+Category cards are oversized.
+
+Only a small number of categories are visible.
+
+This wastes screen space.
+
+Required:
+
+Create a more compact category grid.
+
+Mobile:
+
+2–3 categories per row depending on available width.
+
+Tablet:
+
+3–4 categories per row.
+
+Requirements:
+
+* Keep category image
+* Keep category name
+* Preserve current theme
+* Maintain tap targets
+* Maintain accessibility
+
+Goal:
+
+More categories visible above the fold.
+
+---
+
+## TASK 3 — PRODUCT DETAILS PAGE MOBILE UX
+
+Current product page feels awkward on mobile.
+
+Audit the entire mobile experience and improve it.
+
+Focus on:
+
+1. Visual hierarchy
+2. Scrolling flow
+3. Information grouping
+4. Purchase flow
+
+Current sections:
+
+* Gallery
+* Title
+* Price
+* Variants
+* Specifications
+* About Product
+* Seller
+* Purchase Card
+
+Reorganize if necessary.
+
+Goal:
+
+Feel closer to:
+
+* Amazon Mobile
+* Noon Mobile
+* Trendyol Mobile
+
+Requirements:
+
+* Variant selection must remain obvious
+* Price must remain prominent
+* Add-to-cart area must feel natural
+* Information should flow logically
+* Reduce unnecessary scrolling
+
+Do NOT remove existing information.
+
+---
+
+## TASK 4 — MOBILE SPACING AUDIT
+
+Audit:
+
+* Home page
+* Product page
+* Categories
+* Product grids
+
+Fix:
+
+* Oversized margins
+* Oversized padding
+* Unnecessary whitespace
+* Inconsistent spacing
+
+Use the existing spacing system.
+
+Do NOT create visual clutter.
+
+---
+
+## TASK 5 — PERFORMANCE CHECK
+
+After UI updates:
+
+Verify:
+
+* No CLS issues
+* No layout shifts
+* No hydration issues
+* No React warnings
+* No console errors
+* No infinite render loops
+* No Radix UI Presence issues
+* No broken responsive layouts
+
+---
+
+## TASK 6 — VISUAL QUALITY REVIEW
+
+Before finishing:
+
+Compare the mobile experience against:
+
+* Amazon
+* Noon
+* Trendyol
+
+Check:
+
+* Density
+* Readability
+* Product discoverability
+* Category discoverability
+* Scrolling experience
+* Purchase flow
+
+If any section still feels oversized or wasteful, improve it.
+
+---
+
+## TASK 7 — RECOVERY FILES UPDATE
+
+After implementation is complete:
+
+Update ALL recovery/state files:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* DATABASE_STATE.md
+* variant-system.md
+* delivery-system.md
+* courier-promotion.md
+* root-owner-bootstrap.md
+* Any active recovery documentation
+
+Document:
+
+* What was changed
+* Why it was changed
+* Files modified
+* Validation results
+
+---
+
+## TASK 8 — NEW PRIMARY CHECKPOINT
+
+After successful validation:
+
+Create a new primary recovery checkpoint.
+
+This checkpoint becomes the new default restoration baseline.
+
+The checkpoint must include:
+
+* Mobile product grid improvements
+* Mobile category grid improvements
+* Product page mobile UX improvements
+* Spacing optimizations
+* Recovery documentation updates
+
+---
+
+## FINAL VALIDATION
+
+Before reporting completion verify:
+
+✅ Home page works
+
+✅ Product grids work
+
+✅ Category grids work
+
+✅ Product details page works
+
+✅ Variant selection works
+
+✅ Add to cart works
+
+✅ RTL preserved
+
+✅ English preserved
+
+✅ Mobile UX improved
+
+✅ Tablet UX improved
+
+✅ Desktop not degraded
+
+✅ No console errors
+
+✅ No new TypeScript errors
+
+✅ Recovery files updated
+
+✅ New checkpoint created
+
+Deliver only verified improvements.

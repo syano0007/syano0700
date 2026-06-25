@@ -1,0 +1,416 @@
+You are upgrading the SYANO (سوق سوريا) authentication experience.
+
+This is a production marketplace.
+
+Do NOT break existing authentication.
+
+Do NOT change API contracts unless absolutely necessary.
+
+Do NOT modify JWT behavior.
+
+Do NOT modify permissions.
+
+Do NOT modify role handling.
+
+Do NOT remove existing pages unless they are no longer used by the UI flow.
+
+Preserve:
+
+- RTL support
+- English support
+- Mobile support
+- Current theme
+- Existing auth APIs
+- Existing validation
+- Existing session management
+
+==================================================
+GOAL
+==================================================
+
+Replace the current page-based authentication flow with a modern marketplace authentication modal system.
+
+Target UX quality:
+
+- Noon
+- Amazon
+- AliExpress
+- Temu
+- Airbnb
+
+Authentication should feel instant and lightweight.
+
+==================================================
+PART 1 — REMOVE SIGN UP FROM NAVBAR
+==================================================
+
+Current navbar contains:
+
+- Login
+- Sign Up
+
+Remove:
+
+- Sign Up button completely
+
+Navbar should show:
+
+Guest:
+
+- Login
+
+Authenticated:
+
+- Account / User Menu
+
+Nothing else changes.
+
+==================================================
+PART 2 — LOGIN MODAL SYSTEM
+==================================================
+
+Current behavior:
+
+Login button navigates to:
+
+/login
+
+Replace this behavior.
+
+New behavior:
+
+Click Login
+
+→ Open Login Modal
+
+Do NOT navigate away.
+
+Do NOT reload page.
+
+Homepage remains visible behind modal.
+
+==================================================
+LOGIN MODAL DESIGN
+==================================================
+
+Use existing design language.
+
+Requirements:
+
+- centered modal
+- rounded-2xl
+- soft shadow
+- backdrop blur
+- dark overlay
+- smooth animation
+
+Size:
+
+Desktop:
+480–520px width
+
+Tablet:
+responsive
+
+Mobile:
+full-width sheet style
+
+==================================================
+LOGIN MODAL CONTENT
+==================================================
+
+Header:
+
+Welcome Back
+
+Subtitle:
+
+Sign in to continue shopping on SYANO
+
+Fields:
+
+Email / Phone
+
+Password
+
+Options:
+
+Remember Me
+
+Forgot Password
+
+Primary button:
+
+Log In
+
+Divider:
+
+OR
+
+Social buttons (if existing integrations exist)
+
+Footer:
+
+Don't have an account?
+
+Sign Up
+
+==================================================
+PART 3 — REGISTRATION MODAL
+==================================================
+
+Do NOT open a page.
+
+When user clicks:
+
+Sign Up
+
+inside Login Modal
+
+Open:
+
+Register Modal
+
+==================================================
+REGISTER MODAL CONTENT
+==================================================
+
+Fields:
+
+Full Name
+
+Email
+
+Phone
+
+Password
+
+Confirm Password
+
+Checkbox:
+
+Accept Terms
+
+Primary button:
+
+Create Account
+
+Footer:
+
+Already have an account?
+
+Log In
+
+Switch between modals without page navigation.
+
+==================================================
+PART 4 — MODAL SWITCHING
+==================================================
+
+User flow:
+
+Login Modal
+↔
+Register Modal
+
+Must feel seamless.
+
+Use animation.
+
+No reloads.
+
+No route changes.
+
+No flicker.
+
+==================================================
+PART 5 — FORGOT PASSWORD
+==================================================
+
+Preserve current functionality.
+
+Open:
+
+Forgot Password Modal
+
+instead of navigating.
+
+Use existing APIs.
+
+==================================================
+PART 6 — URL BEHAVIOR
+==================================================
+
+Preferred behavior:
+
+Homepage URL remains unchanged.
+
+Example:
+
+/
+
+when login modal opens.
+
+Optional:
+
+Support:
+
+?auth=login
+
+?auth=signup
+
+for deep linking.
+
+But do NOT require navigation.
+
+==================================================
+PART 7 — NAVBAR CLEANUP
+==================================================
+
+After removing Sign Up:
+
+Redistribute space.
+
+Navbar should feel balanced.
+
+Use extra space for:
+
+- search bar
+- marketplace actions
+
+Do NOT leave empty gaps.
+
+==================================================
+PART 8 — ACCOUNT MENU
+==================================================
+
+After login:
+
+Replace Login button with:
+
+Avatar + Account
+
+Dropdown menu:
+
+- Profile
+- Orders
+- Wishlist
+- Messages
+- Settings
+- Logout
+
+Use existing routes.
+
+==================================================
+PART 9 — ANIMATIONS
+==================================================
+
+Modal open:
+
+fade + scale
+
+Modal close:
+
+fade + scale
+
+Duration:
+
+200–250ms
+
+Use hardware accelerated transforms.
+
+==================================================
+PART 10 — ACCESSIBILITY
+==================================================
+
+Support:
+
+ESC closes modal
+
+Click outside closes modal
+
+Focus trap
+
+Auto focus first input
+
+Keyboard navigation
+
+Accessible labels
+
+==================================================
+PART 11 — MOBILE EXPERIENCE
+==================================================
+
+Mobile should NOT use desktop popup.
+
+Use:
+
+Bottom Sheet
+
+or
+
+Full-screen auth sheet
+
+similar to:
+
+Noon
+Temu
+AliExpress
+
+Preserve existing mobile auth functionality.
+
+==================================================
+PART 12 — LEGACY PAGES
+==================================================
+
+Keep:
+
+/login
+
+/register
+
+for compatibility.
+
+If opened directly:
+
+Render the same auth modal experience or redirect gracefully.
+
+Do NOT break bookmarks.
+
+==================================================
+VALIDATION
+==================================================
+
+Before completion verify:
+
+✓ Sign Up removed from navbar
+
+✓ Login remains in navbar
+
+✓ Login opens modal
+
+✓ No page navigation occurs
+
+✓ Register opens modal
+
+✓ Forgot password works
+
+✓ Existing APIs unchanged
+
+✓ Existing JWT flow unchanged
+
+✓ Existing permissions unchanged
+
+✓ Mobile experience works
+
+✓ Desktop experience works
+
+✓ RTL preserved
+
+✓ English preserved
+
+✓ TypeScript = 0 errors
+
+✓ No regressions
+
+Build a marketplace-grade authentication experience that feels modern, fast, premium, and native to SYANO.

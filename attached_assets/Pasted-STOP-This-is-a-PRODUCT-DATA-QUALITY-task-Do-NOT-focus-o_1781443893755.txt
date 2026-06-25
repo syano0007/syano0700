@@ -1,0 +1,303 @@
+STOP.
+
+This is a PRODUCT DATA QUALITY task.
+
+Do NOT focus on UI.
+
+Do NOT redesign cards.
+
+Do NOT redesign homepage.
+
+The problem is product authenticity and product imagery quality.
+
+---
+
+# CRITICAL GOAL
+
+Every product in the marketplace must look like a real product listing.
+
+The image must match the product name.
+
+The image must match the product category.
+
+The image must match the product description.
+
+No mismatches allowed.
+
+---
+
+# CURRENT PROBLEM
+
+Many demo products use images that do not perfectly match their names.
+
+This reduces trust.
+
+The marketplace should look real.
+
+Users must immediately understand the product from the image.
+
+---
+
+# PRODUCT AUDIT
+
+Audit ALL seeded products.
+
+Review:
+
+* product name
+* category
+* description
+* image
+
+For every product verify:
+
+Does the image actually represent the product?
+
+If not:
+
+replace it.
+
+---
+
+# IMAGE QUALITY RULES
+
+Use:
+
+* real product photography
+* high resolution images
+* clean backgrounds
+* professional e-commerce photography
+
+Avoid:
+
+* random stock photos
+* lifestyle photos that hide the product
+* unrelated images
+* low resolution images
+* dark images
+
+---
+
+# CATEGORY MATCHING
+
+Electronics
+
+Must show:
+
+* phones
+* laptops
+* headphones
+* smart devices
+
+not generic desk photos.
+
+---
+
+Fashion
+
+Must show:
+
+* actual clothing
+* actual fashion products
+
+not random people posing.
+
+---
+
+Beauty
+
+Must show:
+
+* skincare products
+* cosmetics
+* perfume bottles
+
+not generic beauty scenes.
+
+---
+
+Home & Living
+
+Must show:
+
+* furniture
+* home decor
+* household products
+
+not unrelated interiors.
+
+---
+
+Sports
+
+Must show:
+
+* actual sports equipment
+* fitness products
+
+---
+
+Books
+
+Must show:
+
+* actual books
+* book covers
+* book collections
+
+---
+
+Food & Grocery
+
+Must show:
+
+* actual food products
+* groceries
+
+not generic kitchens.
+
+---
+
+# PRODUCT NAME CONSISTENCY
+
+Verify product names.
+
+Names should match images.
+
+Example:
+
+If image is headphones
+
+Product name cannot be:
+
+Smart Watch
+
+If image is perfume
+
+Product name cannot be:
+
+Face Cream
+
+Every listing must be internally consistent.
+
+---
+
+# PRODUCT DESCRIPTION CONSISTENCY
+
+Verify:
+
+image
+
+name
+
+description
+
+all describe the same product.
+
+No mismatches.
+
+---
+
+# HOMEPAGE PRIORITY
+
+This is especially important for products appearing in:
+
+* Hero Carousel
+* Floating Product Cards
+* Trending
+* New Arrivals
+* Hot Deals
+* Featured Products
+
+These products should be the highest quality examples in the database.
+
+---
+
+# LIGHT THEME COMPATIBILITY
+
+Prefer bright product photography.
+
+Images must remain clear in:
+
+* Dark Theme
+* Light Theme
+
+Avoid dark photos.
+
+Avoid black backgrounds.
+
+Prefer:
+
+* white background
+* light gray background
+* clean studio photography
+
+---
+
+# API VALIDATION
+
+Verify that:
+
+homepage
+
+product pages
+
+store pages
+
+all display the updated product images.
+
+No broken image URLs.
+
+No missing assets.
+
+---
+
+# RECOVERY DOCUMENTATION
+
+After completion:
+
+Update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+Demo Marketplace documentation
+
+Recovery audit files
+
+Document:
+
+* product image quality pass
+* category matching pass
+* homepage product quality improvements
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Every product image matches its product name
+
+✅ Every product image matches its category
+
+✅ Every product image matches its description
+
+✅ Homepage products are high quality
+
+✅ Hero products are high quality
+
+✅ Floating cards use real matching products
+
+✅ No unrelated images
+
+✅ No dark unusable images
+
+✅ Light Theme compatibility verified
+
+✅ Dark Theme compatibility verified
+
+✅ Recovery files updated
+
+Do not finish until the marketplace product catalog looks believable, professional, and internally consistent.

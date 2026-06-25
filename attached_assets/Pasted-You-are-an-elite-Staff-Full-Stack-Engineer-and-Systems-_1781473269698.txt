@@ -1,0 +1,26 @@
+You are an elite Staff Full-Stack Engineer and Systems Architect. We have successfully migrated the "SYANO" (سوق سوريا) platform to this completely new Replit environment. 
+
+Your absolute and immediate priority is to execute a total workspace recovery, sync the environment state, install dependencies, and validate that our Noon-like Search Infrastructure (Steps 1, 2, and 3) is 100% operational with zero compilation errors.
+
+### PART 1: SOURCE OF TRUTH INGESTION
+1. Read and analyze the following markdown tracking documentation in our root workspace to baseline your understanding of our exact architecture and session milestones:
+   - `CURRENT_STATE.md` (Review the latest frontend/backend architecture wiring)
+   - `PROJECT_STATUS.md` (Verify completed tasks up to Session 13, Step 3)
+   - `RECOVERY_GUIDE.md` (Follow the explicit instructions and build verification guidelines)
+
+### PART 2: ENVIRONMENT INITIALIZATION & DEPENDENCY SYNC
+1. Execute a clean installation of all required project dependencies (e.g., via npm, pnpm, or bun depending on the lockfile present in the root directory). Ensure no legacy version mismatches occur.
+2. Verify that all essential environment secrets and configuration variables (especially the PostgreSQL Database connection string) are properly detected and bound to the application context.
+3. Verify that the pre-computed weighted vector column (`fts_vector`), the `products_fts_rebuild()` database trigger, and the GIN index (`products_fts_map`) on the products table are active and properly communicating with our database provider.
+
+### PART 3: ARCHITECTURAL CODE INTEGRITY CHECK
+Ensure the absolute presence and complete type safety of our implemented 3-Step search infrastructure:
+- Step 1 (NLP Utility): Confirm `/src/utils/searchProcessor.ts` contains the pristine, fully typed bilingual normalization, token splitting, and transliteration bridge module.
+- Step 2 (Backend Engine): Confirm `/src/api/search.ts` (or your active search router) contains the hybrid ranking formula combining FTS (65%), AND boost (20%), Trigram word similarity (25%), and colloquial dialect mapping.
+- Step 3 (Frontend Shop UI): Confirm the core Shop hub component includes the dynamic NLP Insights Banner, the Emerald Search Active Filter Chips, and the programmatic Sort → URLSearchParams routing synchronization.
+
+### PART 4: BUILD VERIFICATION & EXECUTION
+- Run the workspace TypeScript compiler check. Ensure exactly 0 linting or compilation errors across both backend and frontend layers.
+- Once the compile check passes flawlessly, boot up the local development servers.
+
+Provide a comprehensive status confirmation breakdown showing that the environment is fully recovered, healthy, and ready for production testing.

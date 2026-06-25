@@ -1,0 +1,630 @@
+# SYANO — MARKETPLACE-GRADE SEARCH SUGGESTIONS ENGINE (AMAZON / NOON STYLE)
+
+STOP.
+
+The current search overlay behavior is wrong.
+
+It currently behaves like a product finder.
+
+This is NOT the desired experience.
+
+We do NOT want product cards inside the search dropdown.
+
+We do NOT want users seeing product results before entering the search page.
+
+We want a true marketplace search suggestion system similar to:
+
+* Amazon
+* Noon
+* AliExpress
+* Trendyol
+* Etsy
+
+The dropdown should help users discover WHAT to search for, not immediately show products.
+
+---
+
+# GOAL
+
+Transform the homepage search bar and global navbar search into a real Search Suggestion Engine.
+
+The dropdown must show:
+
+* Search intents
+* Search phrases
+* Related searches
+* Category suggestions
+* Store suggestions
+* Trending searches
+
+NOT product cards.
+
+NOT product grids.
+
+NOT product previews.
+
+Products should only appear on:
+
+* Shop page
+* Search results page
+
+after the search is executed.
+
+---
+
+# PART 1 — REMOVE PRODUCT RESULTS FROM DROPDOWN
+
+Remove:
+
+* Product cards
+* Product images
+* Product prices
+* Product ratings
+* Product previews
+
+from the search dropdown.
+
+Do NOT delete backend functionality.
+
+Only remove them from the suggestion layer.
+
+Search results page remains unchanged.
+
+---
+
+# PART 2 — BUILD SEARCH SUGGESTION ENGINE
+
+Create a dedicated Search Suggestion Engine.
+
+New endpoint:
+
+```text
+/api/search/suggestions
+```
+
+This endpoint must NOT return products.
+
+It must return:
+
+```ts
+{
+  suggestions: [],
+  categories: [],
+  stores: [],
+  trending: []
+}
+```
+
+---
+
+# PART 3 — SEARCH INTENT GENERATION
+
+This is the core feature.
+
+The system must generate marketplace-style search intents.
+
+Example:
+
+User types:
+
+```text
+موبايل
+```
+
+Return:
+
+```text
+موبايلات سامسونج
+موبايلات آيفون
+موبايلات شاومي
+موبايلات ألعاب
+موبايلات مستعملة
+```
+
+NOT products.
+
+---
+
+Example:
+
+User types:
+
+```text
+عطر
+```
+
+Return:
+
+```text
+عطور رجالية
+عطور نسائية
+عطور أصلية
+عطور عربية
+عطور فرنسية
+```
+
+---
+
+Example:
+
+User types:
+
+```text
+شاشة
+```
+
+Return:
+
+```text
+شاشات ألعاب
+شاشات كمبيوتر
+شاشات تلفزيون
+شاشات سامسونج
+شاشات LG
+```
+
+---
+
+# PART 4 — BUILD SUGGESTIONS FROM REAL DATA
+
+Suggestions must come from:
+
+Products
+
+Categories
+
+Stores
+
+Tags
+
+Brands
+
+Search history
+
+Trending searches
+
+NOT hardcoded values.
+
+NOT fake data.
+
+NOT demo data.
+
+Everything must be generated from the real marketplace.
+
+---
+
+# PART 5 — SEARCH KEYWORD EXTRACTION
+
+Create a keyword extraction layer.
+
+Extract searchable concepts from:
+
+Product names
+
+Brands
+
+Tags
+
+Categories
+
+Store metadata
+
+Descriptions
+
+Build suggestion candidates automatically.
+
+---
+
+# PART 6 — ARABIC NORMALIZATION
+
+Suggestions must support Arabic properly.
+
+Normalize:
+
+ة ↔ ه
+
+ى ↔ ي
+
+أ ↔ ا
+
+إ ↔ ا
+
+آ ↔ ا
+
+Remove diacritics.
+
+Handle plurals.
+
+Handle common variants.
+
+---
+
+# PART 7 — ENGLISH NORMALIZATION
+
+Support:
+
+Case-insensitive search
+
+Partial matching
+
+Plural forms
+
+Word stemming
+
+Examples:
+
+phone
+
+phones
+
+PHONE
+
+Phone
+
+Should behave identically.
+
+---
+
+# PART 8 — CATEGORY SUGGESTIONS
+
+Dropdown should display category suggestions.
+
+Example:
+
+User types:
+
+```text
+الكترون
+```
+
+Return:
+
+```text
+إلكترونيات
+إلكترونيات منزلية
+إلكترونيات سيارات
+```
+
+---
+
+Categories should be visually distinct.
+
+Use category icon.
+
+Use category badge.
+
+No product image.
+
+---
+
+# PART 9 — STORE SUGGESTIONS
+
+Dropdown should display store suggestions.
+
+Example:
+
+```text
+احمد
+```
+
+Returns:
+
+```text
+متجر أحمد للإلكترونيات
+أحمد موبايل
+أحمد للعطور
+```
+
+Store logo optional.
+
+No product previews.
+
+---
+
+# PART 10 — TRENDING SEARCHES
+
+When search input is empty:
+
+Show:
+
+Popular Searches
+
+Trending Searches
+
+Generated from:
+
+search_queries
+
+Frequency
+
+Recent growth
+
+Real user behavior
+
+---
+
+# PART 11 — RECENT SEARCHES
+
+Per-user.
+
+Logged in:
+
+Database.
+
+Guest:
+
+Local Storage.
+
+Show:
+
+Recent Searches.
+
+Allow:
+
+Delete
+
+Clear All
+
+---
+
+# PART 12 — SEARCH RANKING ENGINE
+
+Suggestions should be ranked by:
+
+Relevance
+
+Popularity
+
+Recency
+
+Marketplace activity
+
+Search volume
+
+Do NOT sort alphabetically only.
+
+---
+
+# PART 13 — TYPOING EXPERIENCE
+
+Typing must feel instant.
+
+Debounce:
+
+150–250ms
+
+Target:
+
+<100ms perceived response
+
+No lag.
+
+---
+
+# PART 14 — SEARCH DROPDOWN UI
+
+Design quality:
+
+Amazon
+
+Noon
+
+Trendyol
+
+Modern marketplace quality.
+
+---
+
+Sections:
+
+Suggested Searches
+
+Categories
+
+Stores
+
+Recent Searches
+
+Trending Searches
+
+---
+
+Products must NOT appear.
+
+---
+
+# PART 15 — CLICK BEHAVIOR
+
+Clicking suggestion:
+
+```text
+موبايلات سامسونج
+```
+
+opens:
+
+```text
+/shop?q=موبايلات سامسونج
+```
+
+---
+
+Clicking category:
+
+```text
+إلكترونيات
+```
+
+opens:
+
+```text
+/shop?category=electronics
+```
+
+---
+
+Clicking store:
+
+Opens store page.
+
+---
+
+# PART 16 — MOBILE EXPERIENCE
+
+Apply identical logic to:
+
+Mobile Search
+
+Mobile Navbar Search
+
+Mobile Drawer Search
+
+No simplified implementation.
+
+---
+
+# PART 17 — SEARCH ANALYTICS FOUNDATION
+
+Track:
+
+Search term
+
+Search clicks
+
+Suggestion clicks
+
+Category clicks
+
+Store clicks
+
+Future recommendation engine will use this.
+
+Store data now.
+
+---
+
+# PART 18 — PERFORMANCE
+
+Cache suggestions.
+
+Avoid expensive queries.
+
+Support large product counts.
+
+Design for future scaling.
+
+---
+
+# PART 19 — REAL DATA VALIDATION
+
+Verify suggestions are generated from:
+
+Actual products
+
+Actual stores
+
+Actual categories
+
+Actual search data
+
+No fabricated suggestions.
+
+---
+
+# PART 20 — END-TO-END TESTING
+
+Test:
+
+Arabic
+
+English
+
+Desktop
+
+Mobile
+
+Guest
+
+Customer
+
+Seller
+
+Admin
+
+Verify:
+
+Suggestions
+
+Categories
+
+Stores
+
+Trending
+
+Recent
+
+Search execution
+
+No product cards in dropdown
+
+---
+
+# PART 21 — RECOVERY FILES
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+Document:
+
+Search Suggestion Engine V1
+
+Architecture
+
+Endpoints
+
+Generation logic
+
+Ranking logic
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Product cards removed from dropdown
+
+✅ Suggestions generated from real data
+
+✅ Arabic normalization works
+
+✅ English normalization works
+
+✅ Categories appear
+
+✅ Stores appear
+
+✅ Trending searches appear
+
+✅ Recent searches appear
+
+✅ Ranking works
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ Shop integration works
+
+✅ Analytics foundation created
+
+✅ TypeScript 0 errors
+
+✅ Recovery files updated
+
+Do not stop until the search experience feels like a real marketplace suggestion engine and not a product-preview dropdown.

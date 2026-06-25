@@ -1,0 +1,349 @@
+# SYANO AUTH SYSTEM FINAL RECOVERY + IMPORT HARDENING
+
+You are working on the SYANO (سوق سوريا) production codebase.
+
+## CRITICAL OBJECTIVE
+
+Completely diagnose, repair, verify, and harden the Mobile Authentication System.
+
+Current symptom:
+
+* Mobile app opens correctly.
+* Login screen loads.
+* Login attempts fail with generic error.
+* Authentication flow is not verified.
+
+Your job is NOT to guess.
+
+Your job is to identify the exact root cause, repair it, verify it, and then harden the project so future imports on new Replit accounts do not lose this knowledge.
+
+---
+
+# STRICT RULES
+
+DO NOT:
+
+* Create fake users.
+* Fake successful tests.
+* Mock authentication.
+* Skip verification.
+* Declare success without actual proof.
+* Change business logic unless required.
+* Create new workflows.
+* Create duplicate workflows.
+* Create extra previews.
+* Create extra artifacts.
+
+The only official services must remain:
+
+1. API Server
+2. Marketplace
+3. Mobile App
+4. Embedding Service
+
+Nothing else.
+
+---
+
+# PHASE 1 — AUTH FORENSIC INVESTIGATION
+
+Trace the ENTIRE login flow.
+
+Start from:
+
+Mobile Login Screen
+↓
+API Request
+↓
+Validation
+↓
+User Lookup
+↓
+Password Verification
+↓
+JWT Generation
+↓
+Response
+↓
+Session Storage
+↓
+Authenticated State
+
+For EVERY step determine:
+
+PASS / FAIL
+
+and identify the exact failure point.
+
+Do not continue until root cause is known.
+
+---
+
+# PHASE 2 — ADMIN ACCOUNT VALIDATION
+
+Verify existence of:
+
+Email:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+
+00Amer00
+
+Check:
+
+* User exists
+* User active
+* User role
+* User permissions
+* Email status
+* Password hash integrity
+* Password compare logic
+
+Determine whether failure is:
+
+* User missing
+* Wrong hash
+* Hash migration issue
+* Password compare bug
+* JWT bug
+* Session bug
+* Mobile bug
+* API bug
+* Database bug
+
+---
+
+# PHASE 3 — REPAIR
+
+Fix ONLY the actual root cause.
+
+Do not apply speculative fixes.
+
+After repair:
+
+Verify:
+
+* User lookup
+* Password compare
+* JWT creation
+* Session persistence
+* Mobile auth state
+
+---
+
+# PHASE 4 — REAL LOGIN TEST
+
+Perform actual login using:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Must verify:
+
+✅ API returns success
+
+✅ JWT generated
+
+✅ User object returned
+
+✅ Session stored
+
+✅ Mobile authenticated
+
+✅ Home screen loads
+
+Capture evidence.
+
+---
+
+# PHASE 5 — REGISTRATION TEST
+
+Create a REAL test account.
+
+Example:
+
+[test-auth-verification@example.com](mailto:test-auth-verification@example.com)
+
+Perform:
+
+Register
+↓
+Login
+↓
+Authenticated state
+↓
+Logout
+
+Verify:
+
+✅ Account created
+
+✅ Account stored in DB
+
+✅ Login works
+
+✅ Logout works
+
+Then delete test account if appropriate.
+
+---
+
+# PHASE 6 — AUTH SYSTEM AUDIT
+
+Audit:
+
+Backend:
+
+* Login endpoint
+* Register endpoint
+* JWT service
+* Session handling
+* Password hashing
+* Validation
+
+Frontend:
+
+* Login screen
+* Register screen
+* Auth provider
+* Session persistence
+* Navigation guards
+
+Mobile:
+
+* Login flow
+* Register flow
+* Secure storage
+* Token persistence
+* Auto-login
+
+Find and fix weaknesses.
+
+---
+
+# PHASE 7 — IMPORT HARDENING
+
+After auth is fully fixed:
+
+Update all recovery systems so future Replit imports immediately understand authentication state.
+
+Update:
+
+project.manifest.json
+
+Add:
+
+* auth_status
+* auth_version
+* auth_verified
+* last_auth_test
+
+Update:
+
+/api/healthz
+
+Expose:
+
+{
+"auth": {
+"status": "healthy",
+"adminLoginVerified": true,
+"registrationVerified": true
+}
+}
+
+Update:
+
+AGENT_BOOTSTRAP.md
+
+Add:
+
+Current authentication architecture
+
+Current authentication provider
+
+Verified admin account exists
+
+Authentication recovery procedure
+
+Update:
+
+RECOVERY_REPORT.md
+
+Include:
+
+Authentication certification results.
+
+---
+
+# PHASE 8 — IMPORT SIMULATION
+
+Pretend you are a completely new Replit Agent.
+
+You have just imported this repository into a fresh account.
+
+Without relying on memory:
+
+Can you determine:
+
+* Authentication system type
+* Login status
+* Auth architecture
+* Auth health
+* Verification status
+
+using:
+
+* project.manifest.json
+* /api/healthz
+* recovery files
+
+If not:
+
+Improve them until you can.
+
+---
+
+# FINAL CERTIFICATION
+
+Only finish if ALL are true:
+
+✅ Admin Login Success
+
+✅ Registration Success
+
+✅ New User Login Success
+
+✅ Logout Success
+
+✅ JWT Verified
+
+✅ Session Verified
+
+✅ Mobile Auth Verified
+
+✅ API Auth Verified
+
+✅ Import Recovery Updated
+
+✅ Future Agent Can Discover Auth State
+
+Produce:
+
+AUTH_SYSTEM_CERTIFICATION.md
+
+Include:
+
+Root Cause
+Fix Applied
+Tests Performed
+Evidence
+Remaining Risks
+Final Status
+
+Do not stop before certification is complete.

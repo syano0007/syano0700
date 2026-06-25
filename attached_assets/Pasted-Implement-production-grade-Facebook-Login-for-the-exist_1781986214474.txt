@@ -1,0 +1,339 @@
+Implement production-grade Facebook Login for the existing SYANO (سوق سوريا) marketplace.
+
+IMPORTANT:
+
+This is NOT a new authentication system.
+
+Facebook Login must be integrated into the existing SYANO authentication architecture.
+
+Do NOT create parallel auth logic.
+
+Do NOT replace:
+
+* Email authentication
+* Google authentication
+* JWT authentication
+* Existing user system
+
+Facebook Login is an additional authentication provider.
+
+---
+
+# PRIMARY GOAL
+
+Add:
+
+Continue with Facebook
+
+to the existing authentication flow.
+
+Users must be able to:
+
+* Sign in with Facebook
+* Create accounts with Facebook
+* Link Facebook to existing accounts
+
+using the current SYANO auth system.
+
+---
+
+# PHASE 1 — AUTH AUDIT
+
+Before coding:
+
+Inspect:
+
+* Current authentication architecture
+* Email login flow
+* Google login flow
+* JWT generation
+* Session creation
+* User creation flow
+* User linking flow
+* Auth middleware
+* User schema
+
+Understand everything first.
+
+Do not duplicate logic.
+
+Reuse existing auth patterns.
+
+---
+
+# PHASE 2 — META OAUTH IMPLEMENTATION
+
+Use:
+
+Meta / Facebook OAuth
+
+official implementation.
+
+Support:
+
+* Facebook Login
+* Facebook Registration
+
+Retrieve:
+
+* Facebook ID
+* Name
+* Email
+* Profile Picture
+
+Store only required data.
+
+---
+
+# PHASE 3 — USER MATCHING
+
+Rule:
+
+If Facebook email already exists:
+
+→ Link Facebook account to existing user.
+
+Do NOT create duplicates.
+
+One email = one account.
+
+---
+
+Case A:
+
+Existing user logs in with Facebook.
+
+Email matches existing account.
+
+→ Link provider.
+
+→ Log user in.
+
+---
+
+Case B:
+
+User does not exist.
+
+→ Create new account.
+
+→ Log user in.
+
+---
+
+# PHASE 4 — DATABASE
+
+Use additive migrations only.
+
+Add fields only if necessary:
+
+facebook_id
+auth_provider
+
+Supported providers:
+
+email
+google
+facebook
+
+Preserve all existing users.
+
+Do not remove anything.
+
+---
+
+# PHASE 5 — LOGIN MODAL
+
+Inside the existing login modal:
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+Continue with Google
+
+Continue with Facebook
+
+OR
+
+Email / Password
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+Facebook button:
+
+* Official Facebook branding
+* Facebook icon
+* Rounded-xl
+* Premium appearance
+* Consistent with SYANO design language
+
+---
+
+# PHASE 6 — PROFILE
+
+Add:
+
+Connected Accounts
+
+Display:
+
+Google Connected
+
+Facebook Connected
+
+Design must be reusable for future providers.
+
+---
+
+# PHASE 7 — AVATAR SUPPORT
+
+If Facebook provides profile image:
+
+Store avatar URL.
+
+Use as default profile picture.
+
+User can change it later.
+
+---
+
+# PHASE 8 — JWT
+
+After successful Facebook login:
+
+Use the existing JWT system.
+
+No new token system.
+
+No new session system.
+
+No new auth architecture.
+
+---
+
+# PHASE 9 — MOBILE COMPATIBILITY
+
+Ensure architecture works with:
+
+* Web
+* Expo
+* Future native apps
+
+Avoid web-only assumptions.
+
+---
+
+# PHASE 10 — SECURITY
+
+Validate:
+
+* Facebook access token
+* Facebook user identity
+* Facebook App ID
+* Token expiration
+
+Never trust frontend payload directly.
+
+Verify server-side.
+
+---
+
+# PHASE 11 — ENVIRONMENT VARIABLES
+
+Support:
+
+FACEBOOK_APP_ID
+
+FACEBOOK_APP_SECRET
+
+Do not hardcode credentials.
+
+Do not store secrets in source code.
+
+---
+
+# PHASE 12 — ADMIN COMPATIBILITY
+
+Verify:
+
+* Admin accounts still work
+* Seller accounts still work
+* Courier accounts still work
+
+Facebook login must not bypass role checks.
+
+---
+
+# PHASE 13 — FULL TESTING
+
+Verify:
+
+✅ Email login works
+
+✅ Google login works
+
+✅ Facebook login works
+
+✅ Existing users link correctly
+
+✅ New users created correctly
+
+✅ No duplicate users
+
+✅ JWT issued correctly
+
+✅ Sessions persist
+
+✅ Refresh keeps login
+
+✅ Logout works
+
+✅ Roles preserved
+
+✅ Seller accounts preserved
+
+✅ Courier accounts preserved
+
+✅ Admin accounts preserved
+
+✅ Avatar imported correctly
+
+✅ TypeScript = 0 errors
+
+---
+
+# REQUIRED REPORT
+
+After completion provide:
+
+1. Root cause findings (if issues found)
+2. Files modified
+3. Database changes
+4. Environment variables required
+5. Validation results
+6. Remaining limitations
+
+---
+
+# FINAL RESULT
+
+SYANO authentication must support:
+
+* Email
+* Google
+* Facebook
+
+using:
+
+* One user table
+* One JWT system
+* One permission system
+* One session system
+
+Build marketplace-grade authentication comparable to:
+
+* Amazon
+* Shopify
+* Noon
+* Trendyol
+
+without introducing regressions or duplicate auth flows.

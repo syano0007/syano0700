@@ -1,0 +1,266 @@
+Before ANY work on other phases:
+
+STOP.
+
+Do not build anything.
+
+Run a full certification audit of the automatic delivery assignment system.
+
+Goal:
+
+Prove that the courier assignment pipeline works completely automatically without any admin intervention.
+
+This is NOT a code review.
+
+This is NOT a theoretical audit.
+
+This is a REAL end-to-end certification.
+
+---
+
+# REQUIRED FLOW
+
+Customer places order
+
+↓
+
+Seller marks order READY_FOR_PICKUP
+
+↓
+
+Delivery Mission created automatically
+
+↓
+
+Assignment Engine starts automatically
+
+↓
+
+Nearest courier selected automatically
+
+↓
+
+Offer created automatically
+
+↓
+
+Offer delivered automatically
+
+↓
+
+Courier accepts
+
+↓
+
+Mission assigned automatically
+
+---
+
+# CERTIFICATION REQUIREMENTS
+
+Admin must NOT:
+
+* trigger assignment manually
+* create missions manually
+* run SQL manually
+* call APIs manually
+
+The system itself must perform everything.
+
+---
+
+# TEST 1
+
+Happy Path
+
+Verify:
+
+READY_FOR_PICKUP
+
+creates mission
+
+and triggers assignment automatically.
+
+Document:
+
+* order id
+* mission id
+* courier id
+
+---
+
+# TEST 2
+
+Nearest Courier Selection
+
+Verify:
+
+Engine selects the nearest available courier.
+
+Show:
+
+* courier distance
+* courier ranking
+
+Confirm Haversine logic actually used.
+
+---
+
+# TEST 3
+
+Offer Acceptance
+
+Verify:
+
+Offer accepted.
+
+Mission assigned.
+
+Assignment status updated.
+
+No manual intervention.
+
+---
+
+# TEST 4
+
+Offer Expiration
+
+Do not accept.
+
+Verify:
+
+Round 1 expires.
+
+Round 2 starts automatically.
+
+Round 3 starts automatically.
+
+Document timestamps.
+
+---
+
+# TEST 5
+
+No Courier Available
+
+Force scenario:
+
+No eligible couriers.
+
+Verify:
+
+NO_COURIER_FOUND
+
+and
+
+Dispatch Alert created.
+
+Automatically.
+
+---
+
+# TEST 6
+
+Offline Courier
+
+Verify:
+
+OFFLINE courier never receives offers.
+
+---
+
+# TEST 7
+
+Busy Courier
+
+Verify:
+
+BUSY courier never receives offers.
+
+---
+
+# TEST 8
+
+Stale GPS
+
+Verify:
+
+Courier with stale location is excluded.
+
+---
+
+# TEST 9
+
+Multiple Couriers
+
+Verify:
+
+Offer sent only to intended courier.
+
+No duplicate assignments.
+
+---
+
+# TEST 10
+
+Race Condition
+
+Simulate:
+
+Two couriers accept simultaneously.
+
+Verify:
+
+Only one succeeds.
+
+Assignment remains consistent.
+
+---
+
+# REQUIRED OUTPUT
+
+Create:
+
+DELIVERY_ASSIGNMENT_CERTIFICATION.md
+
+Include:
+
+* test evidence
+* ids
+* timestamps
+* API responses
+* failures found
+* fixes applied
+
+---
+
+# CERTIFICATION RULE
+
+If any test fails:
+
+DO NOT continue to A9.
+
+Fix the issue.
+
+Retest.
+
+Only mark:
+
+AUTOMATIC_ASSIGNMENT_SYSTEM_CERTIFIED
+
+when all tests pass.
+
+---
+
+# FINAL RESULT
+
+Answer only:
+
+CERTIFIED
+
+or
+
+NOT CERTIFIED
+
+with exact failing tests.

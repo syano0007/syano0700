@@ -1,0 +1,168 @@
+Stop focusing on colors.
+
+Stop focusing on typography.
+
+The remaining mismatch is NOT color.
+
+The remaining mismatch is NOT font.
+
+The remaining mismatch is layout geometry.
+
+Current similarity is closer to 90% than 99%.
+
+---
+
+# MAIN ISSUE
+
+The reference uses a premium wide-container layout.
+
+Your current mockup is compressed.
+
+The spacing system does not match.
+
+The entire Hero still feels tighter than the reference.
+
+---
+
+# CONTAINER WIDTH
+
+Rebuild the Hero using the exact container geometry from the screenshot.
+
+Do not estimate.
+
+Do not approximate.
+
+Visually compare side-by-side.
+
+Match:
+
+* left margin
+* right margin
+* content width
+* hero width
+
+exactly.
+
+---
+
+# LEFT IMAGE OFFSET
+
+This is currently wrong.
+
+The reference has significantly more space between:
+
+screen edge
+→ image panel
+
+Increase the left-side margin.
+
+The image must not feel glued to the viewport edge.
+
+---
+
+# IMAGE PANEL
+
+Current image panel still feels compressed.
+
+Match:
+
+* width
+* height
+* position
+
+to the screenshot.
+
+Do not resize based on assumptions.
+
+Use visual comparison.
+
+---
+
+# FLOATING CARDS
+
+The cards must sit in the same positions as the screenshot.
+
+Current version:
+
+* too close to edges
+* too close to each other
+
+Increase breathing room.
+
+Match exact placement.
+
+---
+
+# SPACING SYSTEM
+
+Match:
+
+Headline ↔ Description
+
+Description ↔ Buttons
+
+Buttons ↔ Statistics
+
+Image ↔ Content
+
+Hero ↔ Navbar
+
+Hero ↔ Viewport
+
+All spacing should be visually identical.
+
+---
+
+# BALANCE
+
+The reference has perfect 50/50 balance.
+
+Current version still gives more visual weight to the text side.
+
+Increase the visual dominance of the image side.
+
+---
+
+# COMPARISON METHOD
+
+Open:
+
+Reference screenshot
+
+and
+
+Canvas mockup
+
+side-by-side.
+
+Ignore colors.
+
+Ignore fonts.
+
+Look only at:
+
+* margins
+* proportions
+* spacing
+* geometry
+* balance
+
+Refine until the silhouette of the layout matches.
+
+---
+
+# IMPLEMENTATION LOCK
+
+Canvas only.
+
+No production changes.
+
+No HeroV4 changes.
+
+No code changes.
+
+Only refine the mockup until the geometry becomes nearly indistinguishable from the reference.
+
+Target:
+
+98–99% geometric similarity before implementation.

@@ -1,0 +1,59 @@
+You are a senior frontend engineer specialized in premium ecommerce footers (Amazon / Noon level).
+
+Project: syano.online — a modern multi-vendor ecommerce marketplace based in Aleppo, Syria.
+
+Task: Create a **beautiful, clean, premium, and professional Footer** using Tailwind CSS only.
+
+**Design Specifications:**
+- Background color: Light gray (#F8F9FA or similar elegant light gray)
+- Text color: White (#FFFFFF)
+- Hover effects on all links and buttons (smooth emerald or gold accent)
+- Perfect RTL support when language is Arabic
+- Fully responsive on mobile and desktop
+
+**Exact Structure Required:**
+
+Four main columns with Arabic headings:
+
+1. **تعرف علينا** (Get to Know Us)
+2. **للبائعين** (Make Money with Us)
+   - انضم كبائع
+   - كيف تبيع على سيانو
+   - شروط البائعين
+   - مركز البائعين
+   - عمولة البيع
+   - أسئلة شائعة للبائعين
+
+3. **خدمات سيانو** (Syano Services)
+   - شحن داخل حلب
+   - شحن إلى باقي المحافظات
+   - طرق الدفع
+   - ضمان سيانو
+   - برنامج الولاء
+   - عروض اليوم
+
+4. **المساعدة والدعم** (Let Us Help You)
+   - مركز المساعدة
+   - تتبع طلبك
+   - إرجاع المنتج
+   - سياسة الخصوصية
+   - شروط الاستخدام
+   - اتصل بنا
+
+**Important Requirement:**
+- The footer must support **multi-language** (Arabic and English at minimum).
+- All text in the footer should change dynamically according to the current language selected by the user.
+- When the language is Arabic → use RTL direction.
+- When the language is English → use LTR direction.
+- Make the code ready to accept a `language` prop or context (e.g. 'ar' or 'en').
+
+Bottom bar (like Amazon):
+- سيانو © 2026 — سوق حلب الإلكتروني
+- جميع الحقوق محفوظة
+- مصمم ومطور في حلب، سوريا
+
+Social media icons at the bottom: فيسبوك | إنستغرام | تيك توك | واتساب
+
+Make the footer elegant, modern, spacious, and trustworthy. Use good hover states and smooth transitions. Provide clean, production-ready Tailwind CSS code with clear comments and support for language switching.
+
+Start now and make it as premium as possible.

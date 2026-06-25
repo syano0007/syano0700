@@ -1,0 +1,394 @@
+STOP.
+
+Before making any changes:
+
+Desktop Hero layout remains LOCKED.
+
+Do NOT modify:
+
+* desktop spacing
+* desktop proportions
+* desktop typography
+* desktop image layout
+
+This task is about DATA QUALITY and CONTENT ACCURACY.
+
+Not redesign.
+
+---
+
+# PART 1 — HERO CAROUSEL
+
+Current issue:
+
+The Hero Carousel is using generic/demo imagery.
+
+This breaks trust.
+
+The homepage should represent the real marketplace.
+
+---
+
+## REQUIRED
+
+Replace Hero Carousel images with REAL products that already exist in the database.
+
+Do NOT use:
+
+* stock photos
+* placeholder images
+* generic mockup images
+
+Use:
+
+actual product images from the marketplace.
+
+---
+
+## CAROUSEL RULE
+
+Each slide must be linked to a real product.
+
+Example:
+
+Slide:
+
+Samsung Phone
+
+Must use:
+
+actual Samsung product image from database.
+
+---
+
+## FLOATING PRODUCT CARDS
+
+Current issue:
+
+Floating cards do not always represent real marketplace products.
+
+---
+
+### REQUIRED
+
+Every floating card must use:
+
+* real product
+* real product image
+* real product name
+* real price
+* real store
+
+pulled from API/database.
+
+No fake cards.
+
+No hardcoded cards.
+
+No demo cards.
+
+---
+
+# PART 2 — PRICE DISPLAY SYSTEM
+
+Current issue:
+
+Price formatting is inconsistent.
+
+Numbers appear visually incorrect.
+
+Some prices look excessively long.
+
+Spacing is poor.
+
+---
+
+## REQUIRED
+
+Audit the entire price formatting system.
+
+Verify:
+
+SYP
+
+USD
+
+Formatting.
+
+---
+
+### SYP
+
+Example:
+
+250,000 ل.س
+
+Not:
+
+250000
+
+Not:
+
+250000.00
+
+Not:
+
+250000 SYP
+
+---
+
+### USD
+
+Example:
+
+$125
+
+or
+
+$125.00
+
+according to existing project rules.
+
+---
+
+### REMOVE VISUAL CLUTTER
+
+Do not display meaningless digits.
+
+Avoid:
+
+* long decimal chains
+* unnecessary precision
+* stretched price layouts
+
+Prices should be compact and readable.
+
+---
+
+# PART 3 — PRODUCT CARD AUDIT
+
+Current issue:
+
+Some homepage cards still contain placeholder-style information.
+
+---
+
+## REQUIRED
+
+Audit every homepage product card.
+
+Sections:
+
+* Trending
+* New Arrivals
+* Hot Deals
+* Featured Products
+* Recently Viewed
+* Any other homepage product section
+
+---
+
+### REAL RATINGS ONLY
+
+If reviews exist:
+
+show actual rating.
+
+If reviews do not exist:
+
+hide rating completely.
+
+Do NOT show:
+
+★★★★★
+
+4.8
+
+4.9
+
+5.0
+
+unless calculated from real reviews.
+
+---
+
+### REAL REVIEW COUNTS ONLY
+
+If review count exists:
+
+show it.
+
+Otherwise:
+
+hide it.
+
+No fabricated numbers.
+
+---
+
+### REAL SALES COUNTS ONLY
+
+If real sales data exists:
+
+show it.
+
+Otherwise:
+
+hide it.
+
+No fake popularity metrics.
+
+---
+
+### REAL STORE DATA ONLY
+
+Product cards must show:
+
+real store
+
+real product
+
+real image
+
+real pricing
+
+real discount
+
+---
+
+# PART 4 — HOMEPAGE DATA INTEGRITY AUDIT
+
+Perform a complete homepage data audit.
+
+Verify:
+
+Hero
+
+Categories
+
+Deals
+
+Stores
+
+Trending
+
+New Arrivals
+
+Recently Viewed
+
+Footer
+
+Everything must use real marketplace data.
+
+No hardcoded marketplace content.
+
+---
+
+# PART 5 — API VALIDATION
+
+Verify endpoints used by homepage.
+
+Check:
+
+products
+
+stores
+
+categories
+
+reviews
+
+ratings
+
+pricing
+
+currency conversion
+
+Ensure homepage data matches backend responses.
+
+---
+
+# PART 6 — MOBILE VALIDATION
+
+Verify:
+
+Desktop
+
+Tablet
+
+Mobile
+
+Ensure:
+
+real data renders correctly everywhere.
+
+No broken layouts from long prices.
+
+No overflow.
+
+No clipping.
+
+---
+
+# RECOVERY DOCUMENTATION
+
+After completion:
+
+Update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+Homepage architecture docs
+
+Recovery audit files
+
+Document:
+
+* Hero now uses real products
+* Floating cards use real products
+* Product cards use real ratings
+* Price formatting standardized
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Hero carousel uses real products
+
+✅ Floating cards use real products
+
+✅ Real product images
+
+✅ Real product names
+
+✅ Real prices
+
+✅ Real stores
+
+✅ No fake ratings
+
+✅ No fake review counts
+
+✅ No fake popularity metrics
+
+✅ SYP formatting fixed
+
+✅ USD formatting fixed
+
+✅ Homepage sections use real data
+
+✅ Desktop verified
+
+✅ Tablet verified
+
+✅ Mobile verified
+
+✅ Recovery files updated
+
+✅ Documentation updated
+
+Do not finish until the homepage is fully backed by real marketplace data and all fake/demo content has been removed.

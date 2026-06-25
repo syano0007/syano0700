@@ -1,0 +1,357 @@
+Task: Experience Layer — Full Audit & Implementation
+Phase: Search Improvement — Axis 3 (Experience)
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file. Then read the full
+source of these files before writing a single line:
+  - artifacts/marketplace/src/pages/search/index.tsx
+  - artifacts/marketplace/src/components/Navbar.tsx
+  - artifacts/marketplace/src/components/ui/ (list all files)
+  - artifacts/mobile/src/screens/search/ (all files in this directory)
+
+PERMANENT REJECTIONS — never propose or implement any of these ever again:
+  - "Save Search"
+  - "Recently Searched" (already exists in Navbar autocomplete)
+  - "Jump to top" floating button
+  - Any feature not explicitly listed in this task
+Stop and continue with the task only if you are about to suggest one.
+
+════════════════════════════════════════════════════════════════════
+PHASE 1 — AUDIT CURRENT STATE (no code changes yet)
+════════════════════════════════════════════════════════════════════
+
+Before writing any fix, audit and report the current state of each
+area below. For each, take a screenshot showing the current behavior
+and describe exactly what exists in the code.
+
+AUDIT A — Empty / Zero-Results State
+  Test: search for a query guaranteed to return 0 results, e.g.
+  /shop?q=xyznotexist123
+  Screenshot the full page at 1280px Arabic dark and 375px Arabic dark.
+  Report:
+    - What currently renders when results = 0? (blank page, error,
+      simple text message, illustrated empty state, suggestions?)
+    - Does it show the search query that returned no results?
+    - Does it suggest alternative queries or related categories?
+    - Does it show trending/popular searches as fallback?
+    - Is there a "clear search" or "try again" call to action?
+    - Does the mobile view show the same empty state or something
+      different?
+
+AUDIT B — Keyword Highlighting in Results
+  Test: search for /shop?q=laptop and inspect the product cards.
+  Screenshot a product card that matches "laptop" at 1280px.
+  Report:
+    - Is the search keyword highlighted (e.g. bold, colored, underlined)
+      anywhere in the product card — title, description, category?
+    - If yes: what highlighting method is used (mark tag, span with
+      class, dangerouslySetInnerHTML)?
+    - If no: confirm highlighting is completely absent.
+
+AUDIT C — Search Speed & Loading States
+  Test: type a query in the search bar and observe.
+  Report:
+    - Is there a loading skeleton or spinner while results are fetching?
+      If yes, describe it (skeleton cards, spinner, shimmer effect).
+    - Is there a loading state in the autocomplete dropdown while
+      suggestions are fetching?
+    - What is the debounce delay on the search input? (check useDebounce
+      hook usage in both Navbar.tsx and search/index.tsx)
+    - Does the URL update immediately on keystroke or only on submit?
+    - Is there any perceived-performance optimization (e.g. showing
+      cached/stale results while refetching)?
+
+AUDIT D — Autocomplete Quality
+  Test: type "موب" in the Navbar search bar. Screenshot the dropdown.
+  Then type "lap" and screenshot again.
+  Report:
+    - How many suggestions appear? What types? (intent, category, store,
+      trending — per section 4f of project docs)
+    - Are icons showing correctly for each suggestion type?
+    - Is the intent badge (amber pill) showing for intent-type suggestions?
+    - Is keyboard navigation working? (ArrowUp/Down/Enter/Escape)
+    - Is the "Recent searches" section showing at the top?
+    - On mobile (375px), does the autocomplete dropdown render correctly
+      without overflow or cutoff?
+    - Are Arabic suggestions displaying RTL correctly inside the dropdown?
+
+AUDIT E — Mobile Search Experience
+  Test at 375px Arabic dark:
+    - Open the search page /shop with no query
+    - Type a query and submit
+    - Tap the Filters button and open the filter panel
+  Screenshot all three states.
+  Report:
+    - Is the search input on mobile easily tappable (min 44px touch
+      target)?
+    - Does the keyboard appear correctly and not cover the input?
+    - Is the transition between states (no query → results → filtered)
+      smooth or does it flash/jump?
+    - Are product cards on mobile sized correctly (not too small, not
+      overflowing)?
+    - Is the "أضف" (add to cart) button on each card easily tappable?
+
+════════════════════════════════════════════════════════════════════
+PHASE 2 — IMPLEMENT IMPROVEMENTS (based on audit findings)
+════════════════════════════════════════════════════════════════════
+
+After completing Phase 1 and reporting all audit findings, implement
+the following improvements. If the audit found that something already
+exists and works well, skip that item and note it as "already
+implemented — no change needed."
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 1 — Smart Empty State
+──────────────────────────────────────────────────────────────────
+
+When a search query returns 0 results, replace whatever currently
+renders with a full empty state component that includes ALL of:
+
+  1a. Clear visual indicator — use an existing icon from the icon
+      library already used in this project (e.g. a search or
+      magnifying glass icon with an X, or similar). Do NOT add a
+      new icon library. Size: large enough to be seen immediately
+      (e.g. w-16 h-16 or equivalent in existing scale).
+
+  1b. Message — two lines:
+      Primary: "لا توجد نتائج لـ "{query}""  (Arabic)
+               "No results for "{query}""     (English)
+      Secondary: "جرّب كلمة مختلفة أو تصفّح الفئات"  (Arabic)
+                 "Try a different word or browse categories" (English)
+      All strings must go into ar.json and en.json under key path:
+      search.empty.title, search.empty.subtitle
+      — follow the existing i18n key naming convention exactly.
+
+  1c. "Clear Search" button — clicking it clears the query param
+      from the URL and returns to /shop with no query. Use an
+      existing Button component and existing variant (outline or
+      secondary — whichever is used for secondary actions on other
+      pages). Label: "مسح البحث" / "Clear Search" — add to i18n
+      under search.empty.clearButton.
+
+  1d. Trending / Popular searches fallback — below the button, show
+      a row of suggestion chips pulled from the REAL query_logs
+      table (queries with the highest result_count, last 30 days,
+      limit 5). Label: "الأكثر بحثاً" / "Trending Searches".
+      Add to i18n under search.empty.trending.
+      CRITICAL: if query_logs has fewer than 3 entries with
+      result_count > 0, do NOT show this section at all — never
+      show fake or hardcoded suggestions. The existing
+      /api/search/suggestions endpoint already returns trending
+      data — use it rather than a new endpoint if it covers this.
+      If a new endpoint is needed, add it following the exact
+      pattern of existing search endpoints (Zod validation,
+      try/catch, processingTimeMs, admin-safe).
+
+  1e. "تصفّح الفئات" link — a secondary link below the chips that
+      navigates to /categories. Use existing Link component.
+      Label: "تصفّح جميع الفئات" / "Browse All Categories" —
+      add to i18n under search.empty.browseCategories.
+
+  Design rules for the empty state component:
+    - Center the content vertically and horizontally in the results
+      area (not full-page center — centered within the product grid
+      column only, so the filter sidebar remains visible on desktop).
+    - Match the spacing, font sizes, and color tokens used in other
+      empty states in this codebase (check seller dashboard, order
+      history, or wishlist for existing empty state patterns and
+      REUSE the same structure/classes exactly).
+    - RTL: all text right-aligned in Arabic, left-aligned in English.
+    - Dark mode: all elements must use existing dark mode tokens.
+    - Mobile 375px: same component, stacked correctly, no overflow.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 2 — Keyword Highlighting in Product Card Titles
+──────────────────────────────────────────────────────────────────
+
+When a search query is active (/shop?q=...), highlight the matching
+portion of the search query within the product card title text.
+
+  2a. Implementation approach:
+      Create a small pure utility function in a new file:
+      artifacts/marketplace/src/utils/highlightMatch.ts
+      The function signature: highlightMatch(text: string, query: string)
+      Returns: Array<{part: string, highlight: boolean}>
+      Splits text on case-insensitive, diacritic-insensitive matches
+      of the query terms.
+
+      For Arabic normalization, copy ONLY these two functions from
+      searchProcessor.ts — rename them with a "frontend" prefix to
+      avoid confusion (e.g. frontendNormalizeArabic,
+      frontendRemoveTashkeel):
+        - normalizeArabic()   → normalizes alef variants (أإآا → ا)
+        - removeTashkeel()    → strips diacritics
+      Do NOT import any other function from searchProcessor.ts.
+      Do NOT import the server-side module into the frontend bundle.
+
+      For English: case-insensitive match only, no normalization needed.
+
+      Each {highlight: true} segment renders as:
+        <mark className="bg-primary/20 text-primary rounded-sm px-0.5">
+          {part}
+        </mark>
+      Use the existing `primary` color token — do not introduce a
+      new highlight color.
+
+  2b. Apply highlighting to:
+      - Product card TITLE only (not description, not category, not
+        store name — title only to keep it clean).
+      - Only when debouncedQuery is non-empty.
+      - Find the exact component file rendering the product title on
+        the search results page and replace the plain text render
+        with a .map() over the segments array — React elements only,
+        no dangerouslySetInnerHTML.
+
+  2c. Do NOT highlight in:
+      - Autocomplete dropdown suggestions (already have their own styling)
+      - Category names or store names on the card
+      - Any page other than /shop search results
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 3 — Loading Skeleton for Search Results
+──────────────────────────────────────────────────────────────────
+
+  If a loading skeleton does NOT already exist for the product grid
+  on the search results page (confirm in audit):
+
+  3a. When isLoading is true (TanStack Query loading state), render
+      a grid of skeleton cards in place of real product cards. The
+      skeleton grid must:
+        - Match the exact same grid layout as the real product grid
+          (same columns: 4 on desktop, 2 on tablet, 2 on mobile —
+          or whatever the current grid config is, match it exactly).
+        - Show 8 skeleton cards (enough to fill above the fold).
+        - Each skeleton card matches the approximate dimensions of a
+          real product card: image placeholder area on top, then 2-3
+          lines of text placeholders below.
+        - Use the existing Skeleton component from the UI library
+          (check src/components/ui/ — if a Skeleton component exists,
+          use it; if not, use a simple div with animate-pulse and
+          bg-muted classes which are already in the project).
+        - RTL and dark mode must work automatically via existing tokens.
+
+  3b. If a loading skeleton ALREADY EXISTS and works correctly
+      (confirmed in audit), skip this improvement entirely and note
+      it in the report.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 4 — Autocomplete Dropdown Polish
+──────────────────────────────────────────────────────────────────
+
+  Based on the audit findings for AUDIT D, fix only the issues
+  actually found. Do not change things that are already working.
+  Possible fixes (implement only if audit confirms the issue exists):
+
+  4a. If icons are missing or incorrect for suggestion types:
+      Map each type to its correct existing icon (reuse icons already
+      used elsewhere — do not import new ones):
+        intent   → Sparkles or Zap icon
+        category → Tag or Grid icon
+        store    → Store or Shop icon
+        trending → TrendingUp or Fire icon
+      Apply the icon in the suggestion row using existing icon size
+      classes (w-4 h-4 or whatever is standard in this codebase).
+
+  4b. If the mobile autocomplete dropdown overflows or is cut off at
+      375px: constrain its width to 100vw max and ensure it is
+      positioned correctly below the search input without horizontal
+      overflow. Use existing positioning patterns from Navbar.tsx.
+
+  4c. If the "Recent searches" section is missing its clear button
+      (a small X next to each recent search to remove it from
+      localStorage): add it using an existing IconButton or Button
+      component.
+
+  4d. Do NOT change debounce timing, API endpoint behavior, keyboard
+      navigation logic, or ARIA attributes — these were carefully
+      built and audited in Phase 8.
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS (non-negotiable)
+════════════════════════════════════════════════════════════════════
+
+- All new visible strings → ar.json and en.json only, under the key
+  paths specified above. No hardcoded strings anywhere.
+- All new components → reuse existing UI primitives from
+  src/components/ui/. No new component libraries.
+- All colors → existing Tailwind tokens only (primary, muted, border,
+  card, etc.). No new colors, no hex values inline.
+- All spacing → existing Tailwind scale only. No arbitrary values
+  like p-[13px].
+- RTL: every new element must render correctly in Arabic (dir="rtl")
+  without extra work — use existing RTL-aware patterns.
+- Dark mode: every new element must use existing dark mode tokens
+  automatically — no hardcoded light-only colors.
+- Mobile: every new element must work at 375px without overflow.
+- No new npm dependencies.
+- Do not modify: Navbar.tsx autocomplete core logic, search API
+  endpoints, filter logic, URL param handling, or any file unrelated
+  to these 4 improvements.
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION MATRIX
+════════════════════════════════════════════════════════════════════
+
+After all improvements, screenshot and verify each cell:
+
+IMPROVEMENT 1 — Empty State:
+  - /shop?q=xyznotexist123 at 1280px Arabic dark   → full empty state
+  - /shop?q=xyznotexist123 at 375px  Arabic dark   → mobile empty state
+  - /shop?q=xyznotexist123 at 1280px English light → English desktop
+  - /shop?q=xyznotexist123 at 375px  English light → English mobile
+  - "Clear Search" button works → navigates to /shop no query
+  - Trending chips (if shown) come from real query_logs data
+
+IMPROVEMENT 2 — Keyword Highlighting:
+  - /shop?q=laptop  at 1280px English dark → "Laptop" highlighted in titles
+  - /shop?q=موبايل  at 1280px Arabic dark  → "موبايل" highlighted in titles
+  - /shop?q=iphon   at 1280px English dark → partial match highlighted
+  - No highlight on category name, store name, or description
+
+IMPROVEMENT 3 — Loading Skeleton:
+  - Throttle network to Slow 3G in devtools
+  - Navigate to /shop?q=laptop
+  - Screenshot the skeleton state before results load
+  - Confirm: same grid layout as real results, animate-pulse visible,
+    no layout shift when real results replace skeleton
+
+IMPROVEMENT 4 — Autocomplete:
+  - Type "موب" in Navbar search → screenshot dropdown (Arabic)
+  - Type "lap" in Navbar search → screenshot dropdown (English)
+  - Confirm all suggestion types show correct icons
+  - Confirm mobile 375px dropdown has no overflow
+
+After all screenshots, run:
+  npx tsc --noEmit
+across ALL 6 packages. Must return 0 errors.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE
+════════════════════════════════════════════════════════════════════
+
+PHASE 1 AUDIT RESULTS:
+  Audit A (Empty State):   [current state description + screenshot]
+  Audit B (Highlighting):  [current state description + screenshot]
+  Audit C (Speed/Loading): [current state description]
+  Audit D (Autocomplete):  [current state description + screenshots]
+  Audit E (Mobile UX):     [current state description + screenshots]
+
+PHASE 2 IMPLEMENTATION:
+  Improvement 1 — Empty State:
+    [files changed, i18n keys added, trending data source confirmed,
+     before/after screenshots for desktop + mobile + English]
+  Improvement 2 — Keyword Highlighting:
+    [highlightMatch.ts created, component modified, normalization
+     approach used, before/after screenshots Arabic + English]
+  Improvement 3 — Loading Skeleton:
+    [either: skeleton implemented + screenshot, OR: already exists,
+     no change made]
+  Improvement 4 — Autocomplete Polish:
+    [list only the issues found in audit and fixed, with screenshots]
+
+TYPESCRIPT: "0 errors across all 6 packages confirmed"
+
+FEATURE REJECTIONS CONFIRMED:
+  "Save Search — not implemented, not proposed"
+  "Recently Searched — not implemented, not proposed"
+  "Jump to top — not implemented, not proposed"

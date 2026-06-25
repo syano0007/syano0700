@@ -1,0 +1,445 @@
+# SYANO — COMPLETE PROJECT RECOVERY & ENVIRONMENT MIGRATION
+
+You are restoring this project after it has been moved to a completely new Replit account/workspace.
+
+Your goal is to make the project behave EXACTLY as it did in the previous workspace, preserving all features, fixes, optimizations, and behavior.
+
+This is NOT just "make it compile".
+This is a full production recovery.
+
+--------------------------------------------------
+ABSOLUTE GOAL
+--------------------------------------------------
+
+When finished:
+
+- Website works exactly like before migration.
+- Admin account works.
+- Authentication works.
+- All performance optimizations remain intact.
+- All motion/smoothness improvements remain intact.
+- All i18n fixes remain intact.
+- All Google Translate protections remain intact.
+- All custom fixes remain intact.
+- No functionality is lost.
+- No regressions are introduced.
+
+Treat the previous workspace as the source of truth.
+
+--------------------------------------------------
+STEP 1 — FULL PROJECT AUDIT
+--------------------------------------------------
+
+Before changing anything:
+
+Audit the entire workspace.
+
+Check:
+
+- pnpm workspace
+- package.json files
+- lockfile
+- node_modules
+- generated packages
+- build scripts
+- workflows
+- TypeScript status
+- environment configuration
+- database connection
+- migrations
+- drizzle config
+- API server
+- marketplace
+- mobile app
+- service worker
+- generated clients
+- i18n bundles
+- performance utilities
+- custom scripts
+
+Do NOT modify anything yet.
+
+First understand the entire state.
+
+--------------------------------------------------
+STEP 2 — DEPENDENCY RECOVERY
+--------------------------------------------------
+
+Verify:
+
+- node_modules
+- pnpm install
+- workspace links
+- generated packages
+
+Regenerate anything missing.
+
+Make sure every package builds successfully.
+
+--------------------------------------------------
+STEP 3 — ENVIRONMENT RECOVERY
+--------------------------------------------------
+
+Verify every required secret exists.
+
+Check:
+
+DATABASE_URL
+
+SESSION_SECRET
+
+VAPID_PUBLIC_KEY
+
+VAPID_PRIVATE_KEY
+
+VAPID_EMAIL
+
+CORS_ORIGIN
+
+SITE_URL
+
+VITE_SUPPORT_PHONE
+
+REPLIT_DEV_DOMAIN
+
+REPL_ID
+
+REPLIT_DOMAINS
+
+Any additional required secrets.
+
+If something is missing, report it clearly.
+
+Never silently ignore missing secrets.
+
+--------------------------------------------------
+STEP 4 — DATABASE RECOVERY
+--------------------------------------------------
+
+Check database state.
+
+If database is empty:
+
+1. Find schema.
+2. Find drizzle config.
+3. Find migrations.
+4. Push schema.
+5. Run startup migrations.
+
+Verify every expected table exists.
+
+Check:
+
+users
+
+products
+
+product_variants
+
+categories
+
+orders
+
+order_items
+
+cart_items
+
+seller_applications
+
+notifications
+
+messages
+
+conversations
+
+platform_settings
+
+reviews
+
+seller_reviews
+
+push_subscriptions
+
+store_follows
+
+admin_audit_log
+
+verification_audit_log
+
+and every other project table.
+
+--------------------------------------------------
+STEP 5 — ADMIN ACCOUNT RECOVERY
+--------------------------------------------------
+
+The canonical administrator account MUST be:
+
+Email:
+delewatiamer7@gmail.com
+
+Password:
+00Amer00
+
+Requirements:
+
+- role = admin
+- account_status = active
+- email_verified = true
+
+There must be exactly ONE admin account.
+
+Delete legacy placeholder admins if they exist.
+
+Update and verify the seed-admin script so future fresh databases recreate this exact account automatically.
+
+This account must survive future migrations.
+
+--------------------------------------------------
+STEP 6 — AUTHENTICATION RECOVERY
+--------------------------------------------------
+
+Verify:
+
+- JWT generation
+- JWT validation
+- bcrypt verification
+- email normalization
+- case-insensitive login
+- USER_NOT_FOUND
+- INVALID_PASSWORD
+- ACCOUNT_SUSPENDED
+- OTP flows
+- registration
+- login
+- logout
+
+Run end-to-end tests.
+
+--------------------------------------------------
+STEP 7 — RESTORE ALL PREVIOUS FIXES
+--------------------------------------------------
+
+Verify that ALL previously implemented fixes still exist.
+
+Including but not limited to:
+
+AUTH
+
+- lowercase email normalization
+- distinct auth error codes
+- proper frontend mapping
+
+I18N
+
+- Arabic/English translations
+- pagination translations
+- notification translations
+- admin translations
+- relative time translations
+
+GOOGLE TRANSLATE PROTECTION
+
+translate="no" must still exist across all protected fields:
+
+- prices
+- SKUs
+- currency symbols
+- emails
+- phone numbers
+- tracking codes
+- order IDs
+
+PERFORMANCE
+
+- RoutePreloader
+- API prefetch
+- Service Worker caching
+- Cache-Control headers
+- Hero preload
+- CDN preconnect
+- Context memoization
+- React.memo usage
+- content-visibility
+- contain
+- skeleton improvements
+
+MOTION SYSTEM
+
+- motion tokens
+- page transitions
+- skeleton shimmer
+- dialog transitions
+- hover states
+- product card optimizations
+
+Verify every previous optimization still exists.
+
+--------------------------------------------------
+STEP 8 — WORKFLOW RECOVERY
+--------------------------------------------------
+
+Verify all workflows.
+
+API Server
+
+Marketplace
+
+Mobile (Expo)
+
+Any additional production workflow.
+
+All must build and run successfully.
+
+--------------------------------------------------
+STEP 9 — TYPE SAFETY
+--------------------------------------------------
+
+Run complete TypeScript validation.
+
+Goal:
+
+0 TypeScript errors.
+
+Fix any migration-related breakage.
+
+--------------------------------------------------
+STEP 10 — FULL FUNCTIONAL TESTING
+--------------------------------------------------
+
+Verify:
+
+Admin login
+
+Customer registration
+
+Customer login
+
+Seller login
+
+Logout
+
+Product listing
+
+Categories
+
+Search
+
+Settings
+
+Cart
+
+Checkout
+
+Notifications
+
+Admin dashboard
+
+Seller dashboard
+
+Mobile startup
+
+Marketplace rendering
+
+API endpoints
+
+JWT auth
+
+Protected routes
+
+--------------------------------------------------
+STEP 11 — PERFORMANCE VALIDATION
+--------------------------------------------------
+
+Verify that all previous performance work survived migration.
+
+Check:
+
+- Service Worker
+- Lazy routes
+- RoutePreloader
+- Hero preload
+- Context memoization
+- React.memo
+- Skeleton shimmer
+- Content visibility
+- API caching
+
+Nothing should be lost.
+
+--------------------------------------------------
+STEP 12 — FINAL REGRESSION AUDIT
+--------------------------------------------------
+
+Perform one final audit.
+
+Compare the current project state against the expected production state.
+
+If ANY feature, optimization, fix, or behavior is missing:
+
+Restore it before finishing.
+
+Do NOT assume migration succeeded.
+
+Verify everything.
+
+--------------------------------------------------
+MANDATORY VALIDATION
+--------------------------------------------------
+
+Before finishing verify:
+
+✅ pnpm workspace healthy
+
+✅ Dependencies installed
+
+✅ Generated packages exist
+
+✅ Environment variables present
+
+✅ Database connected
+
+✅ Database schema restored
+
+✅ Admin account restored
+
+✅ Login works
+
+✅ JWT works
+
+✅ TypeScript = 0 errors
+
+✅ Production build succeeds
+
+✅ API server running
+
+✅ Marketplace running
+
+✅ Mobile running
+
+✅ Previous fixes preserved
+
+✅ Previous optimizations preserved
+
+✅ No regressions
+
+--------------------------------------------------
+FINAL REPORT
+--------------------------------------------------
+
+Do NOT simply say "done".
+
+Provide a complete recovery report containing:
+
+1. What was missing.
+2. What was restored.
+3. What was already healthy.
+4. What fixes from the old workspace were verified.
+5. What performance optimizations were verified.
+6. What authentication fixes were verified.
+7. Database status.
+8. Admin account status.
+9. Workflow status.
+10. TypeScript status.
+11. Any remaining manual actions (if absolutely necessary).
+
+Do not finish until you are fully certain that this workspace behaves exactly like the previous one.

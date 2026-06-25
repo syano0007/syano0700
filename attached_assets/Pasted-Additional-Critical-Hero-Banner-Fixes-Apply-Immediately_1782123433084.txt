@@ -1,0 +1,166 @@
+Additional Critical Hero Banner Fixes (Apply Immediately)
+
+Do NOT create a prototype, mockup, sandbox version, or alternative component.
+
+Modify the actual Hero Banner implementation directly.
+
+━━━━━━━━━━━━━━━━━━━━━━
+11. Fix Reversed Swipe Direction
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current behavior is incorrect.
+
+The swipe/drag direction feels reversed and unnatural.
+
+Required behavior:
+
+For RTL (Arabic):
+
+* Drag banner to the LEFT → show NEXT banner.
+* Drag banner to the RIGHT → show PREVIOUS banner.
+
+The visual movement and navigation logic must match naturally.
+
+Current implementation appears inverted.
+
+Audit:
+
+* Drag calculations
+* Swipe threshold calculations
+* Motion direction
+* Framer Motion / Carousel logic
+* RTL-specific handling
+
+Ensure swipe behavior feels identical to modern mobile apps.
+
+━━━━━━━━━━━━━━━━━━━━━━
+12. Fix Banner Motion Physics
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current movement does not feel natural.
+
+Required:
+
+* Banner must follow the finger/cursor while dragging.
+* No delayed movement.
+* No opposite-direction movement.
+* No snapping before release.
+* No jump when drag starts.
+* No jump when drag ends.
+
+Motion should feel like:
+
+* iOS card carousel
+* Amazon mobile carousels
+* Modern marketplace sliders
+
+Requirements:
+
+* Smooth drag tracking
+* Natural momentum
+* Smooth easing
+* Clean snap-to-slide after release
+
+The banner should behave like a real draggable card.
+
+━━━━━━━━━━━━━━━━━━━━━━
+13. Make Banner Full Width
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current banner has side gaps/margins.
+
+This is incorrect for a marketplace homepage.
+
+Requirements:
+
+* Banner must span the full available content width.
+* Remove unnecessary side margins.
+* Remove unnecessary left/right padding.
+* Remove visual gaps around the banner.
+
+The hero should feel large and dominant.
+
+Target:
+
+Desktop:
+100% available content width
+
+Tablet:
+100% available content width
+
+Mobile:
+100% available content width
+
+━━━━━━━━━━━━━━━━━━━━━━
+14. Remove Any Width Constraints
+━━━━━━━━━━━━━━━━━━━━━━
+
+Audit and remove:
+
+* max-width limitations
+* container width restrictions
+* wrapper width restrictions
+* unnecessary horizontal padding
+
+If there is:
+
+max-w-*
+container
+mx-auto
+fixed-width wrapper
+
+Remove or adjust them if they create side gaps.
+
+━━━━━━━━━━━━━━━━━━━━━━
+15. Banner Images Must Fill Correctly
+━━━━━━━━━━━━━━━━━━━━━━
+
+Images must:
+
+* Fill the entire banner area.
+* Keep proper aspect ratio.
+* Never stretch.
+* Never distort.
+
+Use appropriate image-fit behavior.
+
+Requirements:
+
+* No empty areas.
+* No black bars.
+* No clipping of important content.
+
+━━━━━━━━━━━━━━━━━━━━━━
+16. Final Validation
+━━━━━━━━━━━━━━━━━━━━━━
+
+Verify:
+
+✅ Swipe direction correct in RTL
+
+✅ Banner follows drag naturally
+
+✅ Smooth card-swipe motion
+
+✅ No reversed movement
+
+✅ No jump at start/end of drag
+
+✅ Full-width hero
+
+✅ No side gaps
+
+✅ No unused code left
+
+✅ No TypeScript errors
+
+✅ No console errors
+
+Final report must include:
+
+* File(s) modified
+* Cause of reversed swipe issue
+* Exact fix applied
+* Final hero width behavior
+* Confirmation of zero side gaps
+* Confirmation of proper RTL swipe behavior

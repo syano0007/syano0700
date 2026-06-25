@@ -1,0 +1,294 @@
+SYANO (سوق سوريا)
+
+FLUID RESPONSIVE SCALING SYSTEM
+
+CRITICAL REQUIREMENT
+
+This project must NOT rely on traditional responsive design where elements stay the same size and only the layout changes.
+
+Current problem:
+
+As viewport width decreases:
+
+* available space becomes smaller
+* typography stays too large
+* buttons stay too large
+* cards stay too large
+* spacing stays too large
+
+Result:
+
+The UI feels crowded.
+
+Elements begin competing for space.
+
+The layout eventually breaks visually.
+
+---
+
+DESIRED BEHAVIOR
+
+The entire interface should scale proportionally as viewport size decreases.
+
+Think of the experience as:
+
+A controlled and intelligent zoom-out effect.
+
+When screen width decreases:
+
+Everything should gradually become smaller.
+
+Not disappear.
+
+Not hide.
+
+Not collapse.
+
+Scale.
+
+---
+
+GLOBAL SCALING TARGET
+
+Scale proportionally:
+
+Typography
+
+Icons
+
+Buttons
+
+Cards
+
+Images
+
+Badges
+
+Ratings
+
+Prices
+
+Inputs
+
+Dropdowns
+
+Navigation
+
+Spacing
+
+Padding
+
+Margins
+
+Gaps
+
+Border Radius
+
+Shadows
+
+---
+
+IMPORTANT
+
+Do NOT solve this by hiding content.
+
+Do NOT remove UI elements.
+
+Do NOT reduce functionality.
+
+Do NOT collapse sections unnecessarily.
+
+The objective is scaling.
+
+Not hiding.
+
+---
+
+TYPOGRAPHY
+
+Replace rigid typography.
+
+Use fluid typography.
+
+Apply clamp() wherever appropriate.
+
+Text should continuously scale between:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile
+
+without abrupt jumps.
+
+---
+
+PRODUCT CARDS
+
+This is the highest priority.
+
+As viewport width decreases:
+
+Product cards should gradually shrink.
+
+Everything inside the card should shrink proportionally:
+
+* image
+* title
+* rating
+* review count
+* price
+* badges
+* add button
+* spacing
+
+Cards should maintain identical visual proportions.
+
+---
+
+GRID SYSTEM
+
+The grid should remain dense.
+
+Avoid situations where:
+
+screen width decreases
+
+but card size remains fixed
+
+causing overflow and clipping.
+
+Cards should scale first.
+
+Grid reflow should happen second.
+
+---
+
+SPACING SYSTEM
+
+Spacing must scale.
+
+Examples:
+
+Large desktop spacing
+
+↓
+
+Medium laptop spacing
+
+↓
+
+Compact tablet spacing
+
+↓
+
+Mobile spacing
+
+Maintain visual rhythm.
+
+---
+
+BUTTONS
+
+Buttons must scale proportionally.
+
+Avoid giant desktop buttons appearing on tablet screens.
+
+---
+
+NAVBAR
+
+Scale:
+
+* logo area
+* search area
+* navigation items
+* action buttons
+* settings controls
+
+Avoid crowding.
+
+---
+
+VISUAL GOAL
+
+The user should feel that the entire interface is intelligently resizing itself.
+
+Not rearranging itself.
+
+Not hiding itself.
+
+Not breaking.
+
+Scaling.
+
+---
+
+VALIDATION
+
+Verify behavior at:
+
+1920px
+
+1600px
+
+1440px
+
+1366px
+
+1280px
+
+1024px
+
+900px
+
+768px
+
+640px
+
+480px
+
+390px
+
+360px
+
+320px
+
+At every width:
+
+The UI should preserve the same visual identity and proportions.
+
+---
+
+SUCCESS CRITERIA
+
+✓ Elements shrink proportionally
+
+✓ Typography scales smoothly
+
+✓ Cards scale smoothly
+
+✓ Images scale smoothly
+
+✓ Buttons scale smoothly
+
+✓ No hidden content
+
+✓ No overflow
+
+✓ No clipping
+
+✓ No horizontal scrolling
+
+✓ No visual breakpoints
+
+✓ UI feels like a fluid zoom system
+
+✓ Premium marketplace appearance maintained
+
+FINAL GOAL
+
+The SYANO marketplace should behave like a fluid, professionally engineered interface where the entire design system scales proportionally with viewport size, preserving the same appearance and hierarchy across all devices instead of simply hiding or rearranging elements.

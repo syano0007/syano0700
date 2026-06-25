@@ -1,0 +1,533 @@
+COURIER V3.3 — PHASE A9
+
+WALLET + EARNINGS + PAYOUT SYSTEM
+
+IMPORTANT
+
+Read first.
+
+Do NOT start coding immediately.
+
+Audit current courier financial architecture before writing code.
+
+This phase upgrades the courier system into a complete financial workflow similar to:
+
+* Uber Driver
+* DoorDash Driver
+* Talabat Driver
+
+All previous courier phases (A1–A8) remain intact.
+
+No rewrites.
+
+Additive only.
+
+---
+
+# REQUIRED READING
+
+Before coding read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Then inspect:
+
+* couriers table
+* delivery_missions
+* orders
+* courier performance page
+* courier workspace
+* courier ratings
+* dispatch center
+
+Understand current earnings implementation before writing anything.
+
+---
+
+# PHASE GOAL
+
+Create a production-grade courier wallet system.
+
+After delivery completion:
+
+Courier earnings must be calculated automatically.
+
+Money must appear inside a wallet.
+
+Courier can request payouts.
+
+Admin can approve payouts.
+
+Every financial event must be auditable.
+
+---
+
+# PART A9.1
+
+FINANCIAL DATA MODEL
+
+Create required tables.
+
+---
+
+## courier_wallets
+
+One wallet per courier.
+
+Fields:
+
+* id
+* courier_id
+* available_balance
+* pending_balance
+* lifetime_earnings
+* lifetime_payouts
+* created_at
+* updated_at
+
+---
+
+## courier_transactions
+
+Financial ledger.
+
+Fields:
+
+* id
+
+* courier_id
+
+* type
+
+ENUM:
+
+EARNING
+ADJUSTMENT
+PAYOUT_REQUEST
+PAYOUT_APPROVED
+PAYOUT_REJECTED
+
+* amount
+* balance_before
+* balance_after
+* reference_id
+* reference_type
+* description
+* created_at
+
+Never delete transactions.
+
+Ledger is source of truth.
+
+---
+
+## courier_payout_requests
+
+Fields:
+
+* id
+* courier_id
+* amount
+* status
+
+ENUM:
+
+PENDING
+APPROVED
+REJECTED
+PAID
+
+* rejection_reason
+* approved_by
+* approved_at
+* paid_at
+* created_at
+
+---
+
+# PART A9.2
+
+AUTOMATIC EARNINGS
+
+When mission becomes:
+
+DELIVERED
+
+Automatically:
+
+1. Calculate courier earnings
+
+2. Create EARNING transaction
+
+3. Update wallet
+
+4. Increase:
+
+available_balance
+
+5. Increase:
+
+lifetime_earnings
+
+---
+
+# EARNING SOURCE
+
+Use existing courier payout amount already present in mission/order workflow.
+
+DO NOT invent pricing logic.
+
+Reuse current payout calculations.
+
+---
+
+# PART A9.3
+
+WALLET SERVICE
+
+Create:
+
+courierWalletService.ts
+
+Responsibilities:
+
+* getWallet()
+* addEarning()
+* createTransaction()
+* requestPayout()
+* approvePayout()
+* rejectPayout()
+
+All operations must be transactional.
+
+No partial updates.
+
+---
+
+# PART A9.4
+
+COURIER APIs
+
+Create:
+
+GET /api/courier/wallet
+
+Returns:
+
+* balances
+* lifetime stats
+
+---
+
+GET /api/courier/wallet/transactions
+
+Paginated.
+
+Newest first.
+
+---
+
+POST /api/courier/payouts
+
+Create payout request.
+
+Validation:
+
+Amount:
+
+* > 0
+* <= available balance
+
+---
+
+GET /api/courier/payouts
+
+Courier payout history.
+
+---
+
+# PART A9.5
+
+ADMIN APIs
+
+Create:
+
+GET /api/admin/courier-payouts
+
+Filters:
+
+* status
+* courier
+
+---
+
+POST /api/admin/courier-payouts/:id/approve
+
+---
+
+POST /api/admin/courier-payouts/:id/reject
+
+Requires reason.
+
+---
+
+# PART A9.6
+
+COURIER WALLET PAGE
+
+Create:
+
+/courier/wallet
+
+Sections:
+
+---
+
+Wallet Card
+
+Available Balance
+
+Large display.
+
+---
+
+Pending Balance
+
+---
+
+Lifetime Earnings
+
+---
+
+Lifetime Payouts
+
+---
+
+Request Payout Button
+
+---
+
+Recent Transactions
+
+Scrollable list.
+
+---
+
+Design:
+
+SYANO emerald theme.
+
+No admin styling.
+
+Premium consumer-quality UI.
+
+---
+
+# PART A9.7
+
+COURIER EARNINGS PAGE V2
+
+Upgrade existing earnings page.
+
+Add:
+
+* Today
+* This Week
+* This Month
+* Lifetime
+
+Cards.
+
+---
+
+Charts:
+
+Last 30 days earnings.
+
+Use existing chart system.
+
+---
+
+Top performance metrics:
+
+* deliveries
+* earnings
+* average earning per mission
+
+---
+
+# PART A9.8
+
+ADMIN PAYOUT CENTER
+
+Create:
+
+/admin/courier-payouts
+
+Features:
+
+* pending queue
+* approve
+* reject
+* search courier
+* payout history
+
+Show:
+
+* courier
+* amount
+* request date
+* status
+
+---
+
+# PART A9.9
+
+AUDITABILITY
+
+Every payout action:
+
+Create transaction.
+
+Nothing disappears.
+
+Everything traceable.
+
+---
+
+# VALIDATION
+
+Perform REAL tests.
+
+Do NOT simulate.
+
+---
+
+Test 1
+
+Complete delivery.
+
+Verify:
+
+wallet updated.
+
+---
+
+Test 2
+
+Transaction created.
+
+---
+
+Test 3
+
+Request payout.
+
+---
+
+Test 4
+
+Reject payout.
+
+---
+
+Test 5
+
+Approve payout.
+
+---
+
+Test 6
+
+Balances update correctly.
+
+---
+
+Test 7
+
+Admin queue updates.
+
+---
+
+Test 8
+
+Transaction history correct.
+
+---
+
+Test 9
+
+Wallet page displays correctly.
+
+---
+
+Test 10
+
+Earnings page metrics correct.
+
+---
+
+# TYPESCRIPT
+
+Requirement:
+
+0 NEW TypeScript errors.
+
+---
+
+# WORKFLOW RULES
+
+Do not create new workflows.
+
+Use only official workflows.
+
+---
+
+# DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Add:
+
+Phase A9 Final State
+
+Validation Results
+
+Database Additions
+
+Known Limitations
+
+---
+
+# SUCCESS CRITERIA
+
+Only mark A9 complete when:
+
+✅ Wallet exists
+
+✅ Earnings automatic
+
+✅ Transactions ledger works
+
+✅ Payout requests work
+
+✅ Admin approval works
+
+✅ Wallet page works
+
+✅ Earnings page upgraded
+
+✅ Real validation completed
+
+✅ Documentation updated
+
+✅ No new TypeScript errors

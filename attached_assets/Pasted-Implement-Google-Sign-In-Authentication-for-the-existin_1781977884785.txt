@@ -1,0 +1,292 @@
+Implement **Google Sign-In Authentication** for the existing SYANO (سوق سوريا) production marketplace.
+
+IMPORTANT:
+
+This is an existing production system.
+
+Do NOT rebuild authentication.
+
+Do NOT replace the current login system.
+
+Do NOT break:
+
+* email/password login
+* seller accounts
+* courier accounts
+* admin accounts
+* JWT authentication
+* existing user sessions
+
+Google Sign-In must be added as an additional authentication method.
+
+---
+
+# PHASE 1 — AUDIT FIRST
+
+Before writing code:
+
+Inspect:
+
+* auth routes
+* user model
+* login page
+* register page
+* JWT implementation
+* session creation flow
+* OAuth-related dependencies
+
+Understand current architecture completely.
+
+Do not create a parallel auth system.
+
+Integrate into the existing one.
+
+---
+
+# PHASE 2 — GOOGLE OAUTH
+
+Use Google OAuth 2.0.
+
+Implement production-grade flow.
+
+Support:
+
+* Google Login
+* Google Registration
+
+Google should return:
+
+* email
+* full name
+* avatar
+
+Store avatar if available.
+
+---
+
+# PHASE 3 — USER LINKING
+
+Case A:
+
+User logs in with Google.
+
+Email does NOT exist.
+
+→ Create new account automatically.
+
+Case B:
+
+User logs in with Google.
+
+Email already exists.
+
+→ Link Google account to existing user.
+
+Do NOT create duplicates.
+
+One email = one account.
+
+---
+
+# PHASE 4 — DATABASE
+
+Use additive migrations only.
+
+Add only what is required.
+
+Possible fields:
+
+* googleId
+* authProvider
+* avatarUrl
+
+Do NOT remove existing columns.
+
+Preserve all existing users.
+
+---
+
+# PHASE 5 — LOGIN UI
+
+Current navbar login system must remain.
+
+Inside login modal add:
+
+━━━━━━━━━━━━━━━━━━━━
+
+Continue with Google
+
+━━━━━━━━━━━━━━━━━━━━
+
+Position:
+
+Above email/password form.
+
+Use:
+
+* official Google branding
+* clean white button
+* Google icon
+* rounded-xl
+* premium styling
+
+Must fit SYANO design language.
+
+---
+
+# PHASE 6 — REGISTER FLOW
+
+Remove separate Google registration logic.
+
+Google button should:
+
+* create account if new
+* log in if existing
+
+Single flow only.
+
+---
+
+# PHASE 7 — PROFILE
+
+Display:
+
+Connected Accounts
+
+Example:
+
+Google Connected ✅
+
+Allow future providers later.
+
+Design as reusable account-provider section.
+
+---
+
+# PHASE 8 — AVATAR SUPPORT
+
+If Google returns profile image:
+
+Store it.
+
+Use it as default profile image.
+
+User can still replace it later.
+
+---
+
+# PHASE 9 — SECURITY
+
+Validate:
+
+* Google token
+* Google issuer
+* Google audience/client ID
+* Expiration
+
+Never trust client payload directly.
+
+Server-side verification only.
+
+---
+
+# PHASE 10 — ENVIRONMENT
+
+Add proper environment support:
+
+GOOGLE_CLIENT_ID
+
+GOOGLE_CLIENT_SECRET
+
+Do not hardcode credentials.
+
+---
+
+# PHASE 11 — MOBILE COMPATIBILITY
+
+Expo app must support the same login method.
+
+If mobile implementation already exists:
+
+Integrate properly.
+
+If not:
+
+Prepare shared auth architecture.
+
+Do not create incompatible flows.
+
+---
+
+# PHASE 12 — ADMIN COMPATIBILITY
+
+Admin accounts must continue working.
+
+Admin permissions must remain unchanged.
+
+Google login must not bypass role checks.
+
+---
+
+# PHASE 13 — TESTING
+
+Verify:
+
+✅ Existing login still works
+
+✅ Existing registration still works
+
+✅ Google creates new account
+
+✅ Google links existing account
+
+✅ No duplicate users
+
+✅ JWT issued correctly
+
+✅ Roles preserved
+
+✅ Seller accounts preserved
+
+✅ Courier accounts preserved
+
+✅ Admin accounts preserved
+
+✅ Avatar stored
+
+✅ Logout works
+
+✅ Mobile compatibility preserved
+
+✅ TypeScript = 0 errors
+
+---
+
+# PHASE 14 — DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+* project.manifest.json
+
+Reflect actual implementation.
+
+---
+
+# FINAL RULE
+
+Build a production-grade Google authentication system similar to:
+
+* Amazon
+* Noon
+* Shopify
+* Trendyol
+
+Do not simplify.
+
+Do not break existing authentication.
+
+Add Google Sign-In as a first-class authentication provider integrated into the current SYANO architecture.

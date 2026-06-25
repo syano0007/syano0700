@@ -1,0 +1,191 @@
+Project: SYANO Marketplace
+
+Context
+
+You are working inside an existing production-grade marketplace.
+
+Tech Stack:
+- React 19
+- Vite 7
+- Tailwind CSS v4
+- TypeScript
+- Wouter
+- TanStack Query
+
+Critical Rules:
+- DO NOT modify backend code.
+- DO NOT modify database code.
+- DO NOT modify authentication.
+- DO NOT modify API routes.
+- DO NOT modify search functionality.
+- DO NOT modify mobile application.
+- DO NOT remove any existing components.
+- UI work only.
+
+Objective
+
+Create the foundation for a new premium homepage hero section inspired by a luxury marketplace landing page.
+
+This task is ONLY about layout structure.
+
+Do NOT add:
+- images
+- gradients
+- animations
+- glassmorphism
+- decorative backgrounds
+- complex styling
+
+We are building the wireframe architecture first.
+
+Implementation Requirements
+
+Create a new component:
+
+artifacts/marketplace/src/components/home/HomeHeroV2.tsx
+
+Create a reusable structure that contains:
+
+SECTION 1 — HERO WRAPPER
+
+- Full width section
+- Centered content container
+- Max width: 1280px
+- Horizontal padding:
+  - 24px desktop
+  - 16px mobile
+- Top spacing: 32px
+- Bottom spacing: 64px
+
+SECTION 2 — MAIN GRID
+
+Desktop Layout:
+
+Grid columns:
+- Left column: 3fr
+- Right column: 1fr
+
+Gap:
+24px
+
+Tablet:
+- Keep two columns until 1024px
+
+Mobile:
+- Single column stack
+
+SECTION 3 — FEATURED CARD
+
+Large primary card.
+
+Requirements:
+
+- Height: 540px
+- Border radius: 28px
+- Placeholder background only
+- Internal flex layout
+- Position relative
+
+Placeholder content:
+
+Title:
+"Featured Marketplace Experience"
+
+Subtitle:
+"Hero Card Placeholder"
+
+CTA Button:
+"Explore"
+
+SECTION 4 — RIGHT COLUMN
+
+Vertical stack.
+
+Gap:
+24px
+
+Contains:
+
+Card A
+
+- Height: 258px
+- Border radius: 28px
+
+Title:
+"Electronics"
+
+Subtitle:
+"Category Placeholder"
+
+Card B
+
+- Height: 258px
+- Border radius: 28px
+
+Title:
+"Fashion"
+
+Subtitle:
+"Category Placeholder"
+
+SECTION 5 — RESPONSIVENESS
+
+Desktop:
+>= 1280px
+
+Tablet:
+1024px - 1279px
+
+Mobile:
+< 1024px
+
+Mobile behavior:
+
+- Hero card full width
+- Right cards move below hero card
+- Maintain spacing consistency
+
+SECTION 6 — ACCESSIBILITY
+
+- Semantic HTML
+- Proper heading hierarchy
+- Buttons accessible
+- No accessibility violations
+
+SECTION 7 — CODE QUALITY
+
+Requirements:
+
+- TypeScript strict-safe
+- No any types
+- No console logs
+- No dead code
+- Clean component structure
+- Reusable Tailwind classes
+
+Deliverables
+
+1. HomeHeroV2 component
+2. Clean responsive layout
+3. No TypeScript errors
+4. Summary of created files
+
+Acceptance Criteria
+
+✓ Layout matches intended structure
+
+┌───────────────────────────────┬─────────────┐
+│                               │             │
+│                               │ Electronics │
+│        Featured Card          │             │
+│                               ├─────────────┤
+│                               │             │
+│                               │  Fashion    │
+└───────────────────────────────┴─────────────┘
+
+✓ Responsive on mobile
+✓ No images
+✓ No gradients
+✓ No animations
+✓ No visual effects yet
+✓ Ready for Phase 2 styling

@@ -1,0 +1,273 @@
+STOP.
+
+Before making any changes:
+
+DESKTOP IS LOCKED.
+
+The current Desktop Homepage Hero is approved.
+
+It matches the reference.
+
+It must remain untouched.
+
+---
+
+# CRITICAL RULE
+
+DO NOT MODIFY DESKTOP.
+
+DO NOT:
+
+* change spacing
+* change typography
+* change image width
+* change floating cards
+* change navbar sizing
+* change buttons
+* change statistics
+* change hero height
+* change grid background
+* change colors
+
+Desktop must remain pixel-identical to the current approved version.
+
+Treat Desktop as frozen.
+
+---
+
+# BREAKPOINT STRATEGY
+
+Only work on:
+
+* Tablet
+* Mobile
+
+Desktop is completely off-limits.
+
+---
+
+# TABLET OPTIMIZATION
+
+Target:
+
+768px – 1024px
+
+Keep the same design language.
+
+Keep the same hero structure.
+
+Adjust only:
+
+* spacing
+* image sizing
+* card scaling
+* typography scaling
+
+The goal:
+
+Desktop look preserved.
+
+Nothing should feel cramped.
+
+Nothing should overflow.
+
+Floating cards must remain visible.
+
+---
+
+# MOBILE OPTIMIZATION
+
+Target:
+
+Below 768px
+
+Do NOT try to force the desktop split layout.
+
+Create a dedicated mobile hero layout.
+
+---
+
+# MOBILE HERO STRUCTURE
+
+Order:
+
+1. Badge
+
+2. Headline
+
+3. Description
+
+4. CTA Buttons
+
+5. Statistics
+
+6. Hero Carousel
+
+7. Floating Product Card
+
+---
+
+Example:
+
+[ Badge ]
+
+اكتشف آلاف المنتجات
+من المتاجر السورية
+
+Description
+
+[ تسوق الآن ]
+[ استكشف المتاجر ]
+
+12,000+
+25,000+
+500+
+
+---
+
+Hero Carousel
+
+Floating Product Card
+
+---
+
+# MOBILE IMAGE AREA
+
+The carousel must remain.
+
+But:
+
+* optimized for mobile
+* proper aspect ratio
+* no clipping
+* no overflow
+
+Recommended:
+
+16:10
+
+or
+
+4:3
+
+aspect ratio
+
+---
+
+# FLOATING CARDS
+
+Desktop:
+
+3 cards
+
+UNCHANGED
+
+Tablet:
+
+2–3 cards
+
+scaled down
+
+Mobile:
+
+1 featured floating card only
+
+The card should update with the active slide.
+
+Do NOT show 3 overlapping cards on mobile.
+
+---
+
+# CTA BUTTONS
+
+Maintain the approved styling.
+
+Do NOT redesign.
+
+Only adapt sizing for mobile.
+
+---
+
+# STATISTICS
+
+Desktop:
+
+UNCHANGED
+
+Tablet:
+
+scaled
+
+Mobile:
+
+responsive grid
+
+Example:
+
+12,000+   25,000+
+
+500+
+
+No overflow.
+
+No wrapping issues.
+
+---
+
+# NAVBAR
+
+Desktop:
+
+LOCKED
+
+Do not touch.
+
+Tablet:
+
+optimize spacing only.
+
+Mobile:
+
+use proper mobile navigation behavior.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Desktop unchanged
+
+✅ Desktop pixel-identical
+
+✅ Tablet optimized
+
+✅ Mobile optimized
+
+✅ No overflow
+
+✅ No clipping
+
+✅ No layout shift
+
+✅ Carousel works
+
+✅ Floating cards work
+
+✅ Buttons work
+
+✅ Statistics responsive
+
+✅ Navbar responsive
+
+---
+
+# FINAL RULE
+
+If any Desktop visual changes are detected:
+
+REVERT THEM.
+
+Desktop must remain exactly as it is today.
+
+Only Tablet and Mobile may change.

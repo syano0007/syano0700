@@ -1,0 +1,309 @@
+SYANO — COMPLETE PLATFORM DISCOVERY
+
+MISSION
+
+Before performing any audit, certification, testing, debugging, fixing, or recovery work:
+
+Build a complete inventory of the entire SYANO platform.
+
+DO NOT test functionality yet.
+
+DO NOT fix anything.
+
+DO NOT write certification reports.
+
+Your only goal is to discover and map every system, feature, role, page, route, service, workflow, database entity, API endpoint, and mobile screen that exists in the codebase.
+
+======================================================================
+DISCOVERY RULES
+===============
+
+Read code first.
+
+Do not trust documentation.
+
+Do not trust recovery reports.
+
+Do not trust bootstrap files.
+
+Use the actual implementation as the source of truth.
+
+If code and docs conflict:
+
+Code wins.
+
+======================================================================
+PHASE 1 — PROJECT STRUCTURE
+===========================
+
+Map the entire repository.
+
+Identify:
+
+* Frontend projects
+* Backend projects
+* Mobile projects
+* Shared libraries
+* Scripts
+* Services
+* Tooling
+* Workflows
+
+Generate a complete architecture map.
+
+======================================================================
+PHASE 2 — ROLE DISCOVERY
+========================
+
+Discover every role in the platform.
+
+For each role:
+
+* Name
+* Permissions
+* Protected routes
+* Dashboard pages
+* Available features
+
+Generate:
+
+ROLE INVENTORY
+
+======================================================================
+PHASE 3 — WEB PAGE DISCOVERY
+============================
+
+Generate a complete list of every web page.
+
+For every page:
+
+* Route
+* Component
+* Purpose
+* Related APIs
+* Related role
+
+Group pages by:
+
+Customer
+Seller
+Courier
+Admin
+Public
+
+Generate:
+
+WEB PAGE INVENTORY
+
+======================================================================
+PHASE 4 — MOBILE DISCOVERY
+==========================
+
+Generate a complete list of all mobile screens.
+
+For every screen:
+
+* File path
+* Route
+* Purpose
+* Related role
+
+Generate:
+
+MOBILE SCREEN INVENTORY
+
+======================================================================
+PHASE 5 — FEATURE DISCOVERY
+===========================
+
+Identify every implemented feature.
+
+Examples:
+
+Authentication
+Products
+Variants
+Categories
+Stores
+Wishlist
+Cart
+Checkout
+Orders
+Reviews
+Messaging
+Notifications
+Search
+AI Support
+Courier System
+Seller Dashboard
+Admin Dashboard
+
+Discover all additional features automatically.
+
+Generate:
+
+FEATURE INVENTORY
+
+======================================================================
+PHASE 6 — API DISCOVERY
+=======================
+
+Discover all API routes.
+
+For every route:
+
+* Method
+* Path
+* Auth requirement
+* Role requirement
+* Purpose
+
+Generate:
+
+API INVENTORY
+
+======================================================================
+PHASE 7 — DATABASE DISCOVERY
+============================
+
+Map database structure.
+
+Generate:
+
+* Tables
+* Enums
+* Relationships
+* Major entities
+
+Generate:
+
+DATABASE INVENTORY
+
+======================================================================
+PHASE 8 — SEARCH SYSTEM DISCOVERY
+=================================
+
+Map:
+
+* Search pipeline
+* FTS
+* Embeddings
+* TF-IDF fallback
+* Search APIs
+
+Generate:
+
+SEARCH ARCHITECTURE REPORT
+
+======================================================================
+PHASE 9 — COURIER SYSTEM DISCOVERY
+==================================
+
+Map complete courier architecture.
+
+Discover:
+
+* Missions
+* Assignments
+* Availability
+* Dispatch
+* Zones
+* Alerts
+
+Generate:
+
+COURIER SYSTEM REPORT
+
+======================================================================
+PHASE 10 — SELLER SYSTEM DISCOVERY
+==================================
+
+Map:
+
+* Store management
+* Products
+* Orders
+* Analytics
+* Reviews
+
+Generate:
+
+SELLER SYSTEM REPORT
+
+======================================================================
+PHASE 11 — ADMIN SYSTEM DISCOVERY
+=================================
+
+Map:
+
+* Moderation
+* Users
+* Stores
+* Orders
+* Content
+* Settings
+
+Generate:
+
+ADMIN SYSTEM REPORT
+
+======================================================================
+PHASE 12 — SERVICE DISCOVERY
+============================
+
+Identify every service.
+
+Examples:
+
+API Server
+Marketplace
+Mobile
+Embedding Service
+
+For each service:
+
+* Startup command
+* Port
+* Dependencies
+* Purpose
+
+Generate:
+
+SERVICE INVENTORY
+
+======================================================================
+FINAL OUTPUT
+============
+
+Generate one complete document:
+
+SYANO_PLATFORM_DISCOVERY_REPORT.md
+
+Include:
+
+1. Repository Architecture
+2. Role Inventory
+3. Web Page Inventory
+4. Mobile Screen Inventory
+5. Feature Inventory
+6. API Inventory
+7. Database Inventory
+8. Service Inventory
+9. Search Architecture
+10. Courier Architecture
+11. Seller Architecture
+12. Admin Architecture
+
+IMPORTANT:
+
+Do NOT audit.
+
+Do NOT certify.
+
+Do NOT test.
+
+Do NOT fix.
+
+Only discover and map what exists.
+
+The result must become the master inventory of the entire platform.

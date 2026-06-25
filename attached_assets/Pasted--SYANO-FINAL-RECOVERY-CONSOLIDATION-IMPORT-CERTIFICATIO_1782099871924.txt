@@ -1,0 +1,380 @@
+# SYANO FINAL RECOVERY CONSOLIDATION + IMPORT CERTIFICATION
+
+STOP.
+
+Do not build features.
+
+Do not modify business logic.
+
+Do not modify APIs.
+
+Do not modify UI.
+
+Do not modify database schemas.
+
+This task is recovery architecture hardening only.
+
+---
+
+# PRIMARY GOAL
+
+Guarantee that future imports of SYANO can be recovered from:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+ONLY.
+
+No other file may contain authoritative recovery logic.
+
+---
+
+# PHASE 1 — FULL REPOSITORY FORENSIC AUDIT
+
+Search the ENTIRE repository.
+
+Include:
+
+* root
+* docs
+* hidden folders
+* .agents
+* .memory
+* scripts
+* manifests
+* markdown files
+* json files
+
+Find ANY file containing:
+
+* workflow instructions
+* recovery instructions
+* startup instructions
+* port instructions
+* database recovery
+* embedding recovery
+* authentication recovery
+* migration recovery
+* infrastructure recovery
+
+Create a report.
+
+---
+
+# PHASE 2 — DUPLICATION DETECTION
+
+Identify:
+
+* duplicated recovery instructions
+* duplicated workflow definitions
+* duplicated port mappings
+* duplicated secret inventories
+* duplicated database recovery procedures
+* duplicated certification procedures
+
+For every duplication:
+
+Record:
+
+* source file
+* duplicated content
+* whether master file already contains it
+
+---
+
+# PHASE 3 — MERGE EVERYTHING INTO MASTER
+
+Target:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+Verify it contains:
+
+# Project Identity
+
+# Architecture
+
+# Official Workflows
+
+# Ports
+
+# Database
+
+# 44 Table Certification
+
+# Embedding Service
+
+# Search
+
+# Maps
+
+# Auth
+
+# Roles
+
+# Secrets
+
+# Recovery Procedure
+
+# Migration Procedure
+
+# Common Failures
+
+# Validation Checklist
+
+# Certified State
+
+# Import Validation
+
+# Troubleshooting
+
+# Recovery Score
+
+If anything exists elsewhere and not here:
+
+Merge it.
+
+---
+
+# PHASE 4 — PURGE REMAINING RECOVERY KNOWLEDGE
+
+After merge:
+
+Any file that still contains recovery instructions must be converted into:
+
+```md
+# IMPORTANT
+
+The only recovery authority is:
+
+SYANO_MASTER_RECOVERY.md
+
+Read that file first.
+```
+
+No exceptions.
+
+---
+
+# PHASE 5 — IMPORT CERTIFICATION SCRIPT
+
+Create:
+
+```text
+scripts/import-check.ts
+```
+
+and
+
+```json
+pnpm import:check
+```
+
+This command must perform a full certification.
+
+---
+
+# IMPORT CHECK TESTS
+
+Verify:
+
+## Services
+
+API running
+
+Embedding running
+
+Marketplace running
+
+---
+
+## Database
+
+Connected
+
+44 tables present
+
+pgvector present
+
+Critical tables present
+
+---
+
+## Embeddings
+
+sentence-transformers active
+
+not TF-IDF fallback
+
+384 dimensions
+
+products embedded
+
+---
+
+## Authentication
+
+JWT working
+
+roles working
+
+Google state reported
+
+Facebook state reported
+
+Turnstile state reported
+
+---
+
+## Maps
+
+leaflet installed
+
+react-leaflet installed
+
+OSRM reachable
+
+---
+
+## Search
+
+FTS works
+
+semantic search works
+
+---
+
+## TypeScript
+
+api-server
+
+marketplace
+
+mobile
+
+shared packages
+
+0 errors
+
+---
+
+## Workflows
+
+Only official workflows exist
+
+No duplicates
+
+No temporary workflows
+
+---
+
+# OUTPUT FORMAT
+
+The script must print:
+
+```text
+SYANO IMPORT CERTIFICATION
+
+Services ........ PASS
+Database ........ PASS
+Embeddings ...... PASS
+Auth ............ PASS
+Maps ............ PASS
+Search .......... PASS
+TypeScript ...... PASS
+Workflows ....... PASS
+
+RESULT: PASS
+```
+
+or
+
+```text
+RESULT: FAIL
+```
+
+with exact failures.
+
+---
+
+# PHASE 6 — RECOVERY DRY RUN
+
+Simulate:
+
+Fresh Import
+
+Assume:
+
+* new Replit account
+* no cache
+* no prior context
+
+Attempt recovery using ONLY:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+and
+
+```bash
+pnpm import:check
+```
+
+If any missing information is discovered:
+
+Add it to the master file.
+
+Repeat.
+
+---
+
+# PHASE 7 — FUTURE AGENT PROTECTION
+
+Add permanent section to:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+called:
+
+# Future Agent Rules
+
+Rules:
+
+* Never create additional recovery files.
+* Never duplicate recovery instructions.
+* Never create alternate recovery guides.
+* Never split recovery logic.
+* Always update SYANO_MASTER_RECOVERY.md.
+* Always run pnpm import:check after major infrastructure work.
+
+---
+
+# PHASE 8 — FINAL CERTIFICATION
+
+Report:
+
+* Recovery files before
+* Recovery files after
+* Duplicates removed
+* Remaining duplicates
+* Import certification result
+
+Success criteria:
+
+✅ One recovery authority
+
+✅ Zero duplicated recovery logic
+
+✅ pnpm import:check exists
+
+✅ Fresh-import recovery proven
+
+✅ Future-agent protection installed
+
+Do not finish until all conditions pass.

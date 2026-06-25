@@ -1,0 +1,184 @@
+TASK: Refine and polish the homepage category strip directly below the hero banners.
+
+IMPORTANT:
+This is NOT a redesign from scratch.
+
+Keep the current component and improve it professionally.
+
+The goal is to make it feel closer to Noon/Amazon quality while preserving SYANO branding.
+
+====================================================
+ISSUES TO FIX
+====================================================
+
+1. CATEGORY CARDS TOO SMALL
+
+Current category cards feel undersized.
+
+Increase visual size significantly:
+
+- Larger image area
+- Larger thumbnails
+- More prominent categories
+- Easier recognition on desktop
+- Better tap targets on mobile
+
+Target:
+Users should immediately recognize categories without zooming.
+
+====================================================
+
+2. USE FULL SCREEN WIDTH
+
+Current categories do not properly utilize the available horizontal space.
+
+Requirements:
+
+- Stretch the category strip across the entire content width.
+- Reduce wasted side spacing.
+- Improve card distribution.
+- Make the section feel fuller and more premium.
+
+The section should visually connect with the hero banner width.
+
+====================================================
+
+3. SCROLL BUTTON POSITIONING
+
+Current arrow buttons are floating in the middle area.
+
+This looks incorrect.
+
+Move navigation buttons to:
+
+Desktop only:
+
+- Right button anchored to the far right edge.
+- Left button anchored to the far left edge.
+- Vertically centered relative to the category row.
+- Never overlap category images.
+- Never overlap category labels.
+- Never consume card space.
+
+They should feel like carousel controls, not content elements.
+
+====================================================
+
+4. MOBILE EXPERIENCE
+
+Current mobile presentation is weak.
+
+Improve:
+
+- Larger category thumbnails.
+- Better spacing.
+- Better readability.
+- Better touch targets.
+- Cleaner scrolling experience.
+
+Requirements:
+
+- Horizontal swipe only.
+- No desktop arrows.
+- Smooth momentum scrolling.
+- No clipped images.
+- No cropped labels.
+
+Category names must remain readable on small screens.
+
+====================================================
+
+5. ADD SPACING BELOW BANNERS
+
+Currently categories feel attached to the banner section.
+
+Add a small premium gap:
+
+Desktop:
+16–24px
+
+Mobile:
+12–16px
+
+Just enough separation to create visual hierarchy.
+
+Do NOT create a large empty area.
+
+====================================================
+
+6. VISUAL CONSISTENCY
+
+All category cards must have:
+
+- Same height
+- Same width
+- Same image ratio
+- Same border radius
+- Same spacing
+
+No category should appear larger or smaller.
+
+====================================================
+
+7. IMAGE QUALITY
+
+Ensure:
+
+- High quality category images
+- Proper image fit
+- No distortion
+- No stretching
+- No blurry thumbnails
+
+Images should remain sharp on desktop and mobile.
+
+====================================================
+
+8. RESPONSIVENESS QA
+
+Verify:
+
+Desktop:
+✓ Full width utilization
+✓ Larger category cards
+✓ Edge-positioned arrows
+✓ Proper spacing from banners
+
+Tablet:
+✓ Smooth layout
+✓ No overlaps
+
+Mobile:
+✓ Bigger thumbnails
+✓ Better readability
+✓ No arrows
+✓ Smooth swipe
+✓ Correct spacing
+
+====================================================
+
+FINAL QA
+
+Confirm:
+
+✓ Categories noticeably larger
+✓ Full width used efficiently
+✓ Scroll arrows moved to far edges
+✓ Mobile experience improved
+✓ Small gap added below hero banners
+✓ Images remain sharp
+✓ No layout shifts
+✓ No console errors
+✓ No TypeScript errors
+✓ RTL still works perfectly
+
+DELIVERABLE:
+
+Provide:
+
+- Files modified
+- Before vs after summary
+- Desktop screenshot
+- Mobile screenshot
+- TypeScript verification
+- Final QA checklist

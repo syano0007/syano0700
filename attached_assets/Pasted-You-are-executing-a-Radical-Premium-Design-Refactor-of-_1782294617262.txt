@@ -1,0 +1,38 @@
+You are executing a Radical Premium Design Refactor of the Homepage, based on "Screenshot (463).jpg", "Screenshot (465).jpg", and "Screenshot (457).jpg". The goal is to move from a flat, stacked card layout to a cohesive, cinematic, and deeply blended user interface.
+
+==================================================
+1. THE CORE COHESIVE FADE ARCHITECTURE (The Amazon 2.0 Blend)
+==================================================
+As seen in "Screenshot (463).jpg", the hero slider ends flatly, creating a massive visual separation with the cards. We will refactor the relationship using dynamic gradients.
+
+- **Unified Background Layer:** Create a single, master `<section className="relative w-full bg-[#fcfdfe]">` container that holds BOTH the slider and the 4 master grid cards.
+- **Dynamic Gradient Bleed:** The Hero Banner (now reduced to 50% height) must maintain its pure graphic artwork with NO text/buttons. *Instead of ending flat*, create an absolute overlay `<div className="absolute inset-0 bg-gradient-to-b from-transparent from-65% via-transparent via-75% to-[#fcfdfe] to-100% pointer-events-none" />`.
+- **Card Context Bleed:** The gaps between the 4 main grid cards must allow the underlying, deep faded hero image colors to bleed through, seamlessly melting the billboard and the content deck into a cohesive horizontal flow, mirroring the visual continuity of "Screenshot (457).jpg".
+
+==================================================
+2. PREMIUM CARD SHELL UPGRADE (Frosted Glass & Depth)
+==================================================
+Refactor the 4 master white background containers to feel premium and dimensional, not flat. Use a complex blend of frosted glass and soft depth.
+
+- **Card Shell Styling:**
+  `className="w-full h-auto flex flex-col p-5 bg-white/75 backdrop-blur-xl rounded-xl shadow-inner border border-white/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"`
+  *This turns the cards into semi-transparent, frosted glass panels that reveal the faded banner underlying tones.*
+
+- **Content Spacing:** Ensure the removed CTA button area leaves perfectly balanced, tight bottom padding. The 2x2 content grid should finish with a refined, even padding: `className="grid grid-cols-2 gap-3 w-full mt-3 mb-1"`.
+
+==================================================
+3. DARK MODE COHESIVENESS GUARD
+==================================================
+- Target the main section wrapper and card containers to swap their adaptive backgrounds correctly:
+  `className="relative w-full bg-[#fcfdfe] dark:bg-neutral-950 pb-16"`
+  `className="... bg-white/75 dark:bg-neutral-900/80 backdrop-blur-xl rounded-xl border-white/50 dark:border-neutral-700/60 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"`
+
+==================================================
+VALIDATION CHECKLIST FOR COMPLETION
+==================================================
+Before declaring completion, verify:
+✓ The hero banner image artwork flows continuously behind the semi-transparent cards.
+✓ All 4 main grid cards now have a deep, diffused frosted glass texture with zero remaining text CTAs or buttons.
+✓ Gaps between the cards show the faded banner colors melting into the site background (Light & Dark).
+✓ No hard white breaks or misaligned elements are present.
+✓ TypeScript compilation finishes with 0 errors across the frontend path.

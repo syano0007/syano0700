@@ -1,0 +1,164 @@
+STOP.
+
+Do NOT implement anything yet.
+
+The Hero mockup is closer, but there are still obvious differences from the approved reference.
+
+Use the reference screenshot as the ONLY source of truth.
+
+No redesign.
+
+No interpretation.
+
+No "improvements".
+
+Only visual matching.
+
+---
+
+# REMAINING CRITICAL DIFFERENCES
+
+## 1. STATISTICS NUMBERS ARE TOO LARGE
+
+Current:
+
+12,000+
+25,000+
+500+
+
+are noticeably larger than the reference.
+
+Reduce them to match the reference exactly.
+
+Match:
+
+* font size
+* font weight
+* spacing between numbers and labels
+* vertical alignment
+
+The reference numbers feel smaller and more elegant.
+
+Do NOT guess.
+
+Compare side-by-side.
+
+---
+
+## 2. CTA BUTTONS CORNER RADIUS IS WRONG
+
+Buttons still differ from the reference.
+
+The reference buttons have more rounded corners.
+
+Match exactly:
+
+### Primary Button
+
+تسوق الآن
+
+Match:
+
+* height
+* width
+* corner radius
+* shadow
+* padding
+* icon spacing
+* text alignment
+
+### Secondary Button
+
+استكشف المتاجر
+
+Match:
+
+* border radius
+* border color
+* border opacity
+* padding
+* height
+
+The button shape should feel identical to the screenshot.
+
+---
+
+## 3. SEARCH BAR IS TOO LARGE
+
+This is one of the most visible mismatches.
+
+Current search bar:
+
+* too wide
+* too tall
+* too dominant
+
+Reference search bar:
+
+* noticeably smaller
+* more compact
+* shorter height
+* less visual weight
+
+Match exactly:
+
+* width
+* height
+* border radius
+* icon size
+* placeholder size
+* padding
+
+Do NOT estimate.
+
+Compare side-by-side.
+
+---
+
+# MATCH THE REFERENCE GEOMETRY
+
+Use the screenshot as measurement reference.
+
+Verify:
+
+✅ Search bar width
+
+✅ Search bar height
+
+✅ Button radius
+
+✅ Button dimensions
+
+✅ Statistics size
+
+✅ Statistics spacing
+
+until they visually match.
+
+---
+
+# IMPLEMENTATION LOCK
+
+Canvas mockup only.
+
+Do NOT modify production code.
+
+Do NOT touch HeroV4.
+
+Do NOT implement.
+
+Only refine the mockup.
+
+---
+
+# APPROVAL REQUIREMENT
+
+Do not claim 98%+ similarity until:
+
+* statistics size matches
+* button radius matches
+* search bar size matches
+
+These are still visible differences.
+
+Continue refining until those differences are no longer noticeable beside the reference screenshot.

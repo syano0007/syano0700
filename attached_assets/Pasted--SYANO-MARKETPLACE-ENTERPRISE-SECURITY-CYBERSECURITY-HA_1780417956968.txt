@@ -1,0 +1,610 @@
+# SYANO MARKETPLACE — ENTERPRISE SECURITY & CYBERSECURITY HARDENING AUDIT
+
+You are performing a full production-grade security audit of the Syano marketplace.
+
+Assume the application is preparing for public launch.
+
+Assume hidden vulnerabilities exist until proven otherwise.
+
+This is NOT a feature task.
+
+This is NOT a UI task.
+
+This is NOT a performance task.
+
+Your objective is to identify, verify, document, and harden every realistic security weakness across the entire stack.
+
+---
+
+## MISSION OBJECTIVE
+
+Achieve maximum practical security without breaking existing functionality.
+
+Protect:
+
+* Customers
+* Sellers
+* Admins
+* Orders
+* Messaging
+* Notifications
+* Authentication
+* Uploaded content
+* API endpoints
+* Database
+
+Maintain full compatibility with existing features.
+
+---
+
+## SCOPE
+
+Audit every layer:
+
+Frontend
+Backend
+Database
+Authentication
+Authorization
+SSE
+Messaging
+Admin Panel
+Seller Features
+Notifications
+Push Notifications
+API Contracts
+Environment Variables
+Build Configuration
+
+---
+
+PHASE 1
+AUTHENTICATION AUDIT
+--------------------
+
+Audit:
+
+POST /auth/register
+POST /auth/login
+POST /auth/logout
+GET /auth/me
+
+Verify:
+
+* JWT generation
+* JWT validation
+* JWT expiration
+* JWT secret handling
+* Logout behavior
+* Session invalidation logic
+
+Check for:
+
+* Token forgery
+* Weak secret handling
+* Replay attacks
+* Session fixation
+* Token leakage
+* Missing expiration validation
+
+Verify:
+
+No endpoint trusts client-provided roles.
+
+Server must derive role from validated JWT only.
+
+---
+
+PHASE 2
+AUTHORIZATION AUDIT
+-------------------
+
+Review every protected route.
+
+Verify:
+
+requireAuth
+requireRole
+
+Audit:
+
+Admin routes
+Seller routes
+Customer routes
+
+Search for:
+
+* Missing auth middleware
+* Missing role checks
+* Incorrect role checks
+* Accidental privilege escalation
+
+Verify:
+
+Customer cannot access seller resources.
+
+Seller cannot access admin resources.
+
+Seller cannot manage another seller's resources.
+
+Customer cannot modify another user's data.
+
+---
+
+PHASE 3
+IDOR AUDIT
+----------
+
+Perform a complete IDOR audit.
+
+Inspect:
+
+Products
+Orders
+Reviews
+Seller Reviews
+Conversations
+Messages
+Notifications
+Cart
+Seller Applications
+Admin Resources
+
+Test:
+
+Changing IDs manually.
+
+Examples:
+
+/orders/1
+/orders/2
+
+/messages/1
+/messages/2
+
+/notifications/1
+/notifications/2
+
+Verify ownership every time.
+
+No object should be accessible merely by knowing its ID.
+
+---
+
+PHASE 4
+MESSAGING SECURITY AUDIT
+------------------------
+
+Audit:
+
+conversations
+messages
+
+Verify:
+
+Conversation ownership.
+
+Message ownership.
+
+Participant validation.
+
+Ensure:
+
+Only participants can read messages.
+
+Only participants can send messages.
+
+Only participants can access conversation metadata.
+
+Audit:
+
+Message creation
+Message retrieval
+Conversation creation
+
+Check for:
+
+Cross-user message access.
+
+---
+
+PHASE 5
+NOTIFICATION SECURITY AUDIT
+---------------------------
+
+Audit:
+
+Notification creation
+Notification retrieval
+SSE delivery
+Unread count
+
+Verify:
+
+Notification ownership at every layer.
+
+Check:
+
+Database
+API
+SSE
+Frontend
+
+Ensure:
+
+Notifications cannot leak across users.
+
+---
+
+PHASE 6
+ADMIN PANEL HARDENING
+---------------------
+
+Audit every admin endpoint.
+
+Verify:
+
+Admin-only access.
+
+No client-side trust.
+
+No hidden admin functionality accessible via URL.
+
+No missing middleware.
+
+Review:
+
+Admin settings
+Admin logs
+Admin stats
+Admin user management
+
+---
+
+PHASE 7
+SELLER SECURITY AUDIT
+---------------------
+
+Verify:
+
+Seller can only manage:
+
+* Their products
+* Their inventory
+* Their orders
+* Their messages
+
+Audit:
+
+PATCH product
+DELETE product
+Inventory updates
+Order management
+
+Ensure:
+
+Seller A cannot affect Seller B.
+
+---
+
+PHASE 8
+ORDER SECURITY AUDIT
+--------------------
+
+Audit:
+
+Order creation
+Order retrieval
+Order updates
+Status transitions
+
+Verify:
+
+Customer can access only own orders.
+
+Seller sees only relevant order items.
+
+Admin sees everything.
+
+Check:
+
+Status transition integrity.
+
+Prevent:
+
+Unauthorized status changes.
+
+---
+
+PHASE 9
+INPUT VALIDATION AUDIT
+----------------------
+
+Audit every POST/PATCH endpoint.
+
+Verify:
+
+Zod validation.
+
+OpenAPI schema alignment.
+
+Input sanitization.
+
+Check:
+
+Strings
+Arrays
+JSON payloads
+URLs
+Search queries
+
+Protect against:
+
+Malformed requests
+Unexpected types
+Oversized payloads
+
+---
+
+PHASE 10
+XSS AUDIT
+---------
+
+Audit all user-generated content.
+
+Including:
+
+Product names
+Descriptions
+Reviews
+Seller reviews
+Messages
+Store descriptions
+Admin notes
+
+Verify:
+
+No dangerous HTML rendering.
+
+No innerHTML usage.
+
+No script injection paths.
+
+No stored XSS.
+
+No reflected XSS.
+
+---
+
+PHASE 11
+SQL INJECTION AUDIT
+-------------------
+
+Review all database access.
+
+Verify:
+
+Drizzle ORM usage.
+
+Parameterized queries only.
+
+No string-built SQL.
+
+Audit:
+
+Search
+Filters
+Sorting
+Messaging
+Admin queries
+
+---
+
+PHASE 12
+RATE LIMITING AUDIT
+-------------------
+
+Identify endpoints vulnerable to abuse.
+
+Examples:
+
+Login
+Register
+Messaging
+Notifications
+Search
+
+Recommend and implement safe rate limiting where appropriate.
+
+Protect against:
+
+Brute force
+Spam
+Enumeration
+
+---
+
+PHASE 13
+ENUMERATION AUDIT
+-----------------
+
+Check whether attackers can discover:
+
+Users
+Emails
+Phone numbers
+Store ownership
+Admin existence
+
+Audit:
+
+Login errors
+Registration errors
+Password flows
+Seller applications
+
+Ensure responses do not leak sensitive information.
+
+---
+
+PHASE 14
+SSE SECURITY AUDIT
+------------------
+
+Audit:
+
+GET /notifications/stream
+
+Verify:
+
+JWT validation.
+
+Connection isolation.
+
+Ownership enforcement.
+
+Connection cleanup.
+
+Check:
+
+Token leakage in URLs.
+
+Stale connections.
+
+Cross-user event delivery.
+
+---
+
+PHASE 15
+SECRETS & ENVIRONMENT AUDIT
+---------------------------
+
+Audit:
+
+DATABASE_URL
+SESSION_SECRET
+VAPID keys
+
+Verify:
+
+No secrets exposed to frontend bundles.
+
+No secrets logged.
+
+No secrets committed.
+
+---
+
+PHASE 16
+HEADERS & BROWSER SECURITY
+--------------------------
+
+Verify:
+
+Helmet configuration.
+
+Security headers.
+
+CSP.
+
+X-Frame-Options.
+
+Referrer-Policy.
+
+X-Content-Type-Options.
+
+Permissions-Policy.
+
+Add missing protections safely.
+
+---
+
+PHASE 17
+DEPENDENCY SECURITY
+-------------------
+
+Audit:
+
+package.json
+pnpm-lock
+
+Identify:
+
+Known vulnerable dependencies.
+
+Outdated packages.
+
+High-risk packages.
+
+Recommend safe upgrades.
+
+---
+
+PHASE 18
+AUDIT LOGGING
+-------------
+
+Verify sensitive actions are logged.
+
+Examples:
+
+Admin approvals.
+
+Admin role changes.
+
+Seller approval.
+
+Order status modifications.
+
+Settings changes.
+
+Ensure:
+
+Logs are useful.
+
+Logs do not expose secrets.
+
+---
+
+PHASE 19
+SECURITY HARDENING
+------------------
+
+Implement safe improvements only.
+
+Avoid breaking changes.
+
+Preserve all existing functionality.
+
+Prioritize:
+
+Security
+Correctness
+Maintainability
+
+---
+
+## FINAL DELIVERABLE
+
+Provide:
+
+1. Full attack surface map.
+2. All vulnerabilities discovered.
+3. Severity classification:
+
+   * Critical
+   * High
+   * Medium
+   * Low
+4. Exploitation scenarios.
+5. Files audited.
+6. Files modified.
+7. Exact fixes applied.
+8. Remaining risks.
+9. Recommended future hardening.
+10. Security score before audit.
+11. Security score after audit.
+
+Do not assume the application is secure.
+
+Prove it.

@@ -1,0 +1,622 @@
+SYANO (سوق سوريا)
+
+VIEWPORT SCALE ARCHITECTURE V1
+
+CRITICAL TASK
+
+STOP THINKING IN TERMS OF TRADITIONAL RESPONSIVE DESIGN.
+
+The current implementation still behaves like a standard responsive website.
+
+As viewport width decreases:
+
+* columns collapse
+* layouts reflow
+* sections move
+* cards rearrange
+* visual composition changes
+
+This is NOT the desired behavior.
+
+================================================
+
+REAL OBJECTIVE
+
+The entire SYANO interface should behave like a professionally engineered scalable canvas.
+
+When viewport size changes:
+
+The page should remain visually identical.
+
+The structure should remain identical.
+
+The hierarchy should remain identical.
+
+The alignment should remain identical.
+
+The composition should remain identical.
+
+Only the SCALE should change.
+
+Think:
+
+Zooming out on a Figma file.
+
+Zooming out on a design system.
+
+The user should feel they are looking at the same page through a different zoom level.
+
+================================================
+
+THIS APPLIES TO THE ENTIRE PLATFORM
+
+Homepage
+
+Products
+
+Product Details
+
+Stores
+
+Store Pages
+
+Categories
+
+Search
+
+Wishlist
+
+Cart
+
+Checkout
+
+Orders
+
+Tracking
+
+Messaging
+
+Notifications
+
+Seller Pages
+
+Courier Pages
+
+Admin Pages
+
+Authentication
+
+Settings
+
+Every page.
+
+Every component.
+
+Every section.
+
+Every visible UI element.
+
+================================================
+
+DO NOT
+
+Hide content
+
+Remove content
+
+Collapse content
+
+Move content
+
+Replace content
+
+Simplify content
+
+Redesign content
+
+Change hierarchy
+
+Aggressively reduce columns
+
+Aggressively rearrange layout
+
+================================================
+
+SCALE INSTEAD
+
+Typography
+
+Cards
+
+Images
+
+Buttons
+
+Icons
+
+Ratings
+
+Prices
+
+Badges
+
+Containers
+
+Spacing
+
+Margins
+
+Padding
+
+Gap
+
+Border Radius
+
+Shadows
+
+Navigation
+
+Filters
+
+Dropdowns
+
+Inputs
+
+Everything.
+
+================================================
+
+LAYOUT PRESERVATION RULE
+
+Layout preservation has higher priority than breakpoint adaptation.
+
+Before reducing columns:
+
+Scale.
+
+Before moving components:
+
+Scale.
+
+Before wrapping content:
+
+Scale.
+
+Before changing layouts:
+
+Scale.
+
+================================================
+
+PRODUCT PAGE
+
+Highest Priority.
+
+Current behavior is unacceptable if cards remain large while columns collapse.
+
+Required behavior:
+
+Viewport shrinks
+
+↓
+
+Cards shrink
+
+↓
+
+Typography shrinks
+
+↓
+
+Spacing shrinks
+
+↓
+
+Images shrink
+
+↓
+
+Buttons shrink
+
+↓
+
+Grid remains visually similar
+
+↓
+
+Only when usability becomes impossible may columns reduce.
+
+================================================
+
+HOMEPAGE
+
+Preserve:
+
+Hero
+
+Categories
+
+Featured Deals
+
+Trusted Stores
+
+Trending Products
+
+New Arrivals
+
+Seller CTA
+
+Courier CTA
+
+Footer
+
+All sections should remain visually identical.
+
+Only dimensions should change.
+
+================================================
+
+NAVBAR
+
+Preserve:
+
+Logo position
+
+Search position
+
+Navigation position
+
+Actions position
+
+Settings position
+
+Theme switcher
+
+Language switcher
+
+Currency switcher
+
+User controls
+
+Scale elements before rearranging them.
+
+================================================
+
+TYPOGRAPHY SYSTEM
+
+Audit every text element.
+
+Hero titles
+
+Section titles
+
+Product titles
+
+Store names
+
+Prices
+
+Ratings
+
+Buttons
+
+Labels
+
+Navigation
+
+Metadata
+
+Descriptions
+
+Implement aggressive fluid scaling.
+
+Current scaling is not strong enough.
+
+The visual difference between 1920px and 1280px should be clearly noticeable.
+
+Typography should scale proportionally with viewport width.
+
+================================================
+
+SPACING SYSTEM
+
+Audit:
+
+Margins
+
+Padding
+
+Gap
+
+Section spacing
+
+Container spacing
+
+Card spacing
+
+Spacing must scale aggressively enough to preserve layout.
+
+Large desktop spacing must not remain oversized on smaller viewports.
+
+================================================
+
+IMAGE SYSTEM
+
+Images must scale proportionally.
+
+Preserve aspect ratios.
+
+Avoid clipping.
+
+Avoid distortion.
+
+Avoid overflow.
+
+================================================
+
+CARD SYSTEM
+
+Audit every card implementation.
+
+Product Cards
+
+Store Cards
+
+Deal Cards
+
+Wishlist Cards
+
+Order Cards
+
+Analytics Cards
+
+All cards must scale proportionally.
+
+Everything inside cards must scale together.
+
+================================================
+
+GRID SYSTEM
+
+Current problem:
+
+Columns reduce too early.
+
+New priority:
+
+1. Scale content
+2. Preserve density
+3. Preserve layout
+4. Reduce columns only when necessary
+
+================================================
+
+RESPONSIVE BLOCKER AUDIT
+
+Find ALL occurrences of:
+
+Fixed Widths
+
+Fixed Heights
+
+Fixed Font Sizes
+
+Fixed Margins
+
+Fixed Padding
+
+Fixed Gap Values
+
+Hardcoded Container Sizes
+
+Hardcoded Card Sizes
+
+Hardcoded Image Sizes
+
+Tailwind Arbitrary Pixel Values
+
+Examples:
+
+w-[300px]
+
+h-[400px]
+
+text-[18px]
+
+gap-[24px]
+
+p-[20px]
+
+m-[16px]
+
+Anything preventing viewport scaling.
+
+================================================
+
+VALIDATION REQUIREMENTS
+
+Validate:
+
+2560px
+
+1920px
+
+1600px
+
+1440px
+
+1366px
+
+1280px
+
+1152px
+
+1024px
+
+900px
+
+768px
+
+640px
+
+480px
+
+390px
+
+360px
+
+320px
+
+================================================
+
+SCREENSHOT VALIDATION
+
+Capture screenshots for:
+
+Homepage
+
+Products Page
+
+Store Page
+
+Product Details
+
+Cart
+
+Checkout
+
+Seller Dashboard
+
+For every major viewport.
+
+================================================
+
+REPORTS REQUIRED
+
+Create:
+
+VIEWPORT_SCALE_AUDIT.md
+
+VIEWPORT_SCALE_FIXES.md
+
+VIEWPORT_SCALE_VALIDATION.md
+
+================================================
+
+VIEWPORT_SCALE_AUDIT.md
+
+Must include:
+
+Component
+
+File Path
+
+Current Fixed Values
+
+Scaling Blockers
+
+Required Fix
+
+Priority
+
+================================================
+
+VIEWPORT_SCALE_FIXES.md
+
+Must include:
+
+File Modified
+
+Before
+
+After
+
+Reason
+
+================================================
+
+VIEWPORT_SCALE_VALIDATION.md
+
+Must include:
+
+Viewport Tested
+
+Pages Tested
+
+Components Tested
+
+Column Counts
+
+Card Dimensions
+
+Typography Dimensions
+
+Validation Screenshots
+
+Remaining Risks
+
+================================================
+
+STRICT RULES
+
+Do NOT claim success without validation.
+
+Do NOT assume previous responsive work is complete.
+
+Do NOT stop after homepage validation.
+
+Do NOT stop after product page validation.
+
+Audit the ENTIRE platform.
+
+================================================
+
+SUCCESS CRITERIA
+
+✓ Same page structure
+
+✓ Same component positions
+
+✓ Same visual hierarchy
+
+✓ Same visual composition
+
+✓ Same alignment
+
+✓ Same marketplace identity
+
+✓ Typography scales proportionally
+
+✓ Images scales proportionally
+
+✓ Buttons scale proportionally
+
+✓ Cards scale proportionally
+
+✓ Spacing scales proportionally
+
+✓ Layout preserved as long as possible
+
+✓ Columns preserved as long as possible
+
+✓ No clipping
+
+✓ No overflow
+
+✓ No hidden content
+
+✓ No horizontal scrolling
+
+✓ RTL preserved
+
+✓ Language system preserved
+
+✓ Currency system preserved
+
+✓ Theme system preserved
+
+================================================
+
+FINAL GOAL
+
+Transform SYANO into a viewport-scaled marketplace where the entire interface behaves as a single coherent visual system. As viewport dimensions change, the platform should preserve its layout, hierarchy, composition, density, and identity while proportionally scaling every visual element before resorting to layout reflow or column reduction.

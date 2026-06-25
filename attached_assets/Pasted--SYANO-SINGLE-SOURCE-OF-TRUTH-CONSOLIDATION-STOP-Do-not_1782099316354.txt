@@ -1,0 +1,405 @@
+# SYANO — SINGLE SOURCE OF TRUTH CONSOLIDATION
+
+STOP.
+
+Do not build features.
+
+Do not modify business logic.
+
+Do not modify APIs.
+
+Do not modify database schemas.
+
+This task is documentation architecture cleanup only.
+
+---
+
+# GOAL
+
+Convert the entire recovery/documentation system into:
+
+ONE FILE ONLY
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+This file becomes the ONLY authoritative source of truth.
+
+Future agents must be able to restore the project using this file alone.
+
+---
+
+# PHASE 1 — AUDIT
+
+First:
+
+Locate ALL recovery and project-state documents.
+
+Examples:
+
+* AGENT_BOOTSTRAP.md
+* RECOVERY_GUIDE.md
+* PROJECT_STATE.md
+* PROJECT_STATUS.md
+* CURRENT_STATE.md
+* replit.md
+* project.manifest.json
+* DATABASE_CERTIFICATION.md
+* MASTER_RECOVERY_VALIDATION.md
+* master-certificate.md
+* python-install-quirk.md
+
+Find any other recovery-oriented files.
+
+Create inventory.
+
+---
+
+# PHASE 2 — BUILD MASTER FILE
+
+Create:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+It must contain EVERYTHING required for a full project recovery.
+
+Required sections:
+
+# PROJECT IDENTITY
+
+* SYANO
+* سوق سوريا
+
+# ARCHITECTURE
+
+* API Server
+* Marketplace Web
+* Mobile Expo
+* Embedding Service
+
+# WORKFLOWS
+
+Official workflows ONLY:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+Document exact startup commands.
+
+Document why no extra workflows may exist.
+
+---
+
+# PORTS
+
+Document exact ports.
+
+API:
+
+8080
+
+Embedding:
+
+8000
+
+Marketplace:
+
+artifact managed
+
+Mobile:
+
+Expo managed
+
+Document preview behavior.
+
+Document Replit port routing.
+
+Document known port issues.
+
+---
+
+# DATABASE
+
+Document:
+
+* table count
+* critical tables
+* extensions
+* pgvector
+* indexes
+
+Document exact certified table count.
+
+Current expected:
+
+44 tables
+
+---
+
+# EMBEDDINGS
+
+Document:
+
+* sentence-transformers
+* model location
+* dimensions
+* fallback behavior
+
+Document exact recovery steps.
+
+---
+
+# AUTH
+
+Document:
+
+* JWT
+* Google login
+* Facebook login state
+* Turnstile
+* Roles
+
+Admin
+
+Seller
+
+Courier
+
+Customer
+
+---
+
+# MAPS
+
+Document:
+
+* Leaflet
+* react-leaflet
+* OSRM
+
+Document migration requirements.
+
+Document validation steps.
+
+---
+
+# SEARCH
+
+Document:
+
+* FTS
+* embeddings
+* semantic search
+
+---
+
+# MOBILE
+
+Document:
+
+* Expo
+* screen count
+* critical screens
+
+---
+
+# REQUIRED SECRETS
+
+Document every secret.
+
+Mark:
+
+REQUIRED
+
+OPTIONAL
+
+SHARED ENV
+
+Do not expose values.
+
+Only document names and purpose.
+
+---
+
+# RECOVERY PROCEDURE
+
+Write exact order:
+
+1. Import project
+2. Install dependencies
+3. Verify workflows
+4. Verify DB
+5. Verify embeddings
+6. Verify auth
+7. Verify maps
+8. Verify search
+9. Verify TypeScript
+10. Verify preview
+
+---
+
+# COMMON FAILURES
+
+Document every known failure.
+
+Examples:
+
+* Missing leaflet
+* Missing sentence-transformers
+* Missing tables
+* Preview routing issues
+* Port mismatch
+* Missing secrets
+
+Each failure must contain:
+
+* Symptom
+* Cause
+* Fix
+
+---
+
+# CERTIFIED STATE
+
+Document:
+
+Current verified state.
+
+Services.
+
+Tables.
+
+Embeddings.
+
+Search.
+
+Maps.
+
+Auth.
+
+Workflows.
+
+---
+
+# FINAL VALIDATION
+
+Add a checklist.
+
+Agent must verify every item after import.
+
+---
+
+# PHASE 3 — DELETE DUPLICATE RECOVERY KNOWLEDGE
+
+After master file is complete:
+
+Delete these files completely if they only duplicate recovery knowledge:
+
+* DATABASE_CERTIFICATION.md
+* MASTER_RECOVERY_VALIDATION.md
+* master-certificate.md
+* python-install-quirk.md
+
+Merge their useful content into:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+No information may be lost.
+
+---
+
+# PHASE 4 — REDIRECT ALL OTHER FILES
+
+Do NOT leave recovery logic in multiple places.
+
+Replace contents of:
+
+* AGENT_BOOTSTRAP.md
+* RECOVERY_GUIDE.md
+* PROJECT_STATE.md
+* PROJECT_STATUS.md
+* CURRENT_STATE.md
+* replit.md
+
+with:
+
+```md
+# IMPORTANT
+
+The only source of truth is:
+
+SYANO_MASTER_RECOVERY.md
+
+Read it first.
+
+Do not rely on any other recovery document.
+```
+
+Nothing else.
+
+---
+
+# PHASE 5 — PROJECT MANIFEST
+
+Simplify manifest.
+
+Manifest must only point to:
+
+```json
+{
+  "recoveryFile": "SYANO_MASTER_RECOVERY.md"
+}
+```
+
+Remove duplicated recovery content.
+
+---
+
+# PHASE 6 — DRY RUN
+
+Simulate a brand new agent.
+
+Pretend the project was freshly imported.
+
+Verify:
+
+Can recovery be completed using ONLY:
+
+```text
+SYANO_MASTER_RECOVERY.md
+```
+
+If not:
+
+Fix the document.
+
+Repeat.
+
+---
+
+# PHASE 7 — FINAL CERTIFICATION
+
+Answer:
+
+* Total recovery files before
+* Total recovery files after
+* Whether any duplicate recovery knowledge remains
+
+Final goal:
+
+ONE authoritative recovery document.
+
+ZERO duplicated recovery logic.
+
+ZERO conflicting recovery files.
+
+Single Source Of Truth architecture.
+
+Do not finish until this is verified.

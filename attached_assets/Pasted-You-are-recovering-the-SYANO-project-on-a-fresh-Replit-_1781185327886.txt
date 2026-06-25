@@ -1,0 +1,395 @@
+You are recovering the SYANO (سوق سوريا) project on a fresh Replit workspace.
+
+CRITICAL RULE:
+
+Do NOT trust documentation alone.
+Do NOT trust code existence alone.
+Do NOT assume features work because files exist.
+
+You must verify the ACTUAL UI behavior and data flow.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 1 — FULL RECOVERY
+━━━━━━━━━━━━━━━━━━━━━━
+
+Read completely:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Then:
+
+1. Install dependencies
+2. Verify environment variables
+3. Verify database connection
+4. Restore schema
+5. Build shared libraries
+6. Start:
+
+   * API Server
+   * Marketplace
+   * Mobile
+
+Verify:
+
+* API health endpoint
+* Marketplace loads
+* Mobile loads
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 2 — VALIDATE CURRENT ROADMAP POSITION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current expected state:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+✅ Seller Orders V2
+
+Do not continue until all 3 are verified.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 3 — CREATE TEST DATA
+━━━━━━━━━━━━━━━━━━━━━━
+
+If database is empty:
+
+Create:
+
+ADMIN
+SELLER
+CUSTOMER
+COURIER
+
+Create:
+
+* Seller application
+* Approved seller
+* Courier application
+* Approved courier
+
+Create:
+
+* Delivery zones
+* Products
+* Variants
+* Orders
+
+Generate realistic test data.
+
+Minimum:
+
+* 10 products
+* 5 orders
+
+Statuses:
+
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+out_for_delivery
+delivered
+delivery_failed
+cancelled
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 4 — FULL SELLER ORDERS V2 AUDIT
+━━━━━━━━━━━━━━━━━━━━━━
+
+This is the most important section.
+
+The last implementation claimed:
+
+* KPI cards
+* Metrics API
+* Filters
+* Bulk actions
+* Order details page
+* Timeline
+* Courier info
+* Customer info
+
+YOU MUST VERIFY THEY ACTUALLY APPEAR.
+
+Login as seller.
+
+Open:
+
+/seller/orders
+
+Verify visually:
+
+1. Stats Cards exist
+
+Expected:
+
+* New Orders
+* Preparing
+* Ready
+* Active Deliveries
+* Completed
+* Cancelled
+
+If missing:
+
+REPORT BUG.
+
+2. Operations Insights panel
+
+Expected KPIs:
+
+* Orders Today
+* Orders This Week
+* Orders This Month
+* Avg Order Value
+* Cancellation Rate
+* Delivery Success Rate
+* Preparing Count
+* Awaiting Courier Count
+
+If panel missing:
+
+REPORT BUG.
+
+3. Filter chips
+
+Verify:
+
+All
+New
+Preparing
+Ready
+Delivering
+Completed
+Cancelled
+Refunded
+Returned
+
+If missing:
+
+REPORT BUG.
+
+4. Bulk Actions
+
+Verify:
+
+Checkboxes
+Select All
+Bulk confirm
+Bulk preparing
+Bulk ready
+
+If not visible:
+
+REPORT BUG.
+
+5. Desktop Table
+
+Verify all expected columns render.
+
+6. Mobile Layout
+
+Verify responsive card layout.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 5 — ORDER DETAILS AUDIT
+━━━━━━━━━━━━━━━━━━━━━━
+
+Open:
+
+/seller/orders/:id
+
+Verify visually:
+
+Customer section
+
+* name
+* phone
+* address
+* zone
+
+Products section
+
+* images
+* quantity
+* variants
+
+Financial section
+
+* subtotal
+* delivery fee
+* total
+* seller revenue
+
+Courier section
+
+* courier name
+* courier phone
+* courier status
+
+Timeline
+
+Verify every status renders.
+
+If any section missing:
+
+REPORT BUG.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 6 — REAL END-TO-END FLOW
+━━━━━━━━━━━━━━━━━━━━━━
+
+Perform:
+
+Customer creates order
+
+Seller:
+
+pending
+→ confirmed
+→ preparing
+→ ready_for_pickup
+
+Admin:
+
+assign courier
+
+Courier:
+
+picked_up
+→ out_for_delivery
+→ delivered
+
+Verify:
+
+* notifications
+* timeline
+* seller page
+* customer page
+* courier dashboard
+
+at every step.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 7 — FIX EVERYTHING FOUND
+━━━━━━━━━━━━━━━━━━━━━━
+
+Fix:
+
+* missing UI
+* broken queries
+* wrong counts
+* stale caches
+* rendering issues
+* permissions
+* TypeScript issues
+
+Requirements:
+
+* no regressions
+* no placeholder fixes
+* no hacks
+* production-quality fixes only
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 8 — GLOBAL PLATFORM AUDIT
+━━━━━━━━━━━━━━━━━━━━━━
+
+After fixes:
+
+Audit entire platform:
+
+Admin
+Seller
+Customer
+Courier
+Guest
+
+Test:
+
+Authentication
+Products
+Variants
+Cart
+Checkout
+Orders
+Messages
+Notifications
+Search
+Recently Viewed
+Delivery Zones
+Courier Flow
+Seller Flow
+
+Fix every issue discovered.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 9 — UPDATE RECOVERY FILES
+━━━━━━━━━━━━━━━━━━━━━━
+
+Mandatory.
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+KNOWN_ISSUES.md
+
+RECOVERY_GUIDE.md
+
+Include:
+
+* what was verified
+* what was broken
+* what was fixed
+* roadmap position
+
+━━━━━━━━━━━━━━━━━━━━━━
+FINAL REPORT
+━━━━━━━━━━━━━━━━━━━━━━
+
+Provide:
+
+1. Recovery status
+
+2. Service status
+
+3. Database status
+
+4. Seller Orders V2 status
+
+For each feature:
+
+VISIBLE IN UI
+or
+MISSING
+
+5. Bugs found
+
+6. Bugs fixed
+
+7. Remaining issues
+
+8. Exact current roadmap position
+
+Do not say “implemented”.
+
+Say only:
+
+VERIFIED WORKING
+
+or
+
+BROKEN
+
+based on actual testing.

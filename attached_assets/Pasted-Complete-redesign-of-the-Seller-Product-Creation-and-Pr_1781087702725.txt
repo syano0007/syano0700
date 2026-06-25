@@ -1,0 +1,337 @@
+Complete redesign of the Seller Product Creation and Product Edit experience.
+
+IMPORTANT:
+
+This is a UX architecture redesign.
+
+Do NOT simply restyle the existing page.
+
+Replace the current long scrolling form with a full-screen multi-step wizard experience.
+
+The goal is to make product creation feel similar to:
+
+* Shopify
+* Amazon Seller
+* Trendyol Seller
+* Noon Seller
+
+while preserving the existing SYANO design language.
+
+---
+
+## CORE REQUIREMENTS
+
+The following pages must be redesigned:
+
+* /seller/products/new
+* /seller/products/[id]/edit
+
+Both pages must use the exact same step structure.
+
+The edit page should preload existing data into the same wizard.
+
+Do NOT remove existing functionality.
+
+Do NOT remove existing fields.
+
+Do NOT break variants.
+
+Do NOT break image uploads.
+
+Do NOT break mobile.
+
+Do NOT break RTL.
+
+TypeScript must finish with 0 errors.
+
+---
+
+## NEW STRUCTURE
+
+Convert the form into a 5-step wizard.
+
+Step 1
+Basic Information
+
+Step 2
+Pricing & Inventory
+
+Step 3
+Variants & Options
+
+Step 4
+Specifications & Description
+
+Step 5
+Review & Publish
+
+Only ONE step should be visible at a time.
+
+No giant scrolling page.
+
+---
+
+## LAYOUT
+
+The wizard must use almost the full mobile width.
+
+Current layout feels too narrow.
+
+Use:
+
+max-w-none
+w-full
+
+with only small safe-area padding.
+
+Target:
+
+* edge-to-edge mobile experience
+* large touch targets
+* modern app-like feeling
+
+The form should feel like a native mobile app.
+
+---
+
+## TOP PROGRESS BAR
+
+At the top show:
+
+1 Information
+2 Pricing
+3 Variants
+4 Specifications
+5 Publish
+
+Example:
+
+[●] Information
+[●] Pricing
+[○] Variants
+[○] Specifications
+[○] Publish
+
+Current step highlighted.
+
+Completed steps checked.
+
+Clickable only if validation allows.
+
+---
+
+STEP 1
+BASIC INFORMATION
+-----------------
+
+Fields:
+
+* Product Name
+* Category
+* Brand
+* Images
+
+Images should be redesigned.
+
+Large primary image area.
+
+Horizontal gallery.
+
+Cover image badge.
+
+Add image card.
+
+Mobile-first image experience.
+
+This step should focus only on product identity.
+
+---
+
+STEP 2
+PRICING & INVENTORY
+-------------------
+
+Fields:
+
+* Original Price
+* Sale Price
+* Stock Quantity
+* SKU
+
+Use large cards.
+
+Large numeric inputs.
+
+Side-by-side only if screen width allows.
+
+Otherwise stacked.
+
+---
+
+STEP 3
+VARIANTS
+--------
+
+This is the dedicated variant page.
+
+Do NOT mix variants with other fields.
+
+Show:
+
+Variant Groups
+
+Examples:
+
+Color
+Size
+Storage
+RAM
+
+Auto-generated combinations.
+
+Bulk actions.
+
+Variant images.
+
+Everything variant-related stays here.
+
+No unrelated fields.
+
+---
+
+STEP 4
+SPECIFICATIONS & DESCRIPTION
+----------------------------
+
+Split into two sections.
+
+Section A:
+
+Specifications
+
+Key-value builder.
+
+Examples:
+
+Screen Size → 6.7"
+Battery → 5000mAh
+Material → Cotton
+
+Add / Remove rows.
+
+Section B:
+
+Description
+
+Rich editor.
+
+Formatting toolbar.
+
+Clean writing experience.
+
+---
+
+STEP 5
+REVIEW & PUBLISH
+----------------
+
+Show summary cards:
+
+Images
+Basic Information
+Pricing
+Variants
+Specifications
+
+Allow jumping back to any section.
+
+Show validation warnings.
+
+Final button:
+
+Create Product
+
+or
+
+Save Changes
+
+---
+
+## BOTTOM ACTION BAR
+
+Always visible on mobile.
+
+Sticky bottom.
+
+Previous button
+
+Next button
+
+Last step:
+
+Back
+Publish Product
+
+Large buttons.
+
+Minimum 52px height.
+
+Respect safe-area insets.
+
+---
+
+## VALIDATION
+
+Users cannot continue if required fields are missing.
+
+Examples:
+
+Step 1 requires:
+
+* Product Name
+* Category
+
+Step 2 requires:
+
+* Price
+
+Show inline validation.
+
+Do not allow invalid publish.
+
+---
+
+## DESIGN GOAL
+
+The result should feel like:
+
+a modern seller onboarding flow
+
+NOT
+
+a long admin form.
+
+Users should comfortably create products entirely from mobile.
+
+---
+
+## RECOVERY FILES
+
+After implementation:
+
+Update ALL recovery files.
+
+Update:
+
+* CURRENT_STATE.md
+* MEMORY.md
+* RECOVERY.md
+
+Document:
+
+* Wizard architecture
+* Step flow
+* Validation rules
+* Mobile layout changes
+
+Make this new wizard architecture the official project baseline.

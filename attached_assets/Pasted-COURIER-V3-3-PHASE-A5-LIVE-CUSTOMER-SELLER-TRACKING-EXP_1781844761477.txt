@@ -1,0 +1,497 @@
+COURIER V3.3 — PHASE A5
+
+LIVE CUSTOMER & SELLER TRACKING EXPERIENCE
+
+IMPORTANT
+
+Read first:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* project.manifest.json
+* replit.md
+
+Verify all 4 official services are healthy before touching code.
+
+DO NOT create workflows.
+DO NOT create previews.
+DO NOT create duplicate services.
+DO NOT modify existing workflow structure.
+
+Use only:
+
+* API Server
+* Marketplace
+* Embedding Service
+* Mobile App
+
+---
+
+GOAL
+
+Phase A4 already records:
+
+* tracking_sessions
+* tracking_positions
+* tracking_events
+* courier GPS updates
+
+Customers and sellers currently cannot visualize courier movement.
+
+Build a production-grade live tracking experience similar to:
+
+* Uber Eats
+* Talabat
+* DoorDash
+* Amazon Logistics
+
+using OpenStreetMap + Leaflet.
+
+No Google Maps dependency.
+
+---
+
+CORE REQUIREMENT
+
+CUSTOMER MUST SEE:
+
+* Courier current position
+* Pickup location
+* Delivery location
+* Courier route line
+* Delivery status
+* ETA
+* Distance remaining
+
+SELLER MUST SEE:
+
+* Courier current position
+* Pickup completed state
+* Customer destination
+* ETA
+
+ADMIN MUST CONTINUE SEEING:
+
+* Tracking Monitor
+* Courier Locations
+* Existing dashboards
+
+Do not break any existing admin pages.
+
+---
+
+A5.1
+
+TRACKING API ENRICHMENT
+
+Extend existing tracking endpoints.
+
+Current tracking endpoint:
+
+GET /api/tracking/:missionId
+
+Add:
+
+{
+mission,
+courier,
+latestPosition,
+pickupLocation,
+deliveryLocation,
+eta,
+distanceRemainingKm,
+routeStatus
+}
+
+Route status values:
+
+WAITING_PICKUP
+GOING_TO_PICKUP
+PICKED_UP
+GOING_TO_CUSTOMER
+DELIVERED
+
+---
+
+A5.2
+
+ETA ENGINE V2
+
+Current ETA service uses simple haversine estimates.
+
+Improve it.
+
+Inputs:
+
+Courier position
+Pickup position
+Dropoff position
+Mission status
+
+Logic:
+
+If not picked up:
+
+ETA =
+courier → pickup
++
+pickup → customer
+
+If picked up:
+
+ETA =
+courier → customer
+
+Output:
+
+{
+distanceRemainingKm,
+etaMinutes,
+confidence
+}
+
+Confidence:
+
+LOW
+MEDIUM
+HIGH
+
+Do not call external paid APIs.
+
+---
+
+A5.3
+
+LIVE TRACKING PAGE
+
+Create:
+
+/tracking/:missionId
+
+Accessible by:
+
+* customer
+* seller
+* admin
+
+Permission rules:
+
+Customer:
+must own order
+
+Seller:
+must own order
+
+Admin:
+all
+
+Forbidden:
+other users
+
+---
+
+A5.4
+
+MAP COMPONENT
+
+Create reusable:
+
+TrackingMap.tsx
+
+Use:
+
+Leaflet
+OpenStreetMap
+
+Display:
+
+Courier marker
+
+Pickup marker
+
+Customer marker
+
+Polyline route
+
+Current courier path trail
+
+---
+
+MARKER DESIGN
+
+Courier:
+
+Motorcycle icon
+SYANO emerald
+
+Pickup:
+
+Store icon
+
+Customer:
+
+Home icon
+
+---
+
+A5.5
+
+REAL-TIME REFRESH
+
+No page reload.
+
+Refresh:
+
+every 5 seconds
+
+Fetch:
+
+latest tracking position
+
+Update:
+
+marker position
+ETA
+distance remaining
+
+without map reset
+
+Map must stay smooth.
+
+---
+
+A5.6
+
+TRACKING TIMELINE
+
+Below map show timeline.
+
+Example:
+
+✓ Order Created
+
+✓ Courier Assigned
+
+✓ Courier Accepted
+
+✓ Courier Arrived At Store
+
+✓ Pickup Completed
+
+✓ In Transit
+
+○ Delivered
+
+Driven by tracking_events.
+
+---
+
+A5.7
+
+CUSTOMER ORDER PAGE INTEGRATION
+
+Current order details page:
+
+Add:
+
+"Track Delivery"
+
+button
+
+Visible when:
+
+mission exists
+
+Statuses:
+
+ASSIGNED
+ACCEPTED
+PICKED_UP
+IN_TRANSIT
+
+Click:
+
+open tracking page
+
+---
+
+A5.8
+
+SELLER ORDER PAGE INTEGRATION
+
+Add:
+
+Track Courier
+
+button
+
+Same logic.
+
+---
+
+A5.9
+
+MOBILE APP
+
+Expo app must support:
+
+same live tracking page
+
+same map
+
+same ETA
+
+same timeline
+
+No degraded experience.
+
+---
+
+A5.10
+
+EMPTY STATES
+
+If courier not yet assigned:
+
+Show:
+
+Waiting for courier assignment
+
+If courier GPS unavailable:
+
+Show:
+
+Courier location temporarily unavailable
+
+Map remains usable.
+
+---
+
+A5.11
+
+DESIGN REQUIREMENTS
+
+Must match existing SYANO design.
+
+Use:
+
+* emerald accents
+* rounded-xl
+* current shadows
+* current spacing
+* current typography
+
+Do NOT create dashboard-style UI.
+
+Must feel consumer-facing.
+
+---
+
+A5.12
+
+PERFORMANCE
+
+Map must not:
+
+re-render entire page
+
+Only update:
+
+marker position
+ETA values
+
+Keep updates lightweight.
+
+---
+
+A5.13
+
+SECURITY
+
+Verify ownership.
+
+Customer:
+only own missions
+
+Seller:
+only own missions
+
+Admin:
+all
+
+No tracking data leakage.
+
+---
+
+A5.14
+
+FINAL VALIDATION
+
+Run FULL end-to-end test:
+
+Seller
+→ ready_for_pickup
+
+Assignment Engine
+→ courier assigned
+
+Courier
+→ accept
+
+Courier
+→ move GPS
+
+Customer
+→ open tracking
+
+Verify:
+
+✓ map loads
+
+✓ courier marker moves
+
+✓ ETA updates
+
+✓ distance updates
+
+✓ timeline updates
+
+✓ pickup state updates
+
+✓ delivered state updates
+
+✓ permissions enforced
+
+✓ mobile works
+
+✓ TypeScript = 0 errors
+
+---
+
+DOCUMENTATION
+
+After completion update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+
+Document:
+
+A5 completed
+
+new routes
+
+new components
+
+new APIs
+
+validation results
+
+Do not mark complete unless every validation passes.

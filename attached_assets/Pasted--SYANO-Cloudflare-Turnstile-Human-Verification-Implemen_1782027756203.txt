@@ -1,0 +1,254 @@
+# SYANO — Cloudflare Turnstile Human Verification
+
+Implement Cloudflare Turnstile across SYANO.
+
+This is the ONLY verification solution to implement.
+
+Do NOT use:
+
+* Google reCAPTCHA v2
+* Google reCAPTCHA v3
+* hCaptcha
+
+Use:
+
+Cloudflare Turnstile
+
+Reason:
+
+* Faster globally
+* Better performance in Syria and the Middle East
+* No Google dependency
+* Better UX
+* Lower friction
+* Free
+
+---
+
+# OBJECTIVES
+
+Protect:
+
+1. Registration
+2. Login
+3. Forgot Password
+4. Password Reset
+5. Contact Forms
+6. Public Message Forms
+
+without hurting UX.
+
+The experience must feel invisible.
+
+---
+
+# PERFORMANCE REQUIREMENTS
+
+This is critical.
+
+The implementation must:
+
+* load lazily
+* never block rendering
+* never delay page hydration
+* never delay route transitions
+* never affect Core Web Vitals
+
+Target:
+
+* zero noticeable delay
+* zero layout shift
+* near-instant interaction
+
+---
+
+# UI REQUIREMENTS
+
+Use:
+
+Cloudflare Turnstile Widget
+
+Theme:
+
+auto
+
+Language:
+
+Arabic when locale=ar
+
+English when locale=en
+
+Size:
+
+compact
+
+The widget must visually match:
+
+* SYANO design language
+* rounded corners
+* existing spacing system
+
+No ugly default placement.
+
+---
+
+# REGISTRATION
+
+Before registration submit:
+
+Verify Turnstile token.
+
+Server must validate token with Cloudflare.
+
+If verification fails:
+
+Show localized error.
+
+Arabic:
+
+"تعذر التحقق من الطلب. يرجى المحاولة مرة أخرى."
+
+English:
+
+"Verification failed. Please try again."
+
+---
+
+# LOGIN
+
+Protect login endpoint.
+
+Requirements:
+
+* no additional friction
+* compact placement
+* mobile friendly
+
+Verification must happen before login request.
+
+---
+
+# PASSWORD RESET
+
+Protect:
+
+Forgot Password
+
+Reset Password
+
+Endpoints must reject invalid tokens.
+
+---
+
+# SERVER VALIDATION
+
+Never trust frontend only.
+
+Validate token server-side using:
+
+https://challenges.cloudflare.com/turnstile/v0/siteverify
+
+Use:
+
+TURNSTILE_SECRET_KEY
+
+Environment variable.
+
+---
+
+# ENVIRONMENT VARIABLES
+
+Add support for:
+
+TURNSTILE_SITE_KEY
+
+TURNSTILE_SECRET_KEY
+
+Feature flag:
+
+TURNSTILE_ENABLED=true
+
+If:
+
+TURNSTILE_ENABLED=false
+
+Then:
+
+* hide widget
+* bypass verification
+* keep code intact
+
+No code deletion.
+
+---
+
+# SECURITY
+
+Rate limiting remains active.
+
+Turnstile is additional protection.
+
+Do NOT replace existing security.
+
+Layer it.
+
+---
+
+# MOBILE REQUIREMENTS
+
+Verify:
+
+* iOS
+* Android
+* mobile web
+
+No overflow issues.
+
+No modal issues.
+
+No scrolling issues.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Registration works
+
+✅ Login works
+
+✅ Forgot Password works
+
+✅ Reset Password works
+
+✅ Arabic works
+
+✅ English works
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ TypeScript = 0 errors
+
+✅ No performance regression
+
+---
+
+# REPORT
+
+Provide:
+
+1. Files modified
+2. Frontend integration
+3. Backend integration
+4. Environment variables added
+5. Feature flag implementation
+6. Mobile validation
+7. Performance validation
+8. Final status
+
+Goal:
+
+Enterprise-grade bot protection with minimal friction and maximum speed.

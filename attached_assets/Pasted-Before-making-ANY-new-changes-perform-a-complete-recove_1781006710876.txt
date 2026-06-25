@@ -1,0 +1,129 @@
+Before making ANY new changes, perform a complete recovery to the latest documented checkpoint.
+
+This project was migrated to a different Replit account.
+
+You MUST restore and verify the workspace before touching any code.
+
+---
+
+# STEP 1 — LOAD PROJECT MEMORY
+
+Read ALL recovery and project memory files:
+
+* project-memory/RECOVERY_GUIDE.md
+* project-memory/CURRENT_STATE.md
+* project-memory/PROJECT_STATE.md
+* project-memory/CURRENT_TASK.md
+* project-memory/DATABASE_STATE.md
+* project-memory/KNOWN_ISSUES.md
+* project-memory/CHANGELOG.md
+* project-memory/API_STATE.md
+* project-memory/AUTH_STATE.md
+* project-memory/PERFORMANCE_STATE.md
+* project-memory/VARIANT_SYSTEM_STATE.md
+
+Do not skip any file.
+
+---
+
+# STEP 2 — RESTORE TO LATEST CHECKPOINT
+
+Follow the documented recovery procedure exactly.
+
+Verify:
+
+* node_modules installed
+* lib declarations built
+* database schema restored
+* all migrations applied
+* all 22 tables present
+* all additive migration columns present
+* API running
+* Marketplace running
+* Mobile running
+
+---
+
+# STEP 3 — VERIFY LATEST VARIANTBUILDER STATE
+
+This is critical.
+
+Do NOT assume the VariantBuilder is up to date.
+
+Verify that the latest VariantBuilder changes exist:
+
+* mobile layout improvements
+* StepHeader responsive behavior
+* Generate button mobile layout
+* overflow-hidden removals
+* PreviewSidebar fixes
+* touch target improvements
+* RTL fixes
+* latest documentation updates
+
+Confirm that the codebase actually matches the latest checkpoint.
+
+---
+
+# STEP 4 — VERIFY BRANDING ASSETS
+
+Verify:
+
+* syano-logo.png
+* favicon assets
+* mobile icon
+* Inter font
+
+No missing files.
+
+No 404s.
+
+---
+
+# STEP 5 — VERIFY AUTH
+
+Login using:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+Confirm authentication works.
+
+---
+
+# STEP 6 — VERIFY LAST CHECKPOINT
+
+Compare:
+
+* current code
+* current database
+* current assets
+* current recovery docs
+
+against the latest documented checkpoint.
+
+Identify ANY mismatch.
+
+If something is missing:
+
+restore it first.
+
+---
+
+# IMPORTANT
+
+Do NOT implement any new fixes yet.
+
+Do NOT modify VariantBuilder yet.
+
+First answer:
+
+1. Was the latest checkpoint fully restored?
+2. Are all latest VariantBuilder changes present?
+3. Is anything missing compared to the latest documented state?
+4. Does the current workspace exactly match the last saved checkpoint?
+
+Only after answering those questions may you begin new fixes.

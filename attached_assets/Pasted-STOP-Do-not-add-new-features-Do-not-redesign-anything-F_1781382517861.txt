@@ -1,0 +1,123 @@
+STOP.
+
+Do not add new features.
+
+Do not redesign anything.
+
+Fix the navbar and hero artifacts only.
+
+The current homepage has two visible issues.
+
+--------------------------------------------------
+ISSUE 1 — REMOVE THE FLOATING GREEN ICON
+--------------------------------------------------
+
+There is a floating green square/cart icon above the hero image.
+
+This icon does NOT exist in the approved design.
+
+Remove it completely.
+
+Delete the component, not just hide it.
+
+Search for:
+
+- floating cart badge
+- floating action button
+- hero floating icon
+- cart shortcut overlay
+
+and remove it.
+
+The hero image should only contain:
+
+- image carousel
+- floating product cards
+- discount badge
+
+Nothing else.
+
+--------------------------------------------------
+ISSUE 2 — NAVBAR IS A MIX OF OLD + NEW
+--------------------------------------------------
+
+The navbar currently combines elements from:
+
+- old marketplace navbar
+- new approved hero/navbar design
+
+This is incorrect.
+
+Rebuild the navbar to match the approved design exactly.
+
+Reference behavior:
+
+LEFT SIDE:
+- Create Account button
+- Login button
+
+CENTER:
+- Search bar
+
+RIGHT SIDE:
+- Main navigation links
+- Logo
+
+Do NOT show:
+
+- floating cart badge
+- old dashboard shortcuts
+- extra utility controls
+- misplaced language widgets
+- currency controls unless they existed in the approved design
+
+--------------------------------------------------
+MATCH EXACTLY
+--------------------------------------------------
+
+Match:
+
+- navbar height
+- spacing
+- padding
+- logo size
+- search width
+- search height
+- search border radius
+- menu spacing
+- menu font size
+- menu font weight
+
+Current search box is too large.
+
+Reduce it to match the approved design.
+
+Current navbar spacing is incorrect.
+
+Use pixel measurements from the approved mockup.
+
+--------------------------------------------------
+VERIFY
+--------------------------------------------------
+
+After changes:
+
+✅ no floating green icon above hero image
+
+✅ create account button fully visible
+
+✅ login button fully visible
+
+✅ search box matches approved size
+
+✅ navbar height matches approved design
+
+✅ logo size matches approved design
+
+✅ menu spacing matches approved design
+
+✅ no mixed old/new navbar elements
+
+Only fix these issues.
+
+Do not modify the rest of the homepage.

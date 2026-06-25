@@ -1,0 +1,181 @@
+The previous RTL + Mobile polish pass did NOT fully solve the problems.
+
+There are still visible regressions.
+
+Do NOT assume the previous fixes are correct.
+
+Perform a REAL VISUAL AUDIT.
+
+Open the page in the browser and inspect the actual rendered UI.
+
+Do not rely only on reading JSX.
+
+---
+
+# CRITICAL PROBLEMS STILL PRESENT
+
+## 1. RTL BUTTON DRIFT
+
+Many VariantBuilder buttons still shift toward the wrong side in Arabic.
+
+In RTL mode some controls visually move toward the right edge and become partially clipped.
+
+This issue exists across multiple sections.
+
+Find every occurrence.
+
+Do not patch individual buttons.
+
+Find the underlying layout pattern causing it.
+
+Look for:
+
+* ml-auto
+* mr-auto
+* ms-auto
+* me-auto
+* justify-between
+* justify-end
+* flex-row
+* flex-row-reverse misuse
+* absolute positioning
+* left/right instead of start/end
+* translate-x
+* w-fit
+* min-width constraints
+* overflow-hidden
+* truncate
+* fixed widths
+
+Replace them with proper RTL-safe layouts.
+
+---
+
+## 2. MOBILE VISUAL BREAKAGE
+
+The page is still not production quality on phones.
+
+Some controls are partially outside their containers.
+
+Some menus are clipped.
+
+Some variant buttons are cut in half.
+
+Some sections feel cramped.
+
+Some rows wrap incorrectly.
+
+Perform a full audit on:
+
+320px
+360px
+390px
+412px
+
+There must be:
+
+NO clipped controls
+
+NO clipped dropdowns
+
+NO partially hidden buttons
+
+NO horizontal scrolling
+
+NO overlapping elements
+
+---
+
+## 3. DROPDOWNS AND MENUS
+
+Audit every dropdown, popup, autocomplete, and floating panel.
+
+Verify:
+
+* fully visible
+* not clipped by overflow hidden
+* not cut by parent containers
+* correct z-index
+* correct RTL alignment
+
+---
+
+## 4. VARIANT BUTTONS
+
+Every VariantBuilder button must be fully visible.
+
+No button should lose part of its width.
+
+No text should be cut.
+
+No icon should be clipped.
+
+---
+
+## 5. REMOVE ARTIFICIAL WIDTH CONSTRAINTS
+
+Audit for:
+
+fixed widths
+
+max-width values
+
+min-width values
+
+w-fit
+
+truncate
+
+overflow-hidden
+
+Replace with flexible layouts whenever possible.
+
+Prefer:
+
+flex-1
+min-w-0
+flex-wrap
+gap
+responsive stacking
+
+---
+
+## 6. BROWSER-BASED QA
+
+Actually open the page.
+
+Inspect it visually.
+
+Do NOT conclude based only on source code.
+
+Take screenshots internally if needed.
+
+Continue fixing until the page visually looks correct.
+
+---
+
+## FINAL VALIDATION
+
+Verify:
+
+✅ Arabic RTL desktop
+
+✅ Arabic RTL mobile
+
+✅ English desktop
+
+✅ English mobile
+
+✅ No clipped controls
+
+✅ No clipped dropdowns
+
+✅ No half-visible buttons
+
+✅ No horizontal scrolling
+
+✅ Correct RTL alignment
+
+Only finish when the rendered UI is visually correct, not merely when the code looks correct.
+
+Finally provide a list of the exact root causes that were still remaining from the previous pass and how each one was fixed.

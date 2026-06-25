@@ -1,0 +1,349 @@
+# SYANO — MOBILE NAVBAR & MOBILE HEADER POLISH PASS
+
+STOP.
+
+This task is ONLY about the Mobile experience.
+
+Do NOT modify Desktop.
+
+Desktop is approved.
+
+Desktop Navbar is the source of truth.
+
+The goal is:
+
+Make the Mobile Navbar and Mobile Header feel like a native extension of the Desktop design.
+
+---
+
+# CRITICAL RULE
+
+Desktop:
+
+LOCKED.
+
+Do NOT touch:
+
+* Desktop Navbar
+* Desktop Header
+* Desktop Icon System
+* Desktop Layout
+
+Only Mobile and Tablet may change.
+
+---
+
+# GOAL
+
+Currently Mobile feels visually different from Desktop.
+
+Icons
+
+Buttons
+
+Spacing
+
+Sizing
+
+Colors
+
+Hover states
+
+Backgrounds
+
+Borders
+
+Shadows
+
+do not fully match.
+
+The Mobile experience must inherit the exact same design language.
+
+---
+
+# PART 1 — ICON CONSISTENCY
+
+Audit ALL mobile icons.
+
+Compare against Desktop:
+
+* Notifications
+* Messages
+* Wishlist
+* Cart
+* Settings
+* Search
+* User/Profile
+
+---
+
+## REQUIRED
+
+Match EXACTLY:
+
+* icon size
+* stroke width
+* visual weight
+* icon container size
+* border radius
+* spacing
+* hover state
+* active state
+
+Mobile should feel like the same component system.
+
+Not a separate design.
+
+---
+
+# PART 2 — ACTION BUTTONS
+
+Audit:
+
+* Cart button
+* Wishlist button
+* Messages button
+* Notifications button
+* Settings button
+
+---
+
+## REQUIRED
+
+All action buttons must use:
+
+identical:
+
+* dimensions
+* border radius
+* padding
+* background
+* border
+* shadow
+* animation
+
+Only icon glyphs may differ.
+
+---
+
+# PART 3 — MOBILE NAVBAR HEIGHT
+
+Current navbar must be visually aligned with Desktop.
+
+Verify:
+
+* height
+* padding
+* vertical alignment
+
+Nothing should feel oversized.
+
+Nothing should feel compressed.
+
+---
+
+# PART 4 — MOBILE DRAWER
+
+Audit mobile menu drawer.
+
+Verify:
+
+* spacing
+* typography
+* icons
+* section dividers
+* hover states
+* active states
+
+Must match SYANO design language.
+
+Not generic.
+
+Not default.
+
+---
+
+# PART 5 — THEME COMPATIBILITY
+
+Verify:
+
+Dark Theme
+
+Light Theme
+
+---
+
+## REQUIRED
+
+All icons remain:
+
+* visible
+* balanced
+* consistent
+
+No dark-on-dark issues.
+
+No light-on-light issues.
+
+No mismatched icon colors.
+
+---
+
+# PART 6 — NOTIFICATION BUTTON
+
+Verify:
+
+Notification button matches:
+
+* Cart
+* Wishlist
+* Messages
+* Settings
+
+Exactly.
+
+Unread badge should remain.
+
+But container style must be identical.
+
+---
+
+# PART 7 — MESSAGE BUTTON
+
+Verify:
+
+Message icon appears correctly.
+
+Desktop and Mobile should feel unified.
+
+Badge behavior must match Notification badge system.
+
+---
+
+# PART 8 — SEARCH BUTTON
+
+Verify:
+
+Search icon weight matches Desktop.
+
+Search trigger styling matches Desktop.
+
+No oversized icon.
+
+No different radius.
+
+---
+
+# PART 9 — MOBILE HEADER VISUAL BALANCE
+
+Current Mobile Header must feel premium.
+
+Audit:
+
+* logo size
+* action icon group
+* spacing between icons
+* alignment
+
+The visual balance should match:
+
+Shopify
+
+Noon
+
+Amazon
+
+Trendyol
+
+quality standards.
+
+---
+
+# PART 10 — RESPONSIVE AUDIT
+
+Verify:
+
+390px
+
+430px
+
+768px
+
+1024px
+
+No clipping.
+
+No overflow.
+
+No icon collisions.
+
+No layout shifts.
+
+---
+
+# PART 11 — ACCESSIBILITY
+
+Verify:
+
+Touch targets.
+
+Every icon:
+
+minimum 44x44 interaction area.
+
+Without visually enlarging the icon.
+
+---
+
+# PART 12 — RECOVERY FILES
+
+After completion:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+
+Document:
+
+Mobile Navbar polish pass completed.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Desktop untouched
+
+✅ Mobile icons match Desktop
+
+✅ Mobile buttons match Desktop
+
+✅ Notification button matches icon group
+
+✅ Message button matches icon group
+
+✅ Cart button matches icon group
+
+✅ Wishlist button matches icon group
+
+✅ Settings button matches icon group
+
+✅ Dark theme verified
+
+✅ Light theme verified
+
+✅ Mobile drawer verified
+
+✅ Tablet verified
+
+✅ Responsive verified
+
+✅ No overflow
+
+✅ No clipping
+
+✅ Recovery files updated
+
+Do not finish until Mobile feels like a pixel-perfect continuation of the Desktop design system.

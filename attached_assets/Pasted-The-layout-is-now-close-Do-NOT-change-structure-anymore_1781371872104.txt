@@ -1,0 +1,196 @@
+The layout is now close.
+
+Do NOT change structure anymore.
+
+Do NOT move elements.
+
+Do NOT resize elements.
+
+Do NOT modify spacing.
+
+The remaining work is visual matching only.
+
+Current similarity is approximately 90–93%.
+
+Target is 98–99%.
+
+---
+
+# COLOR MATCHING (CRITICAL)
+
+The approved screenshot must be treated as the color source of truth.
+
+Do not use approximate colors.
+
+Visually sample and match:
+
+* Primary green
+* Green hover states
+* Badge green
+* CTA green
+* Accent green inside headline
+* Small green indicators
+* Active carousel dot
+
+Match them exactly.
+
+---
+
+# BLACK BACKGROUND MATCHING
+
+Current version is slightly brighter than the reference.
+
+The reference background feels:
+
+* deeper
+* richer
+* more premium
+
+Adjust:
+
+* black level
+* gradients
+* dark overlays
+
+until they visually match the screenshot.
+
+Do not redesign.
+
+Only match.
+
+---
+
+# TYPOGRAPHY MATCHING
+
+Current font rendering is still different.
+
+Match:
+
+* font family
+* weight
+* letter spacing
+* Arabic rendering
+* line height
+
+The headline must look visually identical.
+
+Do not only match size.
+
+Match the actual visual feel.
+
+---
+
+# HEADLINE COLOR
+
+The green inside:
+
+المتاجر السورية
+
+must match the exact green from the approved screenshot.
+
+No approximation.
+
+---
+
+# FLOATING PRODUCT CARDS
+
+Current cards are still slightly different.
+
+Match:
+
+* card background color
+* transparency
+* shadow strength
+* glow
+* border opacity
+
+The cards should feel identical to the screenshot.
+
+---
+
+# SHADOWS
+
+Match:
+
+* hero image shadow
+* floating card shadows
+* button shadows
+
+Current shadows are softer than the reference.
+
+The screenshot uses stronger premium contrast.
+
+Match exactly.
+
+---
+
+# BUTTONS
+
+Keep dimensions unchanged.
+
+Only adjust:
+
+* colors
+* glow
+* shadow
+* border
+
+until they match.
+
+---
+
+# GRID BACKGROUND
+
+Keep density and spacing.
+
+Only match:
+
+* opacity
+* brightness
+* visibility
+
+to the screenshot.
+
+---
+
+# VISUAL COMPARISON REQUIRED
+
+Before claiming 97–99%:
+
+Place:
+
+* reference screenshot
+* mockup
+
+side by side.
+
+Compare:
+
+* colors
+* typography
+* shadows
+* contrast
+
+Do not compare structure anymore.
+
+Structure is already close.
+
+Focus only on visual fidelity.
+
+---
+
+# DO NOT IMPLEMENT
+
+Do not touch production code yet.
+
+Refine Canvas only.
+
+When finished provide:
+
+1. Updated Canvas mockup
+2. Side-by-side comparison
+3. Explanation of all color/font adjustments made
+
+Goal:
+
+The mockup should feel like the same screenshot recreated, not a similar design.

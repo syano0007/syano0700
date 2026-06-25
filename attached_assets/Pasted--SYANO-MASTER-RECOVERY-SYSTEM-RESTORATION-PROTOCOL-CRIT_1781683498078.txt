@@ -1,0 +1,431 @@
+# SYANO — MASTER RECOVERY & SYSTEM RESTORATION PROTOCOL
+
+## CRITICAL INSTRUCTION
+
+DO NOT WRITE CODE.
+
+DO NOT MODIFY FILES.
+
+DO NOT START ANY FEATURE.
+
+DO NOT FIX ANY BUG.
+
+DO NOT CREATE ANY SCREEN.
+
+DO NOT RUN ANY MIGRATION.
+
+DO NOT CHANGE DATABASE.
+
+DO NOT UPDATE DOCUMENTATION.
+
+FIRST RECOVER THE PROJECT COMPLETELY.
+
+---
+
+# OBJECTIVE
+
+Your first and only mission is to fully understand the current SYANO project state.
+
+You must rebuild project context from recovery files and source code.
+
+No development is allowed before recovery is complete.
+
+---
+
+# STEP 1 — READ ALL RECOVERY FILES
+
+Read completely:
+
+```text
+replit.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+```
+
+Read every line.
+
+Do not skip sections.
+
+---
+
+# STEP 2 — VERIFY RECOVERY FILES AGAINST REAL SOURCE CODE
+
+Do NOT trust recovery files blindly.
+
+Verify everything against actual code.
+
+Check:
+
+```text
+Routes
+
+Pages
+
+Screens
+
+Components
+
+Services
+
+Database
+
+Migrations
+
+API endpoints
+
+Hooks
+
+Providers
+
+Contexts
+
+Workflows
+```
+
+---
+
+# STEP 3 — VERIFY WORKFLOWS
+
+Verify all required workflows:
+
+## API Server
+
+Must be healthy.
+
+Verify:
+
+```text
+GET /api/healthz
+```
+
+---
+
+## Marketplace
+
+Must be running.
+
+Verify:
+
+```text
+Homepage
+
+Product Page
+
+Shop
+
+Store Page
+
+Auth Pages
+```
+
+---
+
+## Embedding Service
+
+Verify:
+
+```text
+Model loaded
+
+Healthy
+
+Serving requests
+```
+
+---
+
+# STEP 4 — DATABASE AUDIT
+
+Verify:
+
+```text
+Total tables
+
+Enums
+
+Indexes
+
+Triggers
+
+Seed data
+
+Courier tables
+
+Mission tables
+
+Trust tables
+
+Search tables
+
+Messaging tables
+
+AI support tables
+```
+
+Verify actual state.
+
+Do not rely on docs.
+
+---
+
+# STEP 5 — FEATURE AUDIT
+
+Verify status of:
+
+## Marketplace
+
+```text
+Products
+
+Variants
+
+Cart
+
+Checkout
+
+Orders
+
+Wishlist
+
+Stores
+```
+
+---
+
+## Seller
+
+```text
+Dashboard
+
+Analytics
+
+Products
+
+Orders
+
+Reviews
+
+Trust
+```
+
+---
+
+## Courier
+
+```text
+Availability
+
+ONLINE
+
+OFFLINE
+
+BUSY
+
+Mission Offers
+
+Assignment Engine
+
+Dispatch Alerts
+```
+
+---
+
+## Admin
+
+```text
+Support
+
+Verification
+
+Trust
+
+Courier Monitoring
+
+Delivery Monitoring
+
+Moderation
+```
+
+---
+
+## Search
+
+```text
+FTS
+
+Semantic Search
+
+Suggestions
+
+Trending
+
+Filters
+```
+
+---
+
+## Messaging
+
+```text
+Typing
+
+Read Receipts
+
+Archive
+
+Mute
+
+Attachments
+```
+
+---
+
+## AI Support
+
+```text
+Tickets
+
+AI Responses
+
+Admin Actions
+```
+
+---
+
+# STEP 6 — MOBILE AUDIT
+
+Verify:
+
+```text
+Every mobile route
+
+Every mobile screen
+
+Every tab
+
+Every role flow
+```
+
+Compare against web implementation.
+
+Do not trust parity percentages.
+
+Measure actual parity.
+
+---
+
+# STEP 7 — TYPESCRIPT
+
+Run verification.
+
+Report:
+
+```text
+API Server
+
+Marketplace
+
+Shared Libraries
+
+Mobile App
+```
+
+List:
+
+```text
+Errors
+
+Warnings
+
+Build status
+```
+
+---
+
+# STEP 8 — FINAL REPORT
+
+Create:
+
+```text
+RECOVERY_REPORT.md
+```
+
+Must contain:
+
+### Services
+
+```text
+Running
+
+Broken
+
+Missing
+```
+
+### Database
+
+```text
+Tables
+
+Rows
+
+Indexes
+
+Enums
+```
+
+### Features
+
+```text
+Complete
+
+Partial
+
+Missing
+```
+
+### Mobile
+
+```text
+Parity Status
+
+Missing Screens
+
+Missing Features
+```
+
+### Technical Debt
+
+```text
+Bugs
+
+Warnings
+
+Build Issues
+```
+
+---
+
+# FINAL RULE
+
+After recovery report:
+
+STOP.
+
+DO NOT WRITE CODE.
+
+DO NOT START IMPLEMENTATION.
+
+WAIT FOR MY NEXT INSTRUCTION.
+
+Your output must be a complete recovery report only.

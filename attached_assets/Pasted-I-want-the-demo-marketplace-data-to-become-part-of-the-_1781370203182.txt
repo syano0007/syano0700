@@ -1,0 +1,168 @@
+I want the demo marketplace data to become part of the recovery process.
+
+Currently the 42 products were seeded successfully.
+
+I do NOT want them to depend on a manual seed command.
+
+---
+
+# REQUIREMENT
+
+Integrate all demo marketplace data into the recovery/bootstrap system.
+
+The goal:
+
+Whenever the platform is restored on:
+
+* a new Replit account
+* a fresh database
+* an empty PostgreSQL instance
+* a full recovery
+
+the demo marketplace automatically rebuilds itself.
+
+No manual seed step.
+
+---
+
+# AUTO BOOTSTRAP DATA
+
+Include:
+
+## Sellers
+
+All demo stores.
+
+## Customers
+
+All demo users.
+
+## Products
+
+All 42 products.
+
+## Product Images
+
+CRITICAL.
+
+Every product image must be recreated automatically.
+
+No missing images.
+
+No placeholders.
+
+No broken URLs.
+
+## Reviews
+
+Product reviews.
+
+Seller reviews.
+
+## Orders
+
+Demo orders.
+
+## Wishlist data
+
+Demo wishlist entries.
+
+## Store follows
+
+Demo follow relationships.
+
+---
+
+# IMPLEMENTATION
+
+Create a dedicated bootstrap process.
+
+Example:
+
+bootstrapDemoMarketplaceData()
+
+Executed automatically during recovery.
+
+---
+
+# SAFETY RULE
+
+The bootstrap must be idempotent.
+
+Meaning:
+
+If products already exist:
+
+DO NOTHING.
+
+Do not duplicate products.
+
+Do not duplicate stores.
+
+Do not duplicate orders.
+
+Pseudo logic:
+
+if database is empty:
+create demo marketplace
+
+if products already exist:
+skip
+
+---
+
+# RECOVERY INTEGRATION
+
+The following recovery sequence must automatically restore:
+
+1. schema
+2. migrations
+3. bootstrap accounts
+4. delivery zones
+5. demo marketplace data
+
+without requiring any additional command.
+
+---
+
+# DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* Recovery reports
+
+Document that:
+
+The demo marketplace is now self-healing and automatically recreated during recovery.
+
+---
+
+# VALIDATION
+
+Verify:
+
+Fresh empty database →
+
+Recovery →
+
+Automatically creates:
+
+✅ stores
+
+✅ products
+
+✅ images
+
+✅ reviews
+
+✅ orders
+
+✅ wishlists
+
+✅ follows
+
+without any manual seed step.
+
+Only finish when a full recovery recreates the complete demo marketplace automatically.

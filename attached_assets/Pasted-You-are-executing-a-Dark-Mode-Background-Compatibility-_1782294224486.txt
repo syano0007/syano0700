@@ -1,0 +1,28 @@
+You are executing a Dark Mode Background Compatibility Fix for the Hero Banner and its parent section container to eliminate the static white backdrop bleeding when dark mode is active.
+
+The Bug:
+The hero banner background layer or its overlay gradient ends/renders in a hardcoded white/light-gray value (#f8f9fa or bg-white). When the user switches to Dark Mode, this background stays bright white instead of adapting to the dark theme color palette.
+
+==================================================
+THE DARK MODE REFACTOR
+==================================================
+1. Target the Master Section Wrapper (Enclosing the Banner and Grid):
+   - Update the background class to dynamically adapt to dark mode using the `dark:` utility modifier:
+     `className="relative w-full bg-[#f8f9fa] dark:bg-neutral-950 pb-16"`
+   *(Note: Adjust `dark:bg-neutral-950` to match the exact dark background utility hex code used globally in the SYANO theme).*
+
+2. Target the Absolute Overlay Gradient Mask on the Slider:
+   - If using a Tailwind gradient mask overlay layer, change the bottom color stop target to swap dynamically:
+     `className="absolute inset-0 bg-gradient-to-b from-transparent from-65% via-transparent via-75% to-[#f8f9fa] dark:to-neutral-950 to-100% pointer-events-none"`
+
+3. If using an explicit inline style CSS Mask (`maskImage`):
+   - Ensure the image container element underneath has an underlying background set to transparent or adaptive dark colors so the transparent alpha bleed reveals the correct theme background:
+     `className="w-full h-[260px] md:h-[320px] lg:h-[360px] relative overflow-hidden bg-transparent dark:bg-neutral-950"`
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Switch to Dark Mode: The banner wrapper area and any empty canvas edges turn deep dark gray/black seamlessly without any white flashing or static white borders.
+✓ Switch to Light Mode: The banner retains its native light-gray (#f8f9fa) baseline blending.
+✓ Frontend TypeScript compilation triggers 0 total errors.

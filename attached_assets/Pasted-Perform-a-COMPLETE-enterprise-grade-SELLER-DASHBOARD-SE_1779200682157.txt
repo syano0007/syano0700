@@ -1,0 +1,364 @@
+Perform a COMPLETE enterprise-grade SELLER DASHBOARD & SELLER MANAGEMENT SYSTEM transformation across the entire Syano marketplace platform. Treat this as a world-class seller ecosystem inspired by Amazon Seller Central, Shopify, Noon Seller Lab, and Alibaba merchant systems.
+
+The seller experience is now a TOP PRIORITY of the marketplace.
+
+The goal is to create a professional seller ecosystem where:
+- becoming a seller feels premium
+- managing products is easy
+- handling orders is smooth
+- analytics are powerful
+- sellers trust the platform
+- sellers remain active long-term
+
+The seller system must feel:
+- modern
+- premium
+- powerful
+- responsive
+- mobile-friendly
+- enterprise-grade
+- scalable
+
+==================================================
+CORE OBJECTIVE
+==================================================
+
+Transform Syano into a REAL professional marketplace where sellers can:
+- apply professionally
+- manage stores easily
+- upload products efficiently
+- track orders in realtime
+- monitor analytics
+- communicate clearly
+- receive instant notifications
+- trust the platform
+
+The seller experience must feel:
+- organized
+- intuitive
+- fast
+- polished
+- native-app-like
+
+==================================================
+SELLER ONBOARDING SYSTEM
+==================================================
+
+Build a COMPLETE professional seller onboarding flow.
+
+Requirements:
+- seller application form
+- business/store information
+- identity verification support
+- seller status tracking
+- admin approval/rejection workflow
+- pending review states
+- seller onboarding guidance
+- seller trust levels
+- verification badges
+
+Application flow must feel:
+- professional
+- secure
+- trustworthy
+- modern
+
+==================================================
+SELLER DASHBOARD EXPERIENCE
+==================================================
+
+Rebuild the seller dashboard into a premium control center.
+
+Requirements:
+- modern dashboard layout
+- realtime statistics
+- live order monitoring
+- responsive analytics cards
+- recent activity feed
+- sales summaries
+- notification center integration
+- quick action buttons
+- mobile-first responsiveness
+
+The dashboard must feel:
+- alive
+- responsive
+- enterprise-grade
+
+==================================================
+SELLER ANALYTICS SYSTEM
+==================================================
+
+Implement a COMPLETE analytics ecosystem.
+
+Track and visualize:
+- total sales
+- revenue
+- order count
+- conversion rates
+- top-selling products
+- product performance
+- daily/weekly/monthly trends
+- customer activity
+- stock analytics
+- cancellation/refund metrics
+
+Requirements:
+- animated charts
+- smooth rendering
+- responsive graphs
+- mobile-friendly analytics
+- realtime updates where beneficial
+
+Analytics must feel:
+- premium
+- insightful
+- professional
+
+==================================================
+PRODUCT MANAGEMENT SYSTEM
+==================================================
+
+Build a world-class seller product management experience.
+
+Requirements:
+- add/edit/delete products
+- bulk product management
+- category-based product structure
+- inventory management
+- stock visibility
+- image uploads
+- pricing management
+- discount controls
+- product moderation states
+- product approval tracking
+
+Ensure:
+- fast product editing
+- responsive forms
+- optimized uploads
+- smooth mobile behavior
+
+==================================================
+ORDER MANAGEMENT SYSTEM
+==================================================
+
+Implement COMPLETE seller order management.
+
+Requirements:
+- realtime order updates
+- order status management
+- accept/reject orders
+- processing workflow
+- shipping updates
+- cancellation handling
+- refund management
+- order search/filtering
+
+Order management must feel:
+- smooth
+- reliable
+- fast
+- organized
+
+==================================================
+SELLER NOTIFICATION SYSTEM
+==================================================
+
+Integrate the advanced realtime notification system deeply.
+
+Sellers must instantly receive notifications for:
+- new orders
+- order changes
+- refunds
+- customer actions
+- admin moderation
+- product approvals/rejections
+- low stock alerts
+- seller verification updates
+
+Notifications must work:
+- in-app
+- desktop push
+- mobile push
+
+==================================================
+SELLER STORE EXPERIENCE
+==================================================
+
+Build premium public seller store pages.
+
+Requirements:
+- branded seller storefront
+- seller rating visibility
+- verification badge visibility
+- seller analytics snippets
+- product collections
+- responsive layouts
+- trust indicators
+
+Customers must trust seller stores instantly.
+
+==================================================
+MOBILE-FIRST SELLER EXPERIENCE
+==================================================
+
+Mobile seller UX is EXTREMELY IMPORTANT.
+
+Many sellers will manage stores from phones.
+
+Requirements:
+- fully responsive seller dashboard
+- mobile-friendly forms
+- touch-friendly controls
+- optimized tables/cards
+- smooth mobile navigation
+- responsive analytics
+- lightweight rendering
+
+Ensure:
+- no broken layouts
+- no horizontal scrolling
+- no hidden actions
+- smooth weak-device performance
+
+==================================================
+SELLER TRUST & REPUTATION SYSTEM
+==================================================
+
+Implement professional seller reputation mechanics.
+
+Track:
+- seller rating
+- order completion rate
+- response speed
+- successful deliveries
+- cancellation rates
+- customer satisfaction
+
+Display trust levels professionally.
+
+==================================================
+PRODUCT MODERATION WORKFLOW
+==================================================
+
+Implement moderation visibility for sellers.
+
+Requirements:
+- product approval status
+- rejection reasons
+- moderation messages
+- required changes visibility
+- admin communication
+
+Sellers must clearly understand:
+- what happened
+- why
+- what to fix
+
+==================================================
+PERFORMANCE OPTIMIZATION
+==================================================
+
+The seller ecosystem must remain:
+- lightweight
+- fast
+- scalable
+- smooth on weak devices
+
+Optimize:
+- dashboard rendering
+- analytics rendering
+- realtime updates
+- table performance
+- API payloads
+- product forms
+- mobile responsiveness
+
+==================================================
+SEARCH & FILTERING
+==================================================
+
+Implement advanced seller-side management tools.
+
+Support:
+- order search
+- product search
+- status filtering
+- stock filtering
+- analytics filtering
+- date range filtering
+
+==================================================
+RTL & ARABIC OPTIMIZATION
+==================================================
+
+Ensure perfect Arabic RTL seller experience.
+
+Requirements:
+- proper RTL dashboard layouts
+- Arabic typography
+- responsive Arabic forms
+- localized analytics formatting
+- clean mobile RTL rendering
+
+Arabic UX must feel:
+- native
+- premium
+- professional
+
+==================================================
+SECURITY & ACCESS CONTROL
+==================================================
+
+Implement professional seller security.
+
+Requirements:
+- secure seller permissions
+- protected routes
+- validation
+- abuse prevention
+- action confirmations
+- secure uploads
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically detect and fix:
+- broken seller flows
+- dashboard responsiveness issues
+- mobile overflow
+- analytics rendering issues
+- slow management pages
+- notification sync issues
+- RTL problems
+- hidden controls
+- table responsiveness issues
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test seller onboarding
+- test seller approval flow
+- test product management
+- test order management
+- test realtime notifications
+- test analytics rendering
+- test mobile seller dashboard
+- test Arabic RTL rendering
+- test weak internet conditions
+- test low-end Android devices
+- verify smooth performance
+- verify no broken layouts
+- verify no hidden actions
+- verify no console errors
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class seller ecosystem
+- a premium ecommerce merchant platform
+- highly polished and scalable
+- modern and mobile-first
+- enterprise-grade and production-ready

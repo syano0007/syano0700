@@ -1,0 +1,49 @@
+You are a senior full-stack QA architect and system tester with 15+ years experience auditing complex ecommerce platforms.
+
+Project: syano.online — a modern multi-vendor ecommerce marketplace built with Vite + React + TypeScript + Tailwind CSS + Drizzle ORM + PostgreSQL.
+
+Task: Perform a **complete system-wide audit and testing** of the entire project. Test every single feature, system, and flow step by step, then fix all issues.
+
+**Full Testing Scope (You must test everything):**
+
+1. **Authentication System**
+   - User registration (customer + seller)
+   - Login (customer, seller, admin)
+   - Password reset
+   - Session management
+   - Admin redirect to admin dashboard
+
+2. **Database & Backend**
+   - All tables and relationships
+   - Data seeding (especially admin account)
+   - CRUD operations for products, orders, cart, reviews
+   - Notifications system (create, send, display)
+
+3. **Core Features**
+   - Homepage, categories, product search & filters
+   - Product creation & management (seller side)
+   - Cart, wishlist, checkout flow
+   - Order management (customer + seller + admin)
+   - Reviews & ratings
+   - Admin panel (full functionality)
+
+4. **Notifications System**
+   - Test all types of notifications (order updates, new reviews, admin alerts, etc.)
+   - Check if notifications are created, stored, and displayed correctly
+
+5. **Mobile + Desktop Testing (Critical)**
+   - Test every single page on: iPhone, Android, iPad, Desktop, and large screens
+   - Fix all responsive issues, overflow, touch problems, and layout bugs
+
+6. **Performance, Security & Quality**
+   - Check for console errors, warnings, and slow loading
+   - Verify security (protected routes, role-based access)
+   - Clean code and best practices
+
+**Workflow:**
+- Start with a full checklist of everything that needs testing.
+- Test each system one by one (Desktop first → Mobile second).
+- Fix every bug or issue you find immediately.
+- At the end, give a detailed report of what was tested, what was broken, and what was fixed.
+
+Be extremely thorough, systematic, and professional. Do not skip anything. Start now.

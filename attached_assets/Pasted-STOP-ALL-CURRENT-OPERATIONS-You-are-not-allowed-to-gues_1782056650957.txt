@@ -1,0 +1,121 @@
+STOP ALL CURRENT OPERATIONS.
+
+You are not allowed to guess, scaffold, or create new workflows.
+
+You must perform a STRICT system recovery and stabilization only.
+
+────────────────────────────
+PHASE 1 — WORKFLOW CLEANUP
+────────────────────────────
+
+1. Inspect ALL running workflows in the project.
+2. Identify:
+   - duplicate workflows
+   - manually created workflows
+   - artifact-managed workflows
+   - deprecated or conflicting workflows
+
+3. RULE:
+   Keep ONLY the following official workflows:
+   - artifacts/api-server: API Server
+   - artifacts/marketplace: web
+   - artifacts/mobile: expo
+   - Embedding Service (FastAPI)
+
+4. Delete immediately:
+   - any "Start application"
+   - any "API Server (manual)"
+   - any duplicated marketplace/dev servers
+   - any orphan node/python processes
+
+No exceptions.
+
+────────────────────────────
+PHASE 2 — TURNSTILE SYSTEM FIX
+────────────────────────────
+
+1. Check login/register/ForgotPassword UI:
+   - Confirm Cloudflare Turnstile widget is present
+   - Confirm it appears BEFORE form submission
+   - Confirm it is NOT hidden by CSS or conditional rendering
+
+2. Verify frontend integration:
+   - Turnstile component must exist in ALL:
+     - Login screen
+     - Register screen
+     - Forgot password screen
+
+3. Verify backend:
+   - TURNSTILE_ENABLED must be TRUE
+   - TURNSTILE_SECRET_KEY must be set and active
+   - Site key must match frontend widget configuration
+
+4. Fix requirement:
+   - If Turnstile is missing from ANY auth view → rewire it
+   - If submit is allowed without token → BLOCK it immediately
+   - If token is not verified server-side → reject request
+
+────────────────────────────
+PHASE 3 — ENVIRONMENT VERIFICATION
+────────────────────────────
+
+Ensure:
+- TURNSTILE_SECRET_KEY is loaded from secrets (NOT hardcoded)
+- TURNSTILE_SITE_KEY is consistent with frontend
+- CORS allows current Replit domain
+- No duplicate env loading logic exists
+
+────────────────────────────
+PHASE 4 — SYSTEM VALIDATION
+────────────────────────────
+
+After fixes, run ONLY verification:
+
+1. Start API Server (single instance only)
+2. Start Marketplace
+3. Start Mobile Expo
+4. Ensure Embedding Service running
+
+DO NOT create new workflows.
+
+────────────────────────────
+PHASE 5 — AUTH CERTIFICATION TEST
+────────────────────────────
+
+Test manually via logs (NOT curl bypass):
+
+- Open login page
+- Confirm Turnstile appears
+- Submit login only AFTER successful challenge
+- Verify:
+  - JWT returned
+  - /api/auth/me works
+  - session persists
+
+────────────────────────────
+FINAL OUTPUT FORMAT (MANDATORY)
+
+Return ONLY:
+
+WORKFLOW STATUS:
+- API Server: OK / FIXED / FAILED
+- Marketplace: OK / FIXED / FAILED
+- Mobile: OK / FIXED / FAILED
+- Embedding: OK / FIXED / FAILED
+
+TURNSTILE STATUS:
+- frontend visible: YES/NO
+- backend enabled: YES/NO
+- secret key loaded: YES/NO
+- login gated: YES/NO
+
+DUPLICATES REMOVED:
+- list removed workflows
+
+AUTH RESULT:
+- PASS / FAIL
+- if FAIL → exact failing step only
+
+NO additional commentary.
+NO assumptions.
+NO debugging stories.

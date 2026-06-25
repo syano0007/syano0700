@@ -1,0 +1,207 @@
+SYANO — Phase 11 — Prompt 6: Security Review
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Your job is to audit and fix all security issues in the backend. Do not touch the frontend except where explicitly stated. Do not refactor anything beyond what is required to fix security issues.
+
+STEP 1 — AUDIT FIRST
+Before writing any code, scan every file in artifacts/api-server/src/routes/ and artifacts/api-server/src/middleware/ and produce a list of every security issue found in these categories:
+A — Unauthenticated Routes
+Every route that:
+
+Modifies data (POST, PUT, PATCH, DELETE) without requireAuth
+Returns sensitive user data without requireAuth
+Should be protected but has no auth middleware
+
+B — Wrong Role Access
+Every route that:
+
+Is under /admin/ path but missing requireRole('admin')
+Is under /seller/ path but missing requireRole('seller')
+Is under /courier/ path but missing requireRole('courier')
+Allows a seller to access another seller's data
+Allows a customer to access another customer's data
+
+C — Missing Input Validation
+Every route that:
+
+Accepts user input without Zod validation
+Accepts file uploads without type/size validation
+Has no length limits on string inputs
+Accepts numeric IDs without validating they are positive integers
+
+D — Data Exposure
+Every endpoint that returns:
+
+Password hashes
+Raw tokens or secrets
+Other users' private data (email, phone, address) to non-admin users
+Internal system fields not needed by the client
+
+E — Rate Limiting Gaps
+Check if rate limiting exists on:
+
+POST /api/auth/login
+POST /api/auth/register
+POST /api/auth/forgot-password
+Any endpoint that sends emails or SMS
+Search endpoint (prevent scraping)
+
+F — ID Ownership Validation
+Every route that accepts a resource ID (:id, :orderId, :productId) and check:
+
+Does it verify the resource belongs to the authenticated user?
+Can a seller access another seller's orders by guessing an ID?
+Can a customer access another customer's orders by guessing an ID?
+
+Report the full list with file paths and line numbers before proceeding.
+
+STEP 2 — FIX ALL ISSUES
+Auth Middleware Fix Rule
+Find the existing requireAuth and requireRole middleware — do not create new ones.
+Pattern:
+typescriptrouter.patch('/orders/:id/status',
+  requireAuth,
+  requireRole('seller'),
+  async (req, res) => { ... }
+)
+
+Input Validation Fix Rule
+Use Zod for all input validation. Find existing Zod schemas in the codebase and follow the same pattern.
+For string inputs:
+typescriptconst schema = z.object({
+  name: z.string().min(1).max(200),
+  description: z.string().max(2000).optional(),
+  price: z.number().positive(),
+  id: z.coerce.number().int().positive()
+})
+For file uploads — validate size and type:
+typescriptconst MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+if (file.size > MAX_FILE_SIZE) {
+  return res.status(400).json({ error: 'file_too_large' })
+}
+
+Ownership Validation Fix Rule
+For every route that accepts a resource ID, add an ownership check:
+typescript// Orders — customer can only access own orders
+const order = await db.query.orders.findFirst({
+  where: and(
+    eq(orders.id, orderId),
+    eq(orders.customerId, req.user.id) // ownership check
+  )
+})
+if (!order) return res.status(404).json({ error: 'not_found' })
+typescript// Products — seller can only modify own products
+const product = await db.query.products.findFirst({
+  where: and(
+    eq(products.id, productId),
+    eq(products.sellerId, req.user.sellerId) // ownership check
+  )
+})
+if (!product) return res.status(404).json({ error: 'not_found' })
+
+Data Exposure Fix Rule
+Never return these fields in any response:
+typescript// Strip sensitive fields before returning
+const { password, resetToken, verificationToken, ...safeUser } = user
+return res.json(safeUser)
+If using Drizzle select, explicitly select only needed columns:
+typescriptconst user = await db.select({
+  id: users.id,
+  name: users.name,
+  email: users.email,
+  role: users.role
+}).from(users).where(eq(users.id, id))
+
+Rate Limiting Fix Rule
+Check if express-rate-limit is already installed in package.json.
+If yes — add rate limiters to auth endpoints:
+typescriptimport rateLimit from 'express-rate-limit'
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // max 10 attempts
+  message: { error: 'too_many_attempts' },
+  standardHeaders: true,
+  legacyHeaders: false
+})
+
+router.post('/auth/login', authLimiter, handler)
+router.post('/auth/register', authLimiter, handler)
+router.post('/auth/forgot-password', authLimiter, handler)
+If express-rate-limit is NOT installed — do not install it. Instead, add a comment:
+typescript// TODO: Add rate limiting — install express-rate-limit
+And report it as a finding without implementing it.
+
+STEP 3 — VERIFY FIXES
+After all fixes, verify by reading the code:
+
+ Every /admin/ route has requireAuth + requireRole('admin')
+ Every /seller/ route has requireAuth + requireRole('seller')
+ Every /courier/ route has requireAuth + requireRole('courier')
+ Every mutation route has Zod validation
+ Every resource ID route has ownership check
+ No response returns password, token, or secret fields
+ Auth endpoints have rate limiting or documented TODO
+ File uploads have size and type validation
+
+
+CONSTRAINTS
+
+Do not touch the frontend
+Do not change any API response shape for fields that already exist — only remove sensitive fields or add ownership checks
+Do not use any in TypeScript
+Do not add new dependencies unless express-rate-limit is already in package.json
+Do not refactor working code — only add security fixes
+Do not break existing functionality
+
+
+AFTER ALL FIXES
+Run TypeScript check:
+cd artifacts/api-server && npx tsc --noEmit
+cd artifacts/marketplace && npx tsc --noEmit
+Must return 0 errors.
+
+UPDATE RECOVERY FILES
+CURRENT_STATE.md
+## Session: Phase 11 — Prompt 6 (June 16, 2026)
+Status: Complete
+
+Fixed:
+- All admin/seller/courier routes: auth + role middleware verified
+- Ownership validation: added to all resource ID routes
+- Input validation: Zod schemas added to all unvalidated routes
+- Data exposure: sensitive fields stripped from all responses
+- Rate limiting: applied to auth endpoints (or documented if package missing)
+- File upload: size and type validation confirmed
+- TypeScript: 0 errors
+
+Next: Phase 11 — Prompt 7 (SEO Layer)
+PROJECT_STATUS.md
+Phase 11 — Launch Preparation
+- Prompt 1 (Audit): ✅ Complete
+- Prompt 2 (Critical & High Fixes): ✅ Complete
+- Prompt 3 (Error Handling): ✅ Complete
+- Prompt 4 (Data Quality): ✅ Complete
+- Prompt 5 (Mobile Readiness): ✅ Complete
+- Prompt 6 (Security Review): ✅ Complete
+- Prompt 7 (SEO Layer): ⏳ Not started
+RECOVERY_GUIDE.md
+Last session: Phase 11 Prompt 6 — Security Review complete
+Next session must start with: Phase 11 — Prompt 7 (SEO Layer)
+Do not re-run Prompt 6 — it is complete.
+
+When done, report:
+✅ Unauthenticated routes fixed: [count]
+✅ Wrong role access fixed: [count]
+✅ Ownership validation added: [count]
+✅ Input validation added: [count]
+✅ Sensitive fields stripped: [count]
+✅ Rate limiting: [applied / documented TODO]
+✅ File upload validation: confirmed
+✅ TypeScript: 0 errors
+✅ Recovery files: updated

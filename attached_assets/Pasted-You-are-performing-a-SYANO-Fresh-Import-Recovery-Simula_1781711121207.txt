@@ -1,0 +1,255 @@
+You are performing a SYANO Fresh Import Recovery Simulation.
+
+CRITICAL OBJECTIVE
+
+Simulate the behavior of a brand-new Replit Agent immediately after a GitHub import.
+
+You must verify that the project can recover and boot correctly WITHOUT creating new infrastructure.
+
+────────────────────────────
+
+ABSOLUTE RULES
+
+You are NOT allowed to:
+
+* create any new workflow
+* create any duplicate workflow
+* create any new preview
+* create any new canvas preview
+* create any new artifact
+* create any new service
+* create any new runtime target
+
+The ONLY allowed services are:
+
+1. Marketplace (Web)
+2. Mobile App (Expo)
+3. API Server
+4. Embedding Service
+
+Exactly four.
+
+If additional workflows exist:
+
+* report them
+* explain why they exist
+* do NOT create replacements
+
+────────────────────────────
+
+PHASE 1 — INFRASTRUCTURE AUDIT
+
+Verify:
+
+Marketplace workflow
+
+Mobile workflow
+
+API Server workflow
+
+Embedding Service workflow
+
+Check:
+
+* commands
+* ports
+* dependencies
+* startup order
+
+Verify there are exactly four official workflows.
+
+Generate:
+
+Workflow Inventory Report
+
+PASS only if count = 4.
+
+────────────────────────────
+
+PHASE 2 — FRESH IMPORT SIMULATION
+
+Pretend:
+
+* project was just imported from GitHub
+* Replit Agent has never seen it before
+* node_modules do not exist
+* caches do not exist
+
+Simulate:
+
+pnpm install
+
+Then perform exactly the same recovery process that Replit Agent would perform automatically.
+
+Do NOT use recovery markdown files first.
+
+Act exactly like an auto-recovery process.
+
+────────────────────────────
+
+PHASE 3 — BOOT TEST
+
+Verify:
+
+Database
+
+API Server
+
+Marketplace
+
+Mobile
+
+Embedding Service
+
+Start all four official services.
+
+Do NOT create temporary services.
+
+Do NOT create alternative services.
+
+Do NOT create fallback workflows.
+
+────────────────────────────
+
+PHASE 4 — IMPORT CERTIFICATION
+
+Run:
+
+pnpm import:check
+
+Run:
+
+pnpm recovery:report
+
+Run:
+
+pnpm manifest:generate
+
+Verify all succeed.
+
+────────────────────────────
+
+PHASE 5 — AGENT DISCOVERY TEST
+
+Pretend you are a brand-new Replit Agent.
+
+Without reading markdown recovery files first:
+
+Determine:
+
+* project name
+* project state
+* active roadmap
+* next roadmap
+* courier version
+* mobile parity
+* services
+
+using only:
+
+* project.manifest.json
+* healthz endpoint
+* runtime metadata
+
+If this is possible:
+
+PASS
+
+Otherwise:
+
+report exactly what metadata is still missing.
+
+────────────────────────────
+
+PHASE 6 — SELF-BOOT CERTIFICATION
+
+Goal:
+
+Fresh GitHub Import
+
+↓
+
+Auto Install
+
+↓
+
+Auto Recovery
+
+↓
+
+Project Starts
+
+↓
+
+No Human Intervention
+
+↓
+
+No New Workflows
+
+↓
+
+No New Previews
+
+↓
+
+No New Artifacts
+
+If any step requires:
+
+* manual fixes
+* workflow creation
+* preview creation
+
+FAIL the certification.
+
+────────────────────────────
+
+PHASE 7 — RECOVERY HARDENING
+
+If issues are found:
+
+Fix only:
+
+* startup scripts
+* workflow definitions
+* recovery tooling
+* manifests
+* health checks
+
+Never add features.
+
+Never modify business logic.
+
+Never modify UI.
+
+Never modify roadmap.
+
+────────────────────────────
+
+FINAL OUTPUT
+
+Produce:
+
+SYANO Fresh Import Certification Report
+
+Include:
+
+* workflow count
+* preview count
+* services status
+* import status
+* boot status
+* certification result
+
+Final result must be:
+
+PASS
+
+or
+
+FAIL
+
+with exact blockers.
+
+Do not stop until the certification is complete.

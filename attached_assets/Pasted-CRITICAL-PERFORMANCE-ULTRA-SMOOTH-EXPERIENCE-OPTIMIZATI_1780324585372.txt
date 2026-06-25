@@ -1,0 +1,343 @@
+CRITICAL PERFORMANCE & ULTRA-SMOOTH EXPERIENCE OPTIMIZATION
+
+This task is currently the highest priority in the entire marketplace.
+
+The primary objective is:
+
+Make the marketplace feel instant, ultra-fast, fluid, and app-like across all devices.
+
+HOWEVER:
+
+Speed improvements must NEVER introduce bugs.
+
+Speed improvements must NEVER break existing functionality.
+
+Speed improvements must NEVER damage business logic.
+
+Speed improvements must NEVER create UI regressions.
+
+Stability is mandatory.
+
+Performance improvements must be safe, measured, and production-grade.
+
+══════════════════════════════════════
+MISSION
+══════════════════════════════════════
+
+The marketplace should feel as close as possible to:
+
+* Amazon
+* Trendyol
+* Noon
+* Shopify storefronts
+
+Users should feel that pages open instantly.
+
+Navigation should feel smooth and effortless.
+
+The goal is maximum possible speed and smoothness within the current architecture.
+
+══════════════════════════════════════
+CRITICAL SAFETY REQUIREMENTS
+══════════════════════════════════════
+
+Before changing anything:
+
+1. Create a checkpoint / snapshot.
+2. Audit the entire performance architecture.
+3. Measure before optimization.
+4. Only implement improvements that are proven beneficial.
+5. Verify functionality after every optimization.
+
+Do NOT perform risky refactors without validation.
+
+Do NOT remove functionality.
+
+Do NOT break:
+
+* Authentication
+* Seller system
+* Customer system
+* Orders
+* Cart
+* Checkout
+* Products
+* Search
+* Notifications
+* Dashboard
+* Mobile navigation
+
+After every optimization verify that behavior remains unchanged.
+
+══════════════════════════════════════
+PHASE 1 — FULL PERFORMANCE AUDIT
+══════════════════════════════════════
+
+Audit:
+
+* Frontend architecture
+* React rendering
+* Routing
+* API requests
+* Database queries
+* Bundle sizes
+* Images
+* Network traffic
+* Caching
+* State management
+* Lazy loading
+* Code splitting
+
+Identify the REAL bottlenecks.
+
+Do not guess.
+
+Provide measurements.
+
+══════════════════════════════════════
+PHASE 2 — PAGE NAVIGATION ANALYSIS
+══════════════════════════════════════
+
+Measure navigation performance between:
+
+Homepage → Product
+
+Product → Homepage
+
+Homepage → Category
+
+Homepage → Seller Store
+
+Homepage → Cart
+
+Cart → Checkout
+
+Dashboard Pages
+
+Seller Pages
+
+Admin Pages
+
+Measure:
+
+* Route change time
+* API response time
+* Data hydration time
+* React render time
+
+Identify where users actually wait.
+
+══════════════════════════════════════
+PHASE 3 — REACT PERFORMANCE
+══════════════════════════════════════
+
+Audit for:
+
+* Unnecessary renders
+* Large component trees
+* Expensive calculations
+* Context re-renders
+* Duplicate state updates
+* Duplicate API requests
+
+Apply:
+
+* React.memo
+* useMemo
+* useCallback
+* Component splitting
+
+Only where beneficial.
+
+══════════════════════════════════════
+PHASE 4 — ROUTING SPEED
+══════════════════════════════════════
+
+Optimize navigation.
+
+Implement where appropriate:
+
+* Route prefetching
+* Component preloading
+* Predictive loading
+* Intelligent lazy loading
+
+Goal:
+
+Common pages should appear instantly.
+
+Navigation should feel app-like.
+
+══════════════════════════════════════
+PHASE 5 — API OPTIMIZATION
+══════════════════════════════════════
+
+Audit all endpoints.
+
+Identify:
+
+* Duplicate requests
+* Over-fetching
+* Unused fields
+* Oversized responses
+
+Reduce payload sizes.
+
+Transfer only required data.
+
+══════════════════════════════════════
+PHASE 6 — DATABASE OPTIMIZATION
+══════════════════════════════════════
+
+Audit:
+
+* Indexes
+* Sorting
+* Filtering
+* Pagination
+* Query plans
+
+Identify slow queries.
+
+Optimize high-traffic endpoints first.
+
+══════════════════════════════════════
+PHASE 7 — SMART CACHING
+══════════════════════════════════════
+
+Audit React Query and caching behavior.
+
+Implement:
+
+* Safe caching
+* Prefetching
+* Intelligent invalidation
+* Reduced unnecessary refetches
+
+Goal:
+
+Repeated visits should feel nearly instant.
+
+══════════════════════════════════════
+PHASE 8 — IMAGE PERFORMANCE
+══════════════════════════════════════
+
+Audit:
+
+* Product images
+* Store images
+* Seller images
+* Banners
+
+Verify:
+
+* Lazy loading
+* Responsive loading
+* Request count
+* Payload size
+
+Optimize existing image delivery.
+
+Do not implement risky image infrastructure changes in this task.
+
+══════════════════════════════════════
+PHASE 9 — MOBILE PERFORMANCE
+══════════════════════════════════════
+
+Performance testing required on:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+Verify:
+
+* Navigation speed
+* Scroll smoothness
+* UI responsiveness
+* Touch responsiveness
+
+Mobile experience is a top priority.
+
+══════════════════════════════════════
+PHASE 10 — STABILITY VALIDATION
+══════════════════════════════════════
+
+After every optimization:
+
+Verify:
+
+* Authentication
+* Registration
+* Seller application
+* Product creation
+* Product editing
+* Cart
+* Checkout
+* Orders
+* Notifications
+* Search
+* Store pages
+* Arabic
+* English
+* Mobile
+* Desktop
+
+No regression is acceptable.
+
+No new bugs are acceptable.
+
+No visual breakage is acceptable.
+
+══════════════════════════════════════
+PERFORMANCE TARGETS
+══════════════════════════════════════
+
+Target the fastest possible experience within the current stack.
+
+Goals:
+
+Homepage render < 1 second
+
+Product page navigation < 500ms
+
+Category navigation < 500ms
+
+Cart navigation < 500ms
+
+Checkout navigation < 500ms
+
+Seller dashboard navigation < 500ms
+
+Smooth 60fps scrolling
+
+Minimal loading indicators
+
+Near-instant repeat page visits
+
+App-like user experience
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Provide:
+
+1. Bottlenecks discovered.
+2. Before metrics.
+3. After metrics.
+4. Database optimizations.
+5. API optimizations.
+6. React optimizations.
+7. Routing optimizations.
+8. Caching optimizations.
+9. Mobile performance results.
+10. Stability verification report.
+11. Files modified.
+
+Success criteria:
+
+The marketplace feels extremely fast, ultra-smooth, modern, and app-like on desktop and mobile, while preserving 100% of existing functionality, introducing zero regressions, and maintaining full system stability.

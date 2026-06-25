@@ -1,0 +1,627 @@
+SYANO (سوق سوريا)
+
+RESPONSIVE FOUNDATION COMPLETION PROGRAM V1
+
+IMPORTANT
+
+The Responsive Foundation Program is NOT complete.
+
+The previous implementation covered only part of the system.
+
+This task is to COMPLETE responsive coverage across the ENTIRE platform.
+
+No partial implementation.
+
+No selective implementation.
+
+No page exclusions.
+
+No component exclusions.
+
+The final goal is:
+
+Every visible interface in SYANO must participate in the same fluid scaling architecture.
+
+================================================
+
+PROJECT REQUIREMENTS
+
+Preserve:
+
+* Homepage V7
+* HeroV4
+* RTL Support
+* Arabic
+* English
+* Currency System
+* Theme System
+* API Compatibility
+* Database Compatibility
+* Existing Features
+* Existing Business Logic
+
+Do NOT redesign approved UI.
+
+Do NOT replace approved UX.
+
+================================================
+
+CRITICAL OBJECTIVE
+
+As viewport width decreases:
+
+Everything should scale proportionally.
+
+Not disappear.
+
+Not collapse.
+
+Not become oversized.
+
+Not overflow.
+
+Not clip.
+
+Not require horizontal scrolling.
+
+The entire marketplace should behave like a professionally engineered fluid interface.
+
+================================================
+
+PHASE 1
+
+COMPLETE PROJECT AUDIT
+
+Re-audit the entire codebase.
+
+Do NOT assume previous work is complete.
+
+Inspect every consumer-facing page.
+
+Inspect every reusable component.
+
+Inspect every shared UI primitive.
+
+================================================
+
+PAGES TO AUDIT
+
+Homepage
+
+Products Page
+
+Product Details Page
+
+Store Pages
+
+Store Profile Pages
+
+Category Pages
+
+Search Results
+
+Deals Pages
+
+Seller Pages
+
+Seller Dashboard
+
+Seller Analytics
+
+Seller Products
+
+Seller Orders
+
+Courier Pages
+
+Courier Dashboard
+
+Admin Pages
+
+Authentication Pages
+
+Settings Pages
+
+User Profile
+
+Wishlist
+
+Cart
+
+Checkout
+
+Orders
+
+Order Tracking
+
+Messages
+
+Notifications
+
+Help Pages
+
+Footer Pages
+
+================================================
+
+COMPONENTS TO AUDIT
+
+Product Cards
+
+Trending Product Cards
+
+Featured Product Cards
+
+Store Cards
+
+Category Cards
+
+Deal Cards
+
+Order Cards
+
+Wishlist Cards
+
+Cart Items
+
+Buttons
+
+Badges
+
+Tags
+
+Ratings
+
+Prices
+
+Search Components
+
+Filters
+
+Pagination
+
+Dropdowns
+
+Tables
+
+Forms
+
+Inputs
+
+Text Areas
+
+Navigation
+
+Footer Components
+
+Sidebar Components
+
+Modals
+
+Drawers
+
+Popovers
+
+Tooltips
+
+================================================
+
+RESPONSIVE BLOCKER DETECTION
+
+Identify ALL occurrences of:
+
+Fixed Widths
+
+Fixed Heights
+
+Fixed Font Sizes
+
+Fixed Margins
+
+Fixed Padding
+
+Fixed Gaps
+
+Fixed Grid Dimensions
+
+Hardcoded Image Sizes
+
+Hardcoded Card Dimensions
+
+Hardcoded Layout Dimensions
+
+Min Width Constraints
+
+Max Width Constraints
+
+Overflow Risks
+
+Clipping Risks
+
+Non-scaling Components
+
+Tailwind Arbitrary Pixel Values
+
+Examples:
+
+w-[300px]
+
+h-[450px]
+
+text-[18px]
+
+gap-[24px]
+
+p-[20px]
+
+m-[16px]
+
+================================================
+
+PRODUCT CARD PRIORITY
+
+This is the highest-priority area.
+
+Audit every product card implementation.
+
+Requirements:
+
+Image scales
+
+Title scales
+
+Rating scales
+
+Review count scales
+
+Price scales
+
+Old price scales
+
+Discount badge scales
+
+Action buttons scale
+
+Spacing scales
+
+Card dimensions scale
+
+Hover effects remain intact
+
+No clipping.
+
+No overflow.
+
+No visual imbalance.
+
+================================================
+
+PRODUCT GRID PRIORITY
+
+Audit all product grids.
+
+Current requirement:
+
+Cards must scale BEFORE the layout collapses.
+
+Avoid situations where:
+
+Viewport shrinks
+
+↓
+
+Cards remain oversized
+
+↓
+
+Grid breaks
+
+↓
+
+Content clips
+
+Implement intelligent density scaling.
+
+================================================
+
+TYPOGRAPHY SYSTEM
+
+Audit every text size.
+
+Hero Text
+
+Section Titles
+
+Product Titles
+
+Store Names
+
+Buttons
+
+Prices
+
+Ratings
+
+Metadata
+
+Descriptions
+
+Navigation
+
+Labels
+
+Implement fluid scaling.
+
+Maintain hierarchy.
+
+Maintain readability.
+
+================================================
+
+SPACING SYSTEM
+
+Audit:
+
+Padding
+
+Margins
+
+Gaps
+
+Container spacing
+
+Section spacing
+
+Card spacing
+
+All spacing must scale proportionally.
+
+================================================
+
+IMAGE SYSTEM
+
+All images must:
+
+Maintain aspect ratio
+
+Scale naturally
+
+Avoid stretching
+
+Avoid clipping
+
+Avoid layout shifts
+
+Scale with parent containers
+
+================================================
+
+NAVIGATION SYSTEM
+
+Audit:
+
+Desktop Navbar
+
+Mobile Navbar
+
+Search
+
+Settings
+
+Theme Switcher
+
+Language Switcher
+
+Currency Switcher
+
+User Controls
+
+All navigation elements must scale proportionally.
+
+================================================
+
+RTL VALIDATION
+
+Verify:
+
+Arabic RTL
+
+English LTR
+
+Long Arabic Text
+
+Long English Text
+
+Mixed Content
+
+No regressions allowed.
+
+================================================
+
+CURRENCY VALIDATION
+
+Verify:
+
+USD
+
+SYP
+
+Large Numbers
+
+Small Numbers
+
+Discounted Prices
+
+Long Prices
+
+Prices must never break layouts.
+
+================================================
+
+THEME VALIDATION
+
+Verify:
+
+Dark Theme
+
+Light Theme
+
+Both themes must preserve:
+
+Scaling
+
+Spacing
+
+Hierarchy
+
+Consistency
+
+================================================
+
+BREAKPOINT VALIDATION
+
+Validate manually:
+
+2560px
+
+1920px
+
+1600px
+
+1440px
+
+1366px
+
+1280px
+
+1024px
+
+900px
+
+768px
+
+640px
+
+480px
+
+390px
+
+360px
+
+320px
+
+================================================
+
+SCREENSHOT VALIDATION
+
+Capture evidence from:
+
+Homepage
+
+Products Page
+
+Product Details
+
+Store Page
+
+Cart
+
+Checkout
+
+Seller Dashboard
+
+For every viewport.
+
+================================================
+
+REQUIRED REPORTS
+
+Create:
+
+RESPONSIVE_AUDIT.md
+
+RESPONSIVE_FIXES.md
+
+RESPONSIVE_VALIDATION.md
+
+================================================
+
+RESPONSIVE_VALIDATION.md MUST INCLUDE
+
+Pages Tested
+
+Components Tested
+
+Viewport Sizes
+
+Issues Found
+
+Issues Fixed
+
+Remaining Risks
+
+Screenshots Generated
+
+================================================
+
+STRICT RULES
+
+Do NOT hide content.
+
+Do NOT remove content.
+
+Do NOT reduce functionality.
+
+Do NOT simplify UI.
+
+Do NOT fake responsiveness by collapsing sections.
+
+Do NOT replace approved designs.
+
+Scale first.
+
+Adapt second.
+
+Hide only if absolutely unavoidable.
+
+================================================
+
+TASK IS NOT COMPLETE UNTIL
+
+✓ All pages audited
+
+✓ All components audited
+
+✓ Product cards fully fluid
+
+✓ Product grids fully fluid
+
+✓ Typography fully fluid
+
+✓ Spacing fully fluid
+
+✓ Images fully fluid
+
+✓ Navigation fully fluid
+
+✓ RTL validated
+
+✓ Currency validated
+
+✓ Theme validated
+
+✓ No clipping
+
+✓ No overflow
+
+✓ No horizontal scrolling
+
+✓ Validation reports generated
+
+✓ Evidence captured
+
+================================================
+
+FINAL GOAL
+
+SYANO should behave like a world-class marketplace where every page, every component, every card, every image, every button, every grid, every typography element, and every spacing value scales proportionally and intelligently across all viewport sizes while preserving the exact same visual identity, hierarchy, functionality, RTL support, language support, currency support, and premium marketplace experience.

@@ -1,0 +1,55 @@
+User-agent: *
+Allow: /
+
+# ── Public pages: explicitly allow ──────────────────────────────────────────
+Allow: /products
+Allow: /products/
+Allow: /store/
+Allow: /about
+Allow: /about/
+Allow: /contact
+Allow: /shipping
+Allow: /shipping/
+Allow: /payment-methods
+Allow: /syano-guarantee
+Allow: /loyalty
+Allow: /help
+Allow: /privacy-policy
+Allow: /terms-of-use
+Allow: /returns-policy
+Allow: /seller/how-to-sell
+Allow: /seller/terms
+Allow: /seller/center
+Allow: /seller/commission
+Allow: /seller/faq
+Allow: /seller/apply
+
+# ── Private / authenticated pages ───────────────────────────────────────────
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /seller/dashboard
+Disallow: /seller/products
+Disallow: /seller/orders
+Disallow: /seller/inventory
+Disallow: /seller/application-status
+Disallow: /seller/messages
+Disallow: /seller/store-settings
+Disallow: /customer/
+Disallow: /customer/dashboard
+Disallow: /cart
+Disallow: /checkout
+Disallow: /orders
+Disallow: /messages
+Disallow: /verify
+Disallow: /account-suspended
+
+# ── URL parameter duplicates ─────────────────────────────────────────────────
+Disallow: /*?*sort=*&*sort=*
+Disallow: /*?*page=*&*page=*
+
+# ── Be polite ────────────────────────────────────────────────────────────────
+Crawl-delay: 1
+
+# ── Sitemap ──────────────────────────────────────────────────────────────────
+Sitemap: https://syanomarket.online/sitemap.xml

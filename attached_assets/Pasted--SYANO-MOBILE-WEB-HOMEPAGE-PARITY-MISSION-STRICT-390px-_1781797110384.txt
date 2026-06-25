@@ -1,0 +1,495 @@
+# SYANO MOBILE ↔ WEB HOMEPAGE PARITY MISSION
+# STRICT 390px WEB REFERENCE MODE
+
+## PRIMARY OBJECTIVE
+
+The mobile homepage must become a pixel-perfect replica of the WEB homepage when the WEB is rendered at exactly:
+
+390px width
+
+NOT desktop.
+NOT tablet.
+NOT 430px.
+NOT 768px.
+
+The only source of truth is:
+
+WEB HOMEPAGE @ 390px WIDTH
+
+Every mobile element must match it visually, structurally, proportionally, and behaviorally.
+
+---
+
+# EXECUTION RULES (MANDATORY)
+
+1. DO NOT move to the next task until the current task is 100% complete.
+
+2. DO NOT estimate.
+
+3. DO NOT approximate.
+
+4. DO NOT use “close enough”.
+
+5. DO NOT create alternative mobile interpretations.
+
+6. DO NOT redesign.
+
+7. DO NOT modernize.
+
+8. DO NOT simplify.
+
+9. DO NOT add new UI.
+
+10. DO NOT remove any WEB element.
+
+11. DO NOT keep any MOBILE-only element.
+
+12. Every section must be audited, measured, implemented, re-measured, and validated before continuing.
+
+13. If parity is not achieved:
+   - Re-measure
+   - Re-implement
+   - Re-test
+   - Repeat
+
+14. Never continue to another section until parity is verified.
+
+---
+
+# REQUIRED AUDIT BEFORE ANY EDITS
+
+First perform a complete visual audit.
+
+Extract exact measurements from WEB @ 390px.
+
+Measure and document:
+
+## A. NAVBAR
+
+- Total height
+- Padding
+- Margins
+- Blur intensity
+- Background opacity
+- Border color
+- Border thickness
+- Logo width
+- Logo height
+- Logo spacing
+- Search icon size
+- Cart icon size
+- Notification icon size
+- User icon size
+- Badge dimensions
+- Badge position
+- Gap between icons
+
+---
+
+## B. HERO SECTION
+
+Measure:
+
+- Total section height
+- Internal padding
+- Title width
+- Title font size
+- Title font weight
+- Title line height
+- Number of lines
+- Description font size
+- Description width
+- Description line height
+- CTA button width
+- CTA button height
+- CTA button radius
+- Floating card dimensions
+- Floating card position
+- Floating card opacity
+- Floating card blur
+- Statistics card dimensions
+- Statistics typography
+- Carousel dots size
+- Carousel dots spacing
+
+---
+
+## C. CATEGORIES
+
+Measure:
+
+- Grid columns
+- Grid spacing
+- Card width
+- Card height
+- Card radius
+- Image ratio
+- Title font size
+- Count font size
+- Internal spacing
+
+---
+
+## D. DEALS SECTION
+
+Measure:
+
+- Card dimensions
+- Image dimensions
+- Discount badge
+- Price typography
+- Old price typography
+- Countdown styling
+- Spacing
+
+---
+
+## E. STORES SECTION
+
+Measure:
+
+- Card dimensions
+- Cover image height
+- Store title typography
+- Rating typography
+- Visit button dimensions
+- Visit button typography
+
+---
+
+## F. TRENDING PRODUCTS
+
+Measure:
+
+- Product card width
+- Product card height
+- Product image ratio
+- Product title size
+- Product title line-height
+- Product price size
+- Product badge size
+- Product spacing
+
+---
+
+## G. NEW ARRIVALS
+
+Measure:
+
+- Large card dimensions
+- Small card dimensions
+- Overlay dimensions
+- Overlay opacity
+- Typography
+
+---
+
+## H. JOIN CTA
+
+Measure:
+
+- Card dimensions
+- Typography
+- Icon sizes
+- Internal spacing
+
+---
+
+## I. FOOTER
+
+Measure:
+
+- Padding
+- Typography
+- Grid layout
+- Icon sizes
+- Social button dimensions
+- Newsletter dimensions
+
+---
+
+# IMPLEMENTATION PHASES
+
+Complete these phases in order.
+
+Never skip.
+
+Never reorder.
+
+---
+
+# PHASE 1
+# NAVBAR PARITY
+
+Current mobile navbar does not match WEB.
+
+Required:
+
+Create a 1:1 copy of WEB navbar.
+
+Must match:
+
+- Height
+- Blur
+- Colors
+- Spacing
+- Icon sizes
+- Logo sizing
+- Logo positioning
+- Badges
+- Borders
+
+If a mobile navbar element does not exist on WEB:
+
+REMOVE IT.
+
+---
+
+# PHASE 2
+# HERO PARITY
+
+Current mobile hero is significantly different.
+
+Required:
+
+Rebuild hero from WEB measurements.
+
+Match:
+
+- Scale
+- Typography
+- Wrapping
+- Hierarchy
+- Floating card
+- Statistics
+- Dots
+- CTA area
+
+The mobile hero must visually look identical to WEB at 390px.
+
+---
+
+# PHASE 3
+# TYPOGRAPHY SYSTEM PARITY
+
+Current typography is still incorrect.
+
+Required:
+
+Create exact typography parity.
+
+For every visible text:
+
+Match:
+
+- Font size
+- Font weight
+- Line height
+- Letter spacing
+
+No arbitrary values.
+
+All values must come from WEB.
+
+---
+
+# PHASE 4
+# PRODUCT CARD PARITY
+
+Current product cards still differ.
+
+Required:
+
+Match:
+
+- Width
+- Height
+- Radius
+- Image ratio
+- Typography
+- Spacing
+- Badge placement
+- Price layout
+
+No visual differences allowed.
+
+---
+
+# PHASE 5
+# DARK THEME PARITY
+
+Current mobile still feels AMOLED.
+
+WEB does NOT use AMOLED black.
+
+Required:
+
+Copy WEB dark mode exactly.
+
+Match:
+
+- Background
+- Surface
+- Cards
+- Borders
+- Shadows
+- Dividers
+- Overlays
+
+Remove AMOLED appearance entirely.
+
+---
+
+# PHASE 6
+# MOTION PARITY
+
+Current mobile lacks WEB motion behavior.
+
+Required:
+
+Replicate:
+
+- Fade transitions
+- Section reveals
+- Hover equivalents
+- Press feedback
+- Scale animations
+- Timing curves
+- Durations
+
+Motion must feel identical.
+
+---
+
+# PHASE 7
+# REMOVE NON-WEB ELEMENTS
+
+Audit entire homepage.
+
+Remove everything that exists only on mobile.
+
+Examples:
+
+- Extra buttons
+- Extra labels
+- Extra sections
+- Extra icons
+- Extra navigation controls
+
+Mobile homepage must become a WEB clone.
+
+---
+
+# PHASE 8
+# RESPONSIVE SYSTEM
+
+Create a unified responsive scaling system.
+
+Use:
+
+- Typography tokens
+- Spacing tokens
+- Radius tokens
+- Motion tokens
+
+Derived from WEB values only.
+
+No random hardcoded values.
+
+---
+
+# PHASE 9
+# FINAL VALIDATION
+
+After implementation:
+
+Perform a second complete audit.
+
+Re-measure WEB.
+
+Re-measure MOBILE.
+
+Compare:
+
+- Heights
+- Widths
+- Typography
+- Spacing
+- Layouts
+- Colors
+- Motion
+
+Fix every mismatch.
+
+Repeat until parity is achieved.
+
+---
+
+# COMPLETION CHECKLIST
+
+DO NOT FINISH UNTIL ALL ARE TRUE
+
+✅ Navbar matches WEB exactly
+
+✅ Hero matches WEB exactly
+
+✅ Typography matches WEB exactly
+
+✅ Categories match WEB exactly
+
+✅ Deals match WEB exactly
+
+✅ Stores match WEB exactly
+
+✅ Trending products match WEB exactly
+
+✅ New arrivals match WEB exactly
+
+✅ Join CTA matches WEB exactly
+
+✅ Footer matches WEB exactly
+
+✅ Product cards match WEB exactly
+
+✅ Dark theme matches WEB exactly
+
+✅ Motion matches WEB exactly
+
+✅ No mobile-only elements remain
+
+✅ No visual regressions
+
+✅ TypeScript = 0 errors
+
+✅ All workflows still run correctly
+
+---
+
+# DOCUMENTATION RULE
+
+After successful completion:
+
+UPDATE ONLY EXISTING RECOVERY FILES.
+
+DO NOT CREATE NEW FILES.
+
+DO NOT CREATE:
+
+- New audit files
+- New reports
+- New certifications
+- New artifacts
+- New markdown files
+
+Only update existing files:
+
+- CURRENT_STATE.md
+- PROJECT_STATUS.md
+- RECOVERY_GUIDE.md
+- AGENT_BOOTSTRAP.md
+
+Document exactly what changed.
+
+No clutter.
+No new recovery files.
+No new artifacts.

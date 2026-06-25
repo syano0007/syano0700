@@ -1,0 +1,234 @@
+Task: Simplify the Hero Banner into a Pure Visual Marketplace Banner
+
+Apply changes directly to the live codebase. Do NOT create a prototype, mockup, demo component, sandbox version, or alternative implementation. Modify the actual production Hero Banner immediately.
+
+Goal:
+Transform the Hero Banner into a modern Amazon / Noon style marketplace banner that focuses entirely on promotional imagery. The banner should be clean, visual-first, and free of all text overlays and action buttons.
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+1. Remove All Content Elements from the Banner
+   ━━━━━━━━━━━━━━━━━━━━━━
+
+Completely remove from every banner slide:
+
+* Top badge/tag
+* Main title/headline
+* Subtitle/description
+* CTA buttons
+* "Shop Now" button
+* Secondary action button
+* Floating product cards
+* Floating price cards
+* Discount labels attached to content
+* Any text-based overlay
+* Any decorative content blocks containing text
+
+After implementation:
+
+The banner must contain only the image itself.
+
+━━━━━━━━━━━━━━━━━━━━━━
+2. Convert the Banner into a Pure Visual Hero
+━━━━━━━━━━━━━━━━━━━━━━
+
+The banner should contain only:
+
+* Banner image
+* Very light overlay if needed for visual quality
+* Navigation dots
+
+Nothing else.
+
+Strictly remove:
+
+* Text
+* Buttons
+* Product cards
+* Prices
+* Promotional copy
+* Floating UI elements
+
+━━━━━━━━━━━━━━━━━━━━━━
+3. Fix Navbar Overlap
+━━━━━━━━━━━━━━━━━━━━━━
+
+The current Hero Banner is partially hidden behind the navbar.
+
+Requirements:
+
+* Add proper top spacing.
+* Banner must start directly below the navbar.
+* No image clipping.
+* No overlap with navigation.
+* No content hidden behind the header.
+
+━━━━━━━━━━━━━━━━━━━━━━
+4. Reduce Banner Height
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current height is too large.
+
+Target heights:
+
+Desktop:
+420px – 480px
+
+Tablet:
+320px – 380px
+
+Mobile:
+220px – 280px
+
+Goal:
+
+Expose categories and products faster without requiring excessive scrolling.
+
+━━━━━━━━━━━━━━━━━━━━━━
+5. Completely Remove Arrow Navigation
+━━━━━━━━━━━━━━━━━━━━━━
+
+Delete entirely:
+
+* Previous arrow
+* Next arrow
+* Arrow components
+* Arrow event handlers
+* Arrow CSS
+* Arrow-related imports
+
+Do not hide them.
+
+Remove them from the codebase.
+
+━━━━━━━━━━━━━━━━━━━━━━
+6. Enable Real Swipe / Drag Navigation
+━━━━━━━━━━━━━━━━━━━━━━
+
+Replace arrows with:
+
+Desktop:
+Click + Drag
+
+Mobile:
+Touch Swipe
+
+Required behavior:
+
+Swipe Left:
+Go to next banner
+
+Swipe Right:
+Go to previous banner
+
+Animation requirements:
+
+* Card swipe motion
+* Banner follows cursor/finger during drag
+* Smooth momentum on release
+* Natural snap to next slide
+* No fade transitions
+* No instant switching
+* No visual jumps
+* No stuttering
+
+The interaction should feel like modern card-based mobile apps.
+
+━━━━━━━━━━━━━━━━━━━━━━
+7. Keep Only the Navigation Dots
+━━━━━━━━━━━━━━━━━━━━━━
+
+Retain only the pagination indicators.
+
+Requirements:
+
+* Centered at the bottom
+* Small and minimal
+* Clean design
+* Active dot uses the SYANO primary color
+
+━━━━━━━━━━━━━━━━━━━━━━
+8. Remove the Statistics Section Below the Banner
+━━━━━━━━━━━━━━━━━━━━━━
+
+Completely delete the section immediately below the Hero Banner that contains metrics such as:
+
+* +500 Trusted Stores
+* +25,000 Active Products
+* +12,000 Happy Customers
+
+And any similar statistic blocks.
+
+Requirements:
+
+* Remove JSX
+* Remove CSS
+* Remove data sources
+* Remove imports
+* Remove related logic
+
+After removal:
+
+The next homepage section must move up directly beneath the banner with no empty space.
+
+━━━━━━━━━━━━━━━━━━━━━━
+9. Responsive Validation
+━━━━━━━━━━━━━━━━━━━━━━
+
+Test and verify on:
+
+* 1920px
+* 1440px
+* 1280px
+* 1024px
+* 768px
+* 414px
+* 390px
+* 375px
+* 320px
+
+Confirm:
+
+* No horizontal overflow
+* No layout shifts
+* No clipped images
+* No content outside viewport
+
+━━━━━━━━━━━━━━━━━━━━━━
+10. Code Cleanup
+━━━━━━━━━━━━━━━━━━━━━━
+
+After implementation:
+
+* Remove unused imports
+* Remove unused state variables
+* Remove unused CSS
+* Remove unused functions
+* Remove obsolete banner logic
+* Remove all dead code
+* Verify zero TypeScript errors
+* Verify zero console errors
+
+━━━━━━━━━━━━━━━━━━━━━━
+Final Report Required
+━━━━━━━━━━━━━━━━━━━━━━
+
+After completion provide only:
+
+✅ Modified files
+
+✅ Deleted files (if any)
+
+✅ Final banner heights for desktop/tablet/mobile
+
+✅ Swipe implementation method used
+
+✅ Confirmation that all banner text was removed
+
+✅ Confirmation that all banner buttons were removed
+
+✅ Confirmation that the statistics section was removed
+
+✅ Confirmation of zero TypeScript errors
+
+✅ Confirmation of zero console errors

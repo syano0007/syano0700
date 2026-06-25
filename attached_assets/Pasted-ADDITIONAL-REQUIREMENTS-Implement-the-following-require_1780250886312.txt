@@ -1,0 +1,152 @@
+ADDITIONAL REQUIREMENTS
+
+Implement the following requirements exactly as written.
+
+Do not change their meaning.
+
+══════════════════════════════════════
+SELLER ENTRY POINT RESTRICTIONS
+══════════════════════════════════════
+
+1. Remove the "Sell With Us" button completely from the homepage.
+
+Requirements:
+
+* Remove the button from the UI.
+* Remove related navigation links if they point directly to seller registration.
+* Ensure no broken routes remain.
+
+══════════════════════════════════════
+
+2. The "Open Your Store" button becomes the ONLY entry point to seller registration.
+
+Requirements:
+
+* Clicking "Open Your Store" must immediately navigate to the seller registration page.
+* No intermediate pages.
+* No additional steps.
+
+This button must be the exclusive seller-registration entry point.
+
+══════════════════════════════════════
+
+3. Remove all other seller registration entry points.
+
+Requirements:
+
+Users must NOT be able to access seller registration through:
+
+* Navbar links
+* Footer links
+* Account menus
+* Authentication pages
+* Direct customer registration flows
+* Any duplicate seller signup buttons
+
+Only the "Open Your Store" button may lead to seller registration.
+
+Audit the entire application and remove all alternative seller-registration entry points.
+
+══════════════════════════════════════
+AUTHENTICATION INPUT CHANGE
+══════════════════════════════════════
+
+Current behavior:
+
+Separate fields exist for email and phone verification.
+
+This must be changed.
+
+Requirements:
+
+Use ONE unified authentication field.
+
+Field label example:
+
+"Email or Phone Number"
+
+Users must be able to enter:
+
+* Email address
+  OR
+* Phone number
+
+inside the same input field.
+
+The system must automatically detect:
+
+* Email format
+* Phone number format
+
+and process authentication accordingly.
+
+══════════════════════════════════════
+
+Registration:
+
+The user may register using:
+
+* Email
+  OR
+* Phone number
+
+The user is NOT required to provide both.
+
+══════════════════════════════════════
+
+Login:
+
+The user may log in using:
+
+* Email
+  OR
+* Phone number
+
+through the same unified field.
+
+══════════════════════════════════════
+
+Validation Requirements:
+
+* Correct email validation.
+* Correct phone validation.
+* Clear validation messages.
+* No ambiguity.
+* No duplicate account creation.
+
+══════════════════════════════════════
+
+Database Requirements:
+
+Maintain uniqueness rules:
+
+* One account per email.
+* One account per phone number.
+
+Prevent duplicates at:
+
+* Database level.
+* Backend validation level.
+* Frontend validation level.
+
+══════════════════════════════════════
+
+FINAL VALIDATION
+
+Verify:
+
+* Customer registration using email.
+* Customer registration using phone.
+* Seller registration using email.
+* Seller registration using phone.
+* Customer login using email.
+* Customer login using phone.
+* Seller login using email.
+* Seller login using phone.
+
+Verify that:
+
+* "Sell With Us" no longer exists.
+* "Open Your Store" is the only seller-registration entry point.
+* No hidden seller-registration paths remain.
+* Authentication works correctly using a single unified field.

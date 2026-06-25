@@ -1,0 +1,379 @@
+SYANO — Homepage Hero Banner System V2
+(Admin-Controlled Dynamic Hero Carousel)
+
+IMPORTANT
+
+This task only covers:
+
+1. Homepage Hero Section
+2. Admin Banner Management System
+3. Banner → Homepage Integration
+
+Do NOT modify:
+
+- Product cards
+- Categories
+- Search
+- Footer
+- Seller system
+- Orders
+- Courier system
+- Mobile app
+
+Only implement the Hero Banner System.
+
+====================================================
+GOAL
+====================================================
+
+Replace the current homepage hero layout completely.
+
+REMOVE:
+
+- Large marketing text on the right
+- Promotional image card on the left
+- Split layout hero
+
+REPLACE WITH:
+
+A full-width professional banner carousel similar to:
+
+- Amazon
+- Noon
+- Trendyol
+- Carrefour
+- Shopify storefronts
+
+The hero should occupy the full content width.
+
+====================================================
+HERO DESIGN
+====================================================
+
+Create a premium responsive banner area.
+
+Desktop:
+
+- Full width
+- Rounded corners
+- Premium shadows
+- Clean transitions
+- Auto play
+
+Height:
+
+380px – 500px
+
+NOT taller.
+
+The banner must feel balanced.
+
+====================================================
+BANNER CONTENT
+====================================================
+
+Each banner supports:
+
+- title_ar
+- title_en
+
+- subtitle_ar
+- subtitle_en
+
+- buttonText_ar
+- buttonText_en
+
+- image
+
+- destinationType
+
+- destinationId
+
+- active
+
+- sortOrder
+
+====================================================
+DESTINATION TYPES
+====================================================
+
+Banner button may navigate to:
+
+- category
+- store
+- product
+- search
+- external_url
+
+====================================================
+CAROUSEL BEHAVIOR
+====================================================
+
+Requirements:
+
+- Auto rotate
+- Swipe support
+- Manual arrows
+- Dots indicator
+- Pause on hover
+- Smooth transitions
+
+Animation:
+
+- fade
+or
+- slide
+
+Must feel premium.
+
+====================================================
+RESPONSIVE
+====================================================
+
+Desktop:
+~420px height
+
+Tablet:
+~320px height
+
+Mobile:
+~220px height
+
+No layout breaks.
+
+No text overflow.
+
+====================================================
+ADMIN PANEL
+====================================================
+
+Use existing:
+
+لوحة الإدارة
+
+Add:
+
+البانرات الرئيسية
+
+Do NOT create a separate admin app.
+
+====================================================
+ADMIN BANNER LIST
+====================================================
+
+Display:
+
+Image thumbnail
+
+Arabic title
+
+English title
+
+Status
+
+Order
+
+Destination
+
+Actions
+
+====================================================
+ADMIN ACTIONS
+====================================================
+
+Create Banner
+
+Edit Banner
+
+Delete Banner
+
+Enable
+
+Disable
+
+Reorder
+
+====================================================
+CREATE / EDIT FORM
+====================================================
+
+Fields:
+
+Arabic Title
+
+English Title
+
+Arabic Subtitle
+
+English Subtitle
+
+Arabic Button Text
+
+English Button Text
+
+Banner Image
+
+Destination Type
+
+Destination ID / URL
+
+Sort Order
+
+Active
+
+====================================================
+IMAGE REQUIREMENTS
+====================================================
+
+Use existing uploader.
+
+Store images using current image system.
+
+Support:
+
+desktop banner
+
+mobile banner (optional)
+
+If mobile image missing:
+
+use desktop image.
+
+====================================================
+DATABASE
+====================================================
+
+Create additive migration only.
+
+Suggested table:
+
+homepage_banners
+
+Fields:
+
+id
+
+title_ar
+
+title_en
+
+subtitle_ar
+
+subtitle_en
+
+button_text_ar
+
+button_text_en
+
+image_url
+
+mobile_image_url
+
+destination_type
+
+destination_id
+
+external_url
+
+sort_order
+
+active
+
+created_at
+
+updated_at
+
+====================================================
+API
+====================================================
+
+Create endpoints:
+
+GET /api/banners
+
+POST /api/admin/banners
+
+PUT /api/admin/banners/:id
+
+DELETE /api/admin/banners/:id
+
+PATCH active
+
+PATCH reorder
+
+====================================================
+HOMEPAGE INTEGRATION
+====================================================
+
+Homepage must:
+
+Load active banners only.
+
+Order by:
+
+sort_order ASC
+
+No hardcoded banners.
+
+Everything comes from database.
+
+====================================================
+EMPTY STATE
+====================================================
+
+If no banners exist:
+
+Show a simple elegant fallback hero.
+
+No broken layout.
+
+====================================================
+DESIGN RULES
+====================================================
+
+Preserve:
+
+- Current SYANO colors
+- Current theme
+- Current spacing
+- Current border radius
+- RTL
+- EN support
+
+Do NOT use:
+
+- Admin-looking tables on homepage
+- Ugly carousels
+- Placeholder graphics
+
+Must feel like a production marketplace.
+
+====================================================
+VALIDATION
+====================================================
+
+Verify:
+
+✓ Banner CRUD works
+
+✓ Upload works
+
+✓ Ordering works
+
+✓ Active toggle works
+
+✓ Homepage loads banners dynamically
+
+✓ Carousel auto rotates
+
+✓ Mobile responsive
+
+✓ Arabic works
+
+✓ English works
+
+✓ TypeScript = 0 errors
+
+✓ Existing functionality unaffected
+
+Implement production quality only.

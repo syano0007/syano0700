@@ -1,0 +1,38 @@
+You are executing an Emergency Critical Fix for the Map Infinite Loading Stutter in `LocationMapModal.tsx`.
+
+Current Problem: As seen in the provided screenshot, the map is stuck infinitely on the custom green loading spinner ("جاري تحميل الخريطة...") because the rigid rendering optimization is blocking the initial state coordinates dispatch from mounting the Leaflet canvas.
+
+Do NOT break any translation keys (i18n), green styling, or boundary geofencing checking.
+
+==================================================
+GOAL
+==================================================
+Force the map component to instantly resolve its initial position state using an ironclad fallback center, ensuring the canvas fires immediately upon modal mount without getting stuck in a loading loop.
+
+==================================================
+PART 1 — INITIAL POSITION COORDS FALLBACK (ANTI-LOCK)
+==================================================
+- Inside `LocationMapModal.tsx`, locate the state hook tracking initial map center coordinates (e.g., `center`, `position`, or `mapCenter`).
+- If the dynamic geolocation or user address context coordinates are undefined, null, or still resolving at the exact moment of mounting, instantly force a strict Syrian default center fallback (e.g., Damascus Center: `[33.5138, 36.2765]` or Aleppo Center) to feed the `<MapContainer>`.
+- Do NOT let the `<MapContainer>` mount with empty, invalid, or zeroed-out location parameters that freeze the React layout tree.
+
+==================================================
+PART 2 — MODAL CONDITIONAL MOUNT RESET GUARD
+==================================================
+- Ensure that the entire map container element or wrapper is wrapped inside a conditional rendering guard tied directly to the modal's open state (`isOpen`).
+- When `isOpen` transitions to false, completely unmount the internal Leaflet viewport components so that all internal states are aggressively cleared. 
+- When `isOpen` becomes true, mount it fresh with the fallback center coordinates preset ready, instantly breaking any active asynchronous loading deadlocks.
+
+==================================================
+PART 3 — ASYNC TIMEOUT OVERRIDE
+==================================================
+- Implement a simple safety `setTimeout` check inside a `useEffect` hook:
+  * If the loading state placeholder (`isLoading` or map spinner condition) remains true for more than 1.5 seconds, force-toggle it to `false` and trigger an immediate fallback view render (`map.invalidateSize()` or native view update) to bypass network hanging.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Opening the Location Modal instantly fires up the map tiles without freezing on the loading spinner.
+✓ The spinner vanishes in less than a second, displaying the live pointer pin inside Syria.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend repository structure.

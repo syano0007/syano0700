@@ -1,0 +1,183 @@
+STOP.
+
+Do not make any code changes yet.
+
+This issue has already been marked as "fixed" multiple times and it was NOT fixed.
+
+The problem is still present.
+
+Your task is NOT to guess.
+
+Your task is to FIND, PROVE, FIX, TEST, and VERIFY.
+
+========================
+THE ACTUAL REQUIRED BEHAVIOR
+============================
+
+The Syano Marketplace header/navbar must remain visible while browsing the site.
+
+The logo must remain visible.
+
+The search bar must remain visible.
+
+The cart icon must remain visible.
+
+The notifications icon must remain visible.
+
+The account controls must remain visible.
+
+However:
+
+The header must behave correctly and naturally.
+
+There must be NO broken sticky behavior.
+
+There must be NO duplicate header.
+
+There must be NO floating overlay behavior.
+
+There must be NO detached layer remaining fixed incorrectly.
+
+There must be NO safe-area/notch workaround causing incorrect positioning.
+
+There must be NO parent layout forcing unexpected positioning.
+
+========================
+IMPORTANT
+=========
+
+Do NOT assume Navbar.tsx is the problem.
+
+Do NOT assume sticky is the problem.
+
+Do NOT blindly remove classes.
+
+Do NOT stop after changing one file.
+
+Perform a FULL INVESTIGATION.
+
+Search the ENTIRE codebase for:
+
+* sticky
+* fixed
+* top-0
+* top:
+* position: sticky
+* position: fixed
+* z-index usage
+* z-50
+* z-[...]
+* safe-area
+* env(safe-area-inset-top)
+* mobile header wrappers
+* notch handling
+* portal rendering
+* floating containers
+* layout wrappers
+* app shell wrappers
+* marketplace wrappers
+
+Audit:
+
+* Navbar.tsx
+* Layout.tsx
+* App.tsx
+* MarketplaceLayout
+* MobileNavigation
+* Header components
+* Any parent wrapper affecting positioning
+
+========================
+REQUIRED PROOF
+==============
+
+Before changing anything:
+
+Provide:
+
+1. Exact component responsible.
+2. Exact file.
+3. Exact line numbers.
+4. Exact classes causing the issue.
+5. Why previous fixes failed.
+
+After fixing:
+
+Provide:
+
+1. Exact file modified.
+2. Exact code changed.
+3. Exact reason the fix works.
+
+========================
+MANDATORY VISUAL TESTING
+========================
+
+Do NOT claim success without testing.
+
+Actually launch the application.
+
+Actually scroll the application.
+
+Actually verify behavior.
+
+Test ALL of:
+
+HOME PAGE
+PRODUCT PAGE
+CATEGORY PAGE
+CART PAGE
+CHECKOUT PAGE
+STORE PAGE
+SELLER DASHBOARD
+
+Test:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+1024px
+1280px
+1440px
+
+Arabic + English
+
+Authenticated + Guest
+
+========================
+SUCCESS CRITERIA
+================
+
+The header remains visible.
+
+The logo remains visible.
+
+The search remains visible.
+
+The cart remains visible.
+
+The notifications remain visible.
+
+The account controls remain visible.
+
+No duplicate header exists.
+
+No floating overlay exists.
+
+No unexpected positioning exists.
+
+No mobile notch overlap exists.
+
+No regression is introduced anywhere else.
+
+========================
+FINAL REQUIREMENT
+=================
+
+You are NOT allowed to finish this task until you provide visual verification screenshots and a completed checklist proving the issue is actually resolved.
+
+If any test fails, continue debugging automatically until all tests pass.

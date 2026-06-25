@@ -1,0 +1,226 @@
+SYANO — Phase 11 — Prompt 5: Mobile Readiness
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Focus exclusively on artifacts/marketplace/src/ — the React web app. Do not touch the Expo mobile app. Do not redesign anything. Do not change any color, typography, or spacing beyond what is required to fix mobile issues.
+
+STEP 1 — AUDIT FIRST
+Before writing any code, scan every file in artifacts/marketplace/src/pages/ and artifacts/marketplace/src/components/ and produce a list of every issue found in these categories:
+A — Touch Targets Under 44px
+Any interactive element (button, link, icon button, checkbox, radio, select) whose width or height is explicitly set below 44px.
+B — Overflow on 375px
+Any element with:
+
+Fixed pixel widths wider than 375px
+min-width values that exceed viewport on mobile
+Horizontal scroll caused by content wider than viewport
+Tables without horizontal scroll wrapper
+Inline styles with fixed widths
+
+C — RTL Layout Issues
+Any element with:
+
+Hardcoded left-* or right-* Tailwind classes instead of start-* or end-*
+Hardcoded ml-* or mr-* instead of ms-* or me-*
+Hardcoded pl-* or pr-* instead of ps-* or pe-*
+text-left or text-right instead of text-start or text-end
+Icons that should flip in RTL but don't have rtl:scale-x-[-1]
+Flex rows that don't reverse in RTL
+
+D — Modals and Dropdowns Breaking on Small Screens
+Any modal, dialog, sheet, or dropdown that:
+
+Has a fixed width wider than 90vw
+Has no max-height with scroll for long content
+Overflows the viewport on 375px
+Has close button unreachable on small screens
+
+E — Missing Mobile Navigation
+Any page that:
+
+Has no back button or way to navigate back on mobile
+Has desktop-only navigation with no mobile equivalent
+
+Report the full list with file paths and line numbers before proceeding.
+
+STEP 2 — FIX ALL ISSUES
+Touch Target Fix Rule
+Every interactive element must be at least 44×44px.
+For icon buttons:
+tsx// Before
+<button className="p-1">
+  <Icon className="w-4 h-4" />
+</button>
+
+// After
+<button className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+  <Icon className="w-5 h-5" />
+</button>
+
+Overflow Fix Rule
+For tables on mobile, wrap in horizontal scroll:
+tsx<div className="overflow-x-auto w-full">
+  <table>...</table>
+</div>
+For fixed widths, replace with responsive equivalents:
+tsx// Before
+<div style={{ width: "600px" }}>
+
+// After
+<div className="w-full max-w-2xl">
+For min-width values that overflow:
+tsx// Before
+style={{ minWidth: "22rem" }}
+
+// After
+className="w-full sm:min-w-[22rem]"
+
+RTL Fix Rule
+Replace all directional Tailwind classes:
+WrongCorrectml-*ms-*mr-*me-*pl-*ps-*pr-*pe-*left-*start-*right-*end-*text-lefttext-starttext-righttext-endrounded-l-*rounded-s-*rounded-r-*rounded-e-*border-l-*border-s-*border-r-*border-e-*
+For arrows and directional icons that must flip in RTL:
+tsx<ChevronRight className="w-4 h-4 rtl:rotate-180" />
+
+Modal Fix Rule
+Every modal and dialog must:
+
+Have max-w-[90vw] or w-[90vw] on mobile
+Have max-h-[85vh] overflow-y-auto for long content
+Have close button reachable at top of modal
+
+Pattern:
+tsx<DialogContent className="w-[90vw] max-w-lg max-h-[85vh] overflow-y-auto">
+
+Dropdown Fix Rule
+Every dropdown must:
+
+Not exceed viewport width
+Use w-full on mobile, fixed width on desktop:
+
+tsxclassName="w-full sm:w-[280px]"
+
+STEP 3 — PAGES TO COVER
+Check and fix every page and component without exception:
+Layout Components:
+
+Navbar
+Footer
+Sidebar (seller, admin, courier)
+Mobile menu/drawer
+
+Guest / Customer Pages:
+
+Homepage
+Shop page
+Search results
+Product detail
+Store page
+Cart
+Checkout
+Orders list
+Order detail
+Profile
+Wishlist
+Contact
+Login / Register
+
+Seller Pages:
+
+Dashboard
+Products list
+Add product form
+Edit product form
+Orders list
+Order detail
+Analytics
+Store management
+Messaging
+
+Courier Pages:
+
+Dashboard
+Deliveries list
+Delivery detail
+
+Admin Pages:
+
+Dashboard
+Users list
+Sellers verification
+Products moderation
+Search management
+Hero banners
+
+
+STEP 4 — VERIFY FIXES
+After all fixes, manually verify by reading the code:
+
+ No interactive element smaller than 44×44px
+ No fixed pixel width wider than 375px without responsive override
+ No hardcoded ml-, mr-, pl-, pr-, left-, right-, text-left, text-right
+ All tables wrapped in overflow-x-auto
+ All modals have w-[90vw] and max-h-[85vh] overflow-y-auto
+ All directional icons have rtl:rotate-180 where needed
+ Navbar works on 375px without overflow
+ All sidebars collapse correctly on mobile
+
+
+CONSTRAINTS
+
+Do not touch artifacts/mobile/ — Expo app is out of scope
+Do not redesign any page
+Do not change colors, typography, or layout structure
+Do not use any in TypeScript
+Do not break existing API response shapes
+Every fix must work in Arabic RTL and English LTR
+Light mode and dark mode must both work
+Do not add new dependencies
+
+
+AFTER ALL FIXES
+Run TypeScript check:
+cd artifacts/api-server && npx tsc --noEmit
+cd artifacts/marketplace && npx tsc --noEmit
+Must return 0 errors.
+
+UPDATE RECOVERY FILES
+CURRENT_STATE.md
+## Session: Phase 11 — Prompt 5 (June 16, 2026)
+Status: Complete
+
+Fixed:
+- Touch targets: all interactive elements >= 44px
+- Overflow: all tables wrapped in overflow-x-auto
+- Fixed widths: replaced with responsive equivalents
+- RTL: all directional classes replaced with logical equivalents
+- Modals: w-[90vw] max-h-[85vh] overflow-y-auto on all dialogs
+- Directional icons: rtl:rotate-180 added where needed
+- TypeScript: 0 errors
+
+Next: Phase 11 — Prompt 6 (Security Review)
+PROJECT_STATUS.md
+Phase 11 — Launch Preparation
+- Prompt 1 (Audit): ✅ Complete
+- Prompt 2 (Critical & High Fixes): ✅ Complete
+- Prompt 3 (Error Handling): ✅ Complete
+- Prompt 4 (Data Quality): ✅ Complete
+- Prompt 5 (Mobile Readiness): ✅ Complete
+- Prompt 6 (Security Review): ⏳ Not started
+RECOVERY_GUIDE.md
+Last session: Phase 11 Prompt 5 — Mobile Readiness complete
+Next session must start with: Phase 11 — Prompt 6 (Security Review)
+Do not re-run Prompt 5 — it is complete.
+
+When done, report:
+✅ Audit complete: [count] issues found
+✅ Touch targets fixed: [count]
+✅ Overflow issues fixed: [count]
+✅ RTL classes fixed: [count]
+✅ Modals fixed: [count]
+✅ Directional icons fixed: [count]
+✅ TypeScript: 0 errors
+✅ Recovery files: updated

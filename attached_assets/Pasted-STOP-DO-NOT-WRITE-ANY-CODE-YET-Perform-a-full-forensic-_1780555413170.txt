@@ -1,0 +1,132 @@
+STOP. DO NOT WRITE ANY CODE YET.
+
+Perform a full forensic investigation of the mobile-web messaging layout bug first.
+
+PROBLEM DESCRIPTION
+
+On mobile browsers only (responsive web version, NOT desktop):
+
+1. The message input area at the bottom is partially hidden/cut off.
+2. The text field is pushed below the visible viewport.
+3. The send button and input row are not vertically aligned.
+4. The conversation area height looks incorrect.
+5. The layout becomes inconsistent after opening a conversation.
+6. Desktop version works correctly.
+7. Native mobile app is NOT the target. Only responsive web on mobile browsers.
+
+IMPORTANT:
+The screenshot shows the input container being clipped by the bottom viewport area while the message list height exceeds the available space.
+
+INVESTIGATION REQUIREMENTS
+
+Read and trace ALL files involved before changing anything:
+
+- pages/messages/index.tsx
+- pages/seller/messages.tsx
+- any shared MessageThread component
+- any shared Chat component
+- Layout.tsx
+- App.tsx
+- Navbar.tsx
+- Footer.tsx
+- PageTransition.tsx
+- ScrollToTop.tsx
+- all messaging CSS/Tailwind classes
+- any container using:
+  - h-screen
+  - min-h-screen
+  - 100vh
+  - calc(100vh - ...)
+  - fixed
+  - sticky
+  - overflow-hidden
+  - overflow-y-auto
+  - flex-1
+
+AUDIT THE FOLLOWING SPECIFICALLY
+
+A) Mobile viewport issues
+
+Check whether:
+- 100vh is being used anywhere.
+- Mobile browser address bars are causing incorrect viewport calculations.
+- Dynamic viewport units (dvh/svh/lvh) should be used.
+- Containers are taller than the real visible viewport.
+
+B) Flexbox issues
+
+Check whether:
+- Parent containers are missing min-h-0.
+- flex children cannot shrink.
+- Message list is forcing the input outside the viewport.
+- Overflow is applied to the wrong element.
+
+C) Footer interaction
+
+Verify whether:
+- Footer height affects message page height.
+- Footer remains in layout while conversation is open.
+- Message pages should hide footer entirely.
+
+D) Scroll containers
+
+Identify:
+- Every scrollable ancestor.
+- Which element owns scrolling.
+- Whether window scrolling and message scrolling are competing.
+
+E) Mobile keyboard behavior
+
+Check:
+- What happens when the virtual keyboard opens.
+- Whether the input gets pushed below the viewport.
+- Whether resize events are handled.
+- Whether visualViewport API should be used.
+
+F) Responsive breakpoints
+
+Verify:
+- Mobile-only CSS.
+- md/lg conditional layouts.
+- Hidden elements affecting height calculations.
+
+EXPECTED FINAL LAYOUT
+
+Conversation page must behave like WhatsApp/Telegram:
+
+HEADER
+↓
+MESSAGES (scrollable area only)
+↓
+INPUT BAR (always visible)
+↓
+END
+
+Rules:
+
+- Window/body must not scroll.
+- Only messages list scrolls.
+- Input bar must always remain visible.
+- Footer must never affect conversation height.
+- Opening a conversation must start at the top of the page.
+- Layout must work on:
+  - Android Chrome
+  - Samsung Internet
+  - iPhone Safari
+  - Mobile Chrome responsive mode
+
+OUTPUT REQUIRED BEFORE CODING
+
+Provide:
+
+1. Exact root cause.
+2. File names.
+3. Line numbers.
+4. Height calculations currently used.
+5. Which container is wrong.
+6. Why desktop works.
+7. Why mobile breaks.
+8. Lowest-risk fix.
+9. Any potential regressions.
+
+DO NOT START FIXING UNTIL THE FULL ROOT CAUSE REPORT IS COMPLETE.

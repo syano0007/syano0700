@@ -1,0 +1,362 @@
+PHASE 4 — REFERENCE MATCHING PASS
+
+Project: SYANO Marketplace
+
+Current State
+
+HomeHeroV2 is live and functioning.
+
+The structural layout is already correct.
+
+Do NOT redesign from scratch.
+
+Do NOT change card dimensions.
+
+Do NOT change responsive behavior.
+
+Do NOT replace the current architecture.
+
+Instead, refine the existing implementation until it visually resembles the supplied premium marketplace reference as closely as possible.
+
+PRIMARY OBJECTIVE
+
+The current hero feels like:
+
+* Luxury real estate
+* Architecture showcase
+
+The target hero must feel like:
+
+* Premium marketplace
+* Curated commerce
+* Lifestyle shopping destination
+* Modern digital department store
+
+The user should immediately understand:
+
+"I can discover products, brands and categories here."
+
+==================================================
+SECTION 1 — GLOBAL HERO ATMOSPHERE
+==================================
+
+The hero must no longer appear as cards floating on a white page.
+
+Create a full hero environment.
+
+Behind the cards create:
+
+Layer A:
+Deep luxury green atmosphere
+
+Layer B:
+Large abstract curved line patterns
+
+Layer C:
+Organic leaf silhouettes
+
+Layer D:
+Soft ambient light blooms
+
+Reference inspiration:
+
+* luxury retail landing pages
+* Apple retail editorial layouts
+* premium marketplace hero sections
+
+Requirements:
+
+* subtle
+* elegant
+* non-distracting
+* premium
+
+Opacity range:
+
+4%–10%
+
+Nothing should feel decorative for decoration's sake.
+
+Everything must support the luxury marketplace identity.
+
+==================================================
+SECTION 2 — HERO IMAGE REPLACEMENT
+==================================
+
+Replace the current architecture/house image.
+
+The current image incorrectly communicates:
+
+* real estate
+* construction
+* villas
+
+Required replacement:
+
+Modern luxury kitchen environment.
+
+Characteristics:
+
+* premium appliances
+* dark green cabinetry
+* copper accents
+* modern refrigerator
+* built-in oven
+* kitchen island
+* vegetables / lifestyle details
+
+Mood:
+
+* warm
+* premium
+* aspirational
+
+The image must feel like a curated marketplace editorial campaign.
+
+The image itself should tell a product story.
+
+==================================================
+SECTION 3 — COMPOSITION REBALANCING
+===================================
+
+Current composition places too much visual weight in the center.
+
+Recompose the hero.
+
+Requirements:
+
+Visual attention flow:
+
+1. Title
+2. Hero image focal point
+3. CTA
+4. Category cards
+
+Avoid:
+
+* large empty zones
+* centered dead space
+* focal points hidden behind trees or objects
+
+The user eye path must feel intentional.
+
+==================================================
+SECTION 4 — CONTENT SYSTEM
+==========================
+
+Current content is too generic.
+
+Replace generic marketing language.
+
+Create a bilingual content structure.
+
+Pattern:
+
+Arabic headline
+English headline
+
+Arabic supporting line
+English supporting line
+
+Example structure only:
+
+Arabic:
+المطبخ العصري المتكامل
+
+English:
+The Modern Gourmet Kitchen
+
+Supporting copy should feel editorial.
+
+Do not use lorem ipsum.
+
+Do not use placeholder language.
+
+Do not use generic ecommerce clichés.
+
+==================================================
+SECTION 5 — FLOATING INFORMATION MODULE
+=======================================
+
+The reference contains floating information elements.
+
+Current implementation only has a small badge.
+
+Replace with a richer floating module.
+
+Requirements:
+
+Glassmorphism
+
+Contains:
+
+* status indicator
+* short supporting text
+* micro interaction cue
+
+Shape:
+
+rounded capsule
+
+Position:
+
+upper-left area of hero image
+
+Visual weight:
+
+noticeable but not dominant
+
+==================================================
+SECTION 6 — CTA REFINEMENT
+==========================
+
+Current CTA is acceptable but generic.
+
+Upgrade CTA.
+
+Requirements:
+
+* premium pill
+* stronger hierarchy
+* icon support
+* clearer action language
+
+Examples:
+
+Explore Collection
+Browse Marketplace
+Discover Categories
+
+Do not use plain "Explore"
+
+==================================================
+SECTION 7 — CATEGORY CARD SYSTEM
+================================
+
+Current side cards feel unfinished.
+
+Each category card should contain:
+
+Layer 1:
+Image
+
+Layer 2:
+Overlay
+
+Layer 3:
+Category label
+
+Layer 4:
+Category title
+
+Layer 5:
+Micro description
+
+Layer 6:
+Bottom category hint
+
+Example structure:
+
+Electronics
+
+High-end audio & smart living
+
+Premium Electronics
+
+Smart Devices
+
+Fashion
+
+Curated style for everyday living
+
+Men's & Women's Apparel
+
+Seasonal Collections
+
+Maintain clean hierarchy.
+
+Do not overcrowd.
+
+==================================================
+SECTION 8 — PREMIUM DEPTH SYSTEM
+================================
+
+Increase perceived quality.
+
+Create depth through:
+
+* light
+* shadow
+* blur
+* contrast
+
+NOT through excessive effects.
+
+Target feeling:
+
+Premium
+Expensive
+Calm
+Confident
+
+Avoid:
+
+* gaming aesthetics
+* neon aesthetics
+* startup landing page aesthetics
+
+==================================================
+SECTION 9 — RTL / ARABIC EXCELLENCE
+===================================
+
+This is a Syrian marketplace.
+
+Arabic must feel first-class.
+
+Requirements:
+
+* Arabic typography must look intentional
+* Proper RTL alignment
+* Proper Arabic spacing
+* Proper visual hierarchy
+
+Avoid making Arabic look secondary.
+
+Arabic and English must coexist elegantly.
+
+==================================================
+SECTION 10 — PRODUCTION QUALITY
+===============================
+
+Requirements:
+
+* No TypeScript errors
+* No console warnings
+* No broken image links
+* No layout shifts
+* No accessibility regressions
+* No hardcoded pixel hacks
+* No duplicated code
+
+==================================================
+SUCCESS CRITERIA
+================
+
+A designer comparing:
+
+1. Original reference
+2. Current implementation
+
+should conclude that:
+
+* the same visual language is being used
+* the same marketplace identity is being communicated
+* the same premium atmosphere is present
+
+without the implementation becoming a pixel-for-pixel clone.
+
+Target visual similarity:
+
+85%–90%
+
+while preserving SYANO branding and architecture.

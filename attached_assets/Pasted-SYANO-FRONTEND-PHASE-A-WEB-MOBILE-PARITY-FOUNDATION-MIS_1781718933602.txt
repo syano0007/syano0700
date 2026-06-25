@@ -1,0 +1,284 @@
+SYANO (سوق سوريا)
+
+FRONTEND PHASE A — WEB ↔ MOBILE PARITY FOUNDATION
+
+MISSION
+
+Your mission is NOT to redesign SYANO.
+
+Your mission is to make the Mobile App and Marketplace Web App feel like the SAME PRODUCT.
+
+The project already has a mature web frontend.
+
+The web frontend is now the source of truth.
+
+The mobile app must be audited and upgraded to achieve visual and structural parity with the web experience.
+
+DO NOT redesign the web.
+
+DO NOT introduce a new design language.
+
+DO NOT invent new layouts.
+
+Mirror the existing marketplace experience.
+
+---
+
+STRICT RULES
+
+* Preserve all existing functionality.
+* Preserve RTL support.
+* Preserve Arabic and English.
+* Preserve current SYANO branding.
+* Preserve colors.
+* Preserve spacing scale.
+* Preserve typography hierarchy.
+* Preserve shadows.
+* Preserve border radius.
+* Preserve animations where possible.
+* No placeholder content.
+* No mock data.
+* No regressions.
+* TypeScript = 0 errors.
+* Expo compatibility must remain intact.
+
+---
+
+SOURCE OF TRUTH
+
+Treat the Marketplace Web Frontend as the canonical implementation.
+
+If Mobile and Web differ:
+
+Web wins.
+
+---
+
+PHASE A OBJECTIVES
+
+Create complete parity for:
+
+1. Home Page
+2. Global Navigation
+3. Header
+4. Footer / Bottom Navigation
+5. Search Entry Experience
+
+Do NOT continue to Product Pages, Cart, Checkout, Seller Areas, or Profile Areas.
+
+Those belong to later phases.
+
+---
+
+STEP 1 — FULL PARITY AUDIT
+
+Before changing anything:
+
+Create a comparison matrix.
+
+Compare:
+
+WEB
+vs
+MOBILE
+
+For every section.
+
+Example:
+
+HOME PAGE
+
+Hero Section
+Statistics Section
+Featured Products
+Deals Section
+Category Grid
+Store Highlights
+CTA Blocks
+Search Placement
+Navigation Layout
+
+Document:
+
+* Missing sections
+* Different sections
+* Different visual hierarchy
+* Different spacing
+* Different behavior
+
+---
+
+STEP 2 — HOME PAGE PARITY
+
+Current issue:
+
+The Mobile Home Screen is significantly different from the Marketplace Home Page.
+
+Users should immediately recognize the same platform.
+
+Implement:
+
+* Same content hierarchy
+* Same sections
+* Same ordering
+* Same branding
+* Same promotional blocks
+* Same category exposure
+* Same featured product exposure
+
+Mobile may stack vertically.
+
+But content parity must remain.
+
+---
+
+STEP 3 — HEADER PARITY
+
+Audit:
+
+WEB HEADER
+
+Logo
+Search
+Notifications
+Wishlist
+Cart
+Profile
+Categories
+
+Ensure mobile exposes equivalent functionality.
+
+Do not hide critical actions.
+
+---
+
+STEP 4 — SEARCH ENTRY PARITY
+
+Search is a primary navigation element.
+
+Audit:
+
+* placement
+* prominence
+* behavior
+
+Ensure mobile search entry feels equivalent to web.
+
+---
+
+STEP 5 — NAVIGATION PARITY
+
+Audit:
+
+Web Navigation
+
+vs
+
+Mobile Navigation
+
+Verify access to:
+
+* Home
+* Categories
+* Stores
+* Search
+* Cart
+* Orders
+* Profile
+
+No dead ends.
+
+No hidden routes.
+
+---
+
+STEP 6 — DESIGN SYSTEM PARITY
+
+Compare:
+
+Colors
+Spacing
+Typography
+Radius
+Shadows
+Cards
+Buttons
+Inputs
+Badges
+
+Remove visual drift.
+
+The mobile app should feel like a native extension of the web marketplace.
+
+---
+
+STEP 7 — RESPONSIVE ADAPTATION
+
+Do NOT blindly copy desktop layouts.
+
+Instead:
+
+Maintain:
+
+* information hierarchy
+* visual hierarchy
+* section priority
+
+Adapt layout intelligently for mobile screens.
+
+---
+
+STEP 8 — VALIDATION
+
+After implementation verify:
+
+HOME
+
+✅ Same major sections
+
+✅ Same hierarchy
+
+✅ Same branding
+
+✅ Same promotional structure
+
+HEADER
+
+✅ Same functionality
+
+SEARCH
+
+✅ Same discoverability
+
+NAVIGATION
+
+✅ Same route access
+
+DESIGN
+
+✅ Consistent visual language
+
+TECHNICAL
+
+✅ Expo works
+
+✅ Mobile build works
+
+✅ Web build works
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+DELIVERABLE
+
+Produce:
+
+1. Parity Audit Report
+2. Implementation Summary
+3. Before / After Difference List
+4. Remaining Frontend Phase B Work
+
+Only ship verified improvements.

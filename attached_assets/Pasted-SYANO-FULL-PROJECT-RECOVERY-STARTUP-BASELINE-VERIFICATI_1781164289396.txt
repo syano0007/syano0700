@@ -1,0 +1,277 @@
+SYANO (سوق سوريا) — FULL PROJECT RECOVERY, STARTUP & BASELINE VERIFICATION
+
+IMPORTANT:
+Do NOT start any new development.
+Do NOT modify business logic.
+Do NOT add features.
+Do NOT refactor.
+
+Your job is ONLY to restore, verify, and confirm the project state exactly as it existed before migration.
+
+══════════════════════════════════════════════
+PHASE 1 — RECOVERY DOCUMENTS
+══════════════════════════════════════════════
+
+Read ALL recovery and memory files first before doing anything:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* CHANGELOG.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+* Any project recovery documentation
+* Any migration notes
+* Any audit reports
+
+Do not skip this step.
+
+══════════════════════════════════════════════
+PHASE 2 — ENVIRONMENT RESTORATION
+══════════════════════════════════════════════
+
+Restore the environment completely:
+
+1. pnpm install
+
+2. Verify environment variables:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_SUBJECT
+* REPL_ID
+* REPLIT_DOMAINS
+* ISSUER_URL
+
+3. Verify branding assets:
+
+* logo
+* favicon
+* fonts
+* mobile icons
+
+4. Build libraries:
+
+npx tsc --build lib/db lib/api-zod lib/api-client-react
+
+══════════════════════════════════════════════
+PHASE 3 — DATABASE RESTORATION
+══════════════════════════════════════════════
+
+Verify database state.
+
+If schema is missing:
+
+drizzle-kit push
+
+Verify all expected tables exist.
+
+Expected baseline:
+
+users
+products
+product_variants
+product_variant_groups
+product_variant_options
+product_variant_values
+variant_images
+orders
+order_items
+order_status_history
+delivery_zones
+couriers
+courier_assignments
+courier_wallet_transactions
+cart_items
+notifications
+messages
+conversations
+reviews
+seller_reviews
+seller_applications
+store_follows
+push_subscriptions
+platform_settings
+admin_audit_log
+verification_audit_log
+
+Verify notification_type enum is healthy.
+
+══════════════════════════════════════════════
+PHASE 4 — START SERVICES
+══════════════════════════════════════════════
+
+Start:
+
+API Server
+
+Marketplace
+
+Mobile App
+
+Confirm all services run successfully.
+
+══════════════════════════════════════════════
+PHASE 5 — TYPESCRIPT VALIDATION
+══════════════════════════════════════════════
+
+Run validation.
+
+Verify:
+
+artifacts/api-server
+artifacts/marketplace
+artifacts/mobile
+lib/db
+lib/api-zod
+lib/api-client-react
+
+Target:
+
+0 TypeScript errors
+
+══════════════════════════════════════════════
+PHASE 6 — FEATURE VERIFICATION
+══════════════════════════════════════════════
+
+Verify ALL of the following exist and are working.
+
+PRODUCT WIZARD
+
+* 5-step wizard
+* Edit mode
+* New mode
+* All edit steps clickable immediately
+* Desktop width improvements
+* Variant step wide layout
+
+VARIANT SYSTEM
+
+* VariantBuilder
+* CombinationCard architecture
+* Bulk actions
+* Variant images
+* Inventory handling
+
+CHECKOUT
+
+* Delivery zones
+* Zone selection
+* Delivery fee calculation
+* Zone validation
+
+ORDERS
+
+* Full delivery workflow
+* Customer order tracking
+* Courier information card
+* Timeline
+* SSE updates
+* Polling fallback
+
+COURIER OPERATIONS
+
+* Admin delivery dashboard
+* Courier dashboard
+* Courier assignment
+* Delivery completion
+* Delivery failure
+* Courier earnings
+
+SELLER FEATURES
+
+* Seller products
+* Seller orders
+* Seller applications
+* Seller dashboards
+
+SECURITY
+
+* Courier access isolation
+* Customer order isolation
+* Seller data isolation
+* Admin protection
+
+══════════════════════════════════════════════
+PHASE 7 — VERIFY LATEST COMPLETED PROJECT
+══════════════════════════════════════════════
+
+The latest completed major project is:
+
+ORDER FULFILLMENT WORKFLOW V1
+
+Verify:
+
+Pending
+Confirmed
+Preparing
+ReadyForPickup
+CourierAssigned
+PickedUp
+OutForDelivery
+Delivered
+DeliveryFailed
+Returned
+Cancelled
+Refunded
+
+Verify all transitions.
+
+Verify:
+
+Admin
+Seller
+Courier
+Customer
+
+can all complete their parts correctly.
+
+══════════════════════════════════════════════
+PHASE 8 — FINAL REPORT
+══════════════════════════════════════════════
+
+Produce a detailed report.
+
+Include:
+
+1. Recovery status
+2. Service status
+3. Database status
+4. TypeScript status
+5. Feature verification
+6. Missing features
+7. Regressions found
+8. Exact project state
+
+Do NOT start new development.
+
+Wait for my next instructions.
+
+══════════════════════════════════════════════
+CURRENT ROADMAP REFERENCE
+══════════════════════════════════════════════
+
+Completed:
+✅ Order Fulfillment Workflow V1
+
+Current Priority:
+2. Courier Operations Dashboard V2
+3. Seller Order Management V2
+4. Seller Analytics Dashboard V2
+5. Trust System V1
+6. Seller Store Pages V2
+7. Messaging V2
+8. Search & Discovery V2
+9. Follow System Expansion
+10. Waitlist / Lead Capture System
+11. Launch Preparation Layer
+
+Future:
+Performance & Scalability Program V1
+
+Do not start any roadmap item automatically.
+
+Only restore and verify.

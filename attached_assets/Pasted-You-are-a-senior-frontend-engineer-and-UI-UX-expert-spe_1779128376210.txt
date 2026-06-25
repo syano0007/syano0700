@@ -1,0 +1,41 @@
+You are a senior frontend engineer and UI/UX expert specialized in building premium, highly responsive multi-vendor ecommerce marketplaces.
+
+Project: Master Marketplace (syano.online) — a modern multi-vendor ecommerce platform built with Vite + React + TypeScript + Tailwind CSS.
+
+Task: Completely redesign and optimize the entire website with a **strong mobile-first approach** so that it looks professional, smooth, and pixel-perfect on **ALL devices and screen sizes** (mobile, tablet, laptop, desktop, and large screens 4K+).
+
+Requirements:
+
+1. **Mobile Responsiveness (Highest Priority)**
+   - Make the site fully responsive using Tailwind's mobile-first methodology.
+   - Ensure perfect layout, typography, spacing, buttons, navigation, and touch interactions on all screen sizes (320px to 4K+).
+   - Fix any overflow, cramped text, small buttons, or broken layouts on mobile.
+   - Implement proper hamburger menu, bottom navigation if needed, and smooth scrolling.
+
+2. **Design & UX Improvements**
+   - Modern, clean, premium, and professional design (dark/light mode support if possible).
+   - Excellent visual hierarchy, generous whitespace, and consistent spacing.
+   - Fast loading feel and smooth animations/transitions.
+   - Make product cards, filters, cart, checkout, and seller dashboard beautiful on mobile.
+
+3. **Technical Requirements**
+   - Use Tailwind CSS classes only (no custom CSS unless absolutely necessary).
+   - Ensure the site is fully accessible (ARIA labels, keyboard navigation, proper contrast).
+   - Optimize images and performance.
+   - Keep the existing functionality 100% intact.
+
+4. **Cover ALL Pages**
+   - Homepage
+   - Product listing and product details pages
+   - Category pages
+   - Cart and checkout flow
+   - Seller dashboard
+   - User profile and login/register
+   - All other existing pages
+
+Please analyze the current code and then:
+- Provide a complete plan for the improvements.
+- Start implementing the changes file by file with clear explanations.
+- Focus especially on mobile experience while keeping desktop excellent.
+
+Begin now and be extremely thorough and detail-oriented.

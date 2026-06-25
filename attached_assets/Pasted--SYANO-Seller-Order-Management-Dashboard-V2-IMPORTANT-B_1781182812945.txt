@@ -1,0 +1,583 @@
+# SYANO — Seller Order Management Dashboard V2
+
+## IMPORTANT
+
+Before writing ANY code:
+
+Read and audit the complete existing seller order system.
+
+Do NOT start implementation immediately.
+
+Understand:
+
+* current seller dashboard
+* current order workflow
+* current status transitions
+* current courier integration
+* current notifications
+* current database schema
+* current APIs
+
+Only after the audit is complete may implementation begin.
+
+---
+
+# CONTEXT
+
+SYANO currently has:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+The seller order pages exist but are still basic.
+
+The goal of this project is to transform seller order management into a marketplace-grade experience.
+
+Target quality:
+
+* Shopify
+* Amazon Seller Central
+* Trendyol Seller Panel
+* Noon Seller Dashboard
+
+---
+
+# PHASE 1 — AUDIT
+
+Inspect completely:
+
+## Backend
+
+* orders routes
+* seller routes
+* notifications
+* courier assignment flow
+* order status history
+
+## Frontend
+
+* seller orders page
+* seller order details page
+* seller dashboard widgets
+
+## Database
+
+* orders
+* order_items
+* order_status_history
+* notifications
+* courier_assignments
+
+Produce findings first.
+
+Then implement.
+
+---
+
+# PHASE 2 — SELLER ORDERS DASHBOARD REDESIGN
+
+Replace the current basic orders page.
+
+Create a professional seller operations dashboard.
+
+---
+
+## Dashboard Summary Cards
+
+Display:
+
+### New Orders
+
+Count:
+
+pending
+confirmed
+
+---
+
+### Preparing
+
+Count:
+
+preparing
+
+---
+
+### Ready For Pickup
+
+Count:
+
+ready_for_pickup
+
+---
+
+### Active Deliveries
+
+Count:
+
+courier_assigned
+picked_up
+in_transit
+out_for_delivery
+
+---
+
+### Completed
+
+Count:
+
+delivered
+
+---
+
+### Cancelled
+
+Count:
+
+cancelled
+refunded
+returned
+
+---
+
+Use:
+
+* cards
+* icons
+* trend indicators
+* modern spacing
+
+---
+
+# PHASE 3 — ADVANCED ORDER TABLE
+
+Replace the basic table.
+
+Columns:
+
+Order Number
+
+Customer
+
+Products Count
+
+Items Quantity
+
+Order Value
+
+Delivery Fee
+
+Total
+
+Zone
+
+Courier
+
+Status
+
+Created Date
+
+Actions
+
+---
+
+Requirements:
+
+Search
+
+Filter
+
+Sort
+
+Pagination
+
+Responsive
+
+RTL
+
+English
+
+Arabic
+
+---
+
+# PHASE 4 — STATUS FILTERS
+
+Professional filter chips:
+
+All
+
+New
+
+Preparing
+
+Ready
+
+Delivering
+
+Completed
+
+Cancelled
+
+Refunded
+
+Returned
+
+Each filter displays count.
+
+Live updating.
+
+---
+
+# PHASE 5 — ORDER DETAILS V2
+
+Completely redesign seller order details.
+
+Sections:
+
+---
+
+## Customer
+
+Name
+
+Phone
+
+Zone
+
+Address
+
+Delivery Notes
+
+---
+
+## Products
+
+Product image
+
+Product name
+
+Quantity
+
+Unit price
+
+Line total
+
+Variant information
+
+---
+
+## Financial
+
+Subtotal
+
+Delivery Fee
+
+Total
+
+Seller Revenue
+
+Platform Fee (if applicable)
+
+---
+
+## Courier
+
+Courier Name
+
+Courier Phone
+
+Current Status
+
+Assignment Time
+
+Pickup Time
+
+Delivery Time
+
+---
+
+## Timeline
+
+Professional order timeline.
+
+Display:
+
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+in_transit
+out_for_delivery
+delivered
+
+or failure path.
+
+Use status history table.
+
+---
+
+# PHASE 6 — SELLER ACTION CENTER
+
+Depending on status:
+
+Pending
+
+Button:
+
+Confirm Order
+
+---
+
+Confirmed
+
+Button:
+
+Start Preparing
+
+---
+
+Preparing
+
+Button:
+
+Ready For Pickup
+
+---
+
+Ready For Pickup
+
+Display:
+
+Waiting For Courier
+
+---
+
+After Courier Assigned
+
+Seller can no longer alter workflow.
+
+Display read-only delivery status.
+
+---
+
+# PHASE 7 — OPERATIONS INSIGHTS
+
+Add seller operational metrics.
+
+Display:
+
+Orders Today
+
+Orders This Week
+
+Orders This Month
+
+Average Order Value
+
+Cancellation Rate
+
+Delivery Success Rate
+
+Preparing Orders
+
+Awaiting Courier
+
+---
+
+Must be real calculations.
+
+No placeholders.
+
+---
+
+# PHASE 8 — BULK OPERATIONS
+
+Allow seller to:
+
+Bulk Confirm
+
+Bulk Mark Preparing
+
+Bulk Mark Ready
+
+Only when status rules allow it.
+
+Prevent invalid transitions.
+
+---
+
+# PHASE 9 — NOTIFICATIONS
+
+Verify notifications are generated for:
+
+Confirm Order
+
+Preparing
+
+Ready For Pickup
+
+Courier Assigned
+
+Delivered
+
+Cancelled
+
+Returned
+
+Refunded
+
+Fix any missing notification paths.
+
+---
+
+# PHASE 10 — MOBILE EXPERIENCE
+
+Seller order management must work perfectly on:
+
+Mobile
+
+Tablet
+
+Desktop
+
+No horizontal-scroll disasters.
+
+No broken cards.
+
+No clipped buttons.
+
+---
+
+# PHASE 11 — SECURITY
+
+Verify:
+
+Seller only sees own orders.
+
+Seller cannot modify other sellers' orders.
+
+Seller cannot bypass status transitions.
+
+Seller cannot edit delivered orders.
+
+Seller cannot edit courier statuses.
+
+Audit all APIs.
+
+Fix vulnerabilities.
+
+---
+
+# PHASE 12 — FINAL VALIDATION
+
+Create test accounts:
+
+Admin
+
+Seller
+
+Customer
+
+Courier
+
+Guest
+
+Run full workflow:
+
+Create Order
+
+Confirm
+
+Preparing
+
+Ready For Pickup
+
+Assign Courier
+
+Pickup
+
+Delivery
+
+Delivered
+
+Verify:
+
+Dashboard counts
+
+Timeline
+
+Notifications
+
+Status transitions
+
+Filters
+
+Metrics
+
+Security
+
+Everything must work.
+
+---
+
+# PHASE 13 — RECOVERY DOCUMENTATION (MANDATORY)
+
+After implementation:
+
+Update:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* MEMORY.md
+* KNOWN_ISSUES.md
+
+Document:
+
+Seller Order Management V2
+
+New APIs
+
+New metrics
+
+New dashboard components
+
+Security validations
+
+Known limitations
+
+Recovery instructions
+
+---
+
+# SUCCESS CRITERIA
+
+✅ TypeScript = 0 errors
+
+✅ Seller dashboard professional
+
+✅ Advanced filtering
+
+✅ Order details redesigned
+
+✅ Operational metrics
+
+✅ Bulk actions
+
+✅ Mobile friendly
+
+✅ Security verified
+
+✅ Notifications verified
+
+✅ Full workflow tested
+
+✅ Recovery files updated
+
+Do NOT stop at partial implementation.
+
+Deliver a complete production-ready Seller Order Management V2.

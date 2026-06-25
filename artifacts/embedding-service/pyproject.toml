@@ -1,0 +1,19 @@
+# ===========================================================================
+# 🚨 AI AGENTS — MANDATORY FIRST STEP: READ ./SYANO_MASTER_RECOVERY.md FIRST
+# That file is the single authoritative source of truth for this platform:
+# architecture, workflows, ports, secrets, database, business rules, and
+# recovery procedures. Do NOT analyze, code, refactor, run workflows, or
+# make ANY change until SYANO_MASTER_RECOVERY.md has been fully read.
+# ===========================================================================
+
+[project]
+name = "syano-embedding-service"
+version = "0.0.1"
+requires-python = "==3.11.*"
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "numpy>=1.24.0",
+    "scikit-learn>=1.2.0",
+    "pydantic>=2.0.0",
+]

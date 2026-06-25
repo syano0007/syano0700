@@ -1,0 +1,42 @@
+You are an elite Staff Full-Stack Engineer and Systems Architect specializing in Bilingual E-commerce platforms, Advanced PostgreSQL Full-Text Search pipelines, React/TanStack Query frontend architectures, and clean Tailwind CSS system state synchronization.
+
+We have migrated the "SYANO" (سوق سوريا) platform to this new Replit environment. Execute a comprehensive workspace recovery, validate the existing state, and immediately implement the end-to-end frontend integration for the Search & Discovery Engine V2 directly into the existing "Shop" (تسوق) hub.
+
+### PART 1: MASTER ENVIRONMENT RECOVERY & STATE DIAGNOSIS
+1. Read and analyze `CURRENT_STATE.md`, `PROJECT_STATUS.md`, and `RECOVERY_GUIDE.md` first to establish the authoritative baseline of the workspace architecture, schemas, and historical progress.
+2. Verify that the newly upgraded backend search router inside `/api/search.ts` (or relevant route file) is fully intact, ensuring the presence of:
+   - `normalizeArabic()` text cleanup utility.
+   - `BILINGUAL_CONCEPT_MAP` and `INTENT_MODIFIERS` matching algorithms.
+   - The 4-tier relevancy scoring system using Drizzle SQL literals and `pg_trgm` similarity matching.
+   - The strict seller validation gate (INNER JOIN checking for active user and approved vendor status).
+3. Confirm that the PostgreSQL DB connection string is loaded properly in the environment Secrets and ensure exactly 0 TypeScript compilation errors across all workspace folders before writing new code.
+
+### PART 2: FRONTEND "SHOP" (تسوق) HUB INTEGRATION & ROUTING WIREUP
+Do NOT create a separate or redundant `/search` route. Instead, modify the existing primary "Shop" (تسوق) page component to seamlessly serve as the centralized bilingual discovery and results dashboard:
+
+1. Navbar & Suggestions Redirection Strategy:
+   - Update the global Navbar search handlers (both desktop search bar and mobile search overlay dropdowns) so that hitting 'Enter' or clicking a phrase intent suggestion triggers a programmatic navigation route to `/shop?q=${encodeURIComponent(searchTerm)}`.
+
+2. Shop Component State & URL Synchronization:
+   - Inside the Shop page component, extract the query search parameter `q` dynamically using the `useSearchParams()` hook from `react-router-dom`.
+   - If `q` is present in the URL string, bypass the traditional generic product listing query and hook into TanStack Query (`useInfiniteQuery` or `useQuery` matching the project pattern) to fetch data from the optimized endpoint: `GET /api/search/results?q=${q}&page=${page}&sortBy=${sortBy}`.
+   - If `q` is absent or cleared by the user, gracefully degrade the page behavior to pull standard store listings or paginated catalog items as it did previously.
+
+3. Interactive Filtering UI & Intent-Aware Sorting Controls:
+   - Build a responsive, beautiful UI panel at the top or sidebar of the product grid matching the premium look of Amazon and Noon.
+   - Integrate interactive sorting dropdown controls allowing users to change the `sortBy` param between:
+     * "relevance" (Default score matching)
+     * "price_asc" (Price: Low to High - العربية: السعر من الأقل للأعلى)
+     * "price_desc" (Price: High to Low - العربية: السعر من الأعلى للأقل)
+     * "rating" (Top Rated - العربية: الأعلى تقييماً)
+     * "newest" (New Arrivals - العربية: الأحدث)
+   - Render dismissible Active Filter Chips indicating active states (e.g., if "مستعمل" or "رخيص" modifiers were translated or if a specific category was auto-mapped by the parser). Clicking 'X' on the query chip resets the URL parameter and refreshes the grid cleanly.
+
+### PART 3: QUALITY CONSTRAINTS & COMPLIANCE
+- Internationalization (i18n): Never hardcode visible text. Use the existing translation infrastructure to load dynamic strings based on `isRtl` or current language state (Arabic/English).
+- Theme Support: Ensure all added filters, dropdowns, and layouts render perfectly in both Light Mode and Dark Mode with consistent Tailwind tokens.
+- Design Language Rules: Retain existing color palettes, borders, shadow values, spacing tokens, and typography hierarchies. Avoid random UI shifts.
+- No Fake Data: The UI components must read directly from the real returned fields of the `/api/search/results` payload (e.g., matching actual counts, real pagination ranges, and authentic vendor names).
+- TypeScript Target: Ensure exactly 0 compilation errors across the newly combined codebase. 
+
+Execute the full diagnosis, verify dependencies, and output the highly polished, unified frontend code modifications now.

@@ -1,0 +1,209 @@
+SYANO — Post Migration Cleanup + Production Activation
+
+The migration audit is complete.
+
+Now perform a controlled cleanup and activation pass.
+
+Do NOT redesign anything.
+
+Do NOT create new workflows.
+
+Do NOT create temporary workflows.
+
+Use the existing project architecture only.
+
+---
+
+# PHASE 1 — WORKFLOW CLEANUP
+
+The audit reported artifact-managed duplicate workflows.
+
+Verify all workflows again.
+
+Remove or disable any duplicate workflows that were created manually during troubleshooting.
+
+Goal:
+
+Only official workflows remain.
+
+Required:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+No extra API workflows.
+
+No extra web workflows.
+
+No duplicated services.
+
+Verify:
+
+* workflow definitions
+* active processes
+* listening ports
+* process tree
+
+Report final state.
+
+---
+
+# PHASE 2 — GOOGLE LOGIN
+
+Configure Google Login using:
+
+GOOGLE_CLIENT_ID
+
+345038238714-85pmrf2d863vf3ck406umnmmot72u8s9.apps.googleusercontent.com
+
+Verify:
+
+* Google button visible
+* Google auth flow works
+* Backend validation works
+* No 503 responses
+* Existing login remains functional
+
+If additional secrets are required:
+
+Report exactly what is missing.
+
+Do not break existing auth.
+
+---
+
+# PHASE 3 — CLOUDFLARE TURNSTILE
+
+Configure Turnstile using:
+
+TURNSTILE_SITE_KEY
+
+0x4AAAAAADokmlEQVP2R17Wx
+
+TURNSTILE_SECRET_KEY
+
+0x4AAAAAADokmqHeYKEMEm2Z4TOWo9xS7tY
+
+Enable Turnstile.
+
+Verify:
+
+* Login protected
+* Register protected
+* Forgot Password protected
+* Reset Password protected
+
+Verify server-side validation.
+
+Verify widget renders correctly.
+
+Verify Arabic and English.
+
+Verify mobile and desktop.
+
+---
+
+# PHASE 4 — ROOT ADMIN PASSWORD
+
+Set:
+
+ROOT_ADMIN_PASSWORD
+
+00Amer00
+
+Verify:
+
+* admin login works
+* no fallback warnings remain
+* no startup warnings remain
+
+---
+
+# PHASE 5 — LEAVE MISSING SERVICES ALONE
+
+Do NOT touch:
+
+* RESEND_API_KEY
+* VAPID_PRIVATE_KEY
+* Twilio
+* Any service that requires credentials not provided
+
+Leave them exactly as they are.
+
+Do not create fake values.
+
+Do not create placeholders.
+
+Do not disable code.
+
+Simply keep them in graceful inactive mode.
+
+---
+
+# PHASE 6 — FINAL SYSTEM VERIFICATION
+
+Verify:
+
+API Server
+
+Marketplace
+
+Embedding Service
+
+Database
+
+Google Login
+
+Turnstile
+
+Maps
+
+OSRM
+
+Search
+
+JWT
+
+Roles
+
+Admin
+
+Seller
+
+Courier
+
+Customer
+
+---
+
+# PHASE 7 — TYPESCRIPT
+
+Verify:
+
+* api-server
+* marketplace
+* mobile
+* shared libraries
+
+Goal:
+
+0 TypeScript errors.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+1. Final workflow inventory
+2. Active services
+3. Google Login status
+4. Turnstile status
+5. Admin login status
+6. Remaining intentionally disabled services
+7. TypeScript status
+8. Infrastructure score
+
+Do not finish until all verification passes.

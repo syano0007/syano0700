@@ -1,0 +1,268 @@
+TASK: Add a "Categories" section directly BELOW the Hero Banner Carousel on the homepage, visually inspired by Noon.com.
+
+IMPORTANT:
+- Do NOT modify the Hero Banner Carousel.
+- Do NOT modify the Footer.
+- Do NOT modify any existing homepage sections.
+- Only ADD a new Categories Section immediately below the banner carousel.
+
+==================================================
+DESIGN REQUIREMENTS
+==================================================
+
+Create a horizontal categories carousel similar to Noon.
+
+The section must contain EXACTLY 12 category cards.
+
+Layout order:
+
+1. Hero Banner Carousel
+2. Categories Section (NEW)
+3. Existing homepage content continues unchanged
+
+==================================================
+SECTION HEADER
+==================================================
+
+RTL Layout:
+
+Right side:
+عنوان القسم: "الفئات"
+
+Left side:
+رابط نصي:
+"عرض جميع الفئات"
+
+with arrow icon.
+
+The link should navigate to the categories page if available.
+
+==================================================
+CATEGORIES (12 CARDS)
+==================================================
+
+Use real marketplace categories, not placeholders.
+
+1. الهواتف والإكسسوارات
+2. الإلكترونيات
+3. ألعاب الفيديو
+4. الجمال والعناية
+5. أجهزة المنزل
+6. الأجهزة الكبيرة
+7. الأثاث والديكور
+8. الأزياء والأحذية
+9. الأطفال والألعاب
+10. الرياضة واللياقة
+11. البقالة والمستلزمات
+12. المزيد
+
+==================================================
+CARD DESIGN
+==================================================
+
+Each category card must contain:
+
+- Circular image/icon container
+- Category image or icon centered
+- Category name below
+- Clean marketplace style
+
+Visual style:
+
+Background:
+#FFFFFF
+
+Circle background:
+#F3F4F6
+
+Rounded appearance
+
+Soft shadow
+
+Modern marketplace design
+
+==================================================
+SIZES
+==================================================
+
+Desktop:
+Circle = 72px
+
+Tablet:
+Circle = 64px
+
+Mobile:
+Circle = 56px
+
+Text:
+Medium weight
+Centered
+
+==================================================
+DESKTOP BEHAVIOR
+==================================================
+
+Desktop >= 1024px
+
+Show ALL 12 cards in a single horizontal row.
+
+Add scroll buttons:
+
+LEFT BUTTON
+RIGHT BUTTON
+
+Requirements:
+
+- Circular buttons
+- White background
+- Shadow
+- Chevron icons
+- Overlay on sides
+- Smooth scrolling
+
+Buttons appear ONLY on desktop.
+
+==================================================
+TABLET BEHAVIOR
+==================================================
+
+Tablet 768px - 1023px
+
+Horizontal scrolling enabled.
+
+Show scroll buttons.
+
+Cards remain in one row.
+
+==================================================
+MOBILE BEHAVIOR
+==================================================
+
+Mobile < 768px
+
+Horizontal swipe scrolling ONLY.
+
+NO scroll buttons.
+
+NO arrows.
+
+Users scroll using touch gestures.
+
+==================================================
+SCROLLING
+==================================================
+
+Use smooth horizontal scrolling.
+
+Required:
+
+overflow-x-auto
+
+scroll-smooth
+
+snap-x
+
+snap-mandatory
+
+Each card:
+snap-center
+
+==================================================
+RTL SUPPORT
+==================================================
+
+Arabic-first implementation.
+
+Category order must appear correctly in RTL.
+
+Desktop arrows must behave correctly:
+
+Right arrow:
+moves content toward next categories.
+
+Left arrow:
+moves content toward previous categories.
+
+Test RTL carefully.
+
+==================================================
+ICONS / IMAGES
+==================================================
+
+Use existing project assets first.
+
+If category images already exist:
+use them.
+
+Otherwise:
+use Lucide React icons matching each category.
+
+Examples:
+
+Smartphone
+Monitor
+Gamepad2
+Sparkles
+AirVent
+WashingMachine
+Sofa
+Shirt
+Baby
+Dumbbell
+ShoppingBag
+MoreHorizontal
+
+==================================================
+RESPONSIVE RULES
+==================================================
+
+Desktop:
+12 visible cards.
+
+Tablet:
+horizontal scrolling.
+
+Mobile:
+swipe scrolling.
+
+No layout breaks.
+
+No overflow issues.
+
+No CLS.
+
+==================================================
+IMPLEMENTATION RULES
+==================================================
+
+- Use existing design system.
+- Use Tailwind utilities.
+- Use existing UI components when possible.
+- Reuse marketplace spacing system.
+- Follow current RTL implementation.
+- Production-ready code only.
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+
+Before finishing verify:
+
+✓ Exactly 12 category cards
+✓ Section placed directly below hero banners
+✓ Desktop shows scroll arrows
+✓ Mobile hides scroll arrows
+✓ Horizontal scrolling works
+✓ RTL works correctly
+✓ Tablet works correctly
+✓ No TypeScript errors
+✓ No console errors
+✓ No layout shifts
+✓ Responsive on desktop/tablet/mobile
+
+Return:
+1. Files changed
+2. Components created
+3. Screenshots of Desktop + Mobile
+4. TypeScript verification
+5. RTL verification

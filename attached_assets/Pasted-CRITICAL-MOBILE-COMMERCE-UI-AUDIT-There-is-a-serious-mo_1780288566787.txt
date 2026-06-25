@@ -1,0 +1,184 @@
+CRITICAL MOBILE COMMERCE UI AUDIT
+
+There is a serious mobile layout issue affecting the shopping flow.
+
+Currently, some buttons and action sections are appearing at the bottom of the screen instead of their proper location within the page layout.
+
+This issue has been observed in:
+
+* Product pages
+* Cart page
+* Checkout page
+
+However, do NOT assume these are the only affected pages.
+
+══════════════════════════════════════
+TASK
+══════════════════════════════════════
+
+Perform a complete mobile UI audit of the entire marketplace.
+
+Audit every page involved in:
+
+* Product browsing
+* Product details
+* Cart
+* Checkout
+* Orders
+* Seller products
+* Wishlist
+* Authentication
+* Customer dashboard
+* Seller dashboard
+
+Identify ALL layout issues where:
+
+* Buttons appear in the wrong place
+* Action bars detach from their sections
+* Fixed elements overlap content
+* Sticky elements break layout
+* Footer overlaps content
+* Mobile containers collapse incorrectly
+* Flex/Grid layouts break on small screens
+
+══════════════════════════════════════
+ROOT CAUSE ANALYSIS
+══════════════════════════════════════
+
+Before making changes:
+
+Audit:
+
+* Mobile breakpoints
+* Responsive layouts
+* Sticky positioning
+* Fixed positioning
+* Flexbox layouts
+* Grid layouts
+* Overflow handling
+* Bottom action bars
+* Safe area handling
+* Footer spacing
+* Container sizing
+
+Identify the actual root cause.
+
+Do not guess.
+
+══════════════════════════════════════
+PRODUCT PAGE REQUIREMENTS
+══════════════════════════════════════
+
+Verify:
+
+* Product image placement
+* Product information
+* Price section
+* Rating section
+* Seller information
+* Add to cart button
+* Buy now button
+
+All elements must remain in logical order.
+
+Buttons must stay attached to their relevant section.
+
+══════════════════════════════════════
+CART PAGE REQUIREMENTS
+══════════════════════════════════════
+
+Verify:
+
+* Cart items
+* Quantity controls
+* Totals section
+* Checkout button
+
+The checkout button must appear where users naturally expect it.
+
+No floating elements should break the layout.
+
+══════════════════════════════════════
+CHECKOUT PAGE REQUIREMENTS
+══════════════════════════════════════
+
+Verify:
+
+* Shipping information
+* Payment section
+* Order summary
+* Confirm order button
+
+The primary action button must remain visible and correctly positioned.
+
+══════════════════════════════════════
+MOBILE TESTING
+══════════════════════════════════════
+
+Test all pages on:
+
+320px
+
+360px
+
+375px
+
+390px
+
+414px
+
+430px
+
+Tablet sizes
+
+Verify:
+
+* No overlapping elements
+* No misplaced buttons
+* No clipped text
+* No horizontal scrolling
+* No detached action bars
+* No layout jumps
+
+══════════════════════════════════════
+REGRESSION TESTING
+══════════════════════════════════════
+
+Verify that fixes do NOT break:
+
+* Desktop layouts
+* Tablet layouts
+* RTL Arabic layouts
+* LTR English layouts
+* Dark mode
+* Light mode
+
+══════════════════════════════════════
+MANDATORY VISUAL VALIDATION
+══════════════════════════════════════
+
+After implementing fixes:
+
+Provide screenshots for:
+
+1. Product page (mobile)
+2. Cart page (mobile)
+3. Checkout page (mobile)
+4. Arabic version
+5. English version
+
+Do not mark complete until screenshots confirm correct positioning of all action buttons.
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. All affected pages found.
+2. Root causes discovered.
+3. Files modified.
+4. Layout fixes applied.
+5. Mobile sizes tested.
+6. Screenshots.
+7. Confirmation that all shopping-flow pages are now fully responsive and correctly positioned on mobile.

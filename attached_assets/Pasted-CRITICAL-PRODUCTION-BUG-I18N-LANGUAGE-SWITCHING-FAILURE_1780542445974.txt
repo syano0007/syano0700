@@ -1,0 +1,217 @@
+CRITICAL PRODUCTION BUG — I18N LANGUAGE SWITCHING FAILURE
+
+There is a reproducible translation bug affecting both desktop and mobile.
+
+SYMPTOMS
+
+When the site initially loads in Arabic and the user switches to English for the first time:
+
+Instead of translated text, translation keys appear:
+
+home.hero_title
+home.hero_desc
+home.shop_all
+home.featured_title
+product_detail.no_image
+
+and many other keys.
+
+After a refresh, translations usually appear correctly.
+
+The problem occurs:
+
+- On mobile
+- On desktop
+- After initial app load
+- On the first language switch
+- Intermittently afterwards
+
+This is a production issue.
+
+====================================================
+
+MISSION
+
+Perform a FORENSIC ROOT CAUSE ANALYSIS.
+
+DO NOT PATCH.
+DO NOT HIDE.
+DO NOT ADD TIMEOUTS.
+DO NOT FORCE RELOADS.
+
+Find the actual root cause.
+
+====================================================
+
+PHASE 1 — REPRODUCE
+
+Before touching code:
+
+1. Start the application.
+2. Open in Arabic.
+3. Switch to English.
+4. Reproduce the issue.
+5. Document exactly:
+   - what loads
+   - what fails
+   - what remains untranslated
+
+Capture:
+
+- browser console
+- network requests
+- i18n state
+- loaded namespaces
+- loaded resources
+- language state
+
+====================================================
+
+PHASE 2 — TRACE THE ENTIRE I18N PIPELINE
+
+Audit every step:
+
+APP STARTUP
+↓
+I18N INITIALIZATION
+↓
+LANGUAGE DETECTION
+↓
+LOCAL STORAGE
+↓
+RESOURCE LOADING
+↓
+DYNAMIC IMPORTS
+↓
+NAMESPACE REGISTRATION
+↓
+LANGUAGE SWITCH
+↓
+REACT RERENDER
+↓
+TRANSLATION RESOLUTION
+
+Investigate:
+
+- i18next initialization
+- react-i18next configuration
+- fallbackLng
+- defaultNS
+- namespaces
+- lazy imports
+- dynamic imports
+- top-level await imports
+- Suspense usage
+- resource store population
+- language persistence
+- language switching flow
+- race conditions
+- async loading order
+- hydration timing
+- React Query interactions
+- route transitions
+
+====================================================
+
+PHASE 3 — IDENTIFY ROOT CAUSE
+
+For every discovered issue provide:
+
+FILE:
+LINE:
+PROBLEM:
+WHY IT HAPPENS:
+WHEN IT HAPPENS:
+USER IMPACT:
+CONFIDENCE LEVEL:
+
+Do NOT proceed until the root cause is proven.
+
+====================================================
+
+PHASE 4 — FIX
+
+Requirements:
+
+- Keep lazy loading if possible.
+- Keep performance optimizations.
+- Do not disable i18n features.
+- Do not reload the page.
+- Do not add hacks.
+- Do not introduce regressions.
+
+The fix must solve the actual loading sequence.
+
+====================================================
+
+PHASE 5 — STRESS TEST
+
+After fixing:
+
+Perform 50 language-switch cycles.
+
+Arabic → English
+English → Arabic
+
+Verify:
+
+- No translation keys displayed
+- No missing namespaces
+- No console warnings
+- No console errors
+- No network failures
+- No stale translations
+- No flickering
+- No hydration issues
+
+====================================================
+
+PHASE 6 — REGRESSION AUDIT
+
+Verify translations work correctly on:
+
+HOME
+PRODUCTS
+PRODUCT DETAILS
+CART
+CHECKOUT
+MESSAGES
+SELLER DASHBOARD
+SELLER STORE
+ADMIN DASHBOARD
+AUTH PAGES
+SETTINGS
+NOTIFICATIONS
+
+Every page.
+Every role.
+Every namespace.
+
+====================================================
+
+PHASE 7 — FINAL REPORT
+
+### ROOT CAUSE
+
+### FILES CHANGED
+
+### FIX IMPLEMENTATION
+
+### TEST RESULTS
+
+### LANGUAGE SWITCH TESTS PASSED
+
+### REGRESSION TEST RESULTS
+
+### REMAINING RISKS
+
+IMPORTANT:
+
+The task is NOT complete until:
+
+- translation keys never appear
+- first language switch works
+- mobile works
+- desktop works
+- no refresh is required
+- 50/50 language-switch tests pass

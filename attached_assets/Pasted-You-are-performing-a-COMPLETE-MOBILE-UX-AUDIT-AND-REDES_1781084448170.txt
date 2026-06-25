@@ -1,0 +1,319 @@
+You are performing a COMPLETE MOBILE UX AUDIT AND REDESIGN of the SYANO seller product forms.
+
+Target pages:
+
+* /seller/products/new
+* /seller/products/[id]/edit
+
+IMPORTANT:
+
+Do NOT apply small fixes.
+
+Do NOT patch individual components.
+
+Do NOT add temporary CSS overrides.
+
+Do NOT stack desktop layouts vertically and call it mobile support.
+
+The goal is a PROFESSIONAL MOBILE-FIRST PRODUCT CREATION EXPERIENCE comparable to:
+
+* Shopify Mobile
+* Trendyol Seller
+* Amazon Seller App
+* Noon Seller
+
+---
+
+# PHASE 1 — FULL AUDIT
+
+Audit every section on:
+
+* 390px width
+* 430px width
+* 768px width
+* Desktop
+
+Inspect:
+
+* overflow
+* clipping
+* horizontal scrolling
+* spacing
+* touch targets
+* sticky elements
+* variant builder
+* image uploader
+* category selector
+* price fields
+* inventory fields
+* specifications
+* description editor
+* save buttons
+
+Generate a list of ALL mobile UX problems before changing code.
+
+---
+
+# PHASE 2 — MOBILE-FIRST REDESIGN
+
+Rebuild page layout for mobile.
+
+Goal:
+
+Everything should feel native on mobile.
+
+No desktop-style forms squeezed into small screens.
+
+---
+
+# PAGE STRUCTURE
+
+On mobile use this order:
+
+1. Product Images
+2. Basic Information
+3. Category
+4. Pricing
+5. Inventory
+6. Variants
+7. Specifications
+8. Description
+9. SEO (if exists)
+10. Publish Section
+
+Each section:
+
+* rounded-2xl card
+* separate visual block
+* clear title
+* comfortable spacing
+
+---
+
+# FORM INPUTS
+
+Requirements:
+
+* full width
+* minimum 48px height
+* touch friendly
+* no tiny labels
+* no cramped rows
+
+Mobile:
+
+ONE COLUMN ONLY
+
+Never show:
+
+Price | Stock
+
+on the same row on mobile.
+
+Use vertical layout.
+
+Desktop can keep multi-column layout.
+
+---
+
+# IMAGE UPLOADER
+
+Current uploader must be reviewed.
+
+Requirements:
+
+Mobile:
+
+* large upload area
+* drag/drop desktop
+* tap-to-upload mobile
+* image previews in grid
+* remove button easy to tap
+
+No tiny controls.
+
+---
+
+# VARIANT BUILDER
+
+Critical area.
+
+Audit entire VariantBuilder mobile experience.
+
+Requirements:
+
+Variant Groups:
+
+* full width cards
+* no horizontal overflow
+* chips wrap correctly
+
+Generated Combinations:
+
+Current desktop table is not acceptable on mobile.
+
+Replace mobile view with:
+
+Card per combination
+
+Example:
+
+Red / XL
+
+Price
+Stock
+SKU
+Image
+
+Enable Toggle
+
+Each combination inside its own card.
+
+Desktop can keep table.
+
+Mobile MUST NOT use horizontal scrolling tables.
+
+---
+
+# SPECIFICATIONS
+
+Specification rows must become stacked cards on mobile.
+
+Example:
+
+Label
+Value
+
+instead of squeezed side-by-side inputs.
+
+---
+
+# DESCRIPTION
+
+Description editor:
+
+* full width
+* comfortable spacing
+* no clipped toolbar
+* no horizontal scrolling
+
+---
+
+# STICKY SAVE BAR
+
+On mobile:
+
+Always show sticky bottom action bar.
+
+Contains:
+
+Save Draft
+Publish Product
+
+or
+
+Update Product
+
+depending on page.
+
+Requirements:
+
+* safe-area aware
+* no overlap
+* always accessible
+
+Desktop keeps current actions.
+
+---
+
+# VALIDATION UX
+
+Errors must:
+
+* scroll user to first invalid section
+* highlight section card
+* show localized message
+
+No hidden validation failures.
+
+---
+
+# PERFORMANCE
+
+Review:
+
+* unnecessary rerenders
+* variant builder rerenders
+* image uploader rerenders
+
+Optimize where needed.
+
+Do NOT introduce regressions.
+
+---
+
+# RESPONSIVE VERIFICATION
+
+After implementation verify:
+
+390px
+430px
+768px
+1024px
+1280px
+
+For BOTH pages:
+
+* Add Product
+* Edit Product
+
+---
+
+# FINAL CHECKLIST
+
+Verify:
+
+✅ No horizontal scrolling
+
+✅ No clipped content
+
+✅ No overflowing tables
+
+✅ Variant builder usable on mobile
+
+✅ Image uploader usable on mobile
+
+✅ Forms comfortable on mobile
+
+✅ Sticky save bar works
+
+✅ RTL works
+
+✅ English works
+
+✅ Arabic works
+
+✅ Existing functionality preserved
+
+✅ TypeScript 0 new errors
+
+✅ No regressions
+
+---
+
+# RECOVERY FILES
+
+After implementation update ALL project recovery files and memory files.
+
+This mobile redesign becomes the NEW OFFICIAL CHECKPOINT.
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* variant-system.md
+* any mobile-ui recovery documents
+
+Document exactly what changed.
+
+Treat this state as the new recovery baseline.

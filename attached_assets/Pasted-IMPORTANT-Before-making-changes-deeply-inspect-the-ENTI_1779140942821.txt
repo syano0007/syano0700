@@ -1,0 +1,163 @@
+IMPORTANT:
+Before making changes, deeply inspect the ENTIRE routing, navigation, scroll behavior, page transition, and layout system of the Syano marketplace.
+
+Analyze:
+- React routing/navigation behavior
+- page mounting/unmounting
+- scroll restoration logic
+- route transitions
+- discover/products page
+- homepage navigation
+- category navigation
+- browser history behavior
+- mobile navigation
+- lazy loading/render timing
+- layout wrappers
+- viewport rendering
+- smooth scrolling logic
+
+DO NOT rebuild the routing system.
+DO NOT introduce hacks or temporary fixes.
+
+Implement a clean, production-grade solution.
+
+==================================================
+MAIN ISSUE
+==================================================
+
+When users navigate to:
+- Discover Products page
+OR
+- category/product listing pages
+
+the page sometimes opens scrolled near the bottom instead of starting from the top.
+
+This creates:
+- confusing UX
+- broken navigation feeling
+- unprofessional behavior
+- poor mobile experience
+
+==================================================
+GOAL
+==================================================
+
+Ensure EVERY route/page navigation automatically starts at the TOP of the page correctly and consistently.
+
+==================================================
+SECTION 1 — GLOBAL SCROLL RESTORATION SYSTEM
+==================================================
+
+Implement a professional global scroll restoration/navigation behavior system.
+
+Requirements:
+- every new page opens from top
+- browser navigation remains smooth
+- works on desktop and mobile
+- works with RTL layouts
+- works with dynamic rendering
+- works with lazy loaded pages
+- works with product/category navigation
+- works with seller pages
+- works with admin pages
+
+==================================================
+SECTION 2 — DISCOVER PAGE FIX
+==================================================
+
+Specifically fix:
+- Discover Products page
+- category pages
+- search result pages
+
+Ensure:
+- page always starts at top
+- no preserved unwanted scroll state
+- no jumping during render
+- no delayed scrolling bugs
+
+==================================================
+SECTION 3 — MOBILE OPTIMIZATION
+==================================================
+
+Ensure the fix works perfectly on:
+- mobile browsers
+- Android devices
+- iPhone devices
+- low-end devices
+- slow internet connections
+
+Prevent:
+- scroll flickering
+- layout jumping
+- incorrect viewport restoration
+
+==================================================
+SECTION 4 — SMOOTH UX
+==================================================
+
+Navigation should feel:
+- premium
+- modern
+- smooth
+- natural
+- app-like
+
+Ensure:
+- smooth transitions
+- stable rendering
+- no visual glitches
+- no sudden repositioning
+
+==================================================
+SECTION 5 — PERFORMANCE
+==================================================
+
+Optimize:
+- rerenders
+- navigation performance
+- layout calculations
+- route transitions
+
+Avoid:
+- unnecessary effects
+- duplicated listeners
+- memory leaks
+- heavy scroll handlers
+
+==================================================
+SECTION 6 — AUTOMATIC ISSUE DETECTION
+==================================================
+
+Scan and fix other navigation/scroll issues across the project including:
+- preserved bad scroll states
+- modal scroll locking issues
+- mobile overflow issues
+- layout overflow bugs
+- hidden scroll containers
+- nested scrolling problems
+
+==================================================
+SECTION 7 — FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+- test homepage → discover navigation
+- test category navigation
+- test product navigation
+- test browser back/forward behavior
+- test mobile navigation
+- test desktop navigation
+- test slow internet behavior
+- verify all pages open from top correctly
+- verify no scroll flicker exists
+- verify no layout jumping exists
+- verify no console errors exist
+
+FINAL RESULT MUST FEEL:
+- polished
+- premium
+- smooth
+- production-ready
+- marketplace-grade

@@ -1,0 +1,260 @@
+Implement and polish Cloudflare Turnstile across SYANO with a premium, compact, marketplace-grade UX.
+
+## OBJECTIVE
+
+Do NOT redesign the authentication system.
+
+Do NOT replace existing login/register functionality.
+
+Enhance the existing implementation only.
+
+---
+
+# TURNSTILE DESIGN REQUIREMENTS
+
+The current Turnstile widget is too large and visually intrusive.
+
+Redesign its integration so it feels native to SYANO.
+
+Requirements:
+
+* Compact appearance
+* Small horizontal rectangle
+* Never full-width
+* Maximum width: 280–320px
+* Auto height
+* Centered horizontally
+* Consistent spacing with surrounding form fields
+* Match SYANO border radius, shadows, spacing, and colors
+* No visual dominance over the form
+
+The widget should feel like a small verification element, not a giant component.
+
+Target visual quality:
+
+* Shopify
+* Stripe
+* Notion
+* Linear
+
+---
+
+# PERFORMANCE REQUIREMENTS
+
+Cloudflare Turnstile must have near-zero performance impact.
+
+Implement:
+
+* Lazy load Cloudflare script via useEffect after render
+* Never block page hydration
+* Never block route transitions
+* Never delay FCP
+* Never delay LCP
+* Never delay CLS
+* Never delay TTI
+
+Requirements:
+
+* No measurable UX lag
+* No visual flashing
+* No layout shift
+* No page jump
+
+---
+
+# LANGUAGE SUPPORT
+
+Automatically render:
+
+Arabic → ar
+
+English → en
+
+Detect locale from existing SYANO i18n system.
+
+Do not hardcode language.
+
+---
+
+# WIDGET PLACEMENT
+
+Place Turnstile above the submit button on:
+
+1. Login
+2. Register
+3. Forgot Password
+4. Reset Password
+
+Layout:
+
+Form Fields
+
+[ Compact Turnstile Widget ]
+
+[ Submit Button ]
+
+Spacing should match existing design system.
+
+---
+
+# AUTO RESET BEHAVIOR
+
+Implement:
+
+onSuccess:
+
+* Store token
+
+onExpire:
+
+* Clear token
+* Reset widget
+
+onError:
+
+* Reset widget
+
+If backend returns:
+
+TURNSTILE_INVALID
+
+Then:
+
+* Clear token
+* Auto reset widget
+* Show localized error message
+* Allow retry without page refresh
+
+---
+
+# BACKEND VALIDATION
+
+Verify Turnstile server-side only.
+
+Use official Cloudflare verification endpoint.
+
+Requirements:
+
+* Never trust client token
+* Always verify on backend
+* Reject invalid token
+* Reject expired token
+* Reject missing token
+
+Response:
+
+Code:
+TURNSTILE_INVALID
+
+Localized message:
+Arabic + English
+
+---
+
+# MOBILE REQUIREMENTS
+
+Widget must be fully responsive.
+
+Verify:
+
+* Android
+* iPhone
+* Mobile Chrome
+* Mobile Safari
+
+Requirements:
+
+* No overflow
+* No clipping
+* No horizontal scrolling
+* No layout breakage
+
+The compact widget should remain compact on mobile.
+
+---
+
+# VISUAL POLISH
+
+Match SYANO design language.
+
+Requirements:
+
+* Rounded corners
+* Existing shadows
+* Existing spacing
+* Existing typography
+* Existing color palette
+
+Also ensure all text that appears on green SYANO backgrounds remains white, matching desktop behavior.
+
+Audit:
+
+* Login modal
+* Register modal
+* Forgot password
+* Reset password
+* Authentication-related buttons and labels
+* Turnstile container and surrounding UI
+
+Any text displayed on primary green surfaces should be white for proper contrast and consistency.
+
+---
+
+# TURNSTILE APPEARANCE
+
+Improve the widget presentation itself:
+
+* Center inside its container
+* Use a clean card wrapper
+* Soft border
+* Subtle shadow
+* Consistent spacing above and below
+* No giant empty margins
+* No oversized width
+* Visually aligned with form controls
+
+Target appearance:
+
+Modern, elegant, compact, professional.
+
+---
+
+# VALIDATION CHECKLIST
+
+Verify:
+
+✅ Login works
+
+✅ Register works
+
+✅ Forgot Password works
+
+✅ Reset Password works
+
+✅ Turnstile renders compact
+
+✅ Turnstile centered
+
+✅ Arabic works
+
+✅ English works
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ Auto reset works
+
+✅ Server-side verification works
+
+✅ No layout shifts
+
+✅ No performance regression
+
+✅ No TypeScript errors
+
+✅ Existing auth flow preserved
+
+✅ Text remains white on green surfaces
+
+Only ship a production-ready implementation.

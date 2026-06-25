@@ -1,0 +1,40 @@
+You are executing the absolute final structural fix for the Hero Banner and Grid alignment based on "Screenshot (463).jpg". 
+
+The core architectural issue is that the banner container ends way too early, forcing a harsh solid white background break right behind the middle of the cards. We need the banner structure to dynamically flow ALL the way down to the bottom bounding box of the grid cards, with the gradient fade occurring strictly at the absolute lower threshold of the entire section.
+
+==================================================
+THE ARCHITECTURAL CORE REFACTOR
+==================================================
+1. Structure Unification (The Master Wrapper):
+   - Locate the main home layout container that holds BOTH the Hero Banner Slider and the 4 Master Cards Grid.
+   - Restructure it so the Banner Slider is NOT a standalone row ending at a fixed height. Instead, configure the section container to encompass the entire fold area:
+     ```typescript
+     // Ensure the parent container of the banner allows absolute child background bleeding
+     className="relative w-full bg-neutral-50 pb-16"
+     ```
+
+2. Banner Height Extension:
+   - Target the Banner Slider component wrapper and its inner images:
+     * Increase the height of the banner container on desktop screen sizes so its layout baseline extends physically behind the cards:
+       `className="w-full h-[500px] md:h-[620px] lg:h-[700px] relative overflow-hidden"`
+     * Ensure the image asset scales perfectly to fill this space without distortion: `className="w-full h-full object-cover"`
+
+3. Adjusting the Delayed Amazon Fade Overlay:
+   - On top of the banner image container, update the absolute overlay mask div. 
+   - The image must remain 100% solid through the top 70% of its expanded height, and gently fade into the main page background color (`#f8f9fa` or your exact site gray/off-white background) ONLY in the bottom 30% area (which falls strictly under the lower quadrant of the cards):
+     ```typescript
+     className="absolute inset-0 bg-gradient-to-b from-transparent from-60% via-transparent via-75% to-[#f8f9fa] to-100% pointer-events-none"
+     ```
+   - If using a modern CSS Mask component (highly recommended for fluid asset fading):
+     `style={{ maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)' }}`
+
+4. Final Touch - Zero Bottom CTA Check:
+   - Double-check that all remaining bottom action links ("Shop Now", "تسوق الآن", etc.) are completely removed from the 4 master cards shell layout as previously requested.
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The banner image artwork flows deeply behind the cards and is fully visible through the gaps between the cards.
+✓ The fade-to-gray/white background transition happens strictly below or at the very baseline boundary of the 4 cards.
+✓ Frontend TypeScript compilation results in 0 build errors.

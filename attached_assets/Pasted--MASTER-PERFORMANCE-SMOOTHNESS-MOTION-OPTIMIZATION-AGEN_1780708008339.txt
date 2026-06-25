@@ -1,0 +1,353 @@
+# MASTER PERFORMANCE, SMOOTHNESS & MOTION OPTIMIZATION AGENT
+
+You are a Principal Performance Engineer, Senior React Architect, V8 JavaScript Performance Specialist, Mobile Web Optimization Engineer, UX Motion Designer, and Production Release Engineer.
+
+Your mission is NOT to fix bugs.
+
+Your mission is to transform this application into an extremely fast, premium-feeling web app.
+
+The goal is:
+
+* Instant first impression.
+* Extremely fast page transitions.
+* Smooth scrolling.
+* Smooth animations.
+* Minimal loading states.
+* Excellent mobile responsiveness.
+* Native-app feeling.
+
+Assume that the project is already functional.
+
+Focus entirely on PERFORMANCE, SMOOTHNESS, RESPONSIVENESS, MOTION QUALITY, and PERCEIVED SPEED.
+
+---
+
+# PRIMARY OBJECTIVES
+
+Target metrics:
+
+First Load:
+
+* Time To First Byte (TTFB): as low as possible
+* First Contentful Paint (FCP): under 1 second
+* Largest Contentful Paint (LCP): under 2 seconds
+* Time To Interactive (TTI): under 2 seconds
+
+Navigation:
+
+* Near-instant page transitions
+* Eliminate unnecessary loading screens
+
+Mobile:
+
+* Stable 60 FPS minimum
+* 90-120 FPS where hardware allows
+
+Scrolling:
+
+* Zero visible stutter
+* No content flashing
+* No disappearing elements
+
+User Perception:
+
+* Application should feel immediate.
+
+---
+
+# PHASE 1 — FULL PERFORMANCE PROFILING
+
+Profile the entire application.
+
+Measure:
+
+* bundle sizes
+* route chunk sizes
+* initial JavaScript execution
+* hydration cost
+* React render cost
+* API latency
+* database startup
+* image loading
+* CSS loading
+* font loading
+* service worker startup
+* cache behavior
+
+Generate a bottleneck map.
+
+Find every expensive operation.
+
+---
+
+# PHASE 2 — FIRST LOAD OPTIMIZATION
+
+Treat the first visit as highest priority.
+
+Investigate:
+
+* Replit cold start
+* server initialization
+* startup migrations
+* database connection creation
+* synchronous startup code
+* blocking imports
+* large dependencies
+* unnecessary startup API calls
+* oversized entry bundle
+* render-blocking resources
+
+Optimize aggressively.
+
+Apply:
+
+* dynamic imports
+* lazy loading
+* route splitting
+* component splitting
+* startup caching
+* connection reuse
+* parallel initialization
+* deferred loading
+* preload only critical assets
+
+Minimize work before first paint.
+
+---
+
+# PHASE 3 — REACT RENDER OPTIMIZATION
+
+Analyze the entire component tree.
+
+Find:
+
+* unnecessary rerenders
+* unstable props
+* unstable callbacks
+* inline object creation
+* context update storms
+* duplicated state
+* expensive computations
+
+Apply:
+
+* React.memo
+* useMemo
+* useCallback
+* state normalization
+* component isolation
+* render splitting
+
+Reduce rendering work to the absolute minimum.
+
+---
+
+# PHASE 4 — NETWORK OPTIMIZATION
+
+Inspect all API traffic.
+
+Detect:
+
+* duplicate requests
+* waterfall loading
+* unnecessary refetches
+* oversized payloads
+* repeated authentication checks
+
+Optimize using:
+
+* caching
+* request deduplication
+* optimistic updates
+* background refresh
+* prefetching likely next pages
+* parallel requests
+
+Navigation should feel instant.
+
+---
+
+# PHASE 5 — SCROLL OPTIMIZATION
+
+Aggressively test scrolling.
+
+Look for:
+
+* frame drops
+* layout shifts
+* image flicker
+* rerender spikes
+* virtualization issues
+* intersection observer abuse
+* loading placeholders reappearing
+
+Optimize until scrolling remains perfectly smooth.
+
+---
+
+# PHASE 6 — MOTION & ANIMATION QUALITY
+
+Inspect every animation.
+
+Buttons.
+Cards.
+Menus.
+Dropdowns.
+Modals.
+Page transitions.
+Hover effects.
+Loading states.
+
+Find:
+
+* janky animations
+* layout-triggering animations
+* CPU-heavy effects
+* expensive shadows
+* expensive blurs
+* repaint storms
+
+Replace with GPU accelerated animations.
+
+Prefer:
+
+* transform
+* opacity
+
+Avoid:
+
+* width
+* height
+* top
+* left
+* margin animations
+
+Motion should feel premium.
+
+---
+
+# PHASE 7 — MOBILE OPTIMIZATION
+
+Test on mobile viewport.
+
+Profile:
+
+* touch response
+* scroll latency
+* gesture smoothness
+* keyboard opening
+* modal transitions
+* image loading
+* list rendering
+
+Remove every noticeable lag.
+
+The application should feel like a native mobile app.
+
+---
+
+# PHASE 8 — ASSET OPTIMIZATION
+
+Analyze:
+
+* images
+* icons
+* fonts
+* SVGs
+* CSS bundles
+* JavaScript bundles
+
+Optimize:
+
+* compression
+* lazy loading
+* responsive image sizes
+* font loading strategy
+* tree shaking
+
+Remove unused assets.
+
+---
+
+# PHASE 9 — PERCEIVED PERFORMANCE
+
+Even when real loading exists, make the application feel immediate.
+
+Implement where appropriate:
+
+* intelligent prefetching
+* optimistic UI
+* skeleton screens
+* background loading
+* cache warming
+* predictive navigation
+
+Minimize visible waiting.
+
+---
+
+# SELF-CORRECTION LOOP
+
+After every optimization:
+
+Measure again.
+
+Compare before and after.
+
+If any optimization causes regressions:
+
+Fix it.
+
+Repeat until no meaningful performance improvement remains.
+
+Do not stop after one optimization.
+
+Keep iterating until the application reaches maximum practical performance.
+
+---
+
+# FINAL REPORT
+
+Generate:
+
+## Bottlenecks Found
+
+(list all)
+
+## Optimizations Applied
+
+(list all)
+
+## Files Modified
+
+(list all)
+
+## Before vs After Metrics
+
+* TTFB
+* FCP
+* LCP
+* TTI
+* Bundle Size
+* API Response Time
+* Mobile FPS
+* Scroll Smoothness
+* Navigation Speed
+
+## Remaining External Limitations
+
+(Replit cold starts, third-party APIs, DNS, etc.)
+
+## Final Scores
+
+Performance Score: 0-100
+
+Mobile Smoothness Score: 0-100
+
+Animation Quality Score: 0-100
+
+Perceived Speed Score: 0-100
+
+Production Polish Score: 0-100
+
+The task is complete only when the application feels comparable to a premium commercial product with near-instant navigation and exceptionally smooth interactions.

@@ -1,0 +1,481 @@
+SYANO — COMPLETE DESIGN SYSTEM MIGRATION V1
+
+MISSION:
+
+Perform a full visual unification of the entire SYANO platform.
+
+The Homepage V7 is now the official visual reference for the whole platform.
+
+Do NOT redesign the homepage.
+
+Instead:
+
+Extract the design language from Homepage V7 and apply it consistently across every page, component, dashboard, card, modal, form, table, and interaction in the project.
+
+==================================================
+CRITICAL RULES
+==============
+
+This is NOT a redesign project.
+
+This is NOT a rewrite project.
+
+This is NOT a component replacement project.
+
+This is a DESIGN SYSTEM CONSOLIDATION project.
+
+Preserve:
+
+* Business logic
+* API integrations
+* Database compatibility
+* Routing
+* Authentication
+* Seller workflows
+* Courier workflows
+* Admin workflows
+* RTL support
+* i18n support
+* Currency system
+* Wishlist system
+* Cart system
+
+No functionality may break.
+
+Visual consistency is the objective.
+
+==================================================
+PHASE 1 — DESIGN AUDIT
+======================
+
+Analyze Homepage V7 and extract:
+
+Typography
+Spacing
+Sizing
+Grid system
+Card design
+Button design
+Input design
+Badge design
+Chip design
+Animation style
+Hover effects
+Shadows
+Glassmorphism effects
+Border radius
+Container widths
+Section spacing
+Icon sizing
+Color hierarchy
+
+Create a documented Design System.
+
+==================================================
+PHASE 2 — DESIGN TOKENS
+=======================
+
+Centralize all visual values.
+
+Create reusable tokens for:
+
+Colors
+Typography
+Spacing
+Border Radius
+Shadows
+Animations
+Transitions
+Z-index layers
+
+Remove duplicated styling patterns.
+
+Replace magic numbers with system tokens.
+
+==================================================
+PHASE 3 — TYPOGRAPHY UNIFICATION
+================================
+
+Homepage typography becomes the platform standard.
+
+Apply identical typography hierarchy across:
+
+Homepage
+Products
+Product Details
+Stores
+Store Details
+Wishlist
+Cart
+Checkout
+Orders
+Messages
+Notifications
+Login
+Register
+Forgot Password
+Profile
+
+Seller Area:
+
+Dashboard
+Products
+Inventory
+Orders
+Analytics
+Reviews
+Trust
+Store Settings
+
+Courier Area:
+
+Dashboard
+Assignments
+Wallet
+Profile
+
+Admin Area:
+
+Dashboard
+Users
+Products
+Orders
+Analytics
+Verification
+Delivery
+Settings
+Logs
+
+Unify:
+
+Headings
+Subheadings
+Labels
+Descriptions
+Cards
+Tables
+Buttons
+Forms
+
+==================================================
+PHASE 4 — COLOR SYSTEM
+======================
+
+Homepage colors become the source of truth.
+
+Apply consistent:
+
+Backgrounds
+Surfaces
+Elevated surfaces
+Cards
+Borders
+Inputs
+Buttons
+Hover states
+Active states
+Focus states
+
+Dark Mode remains the master reference.
+
+Light Mode must be upgraded to match the same premium quality.
+
+Remove inconsistent greys.
+
+Remove random color variations.
+
+==================================================
+PHASE 5 — CARD SYSTEM
+=====================
+
+All cards must feel like they belong to the same product.
+
+Unify:
+
+Product Cards
+Store Cards
+Analytics Cards
+Stat Cards
+Admin Cards
+Seller Cards
+Courier Cards
+Review Cards
+Wishlist Cards
+Cart Cards
+
+Consistent:
+
+Radius
+Padding
+Shadow
+Hover
+Animation
+Spacing
+
+==================================================
+PHASE 6 — BUTTON SYSTEM
+=======================
+
+Homepage buttons become the platform standard.
+
+Standardize:
+
+Primary Buttons
+Secondary Buttons
+Ghost Buttons
+Icon Buttons
+Danger Buttons
+
+Apply identical:
+
+Radius
+Height
+Font
+Weight
+Spacing
+Hover
+Animation
+
+Fix all inconsistent button sizes.
+
+==================================================
+PHASE 7 — FORM SYSTEM
+=====================
+
+Unify all forms.
+
+Apply same styling to:
+
+Login
+Register
+Checkout
+Seller Applications
+Courier Applications
+Product Creation
+Store Settings
+Admin Forms
+
+Consistent:
+
+Inputs
+Selects
+Dropdowns
+Textareas
+Checkboxes
+Radio Buttons
+Validation States
+
+==================================================
+PHASE 8 — TABLE SYSTEM
+======================
+
+Redesign tables to match Homepage quality.
+
+Apply to:
+
+Orders
+Users
+Products
+Analytics
+Logs
+Verification
+
+Requirements:
+
+Premium appearance
+Responsive behavior
+Mobile-friendly
+Dark/light consistency
+
+==================================================
+PHASE 9 — ANIMATION SYSTEM
+==========================
+
+Extract Homepage animation language.
+
+Apply consistently:
+
+Page transitions
+Card hover
+Buttons
+Dropdowns
+Modals
+Tabs
+Drawers
+
+Animations must feel:
+
+Premium
+Fast
+Modern
+
+Avoid excessive motion.
+
+==================================================
+PHASE 10 — ICONOGRAPHY
+======================
+
+Normalize:
+
+Icon sizes
+Stroke widths
+Spacing
+Alignment
+
+Across the entire platform.
+
+==================================================
+PHASE 11 — RESPONSIVE SYSTEM
+============================
+
+Verify:
+
+Desktop
+Laptop
+Tablet
+Mobile
+
+Every page must maintain:
+
+Visual consistency
+Spacing consistency
+Alignment consistency
+
+No overflow.
+
+No clipping.
+
+No broken layouts.
+
+==================================================
+PHASE 12 — PAGE-BY-PAGE MIGRATION
+=================================
+
+Audit and migrate EVERY page.
+
+Public:
+
+* Home
+* Products
+* Product Details
+* Stores
+* Wishlist
+* Cart
+* Checkout
+* Orders
+* Messages
+* Notifications
+* Login
+* Register
+* Profile
+
+Seller:
+
+* Dashboard
+* Products
+* Inventory
+* Orders
+* Analytics
+* Reviews
+* Trust
+* Store Settings
+
+Courier:
+
+* Dashboard
+* Assignments
+* Wallet
+* Profile
+
+Admin:
+
+* Dashboard
+* Users
+* Products
+* Orders
+* Analytics
+* Delivery
+* Verification
+* Settings
+* Logs
+
+==================================================
+PHASE 13 — QUALITY CONTROL
+==========================
+
+Perform visual audit.
+
+Find and fix:
+
+Misaligned elements
+Inconsistent spacing
+Inconsistent typography
+Inconsistent colors
+Inconsistent buttons
+Inconsistent cards
+
+==================================================
+PHASE 14 — AUTOMATIC BUG FIXING
+===============================
+
+While performing the migration:
+
+If any issue is discovered:
+
+* broken route
+* missing page
+* runtime error
+* console error
+* TypeScript error
+* layout issue
+* RTL issue
+* translation issue
+* responsive issue
+
+Fix it immediately.
+
+Do not merely report it.
+
+Resolve it.
+
+==================================================
+FINAL VALIDATION
+================
+
+Verify:
+
+API running
+Marketplace running
+Mobile running
+
+Run full navigation audit.
+
+Confirm:
+
+* No 404 pages
+* No broken links
+* No visual regressions
+* No console errors
+* No TypeScript errors introduced
+* No RTL regressions
+* No theme regressions
+
+==================================================
+FINAL REPORT
+============
+
+Provide:
+
+1. Design System created
+2. Files modified
+3. Components standardized
+4. Pages migrated
+5. Bugs fixed
+6. Responsive validation results
+7. Theme validation results
+8. RTL validation results
+9. Final platform health score
+
+Goal:
+
+Every page in SYANO should feel like it was designed by the same team, at the same time, using the Homepage V7 as the visual source of truth, while preserving 100% of existing functionality.

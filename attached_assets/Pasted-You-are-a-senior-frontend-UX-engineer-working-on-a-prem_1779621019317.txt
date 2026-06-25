@@ -1,0 +1,81 @@
+You are a senior frontend + UX engineer working on a premium ecommerce marketplace.
+
+IMPORTANT:
+Do NOT remove or delete the existing returns/refund system logic, backend, database structure, APIs, or components.
+
+The goal is ONLY to temporarily HIDE all customer-facing return/refund UI elements until the feature is officially launched later.
+
+Tasks:
+
+1. HIDE RETURN/REFUND UI ELEMENTS
+   Temporarily hide all visible return-related content including:
+
+* “Easy Returns”
+* “Free Returns”
+* refund guarantees
+* return badges/icons
+* return policy cards
+* return labels on homepage/product sections
+
+2. DO NOT DELETE FUNCTIONALITY
+
+* Keep all backend logic intact.
+* Keep database structure intact.
+* Keep APIs intact.
+* Keep internal components intact.
+* Do NOT remove code permanently.
+* The feature may be re-enabled later.
+
+3. USE SAFE FEATURE FLAG APPROACH
+   Implement the hiding cleanly using:
+
+* feature flags
+* config toggle
+* conditional rendering
+* centralized visibility control
+
+Example:
+
+```ts
+returnsFeatureEnabled = false
+```
+
+The system should be easy to re-enable later without rebuilding functionality.
+
+4. PRESERVE UI LAYOUT
+   When hiding the return feature:
+
+* maintain spacing consistency
+* prevent broken alignment
+* keep cards visually balanced
+* avoid empty gaps
+* preserve responsive behavior
+
+5. MOBILE-FIRST VALIDATION
+   Verify the homepage and all affected sections on:
+
+* iPhone sizes
+* Android sizes
+* tablets
+
+Ensure:
+
+* no overflow
+* no layout shifts
+* no broken grids
+* no missing spacing
+
+6. GLOBAL AUDIT
+   Search the entire frontend for return/refund-related customer-facing UI and hide them consistently, including:
+
+* homepage
+* footer
+* banners
+* product pages
+* FAQ
+* checkout
+* seller pages
+* policy links
+
+7. FINAL RESULT
+   The marketplace should appear fully polished and production-ready with NO visible return/refund promises, while preserving the complete system internally for future activation.

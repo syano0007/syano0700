@@ -1,0 +1,223 @@
+You are resuming the SYANO Homepage Redesign Mockup project.
+
+IMPORTANT: Do NOT restart from scratch.
+
+Read the recovery report carefully and continue from the LAST mockup state that existed before the session ended.
+
+Current verified state:
+
+* Recovery completed successfully.
+* API Server running.
+* Marketplace running.
+* Mobile running.
+* Database restored.
+* TypeScript = 0 errors.
+* Review System V2 fully implemented.
+* Hero Banner V3 infrastructure fully implemented.
+* HeroBannerCarousel exists.
+* Admin banner system exists.
+* Analytics exists.
+* Tracking exists.
+
+CRITICAL:
+
+The homepage redesign is currently in MOCKUP / CANVAS mode.
+
+DO NOT touch production home.tsx.
+
+DO NOT integrate anything into the live marketplace.
+
+DO NOT modify HeroBannerCarousel implementation.
+
+DO NOT create a new design direction.
+
+Continue the existing mockup only.
+
+---
+
+CURRENT MOCKUP STATUS
+
+Already completed:
+
+* Hero redesign
+* Product card redesign
+* Store card redesign
+* Sticky navbar
+* Scroll reveal animations
+* Typography refinement
+* Spacing refinement
+
+Still not approved:
+
+* Exact spacing parity with reference screenshots
+* Exact card parity with reference screenshots
+* Exact typography parity with reference screenshots
+* Premium animation refinement
+
+---
+
+MAIN GOAL
+
+Make the mockup visually match the reference screenshots as closely as possible.
+
+Target:
+
+95–100% visual similarity.
+
+Not "inspired by".
+
+Not "similar".
+
+Match the screenshots.
+
+---
+
+PRIORITY 1 — SECTION TITLES
+
+Current issue:
+
+Section titles still do not perfectly match the screenshots.
+
+Audit:
+
+* font size
+* weight
+* spacing
+* margins
+* vertical rhythm
+* visual hierarchy
+
+Make every section title visually identical to the reference.
+
+Examples:
+
+* الفئات الأكثر شيوعاً
+* عروض مميزة
+* متاجر موثوقة
+* المنتجات الرائجة
+
+Must feel identical.
+
+---
+
+PRIORITY 2 — CARD PARITY
+
+Current cards still feel different.
+
+Audit and fix:
+
+PRODUCT CARDS
+
+* image ratio
+* badge placement
+* badge sizes
+* spacing
+* typography
+* price hierarchy
+* CTA hierarchy
+* corner radius
+* shadows
+* hover behavior
+
+STORE CARDS
+
+* avatar sizing
+* banner sizing
+* trust badge
+* rating row
+* stats row
+* CTA placement
+
+Match screenshot proportions exactly.
+
+---
+
+PRIORITY 3 — LAYOUT SPACING
+
+Current layout still differs from screenshots.
+
+Audit:
+
+* left/right gutters
+* max-width
+* content width
+* section spacing
+* card spacing
+* row spacing
+* hero spacing
+
+Use pixel comparison logic.
+
+Everything must align like the screenshots.
+
+---
+
+PRIORITY 4 — PREMIUM ANIMATIONS
+
+Current animations are good but still not premium enough.
+
+Upgrade:
+
+* slower
+* smoother
+* more luxurious
+
+Use:
+
+* opacity
+* transform
+* subtle scale
+* layered motion
+
+Avoid:
+
+* flashy motion
+* aggressive movement
+* distracting effects
+
+Target:
+
+Apple
+Linear
+Stripe
+Noon premium campaigns
+
+Animations should feel expensive.
+
+---
+
+PRIORITY 5 — HERO REFINEMENT
+
+Keep current structure.
+
+Do NOT redesign.
+
+Only refine.
+
+Audit:
+
+* image scale
+* image crop
+* text positioning
+* CTA position
+* statistics position
+* floating card positions
+
+Improve visual accuracy.
+
+---
+
+DELIVERABLE
+
+Before making changes:
+
+1. Audit current mockup.
+2. Compare against screenshots.
+3. List every remaining mismatch.
+4. Then fix them.
+
+Do NOT integrate into production.
+
+Remain in Canvas / Mockup mode only.
+
+The goal is to obtain final visual sign-off before touching home.tsx.

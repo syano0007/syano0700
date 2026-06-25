@@ -1,0 +1,121 @@
+CRITICAL SELLER ONBOARDING FIX
+
+The platform now uses a SINGLE ACCOUNT MODEL.
+
+There must NOT be any seller registration flow.
+
+There must NOT be any seller account creation flow.
+
+There must NOT be any seller login flow.
+
+Every seller is an existing customer account that gains seller privileges after approval.
+
+══════════════════════════════════════
+PROBLEM
+══════════════════════════════════════
+
+Currently the "Open Your Store" button still redirects users to a seller registration/account creation flow.
+
+This is incorrect and contradicts the new architecture.
+
+══════════════════════════════════════
+REQUIRED BEHAVIOR
+══════════════════════════════════════
+
+If user is NOT authenticated:
+
+Open Your Store
+→ Redirect to /login
+
+After successful login:
+→ Redirect to seller application page
+
+══════════════════════════════════════
+
+If user is authenticated as customer:
+
+Open Your Store
+→ Open seller application page directly
+
+No account creation.
+
+No registration.
+
+No seller signup.
+
+══════════════════════════════════════
+
+If user has an existing pending application:
+
+Open Your Store
+→ Show application status page
+
+Do not create a new application.
+
+══════════════════════════════════════
+
+If user is already an approved seller:
+
+Open Your Store
+→ Redirect to seller dashboard
+
+══════════════════════════════════════
+REMOVE OLD FLOW
+══════════════════════════════════════
+
+Audit the entire codebase.
+
+Remove all remaining references to:
+
+* Seller registration
+* Seller signup
+* Seller account creation
+* Seller onboarding through registration
+
+Verify that no button, route, redirect, navbar item, footer link, modal, or API endpoint still points to seller registration.
+
+══════════════════════════════════════
+OPEN YOUR STORE BUTTON
+══════════════════════════════════════
+
+This must become the ONLY seller onboarding entry point.
+
+Logic:
+
+NOT LOGGED IN
+→ Login
+
+CUSTOMER
+→ Seller Application
+
+PENDING APPLICATION
+→ Application Status
+
+APPROVED SELLER
+→ Seller Dashboard
+
+══════════════════════════════════════
+VALIDATION
+══════════════════════════════════════
+
+Test:
+
+1. Guest user clicks Open Your Store.
+2. Customer clicks Open Your Store.
+3. Pending seller clicks Open Your Store.
+4. Approved seller clicks Open Your Store.
+
+Verify:
+
+* No seller account is ever created.
+* No seller registration page is ever shown.
+* No seller login page is ever shown.
+* The existing account is used throughout the entire process.
+
+Provide:
+
+1. Files modified.
+2. Routes modified.
+3. Redirects modified.
+4. Remaining seller-registration references found.
+5. Confirmation that seller onboarding now uses the current logged-in account only.

@@ -1,0 +1,293 @@
+You are upgrading the existing SYANO Store Review System V1.
+
+IMPORTANT:
+
+Do NOT rebuild the review system.
+
+The review system already exists and is operational.
+
+Before writing any code:
+
+1. Run Recovery Check.
+2. Verify confidenceScore = 100.
+3. Audit:
+
+   * seller_reviews table
+   * review APIs
+   * review UI
+   * trustScore.ts
+   * seller reviews dashboard
+   * store page reviews tab
+4. Produce a short audit report.
+5. Then implement.
+
+==================================================
+PRIMARY GOAL
+============
+
+Complete the Store Review ecosystem and add a professional Seller Reply System.
+
+Target quality:
+
+* Amazon
+* Noon
+* Trendyol
+* Etsy
+
+==================================================
+PART 1 — AUDIT THE CURRENT REVIEW FLOW
+======================================
+
+Verify all of the following:
+
+✓ Customer can review only after delivery
+
+✓ Customer cannot review twice
+
+✓ Store reviews are completely separated from product reviews
+
+✓ Store rating updates immediately
+
+✓ Trust score updates correctly
+
+✓ Mobile review flow works
+
+✓ Verified Purchase badge works
+
+If any issue exists:
+
+Fix it.
+
+==================================================
+PART 2 — SELLER REPLY SYSTEM
+============================
+
+Extend the existing seller_reviews table.
+
+Add:
+
+* seller_reply
+* seller_reply_at
+* seller_reply_updated_at
+
+Additive migrations only.
+
+Never break existing reviews.
+
+==================================================
+PART 3 — REPLY API
+==================
+
+Create:
+
+PATCH /sellers/reviews/:reviewId/reply
+
+Requirements:
+
+* seller auth required
+* seller owns review
+* max length 1000
+* sanitize input
+* create reply
+* edit reply
+* audit logging
+
+==================================================
+PART 4 — SELLER REVIEW DASHBOARD
+================================
+
+Enhance:
+
+/seller/reviews
+
+Each review should support:
+
+* Reply button
+* Edit reply button
+* Character counter
+* Save state
+* Success feedback
+
+UI must feel premium.
+
+No admin-style forms.
+
+==================================================
+PART 5 — PUBLIC STORE PAGE
+==========================
+
+On:
+
+Store Reviews Tab
+
+Display:
+
+Customer Review
+
+★★★★★
+
+Review text
+
+Verified Purchase badge
+
+---
+
+Seller Response
+
+Store avatar
+
+Store name
+
+Reply text
+
+Reply timestamp
+
+---
+
+Requirements:
+
+* beautiful hierarchy
+* distinct styling
+* RTL perfect
+* mobile perfect
+
+Must look like a real marketplace.
+
+==================================================
+PART 6 — REVIEW PROMPT IMPROVEMENTS
+===================================
+
+Improve the review prompt after delivery.
+
+Requirements:
+
+After order delivery:
+
+* prompt customer to review seller
+* prompt appears on:
+
+  * order details
+  * order history
+  * mobile app
+
+If already reviewed:
+
+show:
+
+✓ Review submitted
+
+instead of prompt.
+
+==================================================
+PART 7 — SELLER REPUTATION METRICS
+==================================
+
+Add:
+
+Response Rate %
+
+Average Response Time
+
+Replied Reviews Count
+
+Display in:
+
+* Seller Reviews Dashboard
+* Seller Analytics
+
+==================================================
+PART 8 — TRUST INTEGRATION
+==========================
+
+Replies must NOT directly increase trust score.
+
+However:
+
+Trust page should display:
+
+* total reviews
+* replied reviews
+* response rate
+
+as transparency metrics.
+
+==================================================
+PART 9 — RECOVERY CHECK INTEGRATION (MANDATORY)
+===============================================
+
+Extend the existing Review System recovery module.
+
+Verify:
+
+✓ seller_reply column exists
+
+✓ reply endpoint works
+
+✓ ownership protection works
+
+✓ public replies render
+
+✓ seller dashboard reply UI exists
+
+✓ review prompt exists
+
+✓ analytics metrics exist
+
+✓ mobile flow works
+
+Recovery must fail if any review-reply functionality is broken.
+
+==================================================
+PART 10 — FINAL E2E TEST
+========================
+
+Run complete flow:
+
+1. Customer receives delivered order
+2. Customer leaves store review
+3. Rating updates
+4. Trust updates
+5. Seller replies
+6. Reply appears publicly
+7. Analytics update
+8. Recovery passes
+
+Verify:
+
+✓ Web
+
+✓ Mobile
+
+✓ RTL
+
+✓ English
+
+✓ TypeScript = 0
+
+✓ Recovery = 100/100
+
+✓ No regressions
+
+==================================================
+DOCUMENTATION
+=============
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+==================================================
+FINAL RULE
+==========
+
+Do not stop after implementing seller replies.
+
+Audit the entire review ecosystem and leave it production-ready for launch.

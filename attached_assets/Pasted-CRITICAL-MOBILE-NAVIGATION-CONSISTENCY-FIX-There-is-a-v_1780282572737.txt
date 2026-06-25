@@ -1,0 +1,145 @@
+CRITICAL MOBILE NAVIGATION CONSISTENCY FIX
+
+There is a visual consistency issue in the mobile navigation menu after login.
+
+Current problem:
+
+The Language button and Theme button are noticeably larger than the rest of the navigation items.
+
+As a result:
+
+* The menu looks unprofessional.
+* Visual hierarchy is broken.
+* Button sizes are inconsistent.
+* Icons and labels are not aligned uniformly.
+
+══════════════════════════════════════
+REQUIRED GOAL
+══════════════════════════════════════
+
+Create a consistent mobile navigation design system.
+
+All interactive items inside the mobile menu must follow the same sizing rules.
+
+This includes:
+
+* Language selector
+* Theme selector
+* Cart
+* Notifications
+* Orders
+* Dashboard
+* Profile
+* Wishlist
+* Categories
+* Any other navigation item
+
+══════════════════════════════════════
+AUDIT REQUIRED
+══════════════════════════════════════
+
+Before changing anything:
+
+Audit:
+
+* Mobile drawer
+* Mobile navigation menu
+* Navbar
+* Theme switcher component
+* Language switcher component
+* Menu item component
+* Icon sizes
+* Font sizes
+* Padding
+* Heights
+* Widths
+
+Identify why language/theme controls are larger than the other menu items.
+
+══════════════════════════════════════
+DESIGN REQUIREMENTS
+══════════════════════════════════════
+
+All menu items should share:
+
+* Consistent height
+* Consistent icon size
+* Consistent text size
+* Consistent spacing
+* Consistent padding
+* Consistent alignment
+
+No item should visually dominate the others unless intentionally designed.
+
+══════════════════════════════════════
+LANGUAGE & THEME CONTROLS
+══════════════════════════════════════
+
+Language and Theme controls must visually match:
+
+* Cart
+* Orders
+* Profile
+* Dashboard
+* Other navigation items
+
+Do not allow oversized buttons.
+
+Do not allow oversized icons.
+
+Do not allow oversized containers.
+
+══════════════════════════════════════
+MOBILE FIRST
+══════════════════════════════════════
+
+Focus specifically on mobile layouts.
+
+Test:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+Verify consistency across all sizes.
+
+══════════════════════════════════════
+REGRESSION TESTING
+══════════════════════════════════════
+
+Verify the fix does NOT break:
+
+* Desktop navbar
+* Tablet layouts
+* Theme switching
+* Language switching
+* Navigation functionality
+
+══════════════════════════════════════
+MANDATORY VISUAL VALIDATION
+══════════════════════════════════════
+
+Provide screenshots of:
+
+1. Mobile menu before the fix.
+2. Mobile menu after the fix.
+3. Logged-in user menu.
+4. Language button.
+5. Theme button.
+
+The screenshots must clearly show that all navigation items have consistent sizing and alignment.
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Root cause.
+2. Components modified.
+3. Styling changes.
+4. Screenshots.
+5. Confirmation that all mobile navigation items now follow a unified design system.

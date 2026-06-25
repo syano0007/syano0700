@@ -1,0 +1,442 @@
+CRITICAL ENTERPRISE-GRADE ADMIN COMMAND CENTER
+
+This is NOT a simple admin dashboard improvement.
+
+The objective is to transform Syano's admin area into a complete marketplace command center similar to what would be used by Amazon Marketplace, Noon, Trendyol, Etsy, or Shopify Marketplace operators.
+
+The admin dashboard must become the central control system for the entire marketplace.
+
+══════════════════════════════════════
+PRIMARY OBJECTIVE
+══════════════════════════════════════
+
+The administrator should be able to understand the complete health of the marketplace within seconds.
+
+The dashboard must answer:
+
+* What is happening right now?
+* What is growing?
+* What is failing?
+* Which sellers need attention?
+* Which products are performing best?
+* Which categories are growing?
+* Where are users dropping off?
+* Which operational issues require intervention?
+
+The admin should never need to manually inspect multiple pages to understand the state of the platform.
+
+══════════════════════════════════════
+PHASE 1 — COMPLETE ADMIN AUDIT
+══════════════════════════════════════
+
+Before implementing anything:
+
+Audit:
+
+* Current admin dashboard
+* Admin routes
+* Database schema
+* Existing metrics
+* Seller management
+* Product management
+* Order management
+* User management
+
+Identify all missing operational capabilities.
+
+Provide implementation strategy before coding.
+
+══════════════════════════════════════
+PHASE 2 — EXECUTIVE OVERVIEW DASHBOARD
+══════════════════════════════════════
+
+Create a high-level marketplace overview.
+
+Display:
+
+Total Customers
+
+Total Sellers
+
+Pending Seller Applications
+
+Total Products
+
+Active Products
+
+Out Of Stock Products
+
+Orders Today
+
+Orders This Week
+
+Orders This Month
+
+Revenue Today
+
+Revenue This Week
+
+Revenue This Month
+
+Average Order Value
+
+Marketplace Growth
+
+All metrics must be calculated dynamically.
+
+No hardcoded values.
+
+══════════════════════════════════════
+PHASE 3 — REAL-TIME OPERATION CENTER
+══════════════════════════════════════
+
+Create a live operational panel.
+
+Display:
+
+Recent Orders
+
+Recent Registrations
+
+Recent Seller Applications
+
+Recent Product Creations
+
+Recent Product Updates
+
+Recent Reviews
+
+Recent Cancellations
+
+Recent Deliveries
+
+Allow rapid monitoring of marketplace activity.
+
+══════════════════════════════════════
+PHASE 4 — SELLER MANAGEMENT CENTER
+══════════════════════════════════════
+
+Create a dedicated seller control center.
+
+Display:
+
+Seller Name
+
+Store Name
+
+Join Date
+
+Products Count
+
+Orders Count
+
+Revenue Generated
+
+Average Rating
+
+Cancellation Rate
+
+Delivery Rate
+
+Application Status
+
+Verification Status
+
+Allow:
+
+Approve Seller
+
+Reject Seller
+
+Suspend Seller
+
+Reactivate Seller
+
+Review Seller Performance
+
+══════════════════════════════════════
+PHASE 5 — MARKETPLACE HEALTH MONITOR
+══════════════════════════════════════
+
+Create automated marketplace health indicators.
+
+Detect:
+
+High Cancellation Sellers
+
+Inactive Sellers
+
+Low Rated Sellers
+
+Products With No Stock
+
+Products With No Sales
+
+Abnormal Activity
+
+Potential Abuse
+
+Surface problems automatically.
+
+Do not require manual investigation.
+
+══════════════════════════════════════
+PHASE 6 — ORDER ANALYTICS CENTER
+══════════════════════════════════════
+
+Provide:
+
+Orders By Day
+
+Orders By Week
+
+Orders By Month
+
+Delivered Orders
+
+Cancelled Orders
+
+Pending Orders
+
+Processing Orders
+
+Shipped Orders
+
+Average Processing Time
+
+Average Delivery Time
+
+Visualize trends.
+
+══════════════════════════════════════
+PHASE 7 — PRODUCT ANALYTICS CENTER
+══════════════════════════════════════
+
+Display:
+
+Top Selling Products
+
+Most Viewed Products
+
+Highest Rated Products
+
+Products With No Sales
+
+Products Running Low On Stock
+
+Products With Highest Conversion
+
+Enable filtering by:
+
+Date
+
+Category
+
+Seller
+
+Status
+
+══════════════════════════════════════
+PHASE 8 — CATEGORY ANALYTICS
+══════════════════════════════════════
+
+Display:
+
+Top Categories
+
+Fastest Growing Categories
+
+Highest Revenue Categories
+
+Most Viewed Categories
+
+Low Performing Categories
+
+Help identify marketplace opportunities.
+
+══════════════════════════════════════
+PHASE 9 — USER ANALYTICS
+══════════════════════════════════════
+
+Display:
+
+New Customers
+
+Returning Customers
+
+Customer Growth
+
+Most Active Customers
+
+Customer Purchase Frequency
+
+Customer Retention Metrics
+
+Provide meaningful marketplace insights.
+
+══════════════════════════════════════
+PHASE 10 — SEARCH INSIGHTS
+══════════════════════════════════════
+
+Track marketplace searches.
+
+Display:
+
+Most Searched Terms
+
+Searches With No Results
+
+Trending Searches
+
+Emerging Search Trends
+
+This data is extremely valuable for future marketplace growth.
+
+══════════════════════════════════════
+PHASE 11 — ADMIN ALERT SYSTEM
+══════════════════════════════════════
+
+Create a priority alert system.
+
+Automatically surface:
+
+Pending Seller Applications
+
+Suspicious Activity
+
+High Cancellation Rates
+
+Stock Problems
+
+Order Backlogs
+
+Critical Marketplace Issues
+
+Admin should see problems immediately.
+
+══════════════════════════════════════
+PHASE 12 — REPORTING SYSTEM
+══════════════════════════════════════
+
+Enable export capabilities.
+
+Support:
+
+CSV Export
+
+Seller Reports
+
+Product Reports
+
+Order Reports
+
+Revenue Reports
+
+Analytics Reports
+
+══════════════════════════════════════
+PHASE 13 — MOBILE ADMIN EXPERIENCE
+══════════════════════════════════════
+
+Audit and optimize for:
+
+320px
+
+360px
+
+375px
+
+390px
+
+414px
+
+430px
+
+The admin dashboard must remain fully usable on mobile.
+
+══════════════════════════════════════
+PHASE 14 — PERFORMANCE REQUIREMENTS
+══════════════════════════════════════
+
+The dashboard must remain extremely fast.
+
+Requirements:
+
+No heavy blocking queries.
+
+Use aggregation efficiently.
+
+Use pagination where necessary.
+
+Use caching where appropriate.
+
+Do not introduce performance regressions.
+
+Admin pages should feel instant.
+
+══════════════════════════════════════
+PHASE 15 — SECURITY
+══════════════════════════════════════
+
+Verify:
+
+Admin-only access
+
+Permission checks
+
+Data protection
+
+Secure reporting
+
+Secure exports
+
+No privilege escalation vulnerabilities.
+
+══════════════════════════════════════
+MANDATORY VALIDATION
+══════════════════════════════════════
+
+Test:
+
+Arabic
+
+English
+
+Desktop
+
+Mobile
+
+Admin permissions
+
+Seller workflows
+
+Order workflows
+
+Analytics accuracy
+
+Report exports
+
+Performance
+
+Verify that existing functionality remains intact.
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Provide:
+
+1. Database changes.
+2. New admin architecture.
+3. Analytics architecture.
+4. Seller management architecture.
+5. Alert system architecture.
+6. Reporting architecture.
+7. Mobile compatibility report.
+8. Performance impact report.
+9. Security verification report.
+10. All modified files.
+
+SUCCESS CRITERIA
+
+The Syano admin panel should function as a true marketplace command center capable of managing marketplace growth, monitoring operations, detecting problems early, and supporting future scaling without requiring major redesigns.

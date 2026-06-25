@@ -1,0 +1,205 @@
+Continue from the CURRENT approved mockup.
+
+Do NOT restart.
+
+Do NOT redesign.
+
+Do NOT modify the overall layout.
+
+The homepage is now much closer to the target screenshots, but it is still NOT visually identical.
+
+Perform another visual-diff audit against the screenshots and focus ONLY on the remaining differences below.
+
+---
+
+# ISSUE 1 — PRODUCT & STORE CARDS STILL DON'T MATCH
+
+This is currently the biggest remaining gap.
+
+The cards still look custom-built.
+
+The screenshots use a very specific visual language.
+
+I want the cards to feel like they were copied directly from the screenshots.
+
+Audit and adjust:
+
+### Product Cards
+
+* Card height
+* Card width
+* Internal spacing
+* Image crop
+* Image aspect ratio
+* Discount badge shape
+* Discount badge size
+* Favorite icon placement
+* Rating placement
+* Rating icon size
+* Price size
+* Old price size
+* Price spacing
+* Button dimensions
+* Button radius
+* Shadow intensity
+* Hover behavior
+
+### Store Cards
+
+The store cards are still noticeably different.
+
+Match:
+
+* Avatar size
+* Verified badge size
+* Verified badge position
+* Store name size
+* Rating row
+* Follower/order statistics
+* CTA styling
+* Card spacing
+* Card shadow
+* Card radius
+
+Do not approximate.
+
+Match the screenshots as closely as possible.
+
+---
+
+# ISSUE 2 — TYPOGRAPHY STYLE IS STILL DIFFERENT
+
+The problem is NOT only size.
+
+The screenshots use a specific typography rhythm.
+
+Current version still feels larger and heavier.
+
+Audit:
+
+* Font weight
+* Line height
+* Letter spacing
+* Section heading proportions
+* Product title proportions
+* Store title proportions
+* Deal card proportions
+
+The overall feeling should become lighter and more elegant.
+
+---
+
+# ISSUE 3 — SECTION TITLES ARE STILL TOO DOMINANT
+
+The screenshots have cleaner section headers.
+
+Current headers still attract too much attention.
+
+Reduce:
+
+* visual weight
+* height
+* spacing
+
+Keep them premium.
+
+Make them feel closer to:
+
+* Noon
+* Trendyol
+
+instead of oversized landing-page headings.
+
+---
+
+# ISSUE 4 — ADD PREMIUM SCROLL REVEAL ANIMATIONS
+
+Currently the page loads statically.
+
+The screenshots feel more premium because content appears progressively.
+
+Implement scroll-triggered reveal animations.
+
+Requirements:
+
+### Products
+
+When entering viewport:
+
+* fade in
+* move upward 20–30px
+* stagger effect
+
+Example:
+
+Card 1 → appears
+Card 2 → 60ms later
+Card 3 → 60ms later
+etc.
+
+### Categories
+
+* soft fade
+* slight upward motion
+
+### Stores
+
+* fade
+* scale 0.98 → 1
+
+### Sections
+
+* fade
+* upward motion
+
+Animation must be:
+
+* smooth
+* elegant
+* subtle
+
+No aggressive motion.
+
+No bouncing.
+
+No zoom explosions.
+
+No cheap effects.
+
+---
+
+# PERFORMANCE REQUIREMENTS
+
+Animations must:
+
+* use Intersection Observer
+* trigger once
+* GPU accelerated
+* use transform + opacity only
+* avoid layout shifts
+
+Maintain:
+
+* 60fps
+* mobile performance
+* RTL support
+
+---
+
+# FINAL GOAL
+
+After this pass:
+
+* Product cards should be almost indistinguishable from screenshots.
+* Store cards should feel identical.
+* Typography should match the screenshots.
+* Section headers should feel refined.
+* Scroll experience should feel premium and modern.
+
+Target similarity:
+
+98–100%.
+
+Do not stop at "close enough".
+
+Keep refining until the visual differences become extremely difficult to notice.

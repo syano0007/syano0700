@@ -1,0 +1,399 @@
+Perform a COMPLETE enterprise-grade ADMIN CONTROL PANEL & MARKETPLACE MANAGEMENT SYSTEM transformation across the entire Syano platform. Treat this as a world-class marketplace administration ecosystem inspired by Amazon Admin Systems, Shopify Admin, Noon Operations Center, and enterprise ecommerce control platforms.
+
+The admin panel is now the CENTRAL BRAIN of the entire marketplace.
+
+The goal is to create a REAL enterprise-level marketplace control center where admins can:
+- monitor everything in realtime
+- control the marketplace professionally
+- manage sellers/products/orders efficiently
+- analyze marketplace health
+- moderate content safely
+- handle fraud/spam
+- manage growth intelligently
+
+The admin experience must feel:
+- powerful
+- premium
+- realtime
+- intelligent
+- highly organized
+- scalable
+- enterprise-grade
+
+==================================================
+CORE OBJECTIVE
+==================================================
+
+Transform the admin panel into a COMPLETE marketplace command center.
+
+Admins must be able to:
+- control all marketplace operations
+- monitor realtime activity
+- manage sellers professionally
+- moderate products efficiently
+- analyze performance deeply
+- receive critical alerts instantly
+- operate the platform smoothly from desktop and mobile
+
+The system must feel:
+- alive
+- responsive
+- modern
+- extremely professional
+
+==================================================
+ADMIN DASHBOARD EXPERIENCE
+==================================================
+
+Rebuild the admin dashboard completely into a realtime marketplace control center.
+
+Requirements:
+- premium dashboard layout
+- realtime statistics
+- live activity feed
+- animated analytics
+- marketplace health overview
+- order monitoring
+- seller monitoring
+- revenue analytics
+- traffic insights
+- moderation alerts
+- notification integration
+
+Dashboard must feel:
+- modern
+- premium
+- enterprise-grade
+
+==================================================
+REALTIME MARKETPLACE MONITORING
+==================================================
+
+Implement LIVE realtime monitoring across the entire marketplace.
+
+Admins must instantly see:
+- new orders
+- active users
+- new sellers
+- pending approvals
+- refund requests
+- reported products
+- suspicious activity
+- failed payments
+- realtime sales activity
+
+The admin panel must feel like:
+- a live operations center
+- a realtime control system
+
+==================================================
+ADVANCED ANALYTICS SYSTEM
+==================================================
+
+Implement COMPLETE marketplace analytics.
+
+Track and visualize:
+- revenue trends
+- daily/weekly/monthly sales
+- top products
+- top sellers
+- conversion rates
+- customer growth
+- active users
+- traffic analytics
+- category performance
+- search analytics
+- order analytics
+- refund analytics
+- cancellation metrics
+- notification engagement
+- marketplace growth trends
+
+Requirements:
+- animated charts
+- premium graphs
+- responsive visualizations
+- realtime updates
+- mobile-friendly analytics
+
+Analytics must feel:
+- enterprise-grade
+- highly informative
+- visually premium
+
+==================================================
+SELLER MANAGEMENT SYSTEM
+==================================================
+
+Build COMPLETE seller administration tools.
+
+Admins must be able to:
+- approve/reject sellers
+- verify sellers
+- suspend sellers
+- warn sellers
+- monitor seller performance
+- review seller analytics
+- review seller reputation
+- view seller activity history
+
+Requirements:
+- moderation workflows
+- rejection reasons
+- seller communication tools
+- seller trust scoring
+- fraud detection support
+
+==================================================
+PRODUCT MODERATION SYSTEM
+==================================================
+
+Implement advanced marketplace moderation.
+
+Admins must be able to:
+- approve/reject products
+- edit/remove listings
+- moderate categories
+- review reported products
+- detect spam/fake listings
+- manage inventory visibility
+- monitor marketplace quality
+
+Requirements:
+- moderation queues
+- realtime moderation alerts
+- rejection messaging
+- bulk moderation tools
+
+==================================================
+ORDER MANAGEMENT SYSTEM
+==================================================
+
+Implement COMPLETE marketplace-wide order management.
+
+Admins must be able to:
+- monitor all orders
+- inspect order details
+- intervene in disputes
+- manage refunds
+- monitor cancellations
+- analyze delivery performance
+- review suspicious transactions
+
+==================================================
+CUSTOMER MANAGEMENT SYSTEM
+==================================================
+
+Build customer administration tools.
+
+Admins must be able to:
+- search customers
+- review account activity
+- handle abuse/spam
+- manage reports
+- review support history
+- monitor suspicious behavior
+
+==================================================
+REPORTING & ABUSE MANAGEMENT
+==================================================
+
+Implement enterprise-level reporting workflows.
+
+Requirements:
+- reported seller management
+- reported product review
+- abuse escalation system
+- fraud detection support
+- spam moderation
+- suspicious activity monitoring
+
+Admins must quickly identify:
+- scams
+- spam
+- fake sellers
+- abusive behavior
+
+==================================================
+ADMIN NOTIFICATION SYSTEM
+==================================================
+
+Integrate the advanced realtime notification system deeply.
+
+Admins must instantly receive:
+- seller applications
+- reported products
+- suspicious activity alerts
+- refund escalations
+- moderation alerts
+- failed payment alerts
+- high-priority marketplace warnings
+
+Notifications must work:
+- inside admin panel
+- desktop push
+- mobile push
+
+==================================================
+ROLE & PERMISSION SYSTEM
+==================================================
+
+Implement professional admin access control.
+
+Support:
+- super admins
+- moderators
+- support staff
+- analytics-only roles
+- restricted permissions
+
+Requirements:
+- secure role-based access
+- protected actions
+- audit logging
+- permission validation
+
+==================================================
+MARKETPLACE SETTINGS SYSTEM
+==================================================
+
+Build centralized marketplace configuration tools.
+
+Admins must manage:
+- categories
+- homepage content
+- featured products
+- banners
+- commission settings
+- notification settings
+- moderation rules
+- platform settings
+
+==================================================
+MOBILE ADMIN EXPERIENCE
+==================================================
+
+Mobile admin UX must remain usable and professional.
+
+Requirements:
+- responsive admin dashboard
+- mobile analytics
+- responsive moderation tools
+- touch-friendly controls
+- lightweight rendering
+- smooth navigation
+
+Ensure:
+- no broken tables
+- no hidden controls
+- no overflow issues
+- smooth performance on mobile
+
+==================================================
+PERFORMANCE & SCALABILITY
+==================================================
+
+The admin system must remain:
+- lightweight
+- scalable
+- fast
+- stable under heavy activity
+
+Optimize:
+- dashboard rendering
+- analytics rendering
+- realtime updates
+- large datasets
+- search/filter performance
+- API payloads
+
+==================================================
+SEARCH & FILTERING
+==================================================
+
+Implement advanced admin filtering/search tools.
+
+Support:
+- global search
+- seller search
+- product search
+- order search
+- customer search
+- report filtering
+- analytics filtering
+- date range filtering
+
+==================================================
+RTL & ARABIC OPTIMIZATION
+==================================================
+
+Ensure perfect Arabic RTL admin experience.
+
+Requirements:
+- RTL dashboard layouts
+- Arabic typography
+- responsive Arabic analytics
+- localized dates/numbers
+- proper RTL tables/forms
+
+Arabic admin UX must feel:
+- native
+- premium
+- enterprise-grade
+
+==================================================
+SECURITY & AUDIT LOGGING
+==================================================
+
+Implement enterprise-grade security.
+
+Requirements:
+- admin audit logs
+- sensitive action tracking
+- secure authentication
+- protected admin routes
+- abuse prevention
+- suspicious login detection
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically detect and fix:
+- broken admin flows
+- analytics rendering issues
+- moderation bugs
+- notification sync issues
+- mobile admin issues
+- performance bottlenecks
+- RTL rendering problems
+- hidden controls
+- dashboard inconsistencies
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test admin dashboard
+- test realtime monitoring
+- test seller moderation
+- test product moderation
+- test order management
+- test analytics rendering
+- test notification system
+- test role permissions
+- test mobile admin UX
+- test Arabic RTL rendering
+- test weak internet conditions
+- verify no broken admin routes
+- verify no hidden controls
+- verify no console errors
+- verify smooth performance everywhere
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class marketplace operations center
+- a premium enterprise admin platform
+- highly scalable and professional
+- realtime and deeply analytical
+- production-ready and secure

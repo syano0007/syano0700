@@ -1,0 +1,311 @@
+STOP.
+
+The Seller Verification page is STILL NOT localized correctly.
+
+Previous fixes were incomplete.
+
+There are still many English strings appearing inside the Arabic interface.
+
+This is NOT acceptable.
+
+I need a COMPLETE localization audit of the Seller Verification system.
+
+---
+
+# CRITICAL RULE
+
+Do NOT patch individual strings.
+
+Do NOT translate only visible labels.
+
+Perform a FULL i18n audit.
+
+Find the root cause.
+
+---
+
+# TARGET AREA
+
+Admin Dashboard
+
+Seller Verification
+
+Seller Approval Workflow
+
+Seller Review Screen
+
+Verification Details
+
+Verification History
+
+Verification Status
+
+Verification Actions
+
+All related components.
+
+---
+
+# TASK 1 — FIND ALL ENGLISH STRINGS
+
+Search the entire Seller Verification feature.
+
+Find:
+
+Hardcoded English text
+
+Examples:
+
+* Approve
+* Reject
+* Pending
+* Verified
+* Submitted
+* Documents
+* Business Name
+* Verification Notes
+* Seller Details
+
+and any other English strings.
+
+Replace ALL hardcoded text with translation keys.
+
+---
+
+# TASK 2 — FIND ALL RAW TRANSLATION KEYS
+
+Search for visible keys such as:
+
+admin.sellerVerification.*
+
+verification.*
+
+sellerVerification.*
+
+or similar.
+
+If any key appears directly in UI:
+
+Fix it.
+
+No translation key should ever be visible to users.
+
+---
+
+# TASK 3 — VERIFY LOCALE FILES
+
+Audit all locale files.
+
+Verify:
+
+Arabic locale
+
+English locale
+
+Contain ALL Seller Verification keys.
+
+No missing keys.
+
+No fallback behavior.
+
+No undefined translations.
+
+---
+
+# TASK 4 — VERIFY LANGUAGE SWITCHING
+
+Switch language:
+
+Arabic
+
+English
+
+Verify:
+
+Every text changes correctly.
+
+No mixed language UI.
+
+No Arabic labels inside English mode.
+
+No English labels inside Arabic mode.
+
+---
+
+# TASK 5 — VERIFY API-DERIVED VALUES
+
+Check values coming from backend:
+
+Statuses
+
+Verification states
+
+Approval states
+
+Document types
+
+Business types
+
+Review states
+
+Trust states
+
+Ensure these values are localized before rendering.
+
+Do NOT render raw backend values.
+
+---
+
+# TASK 6 — VERIFY TABLES
+
+Audit all tables.
+
+Check:
+
+Headers
+
+Cells
+
+Status badges
+
+Actions
+
+Empty states
+
+Pagination
+
+Filters
+
+Sorting labels
+
+Everything must localize correctly.
+
+---
+
+# TASK 7 — VERIFY MODALS
+
+Audit:
+
+Approval modal
+
+Rejection modal
+
+Confirmation dialogs
+
+Warnings
+
+Success messages
+
+Error messages
+
+All text must be translated.
+
+---
+
+# TASK 8 — VERIFY NOTIFICATIONS
+
+Audit:
+
+Toasts
+
+Alerts
+
+Snackbars
+
+Validation messages
+
+Success messages
+
+Error messages
+
+Everything localized.
+
+---
+
+# TASK 9 — VERIFY RTL / LTR
+
+Arabic:
+
+RTL
+
+English:
+
+LTR
+
+Verify:
+
+Spacing
+
+Alignment
+
+Tables
+
+Cards
+
+Buttons
+
+Modals
+
+Everything switches correctly.
+
+---
+
+# TASK 10 — PLATFORM-WIDE CHECK
+
+After fixing Seller Verification:
+
+Run a translation scan on:
+
+Admin Dashboard
+
+Seller Dashboard
+
+Courier Dashboard
+
+Homepage
+
+Store Pages
+
+Product Pages
+
+Wishlist
+
+Cart
+
+Checkout
+
+Ensure no untranslated keys remain.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ No hardcoded English strings
+
+✅ No visible translation keys
+
+✅ Arabic locale complete
+
+✅ English locale complete
+
+✅ API values localized
+
+✅ Tables localized
+
+✅ Modals localized
+
+✅ Toasts localized
+
+✅ RTL works
+
+✅ LTR works
+
+✅ Seller Verification fully translated
+
+✅ Platform translation scan passes
+
+✅ TypeScript = 0 errors
+
+Do not stop until the Seller Verification page is 100% localized.

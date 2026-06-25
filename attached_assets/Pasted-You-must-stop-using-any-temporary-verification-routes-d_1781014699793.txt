@@ -1,0 +1,234 @@
+You must stop using any temporary verification routes, debug pages, mock pages, isolated component pages, screenshots from test harnesses, or synthetic environments.
+
+From this point forward, ALL validation must happen on the REAL marketplace page using the REAL seller account and REAL Add Product workflow.
+
+Seller Account:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+# MISSION
+
+We are NOT building new features.
+
+We are NOT creating debug routes.
+
+We are NOT creating verification pages.
+
+We are NOT creating isolated Toggle demos.
+
+We are fixing the remaining VariantBuilder toggle issues on the REAL page:
+
+/seller/products/new
+
+inside the actual marketplace.
+
+---
+
+CRITICAL RULES
+
+1. Do NOT create any new route.
+2. Do NOT create any debug page.
+3. Do NOT create any verification component.
+4. Do NOT create temporary screenshots pages.
+5. Do NOT test Toggle in isolation.
+6. Do NOT claim success based on theory.
+7. Do NOT claim success based on code review.
+8. Do NOT claim success based on synthetic test pages.
+
+Only the real page matters.
+
+---
+
+REQUIRED WORKFLOW
+
+Step 1
+
+Login using the real seller account.
+
+Step 2
+
+Navigate to:
+
+Seller Dashboard
+→ Products
+→ Add Product
+
+Real page:
+
+/seller/products/new
+
+Step 3
+
+Switch language to Arabic.
+
+Step 4
+
+Enable variants.
+
+Step 5
+
+Create actual groups:
+
+Color
+Size
+
+Step 6
+
+Interact with ALL real toggles:
+
+A) Main "Product Variants" toggle
+
+B) Group enable toggle
+
+C) Combination active toggle
+
+D) Any nested variant toggle
+
+---
+
+WHAT MUST BE VERIFIED
+
+For every toggle:
+
+OFF state:
+
+* thumb fully inside track
+* thumb not clipped
+* thumb not outside border
+* thumb not overlapping text
+* thumb not floating above track
+
+ON state:
+
+* thumb fully inside track
+* thumb not clipped
+* thumb not outside border
+* thumb not overlapping text
+* thumb not floating above track
+
+---
+
+RTL REQUIREMENTS
+
+Arabic RTL must behave naturally.
+
+Visual expectations:
+
+# OFF
+
+thumb on the LEFT side of the track
+
+# ON
+
+thumb on the RIGHT side of the track
+
+This must match common marketplace behaviour.
+
+If current implementation does the opposite,
+fix it.
+
+---
+
+KNOWN USER REPORT
+
+User still reports:
+
+1. Main "Product Variants" toggle thumb escaping track.
+
+2. RTL toggle direction feels reversed.
+
+Therefore:
+
+Do NOT assume previous fix worked.
+
+Reproduce the issue on the real page first.
+
+---
+
+ROOT CAUSE INVESTIGATION
+
+Before changing code:
+
+1. Inspect actual rendered DOM.
+2. Inspect computed styles.
+3. Inspect parent containers.
+4. Inspect overflow rules.
+5. Inspect flex direction.
+6. Inspect RTL direction.
+7. Inspect absolute positioning.
+8. Inspect transforms.
+
+Find the REAL cause.
+
+---
+
+AFTER FIX
+
+Repeat the full workflow:
+
+Arabic
+RTL
+Real page
+
+Test:
+
+OFF → ON
+ON → OFF
+
+for every toggle.
+
+---
+
+SUCCESS CRITERIA
+
+Do NOT stop until ALL are true:
+
+✓ Main variants toggle fixed
+
+✓ Group toggles fixed
+
+✓ Combination toggles fixed
+
+✓ Thumb never escapes track
+
+✓ Thumb never overlaps label
+
+✓ Arabic RTL correct
+
+✓ English LTR correct
+
+✓ Mobile works
+
+✓ Desktop works
+
+✓ No temporary pages remain
+
+✓ No debug routes remain
+
+✓ No verification routes remain
+
+✓ TypeScript clean
+
+✓ Marketplace still builds
+
+---
+
+FINAL REPORT REQUIRED
+
+Provide:
+
+1. Exact root cause found.
+2. Exact files changed.
+3. Exact code changed.
+4. Real page tested.
+5. Arabic tested.
+6. English tested.
+7. Mobile tested.
+8. Desktop tested.
+9. Confirmation that no temporary routes/pages remain.
+
+Do not report success until the real seller page confirms it visually.

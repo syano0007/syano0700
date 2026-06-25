@@ -1,0 +1,426 @@
+You are upgrading the existing SYANO recovery system.
+
+Current state:
+
+* Recovery endpoint already exists:
+  GET /api/admin/recovery-check
+* Current recovery confidence score reaches 100/100
+* Recovery currently validates:
+
+  * DB tables
+  * notification enums
+  * bootstrap accounts
+  * translations
+  * Trust System
+  * Seller Analytics
+
+This is NOT enough anymore.
+
+Your task is to transform recovery-check into a complete platform integrity verification system.
+
+This is a production-grade marketplace.
+
+Do NOT create fake checks.
+Do NOT return hardcoded values.
+Every validation must verify real platform state.
+
+---
+
+# PRIMARY GOAL
+
+After any:
+
+* migration
+* restore
+* deployment
+* project transfer
+* database reset
+* environment rebuild
+
+An admin must be able to call:
+
+GET /api/admin/recovery-check
+
+and know with high confidence whether the entire marketplace is healthy.
+
+---
+
+# REQUIREMENTS
+
+The endpoint must perform REAL validation.
+
+No placeholder checks.
+
+No mocked checks.
+
+No hardcoded "true".
+
+Every check must verify actual platform state.
+
+---
+
+# SECTION 1 — CORE PLATFORM
+
+Validate:
+
+* API health
+* database connection
+* migrations applied
+* table count
+* notification enums
+* order status enums
+* delivery zones
+* root owner
+* bootstrap accounts
+
+Required accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Verify:
+
+* account exists
+* role correct
+* seller application exists
+* courier profile exists
+* verified state correct
+
+---
+
+# SECTION 2 — MARKETPLACE SYSTEM
+
+Validate:
+
+* categories load
+* product listing loads
+* product details route works
+* store page route works
+* search route works
+* recently viewed feature exists
+* review system exists
+* store follow system exists
+
+---
+
+# SECTION 3 — SELLER SYSTEM
+
+Validate:
+
+Seller Dashboard
+
+Seller Products
+
+Seller Store Settings
+
+Seller Orders V2
+
+Seller Analytics V2
+
+Product Wizard
+
+Variant Builder
+
+Inventory System
+
+Messaging System
+
+Trust System Integration
+
+Verify actual routes and actual backend dependencies.
+
+---
+
+# SECTION 4 — COURIER SYSTEM
+
+Validate:
+
+Courier Dashboard
+
+Courier Earnings
+
+Courier Wallet
+
+Courier History
+
+Courier Assignments
+
+Courier Profile
+
+Delivery Workflow
+
+Assignment System
+
+---
+
+# SECTION 5 — ORDER SYSTEM
+
+Validate:
+
+Checkout
+
+Order Creation
+
+Order Status History
+
+Delivery Fee Calculation
+
+Tracking System
+
+Refund Flow
+
+Courier Assignment Flow
+
+Order Timeline
+
+---
+
+# SECTION 6 — TRUST SYSTEM V1
+
+Validate:
+
+Trust score calculation
+
+Verification system
+
+Verification removal
+
+Verification logs
+
+Leaderboard
+
+Store badge rendering
+
+Trust API endpoints
+
+---
+
+# SECTION 7 — NOTIFICATION SYSTEM
+
+Validate:
+
+notification_type enum count
+
+Expected count:
+31
+
+Validate:
+
+* notification table
+* notification routes
+* SSE integration
+* notification creation
+
+---
+
+# SECTION 8 — TRANSLATIONS
+
+Validate:
+
+EN keys count
+
+AR keys count
+
+Verify:
+
+* exact parity
+* no missing keys
+* no orphan keys
+
+Return missing keys list if any exist.
+
+---
+
+# SECTION 9 — RESPONSIVE AUDIT
+
+Automatically scan:
+
+Admin pages
+
+Seller pages
+
+Courier pages
+
+Analytics pages
+
+Orders pages
+
+Detect:
+
+* text-left/text-right misuse
+* overflow-hidden tables
+* RTL-breaking layouts
+* mobile overflow issues
+
+Report every problem found.
+
+---
+
+# SECTION 10 — MOBILE APP
+
+Validate:
+
+Mobile auth
+
+Mobile orders
+
+Mobile tracking
+
+Mobile product page
+
+Mobile store page
+
+Mobile courier flows
+
+Detect broken routes.
+
+---
+
+# SECTION 11 — SECURITY
+
+Validate:
+
+Admin route protection
+
+Seller route protection
+
+Courier route protection
+
+Customer route protection
+
+Guest protection
+
+Cross-role access tests.
+
+Return failures.
+
+---
+
+# SECTION 12 — ANALYTICS
+
+Validate:
+
+Seller Analytics Summary endpoint
+
+Revenue Chart endpoint
+
+KPI endpoint
+
+Verify real data shape.
+
+Detect broken queries.
+
+---
+
+# SECTION 13 — RECOVERY SAFETY
+
+Validate:
+
+bootstrapRootAdmin()
+
+bootstrapTestAccounts()
+
+Enum auto-repair
+
+Migration auto-repair
+
+Self-healing mechanisms
+
+Verify they still work.
+
+---
+
+# OUTPUT FORMAT
+
+Return:
+
+{
+confidenceScore: number,
+confidenceOk: boolean,
+
+modules: {
+corePlatform: boolean,
+marketplace: boolean,
+sellerSystem: boolean,
+courierSystem: boolean,
+orderSystem: boolean,
+trustSystem: boolean,
+notifications: boolean,
+translations: boolean,
+responsive: boolean,
+mobile: boolean,
+security: boolean,
+analytics: boolean,
+recovery: boolean
+},
+
+failures: [],
+warnings: [],
+deductions: [],
+recommendations: []
+}
+
+---
+
+# CONFIDENCE RULES
+
+# 100
+
+Everything passes.
+
+# 95-99
+
+Minor warnings only.
+
+# 90-94
+
+Recoverable issues.
+
+# Below 90
+
+Platform not deployment-safe.
+
+---
+
+# DOCUMENTATION
+
+After implementation update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+Document:
+
+* every new validation
+* confidence scoring logic
+* module coverage
+* recovery guarantees
+
+---
+
+# FINAL RULE
+
+Do not stop after implementation.
+
+Run the endpoint.
+
+Verify all modules.
+
+Fix every discovered issue.
+
+Run again.
+
+Repeat until confidence score reaches maximum possible value and all failures are resolved.

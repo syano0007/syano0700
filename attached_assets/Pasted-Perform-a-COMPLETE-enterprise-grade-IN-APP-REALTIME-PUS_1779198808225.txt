@@ -1,0 +1,330 @@
+Perform a COMPLETE enterprise-grade IN-APP REALTIME PUSH NOTIFICATION EXPERIENCE transformation across the entire Syano marketplace platform. The goal is to make Syano feel like a modern native ecommerce application where users receive instant live notifications directly inside the website on both desktop and mobile devices.
+
+IMPORTANT:
+This is NOT about browser notifications outside the website.
+This is NOT basic toast messages.
+
+The goal is to build a PREMIUM IN-SITE realtime notification experience similar to:
+- Amazon
+- Facebook
+- Instagram
+- Discord
+- Shopify
+- modern native apps
+
+Users must feel that the marketplace is:
+- alive
+- realtime
+- responsive
+- interactive
+- modern
+- premium
+
+==================================================
+CORE OBJECTIVE
+==================================================
+
+Create a FULL realtime in-app notification ecosystem where:
+- notifications appear instantly INSIDE the website
+- users see updates immediately while browsing
+- desktop and mobile both work flawlessly
+- the site feels like a realtime native app
+
+Notifications must work for:
+- customers
+- sellers
+- admins
+
+==================================================
+LIVE IN-APP NOTIFICATION SYSTEM
+==================================================
+
+Implement realtime in-site push notifications.
+
+Requirements:
+- notifications appear instantly without refresh
+- realtime unread count updates
+- smooth live notification animations
+- instant dropdown updates
+- live notification synchronization
+- persistent notification history
+
+The system must feel:
+- smooth
+- modern
+- responsive
+- app-like
+
+==================================================
+NOTIFICATION DELIVERY UX
+==================================================
+
+When important events happen:
+- show elegant in-app popup/toast notifications
+- update notification center instantly
+- update unread badge immediately
+- animate smoothly without disturbing UX
+
+Examples:
+- new order received
+- order accepted/rejected
+- order status changed
+- seller approved/rejected
+- product approved/rejected
+- admin moderation events
+- support replies
+- refund updates
+- low stock alerts
+
+==================================================
+NOTIFICATION CENTER
+==================================================
+
+Build a premium notification center experience.
+
+Requirements:
+- live unread counter
+- categorized notifications
+- grouped notifications
+- timestamps
+- read/unread states
+- mark as read
+- mark all as read
+- smooth infinite scrolling if needed
+- responsive mobile behavior
+- clean modern design
+
+Notification center must feel:
+- premium
+- elegant
+- lightweight
+- modern
+
+==================================================
+REALTIME MOBILE EXPERIENCE
+==================================================
+
+Mobile experience is CRITICAL.
+
+Notifications must behave like a premium native mobile app.
+
+Requirements:
+- smooth mobile popup notifications
+- responsive notification drawer
+- thumb-friendly interactions
+- smooth animations
+- lightweight rendering
+- no lag on low-end Android devices
+- optimized weak internet behavior
+
+Ensure:
+- notifications never block usability
+- notifications feel smooth and modern
+- mobile UI remains uncluttered
+
+==================================================
+DESKTOP EXPERIENCE
+==================================================
+
+Desktop experience must feel professional and modern.
+
+Requirements:
+- elegant notification dropdown
+- smooth realtime updates
+- animated unread badges
+- proper positioning
+- non-intrusive live popups
+- responsive resizing
+
+==================================================
+NOTIFICATION TYPES
+==================================================
+
+Support different notification styles:
+- success
+- warning
+- error
+- informational
+- critical alerts
+
+Each type must have:
+- proper iconography
+- visual hierarchy
+- professional styling
+
+==================================================
+ORDER FLOW NOTIFICATIONS
+==================================================
+
+Build a COMPLETE realtime order communication flow.
+
+Example:
+1. Customer places order
+→ Seller instantly sees live in-app notification
+
+2. Seller accepts/rejects order
+→ Customer instantly notified inside website
+
+3. Seller changes order status
+→ Customer instantly sees update
+
+4. Admin actions/moderation
+→ Relevant users notified instantly
+
+Everything must feel seamless and realtime.
+
+==================================================
+SELLER VERIFICATION FLOW
+==================================================
+
+Implement realtime seller onboarding notifications.
+
+Examples:
+- seller submits verification request
+→ admin instantly notified
+
+- admin approves/rejects seller
+→ seller instantly notified
+
+- moderation updates
+→ seller notified immediately
+
+==================================================
+ADMIN LIVE MONITORING
+==================================================
+
+Admin dashboard must feel like a live control center.
+
+Admins must instantly receive notifications for:
+- new seller requests
+- reported products
+- support escalations
+- suspicious activity
+- new orders
+- moderation queues
+- refund requests
+
+==================================================
+ANIMATION & MICROINTERACTIONS
+==================================================
+
+Notification interactions must feel premium.
+
+Requirements:
+- smooth appearance/disappearance
+- subtle animations
+- lightweight transitions
+- premium hover states
+- responsive interactions
+- modern microanimations
+
+Avoid:
+- heavy animations
+- laggy transitions
+- intrusive popups
+- visual clutter
+
+==================================================
+PERFORMANCE OPTIMIZATION
+==================================================
+
+The realtime system must remain extremely lightweight.
+
+Optimize:
+- websocket/realtime subscriptions
+- event listeners
+- rerenders
+- memory usage
+- notification rendering
+- mobile performance
+
+Ensure:
+- no memory leaks
+- no duplicate listeners
+- no lag spikes
+- smooth realtime updates
+
+==================================================
+SMART NOTIFICATION BEHAVIOR
+==================================================
+
+Implement intelligent behavior:
+- prevent duplicate spam notifications
+- collapse repetitive events if needed
+- auto-hide less important popups
+- prioritize critical events
+- maintain smooth UX during heavy activity
+
+==================================================
+MULTILINGUAL SUPPORT
+==================================================
+
+Ensure FULL support for:
+- Arabic RTL
+- English LTR
+
+Requirements:
+- proper Arabic notification wording
+- localized timestamps
+- correct RTL alignment
+- clean multilingual rendering
+
+==================================================
+RESPONSIVE & DEVICE TESTING
+==================================================
+
+Thoroughly test notifications on:
+- Android phones
+- iPhones
+- tablets
+- desktop monitors
+- weak internet connections
+- low-end devices
+
+Ensure:
+- smooth rendering
+- correct positioning
+- no overlap issues
+- no clipping
+- no broken layouts
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically scan and fix:
+- missing notifications
+- broken realtime updates
+- stale unread counters
+- duplicated notifications
+- mobile rendering issues
+- z-index conflicts
+- overflow issues
+- performance bottlenecks
+- RTL notification bugs
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test ALL notification flows
+- test realtime updates
+- test order lifecycle notifications
+- test seller verification notifications
+- test admin notifications
+- test mobile notification UX
+- test desktop notification UX
+- test Arabic RTL rendering
+- test weak internet behavior
+- verify no duplicate notifications
+- verify unread counters update correctly
+- verify smooth animations
+- verify no console errors exist
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium realtime ecommerce platform
+- a native-app-like marketplace
+- a modern live communication ecosystem
+- highly polished and responsive
+- enterprise-grade and production-ready

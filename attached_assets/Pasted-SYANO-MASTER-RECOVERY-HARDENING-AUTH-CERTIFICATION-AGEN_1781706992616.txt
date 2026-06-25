@@ -1,0 +1,401 @@
+SYANO — MASTER RECOVERY HARDENING, AUTH CERTIFICATION & AGENT BOOTSTRAP SYSTEM
+
+CRITICAL INSTRUCTION
+
+You are NOT starting a new project.
+
+You are taking over an existing production-grade marketplace project.
+
+Do NOT rebuild anything.
+
+Do NOT redesign anything.
+
+Do NOT perform exploratory development.
+
+Your mission is to:
+
+1. Recover actual project state.
+2. Fix Mobile Authentication failure.
+3. Create a permanent Agent Recovery System.
+4. Update all recovery documentation.
+5. Make future Replit Agent imports recover instantly with minimal credits.
+
+====================================================
+PHASE 0 — MANDATORY RECOVERY
+============================
+
+Read completely:
+
+* replit.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+
+Then compare documentation against:
+
+* actual code
+* actual database
+* actual services
+
+Trust actual implementation over documentation.
+
+====================================================
+PHASE 1 — CREATE SINGLE SOURCE OF TRUTH
+=======================================
+
+Create:
+
+/AGENT_BOOTSTRAP.md
+
+Purpose:
+
+This file must become the FIRST recovery file any future Replit Agent reads.
+
+It must contain:
+
+---
+
+PROJECT IDENTITY
+
+* Project name
+* Architecture overview
+* Marketplace structure
+
+---
+
+CURRENT VERIFIED STATE
+
+* API status
+* Mobile status
+* Database status
+* Search status
+* Messaging status
+* AI Support status
+* Courier status
+
+---
+
+COURIER SYSTEM
+
+Courier V3.3
+
+Status:
+
+COMPLETE
+
+Architecture:
+
+Order
+↓
+DeliveryMission
+↓
+Courier
+
+Never rebuild.
+
+Extend only.
+
+Document:
+
+* mission_offers
+* dispatch_alerts
+* delivery_missions
+* Haversine sorting
+* BUSY/ONLINE sync
+* automatic restore
+* race condition protection
+
+---
+
+SEARCH SYSTEM
+
+Document current verified implementation.
+
+---
+
+MOBILE STATUS
+
+Document actual parity status.
+
+Do NOT copy old percentages.
+
+Verify first.
+
+---
+
+KNOWN COMPLETED SYSTEMS
+
+List every completed system.
+
+---
+
+KNOWN REMAINING GAPS
+
+Only verified gaps.
+
+---
+
+FIRST ACTION FOR FUTURE AGENTS
+
+Exact recovery procedure.
+
+====================================================
+PHASE 2 — FORCE FUTURE AGENTS TO READ IT
+========================================
+
+Update:
+
+replit.md
+
+Insert at TOP OF FILE:
+
+# MANDATORY AGENT STARTUP
+
+STOP.
+
+Before running ANY recovery,
+analysis,
+planning,
+implementation,
+testing,
+or project discovery:
+
+READ:
+
+./AGENT_BOOTSTRAP.md
+
+This file is the authoritative recovery source.
+
+Do NOT infer project state from code alone.
+
+Do NOT start project discovery before reading it.
+
+Then continue with recovery.
+
+====================================================
+PHASE 3 — AUTH ROOT CAUSE ANALYSIS
+==================================
+
+Current bug:
+
+Mobile login and registration fail.
+
+UI loads correctly.
+
+User receives generic error.
+
+Determine exact root cause.
+
+Do NOT guess.
+
+Trace:
+
+Screen
+↓
+Validation
+↓
+API client
+↓
+Network
+↓
+Endpoint
+↓
+Auth service
+↓
+Database
+↓
+Token generation
+↓
+Response
+↓
+Storage
+↓
+Navigation
+
+====================================================
+PHASE 4 — API CERTIFICATION
+===========================
+
+Verify:
+
+GET /api/healthz
+
+Expected:
+
+{
+"status": "ok"
+}
+
+Verify all auth endpoints.
+
+Verify actual payloads.
+
+Verify actual responses.
+
+====================================================
+PHASE 5 — DATABASE CERTIFICATION
+================================
+
+Verify:
+
+users table
+
+Check:
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Determine:
+
+* exists
+* missing
+* disabled
+* password issue
+* role issue
+
+Provide evidence.
+
+====================================================
+PHASE 6 — MOBILE NETWORK CERTIFICATION
+======================================
+
+Audit:
+
+artifacts/mobile
+
+Verify:
+
+* API URL
+* environment configuration
+* Expo networking
+* production URL
+* development URL
+
+Confirm requests reach backend.
+
+====================================================
+PHASE 7 — FIX ONLY VERIFIED ROOT CAUSE
+======================================
+
+Fix ONLY the actual cause.
+
+No rewrites.
+
+No auth redesign.
+
+No schema destruction.
+
+No API breaking changes.
+
+====================================================
+PHASE 8 — MOBILE PARITY RE-CERTIFICATION
+========================================
+
+Do NOT trust old parity reports.
+
+Perform fresh audit.
+
+Compare:
+
+WEB
+vs
+MOBILE
+
+Customer
+Seller
+Courier
+Admin
+
+Report only real gaps.
+
+====================================================
+PHASE 9 — TYPESCRIPT CERTIFICATION
+==================================
+
+Run:
+
+npx tsc --noEmit
+
+Across all packages.
+
+Target:
+
+0 errors.
+
+====================================================
+PHASE 10 — SERVICE CERTIFICATION
+================================
+
+Verify:
+
+API
+Marketplace
+Mobile
+Database
+Embedding Service
+
+Verify actual running state.
+
+====================================================
+PHASE 11 — UPDATE ALL RECOVERY FILES
+====================================
+
+ONLY AFTER SUCCESSFUL VERIFICATION
+
+Update:
+
+* AGENT_BOOTSTRAP.md
+* replit.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+
+Ensure consistency.
+
+====================================================
+PHASE 12 — FUTURE AGENT OPTIMIZATION
+====================================
+
+Goal:
+
+A newly imported Replit Agent must be able to understand:
+
+* project architecture
+* completed systems
+* current priorities
+* courier architecture
+* mobile parity status
+* recovery procedure
+
+WITHOUT spending credits rediscovering the project.
+
+Minimize future recovery cost.
+
+====================================================
+FINAL REQUIRED REPORT
+=====================
+
+Return:
+
+1. Current Verified State
+2. Auth Root Cause
+3. Files Modified
+4. API Status
+5. Database Status
+6. Mobile Status
+7. TypeScript Status
+8. Remaining Verified Gaps
+9. Recovery Documentation Status
+10. AGENT_BOOTSTRAP.md Summary
+11. Future Agent Recovery Readiness Status
+
+Do not stop until all phases are completed and documented.

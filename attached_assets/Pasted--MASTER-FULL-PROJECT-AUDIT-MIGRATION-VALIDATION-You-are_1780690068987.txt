@@ -1,0 +1,477 @@
+# MASTER FULL PROJECT AUDIT & MIGRATION VALIDATION
+
+You are a Principal Software Engineer, DevOps Engineer, Security Auditor, QA Lead, Database Administrator, and Production Deployment Specialist.
+
+You are performing a COMPLETE POST-MIGRATION AUDIT of this entire project after it was transferred to a new Replit account.
+
+Your objective is NOT to simply build the project.
+Your objective is to verify that the application is production-ready and that NOTHING was lost or broken during the migration.
+
+Assume that hidden configuration errors may exist.
+
+---
+
+## PROJECT CONTEXT
+
+This is a pnpm workspace monorepo.
+
+Technology stack:
+
+* Node.js 24
+* pnpm workspaces
+* TypeScript
+* Express 5 API
+* React + Vite frontend
+* Expo React Native mobile app
+* Drizzle ORM
+* PostgreSQL
+* JWT Authentication
+* Resend Email Verification
+* Twilio SMS Verification
+* Web Push Notifications
+* OpenAPI Code Generation
+* Multiple Replit Workflows
+
+Project structure:
+
+artifacts/api-server/
+artifacts/marketplace/
+artifacts/mobile/
+artifacts/mockup-sandbox/
+
+lib/api-client-react/
+api-spec/
+api-zod/
+db/
+scripts/
+
+---
+
+# PHASE 1 — REPOSITORY VALIDATION
+
+Inspect the entire repository.
+
+Verify:
+
+* pnpm-workspace.yaml
+* package.json files
+* tsconfig files
+* workspace references
+* generated libraries
+* build scripts
+* code generation scripts
+* shared packages
+* import paths
+* aliases
+* symlinks
+* lockfile consistency
+
+Detect:
+
+* missing files
+* broken imports
+* duplicate packages
+* dependency conflicts
+* invalid package versions
+* unused packages
+
+Generate a complete report.
+
+---
+
+# PHASE 2 — ENVIRONMENT VARIABLES AUDIT
+
+Scan the entire codebase.
+
+Extract EVERY environment variable used anywhere.
+
+Compare against existing secrets.
+
+Create a table:
+
+Variable Name
+Required (Yes/No)
+Found (Yes/No)
+Used In
+Purpose
+Risk Level
+
+Identify:
+
+* missing secrets
+* obsolete secrets
+* duplicate secrets
+* misspelled variables
+* hardcoded credentials
+* values that should be rotated
+
+Pay special attention to:
+
+DATABASE_URL
+SESSION_SECRET
+RESEND_API_KEY
+FROM_EMAIL
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_FROM_PHONE
+TWILIO_VERIFY_SERVICE_SID
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+REPLIT_DEV_DOMAIN
+REPLIT_EXPO_DEV_DOMAIN
+REPL_ID
+
+---
+
+# PHASE 3 — DATABASE AUDIT
+
+Verify:
+
+* database connectivity
+* DATABASE_URL
+* Drizzle configuration
+* schema integrity
+* migrations
+* foreign keys
+* indexes
+* constraints
+* enum consistency
+* seed data
+* admin account
+
+Check for:
+
+* missing tables
+* orphaned records
+* invalid foreign keys
+* migration drift
+* schema mismatch
+
+Attempt safe read-only validation queries.
+
+Report every issue.
+
+---
+
+# PHASE 4 — AUTHENTICATION SYSTEM
+
+Audit completely:
+
+* registration
+* login
+* logout
+* JWT creation
+* JWT validation
+* auth middleware
+* protected routes
+* password hashing
+* email verification
+* phone verification
+* OTP generation
+* OTP expiration
+* password reset
+* session expiration
+
+Detect:
+
+* authentication bypasses
+* insecure JWT configuration
+* weak secrets
+* missing validation
+* privilege escalation risks
+
+---
+
+# PHASE 5 — API VALIDATION
+
+Build and inspect the API.
+
+Discover every route automatically.
+
+Verify:
+
+* GET endpoints
+* POST endpoints
+* PATCH endpoints
+* DELETE endpoints
+
+Compare routes against OpenAPI.
+
+Detect:
+
+* undocumented endpoints
+* broken endpoints
+* HTTP 500 errors
+* invalid validation schemas
+* serialization issues
+
+Generate a list of all failing endpoints.
+
+---
+
+# PHASE 6 — FRONTEND AUDIT
+
+Build marketplace application.
+
+Verify:
+
+* routing
+* API communication
+* environment variables
+* assets
+* images
+* lazy imports
+* dynamic imports
+* TypeScript errors
+* hydration issues
+* React warnings
+
+Detect:
+
+* broken pages
+* missing assets
+* failed requests
+* console errors
+
+---
+
+# PHASE 7 — MOBILE APPLICATION AUDIT
+
+Inspect Expo project.
+
+Verify:
+
+* Expo configuration
+* Metro bundler
+* API base URL
+* REPLIT_DEV_DOMAIN
+* REPLIT_EXPO_DEV_DOMAIN
+* EXPO_PUBLIC_REPL_ID
+* permissions
+* push notification setup
+
+Detect:
+
+* unsupported dependencies
+* invalid native modules
+* build failures
+
+---
+
+# PHASE 8 — EMAIL / SMS / PUSH
+
+Verify:
+
+Email:
+
+* Resend API
+* verified sender
+* OTP emails
+
+SMS:
+
+* Twilio credentials
+* Verify Service
+* SMS sending
+
+Push:
+
+* VAPID keys
+* subscriptions
+* push delivery
+
+State exactly which services can work and which cannot.
+
+---
+
+# PHASE 9 — STORAGE & FILES
+
+Verify:
+
+* upload folders
+* image storage
+* static assets
+* public directory
+* permissions
+* generated files
+* sitemap generation
+
+Detect missing or inaccessible files.
+
+---
+
+# PHASE 10 — REPLIT MIGRATION CHECK
+
+Assume this project was moved between Replit accounts.
+
+Verify specifically:
+
+* workflows
+* ports
+* BASE_PATH values
+* Replit plugins
+* Replit database integration
+* secret migration
+* deployment settings
+* environment synchronization
+
+Find anything that commonly breaks after migration.
+
+---
+
+# PHASE 11 — SECURITY AUDIT
+
+Scan entire project for:
+
+* exposed secrets
+* SQL injection risks
+* XSS risks
+* CSRF risks
+* unsafe file uploads
+* weak JWT configuration
+* missing rate limiting
+* missing CORS protections
+* insecure cookies
+* unsafe headers
+* dangerous dependencies
+
+Assign severity:
+
+CRITICAL
+HIGH
+MEDIUM
+LOW
+
+---
+
+# PHASE 12 — BUILD & DEPLOYMENT
+
+Validate:
+
+pnpm install
+
+pnpm run typecheck
+
+pnpm run build
+
+API build
+
+Frontend build
+
+Mobile build
+
+OpenAPI generation
+
+Zod generation
+
+Sitemap generation
+
+Admin seed
+
+List every failing command.
+
+---
+
+# PHASE 13 — DEAD CODE & CLEANUP
+
+Find:
+
+* unused files
+* unused components
+* unused APIs
+* unused environment variables
+* duplicate code
+* legacy Replit configs
+* unreachable routes
+
+Estimate cleanup opportunities.
+
+---
+
+# PHASE 14 — FINAL REPORT
+
+Generate a professional production audit.
+
+Include:
+
+## Overall Status
+
+✅ Fully Ready
+
+⚠ Needs Minor Fixes
+
+❌ Not Production Ready
+
+---
+
+## Overall Health Score
+
+0-100
+
+---
+
+## Migration Success Score
+
+0-100
+
+---
+
+## Critical Issues
+
+(Numbered list)
+
+---
+
+## High Priority Issues
+
+(Numbered list)
+
+---
+
+## Medium Priority Issues
+
+(Numbered list)
+
+---
+
+## Low Priority Issues
+
+(Numbered list)
+
+---
+
+## Missing Environment Variables
+
+(Table)
+
+---
+
+## Broken API Endpoints
+
+(Table)
+
+---
+
+## Database Problems
+
+(Table)
+
+---
+
+## Security Risks
+
+(Table with severity)
+
+---
+
+## Manual Fix Checklist
+
+Create a step-by-step checklist that I can complete before deployment.
+
+---
+
+Do NOT stop after the first error.
+
+Continue until the ENTIRE project has been audited.
+
+Act exactly like a senior engineering team performing a final production readiness review for a large commercial application.

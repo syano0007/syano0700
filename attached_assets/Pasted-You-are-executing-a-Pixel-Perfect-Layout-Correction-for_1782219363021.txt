@@ -1,0 +1,46 @@
+You are executing a Pixel-Perfect Layout Correction for the Homepage Grid Cards based on the structural gap between current implementation ("Screenshot (460).jpg") and target reference ("Screenshot (457).jpg").
+
+Current Visual Bugs to Fix:
+- Images inside the 2x2 grid are stretched or unevenly cropped.
+- Text labels below mini-quadrants are cramped and lack structural vertical margins.
+- The 4 master white cards have uneven heights and lack the premium floating look over the banner baseline.
+
+==================================================
+GOAL
+==================================================
+Enforce absolute visual uniformity, proportional image geometry, and aligned baselines across all 4 master section cards to exactly mirror the premium Amazon deck aesthetic.
+
+==================================================
+PART 1 — MASTER CARD HOUSING UNIFICATION
+==================================================
+- Target the outer grid container containing the 4 white cards:
+  * Apply a stronger negative top margin to create a distinct overlap over the hero slider: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-4 md:px-8 -mt-16 relative z-10`.
+- Target the 4 master white card components (`bg-white` shells):
+  * Set a strict unified height boundary across desktop viewports to ensure clean grid locking: `h-[440px] flex flex-col justify-between p-5 bg-white rounded-md shadow-sm border border-gray-100/60`.
+
+==================================================
+PART 2 — INNER $2 \times 2$ QUADRANT AND IMAGE GEOMETRY FIX
+==================================================
+- Inside each master white card, configure the 4-item internal grid wrapper:
+  * Layout: `grid grid-cols-2 gap-x-3 gap-y-4 w-full flex-grow content-start mt-2`.
+- Target individual quadrant item containers (the wrapper for each image + label):
+  * Ensure each quadrant handles its contents in a neat column alignment (`flex flex-col text-right`).
+- Target the mini-quadrant images:
+  * Force an ironclad aspect-ratio constraint: `w-full aspect-square object-cover rounded-md bg-neutral-50`. This prevents any image stretching or vertical distortion regardless of original file source sizing.
+- Target the micro-text labels under each quadrant image:
+  * Style configuration: `text-[12px] font-medium text-neutral-700 mt-1.5 line-clamp-1 block text-right pr-0.5`. This gives breathing whitespace between the square image base and the start of the font tracking line.
+
+==================================================
+PART 3 — BASELINE "SHOP NOW" ANCHORING
+==================================================
+- Force the bottom action hyperlink ("تسوق الآن" / "شاهد جميع العروض") to pin itself strictly to the bottom margin row of the master card:
+  * Style configuration: `text-xs font-semibold text-teal-600 hover:text-teal-700 pt-3 border-t border-gray-50 text-right mt-auto block cursor-pointer transition-colors`.
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ All 4 master white layout boxes match in height perfectly on the desktop fold layout.
+✓ Every internal sub-image is a crisp, perfect un-distorted mathematical square (`aspect-square`).
+✓ Text labels under the sub-images have appropriate padding layout separation.
+✓ Frontend TypeScript compilation = 0 errors across all directories.

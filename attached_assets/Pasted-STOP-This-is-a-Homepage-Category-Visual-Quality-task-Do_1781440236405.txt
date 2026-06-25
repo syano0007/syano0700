@@ -1,0 +1,230 @@
+STOP.
+
+This is a Homepage Category Visual Quality task.
+
+Do NOT redesign the homepage.
+
+Do NOT change category layout.
+
+Do NOT change category card sizing.
+
+Do NOT change spacing.
+
+Only improve category imagery and visual quality.
+
+---
+
+# TARGET
+
+Homepage
+
+Popular Categories section
+
+All category cards.
+
+---
+
+# CURRENT PROBLEM
+
+The current category images do not properly match their category names.
+
+Some images feel generic.
+
+Some images are too dark.
+
+Some images lose visibility in Light Theme.
+
+The section does not feel premium enough.
+
+---
+
+# GOAL
+
+Each category should immediately communicate what it represents.
+
+The image should match the category title at first glance.
+
+The section should look premium in BOTH:
+
+* Dark Theme
+* Light Theme
+
+---
+
+# IMAGE REPLACEMENT RULES
+
+Replace category images with high-quality category-specific imagery.
+
+Use images that clearly represent the category.
+
+Avoid abstract imagery.
+
+Avoid generic stock photos.
+
+Avoid dark imagery.
+
+Prefer bright, clean imagery.
+
+Prefer light backgrounds whenever possible.
+
+---
+
+# CATEGORY IMAGE GUIDELINES
+
+Electronics
+
+* modern devices
+* phones
+* laptops
+* gadgets
+
+Fashion
+
+* clothing
+* fashion products
+* bright lifestyle imagery
+
+Home & Living
+
+* modern interiors
+* furniture
+* home decoration
+
+Beauty
+
+* skincare
+* cosmetics
+* premium beauty products
+
+Sports & Fitness
+
+* sports equipment
+* fitness gear
+
+Jewelry
+
+* premium jewelry
+* watches
+* luxury accessories
+
+Books
+
+* bookshelves
+* books
+* reading environments
+
+Food & Grocery
+
+* groceries
+* fresh food
+* bright kitchen imagery
+
+---
+
+# LIGHT THEME PRIORITY
+
+This is critical.
+
+Images must remain clear in Light Theme.
+
+Avoid:
+
+* dark scenes
+* black backgrounds
+* heavy shadows
+* low exposure photography
+
+Prefer:
+
+* bright scenes
+* white backgrounds
+* neutral backgrounds
+* high clarity
+
+The category images should feel natural in Light Theme.
+
+---
+
+# DARK THEME COMPATIBILITY
+
+Images must still look good in Dark Theme.
+
+Use subtle overlays only if needed.
+
+Do NOT darken images aggressively.
+
+Avoid the old "dusty" effect.
+
+---
+
+# VISUAL CONSISTENCY
+
+All category cards should feel like they belong to the same visual system.
+
+Ensure:
+
+* similar image quality
+* similar exposure
+* similar brightness
+* similar visual style
+
+No category should look dramatically darker than another.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Every category image matches its category name
+
+✅ Images are clearly visible in Light Theme
+
+✅ Images are clearly visible in Dark Theme
+
+✅ No dusty appearance
+
+✅ No overly dark images
+
+✅ No generic stock-image feeling
+
+✅ Visual consistency across all categories
+
+---
+
+# RECOVERY DOCUMENTATION
+
+After completion:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* Homepage architecture documentation
+* Recovery audit files
+
+Document:
+
+* category image improvements
+* image source strategy
+* theme compatibility improvements
+
+Ensure recovery files reflect the new final state.
+
+---
+
+# FINAL CHECK
+
+Do not finish until:
+
+✅ Category imagery matches category names
+
+✅ Light Theme looks clean
+
+✅ Dark Theme looks clean
+
+✅ Recovery files updated
+
+✅ Documentation updated
+
+✅ No regressions introduced

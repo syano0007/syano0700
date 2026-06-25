@@ -1,0 +1,314 @@
+POST-MIGRATION INFRASTRUCTURE AUDIT — SYANO
+
+The project has been migrated to a different Replit account.
+
+Do NOT assume anything works.
+
+Perform a complete end-to-end verification of the entire SYANO production stack.
+
+---
+
+# PHASE 1 — WORKFLOW AUDIT
+
+Inspect all workflows.
+
+Verify:
+
+* No duplicate workflows
+* No temporary workflows
+* No copied workflows
+* No abandoned workflows
+
+Only these permanent workflows should exist:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+Report:
+
+* workflow name
+* status
+* command
+* port
+
+---
+
+# PHASE 2 — SERVICE HEALTH
+
+Verify all services actually run.
+
+API Server:
+
+* starts correctly
+* port 8080
+* no startup errors
+
+Marketplace:
+
+* loads correctly
+* no console errors
+* no build warnings
+
+Embedding Service:
+
+* starts correctly
+* port 8000
+* model loads correctly
+
+Database:
+
+* connected
+* migrations applied
+
+---
+
+# PHASE 3 — ENVIRONMENT VARIABLES
+
+Audit all required secrets.
+
+Report:
+
+Present:
+
+* variable name
+
+Missing:
+
+* variable name
+
+Verify specifically:
+
+* DATABASE_URL
+* SESSION_SECRET
+* GOOGLE_CLIENT_ID
+* GOOGLE_CLIENT_SECRET
+* TURNSTILE_SITE_KEY
+* TURNSTILE_SECRET_KEY
+* RESEND_API_KEY
+* VAPID keys
+* embedding configuration
+
+Do NOT expose secret values.
+
+Only report status.
+
+---
+
+# PHASE 4 — DATABASE AUDIT
+
+Verify:
+
+* all tables exist
+* row counts
+* indexes
+* pgvector extension
+
+Verify especially:
+
+* users
+* products
+* orders
+* delivery_missions
+* tracking_sessions
+* tracking_positions
+* notifications
+* conversations
+* courier_wallets
+* courier_payout_requests
+
+Report row counts.
+
+---
+
+# PHASE 5 — EMBEDDING SYSTEM
+
+Verify:
+
+* model files exist
+* model loads
+* backend type
+
+Report:
+
+Current backend:
+
+* sentence-transformers
+  OR
+* tfidf-lsa fallback
+
+Verify:
+
+* embedding dimensions
+* embedded products count
+* search endpoint
+
+If fallback mode is active:
+
+identify exact reason.
+
+---
+
+# PHASE 6 — AUTHENTICATION
+
+Verify:
+
+Email Login
+Google Login
+Turnstile
+JWT
+
+Test:
+
+* customer
+* seller
+* courier
+* admin
+
+Verify:
+
+* token issuance
+* protected routes
+* role permissions
+
+Report failures.
+
+---
+
+# PHASE 7 — MAP SYSTEM
+
+Verify visually:
+
+* Leaflet CSS
+* Leaflet JS
+* tiles loading
+* markers visible
+* routes visible
+
+Test:
+
+* courier workspace
+* tracking pages
+* admin routing diagnostics
+
+Verify:
+
+No blank maps.
+No console errors.
+
+---
+
+# PHASE 8 — TURNSTILE
+
+Verify:
+
+* widget loads
+* registration protected
+* login protected
+* forgot password protected
+* contact form protected
+
+Verify server-side validation.
+
+Verify token verification.
+
+---
+
+# PHASE 9 — FRONTEND ROUTES
+
+Verify:
+
+* Home
+* Search
+* Product
+* Store
+* Cart
+* Checkout
+* Orders
+* Seller Dashboard
+* Courier Dashboard
+* Admin Dashboard
+* Tracking
+
+Report:
+
+200 OK
+404
+500
+
+for each route.
+
+---
+
+# PHASE 10 — MOBILE
+
+Verify Expo project.
+
+Check:
+
+* screens compile
+* navigation works
+* courier screens exist
+* seller screens exist
+* admin screens exist
+
+Report missing screens.
+
+---
+
+# PHASE 11 — TYPESCRIPT
+
+Run full type checks.
+
+Verify:
+
+* api-server
+* marketplace
+* mobile
+* shared libraries
+
+Goal:
+
+0 TypeScript errors.
+
+---
+
+# PHASE 12 — PERFORMANCE
+
+Verify:
+
+* no startup crashes
+* no infinite loops
+* no failing API calls
+* no failing background jobs
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+Infrastructure Score /100
+
+List:
+
+✅ Working Systems
+
+⚠ Warnings
+
+❌ Broken Systems
+
+Include:
+
+* workflow status
+* embedding status
+* auth status
+* maps status
+* turnstile status
+* database status
+* TypeScript status
+
+Do NOT modify code during this audit.
+
+Only inspect, verify, and report.

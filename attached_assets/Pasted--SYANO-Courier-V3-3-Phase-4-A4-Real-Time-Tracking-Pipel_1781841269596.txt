@@ -1,0 +1,658 @@
+# SYANO Courier V3.3 — Phase 4 / A4
+
+# Real-Time Tracking Pipeline
+
+# Replit Agent Implementation Prompt
+
+You are implementing:
+
+**Courier V3.3 → Phase 4 → A4**
+
+This phase comes AFTER:
+
+✅ Mission Foundation
+
+✅ Courier Availability
+
+✅ Discovery Engine
+
+✅ Offer Engine
+
+✅ GPS Infrastructure (A3)
+
+DO NOT rebuild anything.
+
+DO NOT duplicate systems.
+
+DO NOT create temporary workflows.
+
+DO NOT create temporary artifacts.
+
+---
+
+# REQUIRED PRE-READ
+
+Before writing code read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Verify runtime health.
+
+Verify only official services exist.
+
+---
+
+# CURRENT STATE
+
+Already implemented:
+
+## GPS Infrastructure
+
+Courier location updates.
+
+Courier location service.
+
+Courier location APIs.
+
+Freshness validation.
+
+Discovery engine using live GPS.
+
+Admin diagnostics page.
+
+Mobile GPS reporting.
+
+Everything works.
+
+---
+
+# GOAL OF A4
+
+Build the complete:
+
+# Real-Time Tracking Pipeline
+
+NOT customer map yet.
+
+NOT courier workspace map yet.
+
+This phase builds:
+
+```text
+Courier GPS
+      ↓
+API
+      ↓
+Database
+      ↓
+Live Tracking Stream
+      ↓
+Consumers
+```
+
+So future maps can consume live tracking instantly.
+
+---
+
+# CRITICAL RULE
+
+This phase is infrastructure.
+
+Focus on:
+
+real-time delivery
+
+live tracking
+
+event flow
+
+state synchronization
+
+future scalability
+
+Do NOT focus on UI first.
+
+---
+
+# A4.1 Tracking Session Model
+
+Create tracking session architecture.
+
+One active tracking session per mission.
+
+Support:
+
+missionId
+
+courierId
+
+sellerId
+
+customerId
+
+startedAt
+
+endedAt
+
+isActive
+
+lastPositionAt
+
+---
+
+Prefer additive schema.
+
+Do NOT break existing missions.
+
+---
+
+# A4.2 Live Tracking Service
+
+Create:
+
+trackingService.ts
+
+Responsibilities:
+
+Start tracking session
+
+Stop tracking session
+
+Update position
+
+Read latest position
+
+Read position history
+
+Get active session
+
+---
+
+Use existing services whenever possible.
+
+---
+
+# A4.3 Position History
+
+Store courier movement history.
+
+Support:
+
+lat
+
+lng
+
+timestamp
+
+heading
+
+speed
+
+accuracy
+
+missionId
+
+courierId
+
+---
+
+This is needed later for:
+
+Route replay
+
+Customer tracking
+
+Analytics
+
+Delivery audits
+
+---
+
+Do NOT over-store.
+
+Implement retention strategy.
+
+---
+
+# A4.4 Tracking Lifecycle
+
+Automatically:
+
+Mission Accepted
+
+↓
+
+Tracking Session Created
+
+Mission Delivered
+
+↓
+
+Tracking Session Closed
+
+Mission Failed
+
+↓
+
+Tracking Session Closed
+
+Mission Cancelled
+
+↓
+
+Tracking Session Closed
+
+---
+
+No manual actions.
+
+Fully automatic.
+
+---
+
+# A4.5 Live Tracking Endpoint
+
+Create:
+
+GET /api/tracking/:missionId
+
+Returns:
+
+Current courier position
+
+Tracking state
+
+Freshness
+
+Last update
+
+Mission state
+
+---
+
+Permissions:
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+Only authorized users.
+
+---
+
+# A4.6 Tracking Stream API
+
+Build tracking feed layer.
+
+Support:
+
+polling-friendly architecture
+
+future websocket architecture
+
+future SSE architecture
+
+future mobile subscriptions
+
+---
+
+DO NOT hardcode polling logic.
+
+Design clean abstraction.
+
+---
+
+# A4.7 Position Freshness
+
+Support:
+
+Fresh
+
+Warning
+
+Stale
+
+Rules:
+
+Fresh:
+
+< 15 sec
+
+Warning:
+
+15–60 sec
+
+Stale:
+
+> 60 sec
+
+---
+
+Expose status in APIs.
+
+---
+
+# A4.8 ETA Foundation
+
+Create ETA service foundation.
+
+Not full ETA yet.
+
+Prepare:
+
+distanceRemaining
+
+estimatedTravelMinutes
+
+averageSpeed
+
+routeDistance
+
+---
+
+Can return placeholders initially.
+
+Architecture must exist.
+
+---
+
+# A4.9 Delivery Event Stream
+
+Track events:
+
+Mission Offered
+
+Mission Accepted
+
+Picked Up
+
+In Transit
+
+Delivered
+
+Failed
+
+Cancelled
+
+Tracking Started
+
+Tracking Stopped
+
+---
+
+Structured event model.
+
+Future audit system depends on this.
+
+---
+
+# A4.10 Admin Tracking Monitor
+
+Create:
+
+/admin/tracking-monitor
+
+Purpose:
+
+Inspect active tracking sessions.
+
+Show:
+
+Mission
+
+Courier
+
+Customer
+
+Freshness
+
+Last update
+
+Current coordinates
+
+Tracking state
+
+---
+
+NO MAP YET.
+
+Diagnostics only.
+
+---
+
+# A4.11 Customer Tracking API Foundation
+
+Prepare future A5.
+
+Create service layer only.
+
+No customer map yet.
+
+Support:
+
+getCustomerTrackingData()
+
+Returns:
+
+Mission
+
+Courier
+
+Position
+
+ETA
+
+Freshness
+
+Status
+
+---
+
+A5 will consume this directly.
+
+---
+
+# A4.12 Seller Tracking API Foundation
+
+Prepare future seller tracking.
+
+Support:
+
+getSellerTrackingData()
+
+Same architecture.
+
+No UI yet.
+
+---
+
+# A4.13 Scalability
+
+Design for:
+
+100 couriers
+
+500 couriers
+
+1000 couriers
+
+Avoid:
+
+N+1 queries
+
+full scans
+
+unindexed lookups
+
+expensive joins
+
+---
+
+Use indexes.
+
+Batch reads.
+
+Efficient writes.
+
+---
+
+# A4.14 Security
+
+Customer:
+
+Own orders only.
+
+Seller:
+
+Own orders only.
+
+Courier:
+
+Own missions only.
+
+Admin:
+
+All.
+
+No leaks.
+
+No public tracking.
+
+---
+
+# A4.15 Logging
+
+Log:
+
+Tracking session start
+
+Tracking session stop
+
+Position updates
+
+Tracking failures
+
+Freshness transitions
+
+---
+
+Structured logs only.
+
+No spam.
+
+---
+
+# UI RULES
+
+Maintain:
+
+SYANO design language
+
+RTL
+
+Arabic
+
+English
+
+Theme colors
+
+Spacing
+
+Cards
+
+Shadows
+
+Typography
+
+No ugly admin placeholders.
+
+---
+
+# DO NOT BUILD YET
+
+❌ Customer tracking map
+
+❌ Courier map workspace
+
+❌ Leaflet map
+
+❌ React Leaflet
+
+❌ OSM rendering
+
+❌ Directions
+
+❌ Route visualization
+
+❌ ETA calculation engine
+
+These belong to:
+
+Phase A5
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Tracking session auto-created
+
+✅ Tracking session auto-closed
+
+✅ Position history stored
+
+✅ Tracking endpoint works
+
+✅ Freshness works
+
+✅ Customer permissions work
+
+✅ Seller permissions work
+
+✅ Admin monitor works
+
+✅ Event stream works
+
+✅ ETA foundation exists
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+# RECOVERY FILES
+
+After implementation:
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Document:
+
+Phase 4 / A4 complete
+
+Schema changes
+
+APIs
+
+Services
+
+Architecture
+
+Validation results
+
+Do NOT mark complete until everything is verified end-to-end.

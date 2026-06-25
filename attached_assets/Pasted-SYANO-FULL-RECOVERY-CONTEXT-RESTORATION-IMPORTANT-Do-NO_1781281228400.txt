@@ -1,0 +1,210 @@
+SYANO — FULL RECOVERY + CONTEXT RESTORATION
+
+IMPORTANT:
+
+Do NOT implement anything.
+
+Do NOT modify any file.
+
+Do NOT create migrations.
+
+Do NOT write code.
+
+Your ONLY task is to fully restore context and verify the current project state before any new work begins.
+
+==================================================
+
+PHASE 1 — ENVIRONMENT VALIDATION
+
+Verify:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_EMAIL
+
+Report missing items.
+
+==================================================
+
+PHASE 2 — DATABASE AUDIT
+
+Verify:
+
+* All tables exist
+* notification_type enum
+* order_status enum
+* role enum
+* delivery_zones
+* seller_verification_log
+* trust system tables
+* review system tables
+* hero banner tables
+
+Report counts and status.
+
+==================================================
+
+PHASE 3 — TYPESCRIPT HEALTH
+
+Run verification for:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+* mobile
+
+Report:
+
+TypeScript errors count.
+
+==================================================
+
+PHASE 4 — SERVICES
+
+Verify:
+
+* API server
+* Marketplace
+* Mobile
+
+Confirm all running.
+
+==================================================
+
+PHASE 5 — RECOVERY CHECK
+
+Run full recovery check.
+
+Report:
+
+* score
+* modules count
+* failures
+* warnings
+
+==================================================
+
+PHASE 6 — REVIEW SYSTEM AUDIT
+
+Verify current state.
+
+Customer:
+
+* Product review creation
+* Store review creation
+* Delivery gate
+* Duplicate prevention
+* Review eligibility
+
+Seller:
+
+* Seller review dashboard
+* Seller reply system
+* Edit reply
+* Delete reply
+* Notification flow
+
+Trust:
+
+* Trust score uses seller reviews
+* Product reviews separated
+* Store reviews separated
+
+Report PASS / FAIL.
+
+==================================================
+
+PHASE 7 — HOMEPAGE HERO AUDIT
+
+This is the most important section.
+
+Audit current homepage implementation.
+
+Verify:
+
+Hero Banner V3
+
+* Autoplay
+* Infinite loop
+* RTL
+* Mobile
+* Desktop
+* Impression tracking
+* Click tracking
+* Progress indicators
+* Ken Burns
+* Categories strip
+* Trust bar
+* Deals panel
+* Flash sale support
+* Admin page existence
+* Admin navigation link
+
+Report exactly what currently exists.
+
+==================================================
+
+PHASE 8 — LAST COMPLETED WORK
+
+Determine exactly where development stopped.
+
+I expect the latest completed feature to be:
+
+Homepage Hero Banner V3 Marketplace Upgrade
+
+Verify if it was actually completed.
+
+List:
+
+* files changed
+* components added
+* routes added
+* admin pages added
+* analytics added
+
+==================================================
+
+PHASE 9 — SCREENSHOT REVIEW
+
+Open homepage.
+
+Review visually.
+
+Answer:
+
+1. What currently looks good?
+2. What currently looks weak?
+3. What still looks unfinished?
+4. Is the homepage currently comparable to:
+
+   * Amazon
+   * Noon
+   * Trendyol
+
+Give honest assessment.
+
+==================================================
+
+PHASE 10 — CURRENT PROJECT STATUS
+
+Produce final report:
+
+* Recovery score
+* TypeScript score
+* Review system status
+* Trust system status
+* Homepage status
+* Last completed milestone
+* Next recommended milestone
+
+Do NOT write code.
+
+Do NOT implement improvements.
+
+Only restore full context and generate a complete audit report.

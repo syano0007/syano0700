@@ -1,0 +1,322 @@
+# SYANO (سوق سوريا) — FULL RECOVERY, VERIFICATION & CONTINUATION
+
+IMPORTANT:
+
+Do NOT start any new feature.
+
+Do NOT modify code before recovery and verification are complete.
+
+The goal is to restore the project to the latest verified checkpoint and confirm the exact roadmap position.
+
+---
+
+## PHASE 1 — RECOVERY
+
+Read completely:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Then execute:
+
+1. pnpm install --force
+
+2. Verify env vars:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_SUBJECT
+
+3. Verify database.
+
+If DB is empty:
+
+* restore schema
+* run migrations
+
+4. Build shared libraries:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+5. Start:
+
+* API Server
+* Marketplace
+* Mobile
+
+6. Verify:
+
+GET /api/healthz
+
+7. Verify Root Owner:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Login must succeed.
+
+---
+
+## PHASE 2 — VERIFY CURRENT PLATFORM STATE
+
+Verify all completed roadmap items.
+
+### Product Wizard
+
+* create mode
+* edit mode
+* inventory UX
+
+### Variant System
+
+* VariantBuilder
+* bulk actions
+* variant images
+* RTL toggle
+
+### Delivery Zones
+
+* 40 zones
+* checkout integration
+* admin zone management
+
+### Order Fulfillment Workflow V1
+
+Verify all statuses:
+
+* pending
+* confirmed
+* preparing
+* ready_for_pickup
+* courier_assigned
+* picked_up
+* in_transit
+* out_for_delivery
+* delivered
+* delivery_failed
+* returned
+* cancelled
+* refunded
+
+### Courier Operations Dashboard V2
+
+Verify:
+
+* deliveries tab
+* history tab
+* earnings tab
+* wallet
+* success rate
+* delivery analytics
+* admin delivery center
+
+### Seller Orders V2
+
+Verify:
+
+* stats cards
+* KPI metrics
+* bulk actions
+* advanced filters
+* order detail page
+
+### Seller Analytics Dashboard V2
+
+Verify:
+
+* KPI cards
+* revenue charts
+* order analytics
+* customer analytics
+* delivery analytics
+* growth analytics
+* insights panel
+
+### Trust System V1
+
+Verify:
+
+* trustScore.ts
+* trust badges
+* seller trust page
+* store trust indicators
+* leaderboard
+* verification workflow
+* seller_verification_log
+* verified_by column
+* verify / unverify flow
+
+---
+
+## PHASE 3 — TRUST SYSTEM V1 VALIDATION
+
+Verify the exact fixes from the last session.
+
+Confirm:
+
+✅ seller_verification_log exists
+
+✅ verified_by exists
+
+✅ seller/trust.tsx uses:
+
+* completedOrders
+* storeRating
+* deliverySuccess
+* reviewCount
+* accountAge
+* followers
+* cancellationPenalty
+
+✅ mobile store/[slug].tsx uses slug
+
+✅ store APIs return isVerified
+
+Run E2E:
+
+Seller apply
+Admin approve
+Admin verify
+Trust score update
+Leaderboard update
+Store badge visible
+Unverify flow
+
+All must pass.
+
+---
+
+## PHASE 4 — TYPESCRIPT VALIDATION
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+* mobile
+
+Target:
+
+0 TypeScript errors.
+
+---
+
+## PHASE 5 — REGRESSION AUDIT
+
+Create or verify:
+
+* Admin account
+* Seller account
+* Customer account
+* Courier account
+
+Test:
+
+### Customer
+
+* browse
+* cart
+* checkout
+* orders
+
+### Seller
+
+* products
+* variants
+* orders
+* analytics
+* trust
+
+### Courier
+
+* assignments
+* dashboard
+* earnings
+
+### Admin
+
+* users
+* delivery
+* trust verification
+
+### Mobile
+
+* products
+* store pages
+* orders
+
+Fix any regressions found.
+
+---
+
+## PHASE 6 — CURRENT ROADMAP POSITION
+
+Determine exact roadmap status.
+
+Expected completed items:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+✅ Seller Order Management V2
+
+✅ Seller Analytics Dashboard V2
+
+✅ Trust System V1
+
+Confirm whether all are complete.
+
+---
+
+## PHASE 7 — FINAL REPORT
+
+Return:
+
+1. Recovery status
+
+2. Services status
+
+3. Database status
+
+4. TypeScript status
+
+5. Trust System V1 status
+
+6. Regressions found
+
+7. Remaining issues
+
+8. Exact roadmap position
+
+9. Recommended next roadmap item
+
+---
+
+## PHASE 8 — DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Only after verification is complete.
+
+Do NOT start a new feature until recovery, validation, and regression audit are fully finished.

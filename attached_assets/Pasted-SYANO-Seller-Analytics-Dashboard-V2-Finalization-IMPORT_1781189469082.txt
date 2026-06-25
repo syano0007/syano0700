@@ -1,0 +1,281 @@
+SYANO — Seller Analytics Dashboard V2 Finalization
+
+IMPORTANT
+
+A previous implementation already exists.
+
+DO NOT rebuild Seller Analytics from scratch.
+
+DO NOT replace existing work.
+
+DO NOT redesign completed sections.
+
+First audit existing implementation and continue from the current state.
+
+---
+
+## CURRENT VERIFIED STATE
+
+Already implemented:
+
+✅ Seller Analytics page
+
+✅ Analytics route
+
+✅ Seller navigation link
+
+✅ Revenue chart
+
+✅ Orders chart
+
+✅ Status breakdown chart
+
+✅ Top products chart
+
+✅ KPI cards
+
+✅ Customer analytics
+
+✅ Delivery analytics
+
+✅ Store growth analytics
+
+✅ CSV export
+
+✅ Date range filters
+
+✅ RTL support
+
+✅ Loading states
+
+✅ Error states
+
+✅ Analytics API endpoints
+
+Translation coverage already exists.
+
+---
+
+## GOAL
+
+Finish Seller Analytics Dashboard V2 to production quality.
+
+Improve, validate, and complete.
+
+Do NOT duplicate work.
+
+---
+
+## PHASE 1 — AUDIT
+
+Before writing code:
+
+Audit:
+
+* seller analytics page
+* analytics API routes
+* analytics translations
+* charts
+* filters
+* exports
+
+Return:
+
+* completed items
+* missing items
+* broken items
+* technical debt
+
+---
+
+## PHASE 2 — FIX KNOWN ISSUES
+
+Fix all existing issues.
+
+Known issue:
+
+analytics.tsx
+
+Layout hideFooter prop mismatch
+
+Current:
+
+<Layout hideFooter>
+
+Fix properly.
+
+TypeScript must return to:
+
+0 errors
+
+---
+
+## PHASE 3 — VALIDATE ANALYTICS
+
+Verify all analytics are calculated correctly.
+
+Revenue
+
+* today
+* week
+* month
+* year
+* custom range
+
+Orders
+
+* pending
+* confirmed
+* preparing
+* ready_for_pickup
+* courier_assigned
+* picked_up
+* out_for_delivery
+* delivered
+* cancelled
+* refunded
+* returned
+
+Customers
+
+* unique buyers
+* repeat customers
+* average orders/customer
+
+Products
+
+* top selling
+* top revenue
+
+Delivery
+
+* success rate
+* failure rate
+* cancellation rate
+* average delivery time
+
+Followers
+
+* growth
+* total
+
+Ratings
+
+* average
+* trend
+
+---
+
+## PHASE 4 — PROFESSIONALIZATION
+
+Upgrade visual quality.
+
+Target:
+
+Shopify Analytics
+Amazon Seller Central
+Noon Seller Analytics
+
+Improve:
+
+* spacing
+* hierarchy
+* responsiveness
+* loading states
+* empty states
+* tooltips
+* chart legends
+
+No visual regressions.
+
+---
+
+## PHASE 5 — DATA SAFETY
+
+If database is empty:
+
+Do NOT crash.
+
+Show:
+
+* empty charts
+* empty states
+* guidance text
+
+Analytics page must remain functional.
+
+---
+
+## PHASE 6 — MOBILE REVIEW
+
+Audit mobile support.
+
+If analytics page is inaccessible from mobile seller experience:
+
+Document exactly what is missing.
+
+Do NOT start a full mobile analytics build unless required.
+
+---
+
+## PHASE 7 — PLATFORM AUDIT
+
+After completion:
+
+Run full verification.
+
+Check:
+
+API
+Marketplace
+Mobile
+Analytics routes
+Charts
+Exports
+Filters
+Translations
+TypeScript
+
+---
+
+## PHASE 8 — DOCUMENTATION
+
+Update:
+
+CURRENT_STATE.md
+CHANGELOG.md
+RECOVERY_GUIDE.md
+KNOWN_ISSUES.md
+MEMORY.md
+
+Document:
+
+* completed analytics features
+* remaining gaps
+* future analytics roadmap
+
+---
+
+## FINAL SUCCESS CRITERIA
+
+✅ TypeScript = 0 errors
+
+✅ Seller Analytics page works
+
+✅ Charts render
+
+✅ Filters work
+
+✅ Exports work
+
+✅ Empty states work
+
+✅ Mobile unaffected
+
+✅ No regressions
+
+✅ Recovery docs updated
+
+Do not begin Trust System V1 yet.
+
+Finish Seller Analytics Dashboard V2 completely first.

@@ -1,0 +1,286 @@
+# SYANO FULL RECOVERY EXECUTION
+
+Recovery analysis is complete.
+
+Do NOT ask for confirmation.
+
+Execute recovery now.
+
+This is a production recovery task.
+
+---
+
+# CRITICAL RULES
+
+Do NOT:
+
+* skip steps
+* assume success
+* stop after first error
+* stop after login screens
+* stop after service startup
+
+Continue until every validation is complete.
+
+---
+
+# PHASE 1 — DEPENDENCIES
+
+Install ALL dependencies.
+
+Verify:
+
+* pnpm
+* node_modules
+* vite
+* tsx
+* expo
+* drizzle
+* all workspace packages
+
+After installation:
+
+Report:
+
+* installed package count
+* install warnings
+* install failures
+
+---
+
+# PHASE 2 — DATABASE RESTORATION
+
+Database is currently empty.
+
+Restore it completely.
+
+Required:
+
+1. Apply schema.sql
+2. Start API
+3. Allow run-migrations.ts to execute
+4. Verify additive migrations executed
+
+Validate:
+
+* 28 tables
+* notification_type enum
+* order_status enum
+* delivery zones
+* wishlist table
+* seller review tables
+* banner tables
+* trust columns
+
+Do NOT continue until DB matches the previous recovery state.
+
+---
+
+# PHASE 3 — BOOTSTRAP ACCOUNTS
+
+Verify:
+
+Admin
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller
+
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier
+
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+If missing:
+
+Recreate automatically.
+
+Validate:
+
+* role
+* permissions
+* seller approval
+* courier approval
+* store slug
+* active state
+
+Use the actual platform.
+
+Do not simulate.
+
+---
+
+# PHASE 4 — START ALL SERVICES
+
+Start:
+
+* API
+* Marketplace
+* Mobile
+
+Verify:
+
+API:
+
+/api/healthz
+
+must return:
+
+{"status":"ok"}
+
+Verify:
+
+Marketplace loads.
+
+Verify:
+
+Mobile boots.
+
+---
+
+# PHASE 5 — TYPESCRIPT
+
+Run full TypeScript validation.
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+* mobile
+
+Target:
+
+0 errors
+
+Do not ignore errors.
+
+Fix them.
+
+Re-run validation.
+
+---
+
+# PHASE 6 — ENDPOINT VALIDATION
+
+Test all major systems.
+
+Auth
+
+Products
+
+Categories
+
+Cart
+
+Wishlist
+
+Reviews
+
+Stores
+
+Analytics
+
+Hero banners
+
+Currency
+
+Orders
+
+Courier
+
+Trust system
+
+Messaging
+
+Recently viewed
+
+Verify real responses.
+
+No mocked results.
+
+---
+
+# PHASE 7 — HOMEPAGE VALIDATION
+
+Verify current Homepage V6 survives recovery.
+
+Check:
+
+* HeroV4
+* Banner carousel
+* Categories
+* Deals
+* Trending
+* Recently viewed
+* Wishlist integration
+* Theme switch
+* Currency switch
+
+Do not replace components.
+
+Do not revert homepage.
+
+Only verify integrity.
+
+---
+
+# PHASE 8 — RECOVERY SCORE
+
+Run full recovery audit.
+
+Expected:
+
+95/100
+
+Known exception:
+
+heroBannerSystem false negative
+
+Do NOT attempt to "fix" that score.
+
+95/100 is acceptable.
+
+---
+
+# PHASE 9 — DOCUMENTATION UPDATE
+
+After successful recovery:
+
+Update:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* recovery audit files
+* endpoint documentation
+
+Reflect the NEW recovered state.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+## Service Status
+
+## Database Status
+
+## Bootstrap Account Status
+
+## TypeScript Status
+
+## Recovery Score
+
+## Endpoint Status
+
+## Homepage Status
+
+## Remaining Issues
+
+## Exact Files Modified
+
+Recovery is NOT complete until every section above is reported.

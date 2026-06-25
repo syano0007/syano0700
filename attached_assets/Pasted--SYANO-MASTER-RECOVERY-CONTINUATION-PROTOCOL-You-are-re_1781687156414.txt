@@ -1,0 +1,349 @@
+# SYANO (سوق سوريا) — MASTER RECOVERY & CONTINUATION PROTOCOL
+
+You are recovering and continuing the SYANO marketplace project.
+
+This is NOT a fresh project.
+
+This project already contains:
+
+* Marketplace Web
+* Mobile App (Expo)
+* Seller System
+* Courier System
+* Admin System
+* Trust System
+* Search V2
+* Messaging V2
+* AI Support
+* Delivery V3.3
+* Mobile Parity Program
+
+Your first responsibility is recovery and verification.
+
+DO NOT implement new features until recovery is complete.
+
+---
+
+# STEP 1 — READ RECOVERY FILES FIRST
+
+Read ALL recovery files completely before doing anything else.
+
+Required:
+
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* replit.md
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+
+Do not skip any file.
+
+Do not summarize from memory.
+
+Read actual file contents.
+
+---
+
+# STEP 2 — DETERMINE REAL PROJECT STATE
+
+After reading files:
+
+Build a state table containing:
+
+## Services
+
+* API
+* Marketplace
+* Mobile
+* Embedding Service
+
+## Database
+
+* table count
+* products
+* sellers
+* couriers
+* orders
+* delivery missions
+* embeddings
+
+## Mobile
+
+* parity percentage
+* implemented screens
+* missing screens
+* known issues
+
+## Web
+
+* implemented systems
+* known issues
+
+---
+
+# STEP 3 — VERIFY EVERYTHING
+
+Do NOT trust documentation.
+
+Verify.
+
+Check:
+
+### API
+
+GET /healthz
+
+must return OK
+
+---
+
+### Database
+
+Verify:
+
+37+ tables
+
+delivery_missions exists
+
+mission_offers exists
+
+dispatch_alerts exists
+
+couriers current_lat/current_lng exist
+
+---
+
+### Search
+
+Verify:
+
+fts_vector populated
+
+semantic embeddings populated
+
+embedding service reachable
+
+---
+
+### Mobile
+
+Verify:
+
+Expo builds
+
+No runtime crashes
+
+No provider errors
+
+No missing context errors
+
+No route registration errors
+
+No duplicate route conflicts
+
+---
+
+### TypeScript
+
+Run checks.
+
+Goal:
+
+0 NEW errors.
+
+Only pre-existing documented exceptions allowed.
+
+---
+
+# STEP 4 — FIX BLOCKERS FIRST
+
+Before building anything:
+
+Fix all blockers.
+
+Examples:
+
+* provider crashes
+* broken routes
+* API failures
+* DB failures
+* missing migrations
+* startup failures
+* mobile boot failures
+
+Recovery always has higher priority than development.
+
+---
+
+# STEP 5 — FIND LAST COMPLETED PHASE
+
+Determine latest completed phase.
+
+Use recovery files.
+
+Current expected state:
+
+Mobile parity approximately:
+
+~95%
+
+but VERIFY.
+
+Do not assume.
+
+Create:
+
+COMPLETED
+
+IN PROGRESS
+
+NOT STARTED
+
+lists.
+
+---
+
+# STEP 6 — CONTINUE ONLY FROM THE NEXT UNFINISHED TASK
+
+Never redo completed work.
+
+Never restart phases.
+
+Never rebuild screens already completed.
+
+Continue from the first unfinished item in:
+
+MOBILE_PARITY_GAP_REPORT.md
+
+strictly in order.
+
+Order is mandatory.
+
+---
+
+# STEP 7 — MOBILE PARITY RULE
+
+Highest priority project.
+
+Current goal:
+
+Mobile must become visually and functionally indistinguishable from web.
+
+Requirements:
+
+* same flows
+* same behavior
+* same screens
+* same features
+* same permissions
+* same data
+* same UX
+
+No mobile-specific simplifications.
+
+No placeholder screens.
+
+No reduced functionality.
+
+Treat mobile as a direct extension of web.
+
+---
+
+# STEP 8 — AFTER EVERY WORK SESSION
+
+Before stopping:
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md
+* replit.md
+
+Update them with:
+
+* work completed
+* fixes applied
+* blockers removed
+* parity percentage
+* next task
+
+Never leave recovery docs outdated.
+
+---
+
+# STEP 9 — FINAL REPORT FORMAT
+
+After every session provide:
+
+## Recovery Status
+
+services
+
+database
+
+search
+
+mobile
+
+web
+
+---
+
+## Work Completed
+
+exact files modified
+
+exact screens added
+
+exact bugs fixed
+
+---
+
+## Remaining Tasks
+
+next tasks only
+
+ordered
+
+---
+
+## Recovery Files Updated
+
+list every file updated
+
+---
+
+## Safe Resume Point
+
+exact task where the next session should continue
+
+This safe resume point is mandatory.
+
+Future recoveries must resume from it.
+
+---
+
+# CRITICAL RULES
+
+DO NOT:
+
+* invent project state
+* assume services work
+* skip verification
+* skip documentation updates
+* redo completed phases
+* start new features before fixing blockers
+
+ALWAYS:
+
+* verify
+* repair
+* continue
+* update recovery files
+
+Recovery accuracy is more important than feature velocity.

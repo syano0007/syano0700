@@ -1,0 +1,269 @@
+IMPORTANT: Read ALL recovery/memory files first before changing anything:
+
+* .agents/memory/MEMORY.md
+* .agents/memory/CURRENT_STATE.md
+* .agents/memory/DATABASE_STATE.md
+* .agents/memory/courier-promotion.md
+* .agents/memory/delivery-system.md
+* .agents/memory/variant-system.md
+* .agents/memory/root-owner-bootstrap.md
+* Any other recovery/state/checkpoint files
+
+Then perform a full audit of the existing implementation before editing code.
+
+====================================================
+GOAL
+====
+
+Implement the following UX fixes for the SYANO (سوق سوريا) courier system.
+
+This is an enhancement of the existing implementation.
+
+DO NOT create alternative systems.
+DO NOT create duplicate pages.
+DO NOT create debug routes.
+DO NOT break existing seller functionality.
+DO NOT break customer functionality.
+DO NOT remove existing recovery mechanisms.
+
+====================================================
+RULES
+=====
+
+* Preserve existing design language.
+* Preserve RTL and Arabic support.
+* Preserve English support.
+* Preserve all existing APIs unless absolutely necessary.
+* TypeScript must finish with 0 NEW errors.
+* Mobile compatibility must remain intact.
+* Use the existing notification system.
+* Use the existing auth system.
+* Use the existing dashboard structure.
+
+====================================================
+TASK 1
+COURIER APPROVAL SHOULD FEEL INSTANT
+====================================
+
+Current problem:
+
+After admin approves a courier application:
+
+* The user remains on customer experience too long.
+* Dashboard access feels delayed.
+* Clicking the approval notification does not immediately open courier dashboard.
+
+Fix the flow.
+
+Required behavior:
+
+Admin approves courier.
+
+↓
+
+User receives approval notification.
+
+↓
+
+User clicks notification.
+
+↓
+
+Immediately navigate to:
+
+/courier/dashboard
+
+No extra steps.
+
+No dead-end page.
+
+No confusing redirects.
+
+No requirement to manually refresh.
+
+No requirement to log out and log back in.
+
+The role update should become visible immediately.
+
+Audit:
+
+* notification click handlers
+* auth refresh flow
+* role refresh logic
+* courier approval flow
+
+Find the actual root cause and fix it properly.
+
+Do not patch blindly.
+
+====================================================
+TASK 2
+REMOVE DASHBOARD CTA CARDS
+==========================
+
+Current customer dashboard contains:
+
+* Become a Seller
+* Become a Courier
+
+cards.
+
+Remove both completely.
+
+Customer dashboard should not contain these promotion cards anymore.
+
+Preserve layout consistency after removal.
+
+No empty spaces.
+
+No broken grids.
+
+====================================================
+TASK 3
+ADD COURIER CTA TO HOMEPAGE
+===========================
+
+Current homepage already contains:
+
+"Open Your Store"
+
+Add a second CTA directly below it.
+
+Same visual language.
+
+Same design quality.
+
+Same spacing.
+
+Same SYANO theme.
+
+====================================================
+TEXT
+====
+
+Arabic:
+
+أصبح مندوب توصيل
+
+English:
+
+Become a Courier
+
+====================================================
+BEHAVIOR
+========
+
+If user is not logged in:
+
+click →
+redirect to login
+
+If logged in as customer:
+
+click →
+/courier/apply
+
+If application pending:
+
+click →
+/courier/application-status
+
+If rejected:
+
+click →
+/courier/application-status
+
+If suspended:
+
+click →
+/courier/application-status
+
+If approved courier:
+
+click →
+/courier/dashboard
+
+The button must be fully dynamic.
+
+====================================================
+VISUAL REQUIREMENTS
+===================
+
+Must visually match:
+
+Open Your Store
+
+Same:
+
+* border radius
+* spacing
+* shadows
+* typography
+* hover states
+* transitions
+* mobile responsiveness
+
+It should look like it was always part of SYANO.
+
+Not like a later addition.
+
+====================================================
+VALIDATION
+==========
+
+After implementation verify:
+
+✅ Customer dashboard no longer shows courier/seller CTA cards
+
+✅ Homepage shows new courier CTA
+
+✅ Courier CTA routes correctly in all states
+
+✅ Approval notification opens courier dashboard
+
+✅ Approved courier gains access immediately
+
+✅ No logout/login required
+
+✅ Arabic works
+
+✅ English works
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ No console errors
+
+✅ No regressions
+
+====================================================
+RECOVERY FILES UPDATE (MANDATORY)
+=================================
+
+After EVERYTHING is completed and verified:
+
+Update all relevant recovery/checkpoint files so future migrations restore the new state.
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* courier-promotion.md
+* Any relevant recovery/state documents
+
+Document:
+
+* notification redirect fix
+* immediate courier activation behavior
+* homepage courier CTA
+* removal of dashboard CTA cards
+
+The recovery files must reflect the final verified implementation state.
+
+Do not skip this step.
+
+Only mark the task complete after both:
+
+1. Implementation is verified
+2. Recovery files are updated

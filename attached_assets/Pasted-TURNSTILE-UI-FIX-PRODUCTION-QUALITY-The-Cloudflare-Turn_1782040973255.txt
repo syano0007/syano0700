@@ -1,0 +1,245 @@
+TURNSTILE UI FIX — PRODUCTION QUALITY
+
+The Cloudflare Turnstile widget is currently rendering incorrectly.
+
+Current problem:
+
+* Arabic text wraps onto multiple lines.
+* Widget appears as a square box.
+* Desktop layout looks broken.
+* Mobile layout looks broken.
+* The verification area consumes too much vertical space.
+
+Goal:
+
+Make Turnstile look professional, compact, and identical in quality to major production websites.
+
+---
+
+# REQUIRED RESULT
+
+Desktop:
+
+┌─────────────────────────────────────┐
+│ ☑ التحقق من أنك إنسان               │
+└─────────────────────────────────────┘
+
+Mobile:
+
+┌─────────────────────────────┐
+│ ☑ التحقق من أنك إنسان       │
+└─────────────────────────────┘
+
+Single line.
+
+Horizontal rectangle.
+
+No wrapped text.
+
+No giant square.
+
+---
+
+# IMPLEMENTATION REQUIREMENTS
+
+Audit ALL Turnstile integrations.
+
+Check:
+
+* Login
+* Register
+* Forgot Password Modal
+* Forgot Password Page
+* Contact Form
+* Any future shared Turnstile component
+
+---
+
+# TURNSTILE CONFIGURATION
+
+Use Cloudflare's responsive mode.
+
+Required:
+
+```html
+data-size="flexible"
+```
+
+or React equivalent.
+
+Do NOT use:
+
+```html
+data-size="normal"
+```
+
+Do NOT use:
+
+```html
+data-size="compact"
+```
+
+unless required for a very small container.
+
+---
+
+# CONTAINER REQUIREMENTS
+
+Audit parent containers.
+
+Verify:
+
+* width
+* max-width
+* flex layout
+* padding
+* margins
+
+The widget must have enough horizontal room.
+
+Do NOT force the widget into a narrow column.
+
+Do NOT allow parent containers to shrink it.
+
+---
+
+# CSS REQUIREMENTS
+
+Do NOT use:
+
+* transform: scale()
+* zoom
+* custom iframe hacks
+* overflow clipping
+* width tricks
+
+Use proper responsive layout.
+
+---
+
+# RTL REQUIREMENTS
+
+Arabic must remain:
+
+* RTL
+* centered correctly
+* visually balanced
+
+Text must stay on a single line.
+
+No clipping.
+
+No overlap.
+
+---
+
+# THEME REQUIREMENTS
+
+Preserve existing SYANO theme.
+
+Widget wrapper should:
+
+* rounded-xl
+* subtle border
+* subtle shadow
+* match login/register cards
+* look identical in light and dark themes
+
+Use existing design tokens.
+
+No hardcoded colors.
+
+---
+
+# RESPONSIVE VALIDATION
+
+Test:
+
+Desktop:
+
+* 1920px
+* 1440px
+* 1280px
+
+Tablet:
+
+* 1024px
+* 768px
+
+Mobile:
+
+* 430px
+* 390px
+* 375px
+* 360px
+
+Verify:
+
+✅ Single-line text
+
+✅ Horizontal rectangle
+
+✅ No wrapping
+
+✅ No clipping
+
+✅ No overflow
+
+✅ No layout shift
+
+---
+
+# PERFORMANCE
+
+Preserve:
+
+* lazy loading
+* current Turnstile verification flow
+* current token handling
+* current backend verification
+
+Do NOT modify security behavior.
+
+Only improve rendering and responsiveness.
+
+---
+
+# FINAL VALIDATION
+
+Verify visually:
+
+Login
+
+✅ Turnstile is horizontal
+
+✅ Text on one line
+
+Register
+
+✅ Turnstile is horizontal
+
+✅ Text on one line
+
+Forgot Password
+
+✅ Turnstile is horizontal
+
+✅ Text on one line
+
+Contact Form
+
+✅ Turnstile is horizontal
+
+✅ Text on one line
+
+Mobile
+
+✅ Looks professional
+
+Desktop
+
+✅ Looks professional
+
+Provide screenshots from desktop and mobile after completion.
+
+Do not stop until all pages render correctly.

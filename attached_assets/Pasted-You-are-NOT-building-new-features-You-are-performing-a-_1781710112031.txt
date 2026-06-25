@@ -1,0 +1,249 @@
+You are NOT building new features.
+
+You are performing a production-grade "Import & Recovery Hardening" pass for the SYANO marketplace.
+
+Goal:
+
+After a fresh GitHub import into a completely new Replit workspace:
+
+* install dependencies
+* start database
+* start API
+* start marketplace
+* start mobile
+* start embedding service
+
+WITHOUT any manual intervention.
+
+The next Replit Agent must understand the project automatically from the codebase itself, not from markdown documentation.
+
+IMPORTANT:
+
+Do NOT create new marketplace features.
+
+Do NOT create new courier features.
+
+Do NOT modify business logic.
+
+Do NOT change UI.
+
+Do NOT rewrite architecture.
+
+Only improve project bootability, recoverability, self-description, and environment stability.
+
+────────────────────────────
+
+PHASE 1 — PROJECT MANIFEST
+
+Create a machine-readable manifest.
+
+File:
+
+project.manifest.json
+
+Include:
+
+* project name
+* project version
+* current roadmap phase
+* completed systems
+* active systems
+* table count
+* service list
+* mobile parity %
+* courier version
+* search version
+* messaging version
+
+Example structure:
+
+{
+"project": "SYANO",
+"version": "2026.06",
+"databaseTables": 37,
+"products": 42,
+"mobileParity": 95,
+"courierVersion": "3.3",
+"searchVersion": "2.0",
+"messagingVersion": "2.0",
+"activeRoadmap": "Mobile Parity Finalization",
+"nextRoadmap": "Courier System Continuation",
+"services": [...]
+}
+
+This file must be automatically maintainable.
+
+────────────────────────────
+
+PHASE 2 — SYSTEM HEALTH ENDPOINT
+
+Extend:
+
+GET /api/healthz
+
+Return:
+
+{
+"status": "ok",
+"project": "SYANO",
+"version": "...",
+"database": {
+"tables": ...,
+"products": ...
+},
+"services": {
+"api": true,
+"marketplace": true,
+"embedding": true
+},
+"mobileParity": ...,
+"courierVersion": ...
+}
+
+The goal is that an Agent can instantly understand the state of the project from one endpoint.
+
+────────────────────────────
+
+PHASE 3 — STARTUP VALIDATION
+
+Create a startup validation module.
+
+When API starts:
+
+validate:
+
+* critical tables exist
+* required enums exist
+* courier tables exist
+* dispatch_alerts exists
+* delivery_missions exists
+* mission_offers exists
+* embeddings table/columns exist
+
+If something is missing:
+
+log exact problem.
+
+Do NOT crash with unclear errors.
+
+────────────────────────────
+
+PHASE 4 — IMPORT CERTIFICATION
+
+Add an automated certification process.
+
+Command:
+
+pnpm import:check
+
+Must verify:
+
+* database schema
+* migrations
+* API
+* marketplace
+* mobile
+* embedding service
+
+Return:
+
+PASS / FAIL
+
+with exact failures.
+
+────────────────────────────
+
+PHASE 5 — SCHEMA DRIFT DETECTION
+
+Detect mismatches between:
+
+* schema.sql
+* Drizzle schema
+* migrations
+
+Specifically verify:
+
+delivery_missions
+mission_offers
+dispatch_alerts
+
+and all Courier V3.3 tables.
+
+If drift exists:
+
+report it.
+
+Do NOT silently continue.
+
+────────────────────────────
+
+PHASE 6 — RECOVERY REPORT GENERATOR
+
+Command:
+
+pnpm recovery:report
+
+Generates:
+
+RECOVERY_REPORT.md
+
+Automatically from live project state.
+
+No hardcoded values.
+
+Use database counts and runtime checks.
+
+────────────────────────────
+
+PHASE 7 — REPLIT AGENT OPTIMIZATION
+
+Make the project self-describing enough that a fresh Replit Agent can discover:
+
+* current project state
+* current roadmap phase
+* next roadmap phase
+* active systems
+
+without reading markdown files first.
+
+Prefer:
+
+manifest
+health endpoint
+runtime metadata
+
+over documentation.
+
+────────────────────────────
+
+PHASE 8 — FINAL VALIDATION
+
+Simulate:
+
+Fresh GitHub Import
+
+and verify:
+
+✅ pnpm install
+
+✅ database ready
+
+✅ API starts
+
+✅ marketplace starts
+
+✅ mobile starts
+
+✅ embeddings start
+
+✅ health endpoint passes
+
+✅ import:check passes
+
+✅ recovery:report passes
+
+Do NOT stop until every validation succeeds.
+
+Update all recovery-related files only AFTER successful validation.
+
+Produce a final Import Hardening Certification report.

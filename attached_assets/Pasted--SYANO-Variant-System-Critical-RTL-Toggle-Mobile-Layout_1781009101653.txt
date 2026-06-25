@@ -1,0 +1,256 @@
+# SYANO Variant System — Critical RTL Toggle + Mobile Layout Fix
+
+Before changing ANY code:
+
+1. Read ALL recovery/project memory files.
+2. Read the latest VariantBuilder implementation completely.
+3. Verify the current state using the real UI.
+4. Use the seller account below for testing:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+---
+
+# IMPORTANT
+
+Do NOT trust previous reports.
+
+Do NOT trust theoretical CSS calculations.
+
+Do NOT assume a fix works because TypeScript passes.
+
+Do NOT assume a fix works because the code looks correct.
+
+The UI itself is the source of truth.
+
+You must verify visually in the browser.
+
+---
+
+# ISSUE 1 — RTL TOGGLE IS STILL BROKEN
+
+The previous fix FAILED.
+
+The screenshot proves the thumb still escapes outside the track.
+
+Current real behavior:
+
+Arabic RTL
+
+Product Variants main toggle:
+
+* track = green
+* thumb = white
+
+The thumb appears:
+
+* outside the track
+* on top of the "مفعّل" text
+* visually detached from the switch
+
+This means the toggle is still broken.
+
+---
+
+## Required Investigation
+
+Open DevTools and inspect the REAL rendered element.
+
+Check:
+
+* computed styles
+* computed transform
+* computed left
+* computed right
+* computed width
+* computed translate
+* parent width
+* parent flex
+* parent direction
+* parent transforms
+* RTL inheritance chain
+* containing block
+
+Find the REAL root cause.
+
+Do NOT guess.
+
+---
+
+## Required Result
+
+Arabic RTL:
+
+OFF
+
+[ ○----- ]
+
+thumb completely inside track
+
+ON
+
+[ -----○ ]
+
+thumb completely inside track
+
+No overlap with text.
+
+No overflow.
+
+No clipping.
+
+No visual glitches.
+
+---
+
+## Verification Required
+
+Verify:
+
+* Arabic
+* English
+
+Verify:
+
+* OFF state
+* ON state
+
+Verify:
+
+* main Enable Variants toggle
+* group toggles
+* any other toggle in VariantBuilder
+
+All must behave identically.
+
+---
+
+# ISSUE 2 — MOBILE LAYOUT STILL NOT FINISHED
+
+Mobile improved.
+
+But there are still layout problems.
+
+Specifically:
+
+## Manage Combinations Section
+
+The Generate Combinations button and surrounding layout are still not fully polished.
+
+Inspect:
+
+320px
+360px
+390px
+412px
+
+---
+
+## Variant Section
+
+Inspect every section:
+
+* Variant Groups
+* Added Groups
+* Values
+* Quick Add
+* Generate Combinations
+* Bulk Actions
+* Combination Cards
+* Variant Images
+
+Look for:
+
+* clipped buttons
+* half-visible controls
+* wrapped controls
+* overlapping elements
+* squeezed text
+* horizontal scrolling
+* uneven spacing
+* broken RTL alignment
+* inconsistent card widths
+
+Fix ALL remaining issues.
+
+---
+
+# VISUAL QA REQUIREMENT
+
+You MUST perform real visual QA.
+
+Test:
+
+320px
+360px
+390px
+412px
+768px
+1024px
+1440px
+
+Arabic RTL
+English LTR
+
+Take screenshots during verification.
+
+Do not stop until:
+
+* no clipping
+* no overlap
+* no horizontal scroll
+* no escaped toggle thumb
+* no broken spacing
+* no broken RTL layout
+
+---
+
+# DO NOT CREATE NEW REGRESSIONS
+
+Verify:
+
+* Existing products still work
+* Products without variants still work
+* Add Product page works
+* Edit Product page works
+* Variant generation works
+* TypeScript = 0 structural errors
+* Browser console = 0 errors
+
+---
+
+# RECOVERY DOCUMENTATION UPDATE
+
+After ALL fixes are verified visually:
+
+Update ALL recovery files:
+
+* CHANGELOG
+* CURRENT_STATE
+* RECOVERY_GUIDE
+* VARIANT_SYSTEM_STATE
+* any other project memory files
+
+Document:
+
+* root cause
+* exact fix
+* verification steps
+* screenshots used
+* viewport testing results
+
+Then save this as a NEW CHECKPOINT.
+
+The checkpoint must explicitly state:
+
+"RTL toggle bug fully resolved and visually verified"
+
+and
+
+"VariantBuilder mobile layout QA completed"
+
+Do NOT mark the task complete until the UI itself proves both issues are fixed.

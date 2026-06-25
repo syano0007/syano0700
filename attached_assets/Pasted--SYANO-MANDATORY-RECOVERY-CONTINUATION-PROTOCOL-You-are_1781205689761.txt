@@ -1,0 +1,357 @@
+# SYANO — MANDATORY RECOVERY + CONTINUATION PROTOCOL
+
+You are resuming the SYANO (سوق سوريا) project after a migration to a new Replit account.
+
+This is NOT a development task initially.
+
+Your first responsibility is to fully recover, verify, audit, and confirm the exact project state before touching any code.
+
+---
+
+# LAST VERIFIED CHECKPOINT
+
+Current roadmap status:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+✅ Seller Order Management V2
+
+✅ Seller Analytics Dashboard V2
+
+✅ Trust System V1
+
+✅ Recovery Integrity Audit
+
+Latest completed work:
+
+* Permanent bootstrap accounts
+* Translation parity (EN = AR = 2344)
+* Responsive fixes
+* Trust System V1
+* Seller Analytics Dashboard V2
+* Recovery audit
+* Notification enum auto-repair
+* Seller bootstrap application auto-creation
+* Courier bootstrap profile auto-creation
+
+Latest recovery confidence score:
+
+97/100
+
+Reason not 100:
+
+DATABASE_URL and SESSION_SECRET must always be manually provided by environment.
+
+---
+
+# CRITICAL BOOTSTRAP ACCOUNTS
+
+Verify these accounts exist and auto-heal if missing.
+
+Admin:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+admin
+
+Seller:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+seller
+
+Must have:
+
+* approved seller_application
+* storeSlug
+* seller dashboard access
+
+Courier:
+
+Email:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+courier
+
+Must have:
+
+* approved courier profile
+* active=true
+* courier dashboard access
+
+If any are missing:
+
+REPAIR AUTOMATICALLY.
+
+---
+
+# PHASE 1 — RECOVERY
+
+Execute in order:
+
+1. Read:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+2. Install:
+
+pnpm install --force
+
+3. Verify env:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+
+4. Restore DB:
+
+psql "$DATABASE_URL" -f schema.sql
+
+5. Build shared libs:
+
+npx tsc --build lib/db lib/api-zod lib/api-client-react
+
+6. Start:
+
+* API Server
+* Marketplace
+* Mobile
+
+---
+
+# PHASE 2 — DATABASE AUDIT
+
+Verify:
+
+Tables:
+
+27/27
+
+Verify:
+
+notification_type enum:
+
+31/31
+
+Verify:
+
+order statuses:
+
+15
+
+Verify:
+
+delivery zones:
+
+40
+
+Verify:
+
+users.verified_by exists
+
+Verify:
+
+seller_verification_log exists
+
+Verify:
+
+run-migrations.ts completed successfully
+
+---
+
+# PHASE 3 — TYPESCRIPT AUDIT
+
+Validate:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* artifacts/api-server
+* artifacts/marketplace
+* artifacts/mobile
+
+Target:
+
+0 errors
+
+If errors exist:
+
+STOP
+
+Fix them first.
+
+---
+
+# PHASE 4 — BOOTSTRAP ACCOUNT AUDIT
+
+Login test:
+
+Admin
+
+Seller
+
+Courier
+
+Verify:
+
+JWT issued
+
+Correct role
+
+Correct dashboard access
+
+No permission errors
+
+---
+
+# PHASE 5 — PLATFORM AUDIT
+
+Verify:
+
+Admin routes
+
+Seller routes
+
+Courier routes
+
+Customer routes
+
+Guest routes
+
+Verify:
+
+* Trust System V1
+* Seller Analytics Dashboard V2
+* Seller Orders V2
+* Courier Dashboard V2
+* Order Tracking
+* Variant System
+* Delivery Zones
+* Notifications
+
+---
+
+# PHASE 6 — RECOVERY INTEGRITY AUDIT
+
+Re-run all recovery checks.
+
+Confirm:
+
+Recovery Confidence Score
+
+Target:
+
+97+/100
+
+If below:
+
+Fix issues.
+
+---
+
+# PHASE 7 — DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Reflect exact recovered state.
+
+---
+
+# PHASE 8 — ONLY AFTER EVERYTHING PASSES
+
+Only if:
+
+* Services running
+* 0 TypeScript errors
+* 27 tables verified
+* 31 enum values verified
+* Bootstrap accounts verified
+* Recovery confidence ≥ 97
+
+Then begin the next task:
+
+# Build Admin Recovery Endpoint
+
+Create:
+
+GET /api/admin/recovery-check
+
+Admin-only endpoint.
+
+Purpose:
+
+Run the entire recovery audit automatically.
+
+Return structured JSON:
+
+{
+"services": {},
+"database": {},
+"typescript": {},
+"bootstrapAccounts": {},
+"security": {},
+"translations": {},
+"roadmapState": {},
+"confidenceScore": 100
+}
+
+Checks must include:
+
+* API health
+* Marketplace health
+* Mobile status
+* Table count
+* Enum count
+* Delivery zones count
+* Order status count
+* Bootstrap accounts
+* Translation parity
+* Route protection
+* Trust System status
+* Seller Analytics status
+
+Provide a final report showing:
+
+* What was verified
+* What was fixed
+* Confidence score
+* Exact roadmap position
+
+Do NOT start any other roadmap item.
+
+Do NOT build Wishlist.
+
+Do NOT build Buyer Trust.
+
+Do NOT build Messaging V2.
+
+Do NOT build Search V2.
+
+Only recover → verify → update docs → build /api/admin/recovery-check.

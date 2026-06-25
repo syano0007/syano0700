@@ -1,0 +1,83 @@
+You are upgrading the SYANO (سوق سوريا) Marketplace Navigation and User Profile architecture.
+
+This is a production-grade multi-vendor digital marketplace.
+
+Do NOT break existing backend APIs, JWT authentication, or database schemas (44 tables).
+Do NOT modify core routing engine or pgvector/FTS search pipelines.
+
+Preserve:
+- Full RTL (Arabic native) & LTR (English) support via logical properties.
+- Responsive web behavior (Vite 7 + React 19 + Tailwind v4 + Wouter).
+- Zero TypeScript errors across the entire monorepo.
+
+==================================================
+GOAL
+==================================================
+1. Re-align the Navbar Logo and Brand to the absolute screen edge.
+2. Introduce an interactive "Location Selector" button next to the Logo (Amazon/Noon style).
+3. Create a comprehensive "My Account / Profile" dashboard page enabling full user information management, address updates, and delivery zone linking.
+
+==================================================
+PART 1 — NAVBAR LOGO RE-ALIGNMENT
+==================================================
+Current UI Context:
+- The SYANO Logo and brand text have explicit inner spacing inside the main layout container wrapper.
+
+Modifications:
+- Push the SYANO Logo and text element to the absolute leading edge of the navbar (Far Right in RTL / Far Left in LTR).
+- Use Tailwind logical padding/margins (`ps-0`, `ms-0`, or alignment grids) to secure edge-to-edge balance, freeing up maximum central real estate for the search and action elements.
+
+==================================================
+PART 2 — AMAZON-STYLE LOCATION SELECTOR IN NAVBAR
+==================================================
+Requirement:
+- Insert a highly visible, responsive "Location Selector" button directly adjacent to the newly shifted SYANO logo (positioned on its inner side).
+- Visual Specs:
+  * Icon: Modern location pin vector/icon (e.g., Lucide `MapPin`).
+  * Text Layers: Stacked text layout (Small micro-text line: "التوصيل إلى" / "Deliver to", followed by a bold text line displaying the active/selected region like "حلب، الجميلية" or "اختر موقعك...").
+- Interaction Matrix:
+  * Clicking this button must open a clean, animated dropdown menu or modal view.
+  * Populate the selector with available active zones dynamically or read from the user's stored context/session.
+  * Integrate this selector globally: updates to this location state must filter or pass context cleanly to any area depending on product availability or shipping logistics.
+
+==================================================
+PART 3 — PREMIUM USER DASHBOARD / ACCOUNT PAGE ("حسابي")
+==================================================
+Requirement:
+- Create a comprehensive Account Profile Management page accessible via `/account` or `/profile` (integrated seamlessly with the Navbar Account Dropdown created in previous steps).
+- Target Design Quality: Noon / Amazon Customer Hub.
+
+Layout Modules on the Account Page:
+1. Personal Information Section:
+   - Form Fields: Full Name, Email, Phone Number.
+   - Capability: Read existing values from session context, perform local zod-validated formatting, and send patch updates to save changes via active profile endpoints.
+2. Address & Location Management Section:
+   - Implement an interactive address management card layout.
+   - Include a select/dropdown menu mapping to the 40 authenticated `delivery_zones` covering Aleppo to ensure exact logistical synchronization.
+   - Provide explicit input fields for: Detailed Street Address, Building/Floor details, and a primary location descriptor (Home, Work, etc.).
+3. Interactive UI Feedback:
+   - Add clear loading indicators during mutations/saves, crisp error text layers, and successful update toast messages.
+
+==================================================
+PART 4 — TAILWIND V4 & LOGICAL COMPLIANCE RULES
+==================================================
+- Write clean, precise Tailwind v4 markup.
+- Absolutely FORBID hardcoded left/right layout utility values (`ml-`, `mr-`, `pl-`, `pr-`, `left-`, `right-`).
+- Mandate logical properties globally to secure simultaneous Arabic (RTL) and English (LTR) interface accuracy:
+  * Use `ms-*` instead of `ml-*`
+  * Use `me-*` instead of `mr-*`
+  * Use `ps-*` instead of `pl-*`
+  * Use `pe-*` instead of `pr-*`
+  * Use `start-*` / `end-*` instead of `left-*` / `right-*`
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring the update complete, perform the following verification protocols:
+✓ SYANO Logo is safely adjusted to the absolute edge of the browser layout bar.
+✓ Location selector widget functions correctly in the navbar with accurate stacked text states.
+✓ Navigating to the new profile page loads the form populated with the user's current backend data state.
+✓ Modifying user details or selecting an Aleppo delivery zone saves successfully through the existing API layers.
+✓ Layout scaling is fully verified across Desktop, Tablet, and Mobile adaptive breakpoints.
+✓ RTL layout rendering is perfect with zero overlapping elements or flipped directional spacing.
+✓ Verify TypeScript compilation = 0 errors across the entire `artifacts/marketplace` package directory structure.

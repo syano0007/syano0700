@@ -1,0 +1,399 @@
+SYANO (سوق سوريا) — FULL RECOVERY + STARTUP + VERIFICATION
+
+IMPORTANT:
+
+Do NOT start new development.
+
+Do NOT modify code.
+
+Do NOT refactor.
+
+Do NOT optimize.
+
+Your first task is ONLY to restore the project and verify that it matches the latest verified checkpoint.
+
+══════════════════════════════════════════════
+PHASE 1 — READ RECOVERY DOCUMENTATION
+══════════════════════════════════════════════
+
+Read completely:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* CHANGELOG.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Do not skip.
+
+Build an understanding of:
+
+* project architecture
+* latest completed roadmap item
+* current system state
+* known issues
+* recovery process
+
+══════════════════════════════════════════════
+PHASE 2 — ENVIRONMENT RESTORATION
+══════════════════════════════════════════════
+
+Execute:
+
+1.
+
+pnpm install
+
+2.
+
+Verify required environment variables exist.
+
+3.
+
+If database is empty:
+
+drizzle-kit push
+
+4.
+
+Build shared libraries:
+
+npx tsc --build lib/db lib/api-zod lib/api-client-react
+
+5.
+
+Verify branding assets exist:
+
+* syano-logo.png
+* favicon-16x16.png
+* inter-latin.woff2
+* mobile icon assets
+
+══════════════════════════════════════════════
+PHASE 3 — START SERVICES
+══════════════════════════════════════════════
+
+Start:
+
+* API Server
+* Marketplace
+* Mobile (Expo)
+
+Verify:
+
+* API responding
+* Marketplace loads
+* Mobile builds
+
+══════════════════════════════════════════════
+PHASE 4 — DATABASE VERIFICATION
+══════════════════════════════════════════════
+
+Verify all tables exist.
+
+Expected:
+
+admin_audit_log
+cart_items
+conversations
+courier_assignments
+courier_wallet_transactions
+couriers
+delivery_zones
+messages
+notifications
+order_items
+order_status_history
+orders
+platform_settings
+product_variant_groups
+product_variant_options
+product_variant_values
+product_variants
+products
+push_subscriptions
+reviews
+seller_applications
+seller_reviews
+store_follows
+users
+variant_images
+verification_audit_log
+
+Expected total:
+
+26 tables
+
+Verify notification_type enum.
+
+Expected:
+
+31 values.
+
+══════════════════════════════════════════════
+PHASE 5 — TYPESCRIPT VERIFICATION
+══════════════════════════════════════════════
+
+Verify:
+
+artifacts/api-server
+
+artifacts/marketplace
+
+artifacts/mobile
+
+lib/db
+
+lib/api-zod
+
+lib/api-client-react
+
+Expected:
+
+0 structural TypeScript errors.
+
+══════════════════════════════════════════════
+PHASE 6 — FEATURE VERIFICATION
+══════════════════════════════════════════════
+
+Verify ALL of the following.
+
+────────────────────
+Product Wizard
+────────────────────
+
+* 5-step wizard
+* edit mode
+* new mode
+* widened desktop layout
+* inventory UX
+
+────────────────────
+Variant System
+────────────────────
+
+* VariantBuilder
+* Combination cards
+* Bulk actions
+* Variant images
+* RTL toggle fix
+
+────────────────────
+Delivery Zones
+────────────────────
+
+* 40 delivery zones
+* checkout integration
+* admin zone management
+* server-side delivery fee calculation
+
+────────────────────
+Order Fulfillment Workflow V1
+────────────────────
+
+Verify all statuses:
+
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+in_transit
+out_for_delivery
+delivered
+delivery_failed
+returned
+cancelled
+refunded
+
+────────────────────
+Courier Operations Dashboard V2
+────────────────────
+
+Verify:
+
+Admin Delivery Center
+
+* stats bar
+* search
+* filters
+* courier rating
+* courier load indicators
+* zone display
+
+Courier Dashboard
+
+* Deliveries tab
+* History tab
+* Earnings tab
+
+Verify:
+
+/couriers/history
+
+exists
+
+Verify:
+
+/couriers/earnings
+
+contains:
+
+today
+thisWeek
+thisMonth
+allTime
+
+Verify:
+
+success rate
+avg deliveries/day
+failed deliveries
+completed deliveries
+
+Verify:
+
+failure reasons
+
+stored and returned
+
+Verify:
+
+zone names
+
+returned everywhere.
+
+────────────────────
+Order Tracking
+────────────────────
+
+Verify:
+
+Courier Info Card
+
+Delivery Fee
+
+Timeline
+
+SSE invalidation
+
+30-second polling fallback
+
+Web and Mobile
+
+────────────────────
+Recently Viewed Products
+────────────────────
+
+Verify:
+
+hook exists
+
+tracking works
+
+homepage integration exists
+
+══════════════════════════════════════════════
+PHASE 7 — ROOT OWNER
+══════════════════════════════════════════════
+
+Verify Root Owner account.
+
+Expected:
+
+Email:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+
+00Amer00
+
+Verify:
+
+login works
+
+JWT issued
+
+role=admin
+
+══════════════════════════════════════════════
+PHASE 8 — COURIER V2 AUDIT
+══════════════════════════════════════════════
+
+Before any future development:
+
+Audit:
+
+* delivery completion flow
+* delivery failed flow
+* courier earnings
+* courier wallet synchronization
+* notifications
+* mobile courier UX
+
+Verify:
+
+Courier Assigned
+↓
+Picked Up
+↓
+Out For Delivery
+↓
+Delivered
+
+and
+
+Courier Assigned
+↓
+Picked Up
+↓
+Out For Delivery
+↓
+Delivery Failed
+
+Actually work.
+
+Do not modify yet.
+
+Only audit and report.
+
+══════════════════════════════════════════════
+PHASE 9 — FINAL REPORT
+══════════════════════════════════════════════
+
+Produce a complete report containing:
+
+1. Recovery Status
+
+2. Service Status
+
+3. Database Status
+
+4. TypeScript Status
+
+5. Feature Verification
+
+6. Courier Dashboard V2 Verification
+
+7. Missing Features
+
+8. Regressions Found
+
+9. Exact Current Project State
+
+Do not start new development until recovery is confirmed complete.
+
+Current expected roadmap position:
+
+✅ Order Fulfillment Workflow V1 — COMPLETE
+
+✅ Courier Operations Dashboard V2 — IMPLEMENTED
+
+NEXT STEP AFTER VERIFICATION:
+
+Courier Operations Dashboard V2 Audit & Validation
+(or fixes discovered by audit)
+
+Only proceed after reporting.

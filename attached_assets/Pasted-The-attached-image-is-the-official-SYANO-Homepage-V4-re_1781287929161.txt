@@ -1,0 +1,241 @@
+The attached image is the official SYANO Homepage V4 reference.
+
+This is not inspiration.
+
+This is the target homepage architecture and visual direction.
+
+Implement this homepage as closely as possible.
+
+Project:
+SYANO (سوق سوريا)
+
+Type:
+Premium Multi-Vendor Marketplace
+
+--------------------------------------------------
+IMPORTANT
+--------------------------------------------------
+
+Do not redesign the homepage.
+
+Do not create alternative concepts.
+
+Do not reinterpret the layout.
+
+Follow the attached reference as the primary specification.
+
+Use existing SYANO design tokens, components, and systems where possible.
+
+--------------------------------------------------
+CORE PHILOSOPHY
+--------------------------------------------------
+
+The homepage must feel like a marketplace immediately.
+
+Users should understand within 3 seconds:
+
+- Products are available
+- Categories are available
+- Trusted sellers exist
+- Shopping can begin immediately
+
+The homepage should feel closer to a premium marketplace than a landing page.
+
+--------------------------------------------------
+ABOVE THE FOLD
+--------------------------------------------------
+
+Implement the exact structure shown in the reference:
+
+LEFT SIDE:
+
+- SYANO value proposition
+- Headline
+- Supporting copy
+- Search-focused experience
+- Primary CTA
+- Secondary CTA
+
+RIGHT SIDE:
+
+- Product Mosaic
+- 4 real marketplace products
+- Product image
+- Product title
+- Product price
+- Discount badge when available
+
+Products must be visible immediately.
+
+The hero must sell products, not branding.
+
+--------------------------------------------------
+HERO RULES
+--------------------------------------------------
+
+NO:
+
+- giant hero image
+- stock photography
+- lifestyle photography
+- dashboard-style category tiles
+- empty marketing space
+
+YES:
+
+- products
+- prices
+- commerce signals
+- trust signals
+
+Keep hero compact.
+
+Avoid 75vh / 80vh / 90vh hero heights.
+
+Target a premium compact layout.
+
+--------------------------------------------------
+SEARCH
+--------------------------------------------------
+
+Search is a primary discovery tool.
+
+Make search highly visible.
+
+Search should feel central to the homepage experience.
+
+--------------------------------------------------
+CATEGORIES
+--------------------------------------------------
+
+Below the hero:
+
+Popular Categories
+
+Use category cards.
+
+Do NOT use:
+
+- pill chips
+- oversized colored squares
+- dashboard styling
+
+Categories should feel premium and marketplace-oriented.
+
+--------------------------------------------------
+SECTION ORDER
+--------------------------------------------------
+
+Implement this order:
+
+1. Header
+2. Hero + Product Mosaic
+3. Popular Categories
+4. Today's Deals
+5. Best Sellers
+6. Verified Stores
+7. New Arrivals
+8. Explore Categories
+9. Seller + Courier CTA Band
+10. Footer
+
+--------------------------------------------------
+VERIFIED STORES
+--------------------------------------------------
+
+Leverage the existing Trust System.
+
+Show verified sellers prominently.
+
+Use:
+
+- trust score
+- verification status
+- seller credibility
+
+Trust should be visible on the homepage.
+
+--------------------------------------------------
+CONTENT INDEPENDENCE
+--------------------------------------------------
+
+Homepage must look complete even when:
+
+- zero hero banners exist
+- zero deals exist
+- zero admin banners exist
+
+Do not rely on admin-created content to make the homepage look good.
+
+--------------------------------------------------
+MOBILE
+--------------------------------------------------
+
+Mobile experience is critical.
+
+Requirements:
+
+- products visible quickly
+- minimal scrolling before commerce content
+- premium RTL experience
+- native Arabic feel
+
+Do not create a full-screen mobile hero.
+
+--------------------------------------------------
+VISUAL DIRECTION
+--------------------------------------------------
+
+Target:
+
+- Apple-level cleanliness
+- Noon-level commerce density
+- Trendyol-level browsing
+- Modern premium ecommerce
+
+Avoid:
+
+- SaaS landing page aesthetics
+- dashboard aesthetics
+- excessive empty space
+- decorative layouts
+
+--------------------------------------------------
+CLEANUP
+--------------------------------------------------
+
+Remove obsolete homepage structures.
+
+Remove old fallback-only logic if replaced.
+
+Remove duplicate sections.
+
+Keep architecture clean.
+
+--------------------------------------------------
+DOCUMENTATION (MANDATORY)
+--------------------------------------------------
+
+After implementation update:
+
+- RECOVERY_GUIDE.md
+- MEMORY.md
+- homepage-v4.md
+- homepage architecture documentation
+- hero-banner-system documentation
+- endpoint documentation
+- project state files
+
+Document:
+
+- component hierarchy
+- homepage architecture
+- new components
+- removed components
+- fallback behavior
+- modified queries
+- modified endpoints
+
+Do not consider the task complete until documentation is updated.
+
+Build the homepage to match the attached reference as closely as possible.

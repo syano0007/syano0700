@@ -1,0 +1,276 @@
+STOP.
+
+Do NOT redesign the Seller Verification page.
+
+Do NOT change functionality.
+
+Do NOT change approval logic.
+
+Do NOT change API calls.
+
+Do NOT change database behavior.
+
+This task is PURELY a UI/UX spacing and layout refinement pass.
+
+---
+
+# TARGET PAGE
+
+Admin Dashboard
+
+Seller Verification Page
+
+Vendor Approval Review Screen
+
+All related seller verification views.
+
+---
+
+# CURRENT PROBLEM
+
+The content feels glued to the edges.
+
+Spacing is inconsistent.
+
+The page lacks breathing room.
+
+Some cards, sections, labels, fields, and actions feel cramped.
+
+The visual hierarchy is weaker than the rest of SYANO.
+
+The page currently feels like an internal admin tool.
+
+It should feel like a polished production-grade review workspace.
+
+---
+
+# DESIGN GOAL
+
+Match the quality level already used across:
+
+* Homepage V7
+* Current Navbar
+* Seller dashboards
+* Premium card layouts
+
+Target:
+
+* Shopify Admin
+* Stripe Dashboard
+* Linear
+* Notion
+
+Clean.
+
+Professional.
+
+Comfortable.
+
+Readable.
+
+---
+
+# SPACING AUDIT
+
+Audit the entire Seller Verification page.
+
+Review:
+
+* page container
+* header area
+* title area
+* description area
+* seller information cards
+* business details
+* uploaded documents
+* verification images
+* approval actions
+* rejection actions
+* notes area
+* metadata sections
+
+Find every place where spacing feels compressed.
+
+---
+
+# PAGE CONTAINER
+
+Increase outer breathing room.
+
+Ensure proper:
+
+* horizontal padding
+* vertical spacing
+* responsive margins
+
+Content must never appear attached to viewport edges.
+
+Desktop should feel spacious.
+
+---
+
+# CARD SYSTEM
+
+Review every card.
+
+Standardize:
+
+* padding
+* radius
+* shadow
+* border spacing
+
+Cards should have consistent internal spacing.
+
+No card should feel crowded.
+
+---
+
+# SECTION SPACING
+
+Between sections:
+
+Increase spacing where needed.
+
+The page should have a clear reading rhythm.
+
+Example:
+
+Seller Info
+
+↓
+
+Business Details
+
+↓
+
+Documents
+
+↓
+
+Verification Status
+
+↓
+
+Actions
+
+Each section must feel visually separated.
+
+---
+
+# TYPOGRAPHY SPACING
+
+Audit:
+
+* titles
+* subtitles
+* labels
+* metadata
+* descriptions
+
+Fix:
+
+* line-height
+* paragraph spacing
+* heading spacing
+* label spacing
+
+Text should breathe.
+
+Nothing should look compressed.
+
+---
+
+# DOCUMENT PREVIEW AREA
+
+Uploaded files and verification documents need better spacing.
+
+Ensure:
+
+* proper card padding
+* consistent thumbnail spacing
+* comfortable margins
+
+Documents should look organized.
+
+Not stacked tightly.
+
+---
+
+# ACTION AREA
+
+Approval / Reject buttons need:
+
+* proper spacing
+* alignment
+* visual balance
+
+Buttons should not touch nearby content.
+
+Actions must feel intentional.
+
+---
+
+# RESPONSIVE REVIEW
+
+Check:
+
+Desktop
+
+Tablet
+
+Mobile
+
+Ensure spacing remains consistent.
+
+No element should touch screen edges.
+
+No content should feel cramped.
+
+---
+
+# CONSISTENCY RULE
+
+Use existing SYANO spacing scale.
+
+Do NOT invent a new design language.
+
+Do NOT introduce random paddings.
+
+Use the same spacing philosophy already used in:
+
+* Homepage
+* Navbar
+* Premium cards
+
+---
+
+# VALIDATION
+
+After implementation verify:
+
+✅ Content no longer touches edges
+
+✅ Cards have consistent padding
+
+✅ Sections have proper breathing room
+
+✅ Documents are easier to scan
+
+✅ Buttons are properly separated
+
+✅ Typography spacing is improved
+
+✅ Desktop looks premium
+
+✅ Mobile remains usable
+
+✅ No functionality changed
+
+✅ No API changes
+
+✅ No database changes
+
+This is a visual polish pass only.
+
+The goal is to make the Seller Verification page feel production-grade and consistent with the rest of SYANO.

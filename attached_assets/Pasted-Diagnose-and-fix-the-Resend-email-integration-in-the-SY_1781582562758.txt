@@ -1,0 +1,38 @@
+Diagnose and fix the Resend email integration in the SYANO API server.
+
+PROBLEM:
+A new user account was created successfully but no welcome email was received. No error was shown to the user (fire-and-forget). Need to find out why the email is not being sent.
+
+STEP 1 — Check environment variables:
+Confirm that process.env.RESEND_API_KEY and process.env.EMAIL_FROM are accessible at runtime in artifacts/api-server/src/services/emailService.ts
+Add a startup log in emailService.ts that prints:
+- "RESEND_API_KEY loaded: true/false"
+- "EMAIL_FROM: <value>"
+
+STEP 2 — Check the Resend API call:
+In artifacts/api-server/src/services/emailService.ts, temporarily change the fire-and-forget pattern to await the result and log the full response AND any errors to console.error with the prefix [EMAIL_DEBUG].
+
+STEP 3 — Check auth.ts integration:
+Confirm that sendWelcomeEmail() is actually being called after user creation. Add a console.log("[EMAIL_DEBUG] sendWelcomeEmail called for: " + email) right before the sendWelcomeEmail() call in artifacts/api-server/src/routes/auth.ts
+
+STEP 4 — Restart the server and create a test account:
+Restart the API server, then create a new test account via POST /api/auth/register with a real email address.
+
+STEP 5 — Read the logs:
+Show me the full console output after the test registration, especially any lines containing [EMAIL_DEBUG].
+
+STEP 6 — Fix whatever is wrong:
+Based on the logs, fix the root cause. Common issues to check:
+- RESEND_API_KEY not loaded (undefined)
+- EMAIL_FROM domain not matching verified Resend domain (must be @syanomarket.online)
+- Resend API returning an error (wrong API key, domain not verified)
+- sendWelcomeEmail() not being called at all
+
+STEP 7 — TypeScript check:
+Run npx tsc --noEmit in artifacts/api-server/ — must return 0 errors.
+
+STEP 8 — Test again:
+Create another test account and confirm the welcome email is received.
+
+Do not change any existing API response shapes.
+Do not remove the fire-and-forget pattern after fixing — just remove the temporary debug logs.

@@ -1,0 +1,401 @@
+# SYANO — Phase 13 V2: Smart Support Expansion + Global Support Widget
+
+You are continuing Phase 13 of SYANO (سوق سوريا).
+
+Phase 13 V1 is already complete.
+
+DO NOT rebuild anything from Phase 13 V1.
+
+Read first:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+
+Understand the existing Smart Support architecture completely before writing code.
+
+---
+
+# OBJECTIVE
+
+Expand the existing AI Customer Service system.
+
+Implement:
+
+## 1. Global Smart Support Widget
+
+## 2. Deep Integration With Existing Smart Support Conversation
+
+The widget must be only a frontend entry point.
+
+The actual conversation must remain inside Messaging V2.
+
+Never create a second chat system.
+
+Never create duplicate conversations.
+
+Never create a separate support database.
+
+---
+
+# CRITICAL RULE
+
+The widget and the conversation must always be connected.
+
+Example:
+
+User opens widget.
+
+User writes:
+
+"وين طلبي؟"
+
+The message must be sent into:
+
+الدعم الذكي
+
+inside Messaging V2.
+
+If the user later opens:
+
+Messages → Smart Support
+
+the exact same conversation must continue.
+
+No duplicated messages.
+
+No duplicated threads.
+
+One support conversation per user.
+
+---
+
+# PART 1 — GLOBAL SMART SUPPORT WIDGET
+
+Create a floating support widget visible across the marketplace.
+
+Pages:
+
+* Homepage
+* Shop
+* Product Details
+* Store Pages
+* Cart
+* Checkout
+* Orders
+* Wishlist
+* Search
+* Seller Pages
+
+Desktop and Mobile.
+
+---
+
+# DESIGN
+
+Must match SYANO design language.
+
+No generic chatbot.
+
+No ugly support bubble.
+
+Use:
+
+* emerald accent
+* current shadows
+* current radius system
+* current typography
+
+Visual quality target:
+
+* Amazon Support
+* Intercom
+* Crisp
+* Shopify Inbox
+
+---
+
+# COLLAPSED STATE
+
+Bottom corner.
+
+Contains:
+
+* support icon
+* label
+
+Arabic:
+
+الدعم الذكي
+
+English:
+
+Smart Support
+
+Unread badge supported.
+
+---
+
+# EXPANDED STATE
+
+Opens mini conversation panel.
+
+Shows:
+
+* conversation history
+* latest messages
+* typing indicator
+* quick actions
+
+---
+
+# QUICK ACTIONS
+
+Arabic:
+
+* أين طلبي؟
+* مشكلة في الطلب
+* الإرجاع والاسترداد
+* معلومات التوصيل
+* التواصل مع الدعم
+
+English:
+
+* Where is my order?
+* Order issue
+* Refunds
+* Shipping
+* Contact support
+
+---
+
+# PART 2 — CONVERSATION SYNCHRONIZATION
+
+Widget must use the exact same conversation as:
+
+Messaging V2 → Smart Support
+
+Requirements:
+
+Open widget
+
+→ conversation updates
+
+Open Messaging page
+
+→ same conversation updates
+
+Read state synchronized
+
+Unread counts synchronized
+
+No duplicate records
+
+---
+
+# PART 3 — ORDER CONTEXT AWARENESS
+
+When user is viewing:
+
+Order Details
+
+Widget should automatically expose:
+
+Quick actions:
+
+* Track this order
+* Report issue
+* Delivery question
+
+Context should be passed automatically.
+
+The AI should know which order is being discussed.
+
+---
+
+# PART 4 — PRODUCT CONTEXT AWARENESS
+
+When user is viewing a product:
+
+Widget quick actions:
+
+* Ask about this product
+* Similar products
+* Availability
+* Delivery information
+
+Product ID context should be attached automatically.
+
+---
+
+# PART 5 — STORE CONTEXT AWARENESS
+
+When viewing a store:
+
+Quick actions:
+
+* Contact seller
+* Seller information
+* Shipping policy
+
+Store context passed automatically.
+
+---
+
+# PART 6 — ESCALATION IMPROVEMENTS
+
+If escalation happens:
+
+Widget must show:
+
+Arabic:
+
+تم تحويل طلبك إلى فريق الدعم
+
+English:
+
+Your request has been escalated
+
+Display:
+
+* ticket number
+* ticket status
+
+inside widget and conversation.
+
+---
+
+# PART 7 — ADMIN VISIBILITY
+
+Support dashboard should show:
+
+Source:
+
+* Widget
+* Messages page
+
+Track:
+
+* response counts
+* escalations
+* ticket creation
+
+---
+
+# PART 8 — MOBILE EXPERIENCE
+
+Mobile is extremely important.
+
+Requirements:
+
+* responsive
+* smooth animation
+* no viewport jumps
+* no keyboard overlap
+* no layout shift
+
+Must feel native.
+
+---
+
+# PART 9 — PERFORMANCE
+
+Widget must not:
+
+* block rendering
+* increase homepage load noticeably
+* cause hydration issues
+
+Lazy-load where appropriate.
+
+---
+
+# PART 10 — TESTING
+
+Use REAL accounts.
+
+Test:
+
+Admin:
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Customer:
+
+* create or use existing real customer account
+
+Perform real end-to-end testing.
+
+Verify:
+
+* widget message
+* messaging page sync
+* escalation
+* ticket creation
+* unread counts
+* notifications
+* mobile behavior
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Widget appears globally
+
+✅ Widget matches SYANO design
+
+✅ Messaging V2 still works
+
+✅ Single support conversation per user
+
+✅ Widget + Messaging synchronized
+
+✅ Order context works
+
+✅ Product context works
+
+✅ Store context works
+
+✅ Escalation works
+
+✅ Ticket status visible
+
+✅ Mobile works
+
+✅ Arabic works
+
+✅ English works
+
+✅ TypeScript = 0 errors
+
+---
+
+# RECOVERY
+
+After completion:
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+
+Document:
+
+* widget architecture
+* synchronization model
+* context-aware support system
+
+Save everything into recovery snapshots.
+
+This must feel like a production-grade customer support system, not a demo chatbot.

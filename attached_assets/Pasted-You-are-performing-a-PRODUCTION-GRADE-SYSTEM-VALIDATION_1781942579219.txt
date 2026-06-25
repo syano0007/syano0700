@@ -1,0 +1,404 @@
+You are performing a PRODUCTION-GRADE SYSTEM VALIDATION + EMBEDDING UPGRADE for the SYANO (سوق سوريا) marketplace.
+
+This is NOT a feature implementation task.
+
+This is a REAL SYSTEM VERIFICATION TASK.
+
+Your goal is to prove that the marketplace actually works end-to-end under real conditions.
+
+Do not assume.
+
+Do not trust existing reports.
+
+Do not trust previous audits.
+
+Verify everything yourself.
+
+---
+
+# PART 1 — EMBEDDING SYSTEM UPGRADE
+
+Current audit shows:
+
+* Embedding service running
+* 42/42 products indexed
+* TF-IDF / LSA fallback active
+
+This is NOT acceptable as the final search quality target.
+
+Investigate the entire embedding architecture.
+
+Determine:
+
+* current embedding model
+* current vector dimension
+* current search pipeline
+* current ranking pipeline
+* current pgvector usage
+* current fallback logic
+
+Then evaluate whether a modern embedding model already exists in the project but is disabled.
+
+If not:
+
+Upgrade to the strongest practical local embedding system supported by the current infrastructure.
+
+Preferred order:
+
+1. BAAI/bge-small-en-v1.5
+2. multilingual-e5-small
+3. all-MiniLM-L6-v2
+
+Requirements:
+
+* preserve pgvector
+* preserve existing search APIs
+* preserve existing search UI
+* re-index all products
+* verify embeddings are actually stored
+* verify semantic similarity works
+
+Run tests:
+
+Search:
+"gaming laptop"
+
+Search:
+"computer for work"
+
+Search:
+"phone charger"
+
+Search:
+"wireless earbuds"
+
+Search:
+"winter jacket"
+
+Verify results are semantic, not keyword-only.
+
+Produce:
+
+* average embedding generation time
+* vector dimension
+* indexed product count
+* similarity examples
+
+---
+
+# PART 2 — REAL END-TO-END ORDER FLOW
+
+Execute a REAL system test.
+
+DO NOT simulate.
+
+DO NOT fake results.
+
+Use actual API calls.
+
+Use actual database records.
+
+Use actual accounts.
+
+---
+
+## Customer
+
+Login using a real customer account.
+
+Perform:
+
+* browse product
+* open product page
+* select variant if available
+* add to cart
+* checkout
+* create order
+
+Capture:
+
+* product id
+* order id
+
+Verify order exists in database.
+
+---
+
+## Seller
+
+Login using a real seller account.
+
+Perform:
+
+* open seller orders
+* view new order
+* mark order ready
+
+Verify:
+
+* order status updated
+* delivery mission created automatically
+
+Record:
+
+* mission id
+
+---
+
+## Automatic Assignment Validation
+
+This is the most important test.
+
+Determine:
+
+* Is mission assignment automatic?
+* Is assignment still dependent on admin?
+* Is auto-assignment working?
+
+Create a mission.
+
+Observe system behavior.
+
+Verify:
+
+* courier selected automatically
+* assignment created automatically
+* no admin intervention
+
+If auto-assignment fails:
+
+Find exact cause.
+
+Do not patch blindly.
+
+Identify:
+
+* service
+* route
+* scheduler
+* query
+* business rule
+
+Then fix.
+
+Retest.
+
+Repeat until assignment is fully automatic.
+
+---
+
+## Courier
+
+Login using a real courier account.
+
+Perform:
+
+* receive mission offer
+* accept mission
+* navigate to pickup
+* mark picked up
+* navigate to customer
+* mark delivered
+
+Verify:
+
+* tracking session created
+* tracking positions recorded
+* delivery proof flow works
+* order becomes delivered
+
+Record:
+
+* courier id
+* mission id
+* tracking session id
+
+---
+
+# PART 3 — TRACKING VALIDATION
+
+Verify:
+
+Customer can see:
+
+* live courier
+* ETA
+* route
+
+Seller can see:
+
+* courier progress
+
+Admin can see:
+
+* active sessions
+
+Verify:
+
+* tracking_positions rows created
+* tracking_events rows created
+* session closes after delivery
+
+Capture row counts.
+
+---
+
+# PART 4 — WALLET VALIDATION
+
+After successful delivery:
+
+Verify:
+
+* earning created
+* wallet updated
+* transaction created
+
+Record:
+
+Before delivery:
+
+* available balance
+* pending balance
+
+After delivery:
+
+* available balance
+* pending balance
+
+Verify:
+
+* balances changed correctly
+
+Then:
+
+Create payout request.
+
+Verify:
+
+* payout request row created
+* available balance decreases
+* pending balance increases
+
+Approve payout.
+
+Verify:
+
+* payout status updated
+* balances updated
+
+Reject payout test as well.
+
+Verify rollback works.
+
+---
+
+# PART 5 — MAP VALIDATION
+
+Verify visually:
+
+* courier workspace map
+* tracking page map
+* routing diagnostics map
+
+Do NOT rely on API health.
+
+Confirm:
+
+* map tiles render
+* markers render
+* route polyline renders
+
+If any map fails:
+
+Find root cause.
+
+Fix.
+
+Retest.
+
+---
+
+# PART 6 — VARIANT VALIDATION
+
+Use a product with variants.
+
+Verify:
+
+Seller:
+
+* create groups
+* generate combinations
+* save combinations
+
+Customer:
+
+* select variant
+* add variant to cart
+
+Order:
+
+* variant id preserved
+* variant details preserved
+
+Inventory:
+
+* correct variant stock decremented
+
+---
+
+# PART 7 — FINAL REPORT
+
+Produce a brutally honest report.
+
+Do NOT hide failures.
+
+Do NOT say "looks good".
+
+Use:
+
+PASS
+FAIL
+PARTIAL
+
+for every subsystem.
+
+Include:
+
+## Embeddings
+
+## Search
+
+## Products
+
+## Variants
+
+## Cart
+
+## Checkout
+
+## Orders
+
+## Seller Flow
+
+## Auto Assignment
+
+## Courier Flow
+
+## Tracking
+
+## Maps
+
+## Wallet
+
+## Payouts
+
+## Admin
+
+For every FAIL:
+
+* root cause
+* affected files
+* fix applied
+* retest result
+
+Only mark the system healthy if you personally verified it through real execution.

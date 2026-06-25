@@ -1,0 +1,339 @@
+# SYANO — Full Recovery, Verification & Checkpoint Validation Protocol
+
+You are working on the SYANO (سوق سوريا) marketplace project.
+
+Your first responsibility is NOT development.
+
+Your first responsibility is to fully recover the project, start all services, verify the latest checkpoint, and prove that the workspace matches the most recent saved state.
+
+DO NOT implement any new feature.
+
+DO NOT modify any business logic.
+
+DO NOT refactor anything.
+
+DO NOT update dependencies unless required for recovery.
+
+Recovery and validation come first.
+
+---
+
+# PHASE 1 — Read Recovery Sources
+
+Before doing anything:
+
+Read ALL recovery, memory, checkpoint, backup and state files.
+
+Examples include:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* DATABASE_STATE.md
+* variant-system.md
+* delivery-system.md
+* courier-promotion.md
+* root-owner-bootstrap.md
+
+and any other recovery-related files.
+
+Treat these files as the source of truth.
+
+---
+
+# PHASE 2 — Environment Recovery
+
+Restore the workspace completely.
+
+Verify:
+
+* pnpm workspace integrity
+* .npmrc configuration
+* pnpm-workspace.yaml
+* node_modules
+* build tools
+* Vite
+* Expo
+* API dependencies
+
+Install anything missing.
+
+Fix migration-related environment issues.
+
+Do not continue until all services can start.
+
+---
+
+# PHASE 3 — Database Recovery
+
+Verify database state.
+
+If the database is empty:
+
+* restore schema
+* restore enums
+* restore migrations
+* restore delivery system tables
+* restore variant system tables
+
+Verify all required tables exist.
+
+Verify all required columns exist.
+
+Verify all required enum values exist.
+
+---
+
+# PHASE 4 — Start All Services
+
+Start and verify:
+
+## API
+
+Must respond successfully.
+
+## Marketplace
+
+Must compile successfully.
+
+Must render successfully.
+
+## Mobile
+
+Must boot successfully.
+
+## Any additional required service
+
+Must be healthy.
+
+---
+
+# PHASE 5 — Verify Latest Checkpoint
+
+You must verify the latest known project state.
+
+Do not assume.
+
+Actually inspect code and confirm.
+
+---
+
+## Variant System Validation
+
+Verify:
+
+* VariantBuilder exists
+* Add Product page variant system exists
+* Edit Product page variant system exists
+* Variant combinations exist
+* Variant images exist
+
+Verify the RTL toggle fix exists.
+
+The old pattern:
+
+translate-x-6
+translate-x-1
+
+must NOT exist.
+
+Verify all toggles use the fixed left-position approach.
+
+---
+
+## Product Page Validation
+
+Verify:
+
+### Variant Selection
+
+* first valid variant auto-selects
+* variant switching updates price
+* variant switching updates stock
+* variant switching updates SKU
+* variant switching updates image
+
+### Layout
+
+Verify order:
+
+1. Images
+2. Title
+3. Price
+4. Variant Selection
+5. Stock Status
+6. Purchase Experience
+7. Specifications
+8. About Product
+9. Seller Information
+
+---
+
+## Mobile Product Experience Validation
+
+Verify:
+
+* duplicate mobile purchase card removed
+* sticky purchase bar exists
+* sticky bar is visible on mobile
+* sticky bar does not appear on desktop
+* sticky purchase flow works correctly
+* variant selection still works
+
+---
+
+## Discount Validation
+
+Verify all discounts use the SAME calculation logic.
+
+Compare:
+
+* Product Cards
+* Store Products
+* Product Details
+
+The percentage must be identical everywhere.
+
+No inconsistent discount values allowed.
+
+---
+
+## Mobile Layout Validation
+
+Verify:
+
+### Product Grid
+
+Mobile = 2 columns
+
+### Category Grid
+
+Mobile = 2 columns
+
+### Product Images
+
+Square aspect ratio
+
+### Cards
+
+No full-width single-product rows
+
+---
+
+## Delivery System Validation
+
+Verify:
+
+* delivery_zones exists
+* couriers exists
+* courier_assignments exists
+* courier_wallet_transactions exists
+
+Verify:
+
+* admin delivery pages
+* courier application pages
+* courier dashboard
+* seller delivery workflow
+
+---
+
+## Courier Promotion Validation
+
+Verify:
+
+* customer → courier application flow exists
+* admin approval flow exists
+* approval notification link exists
+* courier dashboard route exists
+
+Verify approval properly upgrades account role.
+
+---
+
+# PHASE 6 — Visual Verification
+
+Take actual screenshots.
+
+Required:
+
+### Home Page Mobile
+
+### Product Page Mobile
+
+### Product Page Desktop
+
+Use screenshots to verify layout visually.
+
+Do not rely only on code inspection.
+
+---
+
+# PHASE 7 — Final Validation Report
+
+Before any development work:
+
+Produce a complete report.
+
+Include:
+
+## Recovery Status
+
+PASS / FAIL
+
+## Services
+
+PASS / FAIL
+
+for:
+
+* API
+* Marketplace
+* Mobile
+
+## Database
+
+PASS / FAIL
+
+## Variant System
+
+PASS / FAIL
+
+## Product Page
+
+PASS / FAIL
+
+## Mobile Layout
+
+PASS / FAIL
+
+## Delivery System
+
+PASS / FAIL
+
+## Courier System
+
+PASS / FAIL
+
+## Screenshots Taken
+
+YES / NO
+
+## Missing Features
+
+List everything missing.
+
+## Regressions
+
+List everything broken.
+
+---
+
+# IMPORTANT
+
+Do NOT start implementing new features.
+
+Do NOT modify project logic.
+
+Do NOT create new functionality.
+
+Stop after the validation report and wait for further instructions.

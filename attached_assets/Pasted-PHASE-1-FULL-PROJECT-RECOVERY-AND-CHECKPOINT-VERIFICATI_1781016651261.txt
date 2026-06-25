@@ -1,0 +1,138 @@
+PHASE 1 — FULL PROJECT RECOVERY AND CHECKPOINT VERIFICATION
+
+The project has been moved to a different Replit account/workspace.
+
+Before making ANY code changes:
+
+1. Read ALL project recovery/memory files.
+2. Restore the workspace to the latest documented checkpoint.
+3. Install dependencies if missing.
+4. Verify database schema.
+5. Verify all services run correctly.
+6. Verify latest documented VariantBuilder fixes exist.
+7. Verify latest RTL/mobile fixes exist.
+8. Verify latest recovery documents match the actual codebase.
+
+Do NOT start implementing anything until recovery verification is complete.
+
+Recovery checklist:
+
+* Read all project memory files.
+* Restore node_modules if missing.
+* Restore database schema if missing.
+* Verify all tables exist.
+* Verify all additive migrations exist.
+* Verify API starts.
+* Verify Marketplace starts.
+* Verify Mobile starts.
+* Verify TypeScript = 0 errors.
+
+Then verify the latest saved VariantBuilder checkpoint:
+
+* VariantBuilder.tsx exists.
+* Latest RTL/mobile fixes exist.
+* StepHeader mobile fixes exist.
+* Generate button mobile fixes exist.
+* Toggle fixes exist.
+* Recovery documents reflect current code.
+
+After recovery verification:
+
+Provide a report:
+
+1. What was restored.
+2. What was already correct.
+3. What was missing.
+4. What was repaired.
+5. Whether current workspace matches latest checkpoint.
+
+ONLY AFTER THIS REPORT:
+
+PHASE 2 — EDIT PRODUCT PAGE INVESTIGATION
+
+The Add Product page is fixed.
+
+The Edit Product page is NOT fixed.
+
+You must investigate the REAL Edit Product page.
+
+Requirements:
+
+* Login using the real seller account:
+  [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+  00Amer00
+
+* Use the REAL website.
+
+* Do NOT create debug pages.
+
+* Do NOT create test routes.
+
+* Do NOT create mock VariantBuilder pages.
+
+* Do NOT assume Add Product and Edit Product share code.
+
+Steps:
+
+1. Open a REAL existing product.
+2. Open the REAL Edit Product page.
+3. Switch language to Arabic RTL.
+4. Navigate to the Variants section.
+5. Test every toggle visually.
+
+Investigate:
+
+* Main variants toggle.
+* Group toggles.
+* Combination toggles.
+* Any nested activation toggle.
+
+Search for:
+
+* translate-x-6
+* translate-x-1
+* old inline-flex toggle implementations
+* duplicated Toggle implementations
+* duplicated VariantBuilder logic
+
+Success criteria:
+
+✓ Add Product still works.
+
+✓ Edit Product works.
+
+✓ Arabic RTL works.
+
+✓ English LTR works.
+
+✓ Thumb never escapes the track.
+
+✓ ON state remains inside the track.
+
+✓ OFF state remains inside the track.
+
+✓ No duplicated broken implementation remains.
+
+After the fix:
+
+1. Verify on the REAL Edit Product page.
+2. Verify on the REAL Add Product page.
+3. Verify mobile.
+4. Verify desktop.
+
+Then update ALL recovery files:
+
+* CURRENT_STATE
+* RECOVERY_GUIDE
+* CHANGELOG
+* Variant-related memory files
+
+Save this state as the new checkpoint.
+
+Report:
+
+1. Exact files modified.
+2. Exact root cause.
+3. Exact fix.
+4. Real-page verification results.
+5. Confirmation that recovery documents were updated.

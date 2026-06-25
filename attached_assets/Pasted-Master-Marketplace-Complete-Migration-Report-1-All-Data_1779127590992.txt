@@ -1,0 +1,202 @@
+Master Marketplace — Complete Migration Report
+1. All Database Tables & Row Counts
+Table	Columns	Rows (this instance)
+users	6	5
+products	10	12
+cart_items	5	1
+orders	7	2
+order_items	8	2
+reviews	6	0
+platform_settings	2	1
+admin_audit_log	8	2
+There are also 2 custom PostgreSQL enum types that must be created before the tables.
+
+2. Complete Schema — CREATE TABLE Statements
+Run these in order in the new database.
+
+-- ─────────────────────────────────────────────
+-- STEP A: Custom ENUM Types (must come first)
+-- ─────────────────────────────────────────────
+CREATE TYPE role AS ENUM ('customer', 'seller', 'admin');
+CREATE TYPE order_status AS ENUM (
+  'pending', 'processing', 'shipped', 'delivered', 'cancelled'
+);
+-- ─────────────────────────────────────────────
+-- STEP B: Tables (in dependency order)
+-- ─────────────────────────────────────────────
+CREATE TABLE users (
+  id            SERIAL PRIMARY KEY,
+  email         TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  name          TEXT NOT NULL,
+  role          role NOT NULL DEFAULT 'customer',
+  created_at    TIMESTAMP NOT NULL DEFAULT now()
+);
+CREATE TABLE products (
+  id               SERIAL PRIMARY KEY,
+  seller_id        INTEGER NOT NULL REFERENCES users(id),
+  name             TEXT NOT NULL,
+  description      TEXT NOT NULL,
+  price            NUMERIC(10, 2) NOT NULL,
+  discount_percent NUMERIC(5, 2),
+  category         TEXT NOT NULL,
+  stock            INTEGER NOT NULL DEFAULT 0,
+  image_url        TEXT,
+  created_at       TIMESTAMP NOT NULL DEFAULT now()
+);
+CREATE TABLE cart_items (
+  id         SERIAL PRIMARY KEY,
+  user_id    INTEGER NOT NULL REFERENCES users(id),
+  product_id INTEGER NOT NULL REFERENCES products(id),
+  quantity   INTEGER NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT now()
+);
+CREATE TABLE orders (
+  id               SERIAL PRIMARY KEY,
+  customer_id      INTEGER NOT NULL REFERENCES users(id),
+  total            NUMERIC(10, 2) NOT NULL,
+  status           order_status NOT NULL DEFAULT 'pending',
+  shipping_address TEXT NOT NULL,
+  created_at       TIMESTAMP NOT NULL DEFAULT now(),
+  updated_at       TIMESTAMP NOT NULL DEFAULT now()
+);
+CREATE TABLE order_items (
+  id           SERIAL PRIMARY KEY,
+  order_id     INTEGER NOT NULL REFERENCES orders(id),
+  product_id   INTEGER NOT NULL,
+  product_name TEXT NOT NULL,
+  quantity     INTEGER NOT NULL,
+  unit_price   NUMERIC(10, 2) NOT NULL,
+  seller_id    INTEGER NOT NULL,
+  created_at   TIMESTAMP NOT NULL DEFAULT now()
+);
+CREATE TABLE reviews (
+  id         SERIAL PRIMARY KEY,
+  product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  user_id    INTEGER NOT NULL REFERENCES users(id)    ON DELETE CASCADE,
+  rating     INTEGER NOT NULL,
+  comment    TEXT,
+  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  CONSTRAINT reviews_product_user_unique UNIQUE (product_id, user_id)
+);
+CREATE TABLE platform_settings (
+  key   TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
+CREATE TABLE admin_audit_log (
+  id          SERIAL PRIMARY KEY,
+  actor_id    INTEGER NOT NULL,
+  actor_name  TEXT NOT NULL,
+  action      TEXT NOT NULL,
+  target_type TEXT NOT NULL,
+  target_id   TEXT,
+  metadata    JSONB,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+Note: You do not need to run this SQL manually. The project includes tooling (drizzle-kit push) that generates and applies this schema automatically. See Step 5.
+
+3. Required Environment Variables / Secrets
+The new Replit account needs exactly two secrets configured. Go to Tools → Secrets in the new Replit and add:
+
+Secret Name	Value / Source	Purpose
+DATABASE_URL	The PostgreSQL connection string from the new Replit DB	Connects the API server and Drizzle ORM to the database
+SESSION_SECRET	Any long random string (e.g., 64 random hex chars)	Signs and verifies JWT tokens for all user sessions
+How to get DATABASE_URL in the new Replit:
+In the new Replit, go to Tools → Database and click Create Database. Replit will automatically populate DATABASE_URL as a secret — you do not need to copy it manually.
+
+How to generate SESSION_SECRET:
+Run this in the new Replit's Shell:
+
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+
+Copy the output and paste it as the SESSION_SECRET secret value.
+
+4. Important Scripts & Files
+Path	Purpose
+lib/db/src/schema/	Source of truth for all table definitions. 8 TypeScript files defining every table via Drizzle ORM. Never edit generated files.
+lib/db/drizzle.config.ts	Drizzle Kit config — points to the schema folder and reads DATABASE_URL
+scripts/src/seed-admin.ts	Idempotent admin seed script. Creates the admin account (delewatiamer7@gmail.com / 00Amer00). Safe to run multiple times.
+scripts/src/seed-products.ts (if present)	Seeds the 12 demo products across 4 categories
+artifacts/api-server/src/routes/	All Express route handlers — no migration needed, just requires running tables
+artifacts/api-server/src/middlewares/auth.ts	JWT sign/verify logic — reads SESSION_SECRET
+5. Step-by-Step Restoration Guide
+Follow these steps in order on the new Replit account.
+
+Step 1 — Provision the database
+
+Open the new Replit project
+Go to Tools → Database
+Click Create Database (choose PostgreSQL)
+Replit auto-injects DATABASE_URL as a secret — verify it appears under Tools → Secrets
+Step 2 — Add the SESSION_SECRET secret
+
+Go to Tools → Secrets
+Click New Secret
+Name: SESSION_SECRET
+Value: generate with node -e "console.log(require('crypto').randomBytes(64).toString('hex'))" in the Shell
+Click Add Secret
+Step 3 — Install dependencies
+Open the Shell and run:
+
+pnpm install
+
+Step 4 — Push the database schema (creates all 8 tables + 2 enum types)
+
+pnpm --filter @workspace/db run push
+
+When prompted, type yes to confirm. This applies the full schema to the empty database. This replaces the manual SQL above — no need to run the CREATE TABLE statements yourself.
+
+Step 5 — Seed the admin account
+
+pnpm --filter @workspace/scripts run seed:admin
+
+Output should read: ✓ Admin account ready: id=1, email=delewatiamer7@gmail.com, role=admin
+
+Step 6 — Start the workflows
+In the Replit interface, start both workflows:
+
+artifacts/api-server: API Server (runs pnpm --filter @workspace/api-server run dev)
+artifacts/marketplace: web (runs pnpm --filter @workspace/marketplace run dev)
+Step 7 — Verify the app works
+
+Open the web preview
+Log in with the admin account: delewatiamer7@gmail.com / 00Amer00
+Confirm the dashboard loads without 500 errors
+Step 8 — Re-seed demo products (optional, for demo data)
+The demo seller and customer accounts, plus the 12 products, do not have an automatic seed script. You have two options:
+
+Option A: Register a new Seller account via the UI, then add products manually
+Option B: Export the data from this (old) Replit's database and import it — see Step 6 in the warnings section below
+6. Warnings & Important Notes
+⚠️ Warning 1 — Demo products are NOT auto-seeded
+Only the admin account has a seed script. The 12 demo products, the demo seller (seller@demo.com), and the demo customer (customer@demo.com) have no automated seed. If you need them in the new account, you must either recreate them manually through the UI or export/import the data (see below).
+
+⚠️ Warning 2 — Exporting data from the old account (if needed)
+To carry over real data, run this in the old Replit's Shell:
+
+# Export all tables as SQL
+pg_dump "$DATABASE_URL" --data-only --no-owner --no-privileges \
+  -t users -t products -t cart_items -t orders -t order_items \
+  -t reviews -t platform_settings -t admin_audit_log \
+  > marketplace_data.sql
+
+Then in the new Replit's Shell (after Step 4):
+
+psql "$DATABASE_URL" < marketplace_data.sql
+
+⚠️ Warning 3 — The API server runs from a compiled build
+After any code change to artifacts/api-server/src/, the workflow must be restarted (not just the file saved) because the server runs from a compiled dist/ folder. Always restart the API Server workflow after edits.
+
+⚠️ Warning 4 — Run codegen after any OpenAPI spec change
+If you ever modify lib/api-spec/openapi.yaml, you must run:
+
+pnpm --filter @workspace/api-spec run codegen
+
+before touching any frontend code. Otherwise the React Query hooks and Zod schemas will be out of sync.
+
+⚠️ Warning 5 — pnpm dev at the root does not work
+Never run pnpm dev or pnpm run dev from the workspace root. Always use the Replit workflow buttons or pnpm --filter @workspace/<package> run dev. The root has no dev script by design.
+
+⚠️ Warning 6 — JWT tokens from the old instance are invalid in the new one
+Because SESSION_SECRET will be a new random value, any JWT tokens stored in users' browsers (localStorage.token) from the old Replit will be rejected by the new instance. All users will simply need to log in again — this is expected and harmless.

@@ -1,0 +1,302 @@
+## SYANO (سوق سوريا) — Project Recovery & Full Health Check
+
+### CRITICAL: READ THIS FIRST BEFORE TOUCHING ANYTHING
+
+This is a project recovery on a NEW Replit account. The project was fully operational on the previous account. Your job is to:
+1. Read the recovery files to understand the full project state
+2. Verify all services start correctly
+3. Run a health check on every system
+4. Report exactly what is working and what needs fixing
+5. DO NOT rewrite, redesign, or rebuild anything that already works
+
+---
+
+### STEP 1 — READ ALL THREE RECOVERY FILES IMMEDIATELY
+
+Before doing anything else, read these three files in parallel:
+
+```
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+```
+
+These are the source of truth. Read every line carefully. Do not summarize — absorb the full content including:
+- Which phases are complete (Phases 1–8 Step 4)
+- What the tech stack is (React/TypeScript/Vite frontend, Node/Express backend, PostgreSQL/Drizzle)
+- What environment variables are needed
+- What database migrations exist and their order
+- What the last working state was
+
+---
+
+### STEP 2 — ENVIRONMENT VERIFICATION
+
+After reading recovery files, verify the environment:
+
+**Check all required environment variables exist:**
+- DATABASE_URL (PostgreSQL connection string)
+- Any API keys or secrets mentioned in RECOVERY_GUIDE.md
+- NODE_ENV setting
+
+**If any env vars are missing:**
+- List exactly which ones are missing
+- Do NOT proceed with startup until they are set
+- Ask the user to provide them before continuing
+
+**Check Node.js and npm versions:**
+```bash
+node --version
+npm --version
+```
+Report the versions. The project requires Node.js 18+.
+
+---
+
+### STEP 3 — DEPENDENCY INSTALLATION
+
+Install all dependencies across all packages:
+
+```bash
+npm install
+```
+
+If this is a monorepo (check package.json for workspaces), run:
+```bash
+npm install --workspaces
+```
+
+Or if using a custom install script mentioned in RECOVERY_GUIDE.md, use that instead.
+
+Report:
+- Any packages that failed to install
+- Any peer dependency warnings that could cause issues
+- Exact node_modules sizes if relevant
+
+---
+
+### STEP 4 — DATABASE RECOVERY
+
+This is the most critical step. The PostgreSQL database must be fully intact.
+
+**4a. Verify database connection:**
+```bash
+# Run whatever DB connection test is in the project
+# Usually: npm run db:check or similar
+```
+
+**4b. Check migration status:**
+Look at the migrations folder (likely `migrations/` or `drizzle/migrations/`).
+Run migrations if needed — but ONLY additive migrations. Never destructive.
+
+**4c. Verify these critical tables exist (from Phase 8):**
+```sql
+-- Run these checks:
+SELECT COUNT(*) FROM products;
+SELECT COUNT(*) FROM categories;  
+SELECT COUNT(*) FROM stores;
+SELECT COUNT(*) FROM search_queries;
+SELECT COUNT(*) FROM query_logs;
+
+-- Verify fts_vector column exists on products:
+SELECT column_name, data_type 
+FROM information_schema.columns 
+WHERE table_name = 'products' AND column_name = 'fts_vector';
+
+-- Verify GIN index exists:
+SELECT indexname, indexdef 
+FROM pg_indexes 
+WHERE tablename = 'products' AND indexname LIKE '%fts%';
+
+-- Verify DB trigger exists:
+SELECT trigger_name, event_manipulation, event_object_table
+FROM information_schema.triggers
+WHERE event_object_table = 'products';
+```
+
+**4d. Report:**
+- How many products, categories, stores are in the DB
+- Whether fts_vector column exists
+- Whether GIN index exists (must show Index Scan not Seq Scan)
+- Whether the auto-update trigger exists
+- Whether query_logs table exists and has data
+
+---
+
+### STEP 5 — START ALL SERVICES
+
+Start the full application stack exactly as described in RECOVERY_GUIDE.md.
+
+Typically this involves starting:
+- Backend API server (Node/Express on some port)
+- Frontend dev server (Vite/React on another port)
+- Any background workers if mentioned
+
+**Verify each service started successfully:**
+- No crash on startup
+- No unhandled promise rejections
+- No missing module errors
+- Database connected successfully (look for connection success log)
+- query_logs table created/verified on startup
+
+**Take a screenshot of the running application** to confirm the UI is loading correctly.
+
+---
+
+### STEP 6 — SMOKE TESTS (run all of these)
+
+Test each major system that was built. Run these API calls:
+
+**6a. Basic search (Phase 8 Step 2 — FTS engine):**
+```
+GET /api/search?q=موبايل
+GET /api/search?q=mobile
+GET /api/search?q=iphon
+```
+Expected: results returned, response under 50ms
+
+**6b. Intent detection (Phase 8 Step 3):**
+```
+GET /api/search?q=موبايل رخيص
+GET /api/search?q=cheap phone
+GET /api/search?q=أفضل لابتوب
+```
+Expected: results sorted correctly by price/rating based on intent
+
+**6c. Autocomplete suggestions (Phase 8 Step 4):**
+```
+GET /api/search/suggestions?q=مو&lang=ar
+GET /api/search/suggestions?q=mo&lang=en
+GET /api/search/suggestions?q=cheap&lang=en
+```
+Expected: JSON response with suggestions array, processingTimeMs field present, intent suggestions for "cheap"
+
+**6d. Verify query_logs population:**
+After running the above searches, check:
+```sql
+SELECT query, created_at FROM query_logs ORDER BY created_at DESC LIMIT 10;
+```
+Expected: the search queries above should appear in the table
+
+**6e. Verify hybrid ranking (Phase 8 Step 5):**
+```sql
+EXPLAIN ANALYZE 
+SELECT id, name, ts_rank(fts_vector, query) as score 
+FROM products, plainto_tsquery('arabic', 'موبايل') query 
+ORDER BY score DESC LIMIT 5;
+```
+Expected: "Index Scan using products_fts_idx" — NOT Seq Scan
+
+---
+
+### STEP 7 — TYPESCRIPT VERIFICATION
+
+Run TypeScript check across all packages:
+```bash
+npx tsc --noEmit
+```
+Or whatever TypeScript check command is in the project scripts.
+
+**Expected result: 0 TypeScript errors.**
+If there are errors, list them all — do not fix them yet, just report.
+
+---
+
+### STEP 8 — FULL HEALTH REPORT
+
+After completing all steps above, generate this exact report:
+
+```
+SYANO PROJECT — RECOVERY HEALTH REPORT
+========================================
+Recovery Date: [today's date]
+Account: New Replit account
+Source: Transferred from previous account
+
+ENVIRONMENT
+-----------
+Node.js version: [X.X.X]
+npm version: [X.X.X]
+All env vars present: YES / NO (list missing ones)
+Database connected: YES / NO
+
+DATABASE STATE
+--------------
+Products in DB: [number]
+Categories in DB: [number]  
+Stores in DB: [number]
+fts_vector column: EXISTS / MISSING
+GIN index: EXISTS / MISSING
+Auto-update trigger: EXISTS / MISSING
+query_logs table: EXISTS / MISSING
+search_queries table: EXISTS / MISSING
+
+SERVICES
+--------
+Backend API: RUNNING on port [X] / FAILED (error: ...)
+Frontend: RUNNING on port [X] / FAILED (error: ...)
+DB connection: OK / FAILED
+
+SMOKE TESTS
+-----------
+Basic FTS search (Arabic): PASS / FAIL — [Xms]
+Basic FTS search (English): PASS / FAIL — [Xms]
+Typo resistance (iphon): PASS / FAIL
+Intent detection (رخيص): PASS / FAIL — sort order correct: YES/NO
+Intent detection (cheap): PASS / FAIL
+Autocomplete (Arabic prefix): PASS / FAIL — [Xms]
+Autocomplete (English prefix): PASS / FAIL — [Xms]
+processingTimeMs in response: PRESENT / MISSING
+query_logs being populated: YES / NO
+Hybrid ranking (Index Scan): YES / NO
+
+TYPESCRIPT
+----------
+TypeScript errors: [number] (0 expected)
+If errors exist: [list them]
+
+PHASE COMPLETION STATUS (from recovery files)
+----------------------------------------------
+Phase 1 — Order Fulfillment: COMPLETE
+Phase 2 — Courier Dashboard: COMPLETE
+Phase 3 — Seller Order Management: COMPLETE
+Phase 4 — Seller Analytics: COMPLETE
+Phase 5 — Trust System: COMPLETE
+Phase 6 — Seller Store Pages: COMPLETE
+Phase 7 — Messaging V2: COMPLETE
+Phase 8 Step 1 — searchProcessor.ts: COMPLETE
+Phase 8 Step 2 — FTS + GIN Index: COMPLETE
+Phase 8 Step 3 — Intent Analysis + Shop UI: COMPLETE
+Phase 8 Step 4 — Autocomplete Engine: COMPLETE
+Phase 8 Step 5 — Hybrid Ranking: COMPLETE
+
+ISSUES FOUND
+------------
+Critical (blocking): [list or "none"]
+Non-critical (can fix later): [list or "none"]
+
+OVERALL STATUS
+--------------
+[ ] FULLY RECOVERED — all systems operational, ready to continue
+[ ] PARTIALLY RECOVERED — issues found, need fixes before continuing
+[ ] FAILED RECOVERY — major problems, needs investigation
+
+NEXT STEP
+---------
+[Based on status above, state the recommended next action]
+```
+
+---
+
+### RULES FOR THIS RECOVERY SESSION
+
+1. READ recovery files FIRST — no exceptions
+2. DO NOT modify any working code
+3. DO NOT redesign or rebuild anything
+4. DO NOT add new features during recovery
+5. ONLY fix what is broken to restore to last known working state
+6. Report everything honestly — do not hide errors or warnings
+7. If something is unclear, check the recovery files again before asking
+8. Zero TypeScript errors is mandatory before declaring recovery complete
+9. All three services must be running before declaring recovery complete
+10. Take a screenshot of the running UI as proof of successful recovery

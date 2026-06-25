@@ -1,0 +1,395 @@
+# SYANO CRITICAL MOBILE ADMIN UI FIXES MISSION
+
+You are taking over the Syano marketplace codebase.
+
+The application is already functional.
+
+This is NOT a redesign task.
+
+This is NOT a feature development task.
+
+This is a targeted production-quality Mobile UI Bug Fix mission.
+
+Your objective is to identify, fix, and validate several critical mobile interface issues affecting the Admin experience and global controls.
+
+---
+
+## CRITICAL RULES
+
+DO NOT:
+
+* Change business logic
+* Change APIs
+* Change authentication
+* Change permissions
+* Change routing
+* Change database behavior
+* Change user workflows
+* Redesign the UI
+* Replace existing components unnecessarily
+
+Focus only on fixing the reported issues.
+
+Preserve the current visual design.
+
+---
+
+## PROJECT CONTEXT
+
+Tech stack:
+
+* React 19
+* Vite 7
+* Wouter
+* Tailwind CSS v4
+* shadcn/ui
+* TanStack Query
+* i18next
+* next-themes
+
+The project supports:
+
+* English (LTR)
+* Arabic (RTL)
+
+Must work correctly in both languages.
+
+---
+
+## PRIMARY OBJECTIVE
+
+Perform a complete audit of all mobile navigation, drawers, sidebars, admin layouts, settings pages, and global controls.
+
+Fix every issue listed below.
+
+Verify all fixes across:
+
+* Customer role
+* Seller role
+* Admin role
+
+And across:
+
+* English
+* Arabic
+
+And across:
+
+* Mobile portrait
+* Mobile landscape
+
+And across common widths:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 412px
+* 430px
+
+---
+
+ISSUE #1
+SYP CURRENCY BUTTON OVERFLOW
+----------------------------
+
+Problem:
+
+When language is English, the SYP currency button partially overflows its container/menu.
+
+Observed behavior:
+
+* Currency selector is not rendering correctly.
+* SYP text appears clipped.
+* Button extends beyond available width.
+* Layout breaks on smaller screens.
+
+Audit:
+
+* CurrencySwitcher component
+* Navbar controls
+* Mobile drawer controls
+* Header controls
+* Admin layouts
+* Seller layouts
+* Customer layouts
+
+Investigate:
+
+* flex behavior
+* width constraints
+* min-width
+* max-width
+* wrapping
+* gap spacing
+* padding
+* RTL/LTR differences
+* overflow settings
+
+Required result:
+
+* SYP fully visible
+* USD fully visible
+* No clipping
+* No overflow
+* No wrapping bugs
+* No layout shifts
+
+Verify on every mobile breakpoint.
+
+---
+
+ISSUE #2
+ADMIN SETTINGS SAVE BUTTON POSITIONING
+--------------------------------------
+
+Problem:
+
+In Admin Settings pages, the Save button appears in the wrong position on mobile devices.
+
+Observed behavior:
+
+* Misaligned button
+* Poor placement
+* Potential overflow
+* Inconsistent spacing
+* Difficult interaction
+
+Audit:
+
+All Admin Settings screens.
+
+Inspect:
+
+* Form layouts
+* Action bars
+* Footer actions
+* Sticky controls
+* Responsive containers
+
+Required result:
+
+* Save button always visible
+* Proper spacing
+* Proper alignment
+* Touch-friendly placement
+* Consistent behavior across all settings pages
+
+Verify:
+
+* English
+* Arabic
+* Portrait
+* Landscape
+
+---
+
+ISSUE #3
+ADMIN SIDEBAR COVERS ENTIRE SCREEN
+----------------------------------
+
+Problem:
+
+Admin sidebar/drawer on mobile occupies nearly the entire screen.
+
+Observed behavior:
+
+* Sidebar width too large
+* Poor usability
+* Content completely hidden
+* Difficult navigation
+
+Audit:
+
+Admin mobile navigation system.
+
+Inspect:
+
+* Sidebar implementation
+* Drawer implementation
+* Sheet implementation
+* Width calculations
+* Responsive breakpoints
+
+Required result:
+
+* Mobile drawer behaves like a modern production app
+* Appropriate width
+* Proper max-width
+* Comfortable navigation
+* Easy close behavior
+* Does not feel overwhelming
+
+Maintain current design language.
+
+Do not redesign.
+
+Only improve mobile usability.
+
+---
+
+ISSUE #4
+GLOBAL CONTROL CONSISTENCY
+--------------------------
+
+Audit all Admin pages.
+
+Verify existence and functionality of:
+
+* Theme switcher
+* Language switcher
+* Currency switcher
+
+Ensure:
+
+Every Admin page provides access to these controls.
+
+Check:
+
+* Desktop
+* Mobile
+* English
+* Arabic
+
+Fix inconsistencies.
+
+Avoid duplicated implementations.
+
+---
+
+ISSUE #5
+RESPONSIVE OVERFLOW AUDIT
+-------------------------
+
+Perform a complete mobile overflow audit.
+
+Inspect:
+
+* Navbar
+* Footer
+* Admin pages
+* Seller pages
+* Customer pages
+* Settings pages
+* Product pages
+* Store pages
+
+Identify:
+
+* Horizontal scrolling
+* Overflowing buttons
+* Clipped text
+* Flex issues
+* Broken wrapping
+* Fixed-width containers
+
+Fix all discovered issues.
+
+---
+
+ISSUE #6
+RTL/LTR VALIDATION
+------------------
+
+Verify all fixes in:
+
+English (LTR)
+
+Arabic (RTL)
+
+Check:
+
+* alignment
+* spacing
+* button placement
+* drawer placement
+* icon positioning
+* text wrapping
+
+No regressions allowed.
+
+---
+
+ISSUE #7
+MOBILE USABILITY REVIEW
+-----------------------
+
+Review:
+
+* touch targets
+* spacing
+* safe area behavior
+* drawer interactions
+* menu interactions
+
+Ensure modern mobile UX standards.
+
+Do not alter branding.
+
+---
+
+## VALIDATION REQUIREMENTS
+
+After fixes:
+
+Test:
+
+Admin
+Seller
+Customer
+
+Test:
+
+English
+Arabic
+
+Test:
+
+320px
+360px
+375px
+390px
+412px
+430px
+
+Test:
+
+Portrait
+Landscape
+
+Test:
+
+Theme switching
+Language switching
+Currency switching
+
+Confirm:
+
+* No overflow
+* No clipping
+* No broken layouts
+* No hidden controls
+* No responsiveness regressions
+
+---
+
+## DELIVERABLE
+
+Provide:
+
+1. Root cause of each issue.
+2. Files modified.
+3. Exact fixes applied.
+4. Screens/components audited.
+5. Validation results.
+6. Remaining risks (if any).
+
+IMPORTANT:
+
+Prioritize correctness and responsiveness.
+
+Do not introduce new functionality.
+
+Do not redesign.
+
+Fix the issues with minimal, safe, production-ready changes.

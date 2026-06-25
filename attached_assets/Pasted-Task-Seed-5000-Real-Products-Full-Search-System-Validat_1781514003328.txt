@@ -1,0 +1,632 @@
+Task: Seed 5000 Real Products + Full Search System Validation
+Phase: Pre-Semantic-Search — Data Foundation & Search Audit
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file. Then read:
+  - artifacts/server/src/db/schema.ts (full file)
+  - artifacts/server/src/db/seed.ts (full file, if exists)
+  - artifacts/server/src/routes/search.ts (full file)
+  - artifacts/server/src/services/searchProcessor.ts (full file)
+  - artifacts/server/src/db/migrations/ (list all files)
+
+After reading, write a full inventory of:
+  - Every table that needs data (products, categories, sellers,
+    stores, brands, tags — every related table)
+  - Every column in the products table with its type and constraints
+  - Current row counts in every table
+  - Whether a seed file already exists and what it contains
+Do NOT begin seeding until this inventory is written.
+
+PERMANENT REJECTIONS:
+  - No external image APIs that require API keys (no Unsplash API,
+    no Pexels API key — use direct public CDN URLs only)
+  - No duplicate products (same name + same seller = duplicate)
+  - No lorem ipsum or fake placeholder text anywhere
+  - No hardcoded IDs — always use the actual inserted IDs
+  - No dropping existing data unless explicitly told to
+  - No new npm packages not already installed
+Stop immediately if you are about to do any of these.
+
+════════════════════════════════════════════════════════════════════
+PART 1 — SEED INFRASTRUCTURE
+════════════════════════════════════════════════════════════════════
+
+Before writing any product data, build the seed infrastructure:
+
+  STEP 1 — Image URL Strategy:
+    Use ONLY these public CDN sources (no API key required):
+      - https://images.unsplash.com/photo-{ID}?w=800&q=80
+        (use real known Unsplash photo IDs — listed below)
+      - https://via.placeholder.com/{W}x{H}/{color}/{text}
+        (fallback only — use real photos whenever possible)
+
+    Real Unsplash photo IDs to use by category (copy exactly):
+      Electronics/Phones:
+        1510557 (iPhone on desk)
+        3394650 (Android phone)
+        1434493 (laptop open)
+        1496181 (computer setup)
+        1505740 (headphones)
+        3945666 (earbuds)
+        1528360 (smartwatch)
+        4526401 (tablet)
+        1474557 (camera)
+        3987066 (gaming console)
+        2582937 (keyboard)
+        1714208 (mouse)
+        3747535 (monitor)
+        1779487 (router)
+        3756879 (power bank)
+
+      Clothing/Fashion:
+        1598507 (men's shirt)
+        1536619 (women's dress)
+        2220316 (jeans)
+        1078958 (sneakers)
+        1152077 (jacket)
+        1462637 (handbag)
+        1152994 (sunglasses)
+        1162983 (watch)
+        3622608 (boots)
+        2112651 (hoodie)
+        1124468 (t-shirt)
+        2220323 (shorts)
+        3621240 (coat)
+        1488463 (scarf)
+        1536620 (blouse)
+
+      Home & Kitchen:
+        1648374 (sofa)
+        1571460 (coffee table)
+        1080721 (kitchen appliance)
+        4397341 (bed)
+        4352247 (lamp)
+        2635392 (curtains)
+        1080700 (cookware)
+        4397342 (wardrobe)
+        3773571 (refrigerator style)
+        3825517 (microwave)
+        1400172 (blender)
+        3935303 (air fryer)
+        2343467 (vacuum cleaner)
+        1350789 (iron)
+        4397343 (coffee maker)
+
+      Beauty & Personal Care:
+        3685523 (skincare products)
+        3738379 (perfume)
+        2533092 (makeup)
+        3616233 (hair care)
+        4041392 (moisturizer)
+        3755698 (lipstick)
+        2526105 (face wash)
+        3621241 (nail polish)
+        2639941 (body lotion)
+        4397344 (deodorant)
+
+      Sports & Fitness:
+        1552236 (running shoes)
+        3912952 (yoga mat)
+        1153370 (dumbbells)
+        2468927 (bicycle)
+        3076509 (sports bag)
+        3621242 (water bottle sports)
+        1552247 (resistance bands)
+        2505026 (jump rope)
+        3823488 (football)
+        4397345 (gym gloves)
+
+      Toys & Kids:
+        3661270 (building blocks)
+        3661276 (toy car)
+        3661277 (doll)
+        3661278 (board game)
+        3847042 (puzzle)
+        3847043 (teddy bear)
+        2253275 (educational toy)
+        3847044 (remote control car)
+        3847045 (play kitchen)
+        3847046 (bicycle kids)
+
+      Books & Stationery:
+        1130980 (books stack)
+        1181671 (notebook)
+        159711  (pen set)
+        1029243 (backpack school)
+        590493  (pencil case)
+        1181674 (planner)
+        1181672 (art supplies)
+        590016  (calculator)
+        3747536 (printer)
+        1181673 (desk organizer)
+
+      Food & Grocery:
+        1640777 (olive oil)
+        1640780 (spices)
+        2284166 (tea)
+        1640781 (coffee beans)
+        1640782 (honey)
+        1640783 (nuts)
+        1640784 (dates)
+        1640785 (chocolate)
+        1640786 (biscuits)
+        1640787 (canned goods)
+
+    IMPORTANT: For any product where a listed photo ID doesn't render
+    correctly, fall back to a thematically appropriate search on
+    https://source.unsplash.com/800x600/?{keyword}
+    (this is a free redirect URL — no API key needed).
+    Example: https://source.unsplash.com/800x600/?laptop
+    Use the category keyword in English for best results.
+
+  STEP 2 — Seller & Store Setup:
+    Before products, ensure these sellers exist (create if missing):
+    Create 15 distinct sellers with realistic Syrian marketplace data:
+
+    Seller profiles (create in sellers/users table):
+      1.  متجر التقنية الحديثة — tech store, Damascus
+      2.  بيتك للأثاث والديكور — furniture store, Aleppo
+      3.  موضة سوريا — fashion store, Damascus
+      4.  العناية الطبيعية — beauty store, Latakia
+      5.  الرياضة والصحة — sports store, Homs
+      6.  مكتبة المعرفة — books store, Damascus
+      7.  مطبخك الحديث — kitchen store, Aleppo
+      8.  عالم الأطفال — kids store, Damascus
+      9.  ستايل فاشن — fashion store, Tartus
+      10. إلكترونيات الشام — electronics store, Damascus
+      11. بيوتي كولكشن — beauty store, Aleppo
+      12. سبورت لايف — sports store, Damascus
+      13. المنزل العصري — home store, Latakia
+      14. جرّوشي للمأكولات — food store, Damascus
+      15. القرطاسية الحديثة — stationery store, Homs
+
+    For each seller set: status='active', trust_level based on
+    seller number (1-5: verified, 6-10: trusted, 11-15: standard).
+    Use the authorized test seller account for seller #1.
+    Check actual schema columns before inserting.
+
+  STEP 3 — Category Setup:
+    Ensure these 8 top-level categories exist with Arabic + English:
+      إلكترونيات / Electronics
+      ملابس وأزياء / Fashion & Clothing
+      المنزل والمطبخ / Home & Kitchen
+      الجمال والعناية / Beauty & Personal Care
+      الرياضة واللياقة / Sports & Fitness
+      ألعاب وأطفال / Toys & Kids
+      كتب وقرطاسية / Books & Stationery
+      مأكولات ومشروبات / Food & Beverages
+
+    Under each, create 3-5 subcategories. Examples:
+      إلكترونيات → هواتف ذكية، لابتوب وحاسوب، سماعات،
+                    ساعات ذكية، كاميرات
+      ملابس → ملابس رجالية، ملابس نسائية، أحذية،
+               حقائب، إكسسوارات
+    (build full subcategory tree for all 8 categories)
+
+════════════════════════════════════════════════════════════════════
+PART 2 — 5000 PRODUCT SEED DATA
+════════════════════════════════════════════════════════════════════
+
+Generate and insert 5000 unique products distributed as follows:
+  إلكترونيات: 900 products
+  ملابس وأزياء: 900 products
+  المنزل والمطبخ: 700 products
+  الجمال والعناية: 600 products
+  الرياضة واللياقة: 500 products
+  ألعاب وأطفال: 400 products
+  كتب وقرطاسية: 300 products
+  مأكولات ومشروبات: 200 products
+
+  PRODUCT DATA RULES:
+    - Every product must have: name_ar, name_en (or title/title_ar
+      — match actual schema columns exactly)
+    - Arabic names must be realistic Syrian marketplace product names
+      (not translated English — actual Arabic product naming)
+    - Prices in Syrian Pounds: range 5,000 to 2,000,000 SYP
+      distributed realistically by category:
+        هواتف: 200,000 — 2,000,000
+        ملابس: 20,000 — 200,000
+        مستحضرات: 10,000 — 150,000
+        مأكولات: 5,000 — 50,000
+    - Each product must have 1-3 images from the URL strategy above
+    - stock_quantity: random between 0 and 200
+      (20% of products should have stock = 0 to test out-of-stock)
+    - rating: random between 3.0 and 5.0 (realistic, not all 5.0)
+    - review_count: random between 0 and 500
+    - created_at: distributed over last 180 days
+      (not all on same date — realistic spread)
+    - 15% of products should have discount_percentage > 0
+      (range: 5% to 50%)
+    - is_featured: true for top 100 products (highest rated,
+      most reviewed, verified seller)
+    - status: 'active' for 90%, 'draft' for 10%
+      (to test status filtering in search)
+    - Assign products to sellers realistically:
+        Electronics → sellers 1, 10 (tech stores)
+        Fashion → sellers 3, 9 (fashion stores)
+        Home → sellers 2, 13 (home stores)
+        Beauty → sellers 4, 11 (beauty stores)
+        Sports → sellers 5, 12 (sports stores)
+        Kids → seller 8
+        Books → seller 6
+        Food → seller 14
+        Stationery → seller 15
+      Distribute evenly within each category group.
+
+  PRODUCT NAMING STRATEGY:
+    Do NOT use lorem ipsum. Use real product names.
+    Build names from these components:
+
+    Electronics examples:
+      سامسونج جالاكسي A54 5G — 256 جيجا — أسود
+      آيفون 15 برو ماكس — 512 جيجا — تيتانيوم
+      لابتوب لينوفو IdeaPad 3 — كور i5 — 8 رام
+      سماعة سوني WH-1000XM5 — لاسلكية — أسود
+      ساعة سامسونج Galaxy Watch 6 — 44mm
+      شاحن سريع 65 واط — USB-C — أصلي
+      كيبورد ميكانيكي — RGB — لاسلكي
+      شاشة LG 27 بوصة — 4K — IPS
+      (generate 900 variations following this pattern)
+
+    Fashion examples:
+      قميص رجالي قطن — أبيض — مقاس L
+      فستان سهرة نسائي — أزرق سماوي — مقاس M
+      بنطلون جينز رجالي — أزرق غامق — مقاس 32
+      حذاء رياضي نايك — أبيض — مقاس 42
+      حقيبة يد نسائية — جلد — بيج
+      (generate 900 variations)
+
+    (follow same pattern for all 8 categories — real product names,
+    real brands, real specifications, real colors and sizes)
+
+  TAGS:
+    Every product must have 3-7 relevant tags.
+    Tags must be in Arabic AND English (mixed is fine).
+    Examples for a phone:
+      سامسونج, هاتف ذكي, 5G, أندرويد, كاميرا عالية الدقة,
+      samsung, smartphone, android
+    Tags are critical for search quality — make them realistic.
+
+  DESCRIPTION:
+    Every product must have description_ar (minimum 50 words) and
+    description_en (minimum 30 words).
+    Descriptions must be realistic product descriptions.
+    Include: key features, materials, dimensions, use cases.
+    Do NOT repeat the title as the description.
+
+  PERFORMANCE NOTE:
+    Insert products in batches of 100 using a single INSERT per batch.
+    Do NOT insert one by one (5000 individual inserts will timeout).
+    Use parameterized queries.
+    Log progress every 500 products: "Inserted 500/5000..."
+    Total seed must complete in under 3 minutes.
+
+════════════════════════════════════════════════════════════════════
+PART 3 — FTS INDEX REBUILD
+════════════════════════════════════════════════════════════════════
+
+After all 5000 products are inserted:
+
+  3a. Rebuild FTS vectors for all products:
+      UPDATE products SET fts_vector = [full tsvector expression]
+      WHERE fts_vector IS NULL OR true;
+      (force rebuild for all — including products inserted before
+      this seed)
+      Log: "FTS vectors rebuilt for X products"
+
+  3b. Verify index coverage:
+      SELECT COUNT(*) FROM products WHERE fts_vector IS NULL;
+      Must return 0. If not 0 — fix and retry.
+
+  3c. Verify trigram index:
+      EXPLAIN SELECT * FROM products
+      WHERE name_ar % 'سامسونج'
+      LIMIT 5;
+      Confirm "Index Scan using idx_products_trgm" appears.
+
+════════════════════════════════════════════════════════════════════
+PART 4 — FULL SEARCH SYSTEM VALIDATION
+════════════════════════════════════════════════════════════════════
+
+Run every test below using actual HTTP requests to the running
+server. Log the exact response for each test.
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP A — Basic FTS Quality
+──────────────────────────────────────────────────────────────────
+
+  A1. Exact match Arabic:
+      GET /api/search?q=سامسونج
+      Expected: results > 0, first results are Samsung products
+      Log: result count, first 3 product names
+
+  A2. Exact match English:
+      GET /api/search?q=samsung
+      Expected: results > 0, Samsung products appear
+      Log: result count, first 3 product names
+
+  A3. Partial word:
+      GET /api/search?q=لابتوب
+      Expected: laptop products appear
+      Log: result count
+
+  A4. Brand name:
+      GET /api/search?q=نايك
+      Expected: Nike products appear
+      Log: result count
+
+  A5. Category name:
+      GET /api/search?q=إلكترونيات
+      Expected: category browse intent detected or electronics appear
+      Log: detected_intent, result count
+
+  A6. Subcategory:
+      GET /api/search?q=هواتف ذكية
+      Expected: smartphones appear
+      Log: result count
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP B — Synonym Expansion (Phase 5)
+──────────────────────────────────────────────────────────────────
+
+  B1. GET /api/search?q=موبايل
+      Expected: products with هاتف, جوال, phone also appear
+      Log: result count, synonym_expanded field in response
+
+  B2. GET /api/search?q=شنطة
+      Expected: products with حقيبة appear
+      Log: result count
+
+  B3. GET /api/search?q=كمبيوتر
+      Expected: products with حاسوب, لابتوب appear
+      Log: result count
+
+  B4. GET /api/search?q=phone
+      Expected: products with mobile, smartphone appear
+      Log: result count
+
+  B5. GET /api/search?q=laptop
+      Expected: products with notebook, computer appear
+      Log: result count
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP C — Intent Detection (Phase 5)
+──────────────────────────────────────────────────────────────────
+
+  C1. GET /api/search?q=بدي شي رخيص
+      Expected: intent=price_low, results sorted by price ASC
+      Log: detected_intent, first 3 prices
+
+  C2. GET /api/search?q=عروض وتخفيضات
+      Expected: intent=on_sale, results have discount > 0
+      Log: detected_intent, first 3 discount values
+
+  C3. GET /api/search?q=هدية لأمي
+      Expected: intent=gift detected
+      Log: detected_intent
+
+  C4. GET /api/search?q=فاخر وغالي
+      Expected: intent=price_high, results sorted by price DESC
+      Log: detected_intent, first 3 prices
+
+  C5. GET /api/search?q=وصل جديد
+      Expected: intent=new_arrivals, freshness boosted
+      Log: detected_intent
+
+  C6. Syrian dialect test:
+      GET /api/search?q=بدي هاتف رخيص
+      Expected: stop word "بدي" removed, query becomes "هاتف رخيص"
+               intent=price_low, phone results
+      Log: detected_intent, result count
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP D — Fallback Chain (Phase 6)
+──────────────────────────────────────────────────────────────────
+
+  D1. L1 Relaxed FTS:
+      Search for a 2-word query where only 1 word matches:
+      GET /api/search?q=سامسونج xyznonexistent
+      Expected: fallback.level=1, relaxed to "سامسونج" only
+      Log: fallback object, result count
+
+  D2. L2 Trigram Fuzzy:
+      GET /api/search?q=سامسونق
+      (misspelled — ق instead of ج)
+      Expected: fallback.level=2, Samsung products appear
+      Log: fallback object, result count
+
+  D3. L3 Category Inference:
+      GET /api/search?q=الكترونيات xyz123
+      Expected: fallback.level=3, electronics category products
+      Log: fallback object, inferred_category
+
+  D4. L4 Trending Fallback:
+      GET /api/search?q=xyzqwpfkj123nonexistent
+      Expected: fallback.level=4, featured/trending products
+      Log: fallback object, result count (should be ~12)
+
+  D5. No fallback needed:
+      GET /api/search?q=هاتف
+      Expected: fallback=null (direct results found)
+      Log: fallback field is null
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP E — Ranking Quality
+──────────────────────────────────────────────────────────────────
+
+  E1. Debug ranking scores:
+      GET /api/search?q=سامسونج&debug=ranking
+      Expected: _debug object on each result with all score fields
+      Log: first result's complete _debug object
+
+  E2. Stock penalty:
+      GET /api/search?q=هاتف&debug=ranking
+      Find a result where stock=0 — confirm its stock_score=0.0
+      Log: out-of-stock product's debug scores vs in-stock product
+
+  E3. Verified seller boost:
+      GET /api/search?q=لابتوب&debug=ranking
+      Confirm verified sellers rank higher at similar text scores
+      Log: first verified seller result vs first standard seller result
+
+  E4. Price range coverage:
+      GET /api/search?q=موبايل
+      Log: price of first result, median result, last result
+      Confirm results span multiple price ranges (not all expensive)
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP F — Mixed Language & Edge Cases
+──────────────────────────────────────────────────────────────────
+
+  F1. Mixed query:
+      GET /api/search?q=iPhone رخيص
+      Expected: iPhone products + price_low intent
+      Log: result count, detected_intent
+
+  F2. Mixed query 2:
+      GET /api/search?q=samsung هاتف
+      Expected: Samsung phone products
+      Log: result count
+
+  F3. Single character (should return empty immediately):
+      GET /api/search?q=س
+      Expected: empty results, no DB query executed
+      Log: result count, response time
+
+  F4. Very long query (100+ chars):
+      GET /api/search?q=بدي هاتف سامسونج جالاكسي موديل جديد بسعر مناسب من متجر موثوق مع ضمان وتوصيل سريع لدمشق
+      Expected: truncated and processed, results returned
+      Log: result count, processing notes
+
+  F5. Numbers:
+      GET /api/search?q=بكم الهاتف 500000
+      Expected: price filter applied ±20% around 500000
+      Log: result count, price range of results
+
+  F6. Only stop words:
+      GET /api/search?q=بدي
+      Expected: original query kept (not emptied), results returned
+      Log: result count (should not be 0)
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP G — Status & Stock Filtering
+──────────────────────────────────────────────────────────────────
+
+  G1. Draft products excluded:
+      GET /api/search?q=هاتف
+      Confirm no draft products appear in results
+      Log: verify status='active' on first 5 results
+
+  G2. Out-of-stock visible but deprioritized:
+      GET /api/search?q=موبايل&debug=ranking
+      Find an out-of-stock result — confirm stock_score=0
+      Confirm it ranks below equivalent in-stock products
+      Log: position of first out-of-stock result in results
+
+  G3. Admin include out-of-stock:
+      GET /api/search?q=هاتف&include_out_of_stock=true
+      (as admin user)
+      Confirm more results than without the param
+      Log: count with vs without param
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP H — Performance Benchmarks
+──────────────────────────────────────────────────────────────────
+
+  Run each of these 3 times and log average response time:
+
+  H1. Simple 1-word query:
+      GET /api/search?q=هاتف
+      Target: < 100ms average
+
+  H2. Complex 3-word query with synonyms:
+      GET /api/search?q=موبايل سامسونج رخيص
+      Target: < 150ms average
+
+  H3. Fallback query (L4):
+      GET /api/search?q=xyznonexistent999
+      Target: < 200ms average (includes fallback chain)
+
+  H4. Debug mode:
+      GET /api/search?q=لابتوب&debug=ranking
+      Target: < 200ms average
+
+  Log ALL response times. Flag any that exceed targets.
+
+──────────────────────────────────────────────────────────────────
+TEST GROUP I — Admin Endpoints
+──────────────────────────────────────────────────────────────────
+
+  I1. Search health:
+      GET /api/admin/search/health
+      Expected: all fields populated with real numbers
+      Log: full response
+
+  I2. Popular suggestions:
+      GET /api/search/suggestions/popular?limit=3
+      Expected: top 3 queries from query_logs (after all tests above
+      have populated query_logs with real data)
+      Log: full response
+
+  I3. Reindex:
+      POST /api/admin/search/reindex
+      Expected: { updated: number, duration_ms: number }
+      Log: full response, confirm updated > 0
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS
+════════════════════════════════════════════════════════════════════
+
+- Seed script must be idempotent: running it twice must not
+  create duplicate products. Use ON CONFLICT DO NOTHING or
+  check existence before inserting.
+- All 5000 products must have unique names (no exact duplicates).
+- Images must be real working URLs — test at least 5 random
+  product image URLs before finishing and confirm they load.
+- All prices in the correct currency column (check schema).
+- All timestamps must be valid PostgreSQL timestamps.
+- TypeScript: if the seed is a .ts file, run
+  npx tsc --noEmit after writing it. 0 errors required.
+- Do not modify any existing products, users, or orders.
+- Do not change any search logic — this task is data + testing only.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE
+════════════════════════════════════════════════════════════════════
+
+SEED RESULTS:
+  Products inserted: X / 5000
+  Categories created: X
+  Sellers created/verified: X
+  FTS vectors built: X
+  Products with images: X
+  Products with discount: X
+  Out-of-stock products: X
+  Draft products: X
+
+TEST RESULTS SUMMARY:
+  Group A (Basic FTS): X/6 passed
+  Group B (Synonyms): X/5 passed
+  Group C (Intents): X/6 passed
+  Group D (Fallback): X/5 passed
+  Group E (Ranking): X/4 passed
+  Group F (Edge Cases): X/6 passed
+  Group G (Filtering): X/3 passed
+  Group H (Performance): X/4 within targets
+  Group I (Admin): X/3 passed
+
+FAILED TESTS: [list any test that didn't pass with exact response]
+
+PERFORMANCE LOG:
+  H1 average: Xms
+  H2 average: Xms
+  H3 average: Xms
+  H4 average: Xms
+
+SEARCH SYSTEM VERDICT:
+  [Agent's honest assessment: is the system working as designed?
+   Any unexpected behaviors? Any data gaps found?]
+
+READY FOR SEMANTIC SEARCH: yes / no
+  [If yes: confirm all 5000 products have fts_vector built and
+   the system is stable. If no: list what needs fixing first.]

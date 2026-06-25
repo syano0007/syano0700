@@ -1,0 +1,79 @@
+The architecture validation looks solid and I approve the overall direction.
+
+Before implementation begins, I want the following additional requirements incorporated into the architecture:
+
+1. Future Marketplace Scale
+
+Design all new seller-related systems with future scalability in mind.
+
+Even if the initial implementation is lightweight, avoid architectural decisions that would require major rewrites when the marketplace grows.
+
+2. Store URL Architecture
+
+Do not tightly couple public stores to internal seller IDs.
+
+Evaluate whether a future-friendly store slug architecture should be introduced now or prepared for later migration.
+
+Store URLs should be human-friendly and SEO-friendly.
+
+3. Analytics Foundation
+
+When implementing seller analytics, ensure the architecture can later support:
+
+* Top sellers
+* Marketplace leaderboards
+* Seller rankings
+* Conversion analytics
+* Revenue analytics
+* Growth analytics
+
+Without requiring database redesign.
+
+4. Messaging Boundaries
+
+Messaging must remain marketplace-focused.
+
+Prepare the architecture so future moderation, reporting, conversation limits, and anti-spam protections can be added without redesigning the system.
+
+5. Notification Fan-Out
+
+The asynchronous notification strategy for followers is correct.
+
+However, clearly isolate the notification dispatch logic so it can later be moved to a queue/job system without changing business logic.
+
+6. Performance Protection
+
+All new features must be benchmarked before and after implementation.
+
+Store pages, seller dashboards, product pages, and messaging must not introduce noticeable slowdowns on mobile devices.
+
+7. Mobile-First Validation
+
+Every new page and component must be tested on:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+Mobile experience is the primary priority.
+
+8. Maintain Existing Stability
+
+Do not regress:
+
+* Product pages
+* Checkout
+* Cart
+* Orders
+* Authentication
+* Seller applications
+* Notifications
+
+Create a checkpoint before implementation.
+
+Provide a completion report after every major phase.
+
+If these requirements are compatible with the proposed architecture, proceed with implementation.

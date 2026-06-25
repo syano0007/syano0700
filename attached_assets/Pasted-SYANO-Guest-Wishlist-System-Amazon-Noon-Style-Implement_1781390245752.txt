@@ -1,0 +1,205 @@
+SYANO — Guest Wishlist System (Amazon/Noon Style)
+
+Implement a complete Guest Wishlist system identical in behavior to the existing Guest Cart system.
+
+IMPORTANT:
+Do NOT redesign UI.
+Do NOT break existing Wishlist functionality.
+Extend it.
+
+GOAL
+
+Guests must be able to:
+
+• Add products to wishlist
+• Remove products from wishlist
+• Open /wishlist page
+• See wishlist count in navbar
+• Persist wishlist across refreshes
+
+without authentication.
+
+====================================================
+PHASE 1 — AUDIT EXISTING CART SYSTEM
+====================================================
+
+First inspect:
+
+- Guest Cart implementation
+- Cart localStorage logic
+- Cart hydration logic
+- Cart navbar counter
+- Cart page state management
+
+Identify reusable patterns.
+
+Wishlist should mirror cart architecture wherever possible.
+
+====================================================
+PHASE 2 — GUEST WISHLIST STORAGE
+====================================================
+
+Create guest wishlist storage:
+
+localStorage key:
+
+syano_guest_wishlist
+
+Store:
+
+product ids
+basic metadata
+timestamps
+
+Requirements:
+
+- prevent duplicates
+- instant updates
+- survives refresh
+- survives browser restart
+
+====================================================
+PHASE 3 — WISHLIST CONTEXT
+====================================================
+
+Update WishlistContext.
+
+Expose:
+
+wishlistItems
+wishlistCount
+isInWishlist(productId)
+addToWishlist(product)
+removeFromWishlist(productId)
+toggleWishlist(product)
+
+Support:
+
+Guest mode
+Authenticated mode
+
+====================================================
+PHASE 4 — NAVBAR INTEGRATION
+====================================================
+
+Heart icon must:
+
+- show count badge
+- update instantly
+- work for guests
+- work for logged users
+
+Clicking heart:
+
+navigate to:
+
+/wishlist
+
+====================================================
+PHASE 5 — WISHLIST PAGE
+====================================================
+
+Wishlist page must work for guests.
+
+If guest:
+
+load products from localStorage.
+
+If authenticated:
+
+load from API.
+
+If empty:
+
+show premium empty state.
+
+====================================================
+PHASE 6 — LOGIN MERGE
+====================================================
+
+When user logs in:
+
+if guest wishlist exists:
+
+merge guest wishlist into account wishlist.
+
+Requirements:
+
+- no duplicates
+- preserve all products
+- clear guest wishlist after successful merge
+
+====================================================
+PHASE 7 — PRODUCT INTEGRATION
+====================================================
+
+Verify:
+
+ProductCard
+ProductGrid
+ProductDetail
+
+all use:
+
+toggleWishlist()
+
+and correctly reflect state.
+
+Heart icon must update instantly.
+
+====================================================
+PHASE 8 — REAL TESTING
+====================================================
+
+Do NOT stop at code review.
+
+Actually test:
+
+1. Guest add product
+2. Refresh page
+3. Wishlist persists
+4. Open wishlist page
+5. Remove item
+6. Add multiple items
+7. Login
+8. Merge wishlist
+9. Logout
+10. Verify behavior again
+
+====================================================
+PHASE 9 — FIX ALL ISSUES FOUND
+====================================================
+
+If any issue is found during testing:
+
+- Fix it immediately
+- Retest
+- Verify again
+
+Do not only report problems.
+
+Resolve them.
+
+====================================================
+PHASE 10 — RECOVERY FILES
+====================================================
+
+When finished update:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+CHANGELOG.md
+
+Document:
+
+Guest Wishlist System
+Merge Logic
+Navbar Counter
+localStorage Architecture
+
+Provide final report with:
+
+- files changed
+- tests executed
+- bugs fixed
+- final status

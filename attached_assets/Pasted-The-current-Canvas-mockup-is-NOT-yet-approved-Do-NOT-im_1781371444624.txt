@@ -1,0 +1,324 @@
+The current Canvas mockup is NOT yet approved.
+
+Do NOT implement anything into production.
+
+Do NOT modify HeroV4.
+
+Do NOT touch marketplace code.
+
+Stay inside Canvas only.
+
+The current mockup is approximately 75–80% similar to the approved screenshot.
+
+Target similarity is:
+
+**97–99% visual accuracy.**
+
+You must continue refining the Canvas mockup until it becomes visually almost identical to the reference image.
+
+---
+
+# PRIMARY ISSUE: SCALE
+
+The biggest problem is that the entire Hero is scaled incorrectly.
+
+Everything currently feels smaller than the approved design.
+
+The approved screenshot feels larger, more premium, more spacious.
+
+The current mockup feels compressed.
+
+Before touching anything else:
+
+Increase visual scale until the Hero matches the reference.
+
+---
+
+# HERO CONTAINER
+
+Match the exact visual dimensions from the screenshot.
+
+Do NOT estimate.
+
+Do NOT reinterpret.
+
+Visually compare side-by-side.
+
+The Hero should occupy the same amount of screen space as the reference.
+
+---
+
+# LEFT IMAGE AREA
+
+Current version:
+
+Too small.
+
+Too compressed.
+
+Too much empty margin.
+
+Required:
+
+Increase the image container until it visually matches the screenshot.
+
+The image block must feel dominant.
+
+The image should occupy approximately the same visual weight as the reference.
+
+---
+
+# RIGHT CONTENT AREA
+
+Current version:
+
+Too small.
+
+Headline area feels compressed.
+
+Buttons feel small.
+
+Statistics feel small.
+
+Required:
+
+Match the screenshot exactly.
+
+Keep:
+
+* same spacing
+* same proportions
+* same hierarchy
+
+---
+
+# HEADLINE
+
+This is currently one of the biggest visual mismatches.
+
+The approved screenshot uses an extremely dominant headline.
+
+Increase:
+
+* font size
+* visual weight
+* line height
+
+until it matches the screenshot.
+
+Keep exact line breaks.
+
+Keep exact alignment.
+
+Keep exact wording.
+
+Do not rewrite anything.
+
+---
+
+# DESCRIPTION
+
+Current version:
+
+Too small.
+
+Too close to surrounding elements.
+
+Match the exact size and spacing of the reference.
+
+---
+
+# CTA BUTTONS
+
+Current version:
+
+Smaller than the screenshot.
+
+Required:
+
+Match:
+
+* width
+* height
+* padding
+* radius
+* spacing
+
+The primary button should feel large and dominant exactly like the reference.
+
+---
+
+# FLOATING PRODUCT CARDS
+
+Current version:
+
+Too small.
+
+Wrong visual weight.
+
+Not matching screenshot proportions.
+
+Required:
+
+Increase size.
+
+Match:
+
+* width
+* height
+* shadow
+* radius
+* spacing
+
+The floating cards must look almost identical to the approved screenshot.
+
+---
+
+# CARD POSITIONS
+
+Do not approximate.
+
+Match the reference positions visually.
+
+Upper floating card.
+
+Middle floating card.
+
+Lower floating card.
+
+All should sit where they appear in the screenshot.
+
+---
+
+# STATISTICS ROW
+
+Current version:
+
+Too small.
+
+Too light.
+
+Required:
+
+Match:
+
+* font size
+* spacing
+* positioning
+* divider lengths
+
+The row should look nearly identical to the screenshot.
+
+---
+
+# GRID BACKGROUND
+
+Keep the existing grid.
+
+But verify:
+
+* density
+* opacity
+* spacing
+
+matches the screenshot.
+
+No fading.
+
+No redesign.
+
+---
+
+# VERTICAL SPACING
+
+The current version has noticeably different spacing.
+
+Compare against screenshot.
+
+Adjust:
+
+* headline → description
+* description → buttons
+* buttons → statistics
+
+until they visually align.
+
+---
+
+# HERO BALANCE
+
+The approved screenshot has nearly perfect visual balance.
+
+Current version is noticeably shifted toward the right content.
+
+Increase visual weight of the left image area.
+
+The left side should feel equally important.
+
+---
+
+# CAROUSEL RULE
+
+The carousel itself is acceptable.
+
+Do NOT redesign the carousel.
+
+Do NOT add new effects.
+
+Do NOT add overlays.
+
+Do NOT add new animations.
+
+Only preserve:
+
+* smooth transitions
+* multiple slides
+
+while keeping the exact approved design.
+
+---
+
+# PRODUCTION LOCK
+
+You are NOT allowed to modify production code.
+
+You are NOT allowed to touch:
+
+* HeroV4.tsx
+* Marketplace
+* Components
+* CSS
+
+until the Canvas mockup reaches 97–99% similarity.
+
+Canvas only.
+
+---
+
+# DELIVERABLE
+
+Provide:
+
+1. Updated Canvas mockup
+2. Side-by-side comparison with reference screenshot
+3. Written similarity estimate
+
+Do not proceed to implementation until:
+
+✅ Scale matches
+
+✅ Headline matches
+
+✅ Image area matches
+
+✅ Floating cards match
+
+✅ Statistics row matches
+
+✅ Buttons match
+
+✅ Visual balance matches
+
+Target:
+
+**97–99% similarity to the approved screenshot before any code changes are made.**

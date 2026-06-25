@@ -1,0 +1,28 @@
+You are executing a High-Precision Zoom-Behavior Hotfix for BOTH "LocationMapModal.tsx" and "TrackingMap.tsx" to eliminate the gray grid failure ("Map data not yet available") that triggers exclusively when zooming, as shown in "Screenshot (464).jpg".
+
+The Core Bug:
+The map tile layer is missing explicit grid bounding and scaling flags during active zoom events, causing Leaflet to request non-existent asset coordinates from the server or cutting off rendering.
+
+==================================================
+THE ZOOM-SPECIFIC REFACTOR
+==================================================
+1. Enforce Safe Zoom Bounds & Layer Scaling:
+   - Update the `<TileLayer />` component in BOTH files to use OpenStreetMap (`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`) as the source.
+   - Inject these precise performance attributes to handle zoom rendering flawlessly:
+     * `maxZoom={19}` (Locks the absolute maximum zoom allowed)
+     * `maxNativeZoom={19}` (CRITICAL: Tells Leaflet that if the user zooms past level 19, it should upscale the existing level 19 tiles instead of looking for new ones and showing gray squares)
+     * `minZoom={3}` (Prevents zooming out into infinite voids)
+
+2. Adjust Performance Throttling During Zoom:
+   - Configure these specific flags inside `<TileLayer />` to stabilize the rendering engine:
+     * `updateWhenZooming={false}` (Stops Leaflet from trying to download and replace tiles dynamically mid-zoom animation, which causes the flash of gray voids)
+     * `keepBuffer={12}` (Keeps a solid buffer of nearby tiles loaded so zoom adjustments feel fluid)
+
+3. Maintain the Instant Refresher Hook:
+   - Ensure `map.invalidateSize()` is still triggered on modal open to recalculate the container bounds.
+
+==================================================
+VALIDATION CHECKLIST
+==================================================
+✓ Open the map and zoom in aggressively to the maximum limit: The streets and text should upscale cleanly or stop at max limit without ever displaying "Map data not yet available".
+✓ Verify TypeScript compilation = 0 errors.

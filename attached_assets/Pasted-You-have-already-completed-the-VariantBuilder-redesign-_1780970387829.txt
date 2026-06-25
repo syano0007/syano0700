@@ -1,0 +1,238 @@
+You have already completed the VariantBuilder redesign.
+
+Now perform a dedicated **RTL + Mobile Polish Pass**.
+
+This is NOT a redesign.
+Do NOT change the business logic.
+Do NOT modify APIs.
+Do NOT touch the database.
+Do NOT change VariantBuilder state management.
+Only fix UI/UX consistency.
+
+---
+
+# PRIMARY GOAL
+
+Make the entire Variant system feel production-ready on:
+
+* Arabic RTL
+* English LTR
+* Mobile phones
+* Tablets
+* Desktop
+
+The mobile experience should feel as polished as Shopify, Trendyol, and Noon.
+
+---
+
+# PART 1 — RTL DIRECTION FIXES
+
+Audit every button, chip, badge, input, icon, and flex container.
+
+Fix any element that visually flows in the wrong direction.
+
+Common issues to eliminate:
+
+* icon appears on wrong side
+* plus icon before text in Arabic
+* close (X) buttons positioned incorrectly
+* flex-row used where flex-row-reverse is needed
+* incorrect justify-between ordering
+* badge alignment issues
+* input prefix/suffix direction problems
+
+Use RTL-aware layouts instead of hardcoded directions.
+
+Prefer:
+
+dir-aware flex utilities
+
+or conditional layouts based on i18n.dir().
+
+Do NOT break English mode.
+
+---
+
+# PART 2 — MOBILE RESPONSIVENESS
+
+Audit the entire Add Product variant section on:
+
+320px
+360px
+390px
+412px
+768px
+
+Nothing should overflow horizontally.
+
+No clipped text.
+
+No overlapping controls.
+
+No buttons partially outside cards.
+
+No horizontal scrolling.
+
+---
+
+# PART 3 — MANAGE COMBINATIONS SECTION
+
+The "Manage Combinations" area currently has overlapping controls.
+
+Fix:
+
+* header spacing
+* button wrapping
+* title wrapping
+* action buttons
+* bulk action controls
+
+If necessary:
+
+Desktop:
+Title -------------------- Button
+
+Mobile:
+
+Title
+
+Button
+
+Use responsive stacking.
+
+Never allow controls to overlap.
+
+---
+
+# PART 4 — BUTTON CONSISTENCY
+
+Audit every button inside VariantBuilder.
+
+Ensure consistent:
+
+* height
+* padding
+* border radius
+* icon spacing
+* font size
+* hover state
+* active state
+* disabled state
+
+Buttons should visually match the rest of SYANO.
+
+---
+
+# PART 5 — CARD CONSISTENCY
+
+Audit every card.
+
+Ensure:
+
+* equal padding
+* equal border radius
+* equal spacing between sections
+* consistent shadows
+* no cramped layouts
+
+---
+
+# PART 6 — CHIP LAYOUT
+
+Variant chips (Color, Size, etc.) must wrap naturally.
+
+Long Arabic labels must not break layouts.
+
+Allow wrapping instead of clipping.
+
+No fixed widths.
+
+---
+
+# PART 7 — MOBILE TABLE FALLBACK
+
+The combinations table must be optimized for mobile.
+
+If width becomes too small:
+
+Use the existing mobile card layout.
+
+Do NOT force the desktop table onto small screens.
+
+Cards should have:
+
+Combination
+SKU
+Price
+Stock
+Image
+Enabled toggle
+
+with proper spacing.
+
+---
+
+# PART 8 — TOUCH TARGETS
+
+Every interactive element should be finger-friendly.
+
+Minimum touch target:
+
+44px × 44px
+
+Especially:
+
+* remove buttons
+* toggle
+* generate button
+* add value button
+* quick preset chips
+
+---
+
+# PART 9 — VISUAL QA
+
+Perform a complete visual audit for:
+
+Arabic RTL desktop
+Arabic RTL mobile
+English desktop
+English mobile
+
+Verify:
+
+✅ No overflow
+
+✅ No clipped text
+
+✅ No overlapping elements
+
+✅ No horizontal scroll
+
+✅ Correct RTL ordering
+
+✅ Buttons aligned
+
+✅ Cards aligned
+
+✅ Manage Combinations clean
+
+✅ Mobile layout polished
+
+---
+
+# IMPORTANT
+
+Do NOT redesign.
+
+Do NOT rewrite logic.
+
+Do NOT modify APIs.
+
+Do NOT modify database schema.
+
+Do NOT touch Variant generation logic.
+
+Only polish and fix RTL + responsiveness + spacing + consistency issues.
+
+Finally provide a detailed report listing every UI issue found and exactly how it was fixed.

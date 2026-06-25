@@ -1,0 +1,174 @@
+SYANO — FULL RECOVERY + LAST STATE VERIFICATION
+
+IMPORTANT
+
+This project has been transferred between agents.
+
+Before performing ANY development work:
+
+Do NOT write code.
+Do NOT modify files.
+Do NOT install new packages.
+Do NOT implement features.
+Do NOT fix bugs.
+
+Your only task is:
+
+FULL PROJECT RECOVERY + LAST STATE VERIFICATION
+
+==================================================
+RECOVERY PHASE
+==============
+
+Read ALL available project context:
+
+1. Recovery documentation
+2. Memory files
+3. Agent handoff files
+4. Project state files
+5. Implementation notes
+6. Recent feature documentation
+7. Recovery updates from previous agents
+8. Recent completed task summaries
+
+Reconstruct the complete current state of the project.
+
+==================================================
+VERIFY LAST KNOWN CHECKPOINT
+============================
+
+Identify:
+
+* Last completed task
+* Last git commit
+* Last modified files
+* Most recent implemented features
+* Most recent bug fixes
+* Most recent recovery updates
+
+Provide an accurate resume point.
+
+==================================================
+VERIFY WORKSPACE INTEGRITY
+==========================
+
+Inspect:
+
+* git status
+* modified files
+* uncommitted changes
+* partially completed work
+* interrupted implementations
+* unfinished feature branches
+
+Determine whether the previous session stopped in the middle of implementation.
+
+Provide exact results.
+
+==================================================
+VERIFY RECENT FEATURES
+======================
+
+Confirm the current state of:
+
+1. Product Wizard
+2. Variant System
+3. Product Page
+4. Checkout Delivery Zones
+5. Admin Notifications
+6. Seller Application Flow
+7. Suggested Attributes relocation
+8. Recovery documentation updates
+
+For each item:
+
+* Verified
+* Not verified
+* Incomplete
+* Regressed
+
+==================================================
+VERIFY DATABASE STATE
+=====================
+
+Inspect:
+
+* Current table count
+* Schema consistency
+* Drizzle schema definitions
+* Migration state
+
+Provide:
+
+* Total table count
+* Any missing tables
+* Any schema mismatches
+
+Do not modify the database.
+
+Verification only.
+
+==================================================
+VERIFY RUNNING ENVIRONMENT
+==========================
+
+Verify:
+
+* API
+* Marketplace
+* Mobile
+* PostgreSQL
+
+Provide status for each service.
+
+==================================================
+VERIFY RECENTLY ATTEMPTED WORK
+==============================
+
+The previous agent began investigating:
+
+1. Recently Viewed Products
+2. Product Wizard stock / variants UX
+
+Determine:
+
+* Whether any files were modified
+* Whether any code was written
+* Whether any partial implementation exists
+* Whether any unfinished work remains
+
+This is critical.
+
+==================================================
+OUTPUT
+======
+
+Provide:
+
+1. Recovery files found
+2. Memory files found
+3. Last known project checkpoint
+4. Last git commit
+5. Current environment status
+6. Database verification
+7. Modified/uncommitted files
+8. Incomplete work found
+9. Recent feature status
+10. Open issues
+11. Recommended next task
+
+==================================================
+IMPORTANT
+=========
+
+Do NOT make any changes.
+
+Do NOT implement anything.
+
+Do NOT update documentation.
+
+Do NOT write code.
+
+Recovery and verification only.
+
+The goal is to guarantee that development resumes exactly from the latest verified state and to confirm whether the previous session made any changes before hitting the quota limit.

@@ -1,0 +1,349 @@
+STOP.
+
+Do NOT make random color adjustments.
+
+Do NOT increase brightness globally.
+
+Do NOT tweak isolated components.
+
+Perform a complete Light Theme Design Audit for the entire homepage.
+
+Current Light Theme quality is noticeably below the Dark Theme quality.
+
+The page feels:
+
+* washed out
+* low contrast
+* visually flat
+* inconsistent
+* unfinished
+
+The goal is:
+
+Create a premium marketplace-grade Light Theme that feels as polished as:
+
+* Apple
+* Shopify
+* Stripe
+* Linear
+* Notion
+* Airbnb
+
+while preserving the SYANO visual identity.
+
+---
+
+# CRITICAL RULE
+
+Dark Theme is currently the visual reference.
+
+Do NOT redesign components.
+
+Do NOT change layout.
+
+Do NOT change spacing.
+
+Do NOT change typography scale.
+
+Do NOT change component structure.
+
+Only improve Light Theme visual quality.
+
+---
+
+# ISSUE 1 — LOW CONTRAST TEXT
+
+Many texts become difficult to read in Light Mode.
+
+Examples:
+
+* product metadata
+* store metadata
+* card subtitles
+* category counts
+* secondary labels
+* helper text
+* section descriptions
+
+Current text colors are too faded.
+
+Audit ALL text tokens.
+
+Create proper hierarchy:
+
+Primary Text
+Secondary Text
+Muted Text
+
+Every text must remain readable on a white background.
+
+No washed-out gray text.
+
+---
+
+# ISSUE 2 — CARDS LOOK DEAD
+
+Current cards feel:
+
+* pale
+* flat
+* low depth
+
+Add proper Light Theme surfaces.
+
+Review:
+
+* product cards
+* category cards
+* store cards
+* statistics cards
+* CTA cards
+
+Use:
+
+* subtle elevation
+* soft borders
+* proper shadows
+* premium surface colors
+
+Cards should feel layered.
+
+Not pasted onto a white page.
+
+---
+
+# ISSUE 3 — IMAGES ARE TOO DARK
+
+Several images look heavily dimmed.
+
+Examples visible in:
+
+* categories
+* stores
+* products
+
+Dark-mode overlays are leaking into Light Theme.
+
+Audit every image overlay.
+
+Light Theme should:
+
+* preserve image detail
+* preserve readability
+* avoid excessive darkening
+
+Reduce overlays where needed.
+
+---
+
+# ISSUE 4 — BUTTONS LOOK WEAKER
+
+Buttons lose visual quality in Light Mode.
+
+Audit:
+
+Primary buttons
+Secondary buttons
+Ghost buttons
+Link buttons
+
+Verify:
+
+* contrast
+* shadow
+* border
+* hover state
+* active state
+* disabled state
+
+Buttons must feel premium.
+
+---
+
+# ISSUE 5 — SECTION SEPARATION
+
+Current sections blend together.
+
+Homepage becomes visually monotonous.
+
+Improve section rhythm using:
+
+* background layers
+* subtle contrast shifts
+* spacing perception
+* separators where necessary
+
+The user should instantly understand:
+
+Hero
+Categories
+Deals
+Stores
+Products
+Footer
+
+without confusion.
+
+---
+
+# ISSUE 6 — CATEGORY CARDS
+
+Category cards currently feel muddy.
+
+Audit:
+
+* title contrast
+* count contrast
+* overlay strength
+* hover state
+
+Cards should remain readable immediately.
+
+No squinting required.
+
+---
+
+# ISSUE 7 — STORE CARDS
+
+Store cards feel unfinished.
+
+Audit:
+
+* store name
+* rating
+* product count
+* metadata
+* CTA button
+
+Improve hierarchy.
+
+Store cards should feel trustworthy and premium.
+
+---
+
+# ISSUE 8 — PRODUCT CARDS
+
+Product cards require a full Light Theme review.
+
+Audit:
+
+* title readability
+* seller name readability
+* price prominence
+* sale price
+* rating
+* add-to-cart button
+* wishlist button
+
+The eye should instantly find:
+
+1. Product image
+2. Product name
+3. Price
+4. CTA
+
+---
+
+# ISSUE 9 — SETTINGS PANEL
+
+The Settings dropdown currently feels disconnected.
+
+Audit:
+
+Theme selector
+Language selector
+Currency selector
+
+Improve:
+
+* contrast
+* borders
+* hover states
+* active states
+* spacing
+
+Must feel native to the homepage design system.
+
+---
+
+# ISSUE 10 — LIGHT THEME DESIGN TOKENS
+
+Audit all light-theme variables:
+
+Background
+Surface
+Card
+Border
+Primary Text
+Secondary Text
+Muted Text
+Primary Accent
+Success
+Warning
+
+Create a coherent token system.
+
+No random grays.
+
+No inconsistent shades.
+
+---
+
+# ISSUE 11 — ACCESSIBILITY
+
+Verify:
+
+WCAG-level contrast for:
+
+* text
+* buttons
+* links
+* badges
+* ratings
+
+No element should become difficult to read.
+
+---
+
+# ISSUE 12 — VISUAL DEPTH
+
+Current Light Theme lacks depth.
+
+Introduce:
+
+* layered surfaces
+* premium shadows
+* proper elevation hierarchy
+
+Without becoming material-design heavy.
+
+Keep it elegant.
+
+---
+
+# FINAL VALIDATION
+
+Review the ENTIRE homepage in Light Theme.
+
+Scroll from top to bottom.
+
+Inspect every section.
+
+Fix every instance of:
+
+* low contrast
+* washed-out text
+* muddy overlays
+* weak cards
+* weak buttons
+* inconsistent hierarchy
+
+Do not stop after fixing obvious issues.
+
+Perform a full visual audit.
+
+Target:
+
+The Light Theme should feel equal or better than the Dark Theme.
+
+The page should look production-ready and premium.

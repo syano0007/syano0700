@@ -1,0 +1,185 @@
+Syano — Complete Project Transfer ReportGenerated: 2026-06-05Purpose: Full migration documentation for moving to a new Replit account or any Node.js hosting environment.This document assumes the recipient has never seen the project before.
+
+Table of ContentsReplit ConfigurationEnvironment VariablesDatabaseAuthenticationEmailSMSStorageDomain ConfigurationSEO ConfigurationPush NotificationsThird-Party ServicesAdmin AccountsBuild & DeploymentProject Health AuditFinal Migration Checklist
+
+Replit ConfigurationWorkspace StructureThis is a pnpm monorepo managed with pnpm workspaces. It contains four artifacts and four shared libraries:
+
+artifacts/api-server/          API (Express 5, Node.js 24)marketplace/         Web frontend (React + Vite)mobile/              Mobile app (Expo / React Native)mockup-sandbox/      Design tool (Vite preview server — dev only)lib/api-client-react/    Generated TanStack Query hooks (do not edit manually)api-spec/            OpenAPI 3.x contract (openapi.yaml)api-zod/             Generated Zod schemas (do not edit manually)db/                  Drizzle ORM schema + DB connectionscripts/               Admin seed, sitemap generator, etc.
+
+Replit Deployment ConfigurationReplit runs four Workflows (persistent background processes), each bound to a unique PORT and BASE_PATH environment variable set automatically by the Replit platform:
+
+Workflow Name	Command	Default Portartifacts/api-server: API Server	pnpm --filter @workspace/api-server run dev	8080artifacts/marketplace: web	pnpm --filter @workspace/marketplace run dev	assigned by Replitartifacts/mobile: expo	pnpm --filter @workspace/mobile run dev	assigned by Replitartifacts/mockup-sandbox: Component Preview Server	pnpm --filter @workspace/mockup-sandbox run dev	assigned by ReplitReplit-Specific Features In Usepnpm workspace catalog — shared dependency versions defined in pnpm-workspace.yamlReplit Vite plugins — @replit/vite-plugin-cartographer, @replit/vite-plugin-dev-banner, @replit/vite-plugin-runtime-error-modal (dev-only)REPLIT_DEV_DOMAIN — used by the mobile Expo workflow to set the packager proxy URLREPLIT_EXPO_DEV_DOMAIN — used by Expo for WebSocket tunnelingREPL_ID — passed to Expo as EXPO_PUBLIC_REPL_IDReplit PostgreSQL — the database is provisioned through Replit's built-in Postgres integration, which automatically sets DATABASE_URLPackage Managerpnpm (required — a preinstall guard in package.json rejects npm/yarn)Node.js version: 24TypeScript version: ~5.9.3Supply-chain protection: minimumReleaseAge: 1440 in pnpm-workspace.yaml (packages must be 24 h old before install)Build CommandsTask	CommandFull typecheck	pnpm run typecheckFull workspace build	pnpm run buildAPI server build only	pnpm --filter @workspace/api-server run buildMarketplace build only	pnpm --filter @workspace/marketplace run buildRegenerate API hooks	pnpm --filter @workspace/api-spec run codegenPush DB schema (dev)	pnpm --filter @workspace/db run pushSeed admin account	pnpm --filter @workspace/scripts run seedGenerate sitemaps	pnpm --filter @workspace/scripts run sitemapRun Commands (development)Restart each workflow individually — do not run pnpm dev at workspace root.
+
+Environment VariablesRequired Secrets (must be set before the app can run)Variable	Purpose	Used In	Required?	How to ObtainDATABASE_URL	PostgreSQL connection string	lib/db/src/index.ts, all DB queries	Required	Replit → Database tab → copy connection string; or any external Postgres providerSESSION_SECRET	JWT signing secret (HMAC-SHA256)	artifacts/api-server/src/middlewares/auth.ts	Required	Generate: openssl rand -base64 64Email ServiceVariable	Purpose	Used In	Required?	How to ObtainRESEND_API_KEY	Resend API key for email delivery	artifacts/api-server/src/services/verification.ts	Required only if ENABLE_EMAIL_VERIFICATION=true	resend.com → API KeysFROM_EMAIL	Sender address for OTP/verification emails	artifacts/api-server/src/services/verification.ts	Optional	Defaults to noreply@syano.online; must be a verified domain in ResendSMS ServiceVariable	Purpose	Used In	Required?	How to ObtainTWILIO_ACCOUNT_SID	Twilio account identifier	artifacts/api-server/src/services/verification.ts	Required only if ENABLE_PHONE_VERIFICATION=true	twilio.com → Console → Account SIDTWILIO_AUTH_TOKEN	Twilio auth token	artifacts/api-server/src/services/verification.ts	Required only if ENABLE_PHONE_VERIFICATION=true	twilio.com → Console → Auth TokenTWILIO_FROM_PHONE	Twilio sender phone number (E.164 format)	artifacts/api-server/src/services/verification.ts	Required only if ENABLE_PHONE_VERIFICATION=true	twilio.com → Phone NumbersTWILIO_VERIFY_SERVICE_SID	Twilio Verify Service SID	artifacts/api-server/src/services/verification.ts	Required only if ENABLE_PHONE_VERIFICATION=true	twilio.com → Verify → ServicesPush NotificationsVariable	Purpose	Used In	Required?	How to ObtainVAPID_PUBLIC_KEY	VAPID public key for Web Push	artifacts/api-server/src/lib/notif.ts, artifacts/api-server/src/routes/push-subscriptions.ts	Optional (push notifications disabled if missing)	Generate: npx web-push generate-vapid-keysVAPID_PRIVATE_KEY	VAPID private key for Web Push	artifacts/api-server/src/lib/notif.ts	Optional	Same generation step as aboveVAPID_EMAIL	Contact email embedded in VAPID header	artifacts/api-server/src/lib/notif.ts	Optional	Defaults to mailto@syano.onlineAPI Server Behavior FlagsVariable	Purpose	Used In	Required?	DefaultCORS_ORIGIN	Comma-separated list of allowed CORS origins	artifacts/api-server/src/app.ts	Optional	All origins allowed if unset (not safe for production)LOG_LEVEL	Pino log level	artifacts/api-server/src/lib/logger.ts	Optional	infoENABLE_EMAIL_VERIFICATION	Enable OTP email verification on register/login	artifacts/api-server/src/routes/auth.ts	Optional	false (disabled)ENABLE_PHONE_VERIFICATION	Enable OTP SMS verification on register/login	artifacts/api-server/src/routes/auth.ts	Optional	false (disabled)BEST_DEALS_THRESHOLD	Minimum discount % to qualify as a "Best Deal" badge	artifacts/api-server/src/lib/bestDeals.ts	Optional	hardcoded defaultFEATURED_THRESHOLD	Minimum sales count to auto-feature a product	artifacts/api-server/src/routes/products.ts	Optional	hardcoded defaultFrontend VariablesVariable	Purpose	Used In	Required?	DefaultPORT	Dev server port (set automatically by Replit)	artifacts/marketplace/vite.config.ts	Required	Set by ReplitBASE_PATH	URL base path for the artifact (set by Replit)	artifacts/marketplace/vite.config.ts	Required	Set by ReplitVITE_SUPPORT_PHONE	Phone number shown on the account-suspended page	artifacts/marketplace/src/pages/account-suspended.tsx	Optional	None displayedAPI_PORT	API server port for Vite proxy rules (sitemap forwarding)	artifacts/marketplace/vite.config.ts	Optional	8080Scripts VariablesVariable	Purpose	Used In	Required?	DefaultDATABASE_URL	DB connection (same as API server)	scripts/src/generate-sitemap.ts, scripts/src/seed-admin.ts	Required	—SITE_URL	Base URL for sitemap generation	scripts/src/generate-sitemap.ts	Optional	https://syano.online
+
+DatabaseProviderPostgreSQL — provisioned via Replit's built-in Postgres integration (which sets DATABASE_URL automatically). Any standard PostgreSQL 14+ instance works.
+
+Connection MethodDrizzle ORM using pg (node-postgres) connection pool:
+
+// lib/db/src/index.tsconst pool = new Pool({ connectionString: process.env.DATABASE_URL });export const db = drizzle(pool, { schema });
+
+Schema Locationlib/db/src/schema/users.tsproducts.tsvariants.ts          product variant groups, options, values, SKUscart.tsorders.ts            orders, order_items, order_status_historyreviews.tsseller_applications.tsseller_reviews.tsstore_follows.tsnotifications.tspush_subscriptions.tsconversations.ts     seller ↔ buyer messagingplatform_settings.tsaudit_log.tsverification_audit_log.tsindex.ts             re-exports everything
+
+Migration SystemDual-layer approach:
+
+Startup migrations (artifacts/api-server/src/lib/run-migrations.ts) — runs automatically every time the API server starts. Contains ADD COLUMN IF NOT EXISTS and CREATE TABLE IF NOT EXISTS guards. Handles additive changes only. Always idempotent.
+
+Drizzle Kit (lib/db/drizzle.config.ts) — for full schema synchronization in development:
+
+pnpm --filter @workspace/db run push
+
+⚠️ Requires an interactive TTY (cannot be run headlessly). For production, use the startup migration pattern or manual SQL.
+
+Required Setup Steps (fresh database)
+
+1. Set DATABASE_URL to your PostgreSQL connection string
+
+2. Apply full schema (dev only — requires TTY)
+
+pnpm --filter @workspace/db run push
+
+3. Seed the admin account
+
+pnpm --filter @workspace/scripts run seed
+
+4. (Optional) Load demo data
+
+Import data.sql or syano_backup.sql.gz if migrating an existing instance
+
+Schema Backup FilesThe repository includes:
+
+schema.sql — full DDL for all tables, indexes, and sequencesdata.sql — seeded data (products, demo accounts)syano_backup.sql.gz — full compressed DB backupschema.b64 / backup.b64 — base64-encoded variantsImportant Schema NotesProducts have no is_active, is_hidden, or deleted_at columns. Active product filter = stock > 0.seller_applications table holds all seller store data (store_slug, store_name, store_logo, etc.) — not the users table.account_status on users table controls suspension ('active' | 'suspended').Prices stored as numeric(10,2) — always call parseFloat() before returning in JSON.4. AuthenticationLogin SystemCustom JWT authentication — no third-party auth provider (no Clerk, Auth0, Supabase Auth, etc.)Passwords hashed with bcryptjs (cost factor 10)Tokens signed with jsonwebtoken using SESSION_SECRETToken expiry: 7 daysToken StorageStored in localStorage under the key token (client side)User object stored in localStorage under key userInjected into all API calls via setAuthTokenGetter in lib/api-client-reactSession FlowPOST /api/auth/register → creates user, returns JWT + user objectPOST /api/auth/login    → validates credentials, returns JWT + user objectAll protected routes    → require Authorization: Bearer  header
+
+RolesThree roles defined in the DB enum role:
+
+customer — standard buyerseller — can manage products, orders, store settingsadmin — full platform access (bypasses role-mismatch validation at login)Middleware ChainrequireAuth             — verifies JWT, attaches req.userrequireRole("seller")   — checks req.user.rolerequireActiveAccount    — DB lookup to confirm account_status = 'active'
+
+Verification System (OTP)Implemented but disabled by defaultEnable with: ENABLE_EMAIL_VERIFICATION=true and/or ENABLE_PHONE_VERIFICATION=trueWhen disabled: register returns token immediately; login skips verified checkOTP: 6-digit numeric, bcrypt-hashed in DB, 10-minute expiry, rate-limitedChannels: Email (Resend) and/or SMS (Twilio Verify)Rate limits: max 5 OTP requests per window; 5 failed attempts → account locked until otp_locked_untilOAuth / SSONone. No Google, Facebook, Apple, or any OAuth provider is integrated.
+
+EmailProviderResend (resend.com) — used exclusively for OTP verification emails.
+
+ConfigurationSetting	ValueAPI Key variable	RESEND_API_KEYDefault sender address	noreply@syano.online (override with FROM_EMAIL)Templates	Inline HTML in artifacts/api-server/src/services/verification.ts — bilingual (Arabic RTL + English LTR)When Email is UsedOnly when ENABLE_EMAIL_VERIFICATION=true. Currently disabled. If you enable it:
+
+Create a Resend account at resend.comAdd and verify the syano.online domain (or your domain) in ResendSet RESEND_API_KEY and FROM_EMAIL secretsSet ENABLE_EMAIL_VERIFICATION=trueDNS Requirements for EmailTo send from noreply@syano.online via Resend, the following DNS records must be added at the domain registrar:
+
+SPF record (TXT on root)DKIM record (TXT on resend._domainkey)(Optional) DMARC recordResend's dashboard provides the exact DNS values after domain verification.
+
+Other Email UsageNo transactional emails (order confirmation, shipping updates, etc.) are currently implemented. The system only uses email for OTP verification.
+
+SMSProviderTwilio — used exclusively for OTP verification via SMS.
+
+ConfigurationVariable	PurposeTWILIO_ACCOUNT_SID	Account identifierTWILIO_AUTH_TOKEN	API secretTWILIO_FROM_PHONE	Sender number (E.164 format, e.g. +1234567890)TWILIO_VERIFY_SERVICE_SID	Twilio Verify Service SID (optional — may also use direct SMS)When SMS is UsedOnly when ENABLE_PHONE_VERIFICATION=true. Currently disabled.
+
+Setup StepsCreate a Twilio account at twilio.comPurchase a phone numberCreate a Verify Service (optional, for higher deliverability)Set all four TWILIO_* secretsSet ENABLE_PHONE_VERIFICATION=true7. StorageImage StorageNo cloud object storage is used. Product images and store logos are stored as plain URL strings in the database (imageUrl TEXT, imageUrls TEXT[]). Sellers paste or upload URLs pointing to externally hosted images.
+
+There is no file upload system, no multer, no S3, no Cloudinary, no R2, and no CDN.
+
+Implications for MigrationNo storage buckets to migrateNo file system data to transferImage availability depends entirely on the original external URLs remaining validService Worker CacheA service worker (artifacts/marketplace/public/sw.js) is registered for push notification support. It uses a cache named syano-v1 but does not perform aggressive asset caching — it is focused on the push event handler.
+
+Domain ConfigurationCurrent Domainsyano.online — primary production domain
+
+DNS Records RequiredType	Name	Value / PurposeA or CNAME	@ (root)	Point to Replit deployment IP / CNAMEA or CNAME	www	Redirect to root or same targetTXT	@	SPF record for Resend emailTXT	resend._domainkey	DKIM record for Resend emailTXT	_dmarc	(Recommended) DMARC policySSLHandled automatically by Replit's deployment infrastructure (Let's Encrypt). No manual SSL configuration required when deploying on Replit.
+
+URL StructurePath	Served By/	Marketplace (React SPA)/api/*	API server (Express)/sitemap*.xml	Proxied to API server in dev; static files in production/robots.txt	Static file in artifacts/marketplace/public/robots.txt/sw.js	Static file (service worker)/manifest.json	Static file (PWA manifest)RedirectsNo HTTP redirects are currently configured in code. Any www → non-www or HTTP → HTTPS redirect is handled at the Replit deployment / DNS level.
+
+SEO ConfigurationSitemap Architecture (5-file system)File	Content	Cache TTL (dynamic)/sitemap.xml	Sitemap index referencing all 4 sub-sitemaps	5 min/sitemap-pages.xml	24 static/info pages with hreflang	5 min/sitemap-categories.xml	Product categories from DB	10 min/sitemap-products.xml	All in-stock products (up to 49k) with image metadata	10 min/sitemap-stores.xml	Approved seller store pages	15 minHow sitemaps are served:
+
+Development: Vite proxy forwards /sitemap*.xml → API server → live DB queries with in-memory cacheProduction build: pnpm --filter @workspace/scripts run sitemap writes all 5 XML files to artifacts/marketplace/public/ (runs automatically as a prebuild hook)Submit to Google Search Console: https://syano.online/sitemap.xmlrobots.txtLocated at artifacts/marketplace/public/robots.txt. Key rules:
+
+Allow: / for all crawlersDisallow for admin, API, cart, checkout, dashboard, messages, auth pagesCrawl-delay: 1Sitemap: https://syano.online/sitemap.xmlOpenGraph / Twitter CardsManaged by artifacts/marketplace/src/hooks/useSEO.ts:
+
+og, og, og, og, ogTwitter summary_large_image cardsDefault OG image: artifacts/marketplace/public/og-image.png (1200×630 px)Canonical URLs set per pageStructured DataNot yet implemented.
+
+Internationalization (i18n)Bilingual: English (en) and Arabic (ar)Translation files: artifacts/marketplace/src/i18n/en.json and ar.jsonLibrary: i18next + i18next-browser-languagedetector + react-i18nextBoth language bundles pre-loaded before i18n.init() to prevent language-switch race conditionsMobile app uses a custom t() at artifacts/mobile/src/i18n/index.ts10. Push NotificationsProviderWeb Push API with VAPID keys, via the web-push npm package.
+
+ArchitectureSSE (Server-Sent Events) — real-time in-browser tab updates via GET /api/notifications/streamWeb Push — background notifications when the browser is closed, via service workerVAPID KeysThree environment variables required:
+
+Variable	NotesVAPID_PUBLIC_KEY	Exposed to the frontend via GET /api/push-subscriptions/vapid-public-keyVAPID_PRIVATE_KEY	Never exposed to frontend; server-side onlyVAPID_EMAIL	Contact email in VAPID header. Defaults to mailto@syano.onlineGenerating New VAPID Keysnpx web-push generate-vapid-keys
+
+⚠️ Critical: If VAPID keys are regenerated, ALL existing push subscriptions in the push_subscriptions DB table become invalid and must be re-collected from users. Do not regenerate keys unless absolutely necessary.
+
+Service Workerartifacts/marketplace/public/sw.js — handles the push event, shows browser notifications with title, body, icon, and vibration patterns. Must be served at the root path /sw.js.
+
+Database Tablepush_subscriptions table stores:
+
+endpoint (push service URL)p256dh (encryption key)auth (auth secret)user_id (FK to users)Expired subscriptions (HTTP 410/404 from push service) are automatically deleted.
+
+Third-Party ServicesSummary TableService	Purpose	Required?	Credentials NeededReplit PostgreSQL	Primary database	Required	DATABASE_URL (auto-set by Replit)Resend	OTP verification emails	Optional (off by default)	RESEND_API_KEY, FROM_EMAILTwilio	OTP verification SMS	Optional (off by default)	TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_PHONE, TWILIO_VERIFY_SERVICE_SIDWeb Push / VAPID	Background push notifications	Optional (disabled if keys missing)	VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEYGoogle Search Console	Sitemap submission	Optional (SEO)	Submit https://syano.online/sitemap.xmlNot UsedGoogle Analytics / GA4 — not integratedSentry / Datadog / monitoring — not integratedStripe / payment gateway — not integrated (no live payments)AWS / GCP / Azure — not usedCloudinary / S3 / R2 — not usedAuth0 / Clerk / Supabase Auth — not usedRedis / Memcached — not used (in-memory caching only)SendGrid / Mailgun — not used (Resend only)
+
+Admin AccountsRole SystemThree roles stored in the users.role Postgres ENUM:
+
+Role	Accesscustomer	Browse, cart, checkout, order history, reviews, messagingseller	All customer access + product management, order fulfillment, store settings, seller analytics, seller messagingadmin	Full platform access: all users, all products, all orders, platform settings, suspend accounts, feature products, admin dashboardAdmin Login QuirkThe login form shows "Customer" and "Seller" radio buttons. Admin accounts log in by selecting the "Customer" button and entering admin credentials — the server detects the admin role and overrides the role-mismatch guard.
+
+Creating an Admin Accountpnpm --filter @workspace/scripts run seed
+
+This is idempotent — safe to run multiple times. It creates or updates the admin account defined in scripts/src/seed-admin.ts.
+
+To change admin credentials before running in a new environment, edit the constants in scripts/src/seed-admin.ts:
+
+const ADMIN_EMAIL    = "your-admin@email.com";const ADMIN_PASSWORD = "your-secure-password";const ADMIN_NAME     = "Admin";
+
+Permissions ModelRole checks are enforced in two ways:
+
+Middleware — requireRole("admin") on route handlersFrontend routing — admin routes redirect non-admin usersDemo Accounts (delete in production)Role	Email	NotesAdmin	delewatiamer7@gmail.com	Created by seed scriptSeller	seller@demo.com	Seeded in data.sqlCustomer	customer@demo.com	Seeded in data.sql⚠️ Change all demo account passwords or delete demo accounts before going live.
+
+Build & DeploymentStep 1: Clone / Fork the ProjectIn Replit: Fork the Repl to the new account.Outside Replit: Export the Repl as a zip, or use git if a remote is configured.
+
+Step 2: Install Dependenciespnpm install
+
+This installs all workspace packages. Requires pnpm v9+ and Node.js 24.
+
+Step 3: Configure SecretsIn Replit: Tools → Secrets (not .env files — Replit injects secrets as environment variables).
+
+Minimum required secrets for the app to start:
+
+DATABASE_URL      = SESSION_SECRET    = <random 64-byte base64 string>
+
+Optional secrets (enable features):
+
+RESEND_API_KEY            = FROM_EMAIL                = noreply@yourdomain.comTWILIO_ACCOUNT_SID        = TWILIO_AUTH_TOKEN         = TWILIO_FROM_PHONE         = +1234567890TWILIO_VERIFY_SERVICE_SID = VAPID_PUBLIC_KEY          = VAPID_PRIVATE_KEY         = VAPID_EMAIL               = mailto@yourdomain.comCORS_ORIGIN               = https://yourdomain.comVITE_SUPPORT_PHONE        = +963XXXXXXXXX
+
+Step 4: Provision the DatabaseOption A — Replit PostgreSQL (recommended):
+
+In Replit: Tools → Database → Create databaseDATABASE_URL is set automaticallyOption B — External PostgreSQL:
+
+Create a PostgreSQL 14+ instance (Neon, Supabase, Railway, etc.)Set DATABASE_URL secret manuallyStep 5: Run Schema Migrations
+
+Apply full schema from Drizzle definitions (requires interactive TTY)
+
+pnpm --filter @workspace/db run push
+
+OR: Import from the SQL backup directly
+
+psql $DATABASE_URL < schema.sqlpsql $DATABASE_URL < data.sql     # optional demo data
+
+Step 6: Seed Admin AccountEdit scripts/src/seed-admin.ts to set your admin email/password, then:
+
+pnpm --filter @workspace/scripts run seed
+
+Step 7: Generate VAPID Keys (if enabling push notifications)npx web-push generate-vapid-keys
+
+Copy the output into VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY secrets
+
+Step 8: Start DevelopmentRestart each workflow in Replit's workflow panel, or:
+
+Terminal 1 — API server
+
+pnpm --filter @workspace/api-server run dev
+
+Terminal 2 — Web marketplace
+
+PORT= BASE_PATH=/ pnpm --filter @workspace/marketplace run dev
+
+Step 9: Deploy to Production (Replit)In Replit: Deploy → choose deployment type (Autoscale recommended)Set all secrets in the Deployments secrets panel (separate from dev secrets)Replit runs the build and serves the appThe marketplace prebuild hook runs automatically:
+
+pnpm --filter @workspace/scripts run sitemap
+
+This generates all 5 sitemap XML files before the Vite production build.
+
+Step 10: Custom DomainIn Replit Deployments: Add custom domain syano.onlineAt your DNS registrar: Point the domain to Replit (follow Replit's instructions for the exact record type/value)Replit provisions SSL automaticallyStep 11: Google Search ConsoleVerify ownership of syano.onlineSubmit: https://syano.online/sitemap.xml14. Project Health AuditWorking Systems ✅Full role-based auth (customer / seller / admin)Product catalog with variants (Amazon/Shopify-grade)Cart (guest cart + authenticated cart)Orders with status workflow and trackingSeller store pages and follow systemSeller ↔ buyer messagingAdmin dashboard with analyticsAccount suspension system with real-time SSE kickReal-time notifications (SSE + Web Push)Platform settings (admin-configurable)Product search (PostgreSQL full-text + trigram)Reviews (product reviews + seller reviews)"Best Deals" badge logicDynamic sitemap index architecture (5 files, DB-driven, 10-min cache)Fully bilingual Arabic/English (RTL support)Mobile app (Expo/React Native) with i18nKnown Limitations ⚠️Area	LimitationPayments	No payment gateway integrated. Orders are placed without any real payment processing.Image uploads	No file upload system. Images are external URLs pasted by sellers. No validation that URLs remain valid.Email transactional	No order confirmation, shipping update, or password reset emails. Email only used for OTP (currently disabled).OTP verification	System is fully built but disabled (VERIFICATION_ENABLED=false). Enable with env flags when Resend/Twilio credentials are configured.Sitemap in production	Production sitemaps are static files generated at build time. Dynamic content (new products/stores) only appears after the next deploy unless the script is run manually.Admin audit log	Table exists (admin_audit_log) but logging coverage may be incomplete.Mobile auth	Mobile app shares the same JWT API but does not persist tokens in secure storage (AsyncStorage is not encrypted).Rate limiting	Basic in-memory rate limiting only. Does not persist across server restarts. No distributed rate limiting (Redis).CORS	In development, CORS is open (*). In production, must set CORS_ORIGIN to the marketplace domain.Unfinished / Pending SystemsSystem	StatusStructured data (JSON-LD / Schema.org)	Not implementedGoogle Analytics / event tracking	Not implementedSeller payout / withdrawal system	Not implementedDispute resolution / refunds	Not implementedProduct recommendations engine	Not implementedPassword reset via email	Not implementedTwo-factor authentication	Not implementedSitemap auto-ping to Google/Bing	Not implementedMobile app push notifications	Not implemented (web push only)App Store / Play Store submission	Not configured15. Final Migration ChecklistWork through this checklist top-to-bottom in a new Replit account to fully migrate the project.
+
+Environment SetupFork or import the Repl into the new Replit accountVerify Node.js 24 is available (check .replit or nixpkgs config)Run pnpm install to install all workspace dependenciesDatabaseProvision a PostgreSQL database (Replit Tools → Database, or external provider)Confirm DATABASE_URL secret is set and reachableApply full schema: psql $DATABASE_URL < schema.sql(Optional) Load demo data: psql $DATABASE_URL < data.sqlAlternatively use Drizzle push (requires TTY): pnpm --filter @workspace/db run pushVerify startup migrations run cleanly (check API server logs for "Migrations complete")SecretsDATABASE_URL — setSESSION_SECRET — generated and set (openssl rand -base64 64)CORS_ORIGIN — set to https://yourdomain.comVAPID_PUBLIC_KEY — generated and set (if enabling push notifications)VAPID_PRIVATE_KEY — generated and setVAPID_EMAIL — set to mailto@yourdomain.comRESEND_API_KEY — set (if enabling email verification)FROM_EMAIL — set to verified sender addressTWILIO_ACCOUNT_SID — set (if enabling SMS verification)TWILIO_AUTH_TOKEN — setTWILIO_FROM_PHONE — setTWILIO_VERIFY_SERVICE_SID — setVITE_SUPPORT_PHONE — set (optional, shown on suspended account page)Admin AccountEdit scripts/src/seed-admin.ts — update ADMIN_EMAIL and ADMIN_PASSWORDRun pnpm --filter @workspace/scripts run seedLog in to /admin to verify admin access worksCode Updates for New DomainThe following locations contain the hardcoded domain syano.online and must be updated if deploying under a different domain:
+
+File	What to Changeartifacts/api-server/src/lib/sitemap-builder.ts	const SITE = "https://syano.online"scripts/src/generate-sitemap.ts	SITE_URL default value (or set SITE_URL env var)artifacts/marketplace/public/robots.txt	Sitemap: lineartifacts/marketplace/public/sitemap.xml	All  URLsartifacts/marketplace/public/sitemap-pages.xml	All  URLsartifacts/marketplace/index.html	OG image URL, canonical URLartifacts/api-server/src/services/verification.ts	fromEmail default, domain brandingartifacts/api-server/src/lib/notif.ts	VAPID_EMAIL defaultAlternatively, set SITE_URL=https://yourdomain.com as an environment variable (the sitemap generator respects it).
+
+WorkflowsStart workflow: artifacts/api-server: API Server — verify it starts on port 8080 without errorsStart workflow: artifacts/marketplace: web — verify it loads in the browserStart workflow: artifacts/mobile: expo — verify Expo dev server starts (optional)Check API server logs for "Server listening" and "Migrations complete"Feature FlagsDecide whether to enable OTP verification (ENABLE_EMAIL_VERIFICATION, ENABLE_PHONE_VERIFICATION)If enabling: configure Resend domain DNS and/or Twilio phone numberIf not enabling: confirm the flags are absent or set to falseProduction DeploymentIn Replit: Deploy → Autoscale (or Reserved VM)Set all secrets in Deployments secrets panel (separate from dev secrets)Confirm prebuild hook runs (pnpm --filter @workspace/scripts run sitemap)Confirm vite build completes without errorsVerify the deployed URL loads correctlyDomain & DNSAdd custom domain in Replit Deployments settingsAt DNS registrar: add the CNAME/A record Replit specifiesWait for DNS propagation (up to 48 h)Confirm SSL certificate is provisioned (automatic on Replit)Add Resend email DNS records (SPF, DKIM) if using emailSEOVerify https://yourdomain.com/sitemap.xml returns a valid sitemap indexVerify https://yourdomain.com/robots.txt references the correct sitemap URLSubmit sitemap to Google Search ConsoleSubmit sitemap to Bing Webmaster ToolsSecurityConfirm SESSION_SECRET is at least 32 characters, random, and not the dev defaultConfirm CORS_ORIGIN is set to the production domain onlyDelete or change passwords on all demo accounts (seller@demo.com, customer@demo.com)Review and update admin account credentialsSmoke TestsHome page loads in both English and ArabicProduct listing page loads products from DBProduct detail page loads a productRegister a new customer accountLog in as the admin account and access /adminGET /api/health returns 200/sitemap.xml returns a valid XML sitemap index/robots.txt returns the correct rulesEnd of Migration Report — Syano v1.0 / June 2026

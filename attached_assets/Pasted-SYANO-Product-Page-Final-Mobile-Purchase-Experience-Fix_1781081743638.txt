@@ -1,0 +1,336 @@
+SYANO Product Page Final Mobile Purchase Experience Fix
+
+Before making ANY changes, fully audit the current product detail implementation and identify every place where discount percentages, pricing calculations, and purchase UI are rendered.
+
+The goal is to create a single consistent purchase experience on mobile and eliminate duplicate purchase interfaces.
+
+---
+
+# PART 1 — DISCOUNT SYSTEM AUDIT
+
+Current problem:
+
+The same product shows different discount values in different places:
+
+Examples observed:
+
+* 4.6%
+* 5%
+* -5%
+* discount badges with inconsistent formatting
+
+This must be fixed globally.
+
+---
+
+## Required Investigation
+
+Locate ALL discount calculations used by:
+
+* Product Cards
+* Featured Products
+* Product Detail Page
+* Sticky Purchase Bar
+* Search Results
+* Related Products
+* Cart
+* Wishlist
+* Any promotional badge
+
+Find every implementation.
+
+Determine whether:
+
+* some use Math.floor
+* some use Math.round
+* some use toFixed
+* some calculate from different price sources
+
+---
+
+## Create One Shared Utility
+
+Create a single utility:
+
+calculateDiscountPercent()
+
+Example:
+
+originalPrice = 1131
+salePrice = 1078.97
+
+Discount:
+
+((1131 - 1078.97) / 1131) * 100
+
+Then use ONE standardized output.
+
+Rules:
+
+* round to nearest whole number
+* never show decimals
+* never show conflicting values
+
+Result:
+
+5%
+
+Everywhere.
+
+No exceptions.
+
+---
+
+## Discount Display Rules
+
+Use the exact same format everywhere:
+
+Badge:
+
+-5%
+
+NOT:
+
+4.6%
+5.0%
+خصم 5%
+OFF 5%
+5% OFF
+
+Use one consistent format.
+
+Arabic and English localization must remain supported.
+
+---
+
+# PART 2 — MOBILE PURCHASE EXPERIENCE
+
+Current issue:
+
+Mobile shows:
+
+1. Full purchase card inside page
+2. Sticky purchase bar
+
+This duplicates controls.
+
+---
+
+## New Mobile Strategy
+
+Desktop:
+
+Keep current purchase card.
+
+Desktop layout remains unchanged.
+
+---
+
+Mobile:
+
+Remove the large inline purchase card entirely.
+
+Do NOT render:
+
+* quantity selector
+* add to cart button
+* buy now button
+* delivery info card
+
+inside page content.
+
+Instead:
+
+Use ONLY the sticky purchase bar.
+
+The sticky bar becomes the primary purchase interface.
+
+---
+
+# PART 3 — STICKY BAR REDESIGN
+
+Current sticky bar is only a partial purchase widget.
+
+Upgrade it into the full mobile purchasing experience.
+
+---
+
+## Sticky Bar Content
+
+Display:
+
+Left side:
+
+* sale price
+* original price
+* discount badge
+
+Right side:
+
+Primary button
+
+Add To Cart
+
+When product is unavailable:
+
+Out Of Stock
+
+disabled state
+
+---
+
+## Expandable Purchase Sheet
+
+When Add To Cart is pressed:
+
+Open a premium bottom sheet.
+
+This sheet contains:
+
+* quantity selector
+* shipping info
+* stock status
+* Buy Now button
+* Add To Cart confirmation
+
+Similar to:
+
+Amazon mobile
+Noon mobile
+Trendyol mobile
+
+Use existing design language.
+
+No dashboard styling.
+
+No native browser dialogs.
+
+---
+
+# PART 4 — VARIANT SUPPORT
+
+Sticky bar must fully respect variants.
+
+When variant changes:
+
+Immediately update:
+
+* price
+* old price
+* stock
+* availability
+* selected combination
+
+No refresh.
+
+No delay.
+
+No duplicate state.
+
+Use the existing selected variant source of truth.
+
+---
+
+# PART 5 — SCROLL BEHAVIOR
+
+Sticky bar should:
+
+Appear when page loads.
+
+Remain fixed.
+
+Never flicker.
+
+Never duplicate.
+
+Never overlap content.
+
+Respect:
+
+env(safe-area-inset-bottom)
+
+for iPhone devices.
+
+---
+
+# PART 6 — REMOVE DUPLICATION
+
+After implementation verify:
+
+Mobile contains:
+
+✅ Variant selectors
+
+✅ Product information
+
+✅ Specifications
+
+✅ About product
+
+✅ Seller information
+
+✅ ONE sticky purchase bar
+
+Mobile must NOT contain:
+
+❌ Inline purchase card
+
+❌ Duplicate Add To Cart buttons
+
+❌ Duplicate Buy Now buttons
+
+❌ Duplicate quantity controls
+
+---
+
+# PART 7 — RECOVERY FILES
+
+After implementation succeeds:
+
+Update ALL recovery files.
+
+Update:
+
+* RECOVERY.md
+* PROJECT_STATE.md
+* MEMORY.md
+* any migration recovery logs
+* implementation history
+
+Document:
+
+"Mobile purchase flow upgraded to single sticky purchase system."
+
+Document:
+
+"Discount calculations unified via shared utility."
+
+These updates become the new recovery baseline.
+
+---
+
+# VALIDATION
+
+Before finishing verify:
+
+✅ Desktop unchanged
+
+✅ Mobile purchase card removed
+
+✅ Sticky bar fully functional
+
+✅ Variant pricing updates correctly
+
+✅ Discount value identical everywhere
+
+✅ No React warnings
+
+✅ No hydration issues
+
+✅ No TypeScript errors
+
+✅ No visual regressions
+
+✅ Recovery files updated
+
+Only finish when all validation items pass.

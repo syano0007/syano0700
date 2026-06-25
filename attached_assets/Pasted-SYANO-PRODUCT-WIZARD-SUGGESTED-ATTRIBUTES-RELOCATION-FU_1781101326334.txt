@@ -1,0 +1,363 @@
+SYANO — PRODUCT WIZARD
+SUGGESTED ATTRIBUTES RELOCATION
+FULL AUDIT + SAFE IMPLEMENTATION + RECOVERY UPDATE
+
+CRITICAL PROJECT CONTEXT
+
+This is an existing production-scale marketplace.
+
+The Product Wizard is a completed and heavily customized feature and is considered stable.
+
+Do NOT redesign the Product Wizard.
+Do NOT rewrite Product Wizard state management.
+Do NOT modify VariantBuilder.
+Do NOT modify Pricing.
+Do NOT modify Publish flow.
+Do NOT modify category selection behavior.
+Do NOT introduce regressions.
+Do NOT replace existing architecture with a new one.
+
+Preserve:
+
+* Create Product flow
+* Edit Product flow
+* Existing specifications architecture
+* Existing form validation
+* Existing product save behavior
+* Existing autosave behavior (if present)
+* RTL support
+* Arabic support
+* English support
+* Desktop improvements already implemented
+* Mobile support
+* Existing Product Wizard navigation behavior
+* Existing Product Wizard step behavior
+
+==================================================
+CURRENT ISSUE
+=============
+
+Suggested Attributes currently appear immediately after category selection.
+
+Current example:
+
+Suggested Attributes
+
+* العلامة التجارية
+* اللون
+* التخزين
+
+These suggestions are displayed directly below category/subcategory selection.
+
+This is the wrong location.
+
+Suggested Attributes are specification-related data and belong inside the Specifications step.
+
+==================================================
+DESIRED BEHAVIOR
+================
+
+Suggested Attributes must appear ONLY inside:
+
+Product Wizard
+Step 4 — Specifications
+
+Example:
+
+Suggested Specifications
+
+[ العلامة التجارية ]
+[ اللون ]
+[ التخزين ]
+[ المادة ]
+[ الوزن ]
+[ الضمان ]
+
+When a seller clicks:
+
+"العلامة التجارية"
+
+Automatically create:
+
+Property: العلامة التجارية
+Value: ""
+
+inside the existing specifications list.
+
+The seller then fills the value normally.
+
+==================================================
+MANDATORY INVESTIGATION PHASE
+=============================
+
+Before writing any code:
+
+1. Read recovery documentation.
+2. Read memory/project documentation.
+3. Inspect ProductWizard architecture.
+4. Inspect category selection step.
+5. Inspect Specifications step.
+6. Locate Suggested Attributes implementation.
+7. Trace how suggested attributes are generated.
+8. Trace how specifications are stored.
+9. Trace how specifications are added.
+10. Inspect create mode.
+11. Inspect edit mode.
+
+Determine:
+
+* Where Suggested Attributes are currently rendered.
+* Why they are rendered in the category section.
+* How specification state is managed.
+* Whether useFieldArray is used.
+* Whether specifications are stored locally or in form state.
+* Whether duplicate specifications are currently possible.
+* Whether existing specification creation logic can be reused.
+
+Do not implement until the architecture is fully understood.
+
+==================================================
+ARCHITECTURE REQUIREMENTS
+=========================
+
+Do NOT duplicate specification logic.
+
+Do NOT create a second specification system.
+
+Do NOT create parallel state.
+
+Do NOT create temporary specification storage.
+
+Reuse the existing specification architecture.
+
+Suggested Attributes must act as a helper layer on top of the current specifications system.
+
+Maintain a single source of truth.
+
+==================================================
+IMPLEMENTATION REQUIREMENTS
+===========================
+
+1. Remove Suggested Attributes from the category selection area.
+
+2. Move Suggested Attributes into:
+
+Step 4 — Specifications
+
+3. Preserve existing styling language.
+
+4. Preserve RTL layout.
+
+5. Preserve desktop layout.
+
+6. Preserve mobile layout.
+
+7. Clicking a suggestion must use the same mechanism already used when manually creating a specification.
+
+8. Automatically create a specification row using existing architecture.
+
+9. Ensure the newly created row behaves exactly like manually added specifications.
+
+10. Ensure save/update behavior remains unchanged.
+
+==================================================
+DUPLICATE PREVENTION
+====================
+
+If a specification already exists:
+
+Example:
+
+Property = العلامة التجارية
+
+Then clicking:
+
+العلامة التجارية
+
+must NOT create a duplicate entry.
+
+Use the approach that best matches the existing architecture:
+
+* Ignore the click
+  OR
+* Focus/highlight the existing specification
+
+But do not create duplicate specifications.
+
+==================================================
+CREATE MODE VALIDATION
+======================
+
+Verify:
+
+New Product
+
+→ Select category
+→ Go to Step 4
+→ Suggested Specifications visible
+→ Click suggestion
+→ Specification row created
+→ Save product
+→ Data persists correctly
+
+==================================================
+EDIT MODE VALIDATION
+====================
+
+Verify:
+
+Existing Product
+
+→ Existing specifications loaded
+→ Suggested Specifications visible
+→ Existing specifications remain intact
+→ Clicking an already existing suggestion does not duplicate it
+→ New suggestions can still be added
+→ Save works correctly
+
+==================================================
+REGRESSION PREVENTION
+=====================
+
+Verify that the following remain unaffected:
+
+* Product creation
+* Product editing
+* Product publishing
+* Variant system
+* Pricing system
+* Specifications storage
+* Product validation
+* Wizard navigation
+* Step navigation
+* Desktop layouts
+* Mobile layouts
+
+==================================================
+RECOVERY DOCUMENTATION UPDATE (MANDATORY)
+=========================================
+
+After implementation and validation:
+
+You MUST update all recovery documentation, memory files, handoff files, implementation notes, and project state documentation.
+
+This step is mandatory.
+
+Implementation is NOT considered complete until recovery documentation is updated.
+
+The objective is:
+
+If a completely different agent takes over immediately after this task, it must be able to continue development without re-investigating the feature.
+
+==================================================
+RECOVERY DOCUMENTATION CONTENT
+==============================
+
+Document:
+
+FEATURE SUMMARY
+
+* What changed
+* Why it changed
+* Previous behavior
+* New behavior
+
+ARCHITECTURE
+
+* Components involved
+* State management used
+* Existing architecture reused
+* Important implementation decisions
+
+FILES CHANGED
+
+For every modified file:
+
+* File path
+* Reason for modification
+* Important logic added
+* Important logic removed
+
+PRODUCT WIZARD UPDATE
+
+Document clearly:
+
+Suggested Attributes no longer appear in category selection.
+
+Suggested Attributes now live inside:
+
+Step 4 — Specifications
+
+Document exact behavior:
+
+Seller clicks suggested attribute
+→ specification row is automatically created
+→ seller fills value
+→ save/update behaves normally
+
+Document duplicate-prevention behavior.
+
+Document create-mode behavior.
+
+Document edit-mode behavior.
+
+==================================================
+AGENT HANDOFF SECTION (MANDATORY)
+=================================
+
+Create or update a dedicated handoff section.
+
+Assume the next agent has zero knowledge of the project.
+
+Document:
+
+* Where Suggested Attributes are rendered.
+* Which component owns the feature.
+* Which files control the feature.
+* How specifications are created.
+* How duplicate prevention works.
+* Which files must be inspected before future modifications.
+
+==================================================
+RECOVERY QUALITY REQUIREMENT
+============================
+
+Documentation must be detailed enough that a brand-new agent can:
+
+1. Understand the feature.
+2. Restore the feature.
+3. Continue development.
+4. Debug issues.
+5. Implement future improvements.
+
+Without needing another architectural investigation.
+
+==================================================
+FINAL OUTPUT
+============
+
+Provide:
+
+1. Files inspected
+2. Root cause
+3. Current specification architecture
+4. Implementation plan
+5. Files changed
+6. Exact implementation summary
+7. Duplicate-prevention strategy
+8. Create-mode validation
+9. Edit-mode validation
+10. Regression validation
+11. Recovery files updated
+12. Documentation sections added
+13. Agent handoff updates
+14. Potential risks (if any)
+
+Do not guess.
+
+Inspect first.
+Understand second.
+Implement third.
+Validate fourth.
+Document fifth.
+Only then consider the task complete.

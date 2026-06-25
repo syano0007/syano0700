@@ -1,0 +1,269 @@
+SYANO Post-Migration Infrastructure Activation Audit
+
+This project was recently moved to a new Replit account.
+
+Before making ANY UI or feature changes, perform a full activation audit.
+
+DO NOT modify functionality.
+
+DO NOT refactor code.
+
+DO NOT implement new features.
+
+Your only goal is to verify that every SYANO subsystem is operational after migration.
+
+---
+
+# PHASE 1 — SERVICES
+
+Verify:
+
+* API Server
+* Marketplace Web
+* Embedding Service
+* Database
+* Replit workflows
+
+Report:
+
+* running
+* stopped
+* failed
+* misconfigured
+
+---
+
+# PHASE 2 — DATABASE
+
+Verify:
+
+* PostgreSQL connection
+* All tables exist
+* All migrations applied
+* pgvector extension installed
+
+Check:
+
+* users
+* products
+* orders
+* delivery_missions
+* courier_wallets
+* tracking tables
+* notifications
+* conversations
+* wishlists
+
+Report row counts.
+
+---
+
+# PHASE 3 — EMBEDDING SYSTEM
+
+Verify:
+
+Embedding Service:
+
+* starts correctly
+* loads model correctly
+* dimensions = expected
+* backend = sentence-transformers
+
+Confirm:
+
+* model files exist
+* no fallback accidentally active
+* embeddings table/column valid
+* semantic search endpoint works
+
+Check:
+
+Products embedded:
+
+X / X
+
+Report exact count.
+
+---
+
+# PHASE 4 — ROUTING & MAPS
+
+Verify:
+
+* OSRM reachable
+* ETA calculations work
+* TrackingMap component loads
+* Leaflet installed
+* react-leaflet installed
+
+Verify:
+
+* courier maps
+* admin routing tools
+* customer tracking
+
+No visual audit needed.
+
+Only functional verification.
+
+---
+
+# PHASE 5 — AUTHENTICATION
+
+Verify:
+
+Email login
+
+Google login
+
+JWT issuance
+
+Role system
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+Facebook Login:
+
+Verify dormant mode:
+
+FACEBOOK_LOGIN_ENABLED=false
+
+Confirm:
+
+* code exists
+* hidden from UI
+* not broken
+
+---
+
+# PHASE 6 — API HEALTH
+
+Verify:
+
+Health endpoints
+
+Products
+
+Search
+
+Categories
+
+Orders
+
+Notifications
+
+Wallets
+
+Tracking
+
+Admin APIs
+
+Report:
+
+200
+
+401 expected
+
+404 unexpected
+
+500 critical
+
+---
+
+# PHASE 7 — FRONTEND
+
+Verify:
+
+* Home page
+* Product page
+* Store page
+* Cart
+* Checkout
+* Orders
+* Seller dashboard
+* Courier dashboard
+* Admin dashboard
+
+Only verify loading.
+
+No redesign.
+
+---
+
+# PHASE 8 — MOBILE
+
+Verify:
+
+Expo project exists
+
+Screens compile
+
+No missing imports
+
+No missing dependencies
+
+No build blockers
+
+---
+
+# PHASE 9 — TYPESCRIPT
+
+Verify:
+
+Marketplace
+
+API Server
+
+Shared libraries
+
+Result must be:
+
+TypeScript = 0 errors
+
+---
+
+# PHASE 10 — WORKFLOWS
+
+Verify final workflow inventory.
+
+Required production workflows:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* Embedding Service
+
+Optional:
+
+* artifacts/mobile: expo
+* tools/mockup-sandbox
+
+Report any duplicates.
+
+Do NOT delete anything automatically.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+1. Overall health score /100
+2. Services status
+3. Embedding status
+4. Maps status
+5. Auth status
+6. Workflow status
+7. TypeScript status
+8. Critical issues
+9. Warnings
+10. Production readiness verdict
+
+Goal:
+
+Determine whether SYANO is fully operational after migration before any further development.

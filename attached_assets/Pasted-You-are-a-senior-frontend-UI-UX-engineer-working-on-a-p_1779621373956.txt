@@ -1,0 +1,84 @@
+You are a senior frontend UI/UX engineer working on a premium ecommerce marketplace.
+
+Your task is to globally integrate the attached Syano logo into the website header/navbar across ALL pages.
+
+IMPORTANT:
+Use the uploaded logo asset provided in the project assets/files.
+
+GOAL:
+Add the Syano logo beside the “Syano” brand name in the TOP RIGHT area of the navbar/header on every page while maintaining a premium, modern, responsive design.
+
+Requirements:
+
+1. GLOBAL NAVBAR INTEGRATION
+
+* Add the uploaded Syano logo next to the “Syano” text/logo in:
+
+  * homepage
+  * product pages
+  * category pages
+  * seller pages
+  * checkout
+  * dashboard
+  * auth pages
+  * all shared layouts/components
+
+2. DESIGN REQUIREMENTS
+   The logo must:
+
+* look premium and sharp
+* maintain transparent/background-safe rendering
+* preserve aspect ratio
+* align perfectly vertically with the text
+* have balanced spacing
+* work in dark mode/backgrounds
+
+3. RESPONSIVE BEHAVIOR
+   Optimize for:
+
+* desktop
+* tablet
+* mobile
+
+On mobile:
+
+* ensure the logo does not overflow
+* preserve navbar spacing
+* keep touch targets clean
+* avoid layout shifting
+
+4. PERFORMANCE
+
+* optimize logo rendering
+* use proper sizing
+* avoid oversized assets
+* lazy load if necessary
+
+5. CONSISTENCY
+   Ensure the exact same branding appears consistently across the entire platform.
+
+6. STYLING
+   Maintain the current premium futuristic identity:
+
+* emerald glow
+* silver/metallic feel
+* dark modern UI
+* clean ecommerce aesthetic
+
+7. IMPLEMENTATION QUALITY
+
+* Use centralized reusable navbar/header branding component.
+* Avoid duplicated code.
+* Ensure maintainability and production readiness.
+
+8. FINAL QA
+   Verify:
+
+* alignment
+* scaling
+* retina/high-DPI sharpness
+* responsiveness
+* dark background visibility
+* no CLS/layout shifts
+
+The final result should feel like a world-class premium ecommerce brand identity similar to modern luxury tech companies.

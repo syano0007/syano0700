@@ -1,0 +1,304 @@
+# SYANO — Documentation Consolidation, Agent Memory Preservation & Dead File Elimination
+
+CRITICAL INSTRUCTIONS
+
+This is a production marketplace project.
+
+Project: SYANO (سوق سوريا)
+Domain: syano.online
+
+DO NOT modify business logic.
+DO NOT modify database schema.
+DO NOT modify APIs.
+DO NOT modify workflows.
+DO NOT modify mobile or web functionality.
+
+Your mission is ONLY:
+
+1. Discover all documentation, recovery, audit, certification, bootstrap, parity, status and report files.
+2. Determine which files are obsolete, duplicated, stale, superseded or unused.
+3. Preserve ALL important knowledge.
+4. Consolidate knowledge into the minimum possible set of authoritative files.
+5. Remove only files proven redundant.
+6. Make future agent recovery instant and deterministic.
+
+────────────────────────────────────
+
+PHASE 1 — FORENSIC DOCUMENT DISCOVERY
+
+Scan the entire repository.
+
+Find every file matching patterns such as:
+
+*.md
+*.txt
+*.json
+
+Especially:
+
+AGENT_BOOTSTRAP.md
+CURRENT_STATE.md
+CURRENT_PROJECT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+RECOVERY_REPORT.md
+MOBILE_CERTIFICATION_REPORT.md
+MOBILE_PARITY_MATRIX.md
+MOBILE_PARITY_AUDIT.md
+MOBILE_PARITY_GAP_REPORT.md
+WORKFLOW_CERTIFICATION.md
+IMPORT_HARDENING_CERTIFICATION.md
+SYANO_FRESH_IMPORT_CERTIFICATION.md
+AUTH_SYSTEM_CERTIFICATION.md
+AUDIT_REPORT.md
+PARITY_AUDIT_REPORT.md
+VISUAL_PARITY_REPORT.md
+ROUTE_PARITY_REPORT.md
+KNOWN_ISSUES.md
+replit.md
+project.manifest.json
+
+Build a dependency map showing:
+
+* referenced by code
+* referenced by scripts
+* referenced by workflows
+* referenced by other docs
+* never referenced
+
+Output a complete inventory.
+
+DO NOT DELETE ANYTHING YET.
+
+────────────────────────────────────
+
+PHASE 2 — AUTHORITATIVE KNOWLEDGE EXTRACTION
+
+Extract and merge all useful knowledge:
+
+Project identity
+Architecture
+Tech stack
+Database structure
+Services
+Ports
+Workflows
+Roles
+Permissions
+Authentication
+Search
+Courier system
+Seller system
+Admin system
+Customer system
+Mobile system
+Known issues
+Recovery procedures
+Import procedures
+Workflow rules
+Required environment variables
+Current verified runtime state
+
+Build a single source of truth.
+
+Resolve contradictions.
+
+Newest verified runtime data wins.
+
+Code reality wins over documentation.
+
+Database reality wins over documentation.
+
+Runtime reality wins over documentation.
+
+────────────────────────────────────
+
+PHASE 3 — CREATE THE FINAL AUTHORITATIVE FILES
+
+Create ONLY these files:
+
+1. AGENT_BOOTSTRAP.md
+
+Purpose:
+
+The first file every future agent must read.
+
+Must contain:
+
+* Project identity
+* Mandatory startup procedure
+* Required workflows
+* Architecture overview
+* Recovery procedure
+* Runtime certification summary
+* Known issues
+* Important warnings
+* Agent checklist
+
+This file must be readable in under 3 minutes.
+
+────────────────────────────────────
+
+2. PROJECT_STATE.md
+
+Purpose:
+
+Complete technical state of the platform.
+
+Must include:
+
+* Services
+* Database
+* Tables
+* APIs
+* Roles
+* Features
+* Mobile parity
+* Search architecture
+* Courier architecture
+* Admin architecture
+* Seller architecture
+* Customer architecture
+
+This becomes the permanent technical encyclopedia.
+
+────────────────────────────────────
+
+3. RECOVERY_GUIDE.md
+
+Purpose:
+
+Fresh-import recovery.
+
+Must contain:
+
+* pnpm install
+* build order
+* workflow startup order
+* health checks
+* troubleshooting
+* recovery verification
+
+No historical information.
+
+Only actionable recovery steps.
+
+────────────────────────────────────
+
+4. project.manifest.json
+
+Update completely.
+
+Must reflect actual runtime reality.
+
+No stale numbers.
+
+No obsolete features.
+
+No outdated counts.
+
+────────────────────────────────────
+
+PHASE 4 — FORCE FUTURE AGENTS TO READ THEM
+
+Update:
+
+replit.md
+
+Add at the VERY TOP:
+
+====================================================
+MANDATORY AGENT STARTUP
+=======================
+
+Before reading any code:
+
+1. Read AGENT_BOOTSTRAP.md
+2. Read PROJECT_STATE.md
+3. Read RECOVERY_GUIDE.md
+4. Read project.manifest.json
+
+DO NOT scan the repository first.
+DO NOT create workflows.
+DO NOT run migrations.
+DO NOT modify code.
+
+If health checks pass, continue development immediately.
+
+====================================================
+
+Also search for any other startup instructions and point them to these files.
+
+────────────────────────────────────
+
+PHASE 5 — DEAD FILE ELIMINATION
+
+After consolidation:
+
+Delete ONLY files that satisfy ALL conditions:
+
+* information fully migrated
+* not referenced anywhere
+* not used by scripts
+* not used by workflows
+* not used by imports
+* not required for recovery
+
+Generate:
+
+DELETED_FILES_REPORT.md
+
+with:
+
+filename
+reason removed
+replacement location
+
+Never delete without replacement.
+
+────────────────────────────────────
+
+PHASE 6 — SELF-VALIDATION
+
+Verify:
+
+* no knowledge lost
+* no workflow broken
+* no script broken
+* no import broken
+* no recovery information lost
+
+Generate:
+
+CONSOLIDATION_CERTIFICATION.md
+
+containing:
+
+files scanned
+files removed
+files retained
+knowledge preserved
+final authoritative files
+
+────────────────────────────────────
+
+SUCCESS CRITERIA
+
+Future agents must be able to:
+
+1. Open repository.
+2. Read AGENT_BOOTSTRAP.md.
+3. Read PROJECT_STATE.md.
+4. Read RECOVERY_GUIDE.md.
+5. Understand SYANO completely.
+6. Start work without repository exploration.
+
+Knowledge must be preserved.
+
+Documentation must be minimized.
+
+No duplicate truths.
+
+No stale truths.
+
+One authoritative source for everything.

@@ -1,0 +1,293 @@
+STOP.
+
+The Light Theme still looks dirty, dusty, and dim.
+
+This is NOT a color issue.
+
+This is a Dark Theme overlay leakage issue.
+
+The page currently looks as if a gray film is placed over everything.
+
+The Light Theme must feel:
+
+* clean
+* bright
+* crisp
+* premium
+* high contrast
+
+similar to:
+
+* Apple
+* Shopify
+* Stripe
+* Linear Light Theme
+
+---
+
+# CRITICAL RULE
+
+Do NOT simply increase brightness.
+
+Do NOT globally raise contrast.
+
+Do NOT randomly change colors.
+
+Instead:
+
+Remove all Dark Theme visual artifacts that are leaking into Light Theme.
+
+---
+
+# ISSUE 1 — HERO IMAGE IS DIRTY
+
+Current Hero image appears:
+
+* dusty
+* washed out
+* gray
+* dimmed
+
+The image should look:
+
+* sharp
+* premium
+* vibrant
+* clean
+
+Audit Hero image overlays.
+
+Reduce or completely remove:
+
+* dark overlays
+* dark gradients
+* dark masks
+* dark tint layers
+
+Light Theme should not inherit Dark Theme image treatments.
+
+---
+
+# ISSUE 2 — CATEGORY IMAGES ARE TOO DARK
+
+This is one of the biggest remaining problems.
+
+Category cards currently look almost black.
+
+Images are heavily obscured.
+
+In Light Theme:
+
+Category images should remain clearly visible.
+
+Requirements:
+
+* preserve image detail
+* preserve subject visibility
+* maintain readable titles
+
+Do NOT hide images behind dark overlays.
+
+Reduce overlay opacity dramatically.
+
+Use Light Theme specific overlays.
+
+---
+
+# ISSUE 3 — STORE IMAGES ARE TOO DARK
+
+Store cover images still feel dimmed.
+
+Audit:
+
+Trusted Stores section
+
+Store cards
+
+Store banners
+
+Store thumbnails
+
+Remove excessive darkening.
+
+The images should feel alive.
+
+---
+
+# ISSUE 4 — PRODUCT IMAGES ARE TOO DARK
+
+Many product images still use Dark Theme treatment.
+
+Audit:
+
+Trending Products
+
+Featured Deals
+
+New Arrivals
+
+Product cards
+
+Light Theme product imagery should be:
+
+* brighter
+* clearer
+* more detailed
+
+without losing contrast.
+
+---
+
+# ISSUE 5 — NAVBAR LOOKS LIKE DARK MODE
+
+Current navbar still visually belongs to Dark Theme.
+
+The page is Light Theme.
+
+Navbar is not.
+
+Create a proper Light Theme navbar.
+
+Requirements:
+
+Background:
+
+* clean premium light surface
+
+Border:
+
+* subtle
+
+Shadow:
+
+* soft
+
+Text:
+
+* dark
+
+Search:
+
+* light surface
+
+The navbar must visually belong to the Light Theme.
+
+---
+
+# ISSUE 6 — GRID BACKGROUND
+
+Current grid still feels like Dark Theme.
+
+The grid is too visible.
+
+The grid color is wrong.
+
+Light Theme grid should be:
+
+* extremely subtle
+* almost invisible
+* only visible on close inspection
+
+Reduce:
+
+* opacity
+* saturation
+* contrast
+
+---
+
+# ISSUE 7 — IMAGE SYSTEM
+
+Create separate image treatment logic:
+
+Dark Theme:
+
+* stronger overlays
+* stronger dimming
+
+Light Theme:
+
+* minimal overlays
+* image-first presentation
+
+Do NOT reuse the same overlay values.
+
+---
+
+# ISSUE 8 — SECTION VISUAL CLEANLINESS
+
+The entire page should feel cleaner.
+
+Current appearance:
+
+"covered in gray dust"
+
+Target appearance:
+
+"premium polished glass surface"
+
+Audit:
+
+* cards
+* images
+* backgrounds
+* shadows
+* overlays
+
+Remove visual mud.
+
+---
+
+# ISSUE 9 — CATEGORY SECTION
+
+The categories section is currently the worst offender.
+
+Review every category card.
+
+Ensure:
+
+* image visibility
+* title readability
+* count readability
+
+without darkening the image.
+
+---
+
+# ISSUE 10 — VERIFY AGAINST REAL LIGHT THEME STANDARDS
+
+After changes:
+
+Scroll through the entire homepage.
+
+Ask:
+
+Would this pass as a premium Light Theme on Shopify or Apple?
+
+If not:
+
+Continue refining.
+
+---
+
+# SUCCESS CRITERIA
+
+✅ Hero image looks clean
+
+✅ Category images clearly visible
+
+✅ Store images clearly visible
+
+✅ Product images clearly visible
+
+✅ Navbar belongs to Light Theme
+
+✅ Grid almost invisible
+
+✅ No dusty appearance
+
+✅ No gray film effect
+
+✅ Light Theme feels premium
+
+Do not stop until the Light Theme feels intentionally designed rather than converted from Dark Theme.

@@ -1,0 +1,326 @@
+CRITICAL BRANDING + SEO OPTIMIZATION TASK
+
+The uploaded green/silver Syano logo is now the OFFICIAL PRIMARY BRAND LOGO.
+
+Your task is to perform BOTH:
+
+1. Complete branding replacement.
+2. Enterprise-grade SEO optimization.
+
+The goal is:
+
+* Replace the old orange branding completely.
+* Maximize search engine visibility.
+* Maximize indexing quality.
+* Maximize ranking potential.
+* Build the strongest SEO foundation possible for a marketplace platform.
+
+IMPORTANT:
+
+Do not perform superficial SEO.
+
+Perform a complete technical SEO audit and implementation.
+
+========================================
+PART 1 — COMPLETE BRANDING REPLACEMENT
+======================================
+
+Use the uploaded green/silver logo as the single source of truth.
+
+Replace:
+
+* favicon.ico
+* favicon-16x16
+* favicon-32x32
+* favicon-48x48
+* apple-touch-icon
+* android-chrome icons
+* PWA icons
+* manifest icons
+* social sharing icons
+* OpenGraph images
+* Twitter card images
+
+Remove every reference to the old orange logo.
+
+Verify:
+
+* Browser tabs
+* Mobile browsers
+* Installed PWA
+* Bookmarks
+* Home screen shortcuts
+
+========================================
+PART 2 — TECHNICAL SEO AUDIT
+============================
+
+Audit the entire project.
+
+Find and fix:
+
+* Missing titles
+* Duplicate titles
+* Missing meta descriptions
+* Duplicate meta descriptions
+* Missing canonical URLs
+* Missing robots directives
+* Missing structured data
+* Missing OpenGraph metadata
+* Missing Twitter metadata
+* Missing sitemap entries
+* Missing internal linking opportunities
+
+========================================
+PART 3 — PAGE TITLES
+====================
+
+Generate unique SEO titles for:
+
+Home
+Products page
+Product details
+Categories
+Stores
+Seller pages
+Cart
+Checkout
+Wishlist
+Search pages
+Best sellers
+Deals pages
+
+No duplicate titles.
+
+Titles must support:
+
+Arabic SEO
+English SEO
+
+========================================
+PART 4 — META DESCRIPTIONS
+==========================
+
+Generate unique descriptions for:
+
+Home
+Products
+Categories
+Stores
+Product pages
+Seller pages
+
+Descriptions should:
+
+* Be unique
+* Be indexable
+* Encourage CTR
+* Be search-engine friendly
+
+========================================
+PART 5 — STRUCTURED DATA
+========================
+
+Implement JSON-LD schema.
+
+Marketplace-wide:
+
+Organization
+WebSite
+SearchAction
+BreadcrumbList
+
+Product pages:
+
+Product
+Offer
+AggregateRating
+Review
+
+Store pages:
+
+Organization
+LocalBusiness (if applicable)
+
+========================================
+PART 6 — SITEMAP SYSTEM
+=======================
+
+Create or improve:
+
+sitemap.xml
+
+Include:
+
+* products
+* categories
+* stores
+* seller pages
+* static pages
+
+Auto-generate dynamically.
+
+========================================
+PART 7 — ROBOTS
+===============
+
+Create proper robots.txt
+
+Allow:
+
+* product pages
+* category pages
+* store pages
+
+Block:
+
+* admin
+* auth callbacks
+* internal dashboards
+* duplicate URLs
+
+========================================
+PART 8 — INDEXABILITY AUDIT
+===========================
+
+Verify:
+
+* no accidental noindex
+* no blocked important routes
+* no broken canonical URLs
+* no duplicate content issues
+
+========================================
+PART 9 — MARKETPLACE SEO
+========================
+
+For every product page:
+
+Generate:
+
+* canonical URL
+* OpenGraph tags
+* Twitter tags
+* structured Product schema
+
+For every store page:
+
+Generate:
+
+* unique title
+* unique description
+* canonical URL
+* Organization schema
+
+========================================
+PART 10 — PERFORMANCE SEO
+=========================
+
+SEO performance is critical.
+
+Optimize:
+
+* Core Web Vitals
+* LCP
+* CLS
+* INP
+* TTFB
+
+Reduce:
+
+* JS execution
+* blocking resources
+* unnecessary re-renders
+
+Improve:
+
+* image loading
+* code splitting
+* lazy loading
+* route transitions
+
+Do not introduce regressions.
+
+========================================
+PART 11 — MOBILE SEO
+====================
+
+Mobile is the highest priority.
+
+Verify:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+Ensure:
+
+* perfect mobile rendering
+* proper viewport handling
+* zero layout shifts
+
+========================================
+PART 12 — INTERNAL LINKING
+==========================
+
+Improve crawlability.
+
+Ensure search engines can discover:
+
+Products
+Stores
+Categories
+Deals
+Best sellers
+
+via internal links.
+
+========================================
+PART 13 — SOCIAL SHARING
+========================
+
+Implement:
+
+OpenGraph
+Twitter Cards
+
+For:
+
+Home
+Products
+Stores
+Categories
+
+Use the new Syano branding.
+
+========================================
+PART 14 — FINAL VALIDATION
+==========================
+
+After implementation:
+
+Perform a full audit.
+
+Provide:
+
+* branding files replaced
+* SEO improvements made
+* sitemap status
+* robots status
+* structured data status
+* indexability status
+* performance improvements
+* remaining SEO limitations
+
+IMPORTANT:
+
+Do not claim completion without verification.
+
+Actually test and validate the implementation.
+
+GOAL:
+
+Create the strongest SEO foundation possible for Syano Marketplace so search engines can crawl, understand, index, and rank the platform efficiently after launch and indexing.

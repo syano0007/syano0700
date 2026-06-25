@@ -1,0 +1,226 @@
+STOP.
+
+Do NOT redesign.
+
+Do NOT modernize.
+
+Do NOT improve.
+
+Do NOT create a new navbar.
+
+Do NOT create a new Hero.
+
+The Canvas HeroMockup is now the approved source of truth.
+
+Your task is to transfer the approved Canvas mockup into the live marketplace homepage EXACTLY as it appears in the mockup.
+
+---
+
+# SOURCE OF TRUTH
+
+Use ONLY:
+
+HeroMockup
+
+Path:
+
+artifacts/mockup-sandbox/src/components/mockups/hero-v4/HeroMockup.tsx
+
+The live homepage must visually match the mockup.
+
+No interpretation.
+
+No adjustments.
+
+No "better ideas".
+
+No extra spacing changes.
+
+No typography experiments.
+
+---
+
+# IMPLEMENT THE MOCKUP INTO PRODUCTION
+
+Apply the mockup values to:
+
+HeroV4.tsx
+
+and any supporting homepage components.
+
+Everything visible in the approved mockup must appear identically on the real homepage.
+
+---
+
+# NAVBAR REPLACEMENT
+
+Current desktop navbar contains extra controls that do NOT exist in the approved mockup.
+
+For DESKTOP ONLY:
+
+Remove from navbar:
+
+* Dashboard button
+* Dashboard shortcuts
+* Any extra management shortcuts
+* Any development/debug buttons
+
+Replace the desktop navbar with the exact navbar from the approved mockup.
+
+Keep functionality:
+
+* Logo
+* Search
+* Currency switcher
+* Theme switcher
+* Wishlist
+* Cart
+* Login
+* Register
+
+Preserve all functionality.
+
+Only change visual structure to match the mockup.
+
+---
+
+# WISHLIST POSITION
+
+Wishlist icon must appear:
+
+Cart ← Wishlist
+
+Exactly like the approved design.
+
+Visible on desktop.
+
+Visible on mobile.
+
+Wishlist count badge must continue working.
+
+---
+
+# HERO
+
+Implement the approved mockup exactly:
+
+* same headline
+* same spacing
+* same typography
+* same grid background
+* same carousel
+* same floating cards
+* same statistics row
+* same CTA buttons
+* same navbar alignment
+
+No visual differences.
+
+---
+
+# BUTTONS
+
+Keep functionality.
+
+Keep instant add-to-cart.
+
+Keep currency switching.
+
+Keep wishlist behavior.
+
+Only update visuals to match the mockup.
+
+---
+
+# RESPONSIVE
+
+Verify:
+
+* 1440
+* 1280
+* 1024
+* 768
+* 390
+
+The production homepage should remain responsive after implementation.
+
+---
+
+# QA
+
+Use real platform accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Actually authenticate.
+
+Do not stop testing because login appears.
+
+Verify:
+
+* homepage
+* navbar
+* wishlist
+* cart
+* currency switcher
+* theme switcher
+* hero carousel
+* mobile layout
+
+---
+
+# DOCUMENTATION
+
+After implementation:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* Homepage architecture docs
+* Recovery audit files
+
+so recovery restores the new homepage state correctly.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Production homepage matches HeroMockup
+
+✅ Desktop navbar matches approved mockup
+
+✅ Dashboard button removed from desktop navbar
+
+✅ Wishlist beside cart
+
+✅ Hero carousel working
+
+✅ Currency switching working
+
+✅ Theme switching working
+
+✅ Wishlist working
+
+✅ Cart working
+
+✅ Mobile verified
+
+✅ Desktop verified
+
+✅ 0 TypeScript errors
+
+✅ 0 console errors
+
+✅ 0 API errors
+
+Do not finish until all checks pass.

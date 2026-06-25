@@ -1,0 +1,626 @@
+IMPORTANT:
+Before making ANY modifications, deeply analyze the ENTIRE existing Syano marketplace architecture including:
+
+- product system
+- seller dashboard
+- product creation flow
+- category structure
+- homepage category sections
+- homepage layout
+- filtering/search system
+- product listing system
+- admin/seller permissions
+- multilingual system
+- responsive behavior
+- existing product forms
+- typography system
+- spacing system
+- theme system
+- state management
+- API/backend architecture
+- mobile layouts
+- performance bottlenecks
+
+DO NOT rebuild the project.
+DO NOT regenerate unrelated pages/components.
+DO NOT break the current marketplace structure or seller system.
+
+Modify ONLY what is necessary while preserving all existing functionality and architecture.
+
+The implementation must remain:
+- production-ready
+- scalable
+- cleanly architected
+- marketplace-ready
+- mobile-friendly
+- optimized for weak internet
+- fully compatible with the current system
+
+==================================================
+SECTION 1 — COMPLETE STRUCTURED CATEGORY SYSTEM
+==================================================
+
+Implement a professional centralized marketplace category system inspired by:
+
+- Amazon
+- Noon
+- Trendyol
+- modern large-scale ecommerce marketplaces
+
+IMPORTANT:
+Sellers must NOT be allowed to:
+- create custom categories
+- type random category names
+- break the marketplace structure
+
+The platform owner controls ALL categories centrally.
+
+Sellers can ONLY:
+- choose from existing categories
+- choose subcategories
+- optionally choose predefined tags/attributes
+
+==================================================
+SECTION 2 — CATEGORY ARCHITECTURE
+==================================================
+
+Implement a structured category hierarchy with:
+
+1. Main Categories
+2. Subcategories
+3. Optional Product Tags/Attributes
+
+==================================================
+EXAMPLE STRUCTURE
+==================================================
+
+Electronics
+ └── Smartphones
+      └── Android Phones
+      └── iPhones
+
+Fashion
+ └── Men's Clothing
+      └── T-Shirts
+      └── Hoodies
+
+Home & Kitchen
+ └── Furniture
+      └── Sofas
+      └── Tables
+
+==================================================
+SECTION 3 — COMPLETE MARKETPLACE CATEGORY LIST
+==================================================
+
+Implement the following MAIN marketplace categories:
+
+==================================================
+1. Electronics
+==================================================
+
+Subcategories:
+- Smartphones
+- Tablets
+- Laptops
+- Desktop PCs
+- Monitors
+- Smart Watches
+- Headphones
+- Cameras
+- Printers
+- PC Components
+- Networking
+- Gaming Consoles
+- Gaming Accessories
+- Smart Home Devices
+- Storage Devices
+- Mobile Accessories
+- Computer Accessories
+
+==================================================
+2. Fashion
+==================================================
+
+Subcategories:
+- Men's Clothing
+- Women's Clothing
+- Kids Clothing
+- Shoes
+- Bags
+- Watches
+- Jewelry
+- Sunglasses
+- Sportswear
+- Accessories
+
+==================================================
+3. Beauty & Personal Care
+==================================================
+
+Subcategories:
+- Skincare
+- Haircare
+- Makeup
+- Perfumes
+- Grooming
+- Beauty Devices
+- Natural Products
+- Men's Care
+
+==================================================
+4. Home & Kitchen
+==================================================
+
+Subcategories:
+- Furniture
+- Home Decor
+- Lighting
+- Kitchen Tools
+- Home Appliances
+- Bedding
+- Storage & Organization
+- Cleaning Supplies
+- Bathroom Essentials
+- Carpets & Curtains
+
+==================================================
+5. Supermarket & Grocery
+==================================================
+
+Subcategories:
+- Food
+- Drinks
+- Coffee & Tea
+- Snacks
+- Organic Products
+- Spices
+- Bakery
+
+==================================================
+6. Sports & Fitness
+==================================================
+
+Subcategories:
+- Gym Equipment
+- Fitness Accessories
+- Sportswear
+- Bicycles
+- Yoga
+- Outdoor Sports
+
+==================================================
+7. Automotive
+==================================================
+
+Subcategories:
+- Car Accessories
+- Car Parts
+- Tires
+- Oils & Fluids
+- Audio Systems
+- Maintenance Tools
+- Motorcycles
+- Electric Scooters
+
+==================================================
+8. Gaming & Entertainment
+==================================================
+
+Subcategories:
+- Video Games
+- Gaming Accessories
+- Toys
+- Board Games
+- Collectibles
+- LEGO
+
+==================================================
+9. Books & Stationery
+==================================================
+
+Subcategories:
+- Books
+- Educational Books
+- Children's Books
+- Office Supplies
+- School Supplies
+- Backpacks
+
+==================================================
+10. Pet Supplies
+==================================================
+
+Subcategories:
+- Pet Food
+- Pet Accessories
+- Pet Toys
+- Pet Care
+
+==================================================
+11. Digital Products
+==================================================
+
+Subcategories:
+- Gift Cards
+- Game Codes
+- Digital Subscriptions
+- Online Courses
+- Design Templates
+- Digital Files
+
+==================================================
+12. Handmade & Crafts
+==================================================
+
+Subcategories:
+- Handmade Products
+- Art
+- Candles
+- Wood Crafts
+- Resin Art
+- Embroidery
+
+==================================================
+13. Jewelry & Luxury
+==================================================
+
+Subcategories:
+- Gold
+- Silver
+- Watches
+- Rings
+- Necklaces
+- Bracelets
+
+==================================================
+14. Baby & Kids
+==================================================
+
+Subcategories:
+- Baby Care
+- Strollers
+- Baby Clothing
+- Toys
+- Baby Furniture
+
+==================================================
+15. Tools & Construction
+==================================================
+
+Subcategories:
+- Power Tools
+- Hand Tools
+- Electrical Supplies
+- Plumbing
+- Paint Supplies
+- Industrial Equipment
+
+==================================================
+16. Garden & Outdoor
+==================================================
+
+Subcategories:
+- Plants
+- Gardening Tools
+- Outdoor Furniture
+- Irrigation
+- Outdoor Decor
+
+==================================================
+17. Gifts & Events
+==================================================
+
+Subcategories:
+- Gifts
+- Flowers
+- Party Supplies
+- Event Decorations
+- Wrapping Supplies
+
+==================================================
+SECTION 4 — SELLER PRODUCT CREATION FLOW
+==================================================
+
+Refine the seller product creation process.
+
+IMPORTANT:
+Sellers must NOT:
+- create custom categories
+- type random category names
+- bypass marketplace structure
+
+Instead:
+
+When adding a product:
+1. Seller selects Main Category
+2. Seller selects Subcategory
+3. Seller optionally selects predefined tags/attributes
+
+==================================================
+REQUIRED UI/UX
+==================================================
+
+Implement:
+- searchable category dropdowns
+- clean category selection UI
+- responsive category picker
+- mobile-friendly behavior
+- premium marketplace UX
+
+The category selection experience should feel:
+- fast
+- organized
+- scalable
+- modern
+- ecommerce-quality
+
+==================================================
+SECTION 5 — SMART PRODUCT ATTRIBUTES
+==================================================
+
+Implement dynamic product attributes based on selected category.
+
+Examples:
+
+Electronics:
+- Brand
+- Storage
+- RAM
+- Color
+
+Fashion:
+- Size
+- Material
+- Gender
+- Color
+
+Beauty:
+- Skin Type
+- Volume
+- Fragrance
+
+IMPORTANT:
+Attributes must dynamically adapt based on category selection.
+
+==================================================
+SECTION 6 — CATEGORY-BASED MARKETPLACE EXPERIENCE
+==================================================
+
+Use categories throughout the ENTIRE marketplace:
+
+- homepage sections
+- category browsing
+- search filters
+- recommendations
+- product discovery
+- trending sections
+- navigation menus
+
+==================================================
+SECTION 7 — SEARCH & FILTER INTEGRATION
+==================================================
+
+Deeply integrate categories into the search/filter system.
+
+Requirements:
+- category filters
+- subcategory filters
+- dynamic filtering
+- mobile-responsive filters
+- fast search UX
+
+==================================================
+SECTION 8 — MULTILINGUAL CATEGORY SYSTEM
+==================================================
+
+Ensure ALL categories/subcategories support:
+- Arabic
+- English
+
+Requirements:
+- proper translations
+- RTL/LTR support
+- responsive typography
+- consistent naming
+
+==================================================
+SECTION 9 — DATABASE & ARCHITECTURE
+==================================================
+
+Implement a scalable category architecture.
+
+Requirements:
+- centralized category management
+- normalized database structure
+- category relationships
+- dynamic attributes system
+- scalable filtering support
+- optimized queries
+
+Ensure:
+- no duplicated categories
+- no inconsistent category naming
+- clean future scalability
+
+==================================================
+SECTION 10 — HOMEPAGE CATEGORY VISIBILITY FIX
+==================================================
+
+Fix the homepage category section visibility and readability issues.
+
+IMPORTANT:
+Currently, the homepage categories suffer from:
+- poor contrast
+- color overlap
+- unclear category separation
+- visual blending between cards/backgrounds
+- weak readability
+- inconsistent hierarchy
+
+The category section must become:
+- visually clear
+- highly readable
+- premium
+- cleanly separated
+- easy to scan quickly
+
+==================================================
+VISUAL IMPROVEMENT REQUIREMENTS
+==================================================
+
+Improve:
+- background contrast
+- card separation
+- spacing between categories
+- typography visibility
+- hover clarity
+- image readability
+- section hierarchy
+- responsive alignment
+
+Ensure category cards:
+- stand out clearly from the background
+- remain readable in both dark/light mode
+- do NOT visually blend into surrounding sections
+- feel modern and premium
+
+==================================================
+COLOR & CONTRAST RULES
+==================================================
+
+IMPORTANT:
+Avoid:
+- overlapping gradients
+- low-contrast backgrounds
+- excessive green overlays
+- washed-out category cards
+- dark-on-dark readability problems
+
+Implement:
+- stronger visual distinction
+- balanced shadows/borders
+- cleaner category surfaces
+- improved text contrast
+- more premium category presentation
+
+==================================================
+CATEGORY CARD UX REFINEMENT
+==================================================
+
+Refine category cards inspired by:
+- Amazon
+- Noon
+- premium ecommerce marketplaces
+
+Improve:
+- card spacing
+- hover interactions
+- icon/image alignment
+- responsive sizing
+- touch responsiveness
+- visual consistency
+
+Ensure:
+- categories are instantly recognizable
+- users can scan categories quickly
+- mobile browsing feels clean and modern
+
+==================================================
+SECTION 11 — PERFORMANCE OPTIMIZATION
+==================================================
+
+Optimize the category system and homepage experience for:
+- weak internet
+- low-end devices
+- large product catalogs
+
+Implement:
+- lazy loading where appropriate
+- optimized queries
+- lightweight rendering
+- efficient filtering
+- responsive interactions
+- optimized image loading
+- minimized unnecessary renders
+
+==================================================
+SECTION 12 — MOBILE-FIRST EXPERIENCE
+==================================================
+
+Ensure category selection and category browsing feels PREMIUM on mobile.
+
+Fix:
+- broken dropdowns
+- cramped category lists
+- poor touch interactions
+- overflow issues
+- broken responsive grids
+
+Ensure:
+- smooth scrolling
+- responsive layouts
+- premium touch UX
+- clean spacing
+- readable typography
+
+==================================================
+SECTION 13 — FUTURE-READY STRUCTURE
+==================================================
+
+Build the category system so it can later support:
+- admin category management
+- AI recommendations
+- dynamic marketplace analytics
+- category-specific promotions
+- advanced filtering
+- SEO category pages
+
+WITHOUT requiring major rewrites.
+
+==================================================
+SECTION 14 — RESPONSIVE VALIDATION
+==================================================
+
+Thoroughly test ALL category and homepage behaviors on:
+- desktop
+- tablet
+- mobile
+- AMOLED dark mode
+- light mode
+
+Fix:
+- blurry hierarchy
+- unreadable labels
+- overlapping UI
+- cramped layouts
+- broken responsive behavior
+- inconsistent spacing
+
+==================================================
+SECTION 15 — FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+- test seller product creation flow
+- test category selection flow
+- test subcategory logic
+- test dynamic attributes
+- test search/filter integration
+- test homepage category integration
+- test category visibility/readability
+- test Arabic/English support
+- test desktop/mobile responsiveness
+- test weak internet performance
+- automatically fix discovered inconsistencies
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium modern ecommerce marketplace
+- professionally structured like Amazon/Noon
+- scalable and future-ready
+- visually clean and organized
+- highly readable
+- easy for sellers and customers
+- optimized for growth and large product catalogs
+- premium on both desktop and mobile

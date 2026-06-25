@@ -1,0 +1,281 @@
+You are restoring the complete SYANO (سوق سوريا) marketplace project after a GitHub import into a new environment.
+
+Your mission is to restore the project to the exact latest working state before migration, using the project's recovery documentation and memory files as the source of truth.
+
+# PHASE 1 — READ RECOVERY DOCUMENTATION FIRST
+
+Before running anything, read and analyze all recovery files:
+
+* .local/RECOVERY.md
+* .agents/memory/MEMORY.md
+* every file inside:
+
+  * .agents/memory/
+
+Build a complete understanding of:
+
+* latest implemented features
+* known fixes
+* architecture decisions
+* pending tasks
+* restoration sequence
+
+Do NOT skip this step.
+
+---
+
+# PHASE 2 — ENVIRONMENT RESTORATION
+
+Restore the project completely.
+
+Required sequence:
+
+1. Install dependencies
+
+* pnpm install
+
+2. Build all workspace libraries
+
+Examples:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+Use project references if required.
+
+3. Restore database
+
+If DB is empty:
+
+* create schema
+* apply all migrations
+* run additive migrations
+* seed required data
+
+Verify:
+
+* users
+* products
+* variants
+* conversations
+* notifications
+* delivery
+* courier tables
+
+all exist.
+
+4. Start all major services
+
+Verify:
+
+* API server
+* Marketplace
+* Mobile app
+
+are healthy.
+
+---
+
+# PHASE 3 — VERIFY LATEST FEATURES
+
+Verify all recently completed work still exists.
+
+## Product Wizard
+
+Confirm:
+
+ProductWizard.tsx exists
+
+5-step wizard exists:
+
+1. المعلومات
+2. الأسعار
+3. الخيارات
+4. المواصفات
+5. النشر
+
+Verify:
+
+* progress indicator
+* navigation
+* edit mode
+* create mode
+
+---
+
+## Variant Builder
+
+Confirm VariantBuilder exists.
+
+Verify latest card-based architecture:
+
+* NO old variant table layout
+* NO old PreviewSidebar
+* card-based combinations
+* Generate Banner
+* bulk actions
+* combination cards
+* image assignment
+* responsive layout
+
+Verify:
+
+* mobile
+* tablet
+* desktop
+
+---
+
+## Product Creation Fix
+
+Verify latest fix:
+
+price and stock are converted to Number()
+
+before API submission.
+
+Confirm:
+
+Create Product works.
+
+No:
+
+Expected number, received string
+
+errors remain.
+
+---
+
+## Seller Contact Button
+
+Verify latest fix:
+
+Button is gated by:
+
+sellerId
+
+NOT:
+
+storeSlug
+
+Confirm button appears correctly.
+
+---
+
+## Pricing System
+
+Verify:
+
+calculateDiscountPercent()
+
+shared pricing utility exists.
+
+Verify:
+
+* product page
+* cards
+* store page
+
+all use same calculation.
+
+---
+
+# PHASE 4 — TYPE SCRIPT VALIDATION
+
+Run full TypeScript verification.
+
+Report:
+
+* total errors
+* real errors
+* pre-existing errors
+
+Do NOT hide failures.
+
+---
+
+# PHASE 5 — UI AUDIT
+
+Perform visual audit of:
+
+* Product creation
+* Product editing
+* Variant step
+* Specifications step
+* Product detail page
+* Store page
+* Seller dashboard
+
+Take screenshots when useful.
+
+Report any:
+
+* overflow
+* clipping
+* RTL issues
+* spacing issues
+* mobile issues
+
+---
+
+# PHASE 6 — VERIFY OPEN TASKS
+
+Check the current status of these pending tasks:
+
+1. Edit Product Wizard UX
+
+Verify whether edit mode:
+
+* starts at step 1 only
+* forces user through steps
+* allows direct step navigation
+
+Report exact behavior.
+
+2. Variant Page UX
+
+Report current state.
+
+3. Specifications mobile layout
+
+Report current state.
+
+4. Category dropdown direction
+
+Report whether dropdown opens correctly downward.
+
+5. Full-width desktop layout
+
+Report whether pages use available desktop width efficiently.
+
+---
+
+# PHASE 7 — FINAL REPORT
+
+Produce a detailed report containing:
+
+* Environment status
+* Database status
+* Service status
+* TypeScript status
+* Recovery status
+* Feature verification
+* Open issues
+* Regressions (if any)
+
+Clearly state:
+
+"Project matches latest documented state"
+
+or
+
+"Project differs from latest documented state"
+
+and list every difference found.
+
+Do NOT implement new features during restoration.
+
+Restore first.
+Verify second.
+Report third.

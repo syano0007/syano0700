@@ -1,0 +1,219 @@
+IMPORTANT:
+Before making ANY modifications, deeply analyze the existing footer component, footer structure, theme variables, responsive behavior, typography system, and spacing system.
+
+DO NOT redesign the entire website.
+DO NOT modify unrelated components/pages.
+DO NOT change the marketplace architecture.
+DO NOT regenerate the footer from scratch unless absolutely necessary.
+
+Modify ONLY the footer section while preserving the existing structure, responsiveness, and functionality.
+
+The implementation must remain:
+- production-ready
+- visually premium
+- lightweight
+- responsive
+- fully compatible with the current project
+
+==================================================
+SECTION 1 — COMPLETE FOOTER COLOR REFINEMENT
+==================================================
+
+The current footer has an unwanted blue tint.
+
+Refine ONLY the footer color system so it feels:
+
+- premium
+- elegant
+- luxurious
+- modern
+- visually balanced
+- neutral
+- metallic-inspired
+
+IMPORTANT:
+The footer must become:
+- charcoal black
+- graphite gray
+- dark silver inspired
+- AMOLED-friendly
+- NOT blue-tinted
+
+==================================================
+SECTION 2 — NEW PREMIUM FOOTER PALETTE
+==================================================
+
+Replace ALL blue-tinted footer colors with the following premium graphite palette:
+
+Main Footer Background:
+#050505
+
+Secondary Footer Surface:
+#0F0F0F
+
+Cards / Elevated Areas:
+#141414
+
+Borders:
+#262626
+
+Soft Borders:
+#303030
+
+==================================================
+TEXT COLORS
+==================================================
+
+Primary Text:
+#F5F5F5
+
+Secondary Text:
+#B8B8B8
+
+Muted Text:
+#8A8A8A
+
+==================================================
+ACCENT COLORS
+==================================================
+
+Primary Emerald:
+#10B981
+
+Hover Emerald:
+#059669
+
+Soft Emerald Glow:
+rgba(16,185,129,0.15)
+
+==================================================
+IMPORTANT DESIGN RULES
+==================================================
+
+DO NOT:
+- use navy backgrounds
+- use blue overlays
+- use blue-gray gradients
+- oversaturate green accents
+- use flat lifeless blacks
+- use heavy/glowing effects
+
+The footer should feel:
+- premium
+- luxurious
+- clean
+- modern ecommerce inspired
+- elegant
+- visually soft on the eyes
+
+==================================================
+SECTION 3 — REMOVE THE GREEN SUBTEXT
+==================================================
+
+Remove the small green English subtext located under the main footer section titles.
+
+Examples include:
+- "Get to Know Us"
+- "Make Money with Us"
+- "Syano Services"
+- "Let Us Help You"
+
+IMPORTANT:
+Keep ONLY the main Arabic section titles.
+
+The footer should look:
+- cleaner
+- more premium
+- less cluttered
+- more professional
+
+==================================================
+SECTION 4 — FOOTER SPACING & TYPOGRAPHY IMPROVEMENTS
+==================================================
+
+Refine the footer spacing and typography system.
+
+Fix:
+- cramped spacing
+- uneven vertical rhythm
+- text too close to edges
+- inconsistent paddings
+- inconsistent link spacing
+- poor mobile spacing
+
+Improve:
+- section spacing
+- alignment
+- readability
+- visual hierarchy
+- icon spacing
+- hover states
+- typography consistency
+
+Ensure:
+- cleaner breathing room
+- modern ecommerce appearance
+- balanced desktop/mobile layout
+
+==================================================
+SECTION 5 — RESPONSIVE & MOBILE OPTIMIZATION
+==================================================
+
+Ensure the footer looks PERFECT on:
+- desktop
+- tablet
+- mobile
+- small screens
+
+Fix:
+- broken stacked layouts
+- overflowing content
+- inconsistent alignment
+- poor mobile spacing
+- touch target issues
+
+Ensure:
+- smooth responsive stacking
+- clean spacing
+- readable typography
+- premium mobile appearance
+
+==================================================
+SECTION 6 — PERFORMANCE & CLEAN RENDERING
+==================================================
+
+Ensure:
+- lightweight rendering
+- no unnecessary shadows
+- no GPU-heavy effects
+- optimized transitions
+- fast rendering
+- no layout shifts
+- no unnecessary re-renders
+
+Maintain:
+- smooth interactions
+- modern premium appearance
+- excellent readability
+
+==================================================
+SECTION 7 — FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+- verify footer consistency in dark mode
+- verify footer consistency in light mode
+- verify spacing consistency
+- verify typography consistency
+- verify responsive behavior
+- verify mobile responsiveness
+- verify clean rendering
+- automatically fix discovered inconsistencies
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium modern ecommerce marketplace
+- luxury-inspired dark UI
+- graphite/silver AMOLED aesthetic
+- clean professional footer
+- visually balanced and elegant

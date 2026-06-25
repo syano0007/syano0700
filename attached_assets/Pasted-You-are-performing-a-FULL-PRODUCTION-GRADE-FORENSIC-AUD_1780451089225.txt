@@ -1,0 +1,356 @@
+You are performing a FULL PRODUCTION-GRADE FORENSIC AUDIT of the entire application.
+
+Your mission is NOT to trust previous audits, comments, TODOs, existing code, previous AI reports, assumptions, memory, or implementation claims.
+
+If code says something is implemented, you MUST verify that it actually works.
+
+CRITICAL RULE
+
+Never assume a feature works because:
+
+code exists
+function exists
+route exists
+UI exists
+button exists
+previous audit said it was fixed
+previous AI marked it completed
+a developer left a comment
+
+Every feature must be VERIFIED end-to-end.
+
+A feature is only considered fixed when:
+
+Backend logic exists
+Database logic works
+API works
+Frontend calls it correctly
+UI behaves correctly
+Data updates correctly
+Permissions are correct
+Mobile works
+Desktop works
+RTL works
+Arabic works
+English works
+
+If any step fails, the feature is NOT fixed.
+
+MANDATORY WORKFLOW
+
+For EVERY page, EVERY role, EVERY feature:
+
+STEP 1:
+Audit
+
+STEP 2:
+List ALL discovered issues
+
+STEP 3:
+Fix ONLY those issues
+
+STEP 4:
+Compile
+
+STEP 5:
+Run
+
+STEP 6:
+Verify fix actually works
+
+STEP 7:
+Compare result against original requirement
+
+STEP 8:
+Re-read this prompt
+
+STEP 9:
+Continue to next item
+
+Never continue before verification is completed.
+
+AFTER EVERY FIX
+
+Before moving to the next bug, execute this checklist:
+
+□ Did the code change compile?
+
+□ Did TypeScript pass?
+
+□ Did the API still start?
+
+□ Did the frontend still start?
+
+□ Did mobile still work?
+
+□ Did desktop still work?
+
+□ Did Arabic still work?
+
+□ Did English still work?
+
+□ Did RTL still work?
+
+□ Did permissions still work?
+
+□ Did the fix create regressions?
+
+□ Did the fix break another role?
+
+□ Did the fix break another page?
+
+□ Did the fix fully satisfy the requirement?
+
+If ANY answer is "No" or "Unknown":
+
+STOP
+
+Investigate
+
+Fix
+
+Retest
+
+Only then continue.
+
+FORBIDDEN BEHAVIOR
+
+DO NOT:
+
+Skip pages
+Skip buttons
+Skip roles
+Skip menus
+Skip dropdowns
+Skip modals
+Skip dialogs
+Skip forms
+Skip API routes
+Skip database logic
+Skip mobile
+Skip desktop
+Skip translations
+
+DO NOT write:
+
+"already exists"
+"already implemented"
+"appears fixed"
+"seems correct"
+"probably works"
+
+WITHOUT proving it through verification.
+
+Verification is mandatory.
+
+AUDIT SCOPE
+
+Audit EVERY page individually.
+
+Audit EVERY role individually.
+
+CUSTOMER
+
+Test:
+
+Home
+Categories
+Search
+Product details
+Variants
+Discounts
+Cart
+Guest cart
+Checkout
+Orders
+Tracking
+Wishlist
+Messages
+Notifications
+Profile
+Settings
+Language switching
+Currency display
+Mobile navigation
+Desktop navigation
+SELLER
+
+Test:
+
+Dashboard
+Products
+Product creation
+Product editing
+Product deletion
+Variants
+Discounts
+Orders
+Analytics
+Messages
+Store page
+Store customization
+Store branding
+Featured products
+Store links
+Notifications
+Mobile dashboard
+Desktop dashboard
+ADMIN
+
+Test:
+
+Dashboard
+Analytics
+Orders
+Users
+Customers
+Sellers
+Applications
+Reports
+Moderation
+Notifications
+Permissions
+Suspension system
+Ban system
+Featured offers
+Site settings
+Language support
+DATABASE AUDIT
+
+Verify:
+
+indexes
+N+1 queries
+duplicate queries
+slow queries
+stale cache
+race conditions
+ownership validation
+authorization
+cross-account leaks
+foreign keys
+cascade rules
+
+Fix everything discovered.
+
+REAL-TIME AUDIT
+
+Verify:
+
+notifications
+messages
+order updates
+cart updates
+unread counters
+dashboards
+
+Nothing should require manual refresh.
+
+If refresh is required:
+
+Find root cause.
+
+Fix it.
+
+Verify it.
+
+PERFORMANCE AUDIT
+
+Measure:
+
+first load
+route transitions
+API latency
+query latency
+bundle size
+hydration
+rendering
+
+Find bottlenecks.
+
+Fix bottlenecks.
+
+Verify improvements.
+
+UI/UX AUDIT
+
+Check every page on:
+
+Mobile
+
+320px
+360px
+375px
+390px
+414px
+
+Tablet
+
+768px
+
+Desktop
+
+1024px
+1280px
+1440px
+1920px
+
+Verify:
+
+no overflow
+no clipped text
+no broken buttons
+no hidden controls
+no overlap
+no RTL issues
+no language issues
+LANGUAGE AUDIT
+
+Verify EVERY page in:
+
+Arabic
+English
+
+Check:
+
+translations
+truncation
+overflow
+RTL
+LTR
+currency labels
+buttons
+notifications
+validation messages
+
+Fix all issues.
+
+FINAL RULE
+
+Continue auditing until:
+
+no bugs remain
+no broken UI remains
+no broken permissions remain
+no broken translations remain
+no stale data remains
+no mobile issues remain
+no desktop issues remain
+
+At the end provide:
+
+Every bug discovered
+Root cause
+Files modified
+Verification performed
+Remaining issues (if any)
+
+Never stop after finding a bug.
+
+Never stop after fixing a bug.
+
+Always verify.
+
+Then re-read this prompt.
+
+Then continue auditing.

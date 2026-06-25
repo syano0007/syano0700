@@ -1,0 +1,220 @@
+You are redesigning ONLY the SYANO (سوق سوريا) desktop navigation bar.
+
+DO NOT modify the hero section.
+DO NOT modify the homepage content.
+DO NOT modify cards, categories, products, footer, or layouts below the navbar.
+
+Focus exclusively on the top navigation experience.
+
+CURRENT PROBLEM:
+
+The navbar feels undersized compared to the screen width.
+
+Problems:
+
+* navigation links look too small
+* icons look too small
+* spacing is inefficient
+* header does not feel premium
+* brand presence is weak
+* large empty areas exist
+* the navbar does not match the scale of modern marketplaces
+
+TARGET INSPIRATION:
+
+* Amazon
+* Noon
+* Trendyol
+* Best Buy
+* Alibaba
+
+GOAL:
+
+Make the navbar feel powerful, premium, modern, and marketplace-grade.
+
+---
+
+LAYOUT GOALS
+
+Increase navbar height.
+
+Current feeling:
+small utility header
+
+Target feeling:
+main marketplace control center
+
+Desktop navbar height should feel between:
+
+72px–88px
+
+while preserving current design language.
+
+---
+
+TYPOGRAPHY
+
+Increase visual hierarchy.
+
+Navigation links:
+
+Current:
+small
+
+Target:
+
+* larger font size
+* stronger weight
+* better readability
+* premium appearance
+
+Examples:
+
+الرئيسية
+تسوق
+الفئات
+المتاجر
+العروض
+
+must be immediately visible.
+
+---
+
+ICONS
+
+Increase size of:
+
+* cart
+* wishlist
+* settings
+* notifications
+* account
+
+Icons should feel touch-friendly even on desktop.
+
+Target:
+
+20–24px
+
+instead of tiny utility icons.
+
+---
+
+SEARCH BAR
+
+The search bar should become the visual center of the navbar.
+
+Requirements:
+
+* noticeably wider
+* larger height
+* stronger presence
+* premium glass effect
+* soft inner shadow
+* clearer placeholder
+
+The search area should become one of the most dominant navbar elements.
+
+---
+
+BRANDING
+
+The SYANO logo area currently feels small.
+
+Increase:
+
+* logo size
+* brand text size
+* visual prominence
+
+The logo should be recognizable immediately.
+
+Brand should feel like a major marketplace.
+
+---
+
+BUTTONS
+
+"إنشاء حساب"
+
+should become a strong primary action.
+
+Requirements:
+
+* slightly taller
+* larger typography
+* stronger visual weight
+* premium hover effect
+
+---
+
+SPACING
+
+Use the full navbar width intelligently.
+
+Reduce wasted empty zones.
+
+Create balanced distribution between:
+
+* logo
+* navigation
+* search
+* action icons
+
+The navbar should feel intentionally designed.
+
+---
+
+VISUAL POLISH
+
+Keep:
+
+* current SYANO green
+* current dark theme
+* current border radius language
+* current design system
+
+Improve:
+
+* shadows
+* hover states
+* transitions
+* spacing rhythm
+* active state visibility
+
+---
+
+INTERACTION
+
+Navigation items:
+
+Hover:
+
+* subtle lift
+* color transition
+* underline or glow indicator
+
+Active page:
+
+* stronger distinction
+* immediately recognizable
+
+---
+
+DESIRED RESULT
+
+When a user lands on the homepage:
+
+The navbar should immediately communicate:
+
+"This is a large professional marketplace."
+
+It should feel:
+
+* more expensive
+* more premium
+* more trustworthy
+* more scalable
+* more comparable to major e-commerce platforms
+
+without changing SYANO's identity.

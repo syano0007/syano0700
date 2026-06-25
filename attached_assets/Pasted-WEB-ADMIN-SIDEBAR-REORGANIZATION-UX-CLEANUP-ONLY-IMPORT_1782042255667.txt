@@ -1,0 +1,245 @@
+WEB ADMIN SIDEBAR REORGANIZATION — UX CLEANUP ONLY
+
+IMPORTANT:
+
+This task is a navigation reorganization task only.
+
+Do NOT remove features.
+
+Do NOT delete routes.
+
+Do NOT rename routes.
+
+Do NOT change permissions.
+
+Do NOT change APIs.
+
+Do NOT change business logic.
+
+Only reorganize the existing sidebar structure to improve usability and reduce visual clutter.
+
+---
+
+# GOAL
+
+The current admin sidebar contains too many top-level items.
+
+It feels crowded and difficult to scan.
+
+The goal is to create a professional enterprise-style navigation similar to:
+
+* Shopify Admin
+* Stripe Dashboard
+* Notion Workspace
+* Linear
+* Cloudflare Dashboard
+
+Reduce visible clutter while preserving 100% of functionality.
+
+---
+
+# CRITICAL RULES
+
+* Preserve every existing page.
+* Preserve every route.
+* Preserve every permission.
+* Preserve every badge counter.
+* Preserve all notification indicators.
+* Preserve RTL support.
+* Preserve Arabic.
+* Preserve English.
+* Preserve mobile responsiveness.
+* Preserve current SYANO visual identity.
+
+Only change navigation organization.
+
+---
+
+# REQUIRED STRUCTURE
+
+## 1. لوحة التحكم الرئيسية
+
+Contains:
+
+* لوحة التحكم
+
+---
+
+## 2. الطلبات والمبيعات
+
+Contains:
+
+* الطلبات
+* تحليلات الطلبات
+* المنتجات
+* طلبات البائعين
+* طلبات المندوبين
+
+Purpose:
+
+All order-related and commerce-related operations should live together.
+
+---
+
+## 3. التوصيل والشحن
+
+Contains:
+
+* التوصيل
+* مهام التوصيل
+* مواقع المندوبين المباشرة
+* مراقبة التتبع
+
+Purpose:
+
+All delivery operations grouped in one section.
+
+---
+
+## 4. المستخدمون والأدوار
+
+Contains:
+
+* المستخدمون
+* البائعون
+* المندوبون
+
+Purpose:
+
+User management should be centralized.
+
+---
+
+## 5. التقارير والتحليلات
+
+Contains:
+
+* تحليلات البحث
+* تقارير المبيعات
+* صحة المنصة
+* تذاكر الدعم
+
+Purpose:
+
+Everything analytical and reporting-related in one place.
+
+---
+
+## 6. الإعدادات والتخصيص
+
+Contains:
+
+* الإعدادات
+* توفر المندوبين
+* سجل النشاط
+
+Purpose:
+
+System configuration and operational controls.
+
+---
+
+## 7. أدوات المنصة
+
+Contains:
+
+* التحقق من البائعين
+* البانرات الرئيسية
+
+Purpose:
+
+Administrative tools and moderation.
+
+---
+
+# UI REQUIREMENTS
+
+Convert groups into collapsible accordion sections.
+
+Requirements:
+
+* Only one click to expand.
+* Smooth animation.
+* Current active page automatically expands its parent section.
+* Parent sections show icon + title.
+* Child items appear indented.
+* Preserve notification badges.
+
+Example:
+
+▼ الطلبات والمبيعات
+
+* الطلبات
+* المنتجات
+* تحليلات الطلبات
+
+▶ التوصيل والشحن
+
+▶ المستخدمون والأدوار
+
+---
+
+# VISUAL REQUIREMENTS
+
+Use existing SYANO design language.
+
+Keep:
+
+* current green color palette
+* border radius
+* shadows
+* typography
+
+Improve:
+
+* spacing
+* hierarchy
+* readability
+
+Do not redesign the entire dashboard.
+
+Only improve navigation organization.
+
+---
+
+# MOBILE REQUIREMENTS
+
+The same grouped structure must work inside the mobile sidebar.
+
+Requirements:
+
+* accordion sections collapse correctly
+* smooth opening/closing
+* no overflow
+* no clipped text
+* touch friendly
+
+---
+
+# VALIDATION
+
+Before completing:
+
+Verify:
+
+✅ No routes removed
+
+✅ No permissions changed
+
+✅ No badges lost
+
+✅ Active route highlighting still works
+
+✅ Arabic RTL preserved
+
+✅ English preserved
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ No TypeScript errors
+
+✅ No navigation regressions
+
+The result should feel significantly cleaner while exposing exactly the same functionality.

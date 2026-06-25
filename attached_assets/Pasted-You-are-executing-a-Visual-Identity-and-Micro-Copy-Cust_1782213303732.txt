@@ -1,0 +1,43 @@
+You are executing a Visual Identity and Micro-Copy Customization for the SYANO (سوق سوريا) Map Modal.
+
+The goal is to align the interface with SYANO's custom green branding (matching the main navbar) and tailor the text to be authentic and distinct from the Noon platform template.
+
+Do NOT break existing backend APIs, coordinates tracking, or dynamic Syria-wide geocoding logic.
+Do NOT modify database models or checkout state contracts.
+
+==================================================
+GOAL
+==================================================
+Switch all interactive blue branding accents directly to SYANO's signature green color scheme. Rename core action elements to present a fully unique, authentic localized brand voice.
+
+==================================================
+PART 1 — BRAND COLOR INVERSION (BLUE TO SYANO NAVBAR GREEN)
+==================================================
+- Locate the newly built `LocationMapModal.tsx` component layout.
+- Replace all Tailwind blue accent utility classes with your signature green branding colors (matching the exact navbar tone, e.g., `bg-emerald-600`, `bg-green-600`, or your custom theme green variables):
+  * **Primary Action Button ("تأكيد الموقع"):** Shift from solid blue background and blue shadows (`bg-blue-600`, `shadow-blue-500/20`) to the solid corporate navbar green preset with matching soft green glow highlights.
+  * **Center Map Pin & Decorative Highlights:** Change the custom dead-center pin SVG stroke/fill layer elements from blue to the identical navbar green tint.
+  * **Interactive Text Links & Map Markers:** Ensure any blue icon states (like the location feedback pin icon in the footer or text indicators) swap completely to the green theme.
+
+==================================================
+PART 2 — AUTHENTIC MICRO-COPY LOCALIZATION (ANTI-COPYCAT CHANGE)
+==================================================
+To ensure the interface feels completely bespoke and native to SYANO, rewrite the following string variables:
+
+1. **Floating Location Trigger Button:**
+   - Old Text: "استخدم موقعك الحالي" (Noon standard copy).
+   - New Text: **"تحديد موقعي التلقائي"** or **"تحديد مكاني الآن"**.
+   - Icon: Keep the `LocateFixed` radar icon, but ensure its hover state highlight triggers a clean green accent shift.
+
+2. **Center Pin Tooltip Capsule Text:**
+   - Old Text: "مكان توصيل طلبك هنا".
+   - New Text: **"سيتم تسليم طلبك في هذه النقطة"** or **"نقطة التوصيل المختارة"**.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before completion, verify:
+✓ Absolutely zero blue components or accents remain visible anywhere inside the map modal view container.
+✓ The bottom confirmation button matches the exact green tone of the SYANO global header/navbar.
+✓ The floating geolocation button successfully reads "تحديد موقعي التلقائي" (or chosen variant) and remains perfectly operational.
+✓ Verify TypeScript compilation = 0 errors across the entire marketplace application workspace.

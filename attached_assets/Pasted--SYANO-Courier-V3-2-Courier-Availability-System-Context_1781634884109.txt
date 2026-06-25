@@ -1,0 +1,502 @@
+# SYANO — Courier V3.2
+
+# Courier Availability System
+
+## Context
+
+You are continuing Courier V3 development.
+
+Phase 1 (Delivery Mission Layer) is complete.
+
+DO NOT rebuild it.
+
+DO NOT modify existing DeliveryMission architecture unless absolutely required.
+
+Extend only.
+
+This phase builds the courier availability engine that will become the foundation for automatic assignment in Phase 3.
+
+---
+
+# Current State
+
+Completed:
+
+✅ Delivery Mission Layer
+
+✅ Delivery Status Lifecycle
+
+✅ Delivery Size System
+
+✅ Mission APIs
+
+✅ Admin Mission Dashboard
+
+Future roadmap:
+
+```text
+V3.2 Courier Availability System   ← CURRENT TASK
+
+V3.3 Auto Assignment Engine
+
+V3.4 Courier Wallet
+
+V3.5 Courier Mobile Workflow
+
+V3.6 GPS Tracking
+
+V3.7 Customer Tracking Map
+
+V3.8 Proof Of Delivery
+```
+
+---
+
+# CRITICAL RULES
+
+## DO NOT BUILD
+
+❌ GPS
+
+❌ Maps
+
+❌ Tracking
+
+❌ Assignment Engine
+
+❌ Wallet
+
+❌ Settlement
+
+❌ Proof Of Delivery
+
+❌ Customer Tracking
+
+❌ Delivery Pricing
+
+Those belong to later phases.
+
+---
+
+# BUSINESS GOAL
+
+Couriers must be able to explicitly choose whether they are available to receive delivery missions.
+
+The system must know:
+
+```text
+Can this courier receive a mission right now?
+```
+
+Future assignment logic will rely entirely on this answer.
+
+---
+
+# COURIER STATES
+
+Create a permanent courier availability state machine.
+
+Statuses:
+
+```ts
+OFFLINE
+
+ONLINE
+
+BUSY
+```
+
+---
+
+# STATUS DEFINITIONS
+
+## OFFLINE
+
+Courier is not accepting delivery missions.
+
+Cannot receive assignments.
+
+Ignored by future assignment engine.
+
+---
+
+## ONLINE
+
+Courier is actively available.
+
+Can receive delivery missions.
+
+Can participate in future assignment selection.
+
+---
+
+## BUSY
+
+Courier currently has an active mission.
+
+Cannot receive additional missions.
+
+Future assignment engine must ignore BUSY couriers.
+
+---
+
+# BUSINESS RULE
+
+One courier can only handle:
+
+```text
+1 active mission
+```
+
+at a time.
+
+Never allow:
+
+```text
+Courier
+↓
+Mission A
+
+Mission B
+```
+
+simultaneously.
+
+This is a hard business rule for launch.
+
+---
+
+# DATABASE CHANGES
+
+Use additive migrations only.
+
+Extend courier profile.
+
+Add:
+
+```ts
+availabilityStatus
+
+isAcceptingDeliveries
+
+lastAvailabilityChangeAt
+```
+
+---
+
+Do NOT remove any existing courier fields.
+
+---
+
+# SERVICE LAYER
+
+Create:
+
+```ts
+setCourierOnline()
+
+setCourierOffline()
+
+setCourierBusy()
+
+canReceiveMission()
+
+getAvailableCouriers()
+```
+
+---
+
+Requirements:
+
+Reusable.
+
+Future assignment engine must consume these services.
+
+No duplicated logic.
+
+---
+
+# AUTOMATIC STATUS TRANSITIONS
+
+## When courier manually enables:
+
+```text
+Receive Deliveries
+```
+
+System:
+
+```text
+ONLINE
+```
+
+---
+
+## When courier disables:
+
+```text
+Receive Deliveries
+```
+
+System:
+
+```text
+OFFLINE
+```
+
+---
+
+## Future-proof Logic
+
+If courier receives an active mission:
+
+```text
+BUSY
+```
+
+---
+
+If active mission completes:
+
+```text
+ONLINE
+```
+
+---
+
+Build support for this now.
+
+Even if Phase 3 has not yet been implemented.
+
+---
+
+# COURIER APP REQUIREMENTS
+
+Create courier availability controls.
+
+---
+
+# Courier Dashboard
+
+Add:
+
+```text
+Receive Delivery Requests
+```
+
+Toggle.
+
+---
+
+Examples:
+
+```text
+ON
+```
+
+↓
+
+```text
+ONLINE
+```
+
+---
+
+```text
+OFF
+```
+
+↓
+
+```text
+OFFLINE
+```
+
+---
+
+# STATUS BADGE
+
+Show current status.
+
+Examples:
+
+```text
+Online
+```
+
+```text
+Busy
+```
+
+```text
+Offline
+```
+
+---
+
+Use:
+
+* Existing design system
+* Existing colors
+* Existing spacing
+* Existing RTL support
+
+Must feel native to SYANO.
+
+---
+
+# API REQUIREMENTS
+
+Create:
+
+```http
+PATCH /api/courier/availability
+```
+
+Body:
+
+```json
+{
+  "status": "ONLINE"
+}
+```
+
+---
+
+Create:
+
+```http
+GET /api/courier/availability
+```
+
+---
+
+Create:
+
+```http
+GET /api/admin/couriers/availability
+```
+
+For operational visibility.
+
+---
+
+# ADMIN DASHBOARD
+
+Create courier availability table.
+
+Columns:
+
+```text
+Courier
+
+Status
+
+Accepting Deliveries
+
+Last Status Change
+
+Active Mission
+```
+
+---
+
+Read-only.
+
+No manual overrides.
+
+No assignment controls.
+
+---
+
+# VALIDATION RULES
+
+Prevent:
+
+```text
+BUSY
++
+ONLINE
+```
+
+simultaneously.
+
+---
+
+Prevent:
+
+```text
+OFFLINE
++
+Accepting Deliveries
+```
+
+simultaneously.
+
+---
+
+State machine must remain consistent.
+
+---
+
+# FUTURE PHASE COMPATIBILITY
+
+Design for:
+
+```text
+Closest 3 Couriers
+
+Auto Assignment
+
+GPS
+
+Mission Acceptance
+
+Mission Timeout
+
+Mission Reassignment
+```
+
+without schema redesign.
+
+---
+
+# TESTING
+
+Verify:
+
+✅ Courier can go ONLINE
+
+✅ Courier can go OFFLINE
+
+✅ Courier can become BUSY
+
+✅ APIs work
+
+✅ Admin visibility works
+
+✅ Existing courier system still works
+
+✅ Existing missions still works
+
+✅ Existing orders still work
+
+✅ Existing sellers still work
+
+✅ Existing customers still work
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+# FINAL GOAL
+
+Build a production-grade Courier Availability System that becomes the permanent foundation for all future assignment and delivery operations.
+
+Do not implement assignment logic.
+
+Do not implement GPS.
+
+Focus exclusively on courier availability architecture.

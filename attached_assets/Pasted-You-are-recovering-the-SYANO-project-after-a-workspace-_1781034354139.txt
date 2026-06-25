@@ -1,0 +1,358 @@
+You are recovering the SYANO (سوق سوريا) project after a workspace/account migration.
+
+CRITICAL RULES
+
+* Do NOT start implementing new features.
+* Do NOT modify any code until recovery and verification are complete.
+* Do NOT assume anything.
+* Read all recovery, memory, state, checkpoint, and migration files first.
+* Verify everything against the actual codebase.
+* Verify services are running before making changes.
+* Verify the database state before making changes.
+* If something is missing, restore it.
+* If something already exists, do NOT rebuild it.
+* Preserve all current functionality.
+
+==================================================
+PHASE 1 — READ ALL RECOVERY FILES
+=================================
+
+Read ALL project memory and recovery files first, including but not limited to:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* DATABASE_STATE.md
+* variant-system.md
+* delivery-system.md
+* courier-promotion.md
+* root-owner-bootstrap.md
+* any checkpoint/recovery files
+* any migration notes
+* any implementation summaries
+
+Do not skip this step.
+
+Create a recovery report showing:
+
+* Last known project state
+* Latest completed features
+* Pending features
+* Latest fixes
+* Latest migrations
+
+==================================================
+PHASE 2 — ENVIRONMENT RECOVERY
+==============================
+
+Verify:
+
+* pnpm workspace
+* node_modules
+* root dependencies
+* API dependencies
+* Marketplace dependencies
+* Mobile dependencies
+
+If packages are missing:
+
+* restore them
+* resolve hoisting issues
+* restore workspace configuration
+
+Verify:
+
+* .npmrc
+* pnpm-workspace.yaml
+* package.json files
+
+==================================================
+PHASE 3 — DATABASE RECOVERY
+===========================
+
+Verify database exists.
+
+If database is empty:
+
+Restore using project schema.
+
+Verify ALL expected tables exist.
+
+Especially verify:
+
+Users
+
+Orders
+
+Products
+
+Product Variants
+
+Variant Images
+
+Seller Applications
+
+Delivery Zones
+
+Couriers
+
+Courier Assignments
+
+Courier Wallet Transactions
+
+Notifications
+
+Reviews
+
+Messages
+
+Conversations
+
+and all other marketplace tables.
+
+Verify enums:
+
+role:
+
+* customer
+* seller
+* courier
+* admin
+
+order_status:
+including full delivery workflow.
+
+Verify delivery columns exist.
+
+Verify variant columns exist.
+
+==================================================
+PHASE 4 — ACCOUNT RECOVERY
+==========================
+
+Verify these accounts exist:
+
+Root Owner:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+admin
+
+Seller Test Account:
+
+Email:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Password:
+00Amer00
+
+Role:
+seller
+
+Approved:
+true
+
+If missing:
+
+restore them.
+
+==================================================
+PHASE 5 — SERVICE RECOVERY
+==========================
+
+Start and verify:
+
+* API Server
+* Marketplace
+* Mobile (Expo)
+
+Verify:
+
+* no startup crashes
+* no missing package errors
+* no build failures
+
+==================================================
+PHASE 6 — VERIFY LATEST VARIANT SYSTEM STATE
+============================================
+
+Verify all previous work still exists.
+
+Check:
+
+VariantBuilder.tsx
+
+Add Product page
+
+Edit Product page
+
+Verify toggle fixes:
+
+VariantBuilder toggle:
+style={{ left: on ? 26 : 2 }}
+
+Add Product toggle:
+style={{ left: variantsEnabled ? 26 : 2 }}
+
+Edit Product toggle:
+style={{ left: variantsEnabled ? 26 : 2 }}
+
+Verify old translate-x toggle implementation does NOT exist anymore.
+
+==================================================
+PHASE 7 — VERIFY DELIVERY SYSTEM
+================================
+
+Verify:
+
+delivery_zones
+
+couriers
+
+courier_assignments
+
+courier_wallet_transactions
+
+Verify:
+
+/admin/delivery
+
+/courier/apply
+
+/courier/application-status
+
+/courier/dashboard
+
+Verify courier approval system exists.
+
+Verify courier role promotion exists.
+
+Verify approval notifications contain navigation links.
+
+Verify expanded Aleppo zones exist.
+
+==================================================
+PHASE 8 — VERIFY LATEST COURIER UPDATES
+=======================================
+
+Verify ALL recent courier improvements exist:
+
+1. Dedicated Admin Courier Applications page
+
+/admin/courier-applications
+
+2. Courier Application Details page
+
+/admin/courier-applications/:id
+
+3. Bilingual courier statuses
+
+Pending
+Approved
+Rejected
+Suspended
+
+4. Approval notification link fix
+
+5. Homepage courier CTA
+
+"Become a Courier"
+
+below
+
+"Open Your Store"
+
+6. Customer dashboard courier/seller CTA removal
+
+7. Expanded Aleppo delivery zones
+
+8. Courier notification improvements
+
+9. Updated recovery files
+
+==================================================
+PHASE 9 — VISUAL VERIFICATION
+=============================
+
+Do not trust code alone.
+
+Verify actual pages render.
+
+Check:
+
+Homepage
+
+Customer Dashboard
+
+Seller Dashboard
+
+Courier Dashboard
+
+Admin Courier Applications
+
+Add Product
+
+Edit Product
+
+Variant Builder
+
+Verify:
+
+RTL
+
+LTR
+
+Mobile
+
+Desktop
+
+==================================================
+PHASE 10 — UPDATE RECOVERY FILES
+================================
+
+After recovery:
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* DATABASE_STATE.md
+
+Add:
+
+Recovery Date
+
+Recovered Features
+
+Missing Features
+
+Issues Found
+
+Issues Fixed
+
+Current Project Status
+
+==================================================
+FINAL REPORT
+============
+
+Do not implement anything else.
+
+Produce a detailed report containing:
+
+1. What was restored
+2. What already existed
+3. What was missing
+4. What was fixed
+5. Service status
+6. Database status
+7. Variant system status
+8. Delivery system status
+9. Courier system status
+10. Remaining issues
+
+Only after recovery is complete should we start new development work.

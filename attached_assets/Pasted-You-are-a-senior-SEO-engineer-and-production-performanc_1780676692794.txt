@@ -1,0 +1,191 @@
+You are a senior SEO engineer and production performance engineer.
+
+Implement a FULL production-grade dynamic sitemap system for Syano.
+
+IMPORTANT:
+Do not create a basic sitemap.
+Build a scalable, automatic, SEO-optimized sitemap architecture suitable for a large marketplace with thousands of products, stores, categories, and future growth.
+
+GOALS:
+
+* Improve Google indexing speed.
+* Ensure all public pages are discoverable.
+* Eliminate manual sitemap generation.
+* Maintain maximum performance.
+* Be fully compatible with Arabic and English content.
+
+REQUIREMENTS
+
+1. DYNAMIC SITEMAP ENDPOINT
+
+Create:
+
+/sitemap.xml
+
+The sitemap must be generated automatically from the database.
+
+Include:
+
+* Homepage
+* Categories
+* Products
+* Store pages
+* Public informational pages
+* Seller pages that should be indexed
+
+2. DATABASE-DRIVEN CONTENT
+
+Automatically include:
+
+Products:
+
+* Only active products
+* Only public products
+* Exclude deleted products
+* Exclude hidden products
+
+Stores:
+
+* Only approved sellers
+* Only public stores
+
+Categories:
+
+* All active categories
+
+3. LARGE SCALE SUPPORT
+
+Prepare for future growth.
+
+If sitemap exceeds search engine limits:
+
+Automatically create:
+
+* sitemap-products.xml
+* sitemap-stores.xml
+* sitemap-categories.xml
+* sitemap-pages.xml
+
+And generate:
+
+* sitemap-index.xml
+
+Automatically.
+
+Do not wait until scale becomes a problem.
+
+Build the architecture now.
+
+4. SMART CACHING
+
+CRITICAL:
+
+Do NOT regenerate the sitemap on every request.
+
+Implement server-side caching.
+
+Cache duration:
+5–15 minutes.
+
+Requirements:
+
+* Fast response time
+* Low database load
+* Automatic refresh after cache expiry
+
+5. SEO METADATA
+
+Every URL entry must contain:
+
+* loc
+* lastmod
+* changefreq
+* priority
+
+Use intelligent priorities:
+
+Homepage → highest
+
+Products → high
+
+Stores → medium-high
+
+Categories → medium
+
+Static pages → normal
+
+6. HREFLANG SUPPORT
+
+Support:
+
+Arabic
+English
+x-default
+
+Generate alternate language entries wherever applicable.
+
+7. INDEXING SAFETY
+
+Never include:
+
+* Admin pages
+* Dashboard pages
+* Messages
+* Login-required pages
+* Notifications
+* Account settings
+* Cart
+* Checkout
+* Customer-only routes
+* Seller-only routes
+
+Only index public SEO pages.
+
+8. PERFORMANCE AUDIT
+
+Measure:
+
+* Sitemap generation time
+* Query count
+* Memory usage
+
+Optimize all queries.
+
+Avoid N+1 patterns completely.
+
+9. VALIDATION
+
+Verify:
+
+* XML validity
+* Google compatibility
+* Bing compatibility
+* Mobile-first indexing compatibility
+
+10. FINAL REPORT
+
+After implementation provide:
+
+* Files created
+* Routes added
+* Cache strategy
+* Query strategy
+* Indexed URL types
+* Excluded URL types
+* Scalability limits
+* Remaining SEO opportunities
+
+IMPORTANT:
+
+This is production infrastructure.
+
+Prioritize:
+
+* Speed
+* SEO
+* Scalability
+* Reliability
+
+Do not stop at implementation.
+
+Test the generated sitemap end-to-end and verify it works correctly before completion.

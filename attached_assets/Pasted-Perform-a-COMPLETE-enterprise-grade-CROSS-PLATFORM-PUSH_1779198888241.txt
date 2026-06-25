@@ -1,0 +1,360 @@
+Perform a COMPLETE enterprise-grade CROSS-PLATFORM PUSH NOTIFICATION SYSTEM implementation across the entire Syano marketplace platform. Treat this as a world-class realtime communication infrastructure similar to Amazon, Instagram, Facebook, Discord, Shopify, and modern native ecommerce applications.
+
+IMPORTANT:
+This system must support BOTH:
+1. In-app realtime notifications inside the website
+2. REAL DEVICE PUSH NOTIFICATIONS outside the website
+
+The goal is:
+- when users are outside the site
+- when the phone is locked
+- when the browser is minimized
+- when the user is on desktop
+
+they STILL receive professional realtime push notifications directly on:
+- Android devices
+- iPhones (where supported)
+- desktop systems
+- browser notifications
+
+The experience must feel:
+- premium
+- modern
+- instant
+- reliable
+- native-app-like
+- enterprise-grade
+
+==================================================
+CORE OBJECTIVE
+==================================================
+
+Create a COMPLETE realtime push notification ecosystem for:
+- customers
+- sellers
+- admins
+
+Users must receive live notifications:
+- inside the website
+- on desktop systems
+- on mobile devices
+- even when not actively browsing the site
+
+==================================================
+PUSH NOTIFICATION INFRASTRUCTURE
+==================================================
+
+Implement a production-grade push notification architecture using modern web technologies.
+
+Requirements:
+- browser push notifications
+- desktop notifications
+- Android push notifications
+- PWA-compatible notifications
+- service worker support
+- background notification delivery
+- notification click handling
+- realtime sync with notification center
+
+The system must be:
+- scalable
+- lightweight
+- secure
+- battery efficient
+- bandwidth efficient
+
+==================================================
+REALTIME ORDER NOTIFICATIONS
+==================================================
+
+Implement COMPLETE realtime order lifecycle notifications.
+
+Examples:
+
+==================================================
+CUSTOMER EVENTS
+==================================================
+
+- order placed successfully
+- seller accepted order
+- seller rejected order
+- order processing started
+- order shipped
+- order delivered
+- order cancelled
+- refund approved/rejected
+- payment confirmed
+- support replies
+
+==================================================
+SELLER EVENTS
+==================================================
+
+- new order received
+- customer cancellation
+- refund request
+- new customer message
+- product approved/rejected
+- seller verification updates
+- admin moderation messages
+- low stock warnings
+
+==================================================
+ADMIN EVENTS
+==================================================
+
+- new seller application
+- reported products
+- suspicious activity
+- refund escalations
+- support escalations
+- moderation queues
+- failed payment alerts
+
+==================================================
+NOTIFICATION DELIVERY EXPERIENCE
+==================================================
+
+Notifications must appear professionally on:
+- desktop operating systems
+- Android notification center
+- mobile lock screen
+- browser notification system
+- system tray
+
+Requirements:
+- clean title formatting
+- meaningful notification text
+- proper notification icons
+- marketplace branding
+- correct timestamps
+- smooth click behavior
+
+Notifications must feel:
+- trustworthy
+- premium
+- polished
+- modern
+
+==================================================
+CLICK ACTIONS & DEEP LINKING
+==================================================
+
+When the user clicks a notification:
+- open the correct page instantly
+- navigate directly to the related order/product/message
+- preserve authentication/session state
+- support mobile deep linking behavior
+
+Examples:
+- order notification → open order details
+- seller approval → open seller dashboard
+- refund update → open refund/order page
+
+==================================================
+PWA & MOBILE APP-LIKE EXPERIENCE
+==================================================
+
+Upgrade Syano into a premium PWA-ready marketplace experience.
+
+Requirements:
+- installable web app support
+- mobile home screen installation
+- app-like notification behavior
+- splash screen support
+- offline-ready foundations where beneficial
+- persistent push notification support
+
+The marketplace should feel close to a native mobile app.
+
+==================================================
+NOTIFICATION PERMISSION UX
+==================================================
+
+Implement a PROFESSIONAL notification permission flow.
+
+Requirements:
+- elegant permission prompts
+- smart timing for permission requests
+- avoid spammy permission popups
+- explain notification benefits clearly
+- permission retry handling
+- graceful fallback behavior
+
+Users should WANT to enable notifications.
+
+==================================================
+NOTIFICATION CENTER SYNCHRONIZATION
+==================================================
+
+Ensure push notifications sync perfectly with the in-app notification center.
+
+Requirements:
+- realtime unread updates
+- read/unread sync
+- notification persistence
+- notification history
+- no duplicated states
+- cross-device consistency
+
+==================================================
+MOBILE PUSH EXPERIENCE
+==================================================
+
+Mobile push notifications are EXTREMELY IMPORTANT.
+
+Optimize specifically for:
+- Android devices
+- weak Syrian internet
+- low-end devices
+- mobile Chrome browsers
+- installed PWA behavior
+
+Requirements:
+- lightweight delivery
+- fast notification display
+- low battery usage
+- reliable background handling
+- responsive click actions
+
+==================================================
+DESKTOP PUSH EXPERIENCE
+==================================================
+
+Desktop notifications must feel modern and polished.
+
+Requirements:
+- professional desktop popups
+- smooth interaction behavior
+- branded notification appearance
+- responsive click navigation
+- proper focus handling
+
+==================================================
+PERFORMANCE & BATTERY OPTIMIZATION
+==================================================
+
+The push system must remain:
+- lightweight
+- battery efficient
+- bandwidth efficient
+- highly performant
+
+Optimize:
+- service worker behavior
+- push subscriptions
+- realtime listeners
+- background sync
+- notification rendering
+- mobile performance
+
+Avoid:
+- duplicate notifications
+- memory leaks
+- excessive background processing
+- notification spam
+
+==================================================
+SMART NOTIFICATION LOGIC
+==================================================
+
+Implement intelligent notification behavior.
+
+Requirements:
+- prevent duplicate pushes
+- batch repetitive events if needed
+- prioritize important events
+- support notification categories
+- allow future notification settings/preferences
+- prevent spammy behavior
+
+==================================================
+SECURITY & PRIVACY
+==================================================
+
+Implement secure notification handling.
+
+Requirements:
+- authenticated notification delivery
+- secure subscription handling
+- proper permission validation
+- protected push endpoints
+- abuse prevention
+
+==================================================
+MULTILINGUAL SUPPORT
+==================================================
+
+Ensure FULL support for:
+- Arabic RTL
+- English LTR
+
+Requirements:
+- localized notification text
+- Arabic-friendly formatting
+- proper RTL rendering
+- localized timestamps
+
+==================================================
+RESPONSIVE & DEVICE TESTING
+==================================================
+
+Test thoroughly on:
+- Android phones
+- iPhones (where browser support allows)
+- desktop Chrome
+- desktop Edge
+- mobile Chrome
+- installed PWA mode
+- weak internet conditions
+- low-end devices
+
+Ensure:
+- reliable notification delivery
+- correct click navigation
+- no duplicate notifications
+- smooth performance
+- proper branding
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically detect and fix:
+- broken push subscriptions
+- duplicate notifications
+- stale unread states
+- service worker issues
+- mobile notification failures
+- deep linking bugs
+- notification sync issues
+- performance bottlenecks
+- RTL notification rendering issues
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test ALL customer push notifications
+- test ALL seller push notifications
+- test ALL admin push notifications
+- test order lifecycle notifications
+- test seller verification flow
+- test desktop notifications
+- test Android push notifications
+- test PWA notification behavior
+- test notification click navigation
+- test Arabic RTL rendering
+- test weak internet conditions
+- verify no duplicate pushes
+- verify realtime sync works correctly
+- verify smooth performance
+- verify no console errors exist
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class realtime ecommerce platform
+- a native-app-like marketplace
+- a premium modern push notification ecosystem
+- highly polished and scalable
+- enterprise-grade and production-ready

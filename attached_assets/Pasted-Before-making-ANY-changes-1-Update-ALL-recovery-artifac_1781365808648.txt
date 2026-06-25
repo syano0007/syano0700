@@ -1,0 +1,401 @@
+Before making ANY changes:
+
+1. Update ALL recovery artifacts first:
+
+   * CURRENT_STATE.md
+   * RECOVERY_GUIDE.md
+   * recovery-check documentation
+   * homepage architecture docs
+   * endpoint documentation
+   * UI architecture notes
+   * roadmap references if affected
+
+Document the final state AFTER this task.
+
+Do NOT skip documentation updates.
+
+---
+
+# HOMEPAGE V6 FINAL POLISH
+
+Current implementation is functional but still has several regressions.
+
+Do NOT redesign the homepage.
+
+Build on the existing V6 implementation.
+
+Preserve all working systems.
+
+---
+
+# 1. STORE DIRECTORY PAGE + CTA FIX
+
+Current issue:
+
+The "Browse Stores" button is visually weak and currently does not provide a dedicated marketplace-grade store discovery experience.
+
+Requirements:
+
+Create a dedicated:
+
+/stores
+
+page.
+
+This page must include:
+
+* seller search
+* seller cards
+* seller logo/avatar
+* seller banner
+* seller rating
+* follower count
+* product count
+* verified badge
+* store category
+* sort options
+* filtering options
+
+Use existing seller APIs.
+
+Do NOT create mock data.
+
+Use real marketplace data.
+
+The hero CTA:
+
+"Browse Stores"
+
+must route to:
+
+/stores
+
+Verify routing works.
+
+Verify mobile works.
+
+Verify desktop works.
+
+---
+
+# 2. WISHLIST ICON MISSING FROM NAVBAR
+
+Current issue:
+
+Wishlist functionality exists but the wishlist entry point is not clearly visible.
+
+Requirements:
+
+Add wishlist icon beside cart.
+
+Order:
+
+Search
+Currency
+Theme
+Wishlist
+Cart
+Account
+
+Requirements:
+
+* visible in dark mode
+* visible in light mode
+* badge count updates instantly
+* routes correctly to:
+
+/wishlist
+
+Verify:
+
+* add item
+* remove item
+* count updates
+* page loads
+
+---
+
+# 3. NEW ARRIVALS CARD REFINEMENT
+
+Current issue:
+
+The New Arrivals section uses different visual cards than the rest of the marketplace.
+
+Requirements:
+
+Keep:
+
+* current card size
+* current layout
+
+But make card content consistent with the platform card system.
+
+Use same:
+
+* typography
+* badges
+* pricing
+* currency conversion
+* stock display
+* wishlist heart
+* add-to-cart behavior
+
+as all other product cards.
+
+Result:
+
+Visually unified marketplace.
+
+---
+
+# 4. REAL DATA SEEDING + FULL PLATFORM TESTING
+
+Current issue:
+
+Testing cannot be trusted if marketplace data is empty.
+
+Requirements:
+
+Seed realistic sample marketplace data.
+
+Create:
+
+Products
+Categories
+Stores
+Banners
+Reviews
+Variants
+Inventory
+
+using proper seed mechanisms.
+
+No fake frontend-only data.
+
+Database records only.
+
+---
+
+After seeding:
+
+Run full platform testing.
+
+Use actual system accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Important:
+
+Do NOT stop testing when redirected to login.
+
+Authenticate.
+
+Continue.
+
+Complete the workflow.
+
+Actually test:
+
+* login
+* wishlist
+* add to cart
+* checkout
+* orders
+* seller dashboard
+* courier dashboard
+* admin dashboard
+* store pages
+* product pages
+* category pages
+
+Verify functionality end-to-end.
+
+---
+
+# 5. FOOTER THEME ADAPTATION
+
+Current issue:
+
+Footer is optimized for dark mode only.
+
+Requirements:
+
+Dark mode:
+
+Keep current premium appearance.
+
+Light mode:
+
+Create proper light theme footer.
+
+Requirements:
+
+* correct contrast
+* readable links
+* premium appearance
+* proper borders
+* proper backgrounds
+
+No dark footer in light mode.
+
+---
+
+# 6. FOOTER BRANDING IMPROVEMENT
+
+Add Syano branding properly.
+
+Requirements:
+
+Include:
+
+* Syano logo
+* marketplace description
+* social links area
+* brand section
+
+Must look premium.
+
+Must match homepage design language.
+
+Do NOT create oversized branding.
+
+Keep balanced proportions.
+
+---
+
+# 7. HOMEPAGE ENGLISH LOCALIZATION FIX
+
+Current issue:
+
+Homepage English translation remains incomplete.
+
+Several sections still contain Arabic text, missing translations, inconsistent labels, or untranslated UI.
+
+Requirements:
+
+Audit ENTIRE homepage.
+
+Verify English mode.
+
+Verify Arabic mode.
+
+Check:
+
+Hero
+Categories
+New Arrivals
+Deals
+Trending
+Recently Viewed
+Store CTA
+Wishlist
+Navbar
+Footer
+Statistics
+Badges
+Buttons
+Empty states
+Loading states
+
+Fix all missing translations.
+
+Fix all untranslated labels.
+
+Fix all mixed Arabic/English content.
+
+Fix all RTL/LTR issues.
+
+Ensure:
+
+Arabic = complete
+English = complete
+
+No fallback keys visible.
+
+No untranslated strings.
+
+No hardcoded Arabic text in English mode.
+
+---
+
+# 8. RECOVERY FILE SYNCHRONIZATION
+
+After all changes:
+
+Update:
+
+CURRENT_STATE.md
+RECOVERY_GUIDE.md
+Recovery score documentation
+Homepage architecture documentation
+Wishlist documentation
+Store directory documentation
+Localization documentation
+
+Document:
+
+* new /stores page
+* navbar wishlist
+* footer changes
+* localization fixes
+* seed data state
+* test results
+
+---
+
+# FINAL QA
+
+Verify:
+
+✅ 0 TypeScript errors
+
+✅ 0 console errors
+
+✅ 0 API errors
+
+✅ Recovery docs updated
+
+✅ Endpoint docs updated
+
+✅ /stores page created
+
+✅ Browse Stores button works
+
+✅ Navbar wishlist visible
+
+✅ Wishlist page verified
+
+✅ New Arrivals cards unified
+
+✅ Seed data created
+
+✅ Real platform testing completed
+
+✅ Admin account tested
+
+✅ Seller account tested
+
+✅ Courier account tested
+
+✅ Footer works in dark mode
+
+✅ Footer works in light mode
+
+✅ Syano logo added to footer
+
+✅ English homepage fully translated
+
+✅ Arabic homepage preserved
+
+✅ Mobile verified
+
+✅ Desktop verified
+
+Only finish when every validation passes successfully.

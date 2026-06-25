@@ -1,0 +1,123 @@
+Apply the following design changes globally across the entire SYANO marketplace:
+
+## 1. Replace the Current Green Brand Color
+
+The current green color used throughout the website should be completely replaced.
+
+New primary brand color:
+
+#276221
+
+This color becomes the official SYANO brand color.
+
+Update ALL usages of the old green, including:
+
+* Navbar background
+* Buttons
+* Hover states
+* Active states
+* Links
+* Icons
+* Badges
+* Chips
+* Search focus rings
+* Borders
+* Shadows
+* Gradients
+* Hero highlights
+* CTA sections
+* Footer accents
+* Seller components
+* Product components
+
+Do not leave any old green tones behind.
+
+Everything must consistently use:
+
+#276221
+
+Generate proper color scale variants:
+
+* 50
+* 100
+* 200
+* 300
+* 400
+* 500 (#276221)
+* 600
+* 700
+* 800
+* 900
+
+and update the theme system accordingly.
+
+---
+
+## 2. Navbar Icon Color Consistency
+
+The action icons in the navbar currently appear lighter than desired.
+
+Make ALL navbar icons use the same visual style as the notification bell icon.
+
+Apply to:
+
+* Settings
+* Cart
+* Wishlist
+* Messages
+* Notifications
+
+Requirements:
+
+* Icon color: near-black (#111111 or equivalent)
+* Same weight/stroke as notification icon
+* Same opacity
+* Same visual contrast
+* Same hover behavior
+
+All navbar action icons should look like they belong to one unified icon set.
+
+No grey icons.
+
+No faded icons.
+
+No mixed icon colors.
+
+---
+
+## 3. Preserve Existing Layout
+
+Do NOT:
+
+* Change navbar spacing
+* Change icon positions
+* Change search bar size
+* Change header height
+* Change responsive behavior
+
+Only update:
+
+* Brand color system
+* Icon color consistency
+
+---
+
+## 4. Quality Check
+
+Verify:
+
+✓ No old green remains
+
+✓ #276221 is used consistently
+
+✓ Navbar icons match notification icon styling
+
+✓ Contrast remains accessible
+
+✓ Dark theme remains premium
+
+✓ No regressions
+
+✓ TypeScript = 0 errors
+
+Implement as production-ready design system updates.

@@ -1,0 +1,260 @@
+SYANO — CRITICAL RTL HERO BANNER FORENSIC FIX (ARABIC ONLY)
+
+STOP.
+
+Do NOT assume anything.
+Do NOT apply another blind fix.
+Do NOT modify the carousel until you prove the exact RTL root cause with runtime evidence.
+
+NEW FACT:
+
+The carousel works correctly in ENGLISH.
+The carousel breaks ONLY when the site language is ARABIC.
+
+This immediately means the problem is NOT:
+- image URLs
+- autoplay logic
+- banner data
+- indicators themselves
+- slide count
+- network loading
+
+The problem is almost certainly caused by RTL-specific logic, RTL CSS, direction inheritance, transform calculations, flex direction, swipe direction handling, drag calculations, or document dir="rtl" interaction.
+
+====================================================
+PHASE 1 — FULL RTL FORENSIC AUDIT
+====================================================
+
+Inspect and document ALL of the following:
+
+1. HeroBannerCarousel.tsx
+2. Any carousel hooks
+3. Any swipe hooks
+4. Any drag handlers
+5. Any RTL helpers
+6. i18n language provider
+7. html dir attribute
+8. body dir attribute
+9. document.documentElement.dir
+10. Tailwind RTL utilities
+11. CSS logical properties
+12. Any [dir="rtl"] CSS rules
+13. Any flex-row-reverse usage
+14. Any transform inversion
+15. Any translateX inversion
+16. Any dragOffset inversion
+17. Any swipe threshold inversion
+18. Any index calculations based on RTL
+
+Output a complete map showing:
+
+LTR flow
+RTL flow
+
+and every place where behavior differs.
+
+====================================================
+PHASE 2 — PROVE ROOT CAUSE
+====================================================
+
+DO NOT FIX YET.
+
+Instrument runtime.
+
+Log:
+
+current language
+document dir
+current index
+track width
+slide width
+computed translateX
+dragOffset
+swipe delta
+indicator active index
+
+Capture values while:
+
+- slide 0
+- slide 1
+- slide 2
+- autoplay
+- swipe left
+- swipe right
+
+for BOTH:
+
+English
+Arabic
+
+Then produce a comparison table.
+
+Example:
+
+Action | EN Result | AR Result
+
+Swipe Left
+Expected Next
+Actual Previous
+
+Indicator 2
+Slide 2
+Actual Slide 8
+
+etc.
+
+Root cause must be PROVEN with runtime evidence.
+
+====================================================
+PHASE 3 — FIX RTL ARCHITECTURE
+====================================================
+
+Apply the smallest possible fix.
+
+RULE:
+
+Slides MUST behave IDENTICALLY in Arabic and English.
+
+DO NOT create separate carousel logic.
+
+DO NOT invert transforms.
+
+DO NOT invert percentages.
+
+DO NOT duplicate code paths.
+
+Preferred architecture:
+
+- Same slide order
+- Same transform math
+- Same autoplay
+- Same indicator logic
+
+ONLY text alignment changes between locales.
+
+Carousel movement itself must remain identical.
+
+====================================================
+PHASE 4 — FIX SWIPE DIRECTION
+====================================================
+
+Current symptom:
+
+Arabic feels reversed.
+
+Requirements:
+
+Swipe LEFT
+→ Next banner
+
+Swipe RIGHT
+→ Previous banner
+
+This must be true in BOTH:
+
+EN
+AR
+
+No exceptions.
+
+No RTL inversion.
+
+No conditional language logic.
+
+====================================================
+PHASE 5 — FIX INDICATORS
+====================================================
+
+Verify:
+
+Dot 1 = Banner 1
+Dot 2 = Banner 2
+...
+Dot N = Banner N
+
+in Arabic and English.
+
+Indicators must always represent the visible slide.
+
+If any RTL transform causes mismatch, remove the RTL dependency.
+
+====================================================
+PHASE 6 — VERIFY ALL BANNERS
+====================================================
+
+Programmatically verify:
+
+Banner 1 visible
+Banner 2 visible
+Banner 3 visible
+...
+Banner N visible
+
+under BOTH:
+
+EN
+AR
+
+No screenshots of slide 0 only.
+
+Force render every index and verify.
+
+====================================================
+PHASE 7 — PERFORMANCE AUDIT
+====================================================
+
+User reports homepage became much slower.
+
+Measure:
+
+FCP
+LCP
+TTFB
+JS execution
+Carousel render cost
+Image payload
+
+Compare BEFORE vs AFTER banner changes.
+
+Identify exactly what caused slowdown.
+
+Possible causes:
+
+- too many large images
+- eager loading
+- blocking decode
+- unnecessary rerenders
+- animation loops
+- RTL recalculations
+
+Do not guess.
+
+Measure.
+
+====================================================
+PHASE 8 — FINAL CERTIFICATION
+====================================================
+
+Provide evidence for:
+
+✓ Arabic banners visible
+✓ English banners visible
+✓ Swipe direction identical
+✓ Indicators synchronized
+✓ No black banners
+✓ No RTL inversion bugs
+✓ No console errors
+✓ No TypeScript errors
+✓ No runtime errors
+✓ No performance regression
+
+If ANY test fails:
+
+STOP.
+
+Do NOT claim success.
+
+Continue until every test passes.
+
+The issue is known to occur ONLY in Arabic mode.
+Focus 100% on RTL-specific behavior and prove every conclusion with runtime evidence before modifying code.

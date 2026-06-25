@@ -1,0 +1,208 @@
+SYANO UI + THEME ALIGNMENT + NAVIGATION RESTRUCTURE (WEB ONLY)
+
+IMPORTANT:
+This is a production-safe UI/UX refactor task.
+
+DO NOT:
+
+* break any routes
+* delete any pages
+* remove permissions
+* modify backend logic
+* touch mobile / Expo app
+* change APIs
+
+ONLY modify:
+
+* Web UI (admin + marketplace web)
+* Sidebar navigation structure
+* Theme color consistency across pages
+
+---
+
+# PART 1 — GLOBAL THEME COLOR ENFORCEMENT (CRITICAL)
+
+The entire web system must strictly follow SYANO design tokens.
+
+## RULES:
+
+1. Replace ALL hardcoded colors with theme tokens:
+
+   * NO hardcoded green (#00xx or similar)
+   * NO inline color styles
+   * NO arbitrary Tailwind colors outside theme system
+
+2. Use ONLY:
+
+   * var(--primary)
+   * var(--primary-foreground)
+   * var(--background)
+   * var(--foreground)
+   * var(--muted)
+   * var(--border)
+
+3. Ensure consistency across:
+
+   * Buttons
+   * Sidebar active states
+   * Cards
+   * Badges
+   * Inputs
+   * Tables
+   * Status indicators
+
+---
+
+## PRIMARY COLOR RULE
+
+SYANO primary color must be the ONLY accent color used across UI.
+
+All green accents must be unified into:
+
+→ var(--primary)
+
+No exceptions.
+
+---
+
+## TEXT COLOR RULE
+
+All text must follow theme rules:
+
+* Primary text → var(--foreground)
+* Secondary text → var(--muted-foreground)
+* Buttons on primary backgrounds → var(--primary-foreground)
+
+NEVER use:
+
+* black/white hardcoded
+* gray-900 / gray-100 outside theme mapping
+
+---
+
+# PART 2 — NAVIGATION RESTRUCTURE
+
+## REQUIRED CHANGE:
+
+Move the following page:
+
+👉 "توافر المندوبين"
+(Current location: settings / courier section or standalone group)
+
+### NEW LOCATION:
+
+Move it INTO:
+
+🚚 التوصيل والشحن
+
+---
+
+## NEW STRUCTURE:
+
+🚚 التوصيل والشحن
+
+* التوصيل
+* مهام التوصيل
+* مواقع المندوبين المباشرة
+* مراقبة التتبع
+* توافر المندوبين  ← (NEW LOCATION HERE)
+
+---
+
+## RULES:
+
+* DO NOT create new route
+* ONLY move existing route reference
+* Preserve permissions
+* Preserve badge counts
+* Preserve i18n keys
+
+---
+
+# PART 3 — SIDEBAR CLEAN DESIGN
+
+Improve sidebar visual hierarchy:
+
+## REQUIREMENTS:
+
+* Group related items together only
+* Reduce visual clutter
+* Use collapsible sections
+* Keep active route highlighting
+* Keep badges visible on group header when collapsed
+
+---
+
+## ACTIVE STATE RULE:
+
+If a route inside a group is active:
+
+→ Auto-expand that group on load
+
+---
+
+# PART 4 — VISUAL CONSISTENCY FIX
+
+Fix UI inconsistency across pages:
+
+## MUST ENSURE:
+
+1. All pages match sidebar theme colors
+
+2. No page has:
+
+   * different green shades
+   * mismatched button styles
+   * inconsistent card borders
+   * different shadow systems
+
+3. Normalize:
+
+   * spacing scale
+   * border radius
+   * hover effects
+   * focus states
+
+---
+
+# PART 5 — MOBILE SAFETY RULE
+
+Ensure:
+
+* Sidebar collapses correctly
+* No overflow on small screens
+* Touch targets ≥ 44px
+* Accordion works on mobile
+
+---
+
+# PART 6 — VALIDATION CHECKLIST
+
+Before finishing:
+
+Verify:
+
+✅ All pages use theme tokens only
+✅ No hardcoded colors remain
+✅ "توافر المندوبين" moved successfully
+✅ No broken routes
+✅ Sidebar grouping correct
+✅ Mobile sidebar works
+✅ Active route auto-expands group
+✅ No UI duplication
+✅ No visual mismatch between pages
+✅ TypeScript = 0 errors
+
+---
+
+# FINAL GOAL
+
+The UI should feel like a unified SaaS system:
+
+* consistent colors everywhere
+* clean grouped navigation
+* no scattered pages
+* no visual randomness
+* professional dashboard feel (Stripe / Shopify level)
+
+ONLY complete when all checks pass.

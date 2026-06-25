@@ -1,0 +1,402 @@
+You are a senior Principal Software Architect, Performance Engineer, Database Engineer, Infrastructure Engineer, and React/Node.js Optimization Specialist.
+
+Project: Syano Marketplace (full stack marketplace for Syria).
+
+Your mission is NOT to add features.
+
+Your mission is to perform a COMPLETE PERFORMANCE, SCALABILITY, DATABASE, NETWORK, MEMORY, RENDERING, QUERY, CACHE, BUNDLE SIZE, and INFRASTRUCTURE AUDIT.
+
+IMPORTANT:
+
+DO NOT break functionality.
+DO NOT redesign UX.
+DO NOT change business logic.
+DO NOT change API contracts.
+DO NOT modify behavior.
+
+Only perform SAFE performance improvements.
+
+Before changing anything:
+
+1. Audit entire codebase.
+2. Find every bottleneck.
+3. Measure impact.
+4. Apply only safe optimizations.
+5. Verify no regression.
+
+====================================================
+PHASE 1 — FRONTEND PERFORMANCE AUDIT
+====================================================
+
+Audit:
+
+artifacts/marketplace/src
+
+Check:
+
+- App.tsx
+- routing
+- layouts
+- navbar
+- footer
+- admin pages
+- seller pages
+- product pages
+- store pages
+- messaging
+- notifications
+- dashboard pages
+
+Find:
+
+- unnecessary rerenders
+- expensive useEffects
+- state duplication
+- unstable callbacks
+- unstable props
+- oversized contexts
+- wasted renders
+- render loops
+- unnecessary suspense reloads
+- expensive derived calculations
+
+Optimize:
+
+- React.memo
+- useMemo
+- useCallback
+- lazy loading
+- route splitting
+- component splitting
+- state isolation
+
+Verify:
+
+No UI regression.
+
+====================================================
+PHASE 2 — MOBILE WEB PERFORMANCE
+====================================================
+
+Target:
+
+Mobile browser experience.
+
+Audit:
+
+- touch latency
+- click latency
+- navigation latency
+- scroll smoothness
+- drawer performance
+- filter performance
+- product page performance
+
+Eliminate:
+
+- layout shifts
+- blocking renders
+- unnecessary animations
+- forced reflows
+- heavy DOM updates
+
+Goal:
+
+Instant-feeling navigation.
+
+====================================================
+PHASE 3 — TANSTACK QUERY OPTIMIZATION
+====================================================
+
+Audit every generated query hook.
+
+Find:
+
+- duplicate requests
+- duplicate invalidations
+- overfetching
+- excessive refetching
+- stale cache usage
+- useless polling
+
+Optimize:
+
+staleTime
+gcTime
+refetchOnWindowFocus
+refetchOnMount
+refetchOnReconnect
+
+Goal:
+
+Reduce API calls while keeping UI fresh.
+
+====================================================
+PHASE 4 — API PERFORMANCE AUDIT
+====================================================
+
+Audit all routes:
+
+auth
+products
+search
+orders
+reviews
+notifications
+messaging
+dashboard
+admin
+sellers
+
+Find:
+
+- N+1 queries
+- repeated queries
+- duplicate lookups
+- expensive joins
+- missing pagination
+- repeated calculations
+
+Optimize safely.
+
+====================================================
+PHASE 5 — DATABASE AUDIT
+====================================================
+
+Audit every schema:
+
+users
+products
+orders
+notifications
+messages
+conversations
+reviews
+seller_reviews
+seller_applications
+store_follows
+
+Verify:
+
+Indexes.
+
+Find:
+
+- missing indexes
+- unused indexes
+- slow query risks
+- sequential scan risks
+
+Special attention:
+
+products
+notifications
+messages
+orders
+
+Generate optimal indexes where safe.
+
+====================================================
+PHASE 6 — SEARCH PERFORMANCE
+====================================================
+
+Audit:
+
+search.ts
+pg_trgm setup
+search_tokens
+
+Verify:
+
+- indexes used
+- trigram efficiency
+- query plan efficiency
+
+Goal:
+
+Fast Arabic + English search.
+
+====================================================
+PHASE 7 — NOTIFICATION SCALABILITY
+====================================================
+
+Audit:
+
+NotificationProvider
+fanout.ts
+SSE implementation
+
+Verify:
+
+- memory leaks
+- orphan connections
+- reconnect storms
+- duplicate events
+- stale clients
+
+Optimize:
+
+connection handling
+cleanup
+backoff
+
+====================================================
+PHASE 8 — MESSAGING PERFORMANCE
+====================================================
+
+Audit:
+
+conversations
+messages
+polling
+message rendering
+
+Find:
+
+- overfetching
+- excessive rerenders
+- duplicate requests
+
+Goal:
+
+Smooth messaging even with large conversation histories.
+
+====================================================
+PHASE 9 — ADMIN PANEL PERFORMANCE
+====================================================
+
+Audit all admin pages.
+
+Find:
+
+- oversized tables
+- large DOM trees
+- unnecessary loading
+
+Implement:
+
+pagination
+memoization
+virtualization where safe
+
+WITHOUT changing UX.
+
+====================================================
+PHASE 10 — BUNDLE SIZE AUDIT
+====================================================
+
+Audit:
+
+Web bundle.
+
+Find:
+
+- large dependencies
+- duplicated dependencies
+- unused libraries
+- oversized chunks
+
+Optimize:
+
+code splitting
+tree shaking
+lazy imports
+
+Goal:
+
+Smallest safe production bundle.
+
+====================================================
+PHASE 11 — NETWORK AUDIT
+====================================================
+
+Check:
+
+images
+API payloads
+headers
+responses
+
+Find:
+
+- oversized responses
+- duplicate payloads
+- unnecessary fields
+
+Optimize safely.
+
+====================================================
+PHASE 12 — MEMORY LEAK AUDIT
+====================================================
+
+Audit:
+
+setTimeout
+setInterval
+EventSource
+listeners
+subscriptions
+window events
+
+Verify:
+
+all cleanup functions exist.
+
+Fix leaks.
+
+====================================================
+PHASE 13 — PRODUCTION READINESS
+====================================================
+
+Verify:
+
+No console errors.
+No React warnings.
+No hydration issues.
+No memory leaks.
+No duplicated API calls.
+No duplicated SSE connections.
+No infinite rerenders.
+
+====================================================
+PHASE 14 — VALIDATION
+====================================================
+
+After all changes:
+
+Run full validation.
+
+Verify:
+
+Customer role.
+Seller role.
+Admin role.
+
+Desktop.
+Tablet.
+Mobile.
+
+Light theme.
+Dark theme.
+
+English.
+Arabic.
+
+USD.
+SYP.
+
+All routes.
+
+====================================================
+DELIVERABLE
+====================================================
+
+Provide:
+
+1. Files changed.
+2. Bottlenecks found.
+3. Optimizations applied.
+4. Expected performance gains.
+5. Regression verification.
+
+DO NOT STOP UNTIL THE ENTIRE AUDIT IS COMPLETE.

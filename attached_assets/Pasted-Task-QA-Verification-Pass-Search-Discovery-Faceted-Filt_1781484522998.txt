@@ -1,0 +1,96 @@
+Task: QA & Verification Pass — Search Discovery (Faceted Filters, Browse Mode, Related Searches)
+
+Context: Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md first.
+
+The Faceted Filters + Browse Mode + Related Searches feature was just completed
+(filterMeta on /api/search/results, new /api/search/filter-options and
+/api/search/related endpoints, sidebar filters, /categories page, mobile
+sort/filter chips, and new i18n keys under search.filters.*, search.sort.*,
+search.results.*, search.related.*, categories.*).
+
+THIS IS A VERIFICATION AND BUG-FIX PASS ONLY. Do not build new features.
+
+CRITICAL — DO NOT IMPLEMENT "SAVE SEARCH": This feature was already proposed
+and explicitly rejected as not aligned with the roadmap (documented in
+CURRENT_STATE.md). It must NOT be implemented in this task or proposed again
+in any future task on this project. This decision is final.
+
+Perform the following checks, in order, and fix any issues found using
+existing patterns/components/colors only (no new design patterns):
+
+1. TypeScript
+- Run npx tsc --noEmit across all packages
+- Fix any errors related to the new filter/browse/related-searches code
+- Confirm 0 errors at the end
+
+2. Arabic RTL verification
+- Switch app language to Arabic
+- Screenshot: search results page with sidebar filters open, /categories
+  page, Related Searches section at bottom of search results, mobile
+  filter/sort chips
+- Verify: sidebar is on the correct side for RTL, filter labels/icons are
+  mirrored correctly, category cards read right-to-left, Related Searches
+  chips flow right-to-left, no text overflow/truncation/overlap
+- Fix using existing RTL utility classes already used elsewhere — do not
+  invent new ones
+
+3. Dark mode verification
+- Switch to dark theme (test with Arabic and with English)
+- Screenshot the same components as above
+- Verify all new components use existing dark theme tokens — no white
+  backgrounds, unreadable text, or broken contrast
+- Fix using existing dark mode classes only — no new colors
+
+4. Combined filters test
+- On search results, apply simultaneously: a category + a price range + a
+  minimum rating + a specific store + "On Sale Only" + "In Stock Only",
+  together with a search query
+- Verify ALL filters apply with AND logic, filterMeta.appliedFilters in the
+  API response reflects every active filter correctly, and the UI shows the
+  correct active filter count/badges
+- Verify removing one filter (e.g. the store filter) keeps the others active
+  and refetches correctly
+- Verify "Clear All" resets everything and refetches the unfiltered results
+
+5. Zero-results state
+- Construct a filter combination that returns 0 products
+- Verify the UI shows a clear empty state (not blank/error)
+- Verify Related Searches still renders something useful (see #7 for what
+  "useful" means)
+
+6. Mobile viewport (375px)
+- Test search results page at 375px, in Arabic and English
+- Screenshot: sort chips, filter chips, Related Searches footer section
+- Verify chips wrap/scroll correctly without overflow, and tapping a chip
+  applies the filter/sort correctly
+
+7. No-fake-data verification (critical)
+- /categories page: confirm each category card's product count comes from a
+  live COUNT query on products/categories — NOT hardcoded. Show the query.
+- Related Searches: confirm the "trending fallback" (used when
+  search_queries has insufficient data) pulls from real data — e.g. real
+  category names, real popular entries from search_queries, or real
+  product-derived terms — and is NEVER a hardcoded/static list. Show the
+  fallback logic and its data source.
+
+8. Role-based check
+- Verify search results, /categories, and filters render correctly with no
+  layout conflicts when logged in as: guest, customer, seller
+  (delewatiamer8@gmail.com), and admin (delewatiamer7@gmail.com)
+
+9. i18n check
+- Confirm all new strings (filters, sort labels, related searches,
+  /categories) exist in BOTH ar.json and en.json under the keys listed above
+- Confirm no hardcoded strings were left in the new components
+
+Final report must include:
+- Pass/fail summary for each of the 9 sections
+- Any bugs found and fixed, with a short description of each fix
+- Confirmation of 0 TypeScript errors
+- Screenshots for sections 2, 3, and 6
+- Explicit confirmation that "Save Search" was NOT implemented and will not
+  be proposed again
+
+Do not: change existing design patterns, introduce new colors/components,
+modify unrelated pages, or implement any feature beyond fixing issues found
+during this verification pass.

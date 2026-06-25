@@ -1,0 +1,212 @@
+WEB-ONLY PRODUCTION HARDENING TASK
+
+IMPORTANT:
+
+Ignore ALL mobile app code.
+Ignore Expo.
+Ignore React Native.
+Ignore AsyncStorage.
+Ignore any mobile-specific screens, routes, hooks, contexts, components, or services.
+
+This task is WEB ONLY.
+
+Do not modify any mobile files.
+
+--------------------------------------------------
+OBJECTIVE
+--------------------------------------------------
+
+Fix every remaining confirmed WEB issue discovered during the forensic audit.
+
+Only implement fixes that are verified and reproducible.
+
+Do not introduce new features.
+Do not refactor unrelated code.
+Do not modify working functionality.
+
+--------------------------------------------------
+ISSUES TO FIX
+--------------------------------------------------
+
+1) ORDER RACE CONDITION (CRITICAL)
+
+Current issue:
+
+POST /orders validates stock and decrements stock separately.
+
+Two buyers can place orders simultaneously and oversell inventory.
+
+Required:
+
+- Audit the complete order creation flow.
+- Identify every stock validation and stock decrement operation.
+- Make the entire stock reservation process atomic.
+- Use database transactions.
+- Ensure stock cannot become negative.
+- Ensure two simultaneous orders cannot purchase the same final inventory.
+- Preserve all existing order logic.
+- Preserve variants logic.
+- Preserve notifications.
+- Preserve seller analytics.
+- Preserve inventory tracking.
+
+Verification:
+
+- Simulate two simultaneous purchases.
+- Confirm only one succeeds when stock is limited.
+
+--------------------------------------------------
+
+2) HARD-CODED STRINGS AUDIT (SELLER + ADMIN)
+
+Current issue:
+
+Some seller and admin pages still contain hardcoded text.
+
+Required:
+
+- Audit ALL seller pages.
+- Audit ALL admin pages.
+- Audit validation messages.
+- Audit toast messages.
+- Audit modal text.
+- Audit confirmation dialogs.
+- Audit section headers.
+- Audit table labels.
+- Audit button labels.
+- Audit empty states.
+- Audit error states.
+
+Replace every hardcoded user-facing string with i18n keys.
+
+Requirements:
+
+- Arabic translations
+- English translations
+- No regressions
+- No missing keys
+- No fallback showing raw key names
+
+Verification:
+
+- Test Arabic
+- Test English
+- Switch languages repeatedly
+- Confirm no untranslated text remains
+
+--------------------------------------------------
+
+3) ACCOUNT SUSPENSION AUDIT
+
+Verify the previous requireActiveAccount fixes.
+
+Audit:
+
+- Notifications
+- Messages
+- Conversations
+- Orders
+- Seller dashboard
+- Customer dashboard
+- Profile pages
+
+Confirm suspended accounts cannot access protected data.
+
+If any missing route exists:
+
+- Fix it.
+- Document it.
+
+--------------------------------------------------
+
+4) PRODUCTION PERFORMANCE AUDIT
+
+Audit for web-only performance issues.
+
+Focus on:
+
+- unnecessary polling
+- duplicate API calls
+- repeated queries
+- unnecessary rerenders
+- expensive effects
+- N+1 queries
+
+Fix only verified issues.
+
+Do NOT perform speculative optimizations.
+
+--------------------------------------------------
+
+5) FINAL VERIFICATION
+
+After every fix:
+
+Run:
+
+A) Guest user flow
+- browse
+- add to cart
+- open cart
+- login during checkout
+
+B) Customer flow
+- login
+- cart
+- order creation
+- messaging
+- notifications
+
+C) Seller flow
+- dashboard
+- products
+- orders
+- inventory
+- messages
+- store page
+
+D) Admin flow
+- dashboard
+- users
+- sellers
+- settings
+
+--------------------------------------------------
+SAFETY RULES
+--------------------------------------------------
+
+Before every code change:
+
+1. Read the file completely.
+2. Explain the root cause.
+3. Verify the bug exists.
+4. Implement the smallest safe fix.
+5. Verify build success.
+6. Verify no regression.
+
+After EACH completed fix:
+
+STOP.
+
+Re-read this entire prompt.
+
+Check which tasks remain.
+
+Then continue with the next task.
+
+Never skip this verification step.
+
+--------------------------------------------------
+FINAL REPORT FORMAT
+--------------------------------------------------
+
+For every issue provide:
+
+- Root cause
+- Files changed
+- Exact fix applied
+- Risk level
+- Verification performed
+- Regression tests performed
+
+Do not mark anything fixed unless it was tested successfully.

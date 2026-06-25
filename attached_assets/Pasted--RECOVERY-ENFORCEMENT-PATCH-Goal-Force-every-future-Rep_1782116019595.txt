@@ -1,0 +1,134 @@
+# RECOVERY ENFORCEMENT PATCH
+
+Goal:
+
+Force every future Replit AI import session to read SYANO_MASTER_RECOVERY.md BEFORE performing any analysis, installation, migration, workflow execution, database changes, package installation, or code generation.
+
+IMPORTANT:
+
+Do NOT create any new files.
+
+Modify existing project files only.
+
+---
+
+# STEP 1
+
+Locate the files that Replit AI reads immediately on import:
+
+* replit.md
+* AGENT_BOOTSTRAP.md
+* RECOVERY_GUIDE.md
+* project.manifest.json
+
+If they already exist:
+
+KEEP them.
+
+Do not delete them.
+
+---
+
+# STEP 2
+
+At the VERY TOP of EACH file add:
+
+====================================================
+
+STOP.
+
+DO NOT ANALYZE THE CODEBASE.
+
+DO NOT RUN WORKFLOWS.
+
+DO NOT INSTALL PACKAGES.
+
+DO NOT START RECOVERY.
+
+FIRST READ:
+
+SYANO_MASTER_RECOVERY.md
+
+Read the ENTIRE file.
+
+After reading it:
+
+Follow it exactly.
+
+If any instruction in this file conflicts with SYANO_MASTER_RECOVERY.md:
+
+SYANO_MASTER_RECOVERY.md wins.
+
+Recovery is NOT allowed until SYANO_MASTER_RECOVERY.md has been fully parsed.
+
+====================================================
+
+---
+
+# STEP 3
+
+In replit.md add a dedicated section:
+
+# IMPORT RULE
+
+When this project is imported into a new Replit workspace:
+
+1. Read SYANO_MASTER_RECOVERY.md completely.
+2. Execute recovery exactly as documented.
+3. Verify workflows.
+4. Verify ports.
+5. Verify database table count.
+6. Verify embedding backend.
+7. Verify preview routing.
+
+Only then continue.
+
+---
+
+# STEP 4
+
+In project.manifest.json add:
+
+{
+"recoveryAuthority": "SYANO_MASTER_RECOVERY.md",
+"mustReadBeforeExecution": true,
+"importPriority": 1
+}
+
+Merge with existing JSON.
+
+Do not remove existing keys.
+
+---
+
+# STEP 5
+
+Search entire repository.
+
+If any recovery instructions exist outside:
+
+* SYANO_MASTER_RECOVERY.md
+
+Replace them with:
+
+"See SYANO_MASTER_RECOVERY.md"
+
+Avoid duplicated recovery logic.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ replit.md contains mandatory STOP block
+
+✅ AGENT_BOOTSTRAP.md contains mandatory STOP block
+
+✅ RECOVERY_GUIDE.md contains mandatory STOP block
+
+✅ project.manifest.json references SYANO_MASTER_RECOVERY.md
+
+✅ No duplicate recovery instructions remain
+
+Only finish after validation succeeds.

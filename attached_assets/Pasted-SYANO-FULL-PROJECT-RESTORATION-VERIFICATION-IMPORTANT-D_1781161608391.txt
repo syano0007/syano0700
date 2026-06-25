@@ -1,0 +1,244 @@
+SYANO (سوق سوريا) — FULL PROJECT RESTORATION & VERIFICATION
+
+IMPORTANT:
+
+Do NOT start coding.
+
+Do NOT modify any files.
+
+Do NOT install new packages beyond what is required to restore the environment.
+
+Your first task is ONLY:
+
+Restore the project exactly to the latest known state and verify it.
+
+---
+
+# PHASE 1 — READ RECOVERY FILES
+
+Read completely:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+
+Read all of them before doing anything else.
+
+---
+
+# PHASE 2 — RESTORE ENVIRONMENT
+
+Restore the project exactly.
+
+Run:
+
+pnpm install
+
+Then:
+
+drizzle-kit push
+
+(or the recovery procedure documented in RECOVERY_GUIDE.md)
+
+Then build all shared libraries:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+Then start:
+
+* API Server
+* Marketplace
+* Mobile App
+
+---
+
+# PHASE 3 — VERIFY DATABASE
+
+Verify all tables exist.
+
+Especially:
+
+users
+products
+product_variants
+product_variant_groups
+product_variant_options
+product_variant_values
+variant_images
+
+orders
+order_items
+order_status_history
+
+delivery_zones
+couriers
+courier_assignments
+courier_wallet_transactions
+
+seller_applications
+seller_reviews
+store_follows
+
+messages
+conversations
+notifications
+
+platform_settings
+admin_audit_log
+verification_audit_log
+
+Confirm DB is healthy.
+
+---
+
+# PHASE 4 — VERIFY CURRENT PROJECT STATE
+
+Verify ALL of the following are present:
+
+## Product Wizard
+
+* 5-step wizard
+* Edit mode direct navigation
+* All steps clickable in edit mode
+* Wider desktop layout
+* Category dropdown fixes
+* Specifications page redesign
+* VariantBuilder card-based architecture
+
+## Variant System
+
+* CombinationCard architecture
+* Bulk actions
+* Variant images
+* Variant stock management
+* Variant pricing
+
+## Checkout
+
+* Delivery zones integration
+* Zone selector
+* Address input
+* Delivery fee calculation
+* Zone stored on order
+
+## Courier Operations
+
+* Courier assignment system
+* Courier dashboard redesign
+* Admin delivery dashboard redesign
+* Courier earnings preview
+* Delivery failure reasons
+
+## Order Tracking
+
+Verify:
+
+Courier Info Card
+
+Courier Name
+Courier Phone
+Courier Status
+
+Verify:
+
+Timeline descriptions
+
+Verify:
+
+Delivery Fee display
+
+Verify:
+
+SSE invalidation
+
+Verify:
+
+30-second polling fallback
+
+Verify:
+
+Order tracking works on:
+
+* Web
+* Mobile
+
+---
+
+# PHASE 5 — TYPESCRIPT
+
+Run full verification.
+
+Confirm:
+
+Marketplace = 0 errors
+
+API Server = 0 errors
+
+Mobile = 0 errors
+
+Libraries = 0 errors
+
+Do not ignore errors.
+
+---
+
+# PHASE 6 — SERVICE HEALTH
+
+Verify:
+
+API responds
+
+Marketplace loads
+
+Mobile starts
+
+No critical runtime errors
+
+No broken imports
+
+No failing builds
+
+---
+
+# PHASE 7 — CURRENT ROADMAP
+
+Confirm the saved roadmap:
+
+1. Order Fulfillment Workflow Completion V1
+2. Courier Operations Dashboard V2
+3. Seller Order Management V2
+4. Seller Analytics Dashboard V2
+5. Trust System V1
+6. Seller Store Pages V2
+7. Messaging V2
+8. Search & Discovery V2
+9. Follow System Expansion
+10. Waitlist / Lead Capture System
+11. Launch Preparation Layer
+12. Performance & Scalability Program V1
+
+Do NOT change priorities.
+
+Do NOT start new features.
+
+---
+
+# PHASE 8 — FINAL REPORT
+
+Provide:
+
+1. Recovery result
+2. Services status
+3. Database status
+4. TypeScript status
+5. Verified features
+6. Missing features
+7. Any regressions found
+8. Exact project state
+
+After the report, STOP and wait for instructions.
+
+Do not implement anything automatically.

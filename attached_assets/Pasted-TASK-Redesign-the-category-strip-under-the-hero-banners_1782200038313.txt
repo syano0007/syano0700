@@ -1,0 +1,190 @@
+TASK: Redesign the category strip under the hero banners to match the visual quality and UX pattern of Noon.com, while keeping SYANO branding and styling.
+
+IMPORTANT:
+- Do NOT create a new section.
+- Do NOT create a prototype.
+- Do NOT create mockups.
+- Modify the existing categories section directly.
+- Preserve full RTL support.
+- Preserve mobile responsiveness.
+- TypeScript must remain at 0 errors.
+- No placeholder images.
+- No duplicate components.
+
+VISUAL ANALYSIS REQUIREMENTS:
+
+Before changing anything:
+
+1. Analyze the current SYANO categories section.
+2. Compare it against Noon's category strip.
+3. Identify all visual differences.
+4. Then implement the improvements directly.
+
+REQUIRED CHANGES:
+
+1. REMOVE THE SECTION TITLE
+- Remove "الفئات".
+- Remove any duplicated headings.
+- Remove unnecessary labels above the categories.
+
+2. REMOVE "MORE"
+- Delete the "المزيد" category completely.
+- Do not replace it.
+- Show only real marketplace categories.
+
+3. CATEGORY CARD DESIGN
+
+Current implementation feels like:
+- Generic
+- Empty
+- Oversized circles
+- Weak hierarchy
+- Too much spacing
+
+Replace with Noon-style cards:
+
+- Fixed uniform card width
+- Consistent height
+- Real category image
+- Category name underneath
+- Professional spacing
+- Clean alignment
+- Compact marketplace appearance
+
+Each category should feel like a real shopping destination.
+
+4. USE REAL CATEGORY IMAGES
+
+DO NOT use:
+- Generic icons
+- Emoji-style graphics
+- Placeholder vectors
+
+Use proper images for:
+
+Electronics
+Fashion
+Home & Kitchen
+Beauty
+Sports
+Cars
+Kids
+Gaming
+Books
+Local Market
+Services
+Groceries
+
+Images must:
+- Be high quality
+- Load fast
+- Have identical dimensions
+- Be visually consistent
+
+5. IMAGE CONTAINER
+
+Match Noon's pattern:
+
+- Rounded rectangle or soft rounded square
+- Light background
+- Subtle hover effect
+- Professional product-focused presentation
+
+NOT giant floating circles.
+
+6. SCROLL BUTTONS
+
+Current buttons are misplaced.
+
+Desktop:
+
+- Show left/right navigation buttons.
+- Vertically centered on the category strip.
+- Positioned outside the first and last cards.
+- Never overlap cards.
+- Never overlap images.
+- Never overlap text.
+
+Mobile:
+
+- Hide navigation buttons completely.
+- Use touch swipe only.
+
+7. SCROLL EXPERIENCE
+
+Desktop:
+- Arrow click scrolls smoothly.
+- Smooth animation.
+- No jumps.
+
+Mobile:
+- Finger swipe.
+- Momentum scrolling.
+- Natural touch behavior.
+
+8. SPACING
+
+Reduce wasted vertical space.
+
+Target:
+- Categories section should feel dense and premium.
+- Similar information density to Noon.
+
+Avoid:
+- Huge margins.
+- Large empty areas.
+- Oversized paddings.
+
+9. CATEGORY ORDER
+
+Use this exact order:
+
+الكترونيات
+أزياء
+هواتف
+منزل ومطبخ
+جمال
+رياضة
+حاسوب
+سيارات
+أطفال
+ألعاب
+كتب
+سوق محلي
+
+10. PERFORMANCE
+
+Images must be:
+- Lazy loaded
+- Optimized
+- Proper dimensions
+
+Do not introduce any layout shifts.
+
+11. FINAL QA
+
+Verify:
+
+✓ RTL works correctly
+✓ Mobile swipe works
+✓ Desktop arrows work
+✓ No "المزيد"
+✓ No section title
+✓ Images appear correctly
+✓ Buttons properly positioned
+✓ Equal card sizes
+✓ No overflow issues
+✓ No TypeScript errors
+✓ No console errors
+✓ No CLS/layout shifts
+✓ Visual quality comparable to Noon
+
+DELIVERABLE:
+
+Implement directly in the live component and provide:
+
+- Files modified
+- Before vs after summary
+- Screenshot verification
+- TypeScript verification
+- Final QA checklist

@@ -1,0 +1,203 @@
+SYANO (سوق سوريا)
+
+PRODUCT GRID DENSITY OPTIMIZATION
+
+CRITICAL TASK
+
+A layout issue exists on the Products Page.
+
+Some product cards near the left edge are partially cut off or improperly positioned.
+
+This issue must be fully resolved before any scaling changes are applied.
+
+---
+
+PHASE 1
+
+GRID LAYOUT BUG FIX
+
+Audit the Products Page grid.
+
+Identify why cards near the left edge are:
+
+* clipped
+* overflowing
+* partially hidden
+* exceeding container boundaries
+
+Check:
+
+* grid container width
+* max-width constraints
+* padding
+* margins
+* gap calculations
+* overflow rules
+* RTL layout behavior
+* responsive breakpoints
+
+The grid must render perfectly with no clipped cards.
+
+---
+
+PHASE 2
+
+PRODUCT CARD DENSITY MODE
+
+After fixing the grid issue:
+
+Reduce overall card size significantly.
+
+Target:
+
+Approximately 50–65% of the current visual footprint.
+
+DO NOT simply shrink the outer card.
+
+Scale the entire card proportionally.
+
+---
+
+EVERYTHING MUST SCALE TOGETHER
+
+Scale proportionally:
+
+* Product image
+* Product title
+* Rating section
+* Review count
+* Current price
+* Old price
+* Discount badge
+* Status badges
+* Add button
+* Internal spacing
+* Border radius
+* Hover effects
+
+The card should look like the exact same design.
+
+Only smaller.
+
+---
+
+IMPORTANT
+
+Do NOT create visual imbalance.
+
+Avoid:
+
+Large text inside small cards
+
+Large buttons inside small cards
+
+Large badges inside small cards
+
+Everything must scale proportionally.
+
+---
+
+GRID CAPACITY GOAL
+
+Increase product density.
+
+The Products Page should display significantly more products within the same viewport height.
+
+Goal:
+
+Users should see substantially more products before scrolling.
+
+---
+
+GRID BEHAVIOR
+
+Use available horizontal space efficiently.
+
+Reduce wasted whitespace.
+
+Maintain consistent alignment.
+
+Maintain equal card heights.
+
+---
+
+RESPONSIVE REQUIREMENT
+
+The new smaller card design must remain responsive.
+
+Verify:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile
+
+Cards must continue scaling correctly.
+
+---
+
+RTL VALIDATION
+
+Verify:
+
+Arabic layout
+
+RTL grid rendering
+
+RTL spacing
+
+RTL alignment
+
+No clipping.
+
+No overflow.
+
+---
+
+VISUAL QUALITY
+
+Even after size reduction:
+
+Maintain:
+
+* premium appearance
+* readability
+* clean hierarchy
+* comfortable spacing
+
+The result should feel like a professional marketplace catalog view.
+
+---
+
+SUCCESS CRITERIA
+
+✓ Left-side clipping issue resolved
+
+✓ No overflow
+
+✓ No hidden cards
+
+✓ Product cards significantly smaller
+
+✓ Entire card scales proportionally
+
+✓ More products visible on screen
+
+✓ Typography remains readable
+
+✓ Ratings remain visible
+
+✓ Prices remain balanced
+
+✓ Grid remains premium
+
+✓ RTL remains correct
+
+✓ No functionality changes
+
+FINAL GOAL
+
+Create a denser marketplace catalog that displays substantially more products while preserving the exact SYANO product card design language, hierarchy, and premium appearance.

@@ -1,0 +1,600 @@
+COURIER V3.3 — PHASE A7
+
+COURIER MISSION WORKSPACE
+
+IMPORTANT
+
+Before any work:
+
+Read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* project.manifest.json
+* replit.md
+
+Verify:
+
+* API healthy
+* Marketplace healthy
+* Mobile healthy
+* Embedding healthy
+
+DO NOT create workflows.
+DO NOT create previews.
+DO NOT create duplicate services.
+
+Use existing architecture only.
+
+---
+
+GOAL
+
+A1–A6 already provide:
+
+✓ Mission creation
+
+✓ Courier discovery
+
+✓ Assignment engine
+
+✓ Offer system
+
+✓ GPS tracking
+
+✓ Customer tracking
+
+✓ Real road routing
+
+✓ ETA engine
+
+✓ Tracking maps
+
+The courier still lacks:
+
+A professional operational workspace.
+
+Current courier experience:
+
+Dashboard
+↓
+Offers page
+↓
+Mission page
+↓
+Tracking page
+
+This is fragmented.
+
+Replace this experience with:
+
+ONE PRIMARY SCREEN
+
+The map becomes the courier's operational center.
+
+---
+
+TARGET UX
+
+When courier opens SYANO:
+
+They immediately see:
+
+MAP
+
+NOT dashboard cards.
+
+NOT tables.
+
+NOT admin UI.
+
+A real driver workspace.
+
+Like:
+
+Uber Driver
+
+Talabat Driver
+
+DoorDash Driver
+
+---
+
+A7.1
+
+NEW HOME SCREEN
+
+Create:
+
+Courier Mission Workspace
+
+Primary courier screen.
+
+Default landing page.
+
+Contains:
+
+* Fullscreen map
+* Current mission
+* Route
+* Status
+* ETA
+* Actions
+
+---
+
+A7.2
+
+MAP-FIRST DESIGN
+
+Map occupies:
+
+80–90% of screen
+
+Mission panel floats above map.
+
+Modern mobile-first design.
+
+No admin tables.
+
+No dashboard feel.
+
+---
+
+A7.3
+
+MISSION STATES
+
+Workspace adapts automatically.
+
+STATE:
+
+NO MISSION
+
+Show:
+
+Online / Offline
+
+Waiting for delivery requests
+
+Availability status
+
+Current location
+
+---
+
+STATE:
+
+OFFER RECEIVED
+
+Show:
+
+Store name
+
+Distance to pickup
+
+Estimated earnings
+
+Countdown timer
+
+Accept
+
+Decline
+
+Map zooms to:
+
+Courier
++
+Store
+
+---
+
+STATE:
+
+ACCEPTED
+
+Show:
+
+Store card
+
+Distance
+
+ETA
+
+Route
+
+Button:
+
+Navigate to Pickup
+
+---
+
+STATE:
+
+ARRIVED AT STORE
+
+Show:
+
+Pickup verification UI
+
+Buttons:
+
+Picked Up
+
+Problem
+
+Call Seller
+
+---
+
+STATE:
+
+PICKED_UP
+
+Map automatically switches to:
+
+Customer route
+
+Show:
+
+Customer
+
+ETA
+
+Distance
+
+Button:
+
+Navigate to Customer
+
+---
+
+STATE:
+
+AT CUSTOMER
+
+Show:
+
+Delivery confirmation panel
+
+Buttons:
+
+Delivered
+
+Failed Delivery
+
+Call Customer
+
+---
+
+STATE:
+
+DELIVERED
+
+Success animation
+
+Mission summary
+
+Auto return:
+
+ONLINE
+
+---
+
+A7.4
+
+MISSION PANEL
+
+Floating card.
+
+Contains:
+
+Store
+
+Customer
+
+ETA
+
+Distance
+
+Status
+
+Mission ID
+
+Current earnings
+
+---
+
+A7.5
+
+ACTION BAR
+
+Bottom action bar.
+
+Dynamic.
+
+Examples:
+
+Accept
+
+Decline
+
+Navigate
+
+Picked Up
+
+Delivered
+
+Failed
+
+Only show actions relevant to current mission state.
+
+---
+
+A7.6
+
+CALL ACTIONS
+
+Quick buttons:
+
+Call Seller
+
+Call Customer
+
+Must open device dialer.
+
+---
+
+A7.7
+
+NAVIGATION INTEGRATION
+
+Button:
+
+Navigate
+
+Launch:
+
+Google Maps
+
+Apple Maps
+
+OSM
+
+depending on device.
+
+Pass:
+
+Destination coordinates.
+
+---
+
+A7.8
+
+LIVE ETA PANEL
+
+Always visible.
+
+Shows:
+
+Distance Remaining
+
+ETA
+
+Route Status
+
+Examples:
+
+4.8 km
+
+11 min
+
+Heading to Pickup
+
+---
+
+A7.9
+
+ROUTE STATUS
+
+Use statuses:
+
+WAITING
+
+OFFER
+
+TO_PICKUP
+
+AT_PICKUP
+
+TO_CUSTOMER
+
+AT_CUSTOMER
+
+DELIVERED
+
+FAILED
+
+Display:
+
+icons
+colors
+labels
+
+---
+
+A7.10
+
+MISSION TIMELINE
+
+Compact timeline.
+
+Offer
+↓
+Accepted
+↓
+Pickup
+↓
+In Transit
+↓
+Delivered
+
+---
+
+A7.11
+
+MAP AUTO BEHAVIOR
+
+Auto zoom.
+
+Auto center.
+
+When mission changes:
+
+re-focus route.
+
+Courier should never manually search.
+
+---
+
+A7.12
+
+REAL-TIME UPDATES
+
+Mission state updates:
+
+instantly.
+
+No refresh.
+
+No page reload.
+
+No manual refresh.
+
+---
+
+A7.13
+
+OFFLINE PROTECTION
+
+If courier loses connection:
+
+show banner.
+
+Keep workspace active.
+
+Sync automatically when restored.
+
+---
+
+A7.14
+
+MOBILE PRIORITY
+
+This phase is primarily:
+
+Expo Mobile App
+
+Web should support it.
+
+Mobile experience is priority.
+
+---
+
+A7.15
+
+DESIGN REQUIREMENTS
+
+Use:
+
+Current SYANO colors
+
+Current shadows
+
+Current radius
+
+Current typography
+
+Current RTL support
+
+Must feel:
+
+native
+
+modern
+
+professional
+
+Avoid:
+
+admin panels
+
+data tables
+
+generic forms
+
+---
+
+A7.16
+
+VALIDATION
+
+Verify:
+
+✓ No mission state works
+
+✓ Offer state works
+
+✓ Accept state works
+
+✓ Pickup state works
+
+✓ Delivery state works
+
+✓ Navigation works
+
+✓ Call actions work
+
+✓ ETA updates
+
+✓ Route updates
+
+✓ Mobile works
+
+✓ Web works
+
+✓ Arabic works
+
+✓ English works
+
+✓ TypeScript = 0 errors
+
+---
+
+DOCUMENTATION
+
+After completion update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+
+Document:
+
+Workspace architecture
+
+Mission state machine
+
+Navigation architecture
+
+Action bar architecture
+
+Validation results
+
+Do not mark complete until every workflow and state is verified end-to-end using real system accounts.

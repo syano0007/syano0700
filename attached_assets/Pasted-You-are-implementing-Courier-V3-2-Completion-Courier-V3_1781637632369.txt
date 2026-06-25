@@ -1,0 +1,388 @@
+You are implementing **Courier V3.2 Completion + Courier V3.3 Mission Assignment Foundation** for SYANO (سوق سوريا).
+
+This is a continuation of the already completed Delivery Mission Layer and Courier Availability System.
+
+DO NOT create a new courier system.
+DO NOT replace existing architecture.
+EXTEND the existing implementation only.
+
+---
+
+# CRITICAL RULES
+
+* Preserve all existing functionality.
+* Preserve RTL support.
+* Preserve Arabic and English translations.
+* Preserve current design system.
+* Preserve existing APIs unless extending them.
+* Use additive database changes only.
+* TypeScript must finish with 0 new errors.
+* Mobile app compatibility must remain intact.
+* Update ALL recovery files after completion:
+
+  * CURRENT_STATE.md
+  * PROJECT_STATUS.md
+  * RECOVERY_GUIDE.md
+  * replit.md
+* Recovery files must accurately reflect every completed change.
+
+---
+
+# CONTEXT
+
+Courier V3.1 is complete:
+
+* delivery_missions table exists
+* mission lifecycle exists
+* admin mission dashboard exists
+* courier availability system exists
+* ONLINE / OFFLINE / BUSY states exist
+
+However several issues remain.
+
+This task finishes V3.2 correctly and lays the foundation for automatic mission assignment.
+
+---
+
+# PART A — FIX COURIER DASHBOARD UX
+
+Current courier dashboard has major UX issues.
+
+## Problem 1
+
+There are currently TWO different activation controls:
+
+* Connection activation
+* Delivery requests activation
+
+This is confusing.
+
+A courier should only have ONE master availability control.
+
+Remove the duplicated workflow.
+
+---
+
+## Desired Behavior
+
+Single control:
+
+"Receive Delivery Requests"
+
+States:
+
+OFFLINE
+ONLINE
+BUSY
+
+Examples:
+
+OFFLINE
+→ courier invisible
+
+ONLINE
+→ courier available for assignments
+
+BUSY
+→ courier already handling mission
+
+No second toggle.
+
+No duplicated state management.
+
+---
+
+# PART B — FIX COURIER DASHBOARD DESIGN
+
+Current dashboard visually looks different from SYANO.
+
+It feels disconnected from:
+
+* Seller Dashboard
+* Admin Dashboard
+* Customer Account Pages
+
+Make it fully native.
+
+---
+
+## Requirements
+
+Use existing:
+
+* colors
+* spacing
+* shadows
+* cards
+* typography
+* radius
+
+Must look like it was always part of SYANO.
+
+No generic dark-dashboard appearance.
+
+No mismatched buttons.
+
+No inconsistent badge colors.
+
+No standalone design language.
+
+---
+
+# PART C — AUTOMATIC ONLINE → BUSY
+
+This was previously suggested and MUST now be implemented.
+
+Current problem:
+
+Courier can be ONLINE while already assigned.
+
+This creates assignment inconsistencies.
+
+---
+
+## Required Logic
+
+When a mission is assigned:
+
+ONLINE
+→ automatically becomes BUSY
+
+When mission is completed:
+
+BUSY
+→ automatically becomes ONLINE
+
+UNLESS courier manually switched OFFLINE.
+
+Examples:
+
+Case A:
+
+ONLINE
+Mission assigned
+
+Result:
+
+BUSY
+
+---
+
+Case B:
+
+BUSY
+Mission completed
+
+Result:
+
+ONLINE
+
+---
+
+Case C:
+
+Courier manually OFFLINE
+
+Mission completed
+
+Result:
+
+Remain OFFLINE
+
+---
+
+Implement through service layer.
+
+Never require manual admin action.
+
+---
+
+# PART D — MISSION ASSIGNMENT FOUNDATION
+
+Prepare system for next phase.
+
+Do NOT build GPS assignment yet.
+
+Build architecture only.
+
+---
+
+Add mission fields if needed:
+
+assignment_started_at
+
+assignment_expires_at
+
+assignment_round
+
+assignment_status
+
+Values:
+
+PENDING
+OFFERED
+ASSIGNED
+EXPIRED
+
+Must be future-proof.
+
+---
+
+# PART E — AVAILABLE COURIER POOL
+
+Create reusable service:
+
+getAvailableCouriers()
+
+Requirements:
+
+Only:
+
+* approved
+* active
+* ONLINE
+* accepting deliveries
+* no active mission
+
+Return ordered list.
+
+Will be reused later.
+
+---
+
+# PART F — MISSION ASSIGNMENT ENGINE FOUNDATION
+
+Create reusable service:
+
+offerMissionToCourier()
+
+Create reusable service:
+
+assignMission()
+
+Do not expose publicly yet.
+
+Do not trigger automatically yet.
+
+Build clean reusable architecture.
+
+---
+
+# PART G — ADMIN MISSION DASHBOARD IMPROVEMENTS
+
+Current mission dashboard is functional but incomplete.
+
+Improve:
+
+* status badges
+* mission counters
+* empty states
+* filters
+
+Must match SYANO admin styling.
+
+---
+
+Add cards:
+
+Pending
+
+Assigned
+
+In Transit
+
+Delivered
+
+Failed
+
+Cancelled
+
+---
+
+# PART H — COURIER STATUS VISIBILITY
+
+Improve admin courier visibility.
+
+Admin availability page should clearly show:
+
+Courier
+
+Availability
+
+Active Mission
+
+Accepting Deliveries
+
+Last Status Change
+
+Current Mission ID (if exists)
+
+---
+
+Use badges.
+
+No raw text.
+
+---
+
+# PART I — VALIDATION
+
+Verify:
+
+✅ Single courier availability control exists
+
+✅ No duplicated activation buttons
+
+✅ Dashboard matches SYANO design
+
+✅ ONLINE → BUSY automatic transition works
+
+✅ BUSY → ONLINE automatic transition works
+
+✅ Manual OFFLINE respected
+
+✅ Mission foundation fields exist
+
+✅ Assignment services created
+
+✅ Available courier service works
+
+✅ Admin dashboard improved
+
+✅ Admin availability page improved
+
+✅ Arabic preserved
+
+✅ English preserved
+
+✅ Mobile preserved
+
+✅ TypeScript has 0 new errors
+
+---
+
+# RECOVERY FILES
+
+After EVERYTHING is completed:
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+
+Include:
+
+* Courier V3.2 completed
+* Automatic availability transitions completed
+* Assignment foundation completed
+* Dashboard redesign completed
+* Next recommended phase
+
+Do not leave recovery files outdated.
+
+Only finish when implementation AND documentation are both complete.

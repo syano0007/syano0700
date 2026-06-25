@@ -1,0 +1,197 @@
+Implement a compact Settings dropdown in the desktop navbar.
+
+Do NOT add separate Currency, Language, or Theme buttons back into the navbar.
+
+Instead:
+
+Replace them with a single Settings button positioned beside:
+
+* Wishlist
+* Cart
+
+The Settings button must match the SYANO design language.
+
+────────────────────────
+
+DESIGN
+
+Dark premium dropdown.
+
+Same visual language as:
+
+* Navbar
+* Search bar
+* Product cards
+
+Use:
+
+* dark background
+* soft border
+* subtle shadow
+* emerald accents
+
+No browser-style dropdown.
+
+No default select elements.
+
+No white panels.
+
+────────────────────────
+
+DESKTOP NAVBAR ORDER
+
+Authenticated user:
+
+[ Logo ]
+[ Navigation ]
+[ Search ]
+[ Wishlist ]
+[ Cart ]
+[ Settings ]
+[ User Avatar ]
+
+Guest user:
+
+[ Logo ]
+[ Navigation ]
+[ Search ]
+[ Settings ]
+[ Login ]
+[ Register ]
+
+────────────────────────
+
+SETTINGS DROPDOWN CONTENT
+
+Section 1
+
+🌙 Theme
+
+Options:
+
+* Light
+* Dark
+* System
+
+────────────────────────
+
+Section 2
+
+🌐 Language
+
+Options:
+
+* العربية
+* English
+
+Must connect to existing i18n system.
+
+Persist selection.
+
+────────────────────────
+
+Section 3
+
+💱 Currency
+
+Options:
+
+* SYP
+* USD
+
+Must connect to existing currency state.
+
+Persist selection.
+
+────────────────────────
+
+BEHAVIOR
+
+Click Settings:
+
+→ dropdown opens
+
+Click outside:
+
+→ closes
+
+ESC:
+
+→ closes
+
+Keyboard accessible.
+
+────────────────────────
+
+STYLE
+
+Dropdown width:
+
+260–300px
+
+Radius:
+
+12–14px
+
+Padding:
+
+comfortable
+
+Use dividers between sections.
+
+Use active indicators.
+
+Use emerald highlight for selected values.
+
+────────────────────────
+
+MOBILE
+
+Do NOT create a second implementation.
+
+Move the same settings controls into the mobile drawer.
+
+Maintain identical functionality.
+
+────────────────────────
+
+IMPORTANT
+
+Do NOT break:
+
+* Cart
+* Wishlist
+* Authentication
+* Navbar layout
+* Hero section
+
+Only add the Settings system.
+
+────────────────────────
+
+VALIDATION
+
+Verify:
+
+✅ Theme switching works
+
+✅ Language switching works
+
+✅ Currency switching works
+
+✅ Settings persist after refresh
+
+✅ Desktop works
+
+✅ Mobile works
+
+✅ RTL works
+
+✅ Navbar remains clean
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+
+after implementation.

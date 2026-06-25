@@ -1,0 +1,308 @@
+You have already completed several rounds of VariantBuilder improvements, but there are still real visual and UX problems that remain unresolved.
+
+**This task is NOT about code cleanup.**
+It is a **production-grade visual QA and UI correction pass.**
+
+---
+
+# CRITICAL RULES
+
+* Do NOT rely only on reading the code.
+* Do NOT assume a fix works because TypeScript passes.
+* Do NOT assume a fix works because Browser Console is clean.
+* Do NOT mark the task complete until you have visually verified it.
+* Do NOT introduce regressions.
+* Do NOT break existing functionality.
+* Preserve all current APIs and backend logic.
+
+You MUST perform actual UI testing after every change.
+
+---
+
+# LOGIN FOR TESTING
+
+Use this account for all verification:
+
+Email:
+`delewatiamer8@gmail.com`
+
+Password:
+`00Amer00`
+
+Login as this user and test the real Seller Dashboard UI.
+
+---
+
+# REQUIRED TEST FLOW
+
+Seller Dashboard
+→ Products
+→ Add Product
+
+Enable Variants.
+
+Then test the entire VariantBuilder visually.
+
+---
+
+# REQUIRED VIEWPORTS
+
+You MUST verify the UI on ALL of these widths:
+
+* 320px
+* 360px
+* 390px
+* 412px
+* 768px
+* 1024px
+* 1440px
+
+---
+
+# PROBLEM 1 — RTL TOGGLE THUMB IS STILL BROKEN
+
+This is the highest priority issue.
+
+The white thumb inside the toggle switch is still escaping outside the switch track when the interface is in Arabic (RTL).
+
+Current behavior:
+
+* The thumb partially leaves the track.
+* It moves beyond the physical right edge.
+* The control looks visually broken.
+
+Requirements:
+
+* The thumb must ALWAYS remain fully inside the track.
+* OFF and ON states must both be visually correct.
+* Arabic (RTL) and English (LTR) must both work perfectly.
+* Do NOT rely on hardcoded values if they create overflow.
+* Use whatever positioning strategy actually works visually.
+
+After fixing:
+
+* Test OFF and ON in Arabic.
+* Test OFF and ON in English.
+* Verify visually while logged into the real UI.
+
+Do not trust theoretical calculations.
+Trust the actual rendered interface.
+
+---
+
+# PROBLEM 2 — RTL VISUAL AUDIT
+
+Perform a complete RTL audit of the entire VariantBuilder.
+
+Check all:
+
+* flex-direction
+* justify-content
+* align-items
+* ms-auto
+* me-auto
+* start / end utilities
+* absolute positioning
+* translateX
+* left / right positioning
+* logical CSS properties
+* nested flex containers
+
+Nothing should feel visually LTR inside Arabic mode.
+
+---
+
+# PROBLEM 3 — MOBILE LAYOUT
+
+The mobile layout improved but is still not production quality.
+
+Some controls are still clipped.
+Some sections still feel compressed.
+Some buttons and cards are not properly balanced.
+
+If necessary:
+
+* reorganize layouts
+* stack elements vertically
+* change breakpoints
+* redesign sections
+
+Prioritize visual quality over preserving the exact current layout.
+
+---
+
+# PROBLEM 4 — MANAGE COMBINATIONS SECTION
+
+This area still looks broken on mobile.
+
+Inspect:
+
+* section header
+* title
+* subtitle
+* count badge
+* Generate Combinations button
+* toolbar
+* spacing
+* wrapping
+* alignment
+
+If necessary, redesign this section completely for mobile.
+
+Desktop layout should remain intact.
+
+---
+
+# PROBLEM 5 — GENERATE COMBINATIONS BUTTON
+
+Requirements:
+
+* never overlaps text
+* never overflows the card
+* never causes horizontal scrolling
+* never becomes partially hidden
+* stays visually balanced
+
+If needed, move it onto its own row on smaller screens.
+
+---
+
+# PROBLEM 6 — FULL MOBILE QA
+
+Review the entire VariantBuilder:
+
+* Variant toggle
+* Preset chips
+* Group cards
+* Group headers
+* Value pills
+* Add value input
+* Formula box
+* Preview sidebar
+* Generate combinations section
+* Bulk actions
+* Combination cards
+* Image buttons
+* Delete buttons
+* Custom group creation
+* Scroll behavior
+* Card spacing
+* Edge padding
+
+There should be:
+
+* no clipping
+* no overlapping
+* no cropped buttons
+* no horizontal scrolling
+* no half-visible controls
+* no awkward wrapping
+
+---
+
+# VISUAL VERIFICATION
+
+After every major fix:
+
+1. Reload the page.
+2. Login using the provided account.
+3. Test the actual UI.
+4. Compare Arabic and English.
+5. Compare desktop and mobile.
+6. Confirm the issue is visually gone.
+
+Do NOT rely only on static code analysis.
+
+---
+
+# PROJECT RECOVERY DOCUMENTATION (MANDATORY)
+
+After ALL fixes are completed and fully verified:
+
+You MUST update every recovery and project memory file so that this exact state becomes the new official restore checkpoint.
+
+Update and synchronize all relevant files, including but not limited to:
+
+* project-memory/RECOVERY_GUIDE.md
+* project-memory/CURRENT_STATE.md
+* project-memory/PROJECT_STATE.md
+* project-memory/CURRENT_TASK.md
+* project-memory/DATABASE_STATE.md
+* project-memory/KNOWN_ISSUES.md
+* project-memory/CHANGELOG.md
+* project-memory/API_STATE.md
+* project-memory/AUTH_STATE.md
+* project-memory/PERFORMANCE_STATE.md
+* project-memory/VARIANT_SYSTEM_STATE.md
+
+Document:
+
+* all RTL fixes
+* toggle thumb fix
+* mobile layout fixes
+* Manage Combinations redesign
+* Generate button fixes
+* any layout or breakpoint changes
+* any CSS strategy changes
+* any structural UI improvements
+
+---
+
+# CREATE A NEW VERIFIED RESTORE CHECKPOINT
+
+When everything is finished:
+
+* Treat this version as the new authoritative project state.
+* Save it as the latest recovery checkpoint.
+* Ensure a future migration to another Replit account can restore this exact UI state without losing these fixes.
+* Verify that recovery documentation matches the actual codebase.
+* Verify that a fresh workspace can be restored to this exact state.
+
+---
+
+# COMPLETION CRITERIA
+
+Do NOT report success unless ALL of the following are true:
+
+✅ Toggle thumb always stays inside the track.
+
+✅ Arabic RTL rendering is correct.
+
+✅ English rendering is still correct.
+
+✅ Mobile layout looks polished.
+
+✅ Manage Combinations section is clean.
+
+✅ Generate Combinations button is fully responsive.
+
+✅ No clipped buttons.
+
+✅ No clipped text.
+
+✅ No overlapping controls.
+
+✅ No horizontal scrolling.
+
+✅ No partially hidden elements.
+
+✅ Browser console clean.
+
+✅ TypeScript clean.
+
+✅ Verified manually while logged in using:
+
+`delewatiamer8@gmail.com`
+`00Amer00`
+
+✅ All recovery files updated.
+
+✅ New restore checkpoint created.
+
+This is a final production-quality visual polish and checkpoint update.
+
+Do not add new features.
+Do not modify backend behavior.
+Do not change APIs.
+Do not break existing functionality.
+Only fix and finalize the UI, then permanently record this state in the recovery system.

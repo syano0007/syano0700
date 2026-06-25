@@ -1,0 +1,350 @@
+SYANO — FULL PLATFORM BOOT & RUNTIME VERIFICATION
+
+MISSION
+
+Recover, start, verify and certify every real system that exists in the codebase.
+
+Do NOT assume documentation is correct.
+
+Do NOT assume workflows are correct.
+
+Do NOT assume services are running.
+
+Reality = code + database + runtime.
+
+======================================================================
+OBJECTIVE
+=========
+
+Before any cleanup, audit, parity work, or feature development:
+
+1. Discover every system.
+2. Start every required service.
+3. Verify every dependency.
+4. Verify every workflow.
+5. Verify every API.
+6. Verify every database component.
+7. Verify every role.
+8. Verify every major feature.
+
+Produce a complete runtime status report.
+
+======================================================================
+PHASE 1 — READ PROJECT CONTEXT
+==============================
+
+Read:
+
+AGENT_BOOTSTRAP.md
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+
+Use them only as hints.
+
+Do not trust them.
+
+======================================================================
+PHASE 2 — PROJECT DISCOVERY
+===========================
+
+Scan repository.
+
+Identify:
+
+* Marketplace
+* API Server
+* Mobile App
+* Embedding Service
+* Shared Libraries
+* Scripts
+* Tooling
+* Workers
+* Background Services
+
+Generate runtime inventory.
+
+======================================================================
+PHASE 3 — DEPENDENCY RECOVERY
+=============================
+
+Verify:
+
+pnpm install
+
+Python dependencies
+
+Workspace packages
+
+Shared libraries
+
+Build all shared packages.
+
+Verify:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+
+======================================================================
+PHASE 4 — DATABASE VERIFICATION
+===============================
+
+Verify:
+
+DATABASE_URL
+
+Connection
+
+Schema
+
+Tables
+
+Enums
+
+Indexes
+
+Extensions
+
+Verify:
+
+pgvector
+
+Generate:
+
+DATABASE_RUNTIME_REPORT
+
+======================================================================
+PHASE 5 — SERVICE STARTUP
+=========================
+
+Start every real service.
+
+Required:
+
+API Server
+Marketplace
+
+Optional:
+
+Embedding Service
+Mobile Expo
+
+Verify actual startup.
+
+Record:
+
+Port
+Status
+Errors
+Warnings
+
+======================================================================
+PHASE 6 — API VERIFICATION
+==========================
+
+Verify all discovered APIs.
+
+Check:
+
+Health
+Auth
+Products
+Stores
+Orders
+Search
+Notifications
+Messaging
+Support
+Courier
+
+Generate:
+
+API_RUNTIME_REPORT
+
+======================================================================
+PHASE 7 — AUTH VERIFICATION
+===========================
+
+Verify:
+
+Login
+Register
+JWT
+Role Detection
+
+Test:
+
+Admin
+Seller
+Courier
+
+Record:
+
+Success
+Failure
+Root Cause
+
+======================================================================
+PHASE 8 — SEARCH VERIFICATION
+=============================
+
+Verify:
+
+FTS
+
+Embeddings
+
+TF-IDF fallback
+
+Suggestions
+
+Trending
+
+Intent Detection
+
+Semantic Search
+
+Record:
+
+Working
+Partial
+Failed
+
+======================================================================
+PHASE 9 — COURIER SYSTEM VERIFICATION
+=====================================
+
+Verify:
+
+delivery_missions
+
+mission_offers
+
+dispatch_alerts
+
+availability
+
+assignment engine
+
+Record status only.
+
+Do NOT rebuild.
+
+======================================================================
+PHASE 10 — MOBILE VERIFICATION
+==============================
+
+Verify:
+
+Expo boot
+
+Navigation
+
+Auth flow
+
+API connectivity
+
+Role routing
+
+Record:
+
+Working
+Partial
+Failed
+
+======================================================================
+PHASE 11 — FEATURE RUNTIME MAP
+==============================
+
+For every discovered feature:
+
+Mark:
+
+WORKING
+PARTIAL
+FAILED
+NOT TESTED
+
+Examples:
+
+Authentication
+Products
+Stores
+Cart
+Checkout
+Wishlist
+Messaging
+Notifications
+AI Support
+Courier
+Admin
+Seller
+Search
+
+Generate:
+
+FEATURE_RUNTIME_MATRIX
+
+======================================================================
+PHASE 12 — WORKFLOW VERIFICATION
+================================
+
+Identify every workflow.
+
+Determine:
+
+Required
+Optional
+Deprecated
+Duplicate
+
+Detect:
+
+Unused workflows
+
+Duplicate workflows
+
+Artifact-only workflows
+
+Generate:
+
+WORKFLOW_RUNTIME_REPORT
+
+======================================================================
+FINAL DELIVERABLE
+=================
+
+Create:
+
+FULL_PLATFORM_RUNTIME_CERTIFICATION.md
+
+Include:
+
+1. Services Running
+2. Services Failed
+3. Database Status
+4. API Status
+5. Mobile Status
+6. Search Status
+7. Courier Status
+8. Auth Status
+9. Workflow Status
+10. Feature Runtime Matrix
+11. Missing Dependencies
+12. Startup Problems
+13. Recovery Recommendations
+
+IMPORTANT
+
+Do NOT implement features.
+
+Do NOT redesign.
+
+Do NOT modify architecture.
+
+Do NOT clean documentation.
+
+Do NOT delete files.
+
+Only discover, start, verify and certify actual runtime state.

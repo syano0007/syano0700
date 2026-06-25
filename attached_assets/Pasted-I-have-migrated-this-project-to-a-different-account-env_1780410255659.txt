@@ -1,0 +1,370 @@
+I have migrated this project to a different account/environment.
+
+Before implementing ANY new feature, I want the most exhaustive production-grade audit possible.
+
+Your role:
+Act as:
+
+* Senior QA Engineer
+* Senior Full-Stack Engineer
+* Senior DevOps Engineer
+* Security Auditor
+* Performance Engineer
+* Product Tester
+
+IMPORTANT:
+
+Do NOT assume anything works.
+
+Do NOT rely only on source code inspection.
+
+Do NOT rely only on build success.
+
+Do NOT rely only on TypeScript passing.
+
+You must ACTUALLY TEST the running application.
+
+The goal is to verify the entire platform as if it is going live tomorrow to real customers.
+
+CRITICAL REQUIREMENT
+
+I want REAL end-to-end testing.
+
+Actually click buttons.
+
+Actually submit forms.
+
+Actually navigate pages.
+
+Actually create records.
+
+Actually test workflows.
+
+Actually trigger notifications.
+
+Actually verify responses.
+
+Actually verify database changes.
+
+Actually verify permissions.
+
+Actually verify mobile behavior.
+
+Actually verify desktop behavior.
+
+Nothing should be considered working until it is tested.
+
+Test EVERYTHING.
+
+No exceptions.
+
+If a button exists:
+
+* Click it.
+
+If a page exists:
+
+* Open it.
+
+If a form exists:
+
+* Submit it.
+
+If a feature exists:
+
+* Use it.
+
+If a workflow exists:
+
+* Complete it.
+
+If a route exists:
+
+* Verify it.
+
+If a permission exists:
+
+* Test it.
+
+If an API exists:
+
+* Validate it.
+
+Do not skip anything.
+
+PHASE 1 — Environment Validation
+
+Verify:
+
+* Database connection
+* Environment variables
+* API server startup
+* Frontend startup
+* Production build
+* Deployment configuration
+* Static assets
+* Images
+* File storage
+* Notification services
+* Email services
+* SMS services
+* SSE connections
+* Authentication configuration
+
+PHASE 2 — Authentication
+
+Actually test:
+
+* Registration
+* Login
+* Logout
+* Password validation
+* Duplicate accounts
+* Session persistence
+* Protected routes
+* Customer permissions
+* Seller permissions
+* Admin permissions
+
+Verify every result.
+
+PHASE 3 — Customer Experience
+
+Actually test:
+
+* Home page
+* Search
+* Categories
+* Product browsing
+* Product details
+* Product reviews
+* Add to cart
+* Cart updates
+* Remove from cart
+* Checkout
+* Address management
+* Orders
+* Notifications
+* Profile editing
+* Language switching
+* Theme switching
+
+Click every available action.
+
+PHASE 4 — Seller Experience
+
+Actually test:
+
+* Seller application
+* Seller approval
+* Seller dashboard
+* Product creation
+* Product editing
+* Product deletion
+* Inventory management
+* Variants
+* Discounts
+* Featured products
+* Orders
+* Order status transitions
+* Analytics
+* Messaging
+* Store management
+
+Create real test data when needed.
+
+PHASE 5 — Admin Experience
+
+Actually test:
+
+* Admin login
+* Admin dashboard
+* User management
+* Seller approvals
+* Product moderation
+* Notifications
+* Reports
+* Statistics
+
+Verify access restrictions.
+
+PHASE 6 — Store Ecosystem
+
+Actually test:
+
+* Store pages
+* Store routing
+* Store slugs
+* Follow store
+* Unfollow store
+* Seller reviews
+* Messaging
+* Notifications
+* Analytics
+* Trust indicators
+
+Verify complete flows.
+
+PHASE 7 — MOBILE-FIRST AUDIT (HIGHEST PRIORITY)
+
+This is the most important phase.
+
+The platform is primarily mobile-first.
+
+Test EVERY page and EVERY feature at:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+Verify:
+
+* Layout
+* Overflow
+* Scrolling
+* Navigation
+* Notch handling
+* Safe-area handling
+* Touch targets
+* Forms
+* Buttons
+* Product pages
+* Cart
+* Checkout
+* Messaging
+* Seller dashboard
+* Admin dashboard
+* Store pages
+
+Actually click every mobile button.
+
+Actually complete mobile workflows.
+
+Take screenshots.
+
+Document every issue.
+
+PHASE 8 — Desktop Audit
+
+Test:
+
+* 1280px
+* 1440px
+* 1920px
+
+Verify:
+
+* Layout consistency
+* Navigation
+* Forms
+* Dashboards
+* Tables
+* Responsiveness
+
+Take screenshots.
+
+PHASE 9 — Performance Audit
+
+Measure:
+
+* Initial load speed
+* Route navigation speed
+* Search speed
+* Product page speed
+* Cart speed
+* Checkout speed
+* Messaging speed
+* Dashboard speed
+
+Find:
+
+* N+1 queries
+* Slow endpoints
+* Missing indexes
+* Unnecessary renders
+* Large payloads
+* Memory leaks
+
+Provide exact bottlenecks.
+
+PHASE 10 — Security Audit
+
+Test:
+
+* Authentication
+* Authorization
+* RBAC
+* Route protection
+* API protection
+* Rate limiting
+* Spam protection
+* XSS
+* CSRF
+* Injection risks
+* Upload risks
+* Messaging abuse
+* Notification abuse
+* Seller privilege escalation
+* Admin privilege escalation
+
+Classify:
+
+* Critical
+* High
+* Medium
+* Low
+
+PHASE 11 — Database Audit
+
+Verify:
+
+* Schema consistency
+* Foreign keys
+* Indexes
+* Constraints
+* Data integrity
+* Orphaned records
+* Broken relationships
+
+PHASE 12 — Final Report
+
+Before implementing any fixes:
+
+Provide a complete report containing:
+
+* Every issue found
+* Severity
+* Root cause
+* Reproduction steps
+* Screenshots
+* Mobile findings
+* Desktop findings
+* Performance findings
+* Security findings
+* Database findings
+* Deployment findings
+
+MOST IMPORTANT:
+
+Do not mark a feature as working because the code looks correct.
+
+Do not mark a feature as working because the build succeeds.
+
+Only mark a feature as working if it was actually tested in the running application.
+
+Test every page.
+
+Test every button.
+
+Test every feature.
+
+Test every workflow.
+
+Test every role.
+
+Test every system.
+
+No exceptions.

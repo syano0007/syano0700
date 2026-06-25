@@ -1,0 +1,324 @@
+You are resuming the SYANO (سوق سوريا) project after a workspace transfer/recovery.
+
+Your job is NOT to build new features.
+
+Your job is to recover, verify, certify, and document the exact current state of the system before any further development.
+
+---
+
+# CRITICAL RULES
+
+DO NOT implement any new feature.
+
+DO NOT start Phase Mx+1.
+
+DO NOT add screens.
+
+DO NOT add APIs.
+
+DO NOT add UI enhancements.
+
+DO NOT add parity features.
+
+DO NOT estimate.
+
+DO NOT assume.
+
+VERIFY EVERYTHING.
+
+The goal is to create a certified recovery baseline.
+
+---
+
+# STEP 1 — READ ALL RECOVERY FILES
+
+Read completely:
+
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+* replit.md
+
+Build an accurate understanding of:
+
+* completed work
+* incomplete work
+* known issues
+* previous recovery findings
+
+Do not skip any file.
+
+---
+
+# STEP 2 — BOOT THE ENTIRE SYSTEM
+
+Verify and start:
+
+## Backend
+
+* API Server
+* Database
+* Search
+* Embedding Service
+
+## Frontend
+
+* Marketplace Web App
+
+## Mobile
+
+* Expo Mobile App
+
+Verify every service individually.
+
+Do not assume services are healthy because workflows are green.
+
+Actually test them.
+
+---
+
+# STEP 3 — DATABASE CERTIFICATION
+
+Verify:
+
+* all migrations applied
+* all required tables exist
+* delivery_missions exists
+* mission_offers exists
+* dispatch_alerts exists
+* courier V3.3 columns exist
+* products exist
+* sellers exist
+* users exist
+
+Generate exact counts.
+
+---
+
+# STEP 4 — API CERTIFICATION
+
+Verify:
+
+* /healthz
+* auth APIs
+* product APIs
+* seller APIs
+* courier APIs
+* admin APIs
+* messaging APIs
+* support APIs
+
+Test actual responses.
+
+List failures.
+
+---
+
+# STEP 5 — WEB CERTIFICATION
+
+Verify:
+
+* homepage
+* product page
+* seller store page
+* cart
+* checkout
+* orders
+* messaging
+* seller dashboard
+* courier dashboard
+* admin dashboard
+
+Confirm routes load.
+
+Confirm APIs work.
+
+Confirm no console errors.
+
+---
+
+# STEP 6 — MOBILE CERTIFICATION
+
+THIS IS THE MOST IMPORTANT PART.
+
+Do NOT trust previous parity percentages.
+
+Actually verify.
+
+Audit every mobile route.
+
+Verify:
+
+## Auth
+
+* login
+* register
+* forgot password
+
+## Customer
+
+* home
+* search
+* categories
+* stores
+* product page
+* wishlist
+* cart
+* checkout
+* orders
+* messages
+* profile
+
+## Seller
+
+* dashboard
+* products
+* orders
+* reviews
+* trust
+
+## Courier
+
+* dashboard
+* missions
+
+## Admin
+
+* dashboard
+* verification
+* support
+* courier applications
+* hero banners
+* delivery missions
+
+Actually open and verify.
+
+Check:
+
+* crashes
+* runtime errors
+* missing providers
+* broken hooks
+* broken queries
+* broken mutations
+* missing routes
+* missing Stack registrations
+
+---
+
+# STEP 7 — AUTH CERTIFICATION
+
+Verify:
+
+Customer login works.
+
+Seller login works.
+
+Courier login works.
+
+Admin login works.
+
+Verify:
+
+* refreshAuth
+* token persistence
+* logout
+* role routing
+
+No assumptions.
+
+---
+
+# STEP 8 — RUNTIME CERTIFICATION
+
+Verify:
+
+* ErrorBoundary
+* SettingsProvider
+* AuthProvider
+* WishlistProvider
+* QueryClientProvider
+
+Confirm:
+
+No context crashes.
+
+No useContext outside provider issues.
+
+No infinite error loops.
+
+No red screens.
+
+---
+
+# STEP 9 — TYPESCRIPT CERTIFICATION
+
+Run full TypeScript validation.
+
+Report:
+
+* total errors
+* file names
+* exact causes
+
+Fix only if they are real project errors.
+
+Do not ignore.
+
+---
+
+# STEP 10 — GENERATE UPDATED BASELINE
+
+After ALL verification is complete:
+
+Update:
+
+* RECOVERY_REPORT.md
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+* replit.md
+
+with REAL verified data.
+
+Not estimates.
+
+---
+
+# STEP 11 — FINAL REPORT
+
+Create:
+
+MOBILE_CERTIFICATION_REPORT.md
+
+Include:
+
+* every mobile screen
+* pass/fail status
+* runtime status
+* API status
+* parity status
+* unresolved issues
+
+Then provide:
+
+## FINAL STATUS
+
+Web readiness %
+
+Mobile readiness %
+
+Overall readiness %
+
+Known blockers
+
+Recommended next development phase
+
+Only after certification is complete may development continue.

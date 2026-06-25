@@ -1,0 +1,218 @@
+SYANO — Wishlist → Cart Integration (Production Grade)
+
+Excellent. The Guest Wishlist system is now complete and verified.
+
+Before building anything new, first verify that all Wishlist functionality implemented in the previous phase is still working correctly:
+
+* Guest wishlist persistence
+* Navbar wishlist counter
+* Wishlist page
+* Merge-on-login
+* ProductCard wishlist toggle
+* ProductDetail wishlist toggle
+
+Run practical tests, not code inspection only.
+
+====================================================
+NEW OBJECTIVE
+=============
+
+Implement a premium "Move to Cart" system similar to Amazon, Noon and Trendyol.
+
+Users should be able to transfer products from Wishlist to Cart with a single action.
+
+The system must support BOTH:
+
+* Guests
+* Authenticated users
+
+without breaking existing Cart or Wishlist behavior.
+
+====================================================
+PHASE 1 — AUDIT EXISTING CART ARCHITECTURE
+==========================================
+
+First inspect:
+
+* Guest Cart system
+* Authenticated Cart system
+* Cart Context
+* Cart page
+* ProductCard add-to-cart logic
+* ProductDetail add-to-cart logic
+
+Identify reusable methods.
+
+Do not duplicate business logic.
+
+Reuse existing cart infrastructure.
+
+====================================================
+PHASE 2 — WISHLIST PAGE ACTIONS
+===============================
+
+For every wishlist item add:
+
+Primary CTA:
+
+Move to Cart
+
+Secondary CTA:
+
+Remove
+
+Requirements:
+
+Desktop:
+
+* Clean horizontal layout
+* Proper spacing
+* Premium appearance
+
+Mobile:
+
+* Responsive layout
+* Touch friendly
+
+====================================================
+PHASE 3 — GUEST MODE SUPPORT
+============================
+
+If user is not authenticated:
+
+Move to Cart must:
+
+1. Add product to guest cart
+2. Remove product from guest wishlist
+3. Update both counters instantly
+4. Persist after refresh
+
+No login required.
+
+====================================================
+PHASE 4 — AUTHENTICATED MODE SUPPORT
+====================================
+
+If authenticated:
+
+Move to Cart must:
+
+1. Add item to server cart
+2. Remove item from server wishlist
+3. Refresh both contexts
+4. Update counters instantly
+
+Use optimistic updates where appropriate.
+
+====================================================
+PHASE 5 — BULK ACTIONS
+======================
+
+Add:
+
+Move All To Cart
+
+Requirements:
+
+* Available when wishlist contains items
+* Works for guests
+* Works for authenticated users
+* Skip duplicates already in cart
+* Do not create duplicate cart entries
+
+====================================================
+PHASE 6 — DUPLICATE PROTECTION
+==============================
+
+Verify:
+
+* Moving same item twice
+* Item already exists in cart
+* Multiple browser refreshes
+* Merge after login
+
+No duplicate cart items should be created.
+
+====================================================
+PHASE 7 — UX IMPROVEMENTS
+=========================
+
+Add:
+
+* Success toast
+* Loading state
+* Disabled button while processing
+* Empty wishlist state CTA
+
+Examples:
+
+"Moved to cart"
+"3 items moved to cart"
+
+Keep styling consistent with Homepage V7 design language.
+
+====================================================
+PHASE 8 — REAL RUNTIME TESTING
+==============================
+
+Do NOT stop after implementation.
+
+Actually test:
+
+1. Guest move item to cart
+2. Refresh page
+3. Verify persistence
+4. Authenticated move item to cart
+5. Bulk move all items
+6. Existing cart item conflict
+7. Login merge scenario
+8. Logout scenario
+9. Mobile responsive behavior
+10. Navbar counters
+
+====================================================
+PHASE 9 — FIX EVERYTHING FOUND
+==============================
+
+Any issue discovered during testing must be:
+
+* Fixed
+* Retested
+* Revalidated
+
+Do not only report problems.
+
+Resolve them.
+
+====================================================
+PHASE 10 — DOCUMENTATION
+========================
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* CHANGELOG.md
+
+Document:
+
+* Move To Cart feature
+* Bulk Move To Cart
+* Guest support
+* Authenticated support
+* Counter synchronization
+
+====================================================
+FINAL REPORT
+============
+
+Provide:
+
+* Files modified
+* Tests executed
+* Bugs discovered
+* Bugs fixed
+* Runtime validation results
+* Final production readiness status
+
+Do not stop until the feature is fully implemented, tested, verified and documented.

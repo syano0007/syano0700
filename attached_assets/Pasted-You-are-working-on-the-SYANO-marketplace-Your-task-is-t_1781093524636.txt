@@ -1,0 +1,224 @@
+You are working on the SYANO (سوق سوريا) marketplace.
+
+Your task is to fix ONLY these two UX issues:
+
+1. Edit Product Wizard Navigation
+2. Desktop Layout Width
+
+Do NOT work on anything else.
+
+Do NOT add new features.
+
+Do NOT modify VariantBuilder logic.
+
+Do NOT modify APIs.
+
+Do NOT change database schema.
+
+Do NOT change create-product behavior.
+
+Focus only on these two issues.
+
+---
+
+# ISSUE 1 — EDIT PRODUCT WIZARD UX
+
+Current behavior:
+
+When opening:
+
+/seller/products/:id/edit
+
+the wizard always starts at:
+
+Step 1
+
+and the seller must repeatedly click:
+
+التالي
+
+to reach the section they actually want to edit.
+
+This is poor UX.
+
+---
+
+# REQUIRED BEHAVIOR
+
+Edit mode must behave differently from Create mode.
+
+Create Product:
+
+Keep current behavior.
+
+User progresses normally.
+
+Do NOT change create-product flow.
+
+---
+
+Edit Product:
+
+Seller must be able to jump directly to ANY step.
+
+Examples:
+
+✓ المعلومات
+
+✓ الأسعار
+
+✓ الخيارات
+
+✓ المواصفات
+
+✓ النشر
+
+Clicking any step should immediately navigate there.
+
+No validation should block navigation.
+
+No requirement to visit previous steps first.
+
+No forced progression.
+
+---
+
+# IMPORTANT
+
+All product data must remain loaded.
+
+All fields must remain pre-filled.
+
+No regression in:
+
+* variants
+* specifications
+* images
+* pricing
+* stock
+* publishing
+
+---
+
+# IMPLEMENTATION GOAL
+
+When editing:
+
+Seller should instantly navigate between:
+
+* المعلومات
+* الأسعار
+* الخيارات
+* المواصفات
+* النشر
+
+similar to:
+
+Shopify
+
+Amazon Seller
+
+Trendyol
+
+No wizard friction.
+
+---
+
+# ISSUE 2 — DESKTOP WIDTH
+
+Current audit found:
+
+max-w-3xl
+
+which limits the wizard to approximately 768px.
+
+Large desktop screens waste too much space.
+
+---
+
+# REQUIRED BEHAVIOR
+
+Use desktop space properly.
+
+The page should feel like a professional seller dashboard.
+
+Do NOT keep the wizard squeezed into a narrow column.
+
+---
+
+# TARGET
+
+Desktop:
+
+1280px+
+1440px+
+ultrawide
+
+must feel comfortable.
+
+Use the available width intelligently.
+
+---
+
+# IMPORTANT
+
+Do NOT simply remove max-width completely.
+
+Design it properly.
+
+Recommended approach:
+
+* wider content container
+* responsive breakpoints
+* balanced reading width
+* variants section gets more space
+* specifications section gets more space
+
+The layout should feel premium.
+
+---
+
+# MUST VERIFY
+
+After implementation:
+
+## Edit Product
+
+Verify:
+
+* open edit page
+* click any step
+* immediate navigation works
+* no validation blocks movement
+* product data remains intact
+
+---
+
+## Desktop Layout
+
+Verify:
+
+* 1280px
+* 1440px
+* large desktop
+
+Check:
+
+* no excessive empty space
+* no cramped content
+* variants page comfortable
+* specifications page comfortable
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+1. Exact files changed
+2. Exact UX behavior before
+3. Exact UX behavior after
+4. Screenshots
+5. Verification results
+
+Do not implement anything beyond these two tasks.

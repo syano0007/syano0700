@@ -1,0 +1,247 @@
+CRITICAL TASK: FULL AUTHENTICATION, REGISTRATION, ROLES, AND SELLER SYSTEM AUDIT
+
+DO NOT START FIXING ANYTHING IMMEDIATELY.
+
+Current issue:
+
+Seller registration is failing.
+
+The system displays a registration failure message.
+
+The root cause is currently unknown.
+
+I need a complete technical investigation before any implementation.
+
+══════════════════════════════════════════
+PHASE 1 — COMPLETE SYSTEM AUDIT
+══════════════════════════════════════════
+
+Perform a full audit of:
+
+AUTHENTICATION
+
+* Login system
+* Registration system
+* Sessions
+* Tokens
+* Cookies
+* Remember Me
+* Verification system
+* Password validation
+* Password hashing
+
+ROLES
+
+* Customer role
+* Seller applicant role
+* Approved seller role
+* Admin role
+
+DATABASE
+
+* User tables
+* Seller tables
+* Verification tables
+* Role tables
+* Permissions tables
+* Foreign keys
+* Constraints
+* Unique indexes
+
+FRONTEND
+
+* Registration forms
+* Login forms
+* Validation logic
+* API calls
+* Error handling
+* Redirect logic
+
+BACKEND
+
+* Registration endpoints
+* Login endpoints
+* Seller application endpoints
+* Middleware
+* Permissions
+* Validation
+* Database transactions
+
+══════════════════════════════════════════
+PHASE 2 — TRACE THE FAILURE
+══════════════════════════════════════════
+
+Trace seller registration step by step.
+
+Check:
+
+1. User clicks seller registration.
+2. Form loads.
+3. Validation executes.
+4. Request sent.
+5. API receives request.
+6. Validation passes/fails.
+7. Database write occurs.
+8. User account creation.
+9. Seller application creation.
+10. Verification flow.
+11. Redirect flow.
+12. Success/failure handling.
+
+Identify EXACTLY where failure occurs.
+
+I want the precise file,
+function,
+query,
+validation,
+or API call responsible.
+
+Do not guess.
+
+══════════════════════════════════════════
+PHASE 3 — TEST ALL USER FLOWS
+══════════════════════════════════════════
+
+Test every possible scenario.
+
+CUSTOMER REGISTRATION
+
+* Email
+* Phone
+* Invalid email
+* Invalid phone
+* Duplicate email
+* Duplicate phone
+
+CUSTOMER LOGIN
+
+* Email
+* Phone
+* Wrong password
+* Remember Me
+
+SELLER REGISTRATION
+
+* Email
+* Phone
+* Multiple categories
+* Missing fields
+* Invalid data
+* Duplicate data
+
+SELLER APPLICATION
+
+* Submission
+* Pending state
+* Approved state
+* Rejected state
+
+ADMIN
+
+* Admin login
+* Admin permissions
+* Seller approval
+* Seller rejection
+
+══════════════════════════════════════════
+PHASE 4 — DATABASE VERIFICATION
+══════════════════════════════════════════
+
+Verify:
+
+* Tables exist
+* Columns exist
+* Relations are valid
+* Constraints are valid
+* Migrations completed
+* No schema mismatch exists
+
+Check for:
+
+* Missing columns
+* Broken migrations
+* Invalid foreign keys
+* Constraint violations
+* Duplicate indexes
+
+══════════════════════════════════════════
+PHASE 5 — PERMISSIONS AUDIT
+══════════════════════════════════════════
+
+Verify every role.
+
+Customer:
+
+* Allowed actions
+* Forbidden actions
+
+Seller Applicant:
+
+* Allowed actions
+* Forbidden actions
+
+Approved Seller:
+
+* Allowed actions
+* Forbidden actions
+
+Admin:
+
+* Allowed actions
+* Forbidden actions
+
+Confirm permissions are enforced correctly.
+
+══════════════════════════════════════════
+PHASE 6 — FIX ONLY AFTER ROOT CAUSE IS FOUND
+══════════════════════════════════════════
+
+DO NOT implement random fixes.
+
+DO NOT rewrite the system.
+
+DO NOT replace working code.
+
+Only fix the exact root cause after it is proven.
+
+══════════════════════════════════════════
+PHASE 7 — REGRESSION TESTING
+══════════════════════════════════════════
+
+After fixing:
+
+Re-test:
+
+* Customer registration
+* Customer login
+* Seller registration
+* Seller login
+* Seller application
+* Seller approval
+* Seller rejection
+* Admin login
+* Email authentication
+* Phone authentication
+* Remember Me
+
+Verify no existing functionality was broken.
+
+══════════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════════
+
+Provide:
+
+1. Root cause found.
+2. Exact file responsible.
+3. Exact function responsible.
+4. Exact database issue if any.
+5. Fix applied.
+6. Files modified.
+7. Tests performed.
+8. Authentication results.
+9. Seller flow results.
+10. Admin flow results.
+11. Confirmation that all roles now work correctly.
+
+Do not mark complete until every role and every authentication flow has been fully tested and validated.

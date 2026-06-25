@@ -1,0 +1,364 @@
+SYANO HOMEPAGE HERO REFINEMENT — FORENSIC UI FIX
+
+CRITICAL
+
+Before writing any code:
+
+Analyze the CURRENT implementation visually.
+
+Do NOT assume the layout is correct.
+
+Do NOT blindly edit CSS.
+
+Identify every visual defect first.
+
+This task is a visual quality correction task.
+
+==================================================
+CURRENT PROBLEMS (MUST BE FIXED)
+==================================================
+
+1. Hero banner area feels broken.
+
+2. Main banner and side banners do not feel like one coherent layout.
+
+3. Banner proportions are visually wrong.
+
+4. Side banners feel detached.
+
+5. Quick categories text is too small.
+
+6. Quick categories spacing is weak.
+
+7. Homepage lacks visual hierarchy.
+
+8. Hero area does not look marketplace-grade.
+
+Current result feels like:
+
+"3 images placed beside each other"
+
+instead of:
+
+"Professional commerce hero section"
+
+==================================================
+TARGET QUALITY
+==================================================
+
+Reference quality:
+
+- Noon
+- Amazon
+- Trendyol
+- Best Buy
+- Carrefour
+
+NOT:
+
+- Admin dashboard
+- Bootstrap demo
+- Generic ecommerce template
+
+==================================================
+SECTION 1 — HERO GRID REBUILD
+==================================================
+
+Desktop Layout:
+
+┌───────────────────────────────────────┬─────────────┐
+│                                       │             │
+│                                       │ Banner B    │
+│                                       │             │
+│          Main Banner                  ├─────────────┤
+│                                       │             │
+│                                       │ Banner C    │
+│                                       │             │
+└───────────────────────────────────────┴─────────────┘
+
+Requirements:
+
+Main Banner:
+70%
+
+Side Column:
+30%
+
+Use CSS Grid.
+
+Do NOT use flex hacks.
+
+Use:
+
+grid-template-columns:
+7fr 3fr
+
+Side column:
+
+grid-template-rows:
+1fr 1fr
+
+==================================================
+SECTION 2 — PERFECT HEIGHT MATCHING
+==================================================
+
+CRITICAL
+
+The large banner height must equal:
+
+Banner B height
++
+Banner C height
++
+grid gap
+
+Exactly.
+
+No visual mismatch.
+
+No 1px drift.
+
+No overflow.
+
+No stretching.
+
+==================================================
+SECTION 3 — HERO HEIGHT
+==================================================
+
+Current hero is oversized.
+
+New heights:
+
+Desktop:
+460px
+
+Tablet:
+380px
+
+Mobile:
+240px–260px
+
+Maximum.
+
+==================================================
+SECTION 4 — VISUAL POLISH
+==================================================
+
+All banners:
+
+rounded-xl
+
+consistent radius
+
+same shadow system
+
+same border treatment
+
+same hover animation
+
+same image fit
+
+Requirements:
+
+object-fit: cover
+
+No distortion.
+
+==================================================
+SECTION 5 — QUICK CATEGORIES BAR
+==================================================
+
+Move directly below navbar.
+
+Text-only navigation.
+
+No pills.
+
+No buttons.
+
+No chips.
+
+No cards.
+
+No backgrounds.
+
+Style similar to:
+
+Noon category row
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Current text is too small.
+
+Desktop:
+
+16px
+
+font-weight:500
+
+Tablet:
+
+15px
+
+Mobile:
+
+14px
+
+==================================================
+SPACING
+==================================================
+
+Category gap:
+
+28px
+
+Minimum:
+
+24px
+
+Maximum:
+
+32px
+
+Vertical padding:
+
+12px
+
+Horizontal padding:
+
+20px
+
+==================================================
+WIDTH CONTROL
+==================================================
+
+Single row only.
+
+Never wrap.
+
+If overflow:
+
+horizontal scroll
+
+Hide scrollbar elegantly.
+
+==================================================
+SECTION 6 — VISUAL BALANCE
+==================================================
+
+Categories must visually align with hero width.
+
+Hero and categories must feel like:
+
+one unified section.
+
+Not separate blocks.
+
+==================================================
+SECTION 7 — MOBILE
+==================================================
+
+Desktop:
+
+70/30 grid
+
+Tablet:
+
+70/30 grid
+
+Mobile:
+
+Banner A
+
+↓
+
+Banner B
+
+↓
+
+Banner C
+
+Stack vertically.
+
+No horizontal overflow.
+
+No clipping.
+
+==================================================
+SECTION 8 — PERFORMANCE
+==================================================
+
+Do NOT introduce:
+
+layout shifts
+
+re-render loops
+
+heavy animations
+
+extra API calls
+
+Keep existing banner API.
+
+Keep existing admin banner management.
+
+==================================================
+SECTION 9 — ADMIN COMPATIBILITY
+==================================================
+
+Do NOT hardcode images.
+
+Do NOT create fake banners.
+
+Continue using:
+
+Main Banner slot
+
+Side Banner Top slot
+
+Side Banner Bottom slot
+
+from admin banner management.
+
+==================================================
+FORENSIC VALIDATION
+==================================================
+
+Before completion verify:
+
+✅ Main banner width exactly 70%
+
+✅ Side column exactly 30%
+
+✅ Heights perfectly aligned
+
+✅ Hero height reduced
+
+✅ Categories text larger
+
+✅ Categories spacing improved
+
+✅ Single-row category navigation
+
+✅ Mobile layout correct
+
+✅ No overflow
+
+✅ No clipping
+
+✅ No visual imbalance
+
+✅ Arabic RTL preserved
+
+✅ English preserved
+
+✅ Existing banner management preserved
+
+✅ TypeScript 0 errors
+
+Do not stop after code compiles.
+
+Stop only when the homepage visually looks production-quality.

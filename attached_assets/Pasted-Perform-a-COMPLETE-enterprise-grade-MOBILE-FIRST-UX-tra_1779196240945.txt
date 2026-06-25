@@ -1,0 +1,361 @@
+Perform a COMPLETE enterprise-grade MOBILE-FIRST UX transformation across the entire Syano marketplace platform. Mobile experience is now the ABSOLUTE HIGHEST PRIORITY of the entire project.
+
+The goal is to make Syano feel like a premium native ecommerce application optimized specifically for real users in Syria using:
+- Android phones
+- weak internet
+- low-end devices
+- small screens
+- touch-based navigation
+
+The mobile experience must become:
+- ultra smooth
+- modern
+- intuitive
+- fast
+- visually premium
+- easy to use with one hand
+- optimized for real ecommerce conversions
+
+DO NOT redesign randomly.
+DO NOT break existing functionality.
+Carefully improve and polish the CURRENT architecture professionally.
+
+==================================================
+GLOBAL MOBILE-FIRST AUDIT
+==================================================
+
+Deeply inspect and optimize EVERY page and component for mobile usage.
+
+Audit:
+- homepage
+- discover page
+- categories
+- product pages
+- product cards
+- seller pages
+- cart
+- checkout
+- order tracking
+- notifications
+- authentication
+- profile pages
+- seller dashboard
+- admin dashboard
+- search UI
+- filters
+- dropdowns
+- modals
+- navigation
+- bottom sheets
+- forms
+- buttons
+- sliders
+- image galleries
+
+Find and fix ALL mobile usability issues automatically.
+
+==================================================
+MOBILE EXPERIENCE GOALS
+==================================================
+
+The website must feel:
+- like a real native app
+- thumb-friendly
+- visually balanced
+- ultra responsive
+- smooth on weak devices
+- easy to navigate
+- easy to shop from
+
+Every interaction must feel:
+- instant
+- responsive
+- lightweight
+- polished
+
+==================================================
+RESPONSIVE LAYOUT FIXES
+==================================================
+
+Aggressively fix ALL responsive issues including:
+- overflowing elements
+- hidden buttons
+- cropped content
+- broken grids
+- inconsistent spacing
+- cramped layouts
+- oversized text
+- undersized text
+- overlapping UI
+- improper alignment
+- flex/grid failures
+- RTL alignment issues
+- broken modals
+- bad viewport behavior
+- incorrect responsive scaling
+
+Ensure:
+- nothing touches screen edges
+- proper spacing everywhere
+- clean visual hierarchy
+- balanced mobile layouts
+- comfortable readability
+- consistent padding/margins
+
+==================================================
+MOBILE NAVIGATION EXPERIENCE
+==================================================
+
+Rebuild and optimize the entire mobile navigation experience professionally.
+
+Requirements:
+- smooth navigation transitions
+- intuitive mobile flows
+- fast page switching
+- clean responsive headers
+- optimized mobile menus
+- touch-friendly category browsing
+- premium bottom navigation if beneficial
+- mobile-first search UX
+- optimized filter panels
+- easy back navigation
+- predictable user flow
+
+Navigation must feel:
+- fluid
+- premium
+- modern
+- app-like
+
+==================================================
+PRODUCT PAGE MOBILE EXPERIENCE
+==================================================
+
+Transform the mobile product experience into a premium ecommerce flow.
+
+Requirements:
+- visible Add to Cart button at all times
+- thumb-friendly purchase flow
+- responsive image gallery
+- optimized product information hierarchy
+- clear pricing visibility
+- clean discount presentation
+- smooth image loading
+- optimized review section
+- seller trust visibility
+- sticky Add to Cart bar if beneficial
+- instant quantity controls
+- easy checkout flow
+
+The mobile product page must maximize:
+- usability
+- trust
+- conversion rate
+
+==================================================
+PRODUCT GRID & DISCOVER PAGE
+==================================================
+
+Optimize product browsing heavily.
+
+Requirements:
+- smooth scrolling
+- fast product rendering
+- clean responsive product cards
+- proper card spacing
+- optimized lazy loading
+- instant-feeling category browsing
+- smooth infinite scroll
+- responsive filters
+- mobile-friendly sorting
+
+Ensure products never:
+- overlap
+- stretch incorrectly
+- hide buttons
+- break layout
+
+==================================================
+SEARCH & FILTER EXPERIENCE
+==================================================
+
+Create a premium mobile ecommerce search experience.
+
+Requirements:
+- fast search interactions
+- responsive search results
+- mobile-friendly filters
+- clean filter sheets/drawers
+- easy sorting controls
+- proper Arabic search UX
+- optimized keyboard behavior
+- smooth input focus behavior
+
+==================================================
+TOUCH & INTERACTION OPTIMIZATION
+==================================================
+
+Optimize ALL touch interactions.
+
+Requirements:
+- instant tap feedback
+- no delayed interactions
+- proper touch targets
+- responsive buttons
+- smooth gestures
+- optimized scrolling
+- no accidental taps
+- comfortable one-handed usage
+
+Ensure all interactive elements are:
+- easy to tap
+- correctly sized
+- properly spaced
+
+==================================================
+MOBILE PERFORMANCE OPTIMIZATION
+==================================================
+
+Aggressively optimize mobile performance for:
+- weak Syrian internet
+- low-end Android devices
+- slow CPUs
+- limited RAM
+
+Implement:
+- lightweight rendering
+- optimized images
+- reduced JS execution
+- minimized rerenders
+- optimized scrolling performance
+- progressive loading
+- skeleton states
+- bandwidth reduction
+- smooth perceived performance
+
+The site must remain:
+- responsive
+- smooth
+- usable
+even on poor devices.
+
+==================================================
+RTL & ARABIC MOBILE OPTIMIZATION
+==================================================
+
+Ensure PERFECT Arabic RTL support on mobile.
+
+Fix:
+- RTL alignment
+- Arabic typography
+- icon direction
+- spacing inconsistencies
+- overflow issues
+- mixed direction layouts
+- broken Arabic wrapping
+
+Arabic mobile experience must feel:
+- native
+- polished
+- professional
+
+==================================================
+MOBILE CHECKOUT EXPERIENCE
+==================================================
+
+Optimize the checkout flow aggressively.
+
+Requirements:
+- simple checkout
+- minimal friction
+- fast form completion
+- easy address entry
+- responsive payment UI
+- clear order summary
+- smooth confirmation flow
+
+The checkout must feel:
+- trustworthy
+- fast
+- effortless
+
+==================================================
+LOADING STATES & PERCEIVED PERFORMANCE
+==================================================
+
+Implement premium loading experiences.
+
+Requirements:
+- skeleton loaders
+- shimmer placeholders
+- progressive rendering
+- smooth transitions
+- no blank screens
+- no layout jumps
+- no flickering
+
+The site should FEEL extremely fast even before everything loads.
+
+==================================================
+ADMIN & SELLER MOBILE EXPERIENCE
+==================================================
+
+Ensure seller/admin dashboards are fully usable on mobile.
+
+Optimize:
+- responsive tables
+- dashboard cards
+- analytics layouts
+- forms
+- notifications
+- order management
+- product management
+
+No broken admin/seller layouts allowed on mobile.
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically scan and fix:
+- hidden UI elements
+- mobile overflow
+- broken responsive layouts
+- inconsistent spacing
+- performance bottlenecks
+- scroll issues
+- RTL issues
+- viewport bugs
+- z-index conflicts
+- broken modals
+- touch interaction issues
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test ALL pages on mobile widths
+- test Android layouts
+- test iPhone layouts
+- test RTL Arabic rendering
+- test touch interactions
+- test Add to Cart visibility
+- test product browsing
+- test checkout flow
+- test seller/admin dashboards
+- test weak internet performance
+- verify no UI overlap exists
+- verify no cropped content exists
+- verify no hidden buttons exist
+- verify smooth scrolling
+- verify premium app-like behavior
+- verify no console errors exist
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium native ecommerce app
+- ultra polished mobile marketplace
+- modern mobile-first shopping experience
+- highly optimized for Syrian users
+- smooth even on weak devices
+- production-ready and enterprise-grade

@@ -1,0 +1,68 @@
+Fix the homepage hero/banner carousel immediately.
+
+Requirements:
+
+1. RTL Swipe Direction Fix (Critical)
+- The carousel behavior is currently reversed in Arabic (RTL).
+- When the site language is Arabic:
+  - Swiping left should move to the next banner.
+  - Swiping right should move to the previous banner.
+- Navigation logic, drag calculations, momentum, and animation direction must feel natural for Arabic users.
+- Do not simply invert the visual layout; fix the actual swipe behavior and transition calculations.
+- Verify with mouse drag and touch gestures.
+
+2. Full-Width Hero Banner
+- The hero section must span the full available width of the page.
+- Remove unnecessary side margins, gutters, max-width restrictions, and empty spaces around the banner.
+- The banner should feel like Amazon, Noon, Trendyol, and major marketplace homepages.
+- Desktop, tablet, and mobile must all use the full available width cleanly.
+
+3. Add More Banners
+- Increase the number of hero banners.
+- Create a realistic marketplace banner set covering multiple categories.
+- Use categories that fit the SYANO marketplace and Syrian market.
+
+Suggested banners:
+- Electronics & Smartphones
+- Fashion & Clothing
+- Home & Kitchen
+- Beauty & Personal Care
+- Grocery & Food
+- Baby & Kids
+- Sports & Fitness
+- Automotive Accessories
+- Local Syrian Products
+- Seasonal Promotions
+
+4. Clean Marketplace Style
+- Keep banners visual and product-focused.
+- No large text blocks.
+- No CTA buttons inside banners.
+- No floating statistic cards.
+- No “12000 happy customers”, “25000 products”, “500 stores” counters.
+- No marketing badges that clutter the banner.
+
+5. Smooth Card-Like Motion
+- Banner transitions must feel like dragging physical cards.
+- Add smooth momentum and easing.
+- No abrupt jumps.
+- No opposite-direction animation.
+- Motion should feel premium and modern.
+
+6. Performance
+- Maintain 60fps animations.
+- Avoid layout shifts.
+- Avoid excessive re-renders.
+- Mobile swipe must remain smooth.
+
+7. Validation
+After implementation:
+- Test RTL swipe behavior.
+- Test LTR swipe behavior.
+- Test mouse dragging.
+- Test touch dragging.
+- Test full-width layout on desktop and mobile.
+- Confirm no empty gaps remain on either side of the hero banner.
+- Confirm all new banners display correctly.
+
+Apply the fixes directly to the live implementation. Do not create a prototype, mockup, sandbox version, or alternative component. Update the production homepage hero carousel only.

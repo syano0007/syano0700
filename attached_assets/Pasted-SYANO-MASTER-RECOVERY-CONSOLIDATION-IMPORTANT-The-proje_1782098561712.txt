@@ -1,0 +1,368 @@
+SYANO MASTER RECOVERY CONSOLIDATION
+
+IMPORTANT:
+
+The project has been successfully migrated to a new account.
+
+Preview is working.
+
+This task is NOT feature development.
+
+This task is infrastructure certification + recovery consolidation.
+
+---
+
+# OBJECTIVE
+
+Create ONE authoritative recovery source.
+
+All recovery information must live in a single master document.
+
+Future agents must be able to restore the project completely from that file alone.
+
+---
+
+# PHASE 1 — FULL SYSTEM CERTIFICATION
+
+Before modifying documentation:
+
+Verify everything.
+
+Do not assume.
+
+Check:
+
+* Preview
+* Marketplace
+* API
+* Database
+* Embedding Service
+* Search
+* Authentication
+* Admin
+* Seller
+* Courier
+* Customer
+* Maps
+* Tracking
+* Notifications
+* Mobile
+* TypeScript
+* Workflows
+
+Document findings.
+
+---
+
+# PHASE 2 — DATABASE CERTIFICATION
+
+Verify:
+
+Database contains exactly:
+
+44 tables
+
+Generate:
+
+DATABASE_CERTIFICATION.md
+
+Include:
+
+* table names
+* row counts
+* verification timestamp
+
+Confirm:
+
+44/44 tables present.
+
+---
+
+# PHASE 3 — WORKFLOW CERTIFICATION
+
+Verify actual workflows.
+
+Document:
+
+Workflow name
+
+Command
+
+Port
+
+Purpose
+
+Running state
+
+Approved workflows only:
+
+* Embedding Service
+* API Server
+* Marketplace Web
+* Mobile Expo
+
+Document any additional workflow.
+
+---
+
+# PHASE 4 — PORT CERTIFICATION
+
+Verify:
+
+Marketplace
+
+API
+
+Embedding
+
+Mobile
+
+Document:
+
+external ports
+
+local ports
+
+preview routing
+
+current architecture
+
+---
+
+# PHASE 5 — CREATE MASTER FILE
+
+Create:
+
+SYANO_MASTER_CERTIFICATE.md
+
+This becomes:
+
+THE ONLY AUTHORITATIVE SOURCE.
+
+Everything needed for recovery must exist here.
+
+Include:
+
+---
+
+## Project Overview
+
+Architecture
+
+Purpose
+
+Modules
+
+---
+
+## Workflows
+
+Official workflows
+
+Commands
+
+Ports
+
+---
+
+## Database
+
+44 tables
+
+Critical entities
+
+Migration status
+
+---
+
+## Services
+
+Marketplace
+
+API
+
+Embedding
+
+Mobile
+
+---
+
+## Authentication
+
+Email
+
+Google
+
+Facebook state
+
+Turnstile state
+
+Admin credentials policy
+
+---
+
+## Search
+
+Embedding backend
+
+Dimensions
+
+Product counts
+
+---
+
+## Maps
+
+Leaflet
+
+React Leaflet
+
+OSRM
+
+Dependencies
+
+---
+
+## Recovery Instructions
+
+Exact recovery sequence
+
+Step-by-step
+
+---
+
+## Environment Variables
+
+Required
+
+Optional
+
+Descriptions
+
+---
+
+## Common Failures
+
+Preview failures
+
+Embedding failures
+
+Database failures
+
+Auth failures
+
+Map failures
+
+Fixes
+
+---
+
+## Current Certified State
+
+Timestamp
+
+Verified counts
+
+Verified services
+
+---
+
+# PHASE 6 — CONVERT ALL OTHER FILES
+
+The following files must NO LONGER contain recovery logic:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+* project.manifest.json
+
+They should contain only:
+
+Reference:
+
+SYANO_MASTER_CERTIFICATE.md
+
+This file is the single source of truth.
+
+Read it first.
+
+No duplicate recovery information should remain.
+
+No conflicting information should remain.
+
+---
+
+# PHASE 7 — RECOVERY DRY RUN
+
+Simulate:
+
+Fresh project import.
+
+Pretend all agent memory is lost.
+
+Attempt recovery using ONLY:
+
+SYANO_MASTER_CERTIFICATE.md
+
+Verify:
+
+* workflows can be restored
+* ports can be restored
+* services can be restored
+* database can be restored
+* auth can be restored
+* maps can be restored
+
+Document any missing information.
+
+Update the certificate until recovery succeeds.
+
+---
+
+# PHASE 8 — FINAL CERTIFICATION
+
+Create:
+
+MASTER_RECOVERY_VALIDATION.md
+
+Answer:
+
+Can a future agent restore the project using only:
+
+SYANO_MASTER_CERTIFICATE.md ?
+
+Result:
+
+CERTIFIED
+
+or
+
+NOT CERTIFIED
+
+Include:
+
+Recovery completeness score
+
+Missing items
+
+Remaining risks
+
+---
+
+# CRITICAL RULE
+
+Do NOT add features.
+
+Do NOT refactor architecture.
+
+Do NOT change ports.
+
+Do NOT change workflows.
+
+Do NOT create new services.
+
+Only certify, consolidate, validate, and establish a single source of truth.
+
+The project should become recoverable from one file forever.

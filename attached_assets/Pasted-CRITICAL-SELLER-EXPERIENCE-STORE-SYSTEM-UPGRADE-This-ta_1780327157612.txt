@@ -1,0 +1,222 @@
+CRITICAL SELLER EXPERIENCE & STORE SYSTEM UPGRADE
+
+This task focuses on transforming sellers from simple product uploaders into professional marketplace merchants.
+
+The goal is to build a seller ecosystem similar to Amazon Marketplace, Etsy, Trendyol, Noon and Shopify marketplaces.
+
+══════════════════════════════════════
+OBJECTIVE
+══════════════════════════════════════
+
+Create a professional seller experience that:
+
+* Builds trust
+* Encourages seller growth
+* Improves customer confidence
+* Increases retention
+* Makes stores feel like real businesses
+
+══════════════════════════════════════
+PHASE 1 — SELLER SYSTEM AUDIT
+══════════════════════════════════════
+
+Audit:
+
+* Seller dashboard
+* Seller profile
+* Store pages
+* Product management
+* Order management
+* Customer interactions
+* Notifications
+
+Identify weaknesses and opportunities.
+
+Provide implementation plan before coding.
+
+══════════════════════════════════════
+PHASE 2 — PROFESSIONAL STORE PAGES
+══════════════════════════════════════
+
+Every seller must have a dedicated store page.
+
+Store page should support:
+
+* Store name
+* Store logo
+* Store banner
+* Store description
+* Main categories
+* Seller rating
+* Total products
+* Join date
+
+Display store information professionally.
+
+══════════════════════════════════════
+PHASE 3 — STORE FOLLOWING SYSTEM
+══════════════════════════════════════
+
+Customers should be able to:
+
+Follow Store
+
+Unfollow Store
+
+Store followers should receive notifications when:
+
+* New products are added
+* Promotions are launched
+* Discounts are created
+
+══════════════════════════════════════
+PHASE 4 — SELLER TRUST SYSTEM
+══════════════════════════════════════
+
+Build seller credibility indicators.
+
+Support:
+
+* Verified Seller badge
+* Total sales
+* Order completion rate
+* Seller rating
+* Customer satisfaction indicators
+* Response metrics
+
+Display trust information prominently.
+
+══════════════════════════════════════
+PHASE 5 — SELLER ANALYTICS
+══════════════════════════════════════
+
+Create a seller analytics dashboard.
+
+Provide:
+
+* Orders
+* Revenue
+* Product views
+* Conversion metrics
+* Best-selling products
+* Inventory alerts
+
+Use clear charts and summaries.
+
+══════════════════════════════════════
+PHASE 6 — SELLER REVIEWS
+══════════════════════════════════════
+
+Implement seller reviews separately from product reviews.
+
+Customers should be able to rate:
+
+* Communication
+* Shipping experience
+* Professionalism
+
+Generate an overall seller score.
+
+══════════════════════════════════════
+PHASE 7 — BUYER-SELLER MESSAGING
+══════════════════════════════════════
+
+Implement internal messaging.
+
+Customers should be able to contact sellers directly from:
+
+* Product page
+* Store page
+
+Support:
+
+* Conversation history
+* Read status
+* Notifications
+
+Keep communication inside the marketplace.
+
+══════════════════════════════════════
+PHASE 8 — NOTIFICATIONS
+══════════════════════════════════════
+
+Notify sellers about:
+
+* New orders
+* New messages
+* New followers
+* Product reviews
+* Store reviews
+
+Notify customers about:
+
+* Seller replies
+* Store updates
+* Promotions
+* Followed store activity
+
+══════════════════════════════════════
+PHASE 9 — MOBILE EXPERIENCE
+══════════════════════════════════════
+
+Audit all seller functionality on:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+Ensure a smooth seller experience on mobile.
+
+══════════════════════════════════════
+PHASE 10 — PERFORMANCE
+══════════════════════════════════════
+
+Ensure:
+
+* Store pages load quickly
+* Analytics remain efficient
+* Messaging scales properly
+* Following system scales properly
+
+Avoid performance regressions.
+
+══════════════════════════════════════
+TESTING
+══════════════════════════════════════
+
+Test:
+
+* Store creation
+* Store editing
+* Following stores
+* Seller ratings
+* Seller analytics
+* Messaging
+* Notifications
+* Arabic
+* English
+* Mobile
+* Desktop
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Provide:
+
+1. Database changes.
+2. Store architecture.
+3. Trust system architecture.
+4. Analytics architecture.
+5. Messaging architecture.
+6. Notification architecture.
+7. Mobile compatibility report.
+8. Files modified.
+9. Screenshots.
+
+Success criteria:
+
+Sellers should feel like they own professional stores within the marketplace, customers should trust sellers more, and the platform should encourage long-term seller growth and retention.

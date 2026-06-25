@@ -1,0 +1,216 @@
+==================================================
+GLOBAL UI SPACING, ALIGNMENT & CONSISTENCY REFINEMENT
+=====================================================
+
+Carefully refine the ENTIRE UI/UX system to achieve a polished, professional, premium ecommerce appearance.
+
+IMPORTANT:
+Currently some elements feel too close to edges/borders and overall spacing consistency is not fully refined.
+
+Your task is to globally improve:
+
+* spacing
+* padding
+* margins
+* alignment
+* visual balance
+* layout consistency
+
+WITHOUT breaking:
+
+* existing functionality
+* responsiveness
+* routing
+* auth system
+* seller/customer systems
+* theme system
+
+==================================================
+
+1. GLOBAL CONTAINER & LAYOUT SPACING
+   ==================================================
+
+Implement a professional global layout spacing system.
+
+REQUIREMENTS:
+
+* Prevent text/components from touching screen edges
+* Add consistent horizontal padding across pages
+* Improve visual breathing room
+* Maintain balanced spacing between sections
+
+IMPORTANT:
+The UI should feel:
+
+* premium
+* spacious
+* clean
+* modern
+* comfortable to browse
+
+==================================================
+2. RESPONSIVE CONTAINER SYSTEM
+==============================
+
+Create/refine a responsive container width system.
+
+Ensure:
+
+* content is centered properly
+* pages have max-width constraints
+* large screens do not look stretched
+* mobile screens maintain safe padding
+* tablet layouts remain balanced
+
+RECOMMENDED BEHAVIOR:
+
+* consistent container widths
+* adaptive spacing by screen size
+* proper responsive padding
+
+==================================================
+3. TYPOGRAPHY & TEXT ALIGNMENT
+==============================
+
+Improve typography consistency globally.
+
+FIX:
+
+* text too close to edges
+* inconsistent line spacing
+* inconsistent heading spacing
+* crowded layouts
+* uneven vertical rhythm
+
+Ensure:
+
+* proper line-height
+* balanced spacing between headings/text
+* readable paragraphs
+* premium ecommerce typography hierarchy
+
+==================================================
+4. CARD & COMPONENT SPACING
+===========================
+
+Refine spacing for:
+
+* product cards
+* categories
+* dashboard cards
+* navbar
+* forms
+* buttons
+* modals
+* cart UI
+* order tables
+* search sections
+
+Ensure:
+
+* equal spacing
+* clean alignment
+* proper padding inside cards
+* visually balanced layouts
+
+==================================================
+5. NAVBAR & HEADER REFINEMENT
+=============================
+
+Improve navbar/header consistency.
+
+Ensure:
+
+* elements are not cramped
+* spacing between items is balanced
+* search bar alignment feels premium
+* buttons/icons have consistent spacing
+* mobile navbar remains clean
+
+==================================================
+6. SECTION SPACING & VISUAL HIERARCHY
+=====================================
+
+Improve spacing between homepage sections and internal sections.
+
+Ensure:
+
+* proper vertical rhythm
+* clean section separation
+* consistent margins/padding
+* premium ecommerce flow
+
+Avoid:
+
+* oversized empty gaps
+* cramped sections
+* inconsistent spacing behavior
+
+==================================================
+7. MOBILE RESPONSIVENESS (HIGH PRIORITY)
+========================================
+
+Carefully optimize spacing for:
+
+* phones
+* tablets
+* smaller screens
+
+Ensure:
+
+* text never touches screen edges
+* buttons remain easy to tap
+* cards remain readable
+* spacing scales properly on mobile
+
+==================================================
+8. RTL/LTR SPACING CONSISTENCY
+==============================
+
+Ensure spacing/alignment works perfectly in BOTH:
+
+* Arabic RTL
+* English LTR
+
+IMPORTANT:
+
+* no broken alignment
+* no flipped spacing bugs
+* maintain professional appearance in both languages
+
+==================================================
+9. PREMIUM VISUAL POLISH
+========================
+
+The final UI should feel:
+
+* polished
+* balanced
+* luxurious
+* modern
+* comfortable
+* production-grade
+
+Focus on:
+
+* whitespace quality
+* visual rhythm
+* consistency
+* readability
+* alignment precision
+
+==================================================
+10. FINAL VALIDATION
+====================
+
+Before finishing:
+
+* verify no text touches screen edges
+* verify consistent spacing globally
+* verify balanced layouts
+* verify mobile responsiveness
+* verify RTL/LTR consistency
+* verify navbar spacing
+* verify cards/forms/buttons spacing
+* verify no broken layouts/components
+* maintain production-ready polish

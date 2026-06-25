@@ -1,0 +1,467 @@
+⚠️ CRITICAL NOTE — READ BEFORE DOING ANYTHING:
+The Embedding Service is intentionally running on TF-IDF fallback mode.
+Do NOT install sentence-transformers. Do NOT install torch. Do NOT download any model files.
+Do NOT run any pip install command related to ML/AI libraries.
+Treat the Embedding Service as FROZEN — do not touch it.
+
+TARGET: Lighthouse Accessibility score ≥ 96 on every major page.
+This is Phase 11 — Prompt 9: Accessibility Layer.
+Execute every step completely and in order. Do not skip any step. Do not summarize. Show full output for every step.
+
+═══════════════════════════════════════
+PART 0 — READ EVERYTHING FIRST
+═══════════════════════════════════════
+
+STEP 0.1 — Read all recovery files before writing a single line:
+Read in full:
+  - CURRENT_STATE.md
+  - RECOVERY_GUIDE.md
+  - PROJECT_STATUS.md
+
+STEP 0.2 — Read all files you will touch before touching them:
+Read in full:
+  - artifacts/marketplace/src/main.tsx
+  - artifacts/marketplace/src/App.tsx
+  - artifacts/marketplace/index.html
+  - artifacts/marketplace/src/components/ (list all files)
+  - artifacts/marketplace/src/pages/ (list all files)
+  - artifacts/marketplace/tailwind.config.js or tailwind.config.ts
+  - artifacts/marketplace/src/i18n/ar.json (seo + any existing a11y keys)
+  - artifacts/marketplace/src/i18n/en.json (seo + any existing a11y keys)
+
+Do not write a single line of code until all files above are read.
+
+═══════════════════════════════════════
+PART 1 — GLOBAL ACCESSIBILITY FOUNDATION
+═══════════════════════════════════════
+
+STEP 1.1 — Add lang attribute and dir to HTML:
+In artifacts/marketplace/index.html:
+  - Confirm <html lang="ar" dir="rtl"> is set as default
+  - If lang or dir is missing → add them
+  - Do not change anything else in this file
+
+STEP 1.2 — Add skip-to-content link:
+In artifacts/marketplace/src/main.tsx or the root layout component (whichever wraps all pages):
+  - Add a visually hidden skip link as the VERY FIRST focusable element in the DOM:
+      
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded focus:outline-none focus:ring-2 focus:ring-offset-2"
+      >
+        {t("a11y.skipToContent")}
+      </a>
+  - Use logical CSS (start- not left-)
+  - Add i18n key a11y.skipToContent = "تخطى إلى المحتوى الرئيسي" (ar) / "Skip to main content" (en)
+
+STEP 1.3 — Add id="main-content" to main landmark:
+Find the main content wrapper in the root layout (the element that wraps page content, not the header/nav/footer).
+Add id="main-content" and role="main" to it.
+If no single wrapper exists → add a <main id="main-content"> wrapper around the page outlet/router content.
+
+STEP 1.4 — Add landmark roles to layout elements:
+  - Header/nav: confirm <header> and <nav> tags are used (not just divs)
+  - Footer: confirm <footer> tag is used
+  - If divs are used instead → replace with semantic HTML elements
+  - Add aria-label to <nav>: aria-label={t("a11y.mainNavigation")}
+  - Add i18n key: a11y.mainNavigation = "التنقل الرئيسي" (ar) / "Main navigation" (en)
+
+STEP 1.5 — Create FocusTrap component:
+Create file: artifacts/marketplace/src/components/FocusTrap.tsx
+
+Requirements:
+  - Props: children (ReactNode), active (boolean), onEscape?: () => void
+  - When active=true: trap Tab and Shift+Tab inside the component
+  - When Escape is pressed: call onEscape if provided
+  - On mount with active=true: move focus to first focusable element inside trap
+  - On unmount: restore focus to the element that was focused before the trap activated
+  - Focusable selectors: 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  - No `any` TypeScript type
+  - Export as default
+
+STEP 1.6 — Create useAnnouncer hook:
+Create file: artifacts/marketplace/src/hooks/useAnnouncer.ts
+
+Requirements:
+  - Creates a visually hidden aria-live="polite" aria-atomic="true" div in the DOM (appended to body)
+  - Returns announce(message: string) function
+  - Clears message after 1000ms to allow re-announcement of same message
+  - Used for announcing dynamic content changes (search results count, cart updates, etc.)
+  - No `any` TypeScript type
+  - Export as default
+
+═══════════════════════════════════════
+PART 2 — MODAL AND DIALOG ACCESSIBILITY
+═══════════════════════════════════════
+
+STEP 2.1 — Read all existing modal/dialog components:
+Find every modal, drawer, sheet, dialog, and overlay component in:
+  - artifacts/marketplace/src/components/
+  - artifacts/marketplace/src/pages/
+List every file that contains: modal, dialog, drawer, sheet, overlay, popup (case-insensitive).
+Read each one in full before making any changes.
+
+STEP 2.2 — Apply to every modal/dialog found:
+For each modal/dialog component:
+  a) Add role="dialog" aria-modal="true" to the overlay/container element
+  b) Add aria-labelledby pointing to the modal title element (add id to title if missing)
+  c) Add aria-describedby pointing to the modal description if one exists
+  d) Wrap content with <FocusTrap active={isOpen} onEscape={onClose}>
+  e) Ensure close button has aria-label={t("a11y.close")} — add i18n key: "إغلاق" (ar) / "Close" (en)
+  f) Ensure Escape key closes the modal (if not already handled by FocusTrap)
+
+═══════════════════════════════════════
+PART 3 — FORM ACCESSIBILITY
+═══════════════════════════════════════
+
+STEP 3.1 — Read all form components and pages:
+Read every file that contains <form, <input, <select, <textarea in:
+  - artifacts/marketplace/src/pages/auth/ (login, register)
+  - artifacts/marketplace/src/pages/ (checkout, profile, search)
+  - artifacts/marketplace/src/components/ (any form components)
+List all files found. Read each in full before editing.
+
+STEP 3.2 — Apply to every form found:
+For each form:
+  a) Every <input> must have a corresponding <label htmlFor={id}> — never use placeholder as the only label
+  b) Every <input> must have a unique id attribute
+  c) Error messages must be linked: <input aria-describedby={`${id}-error`}> and <span id={`${id}-error`} role="alert">
+  d) Required fields: add aria-required="true" to required inputs
+  e) Loading states: add aria-busy="true" to submit button when submitting
+  f) Form groups: wrap related inputs in <fieldset> with <legend> where appropriate (e.g., address fields)
+  g) Do not change any visual design — these are attribute-only changes
+
+STEP 3.3 — Add autocomplete attributes:
+  - Name field: autocomplete="name"
+  - Email field: autocomplete="email"
+  - Password field (login): autocomplete="current-password"
+  - Password field (register): autocomplete="new-password"
+  - Phone field: autocomplete="tel"
+  - Address fields: autocomplete="street-address", "postal-code", "country"
+
+═══════════════════════════════════════
+PART 4 — INTERACTIVE ELEMENTS
+═══════════════════════════════════════
+
+STEP 4.1 — Read all button and interactive components:
+Read every component that renders <button>, clickable <div>, or <span onClick in:
+  - artifacts/marketplace/src/components/
+List all interactive elements that are NOT native <button> or <a> elements.
+
+STEP 4.2 — Fix non-semantic interactive elements:
+For every clickable div/span found:
+  a) If it acts as a button → replace with <button> or add role="button" tabIndex={0} and onKeyDown handler for Enter/Space
+  b) If it acts as a link → replace with <a href> or <Link>
+  c) Never leave an onClick on a div without keyboard equivalent
+
+STEP 4.3 — Add aria-labels to icon-only buttons:
+Find every button that contains ONLY an icon (no visible text).
+Add aria-label to each. Examples:
+  - Cart button: aria-label={t("a11y.openCart")} — "فتح سلة التسوق" / "Open cart"
+  - Search button: aria-label={t("a11y.search")} — "بحث" / "Search"
+  - Close button: aria-label={t("a11y.close")} — "إغلاق" / "Close"
+  - Menu button: aria-label={t("a11y.openMenu")} — "فتح القائمة" / "Open menu"
+  - Favorite button: aria-label={t("a11y.addToWishlist")} — "إضافة للمفضلة" / "Add to wishlist"
+  - Share button: aria-label={t("a11y.share")} — "مشاركة" / "Share"
+  - Delete button: aria-label={t("a11y.delete")} — "حذف" / "Delete"
+  - Edit button: aria-label={t("a11y.edit")} — "تعديل" / "Edit"
+Add all these keys to ar.json and en.json under "a11y" namespace.
+
+STEP 4.4 — Fix dropdown and select menus:
+For every custom dropdown (not native <select>):
+  a) Trigger button: add aria-haspopup="listbox" aria-expanded={isOpen} aria-controls={listId}
+  b) List container: add role="listbox" id={listId} aria-label describing the dropdown purpose
+  c) Each option: add role="option" aria-selected={isSelected}
+  d) Keyboard: Arrow keys navigate options, Enter selects, Escape closes
+
+STEP 4.5 — Fix tabs and tab panels (if any exist):
+For every tab component:
+  a) Tab list container: role="tablist"
+  b) Each tab: role="tab" aria-selected={isActive} aria-controls={panelId} id={tabId}
+  c) Each panel: role="tabpanel" aria-labelledby={tabId} id={panelId}
+  d) Keyboard: Arrow keys switch tabs
+
+═══════════════════════════════════════
+PART 5 — IMAGES AND MEDIA
+═══════════════════════════════════════
+
+STEP 5.1 — Audit all image components:
+Find every <img> tag and every Image component used in:
+  - artifacts/marketplace/src/components/
+  - artifacts/marketplace/src/pages/
+List every instance.
+
+STEP 5.2 — Fix alt text on all images:
+  a) Product images: alt={product.name_ar || product.name} — never empty, never "image" or "photo"
+  b) Store logos: alt={store.name}
+  c) Category images: alt={t(`categories.${category.slug}`)} or category.name
+  d) Decorative images (backgrounds, dividers): alt="" role="presentation"
+  e) Icons used as images: alt="" (they are decorative — the button label covers them)
+  f) Brand/logo: alt="SYANO — سوق سوريا"
+  g) Never use filename as alt text
+
+═══════════════════════════════════════
+PART 6 — COLOR CONTRAST AND VISUAL
+═══════════════════════════════════════
+
+STEP 6.1 — Read the Tailwind config and CSS variables:
+Read:
+  - artifacts/marketplace/tailwind.config.js (or .ts)
+  - artifacts/marketplace/src/index.css (or globals.css — wherever CSS variables are defined)
+List all color CSS variables used for text and backgrounds.
+
+STEP 6.2 — Verify WCAG AA contrast ratios:
+Check these combinations meet WCAG AA minimum:
+  - Normal text (< 18px): contrast ratio ≥ 4.5:1
+  - Large text (≥ 18px or ≥ 14px bold): contrast ratio ≥ 3:1
+  - UI components and focus indicators: contrast ratio ≥ 3:1
+
+Check these specific pairs:
+  - Primary text on default background (light mode)
+  - Primary text on default background (dark mode)
+  - Muted/secondary text on background (both modes) — this is the most common failure
+  - Primary button text on primary button background
+  - Badge text on badge background
+
+If any pair fails → adjust the CSS variable value to pass. Do not change the variable name. Do not change any component. Only change the value in the CSS file.
+Show before/after contrast ratios for every change made.
+
+STEP 6.3 — Add visible focus indicators:
+In the global CSS file, confirm or add:
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+This ensures keyboard users see focus but mouse users don't see distracting outlines.
+
+═══════════════════════════════════════
+PART 7 — DYNAMIC CONTENT AND LOADING
+═══════════════════════════════════════
+
+STEP 7.1 — Announce search results:
+In the search results page:
+  - After results load, call announce() from useAnnouncer with:
+      t("a11y.searchResultsCount", { count: results.length, query })
+  - Add i18n key: "a11y.searchResultsCount" = "تم العثور على {{count}} نتيجة لـ «{{query}}»" (ar) / "Found {{count}} results for «{{query}}»" (en)
+
+STEP 7.2 — Announce cart updates:
+In the add-to-cart action (wherever it's handled):
+  - After item is added, call announce() with:
+      t("a11y.addedToCart", { name: product.name_ar || product.name })
+  - Add i18n key: "a11y.addedToCart" = "تمت إضافة {{name}} إلى السلة" (ar) / "{{name}} added to cart" (en)
+
+STEP 7.3 — Loading states:
+For every loading spinner or skeleton:
+  a) Add aria-busy="true" to the container while loading
+  b) Add aria-label={t("a11y.loading")} to spinner elements
+  c) Add role="status" to the loading container
+  d) Add i18n key: "a11y.loading" = "جاري التحميل..." (ar) / "Loading..." (en)
+
+STEP 7.4 — Page transitions:
+After every route change:
+  - Move focus to the <main id="main-content"> element
+  - Announce the new page title to screen readers via useAnnouncer
+  In App.tsx or the router, on location change:
+    document.getElementById("main-content")?.focus()
+    announce(document.title)
+  Add tabIndex={-1} to the main element so it can receive programmatic focus.
+
+═══════════════════════════════════════
+PART 8 — REDUCED MOTION
+═══════════════════════════════════════
+
+STEP 8.1 — Respect prefers-reduced-motion:
+In the global CSS file, add:
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+═══════════════════════════════════════
+PART 9 — TYPESCRIPT CHECK AND VERIFICATION
+═══════════════════════════════════════
+
+STEP 9.1 — TypeScript check — zero errors required:
+Run: cd artifacts/api-server && npx tsc --noEmit
+Run: cd artifacts/marketplace && npx tsc --noEmit
+If any errors exist → fix every single one before continuing.
+Show full output of both commands.
+
+STEP 9.2 — Confirm all 3 workflows are still running:
+GET http://localhost:8080/api/healthz → expect { "status": "ok" }
+GET http://localhost:5000 → expect HTTP 200
+GET http://localhost:8001/health → expect { "status": "ok" }
+
+═══════════════════════════════════════
+PART 10 — UPDATE RECOVERY FILES
+═══════════════════════════════════════
+
+STEP 10.1 — Overwrite CURRENT_STATE.md with exactly this content:
+
+# SYANO — Current State
+Last updated: June 16, 2026
+
+## Project Identity
+- Name: SYANO — سوق سوريا
+- Type: Multi-vendor marketplace
+- Domain: syanomarket.online
+- GitHub: https://github.com/syano0007/syano07007
+- Status: Pre-launch — Phase 11 in progress
+
+## Active Phase
+Phase 11 — Launch Preparation
+Completed: Prompts 1, 2, 3, 4, 5, 6, 7, 8, 9
+Remaining: Prompt 10 (Performance Baseline)
+
+## Last Session Work — June 16, 2026
+### Phase 11 — Prompt 9 — Accessibility Layer ✅
+
+1. Skip-to-content link added (visually hidden, appears on focus)
+2. lang="ar" dir="rtl" confirmed on <html> element
+3. id="main-content" role="main" added to main content wrapper
+4. Landmark roles: <header>, <nav aria-label>, <main>, <footer> semantic elements confirmed
+5. FocusTrap component: artifacts/marketplace/src/components/FocusTrap.tsx
+   - Traps Tab/Shift+Tab inside active modals
+   - Restores focus on unmount
+   - Handles Escape key
+6. useAnnouncer hook: artifacts/marketplace/src/hooks/useAnnouncer.ts
+   - aria-live="polite" region injected into DOM
+   - Used for search results count, cart updates, page transitions
+7. All modals/dialogs updated:
+   - role="dialog" aria-modal="true" aria-labelledby aria-describedby
+   - FocusTrap applied to all modals
+   - Close buttons have aria-label
+8. All forms updated:
+   - Labels linked to inputs via htmlFor/id
+   - Error messages linked via aria-describedby
+   - aria-required on required fields
+   - autocomplete attributes added
+   - aria-busy on submit buttons during loading
+9. Icon-only buttons: aria-label added to all (cart, search, close, menu, wishlist, share, delete, edit)
+10. Custom dropdowns: aria-haspopup, aria-expanded, role="listbox", role="option" added
+11. All images: descriptive alt text — product, store, category, decorative
+12. Color contrast: all pairs verified ≥ 4.5:1 (normal text), ≥ 3:1 (large text/UI)
+13. focus-visible CSS added globally
+14. prefers-reduced-motion CSS added globally
+15. Page transitions: focus moves to main-content on route change + announcement
+16. Loading states: aria-busy, role="status", aria-label on all spinners
+17. i18n keys added under "a11y" namespace (ar.json + en.json)
+Target: Lighthouse Accessibility ≥ 96 ✅
+
+### Phase 11 — Prompt 8 — SEO Layer ✅ (previous session)
+### Phase 11 — Prompt 7 — Email OTP ✅ (previous session)
+
+## Required Replit Secrets — ALL must be set:
+   SESSION_SECRET
+   RESEND_API_KEY
+   EMAIL_FROM              = noreply@syanomarket.online
+   CORS_ORIGIN             = https://syanomarket.online
+   SITE_URL                = https://syanomarket.online
+   ROOT_ADMIN_PASSWORD
+   VAPID_EMAIL             = mailto:admin@syanomarket.online
+   VAPID_PRIVATE_KEY
+   VAPID_PUBLIC_KEY
+   VITE_SUPPORT_PHONE
+   EMBEDDING_SERVICE_URL   = http://localhost:8001
+   ENABLE_EMAIL_VERIFICATION = true
+
+## Embedding Service
+- Status: TF-IDF fallback — INTENTIONAL — do not install sentence-transformers
+- Full model installed only once before final production launch
+
+## Database State
+- 33 tables, fully migrated
+- 42 products with vector embeddings
+- pgvector enabled — vector(384) on products table
+
+## Test Accounts
+- Admin:   delewatiamer7@gmail.com
+- Seller:  delewatiamer8@gmail.com
+- Courier: delewatiamer9@gmail.com
+
+STEP 10.2 — Update PROJECT_STATUS.md:
+Prepend exactly this block at the very top:
+
+# SYANO — Project Status
+Last updated: June 16, 2026
+
+## Phase 11 — Launch Preparation
+- Prompt 1  — Launch Readiness Audit     ✅ Complete
+- Prompt 2  — Critical & High Fixes      ✅ Complete
+- Prompt 3  — Error Handling Layer       ✅ Complete
+- Prompt 4  — Data Quality               ✅ Complete
+- Prompt 5  — Mobile Readiness           ✅ Complete
+- Prompt 6  — Security Review            ✅ Complete
+- Prompt 7  — Email OTP Verification     ✅ Complete
+- Prompt 8  — SEO Layer                  ✅ Complete
+- Prompt 9  — Accessibility              ✅ Complete
+- Prompt 10 — Performance Baseline       ⏳ Next
+
+---
+
+STEP 10.3 — Update RECOVERY_GUIDE.md:
+Find the section "## EMBEDDING SERVICE" and confirm this line is still present:
+  "Do NOT install sentence-transformers or torch during any development session"
+If missing → add it back exactly as written. Do not change anything else.
+
+STEP 10.4 — Update replit.md (or README.md — whichever exists at root):
+Prepend exactly this block at the very top:
+
+# SYANO — syanomarket.online
+Last verified working: June 16, 2026
+Workflows: API Server ✅ | Marketplace ✅ | Embedding Service ✅ (TF-IDF mode)
+Secrets: All 12 loaded ✅
+SEO Layer: ✅ | Accessibility: ✅ (target ≥ 96)
+Next task: Phase 11 — Prompt 10 — Performance Baseline
+
+---
+
+═══════════════════════════════════════
+PART 11 — FINAL SUMMARY TABLE
+═══════════════════════════════════════
+
+STEP 11.1 — Print final summary table:
+
+| Check | Expected | Actual | Status |
+|---|---|---|---|
+| lang + dir on <html> | ar + rtl | ? | ✅/❌ |
+| Skip-to-content link | visible on focus | ? | ✅/❌ |
+| id="main-content" exists | ✅ | ? | ✅/❌ |
+| <nav> has aria-label | ✅ | ? | ✅/❌ |
+| FocusTrap component created | ✅ | ? | ✅/❌ |
+| useAnnouncer hook created | ✅ | ? | ✅/❌ |
+| All modals: role=dialog | ✅ | ? | ✅/❌ |
+| All modals: FocusTrap applied | ✅ | ? | ✅/❌ |
+| All modals: close aria-label | ✅ | ? | ✅/❌ |
+| All forms: labels linked | ✅ | ? | ✅/❌ |
+| All forms: error aria-describedby | ✅ | ? | ✅/❌ |
+| All forms: autocomplete attrs | ✅ | ? | ✅/❌ |
+| Icon buttons: aria-label | ✅ | ? | ✅/❌ |
+| Custom dropdowns: ARIA attrs | ✅ | ? | ✅/❌ |
+| Product images: alt text | descriptive | ? | ✅/❌ |
+| Decorative images: alt="" | ✅ | ? | ✅/❌ |
+| Color contrast ≥ 4.5:1 | all pairs | ? | ✅/❌ |
+| focus-visible CSS | ✅ | ? | ✅/❌ |
+| prefers-reduced-motion CSS | ✅ | ? | ✅/❌ |
+| Search results announced | ✅ | ? | ✅/❌ |
+| Cart updates announced | ✅ | ? | ✅/❌ |
+| Page transition focus | ✅ | ? | ✅/❌ |
+| Loading states: aria-busy | ✅ | ? | ✅/❌ |
+| i18n a11y keys (ar + en) | ✅ | ? | ✅/❌ |
+| API Server TypeScript | 0 errors | ? | ✅/❌ |
+| Marketplace TypeScript | 0 errors | ? | ✅/❌ |
+| API Server health | 200 OK | ? | ✅/❌ |
+| Marketplace health | 200 OK | ? | ✅/❌ |
+| Embedding Service health | 200 OK | ? | ✅/❌ |
+| CURRENT_STATE.md updated | ✅ | ? | ✅/❌ |
+| PROJECT_STATUS.md updated | ✅ | ? | ✅/❌ |
+| RECOVERY_GUIDE.md verified | ✅ | ? | ✅/❌ |
+| replit.md updated | ✅ | ? | ✅/❌ |
+
+If any row shows ❌ → fix it immediately. Do not finish until every row is ✅.

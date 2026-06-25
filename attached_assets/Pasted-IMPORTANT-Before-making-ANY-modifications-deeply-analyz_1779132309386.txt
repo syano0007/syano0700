@@ -1,0 +1,335 @@
+IMPORTANT:
+Before making ANY modifications, deeply analyze the ENTIRE existing Syano marketplace architecture including:
+
+- authentication system
+- seller/customer roles
+- order system
+- order statuses
+- database schema
+- notification possibilities
+- state management
+- API/backend structure
+- websocket/realtime capabilities
+- UI component architecture
+- dashboard systems
+- navbar/header systems
+- mobile responsiveness
+- performance bottlenecks
+
+DO NOT rebuild the project.
+DO NOT regenerate unrelated pages/components.
+DO NOT replace the current order architecture unnecessarily.
+
+Modify ONLY what is required while preserving all existing functionality and current marketplace logic.
+
+The implementation must remain:
+- production-ready
+- scalable
+- realtime-ready
+- lightweight
+- mobile-friendly
+- optimized for weak internet
+- fully compatible with the existing architecture
+
+==================================================
+SECTION 1 — COMPLETE REALTIME NOTIFICATION SYSTEM
+==================================================
+
+Implement a professional marketplace notification system inspired by modern ecommerce platforms.
+
+The notification system must support:
+- seller notifications
+- customer notifications
+- order updates
+- realtime updates
+- unread/read states
+- notification persistence
+- mobile responsiveness
+
+The system should feel:
+- modern
+- smooth
+- premium
+- responsive
+- trustworthy
+- scalable
+
+==================================================
+SECTION 2 — CORE ORDER NOTIFICATION FLOW (HIGH PRIORITY)
+==================================================
+
+This is the MOST IMPORTANT workflow.
+
+==================================================
+A. CUSTOMER PLACES ORDER
+==================================================
+
+When a customer places an order:
+
+The seller MUST instantly receive:
+- a realtime notification
+- notification badge update
+- unread notification count update
+
+The notification should include:
+- customer name
+- order number
+- ordered products
+- total price
+- timestamp
+
+Example:
+"New order received from Ahmad — 3 products ordered."
+
+==================================================
+B. SELLER OPENS/SEES THE NOTIFICATION
+==================================================
+
+When the seller opens/views the notification:
+
+Automatically:
+- mark notification as read
+- update unread count
+- change order status from:
+  "Pending"
+  TO:
+  "Processing"
+
+IMPORTANT:
+This transition must happen safely and consistently.
+
+==================================================
+C. SELLER ORDER WORKFLOW
+==================================================
+
+Implement clean notification-based order lifecycle updates.
+
+Example flow:
+
+1. Customer places order
+→ Seller gets notification
+→ Order status = Pending
+
+2. Seller opens notification
+→ Notification marked as read
+→ Order status = Processing
+
+3. Seller marks shipped
+→ Customer gets notification
+
+4. Seller marks delivered
+→ Customer gets delivery notification
+
+5. Customer confirms received
+→ Final completion notification
+
+==================================================
+SECTION 3 — CUSTOMER NOTIFICATIONS
+==================================================
+
+Customers should receive notifications for:
+- order accepted
+- order processing
+- shipped
+- delivered
+- cancelled
+- discounts/promotions (future-ready structure)
+
+Notifications should feel:
+- clear
+- modern
+- professional
+- easy to understand
+
+==================================================
+SECTION 4 — SELLER NOTIFICATIONS
+==================================================
+
+Sellers should receive notifications for:
+- new orders
+- cancelled orders
+- low stock warnings
+- customer reviews/ratings
+- important marketplace actions
+
+==================================================
+SECTION 5 — NOTIFICATION CENTER UI
+==================================================
+
+Create a premium notification center.
+
+Requirements:
+- modern dropdown/panel
+- unread badges
+- clean notification cards
+- timestamps
+- smooth animations
+- responsive design
+- optimized mobile behavior
+
+The UI should feel inspired by:
+- Amazon
+- modern SaaS dashboards
+- premium ecommerce platforms
+
+==================================================
+SECTION 6 — NAVBAR NOTIFICATION ICON
+==================================================
+
+Add a professional notification bell icon.
+
+Requirements:
+- unread count badge
+- realtime updates
+- responsive behavior
+- mobile compatibility
+- role-aware notifications
+
+IMPORTANT:
+Customers and sellers should ONLY see notifications relevant to their role.
+
+==================================================
+SECTION 7 — REALTIME / LIVE UPDATES
+==================================================
+
+Implement realtime notification behavior if compatible with current architecture.
+
+Possible approaches:
+- websocket
+- realtime subscriptions
+- polling optimization
+- lightweight live updates
+
+IMPORTANT:
+Optimize carefully for:
+- weak internet
+- Syria/slow networks
+- low-end devices
+
+Avoid:
+- excessive polling
+- unnecessary rerenders
+- performance-heavy realtime systems
+
+==================================================
+SECTION 8 — DATABASE & BACKEND STRUCTURE
+==================================================
+
+Implement a scalable notification architecture.
+
+Requirements:
+- notification persistence
+- read/unread states
+- timestamps
+- notification types
+- role-based filtering
+- safe order status synchronization
+- database consistency
+
+Ensure:
+- no duplicated notifications
+- no race conditions
+- no inconsistent status updates
+
+==================================================
+SECTION 9 — MOBILE-FIRST UX
+==================================================
+
+The notification system must feel PREMIUM on mobile.
+
+Optimize:
+- touch interactions
+- dropdown responsiveness
+- notification cards
+- spacing
+- typography
+- animation smoothness
+
+Ensure:
+- fast interactions
+- smooth scrolling
+- lightweight rendering
+- responsive layouts
+
+==================================================
+SECTION 10 — PERFORMANCE OPTIMIZATION
+==================================================
+
+The notification system must remain lightweight and fast.
+
+Implement:
+- optimized rendering
+- lazy loading where appropriate
+- efficient state updates
+- optimized realtime handling
+- notification batching if needed
+- lightweight animations
+- minimal network usage
+
+Ensure:
+- fast performance on weak internet
+- smooth behavior on low-end devices
+- no UI lag
+- no excessive API requests
+
+==================================================
+SECTION 11 — SMART ORDER STATUS SYNCHRONIZATION
+==================================================
+
+Ensure notifications and order statuses stay perfectly synchronized.
+
+IMPORTANT:
+Opening/reading seller notifications should safely trigger:
+- order transition to "Processing"
+
+But ONLY:
+- once
+- without duplicate updates
+- without inconsistent states
+
+Implement:
+- safe validation
+- backend verification
+- proper state handling
+- race condition prevention
+
+==================================================
+SECTION 12 — FUTURE-READY ARCHITECTURE
+==================================================
+
+Build the notification system so it can later support:
+- push notifications
+- email notifications
+- admin notifications
+- promotional campaigns
+- realtime chat/messages
+- mobile app notifications
+
+WITHOUT requiring major rewrites.
+
+==================================================
+SECTION 13 — FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+- test customer order flow
+- test seller notification flow
+- test unread/read behavior
+- test order status synchronization
+- test mobile responsiveness
+- test desktop responsiveness
+- test realtime behavior
+- test weak internet handling
+- test notification persistence
+- test role separation
+- test notification badge updates
+- automatically fix discovered inconsistencies
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium modern ecommerce marketplace
+- highly professional
+- realtime and responsive
+- scalable and production-ready
+- optimized for weak internet
+- smooth on both desktop and mobile

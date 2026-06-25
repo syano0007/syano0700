@@ -1,0 +1,417 @@
+# SYANO — Courier V3.3
+
+# Phase 3 — A1
+
+# Courier Discovery Engine
+
+## Context
+
+You are implementing the first core component of the Mission Assignment Engine.
+
+Everything already completed:
+
+✅ Delivery Missions
+
+✅ Courier Availability System
+
+✅ ONLINE / OFFLINE / BUSY
+
+✅ Automatic Status Synchronization
+
+✅ Mission Assignment Foundation
+
+Do NOT rebuild anything.
+
+Extend only.
+
+---
+
+# CRITICAL RULES
+
+## DO NOT IMPLEMENT
+
+❌ Mission Offers
+
+❌ Accept / Decline
+
+❌ Countdown
+
+❌ Assignment Rounds
+
+❌ GPS
+
+❌ Maps
+
+❌ Tracking
+
+❌ Wallet
+
+❌ Earnings
+
+❌ Notifications
+
+❌ Customer UI
+
+❌ Courier Offer UI
+
+Only implement:
+
+```text
+Courier Discovery Engine
+```
+
+Nothing else.
+
+---
+
+# GOAL
+
+Given a delivery mission:
+
+```text
+Pickup Location
++
+Available Couriers
+```
+
+The system must find:
+
+```text
+Nearest 3 Couriers
+```
+
+accurately and efficiently.
+
+---
+
+# BUSINESS RULES
+
+A courier is eligible only if:
+
+```text
+Approved
+
+Active
+
+ONLINE
+
+Accepting Deliveries = true
+
+No Active Mission
+
+Not BUSY
+```
+
+---
+
+Ignore all other couriers.
+
+---
+
+# DISTANCE CALCULATION
+
+Use:
+
+```text
+Haversine Formula
+```
+
+for geographic distance.
+
+Do NOT use fake calculations.
+
+Do NOT use rough estimates.
+
+Use real latitude/longitude distance.
+
+---
+
+Create reusable utility:
+
+```ts
+calculateDistanceKm(
+  lat1,
+  lng1,
+  lat2,
+  lng2
+)
+```
+
+Return:
+
+```ts
+number
+```
+
+in kilometers.
+
+---
+
+# DISCOVERY SERVICE
+
+Create:
+
+```ts
+findNearestCouriers(
+  pickupLat,
+  pickupLng,
+  limit = 3
+)
+```
+
+---
+
+Flow:
+
+```text
+Load Available Couriers
+↓
+Calculate Distance
+↓
+Sort Ascending
+↓
+Take Top 3
+↓
+Return Results
+```
+
+---
+
+Return:
+
+```ts
+[
+  {
+    courierId,
+    distanceKm
+  }
+]
+```
+
+---
+
+# PERFORMANCE
+
+System must scale.
+
+Future target:
+
+```text
+1000+
+Couriers
+```
+
+---
+
+Avoid:
+
+```text
+N+1 Queries
+```
+
+---
+
+Use:
+
+```text
+Single Query
+```
+
+for courier loading.
+
+---
+
+Distance calculation may happen in memory for now.
+
+Future optimization will come later.
+
+---
+
+# DATABASE
+
+Do NOT modify existing tables.
+
+Do NOT add destructive migrations.
+
+Only add indexes if useful.
+
+Possible index:
+
+```text
+availability_status
+```
+
+if missing.
+
+---
+
+# MISSION SERVICE INTEGRATION
+
+Extend existing mission services.
+
+Add:
+
+```ts
+findNearestCouriers()
+```
+
+to delivery mission service layer.
+
+---
+
+Keep architecture clean.
+
+Future phases must reuse this method.
+
+---
+
+# ADMIN TEST PAGE
+
+Create temporary admin-only testing panel.
+
+Example:
+
+```text
+Mission ID
+↓
+Find Nearest Couriers
+```
+
+---
+
+Display:
+
+```text
+Courier Name
+
+Distance
+
+Status
+```
+
+---
+
+Read-only.
+
+No assignment yet.
+
+No offers yet.
+
+Purpose:
+
+Verify engine accuracy.
+
+---
+
+# LOGGING
+
+Add structured logs:
+
+```text
+Mission Discovery Started
+
+Available Couriers Found
+
+Distances Calculated
+
+Nearest Couriers Selected
+```
+
+---
+
+Do NOT spam logs.
+
+---
+
+# ERROR HANDLING
+
+If:
+
+```text
+No Available Couriers
+```
+
+Return:
+
+```ts
+[]
+```
+
+Never crash.
+
+Never throw.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Only ONLINE couriers returned
+
+✅ BUSY couriers excluded
+
+✅ Offline couriers excluded
+
+✅ Distance calculated correctly
+
+✅ Sorted nearest first
+
+✅ Maximum 3 returned
+
+✅ Empty array handled
+
+✅ Service reusable
+
+✅ No regressions
+
+✅ TypeScript = 0 errors
+
+---
+
+# IMPORTANT
+
+This phase ends ONLY when:
+
+```text
+Mission
+↓
+Pickup Coordinates
+↓
+Nearest 3 Couriers
+```
+
+works reliably.
+
+Do not start Mission Offers.
+
+Do not start Countdown.
+
+Do not start Accept/Decline.
+
+Those belong to A2 and A3.
+
+---
+
+# RECOVERY FILES
+
+After completion update:
+
+```text
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+```
+
+Document:
+
+* Courier Discovery Engine
+* Distance Calculation
+* Nearest Courier Selection
+* Admin Test Tool
+
+Recovery files must be updated before considering the task complete.

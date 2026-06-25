@@ -1,0 +1,232 @@
+Currently administrators can modify seller status, but suspended sellers are not fully blocked from accessing the platform.
+
+Requirements:
+
+Create a complete Seller Suspension System.
+
+When a seller status becomes:
+
+Suspended
+Disabled
+Blocked
+
+The system must immediately:
+
+Invalidate all active sessions.
+Disconnect active SSE connections.
+Revoke authentication tokens if applicable.
+Prevent login.
+Prevent API access.
+Prevent dashboard access.
+Prevent product management access.
+Prevent order management access.
+
+====================================================
+
+SUSPENDED ACCOUNT PAGE
+
+====================================================
+
+Redirect suspended sellers to a dedicated page:
+
+/account-suspended
+
+Page content:
+
+English:
+
+"Your seller account has been suspended.
+Please contact support for more information."
+
+Arabic:
+
+"تم إيقاف حساب البائع الخاص بك.
+يرجى التواصل مع الدعم للحصول على مزيد من المعلومات."
+
+Display:
+
+Suspension status
+Support contact button
+Support email
+Support phone (if configured)
+
+====================================================
+
+BACKEND ENFORCEMENT
+
+====================================================
+
+Every seller-protected route must verify:
+
+User exists
+User is authenticated
+Seller account status = active
+
+If status != active:
+
+Return 403 Forbidden.
+
+Audit all:
+
+Seller routes
+Product routes
+Inventory routes
+Store management routes
+Analytics routes
+
+Administrators must be able to suspend users without deleting them.
+
+Add:
+
+Active
+Suspended
+Disabled
+
+statuses for customer accounts.
+
+When suspended:
+
+User cannot login.
+User cannot access account pages.
+User cannot place orders.
+User cannot message sellers.
+User cannot create reviews.
+User cannot use wishlist.
+User cannot access protected APIs.
+
+Redirect to:
+
+/account-suspended
+
+Use the same suspension page.
+
+====================================================
+
+ADMIN PANEL
+
+====================================================
+
+Add actions:
+
+Suspend Account
+Reactivate Account
+
+For:
+
+Customers
+Sellers
+
+Require confirmation modal before execution.
+
+Store:
+
+suspension reason
+suspended by
+suspended at
+
+inside database.
+
+Currently products can appear in Best Deals incorrectly.
+
+Replace all manual logic.
+
+====================================================
+
+NEW RULE
+
+====================================================
+
+A product may appear in Best Deals ONLY if:
+
+discount_percentage >= 15
+
+Default threshold:
+
+BEST_DEALS_THRESHOLD = 15
+
+Must be configurable.
+
+====================================================
+
+BACKEND ENFORCEMENT
+
+====================================================
+
+Compute discount percentage using:
+
+((original_price - sale_price) / original_price) * 100
+
+Only products meeting threshold may:
+
+Appear in Best Deals
+Appear in Best Offers
+Receive Best Deal badges
+Be included in Best Deal queries
+
+====================================================
+
+DATABASE & API AUDIT
+
+====================================================
+
+Audit all:
+
+Product listing endpoints
+Search endpoints
+Store pages
+Homepage sections
+Recommendation systems
+Featured deal sections
+
+Ensure every Best Deals source uses the same calculation.
+
+No duplicate logic allowed.
+
+Create a single centralized utility used by all endpoints.
+
+====================================================
+
+VALIDATION
+
+====================================================
+
+Examples:
+
+Original Price: 100
+Sale Price: 90
+Discount: 10%
+
+Result:
+NOT Best Deal
+
+Original Price: 100
+Sale Price: 85
+Discount: 15%
+
+Result:
+Best Deal
+
+Original Price: 100
+Sale Price: 70
+Discount: 30%
+
+Result:
+Best Deal
+
+====================================================
+
+FINAL AUDIT
+
+====================================================
+
+Verify:
+
+Suspended sellers cannot access anything.
+Suspended customers cannot access anything.
+Existing active users are unaffected.
+Best Deals always respect the threshold.
+Mobile and Desktop behavior is correct.
+No security bypass exists.
+No API endpoint bypass exists.
+
+Provide proof of validation after implementation.

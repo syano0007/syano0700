@@ -1,0 +1,484 @@
+MASTER MARKETPLACE PRODUCTION PROMPT
+(ULTRA DETAILED — STABLE — PRODUCTION READY)
+
+You are working on an EXISTING production-grade ecommerce/marketplace application.
+
+==================================================
+CRITICAL GLOBAL RULES (DO NOT IGNORE)
+=====================================
+
+You MUST NOT:
+
+* rebuild the project
+* regenerate the whole app
+* replace architecture unnecessarily
+* rewrite unrelated components/pages
+* break existing functionality
+
+You MUST:
+
+* deeply analyze the current architecture first
+* understand all current flows before modifying anything
+* modify ONLY what is necessary
+* preserve compatibility with the existing system
+* keep the implementation stable and scalable
+
+Before implementation, fully analyze:
+
+* authentication system
+* role management
+* routing structure
+* database schema
+* cart logic
+* inventory system
+* order lifecycle
+* seller dashboard
+* customer dashboard
+* APIs/backend
+* reusable components
+* theme system
+* state management
+* existing UI structure
+
+If something is unclear:
+DO NOT GUESS.
+Adapt carefully to the existing architecture.
+
+==================================================
+
+1. ROLE-BASED AUTHENTICATION SYSTEM
+   ==================================================
+
+Implement a secure role-based authentication system with:
+
+ROLES:
+
+* Seller
+* Customer/User
+
+REQUIREMENTS:
+
+* Preserve existing seller auth system completely
+* Add proper customer auth system
+* Persistent sessions
+* Secure validation
+* Protected routes
+* Proper role detection after login
+* Prevent unauthorized role access
+* Prevent role spoofing
+
+ROUTING RULES:
+
+* Seller login → seller dashboard only
+* Customer login → customer dashboard only
+* Wrong role access → auto redirect
+
+==================================================
+2. STRICT DASHBOARD SEPARATION
+==============================
+
+Customer and Seller systems must be COMPLETELY isolated.
+
+CUSTOMERS MUST NEVER SEE:
+
+* seller dashboard
+* seller routes
+* seller navigation/sidebar
+* seller controls/tools
+* seller-only components
+
+SELLERS MUST NEVER SEE CUSTOMER UI.
+
+==================================================
+CUSTOMER DASHBOARD
+==================
+
+Include:
+
+* Profile/settings
+* Orders/history
+* Cart access
+* Theme toggle
+* User-focused clean shopping UI
+
+==================================================
+SELLER DASHBOARD
+================
+
+Include:
+
+* Product management
+* Inventory management
+* Stock editing
+* Order management
+* Order status control
+* Existing seller tools preserved
+
+REMOVE:
+
+* unnecessary “My Orders” page from seller interface if duplicated/unnecessary
+
+==================================================
+3. AUTH REQUIRED FOR SHOPPING FEATURES
+======================================
+
+Guests (not logged in users) MUST NOT access:
+
+* cart
+* cart page
+* add to cart
+* checkout
+* orders
+* order history
+
+BEHAVIOR:
+
+* Add to cart (guest) → force login/signup modal or redirect
+* Cart icon hidden or locked for guests
+* Direct cart/order route access → instant redirect to login
+
+SECURITY:
+
+* enforce protection on frontend AND backend
+* prevent API bypass
+* prevent unauthorized order/cart manipulation
+
+==================================================
+4. PROFESSIONAL SHOPPING CART SYSTEM
+====================================
+
+Implement a complete cart system:
+
+FEATURES:
+
+* Add/remove products
+* Quantity increase/decrease
+* Multi-quantity support
+* Persistent cart
+* Real-time updates
+* Prevent duplicate cart bugs
+
+CART UI:
+
+* product image
+* title
+* price
+* quantity controls
+* subtotal
+* total price
+* remove button
+* loading/empty states
+
+==================================================
+5. INVENTORY & STOCK SYSTEM
+===========================
+
+RULES:
+
+* Prevent overselling
+* Prevent negative stock
+* Prevent race conditions
+* Ensure DB consistency
+
+IMPORTANT BUSINESS RULE:
+Stock MUST NOT decrease when order is created.
+
+Stock decreases ONLY when:
+
+* seller marks order DELIVERED/COMPLETED
+  OR
+* order confirmed RECEIVED
+
+SELLER ABILITIES:
+
+* manually edit stock
+* increase/decrease inventory
+* real-time stock updates globally
+
+==================================================
+6. COMPLETE ORDER SYSTEM
+========================
+
+CUSTOMER:
+
+* place orders
+* view order history
+* track order status
+
+SELLER:
+
+* manage incoming orders
+* update statuses:
+
+  * pending
+  * processing
+  * shipped
+  * delivered
+  * cancelled
+
+ORDER DATA:
+
+* customer info
+* products
+* quantities
+* total price
+* timestamps
+* status
+
+==================================================
+7. SELLER DISCOUNT SYSTEM
+=========================
+
+Implement seller-controlled discounts.
+
+SELLERS MUST BE ABLE TO:
+
+* add discount percentage
+* edit/remove discounts
+* display original + discounted price
+
+DISPLAY:
+
+* discount badge/tag
+* original crossed-out price
+* final discounted price
+
+IMPORTANT:
+Discount calculations must work correctly across:
+
+* product cards
+* product pages
+* cart
+* checkout
+* orders
+
+VALIDATION:
+
+* prevent invalid discounts
+* prevent pricing inconsistencies
+
+==================================================
+8. PREMIUM GREEN DESIGN SYSTEM
+==============================
+
+Replace orange branding with premium emerald/forest green identity.
+
+DESIGN STYLE:
+
+* modern
+* premium
+* minimal
+* ecommerce/SaaS inspired
+* clean visual hierarchy
+
+IMPORTANT:
+Do NOT overuse green.
+
+Use green ONLY for:
+
+* buttons
+* CTA
+* active states
+* success states
+* focus states
+
+==================================================
+9. LIGHT MODE DESIGN
+====================
+
+COLORS:
+
+* Background: #F9FAFB
+* Surfaces: #FFFFFF
+* Primary: #059669
+* Hover: #047857
+* Text: #111827
+* Secondary: #4B5563
+* Borders: #E5E7EB
+
+UI RULES:
+
+* soft shadows
+* rounded corners
+* clean spacing
+* strong typography hierarchy
+* premium appearance
+
+==================================================
+10. TRUE AMOLED DARK MODE
+=========================
+
+Implement TRUE PURE BLACK AMOLED design.
+
+IMPORTANT:
+Use REAL deep black, not gray dark mode.
+
+COLORS:
+
+* Main Background: #000000
+* Elevated Surfaces/Cards: #0A0A0A
+* Borders: subtle dark borders
+* Primary Green: #10B981
+* Hover Green: #059669
+* Text: #F8FAFC
+* Secondary Text: #CBD5E1
+
+IMPORTANT UI RULES:
+
+* layered depth between surfaces
+* avoid flat lifeless design
+* preserve readability
+* preserve accessibility
+* maintain luxurious premium feel
+
+==================================================
+11. GLOBAL THEME ENGINE
+=======================
+
+Implement:
+
+* dark/light toggle
+* persistent theme preference
+* smooth transitions
+* no flickering
+* no hydration issues
+* full app compatibility
+
+==================================================
+12. HOMEPAGE COMPLETE REBUILD
+=============================
+
+Remove completely:
+
+* homepage hero image
+* “كن بائعاً”
+* “Become a Seller”
+* “افتح متجرك مجاناً”
+* “Open Your Store for Free”
+
+IMPORTANT:
+
+* seller registration functionality must remain internally
+* only remove homepage public CTA sections/buttons
+
+==================================================
+13. AMAZON-INSPIRED HOMEPAGE UX
+===============================
+
+Use Amazon’s UX philosophy ONLY as inspiration.
+
+DO NOT COPY AMAZON.
+
+Use inspiration from:
+
+* homepage organization
+* product discovery
+* category browsing
+* ecommerce flow
+* scalable layout structure
+
+GOALS:
+
+* improve browsing experience
+* improve engagement
+* improve conversion-focused UX
+* create professional marketplace feel
+
+RECOMMENDED STRUCTURE:
+
+* clean top navbar
+* featured product sections
+* organized categories
+* horizontal product sliders if useful
+* responsive product grids
+
+IMPORTANT:
+
+* maintain clean modern UI
+* avoid clutter
+* preserve premium green + AMOLED identity
+* preserve responsive performance
+
+==================================================
+14. HOMEPAGE TEXT OPTIMIZATION
+==============================
+
+Replace existing homepage text with:
+
+* premium ecommerce messaging
+* trust-building copy
+* modern minimal tone
+* conversion-focused messaging
+
+IMPORTANT:
+DO NOT mention:
+
+* Instagram
+* Facebook
+* Telegram
+* external platforms
+
+==================================================
+15. SMART CART ICON VISIBILITY
+==============================
+
+REQUIREMENTS:
+
+* cart icon inside customer dashboard/navigation
+* cart icon visible on homepage/navbar ONLY after login
+* guests must NOT see cart icon
+
+==================================================
+16. SMART NAVIGATION CONTROLS
+=============================
+
+Add:
+
+* Back button
+* Home button
+
+RULES:
+
+* responsive
+* clean placement
+* proper browser history handling
+* match premium AMOLED theme
+* avoid clutter
+
+OPTIONAL:
+
+* floating/sticky navigation controls if elegant
+
+==================================================
+17. PERFORMANCE & STABILITY
+===========================
+
+Ensure:
+
+* no unnecessary rerenders
+* no UI flicker
+* no broken navigation
+* reusable components
+* clean scalable architecture
+* stable backend/frontend integration
+* mobile-first responsiveness
+* smooth animations
+
+==================================================
+18. FINAL VALIDATION (MANDATORY)
+================================
+
+Before completion verify:
+
+* auth works correctly
+* seller/customer isolation is perfect
+* guests cannot access cart/orders
+* inventory logic works correctly
+* stock decreases ONLY on delivery/confirmation
+* discounts work everywhere
+* AMOLED mode readability is excellent
+* homepage responsive on all devices
+* navigation buttons work correctly
+* no broken routes/components
+* no existing feature is broken
+* project is production-ready and stable

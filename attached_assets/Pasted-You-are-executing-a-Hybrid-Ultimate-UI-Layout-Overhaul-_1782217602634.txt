@@ -1,0 +1,40 @@
+You are executing a Hybrid Ultimate UI Layout Overhaul (Combining Proposal 2 + Proposal 3) for SYANO (سوق سوريا).
+
+This merge couples the cinematic full-width banner slider with a fixed, fully exposed multi-color Category Grid locked seamlessly right beneath it, eliminating the old side layout frames and the carousel arrows completely.
+
+Do NOT break any backend API filters, category product fetch routes, database queries, or general state controls.
+
+==================================================
+GOAL
+==================================================
+1. Remove the two side vertical banners on the left entirely.
+2. Expand the main promo slider to full viewport width (100% layout width).
+3. Convert the Category row into a beautifully organized static Grid (instead of a horizontal carousel), integrated tightly underneath the banner with clean premium typography and soft pastel color backings.
+
+==================================================
+PART 1 — CINEMATIC FULL-WIDTH HERO SLIDER (PROPOSAL 2)
+==================================================
+- Target the upper folding layout container. Strip out any column configurations (`grid-cols-3`, etc.).
+- Expand the primary slider framework to 100% container width (`w-full`).
+- Set responsive height limits to keep the slider proportion uniform across views (e.g., `h-[240px] sm:h-[320px] md:h-[380px] lg:h-[420px]`).
+- Retain your modern smooth rounded perimeter values (`rounded-2xl` or `rounded-[24px]`).
+- Upgrade textual overlays: Swap harsh dark screens with high-end bottom text gradients (`bg-gradient-to-t from-black/55 via-transparent to-transparent`) and design the "تسوق الآن" buttons as crisp floating blur pill frames (`bg-white/95 text-neutral-900 px-5 py-2 rounded-full font-bold shadow-sm hover:scale-105 transition-all`).
+
+==================================================
+PART 2 — EXPANDED FIXED CATEGORY GRID LAYOUT (PROPOSAL 3)
+==================================================
+- Open the category rendering layout module (`CategoryCarousel.tsx` or its rendering loop parent) and convert the outer slider behavior into a fixed grid structure:
+  * Change container class layout to a highly responsive static grid layout: `grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3 md:gap-4 w-full mt-4 px-2`.
+  * Completely deactivate or strip away any left/right carousel navigation arrow buttons (`ChevronLeft`, `ChevronRight` handlers) as all items will now be fully visible and open at once.
+- Style Enhancements for Individual Category Cards:
+  * Keep your enlarged size ratios (`w-[135px] h-[175px]` / `md:w-[140px] md:h-[182px]`).
+  * Remove harsh box shadow rings. Apply distinct, ultra-soft customized pastel colored backgrounds behind each category block to give it a fresh, energetic look (e.g., light soft pink for Beauty, soft blue for Electronics, soft green for Fresh Markets, etc., or uniform soft neutrals like `bg-slate-50`/`bg-emerald-50/40` matching SYANO's branding tone).
+  * Ensure the text title underneath flows perfectly dead-center (`text-center font-semibold text-xs md:text-sm text-neutral-800 mt-1 truncate`).
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The promo slider expands beautifully across 100% of the display panel.
+✓ The categories are displayed as an open, flat grid matrix beneath the banner, showing all departments simultaneously with no hidden scrolling logic.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend repository structure.

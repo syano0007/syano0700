@@ -1,0 +1,366 @@
+Before building any new feature, perform a COMPLETE END-TO-END AUDIT of the SYANO product variant system.
+
+DO NOT implement new courier, wallet, tracking, search, or marketplace features until this audit is finished.
+
+The issue reported is:
+
+Seller Product Creation → Variant System appears broken.
+
+Possible symptoms:
+
+* Variant groups not generating
+* Combination generator not appearing
+* Variant table not rendering
+* Images not attaching
+* Prices not saving
+* Stock not saving
+* Edit Product page not loading variants
+* Frontend product page not using variants
+* APIs partially working
+
+Your task is NOT to assume anything.
+
+You must verify everything through real execution.
+
+---
+
+# PHASE V-AUDIT-1
+
+Audit the complete variant architecture.
+
+Trace the entire flow:
+
+Seller UI
+↓
+React State
+↓
+Form Submission
+↓
+API Request
+↓
+Backend Validation
+↓
+Database Save
+↓
+Database Read
+↓
+Edit Product Page
+↓
+Product Details API
+↓
+Product Frontend Page
+
+Document every step.
+
+---
+
+# PHASE V-AUDIT-2
+
+Verify Database
+
+Inspect:
+
+* products
+* product_variants
+* variant_groups
+* variant_options
+* variant_combinations
+
+(or whatever equivalent tables currently exist)
+
+Verify:
+
+* schema consistency
+* foreign keys
+* indexes
+* nullable fields
+* orphaned records
+
+Report all findings.
+
+---
+
+# PHASE V-AUDIT-3
+
+Verify Seller Add Product Page
+
+Actually open:
+
+Add Product
+
+Test:
+
+Create Group:
+
+Color
+
+Values:
+
+Red
+Blue
+
+Create Group:
+
+Size
+
+Values:
+
+M
+L
+
+Verify:
+
+1. UI renders
+2. values save
+3. combination generator appears
+
+Expected combinations:
+
+Red/M
+Red/L
+Blue/M
+Blue/L
+
+If not generated:
+
+Find root cause.
+
+Do not guess.
+
+---
+
+# PHASE V-AUDIT-4
+
+Verify Variant Table
+
+Check:
+
+Columns:
+
+* enabled
+* SKU
+* stock
+* original price
+* sale price
+* image
+
+Verify editing each field.
+
+Verify state updates.
+
+Verify save operation.
+
+Verify persistence after reload.
+
+---
+
+# PHASE V-AUDIT-5
+
+Verify Images
+
+Assign:
+
+Red image
+
+Blue image
+
+Save.
+
+Reload.
+
+Verify:
+
+* images persist
+* images appear on frontend
+* images switch correctly
+
+---
+
+# PHASE V-AUDIT-6
+
+Verify Edit Product
+
+Create a test product.
+
+Save.
+
+Open Edit Product.
+
+Verify:
+
+* groups load
+* options load
+* combinations load
+* images load
+* prices load
+* stock loads
+
+No missing data.
+
+---
+
+# PHASE V-AUDIT-7
+
+Verify Product Details API
+
+Inspect actual JSON response.
+
+Verify it contains:
+
+groups
+options
+combinations
+stock
+prices
+images
+
+If missing:
+
+identify exact serialization issue.
+
+---
+
+# PHASE V-AUDIT-8
+
+Verify Product Frontend
+
+Open actual product page.
+
+Verify:
+
+Color selector
+
+Size selector
+
+Selection updates:
+
+* price
+* sale price
+* stock
+* image
+* SKU
+
+without refresh.
+
+---
+
+# PHASE V-AUDIT-9
+
+Verify Cart
+
+Add:
+
+Red/M
+
+Then:
+
+Blue/L
+
+Verify:
+
+Correct variant stored.
+
+Not parent product only.
+
+Verify:
+
+cart item contains:
+
+variantId
+combinationId
+selected options
+
+---
+
+# PHASE V-AUDIT-10
+
+Verify Orders
+
+Place order.
+
+Verify order stores:
+
+Exact selected variant.
+
+Not only product id.
+
+---
+
+# PHASE V-AUDIT-11
+
+Verify Inventory
+
+Create:
+
+Red/M = stock 2
+
+Place order.
+
+Verify:
+
+stock becomes 1
+
+Place second order.
+
+Verify:
+
+stock becomes 0
+
+Verify:
+
+Add To Cart disabled.
+
+---
+
+# PHASE V-AUDIT-12
+
+Root Cause Report
+
+Create report:
+
+PASS
+FAIL
+PARTIAL
+
+for:
+
+* database
+* seller ui
+* combination generation
+* save
+* edit
+* frontend
+* cart
+* orders
+* inventory
+
+---
+
+# CRITICAL RULES
+
+DO NOT mark anything completed because code exists.
+
+Only mark completed if:
+
+* executed
+* tested
+* verified
+
+If broken:
+
+fix it immediately.
+
+After fixes:
+
+re-run all tests.
+
+Then provide:
+
+1. list of issues found
+2. root causes
+3. fixes applied
+4. final status
+
+Goal:
+
+The variant system must work exactly like Shopify/Noon/Amazon variant workflows from seller creation through final order storage.

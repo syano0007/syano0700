@@ -1,0 +1,223 @@
+STOP.
+
+Do NOT implement home.tsx yet.
+
+Continue working ONLY on the existing Canvas mockup.
+
+The mockup is close, but it is still NOT visually matching the reference screenshots.
+
+I want a visual refinement pass focused ONLY on design fidelity.
+
+CRITICAL RULES
+
+* Do NOT redesign.
+* Do NOT invent new styling.
+* Do NOT add new sections.
+* Do NOT change layout structure.
+* Goal = make the mockup visually match the screenshots as closely as possible.
+
+═══════════════════════════════════════
+ISSUE 1 — SECTION TITLE CONSISTENCY
+═══════════════════════════════════════
+
+Currently section titles still have inconsistent sizing.
+
+Some section titles appear larger.
+Some appear smaller.
+
+I want ALL homepage section titles to use the EXACT SAME typography system.
+
+Reference screenshots show:
+
+* medium size
+* elegant weight
+* not oversized
+* not dominant
+
+Requirements:
+
+* same font size everywhere
+* same weight everywhere
+* same spacing everywhere
+* same vertical rhythm everywhere
+
+Audit ALL sections:
+
+* Categories
+* Featured Deals
+* Trusted Stores
+* Trending
+* CTA sections
+* Any future homepage section
+
+Make them visually identical.
+
+No exceptions.
+
+═══════════════════════════════════════
+ISSUE 2 — PREMIUM SCROLL REVEAL ANIMATIONS
+═══════════════════════════════════════
+
+Current animations are still too fast.
+
+They feel like generic website animations.
+
+I want them to feel premium.
+
+Reference feeling:
+
+Apple
+Linear
+Stripe
+Luxury ecommerce
+
+Requirements:
+
+* slower
+* smoother
+* more elegant
+* more cinematic
+
+For cards:
+
+Instead of:
+
+opacity 0 → 1
+translateY 20px
+
+Use:
+
+opacity
+translateY
+slight scale
+
+combined together.
+
+Example feeling:
+
+opacity: 0 → 1
+
+translateY:
+32px → 0
+
+scale:
+0.96 → 1
+
+Duration:
+
+700–900ms
+
+Stagger:
+
+90–120ms
+
+Easing:
+
+cubic-bezier premium easing
+
+NOT default ease.
+
+Goal:
+
+Cards should feel like they are floating into place.
+
+NOT snapping into place.
+
+═══════════════════════════════════════
+ISSUE 3 — PAGE MARGINS / GUTTERS
+═══════════════════════════════════════
+
+This is currently one of the biggest visual differences.
+
+The screenshots have very precise spacing from the edges.
+
+Current mockup spacing does NOT match.
+
+I want a full gutter audit.
+
+Check:
+
+* left edge
+* right edge
+* content container width
+* section alignment
+* card alignment
+* visual rhythm
+
+Match screenshots exactly.
+
+Reference characteristics:
+
+* generous breathing room
+* premium whitespace
+* perfectly aligned sections
+* no section appears wider or narrower than another
+
+Requirements:
+
+* unified max-width
+* unified horizontal padding
+* unified section spacing
+
+Every section must visually align on the same grid.
+
+═══════════════════════════════════════
+ISSUE 4 — HERO SPACING
+═══════════════════════════════════════
+
+Hero still feels slightly different from screenshots.
+
+Audit:
+
+* text block position
+* image position
+* floating card placement
+* CTA position
+* stats row position
+
+Match screenshot proportions as closely as possible.
+
+Do NOT redesign.
+
+Refine only.
+
+═══════════════════════════════════════
+ISSUE 5 — PIXEL COMPARISON MODE
+═══════════════════════════════════════
+
+I want you to compare the mockup against the provided screenshots section-by-section.
+
+For every section identify:
+
+1. What still differs.
+2. What needs adjustment.
+3. Apply adjustment.
+
+Do NOT stop at "looks close".
+
+Continue until differences become minimal.
+
+═══════════════════════════════════════
+SUCCESS CRITERIA
+═══════════════════════════════════════
+
+The mockup should feel:
+
+* calmer
+* more luxurious
+* less crowded
+* more balanced
+* closer to Noon / Trendyol reference screenshots
+
+Most important:
+
+1. Consistent section title sizing.
+2. Slower premium reveal animations.
+3. Exact gutters and spacing.
+4. Better visual balance.
+
+Continue refining the CURRENT Canvas mockup.
+
+Do NOT start implementing into home.tsx yet.
+
+Only stop when visual fidelity is significantly closer to the screenshots.

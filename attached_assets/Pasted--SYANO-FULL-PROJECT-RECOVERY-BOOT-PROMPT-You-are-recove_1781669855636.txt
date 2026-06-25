@@ -1,0 +1,499 @@
+# SYANO — FULL PROJECT RECOVERY & BOOT PROMPT
+
+You are recovering an existing production-scale marketplace project from recovery files.
+
+This is NOT a new project.
+
+This is NOT a rebuild.
+
+This is NOT a prototype.
+
+You must fully restore the current project state exactly as documented.
+
+---
+
+# STEP 1 — READ ALL RECOVERY FILES FIRST
+
+Before doing anything:
+
+Read completely:
+
+```text
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+```
+
+Do not skip any section.
+
+Do not start coding.
+
+Do not install packages.
+
+Do not modify files.
+
+First understand the project.
+
+---
+
+# STEP 2 — BUILD PROJECT KNOWLEDGE MODEL
+
+After reading:
+
+Create an internal understanding of:
+
+```text
+Architecture
+
+Database
+
+Frontend
+
+Backend
+
+Mobile App
+
+Search System
+
+Messaging System
+
+Courier System
+
+Admin System
+
+AI Support System
+
+Performance Layer
+```
+
+---
+
+Identify:
+
+```text
+Completed Phases
+
+Active Phase
+
+Pending Phases
+
+Known Issues
+
+Known Constraints
+```
+
+---
+
+# STEP 3 — VERIFY PROJECT STRUCTURE
+
+Verify all applications exist.
+
+Expected architecture:
+
+```text
+Marketplace Frontend
+
+API Server
+
+Mobile App
+
+Embedding Service
+
+Shared Database Layer
+
+Shared Type Layer
+```
+
+---
+
+Verify folders exist.
+
+Verify builds succeed.
+
+Verify imports resolve.
+
+Verify shared packages compile.
+
+---
+
+# STEP 4 — VERIFY DATABASE
+
+Inspect database schema.
+
+Verify all tables exist.
+
+Verify migrations applied.
+
+Verify recovery files match database reality.
+
+---
+
+Special attention:
+
+```text
+orders
+
+users
+
+products
+
+conversations
+
+messages
+
+delivery_missions
+
+mission_offers
+
+dispatch_alerts
+
+couriers
+
+seller_applications
+```
+
+---
+
+If something documented is missing:
+
+Report it.
+
+Do NOT silently recreate it.
+
+---
+
+# STEP 5 — VERIFY WORKFLOWS
+
+Verify:
+
+```text
+API Server
+```
+
+runs successfully.
+
+---
+
+Verify:
+
+```text
+Marketplace Frontend
+```
+
+runs successfully.
+
+---
+
+Verify:
+
+```text
+Embedding Service
+```
+
+runs successfully.
+
+---
+
+Verify:
+
+```text
+Mobile App
+```
+
+can build.
+
+---
+
+Do not continue until all critical services run.
+
+---
+
+# STEP 6 — VERIFY CURRENT PHASE STATUS
+
+Recovery files should indicate:
+
+Completed:
+
+```text
+Phase 11
+
+Phase 12
+
+Phase 13
+
+Courier V3.3
+```
+
+---
+
+Verify these systems actually exist.
+
+Do not trust documentation blindly.
+
+Check code.
+
+Check routes.
+
+Check services.
+
+Check database.
+
+---
+
+# STEP 7 — VERIFY COURIER V3.3
+
+Confirm existence of:
+
+```text
+delivery_missions
+
+mission_offers
+
+dispatch_alerts
+```
+
+---
+
+Verify:
+
+```text
+Nearest Courier Logic
+```
+
+exists.
+
+---
+
+Verify:
+
+```text
+3 Round Assignment Engine
+```
+
+exists.
+
+---
+
+Verify:
+
+```text
+BUSY / ONLINE Synchronization
+```
+
+exists.
+
+---
+
+Verify:
+
+```text
+Dispatch Alerts
+```
+
+exist.
+
+---
+
+Verify:
+
+```text
+Admin Monitoring
+```
+
+exists.
+
+---
+
+# STEP 8 — VERIFY AI SUPPORT SYSTEM
+
+Confirm:
+
+```text
+Smart Support
+
+AI Support Agent
+
+Support Tickets
+
+Admin Support Dashboard
+```
+
+exist and function.
+
+---
+
+Verify routes.
+
+Verify services.
+
+Verify database tables.
+
+---
+
+# STEP 9 — VERIFY SEARCH SYSTEM
+
+Confirm:
+
+```text
+Search Suggestions
+
+Search Analytics
+
+Search Results
+
+Discovery Layer
+
+Trending Searches
+```
+
+exist.
+
+---
+
+Verify search routes.
+
+Verify search services.
+
+Verify search database tables.
+
+---
+
+# STEP 10 — VERIFY MESSAGING
+
+Confirm:
+
+```text
+Messaging V2
+
+Typing Indicators
+
+Read Receipts
+
+Attachments
+
+Archive
+
+Mute
+```
+
+exist.
+
+---
+
+Verify conversation flow.
+
+---
+
+# STEP 11 — VERIFY MOBILE APP
+
+Confirm:
+
+```text
+Authentication
+
+Messaging
+
+Notifications
+
+Search
+
+Courier Features
+```
+
+still compile.
+
+---
+
+Do not assume.
+
+Verify.
+
+---
+
+# STEP 12 — GENERATE RECOVERY REPORT
+
+After all verification:
+
+Generate:
+
+```text
+Project Recovery Report
+```
+
+including:
+
+```text
+Services Running
+
+Database Status
+
+Build Status
+
+Current Phase
+
+Completed Systems
+
+Pending Systems
+
+Known Issues
+
+Recommended Next Step
+```
+
+---
+
+# IMPORTANT RULES
+
+Do NOT:
+
+```text
+Create new features
+
+Start next phases
+
+Modify architecture
+
+Install random packages
+
+Run destructive migrations
+
+Delete anything
+```
+
+---
+
+Only:
+
+```text
+Read
+
+Verify
+
+Restore
+
+Report
+```
+
+---
+
+# FINAL GOAL
+
+When finished I should have:
+
+✅ Fully restored project
+
+✅ Fully understood architecture
+
+✅ Verified services
+
+✅ Verified database
+
+✅ Verified completed phases
+
+✅ Recovery report ready
+
+Only after recovery is complete may new development begin.

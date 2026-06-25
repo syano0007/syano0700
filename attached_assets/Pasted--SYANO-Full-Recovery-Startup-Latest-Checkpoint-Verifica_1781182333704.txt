@@ -1,0 +1,457 @@
+# SYANO — Full Recovery, Startup & Latest Checkpoint Verification
+
+## Objective
+
+Restore the SYANO (سوق سوريا) project completely on this new Replit account and verify that the latest verified checkpoint is fully present.
+
+Do NOT start any new development.
+
+Do NOT refactor.
+
+Do NOT add features.
+
+This task is recovery + verification only.
+
+---
+
+# CURRENT KNOWN PROJECT STATE
+
+Latest completed roadmap items:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+Latest verified checkpoint:
+
+SYANO Post-Migration Stable Build (v5)
+
+---
+
+# PHASE 1 — Read Recovery Documentation
+
+Read ALL recovery and project memory files before doing anything:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* MEMORY.md
+* KNOWN_ISSUES.md
+
+Read them completely.
+
+Build an understanding of:
+
+* architecture
+* database
+* workflows
+* roadmap
+* latest fixes
+* latest completed features
+
+Do not skip this step.
+
+---
+
+# PHASE 2 — Environment Recovery
+
+Execute in order:
+
+## Install
+
+```bash
+pnpm install --force
+```
+
+Verify installation completes successfully.
+
+---
+
+## Environment Variables
+
+Verify required variables exist:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+
+and any additional required project variables.
+
+Report missing variables immediately.
+
+---
+
+# PHASE 3 — Database Recovery
+
+First inspect database state.
+
+If DB is empty:
+
+Apply schema.
+
+Use project recovery procedure.
+
+Verify all expected tables exist.
+
+Expected total:
+
+```text
+26 tables
+```
+
+Verify:
+
+* users
+* products
+* product_variants
+* product_variant_groups
+* product_variant_options
+* product_variant_values
+* variant_images
+* orders
+* order_items
+* order_status_history
+* delivery_zones
+* couriers
+* courier_assignments
+* courier_wallet_transactions
+* notifications
+* seller_applications
+* reviews
+* seller_reviews
+* store_follows
+* conversations
+* messages
+* cart_items
+* push_subscriptions
+* platform_settings
+* admin_audit_log
+* verification_audit_log
+
+---
+
+# PHASE 4 — Critical Enum Verification
+
+Verify:
+
+```text
+notification_type
+```
+
+contains:
+
+```text
+31 values
+```
+
+NOT 17.
+
+Output:
+
+Expected count
+
+Actual count
+
+Full list
+
+If count is not 31:
+
+Fix immediately using:
+
+```sql
+ALTER TYPE notification_type
+ADD VALUE IF NOT EXISTS ...
+```
+
+Never recreate enum.
+
+Never delete enum.
+
+Only additive updates.
+
+This verification is mandatory.
+
+---
+
+# PHASE 5 — Build Shared Libraries
+
+Run:
+
+```bash
+npx tsc --build lib/db lib/api-zod lib/api-client-react
+```
+
+Verify:
+
+```text
+0 errors
+```
+
+---
+
+# PHASE 6 — Start All Services
+
+Start:
+
+## API Server
+
+Verify:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+health endpoint responds.
+
+---
+
+## Marketplace
+
+Verify Vite starts.
+
+---
+
+## Mobile
+
+Verify Expo starts.
+
+---
+
+# PHASE 7 — Root Owner Verification
+
+Verify Root Owner account exists.
+
+Expected:
+
+Email:
+
+```text
+delewatiamer7@gmail.com
+```
+
+Password:
+
+```text
+00Amer00
+```
+
+Role:
+
+```text
+admin
+```
+
+If missing:
+
+Run project bootstrap procedure.
+
+Verify login works.
+
+Verify JWT issued.
+
+---
+
+# PHASE 8 — TypeScript Verification
+
+Run verification across entire workspace.
+
+Expected:
+
+```text
+0 structural TypeScript errors
+```
+
+For:
+
+* API Server
+* Marketplace
+* Mobile
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+---
+
+# PHASE 9 — Feature Verification
+
+Verify existence of:
+
+## Product Wizard
+
+* 5-step wizard
+* edit mode
+* create mode
+* variant inventory UX
+
+---
+
+## Variant System
+
+Verify:
+
+* VariantBuilder
+* Combination cards
+* Bulk actions
+* Variant images
+* RTL toggle fix
+
+---
+
+## Delivery Zones
+
+Verify:
+
+* 40 zones
+* checkout integration
+* admin management
+* delivery fee calculation
+
+---
+
+## Order Fulfillment Workflow V1
+
+Verify all statuses exist:
+
+```text
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+in_transit
+out_for_delivery
+delivered
+delivery_failed
+returned
+cancelled
+refunded
+```
+
+---
+
+## Courier Operations Dashboard V2
+
+Verify:
+
+### Admin Delivery Center
+
+* stats cards
+* search
+* filters
+* courier ratings
+* courier workload indicators
+
+### Courier Dashboard
+
+* Deliveries tab
+* History tab
+* Earnings tab
+* wallet integration
+* success rate
+* performance metrics
+
+---
+
+## Order Tracking
+
+Verify:
+
+* Courier Info Card (web)
+* Courier Info Card (mobile)
+* Timeline
+* SSE invalidation
+* 30-second polling fallback
+
+---
+
+## Recently Viewed Products
+
+Verify:
+
+* hook exists
+* tracking exists
+* homepage integration exists
+
+---
+
+# PHASE 10 — End-to-End Validation
+
+Create test accounts if needed.
+
+Verify:
+
+Admin
+
+Seller
+
+Courier
+
+Customer
+
+Guest
+
+Test:
+
+* product creation
+* cart
+* checkout
+* order creation
+* courier assignment
+* pickup
+* delivery
+* earnings
+* notifications
+
+Verify no runtime failures.
+
+---
+
+# PHASE 11 — Security Validation
+
+Verify:
+
+Customer cannot access other customer orders.
+
+Seller cannot access other seller data.
+
+Courier cannot access orders not assigned to them.
+
+Guest cannot access protected routes.
+
+Verify proper 403 responses.
+
+---
+
+# PHASE 12 — Final Recovery Report
+
+Output:
+
+## Recovery Status
+
+## Services Status
+
+## Database Status
+
+## Enum Status
+
+## TypeScript Status
+
+## Root Owner Status
+
+## Feature Verification Results
+
+## Security Verification Results
+
+## Regressions Found
+
+## Missing Features
+
+## Exact Current Project State
+
+Do not start any new development.
+
+Recovery and verification only.

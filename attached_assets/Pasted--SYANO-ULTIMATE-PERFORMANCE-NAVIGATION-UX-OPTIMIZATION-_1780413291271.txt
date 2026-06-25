@@ -1,0 +1,589 @@
+# SYANO ULTIMATE PERFORMANCE, NAVIGATION & UX OPTIMIZATION MISSION
+
+You are taking over the Syano Marketplace production codebase.
+
+Syano is a large-scale full-stack marketplace built with:
+
+* React 19
+* Vite 7
+* Wouter
+* Tailwind CSS v4
+* TanStack Query
+* Orval-generated API hooks
+* Express 5
+* PostgreSQL
+* Drizzle ORM
+* Expo Mobile
+
+The application is already working.
+
+Your mission is NOT feature development.
+
+Your mission is to make the application feel dramatically faster, smoother, more responsive, and more polished across the entire platform while preserving 100% existing functionality.
+
+---
+
+## CRITICAL RULES
+
+DO NOT:
+
+* Change business logic
+* Change database behavior
+* Change authentication flow
+* Change seller workflow
+* Change customer workflow
+* Change admin workflow
+* Change API contracts
+* Change OpenAPI definitions
+* Change permissions
+* Change route structure
+* Change visual design language
+* Remove features
+* Rewrite large systems unnecessarily
+
+The application must behave exactly the same after your work.
+
+Only improve:
+
+* Speed
+* Smoothness
+* Responsiveness
+* Rendering efficiency
+* Navigation performance
+* User experience consistency
+
+If an optimization introduces risk:
+
+DO NOT APPLY IT.
+
+Document it instead.
+
+---
+
+## MAIN OBJECTIVE
+
+Target outcome:
+
+The application should feel premium.
+
+Navigation should feel immediate.
+
+Pages should appear instantly whenever possible.
+
+Returning to previously visited pages should feel nearly instant.
+
+Scrolling should remain smooth even on low-end Android devices.
+
+Desktop interactions should feel as responsive as high-end SaaS applications.
+
+No visible lag after clicks.
+
+No sluggish dashboards.
+
+No delayed menus.
+
+No UI stalls.
+
+No unnecessary loading states.
+
+---
+
+## PLATFORMS TO OPTIMIZE
+
+Treat all platforms as first-class citizens.
+
+Desktop:
+
+* Chrome
+* Edge
+* Firefox
+* Safari
+
+Mobile:
+
+* Chrome Android
+* Samsung Internet
+* Safari iPhone
+
+Tablet:
+
+* Android tablets
+* iPad
+
+DO NOT optimize for mobile at the expense of desktop.
+
+DO NOT optimize for desktop at the expense of mobile.
+
+Both must improve.
+
+---
+
+PHASE 1
+FULL APPLICATION AUDIT
+----------------------
+
+Perform a complete audit of:
+
+artifacts/marketplace
+
+including:
+
+* App.tsx
+* routing
+* layouts
+* providers
+* auth context
+* theme context
+* currency context
+* i18n setup
+* notification system
+* seller pages
+* customer pages
+* admin pages
+* product pages
+* store pages
+* dashboards
+* footer
+* navbar
+* mobile menu
+* search components
+
+Find:
+
+* unnecessary re-renders
+* duplicated state
+* unnecessary API requests
+* query waterfalls
+* oversized components
+* oversized route chunks
+* expensive effects
+* blocking rendering paths
+* unnecessary suspense boundaries
+* excessive context updates
+* poor cache usage
+* layout thrashing
+* excessive DOM creation
+
+---
+
+PHASE 2
+ROUTING & NAVIGATION SPEED
+--------------------------
+
+Audit all navigation.
+
+Optimize:
+
+* Wouter routing
+* route transitions
+* route chunk loading
+* route preloading
+* route caching
+
+Implement:
+
+* route prefetch on hover
+* route prefetch on touchstart
+* predictive preloading for likely next pages
+* dashboard preloading after login
+* seller page preloading after seller login
+* admin page preloading after admin login
+
+Goal:
+
+Navigation should feel immediate.
+
+Users should rarely wait for code chunks.
+
+---
+
+PHASE 3
+TANSTACK QUERY OPTIMIZATION
+---------------------------
+
+Audit every generated hook usage.
+
+Optimize:
+
+* staleTime
+* gcTime
+* cache reuse
+* duplicate requests
+* unnecessary invalidations
+* unnecessary refetches
+* excessive polling
+
+Implement safe improvements only.
+
+Returning to a page should immediately show cached content.
+
+Network activity should be minimized without risking stale critical data.
+
+---
+
+PHASE 4
+DESKTOP PERFORMANCE
+-------------------
+
+High priority.
+
+Audit:
+
+* Dashboard rendering
+* Product grids
+* Seller dashboards
+* Admin dashboards
+* Analytics widgets
+* Tables
+* Filters
+* Search
+
+Requirements:
+
+* fast table rendering
+* fast filter switching
+* smooth sidebar interactions
+* instant dashboard navigation
+* smooth resizing
+* responsive layouts
+
+Verify:
+
+* large monitors
+* laptops
+* ultrawide displays
+
+---
+
+PHASE 5
+MOBILE PERFORMANCE
+------------------
+
+Highest priority.
+
+Audit:
+
+* touch responsiveness
+* scrolling performance
+* mobile menus
+* product browsing
+* category browsing
+* footer navigation
+* seller pages
+* admin pages
+
+Reduce:
+
+* repaint cost
+* reflow cost
+* unnecessary animations
+* oversized DOM trees
+
+Target:
+
+60 FPS whenever possible.
+
+---
+
+PHASE 6
+LIST PERFORMANCE
+----------------
+
+Audit:
+
+* Products page
+* Store page
+* Search results
+* Seller products
+* Admin product management
+
+Optimize:
+
+* image loading
+* list rendering
+* filtering
+* sorting
+* pagination
+* infinite scrolling
+
+Use virtualization ONLY where profiling proves value.
+
+---
+
+PHASE 7
+IMAGE OPTIMIZATION
+------------------
+
+Audit all image rendering.
+
+Implement where safe:
+
+* lazy loading
+* decoding="async"
+* responsive image sizing
+* proper dimensions
+* fetchpriority tuning
+
+Prevent layout shifts.
+
+Maintain visual quality.
+
+---
+
+PHASE 8
+GLOBAL UI CONSISTENCY AUDIT
+---------------------------
+
+Perform a complete consistency audit.
+
+Verify every role:
+
+Customer
+Seller
+Admin
+
+Verify every screen:
+
+Desktop
+Mobile
+Tablet
+
+Ensure:
+
+* language switcher always available
+* theme switcher always available
+* currency switcher always available
+
+Identify missing controls.
+
+Fix inconsistencies.
+
+---
+
+PHASE 9
+ADMIN ISSUES
+------------
+
+Issue A:
+
+On mobile homepage side menu:
+
+Admin navigation links are missing.
+
+Investigate root cause.
+
+Fix permanently.
+
+Verify:
+
+* English
+* Arabic
+* RTL
+* Desktop
+* Mobile
+
+Issue B:
+
+Admin pages do not consistently expose:
+
+* Theme switcher
+* Language switcher
+* Currency switcher
+
+Fix globally.
+
+Avoid duplicated implementations.
+
+Create reusable solution if needed.
+
+---
+
+PHASE 10
+CURRENCY SWITCHER BUG
+---------------------
+
+Issue:
+
+SYP button overflows when language is English.
+
+Investigate:
+
+* flex layout
+* responsive sizing
+* spacing
+* wrapping
+* overflow behavior
+
+Fix across:
+
+* desktop
+* tablet
+* mobile
+* sidebar
+* navbar
+* drawers
+* menus
+
+No clipping allowed.
+
+---
+
+PHASE 11
+RENDERING OPTIMIZATION
+----------------------
+
+Profile:
+
+* Navbar
+* Footer
+* Sidebar
+* ProductCard
+* StoreCard
+* Dashboard widgets
+* Filters
+
+Apply:
+
+* React.memo
+* useMemo
+* useCallback
+
+ONLY where measurable benefits exist.
+
+Avoid premature optimization.
+
+---
+
+PHASE 12
+ANIMATION & INTERACTION SMOOTHNESS
+----------------------------------
+
+Improve:
+
+* menu opening
+* drawer transitions
+* page transitions
+* dropdowns
+* modals
+* theme switching
+
+Use:
+
+* transform
+* opacity
+* GPU-friendly transitions
+
+Avoid:
+
+* layout-triggering animations
+* expensive paints
+
+Target:
+
+Consistent 60 FPS feel.
+
+---
+
+PHASE 13
+BUNDLE OPTIMIZATION
+-------------------
+
+Analyze build output.
+
+Reduce:
+
+* initial bundle size
+* admin chunk size
+* seller chunk size
+* dashboard chunk size
+
+Improve:
+
+* route-level code splitting
+* component-level lazy loading
+* dynamic imports
+
+Without affecting behavior.
+
+---
+
+PHASE 14
+ACCESSIBILITY & UX POLISH
+-------------------------
+
+Audit:
+
+* touch targets
+* keyboard navigation
+* focus states
+* menu usability
+* mobile usability
+* tablet usability
+
+Improve where safe.
+
+Maintain existing design language.
+
+---
+
+PHASE 15
+REGRESSION TESTING
+------------------
+
+After every optimization:
+
+Verify:
+
+Customer workflows
+Seller workflows
+Admin workflows
+
+Verify:
+
+Authentication
+Products
+Search
+Store pages
+Reviews
+Messaging
+Notifications
+Orders
+Checkout
+Dashboard
+Settings
+Language switching
+Theme switching
+Currency switching
+
+Nothing may break.
+
+---
+
+## FINAL DELIVERABLE
+
+Produce a detailed report containing:
+
+1. Full audit findings
+2. Bottlenecks discovered
+3. Files modified
+4. Exact changes applied
+5. Performance impact
+6. UX impact
+7. Mobile impact
+8. Desktop impact
+9. Risk assessment
+10. Validation checklist
+
+FINAL PRIORITY ORDER:
+
+1. Stability
+2. Zero regressions
+3. Desktop responsiveness
+4. Mobile responsiveness
+5. Navigation smoothness
+6. Perceived instant loading
+7. Rendering efficiency
+8. Bundle optimization
+9. Code cleanliness
+
+The final result should feel significantly faster, smoother, and more professional across Desktop, Mobile, and Tablet while remaining functionally identical.

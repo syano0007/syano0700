@@ -1,0 +1,616 @@
+# SYANO — COMPLETE MESSAGING V2 (FINAL 10%) + FULL REAL-WORLD QA
+
+STOP.
+
+Messaging V2 is NOT finished yet.
+
+Audit result shows:
+
+Messaging V2 ≈ 90% complete.
+
+Backend = Complete.
+
+Web = Complete.
+
+Remaining gaps exist ONLY in Mobile.
+
+Your mission is:
+
+Finish the final 10%.
+
+Then officially graduate Messaging V2 to COMPLETE.
+
+Do NOT start Phase 8.
+
+Do NOT start Search & Discovery.
+
+Finish Messaging V2 first.
+
+---
+
+# CURRENT STATUS
+
+## Backend
+
+✅ Complete
+
+## Web
+
+✅ Complete
+
+## Mobile
+
+⚠️ Incomplete
+
+Current missing items:
+
+* Read Receipts
+* Typing Indicators
+* Attachments
+* Archive
+* Mute
+* Mobile i18n gaps
+
+---
+
+# PART 1 — MOBILE READ RECEIPTS
+
+Current:
+
+Web shows:
+
+✓ Sent
+
+✓✓ Read
+
+Mobile does not.
+
+---
+
+## REQUIRED
+
+Implement:
+
+Sent
+
+Delivered
+
+Read
+
+states.
+
+Match Web behavior.
+
+Match existing backend.
+
+Do NOT invent new APIs.
+
+Use existing infrastructure.
+
+---
+
+# PART 2 — MOBILE TYPING INDICATORS
+
+Current:
+
+Web supports typing indicators.
+
+Mobile does not.
+
+---
+
+## REQUIRED
+
+Show:
+
+Seller is typing...
+
+Customer is typing...
+
+Admin is typing...
+
+Localized.
+
+Arabic + English.
+
+Use existing backend typing endpoints.
+
+Do NOT create parallel logic.
+
+---
+
+# PART 3 — MOBILE ATTACHMENTS
+
+Current:
+
+Text messages only.
+
+---
+
+## REQUIRED
+
+Support:
+
+Images
+
+PDF
+
+TXT
+
+Existing supported file types.
+
+Use current upload endpoints.
+
+---
+
+## FEATURES
+
+Upload
+
+Preview
+
+Download
+
+View image inline
+
+File metadata
+
+Upload progress
+
+Error handling
+
+---
+
+## VALIDATION
+
+Respect current limits:
+
+2MB
+
+Allowed MIME types
+
+Security checks
+
+Do NOT bypass existing validation.
+
+---
+
+# PART 4 — MOBILE ARCHIVE
+
+Current:
+
+Missing.
+
+---
+
+## REQUIRED
+
+Support:
+
+Archive conversation
+
+Restore conversation
+
+View archived conversations
+
+Match Web behavior.
+
+Use existing endpoints.
+
+---
+
+# PART 5 — MOBILE MUTE
+
+Current:
+
+Missing.
+
+---
+
+## REQUIRED
+
+Support:
+
+Mute
+
+Unmute
+
+Muted conversation indicator
+
+Use existing backend.
+
+No duplicate implementation.
+
+---
+
+# PART 6 — MOBILE INTERNATIONALIZATION
+
+Current:
+
+Audit found:
+
+~8 hardcoded English strings.
+
+This is unacceptable.
+
+---
+
+## REQUIRED
+
+Remove ALL hardcoded strings.
+
+Everything must use:
+
+i18n system
+
+translation keys
+
+existing language architecture
+
+---
+
+## VERIFY
+
+Arabic
+
+English
+
+All messaging screens.
+
+---
+
+# PART 7 — MOBILE UI CONSISTENCY
+
+Match Web Messaging V2.
+
+Use same design language.
+
+---
+
+Verify:
+
+Conversation List
+
+Conversation Thread
+
+Composer
+
+Attachment Cards
+
+Read Receipts
+
+Typing Indicators
+
+Empty States
+
+Error States
+
+---
+
+Must feel native to SYANO.
+
+Not Expo demo quality.
+
+Production quality.
+
+---
+
+# PART 8 — NOTIFICATIONS
+
+Verify Mobile receives:
+
+New message
+
+Unread updates
+
+Conversation updates
+
+Badge updates
+
+No regressions.
+
+---
+
+# PART 9 — REAL-TIME BEHAVIOR
+
+Verify:
+
+New messages appear instantly.
+
+Typing indicators update instantly.
+
+Read receipts update instantly.
+
+Conversation list updates instantly.
+
+Use existing infrastructure.
+
+Do NOT replace SSE architecture.
+
+---
+
+# PART 10 — MOBILE RESPONSIVE QA
+
+Test:
+
+Small phones
+
+Large phones
+
+Tablets
+
+Portrait
+
+Landscape
+
+No clipping.
+
+No overflow.
+
+No broken layouts.
+
+---
+
+# PART 11 — TYPESCRIPT
+
+Expected:
+
+0 errors.
+
+Do not leave:
+
+any
+
+TypeScript
+
+lint
+
+or runtime issues.
+
+---
+
+# PART 12 — REAL USER ACCEPTANCE TESTING
+
+This step is MANDATORY.
+
+Do NOT rely on code inspection.
+
+Do NOT rely on assumptions.
+
+Do NOT rely on unit tests only.
+
+You MUST perform full end-to-end testing using REAL ACCOUNTS already available in the platform.
+
+Use actual platform accounts.
+
+---
+
+## REQUIRED TEST ACCOUNTS
+
+Admin:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Create or use a real customer account if required.
+
+---
+
+## TEST MATRIX
+
+### Customer ↔ Seller
+
+Verify:
+
+* Create conversation
+* Send message
+* Receive message
+* Read receipts
+* Typing indicators
+* Attachments
+* Search
+* Archive
+* Mute
+* Notifications
+* Unread counts
+
+---
+
+### Seller ↔ Customer
+
+Verify entire workflow.
+
+---
+
+### Admin ↔ Seller
+
+Verify:
+
+* Support conversations
+* Moderation tools
+* Notifications
+* Attachments
+* Read receipts
+
+---
+
+### Admin Inbox
+
+Verify:
+
+* Search
+* Filters
+* Archive
+* Block
+* Unblock
+* Conversation management
+
+---
+
+### Mobile ↔ Web
+
+Verify:
+
+Send from Mobile.
+
+Receive on Web.
+
+Send from Web.
+
+Receive on Mobile.
+
+Verify:
+
+* read receipts
+* typing indicators
+* notifications
+* attachments
+
+---
+
+### Attachment Testing
+
+Test:
+
+* Image upload
+* PDF upload
+* TXT upload
+
+Verify:
+
+* upload
+* preview
+* open
+* download
+
+---
+
+### Notification Testing
+
+Verify:
+
+* unread counts
+* navbar badges
+* inbox badges
+* live updates
+
+---
+
+### Language Testing
+
+Arabic
+
+English
+
+Verify:
+
+No untranslated strings.
+
+No broken layouts.
+
+No hardcoded text.
+
+---
+
+# PART 13 — DOCUMENTATION
+
+After completion:
+
+Update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+PROJECT_STATUS.md
+
+Messaging documentation
+
+Recovery artifacts
+
+---
+
+Document:
+
+Messaging V2 fully completed.
+
+Testing completed.
+
+Accounts used.
+
+Validation results.
+
+Known limitations (if any).
+
+---
+
+# PART 14 — ROADMAP UPDATE
+
+After successful validation:
+
+Mark:
+
+✅ Phase 7 — Messaging V2 COMPLETE
+
+Update roadmap status everywhere.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Mobile Read Receipts
+
+✅ Mobile Typing Indicators
+
+✅ Mobile Attachments
+
+✅ Mobile Archive
+
+✅ Mobile Mute
+
+✅ Mobile i18n complete
+
+✅ No hardcoded strings
+
+✅ Notifications work
+
+✅ Real-time updates work
+
+✅ Customer ↔ Seller tested
+
+✅ Seller ↔ Customer tested
+
+✅ Admin ↔ Seller tested
+
+✅ Mobile ↔ Web tested
+
+✅ Attachments tested
+
+✅ Notifications tested
+
+✅ Arabic verified
+
+✅ English verified
+
+✅ Mobile verified
+
+✅ Tablet verified
+
+✅ TypeScript = 0
+
+✅ Documentation updated
+
+✅ Recovery files updated
+
+✅ Phase 7 marked COMPLETE
+
+Do not finish until Messaging V2 reaches 100% completion and has been fully tested using real platform accounts and real messaging workflows.

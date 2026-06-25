@@ -1,0 +1,234 @@
+# SYANO — FULL RECOVERY + STARTUP FROM RECOVERY FILES
+
+Recover the project completely using the recovery documentation.
+
+Do NOT create a new project.
+
+Do NOT reset the database.
+
+Do NOT overwrite existing code.
+
+Restore the current SYANO state exactly as documented.
+
+---
+
+## STEP 1 — READ RECOVERY FILES
+
+Read completely:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+
+Treat these files as the source of truth.
+
+---
+
+## STEP 2 — VERIFY PROJECT STATE
+
+Identify:
+
+* Current roadmap phase
+* Completed systems
+* Pending systems
+* Known issues
+* Recovery notes
+* Latest completed milestone
+
+Report findings before making changes.
+
+---
+
+## STEP 3 — DATABASE VERIFICATION
+
+Verify:
+
+* PostgreSQL connection
+* All migrations applied
+* Tables exist
+* Enums exist
+* Seed data exists
+
+Verify:
+
+* Products
+* Stores
+* Categories
+* Users
+* Messages
+* Orders
+* Notifications
+* Trust system data
+* Delivery zones
+
+Do NOT modify data unless required.
+
+---
+
+## STEP 4 — START ALL SERVICES
+
+Start:
+
+### API
+
+Verify:
+
+* Server boots successfully
+* No startup errors
+* Health endpoint responds
+
+Example:
+
+* /api/healthz
+
+---
+
+### Marketplace
+
+Start:
+
+* Vite frontend
+
+Verify:
+
+* Homepage loads
+* Routing works
+* No runtime errors
+
+---
+
+### Mobile App
+
+Start:
+
+* Expo
+
+Verify:
+
+* Metro starts
+* No compilation errors
+
+---
+
+## STEP 5 — ENDPOINT VALIDATION
+
+Verify all major APIs.
+
+Examples:
+
+* /api/products
+* /api/stores
+* /api/search
+* /api/messages
+* /api/notifications
+* /api/cart
+* /api/orders
+
+Confirm responses are valid.
+
+---
+
+## STEP 6 — AUTHENTICATION TEST
+
+Verify bootstrap accounts still exist.
+
+### Admin
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+### Seller
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+### Courier
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Confirm they can authenticate.
+
+Do not reset passwords unless necessary.
+
+---
+
+## STEP 7 — APPLICATION HEALTH CHECK
+
+Verify:
+
+* Homepage loads
+* Navbar loads
+* Theme system loads
+* Language system loads
+* Currency system loads
+* Messaging loads
+* Cart loads
+* Notifications load
+
+No console errors.
+
+No API errors.
+
+No TypeScript errors.
+
+---
+
+## STEP 8 — TYPESCRIPT VALIDATION
+
+Run full type check.
+
+Target:
+
+0 TypeScript errors.
+
+Fix only recovery-related issues.
+
+Do not refactor unrelated systems.
+
+---
+
+## STEP 9 — REPORT
+
+Provide:
+
+### Recovery Status
+
+* Success / Failure
+
+### Services
+
+* API
+* Marketplace
+* Mobile
+
+### Database
+
+* Healthy / Issues
+
+### APIs
+
+* Healthy / Issues
+
+### Bootstrap Accounts
+
+* Verified / Missing
+
+### Current Roadmap Position
+
+List completed phases and remaining phases.
+
+---
+
+## IMPORTANT
+
+Do NOT implement new features.
+
+Do NOT redesign anything.
+
+Do NOT change UI.
+
+Do NOT modify roadmap.
+
+Goal:
+
+Recover the project exactly as documented and ensure it runs successfully.
+
+At the end provide a complete recovery report and confirm the project is ready for continued development.

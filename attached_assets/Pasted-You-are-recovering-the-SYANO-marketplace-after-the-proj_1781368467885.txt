@@ -1,0 +1,285 @@
+You are recovering the SYANO (سوق سوريا) marketplace after the project was migrated to a new Replit account.
+
+IMPORTANT:
+
+Do NOT redesign anything.
+
+Do NOT rebuild anything from scratch.
+
+Do NOT create a new architecture.
+
+Do NOT assume the project state.
+
+The recovery source of truth is the recovery documentation already present inside the repository.
+
+---
+
+# RECOVERY MODE
+
+Your first task is NOT coding.
+
+Your first task is auditing.
+
+Read and analyze ALL recovery artifacts before making any change.
+
+---
+
+# RECOVERY FILES
+
+Locate and fully read:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* recovery audit files
+* recovery reports
+* homepage architecture docs
+* implementation reports
+* roadmap docs
+* migration docs
+* bootstrap docs
+* deployment docs
+
+Any recovery-related documentation found in the repository must be analyzed.
+
+---
+
+# BUILD PROJECT STATE
+
+After reading recovery files:
+
+Create a complete project state report.
+
+Include:
+
+## Infrastructure
+
+* API status
+* Marketplace status
+* Mobile status
+
+## Database
+
+* tables
+* enums
+* migrations
+* bootstrap state
+
+## Accounts
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Verify their expected state from recovery docs.
+
+---
+
+## Features
+
+Identify status of:
+
+* homepage
+* wishlist
+* cart
+* orders
+* fulfillment
+* courier dashboard
+* seller dashboard
+* analytics
+* trust system
+* variant system
+* notifications
+* localization
+
+---
+
+# RECOVERY EXECUTION
+
+Recover environment in this order:
+
+STEP 1
+
+Install dependencies.
+
+Verify:
+
+* pnpm
+* node_modules
+* workspace integrity
+
+---
+
+STEP 2
+
+Restore database.
+
+Apply:
+
+* schema.sql
+* migrations
+* recovery migrations
+
+Verify all tables.
+
+---
+
+STEP 3
+
+Start API.
+
+Verify:
+
+GET /api/healthz
+
+must return success.
+
+---
+
+STEP 4
+
+Run migrations.
+
+Verify:
+
+* enums
+* delivery zones
+* wishlist tables
+* recovery tables
+
+---
+
+STEP 5
+
+Verify bootstrap accounts.
+
+Repair automatically if needed.
+
+---
+
+STEP 6
+
+Run TypeScript validation.
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* api-server
+* marketplace
+* mobile
+
+Target:
+
+0 TypeScript errors.
+
+---
+
+STEP 7
+
+Start services.
+
+Verify:
+
+* API
+* Marketplace
+* Mobile
+
+---
+
+# HOMEPAGE VALIDATION
+
+After recovery:
+
+Verify homepage implementation.
+
+Check:
+
+* Hero
+* Navbar
+* Categories
+* Product cards
+* Footer
+* Wishlist
+* Currency switching
+* Theme switching
+* Localization
+
+Do not modify anything yet.
+
+Only verify.
+
+---
+
+# ENDPOINT VALIDATION
+
+Verify:
+
+* auth
+* products
+* categories
+* sellers
+* trust
+* wishlist
+* notifications
+* analytics
+* admin
+* courier
+
+Report failures.
+
+---
+
+# RECOVERY SCORE
+
+Run the equivalent of the recovery audit.
+
+Calculate:
+
+* passing systems
+* failing systems
+* expected recovery score
+
+Compare against recovery documentation.
+
+---
+
+# UPDATE DOCUMENTATION
+
+After recovery:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* recovery audit reports
+
+Reflect the current recovered state.
+
+---
+
+# OUTPUT FORMAT
+
+Provide:
+
+1. Recovery findings
+2. Missing dependencies
+3. Missing tables
+4. Missing migrations
+5. TypeScript status
+6. Service status
+7. Endpoint status
+8. Recovery score
+9. Remaining issues
+10. Recommended next action
+
+Do NOT implement new features.
+
+Do NOT redesign UI.
+
+Recover the project first and establish the exact current state.

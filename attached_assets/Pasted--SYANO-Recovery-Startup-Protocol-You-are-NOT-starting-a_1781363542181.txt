@@ -1,0 +1,216 @@
+# SYANO Recovery & Startup Protocol
+
+You are NOT starting a new project.
+
+You are recovering and continuing an existing production marketplace called:
+
+SYANO (سوق سوريا)
+
+Your first task is recovery only.
+
+Do NOT build features.
+
+Do NOT refactor.
+
+Do NOT redesign.
+
+Do NOT modify files yet.
+
+---
+
+## Phase 1 — Read Recovery Files
+
+Read ALL recovery-related files completely before doing anything.
+
+Priority order:
+
+1. RECOVERY_GUIDE.md
+2. CURRENT_STATE.md
+3. Recovery reports
+4. Recovery audit files
+5. Homepage architecture docs
+6. Platform roadmap docs
+7. API documentation
+8. Recovery score files
+9. Bootstrap account documentation
+10. Any file containing:
+
+* RECOVERY
+* CURRENT STATE
+* ROADMAP
+* AUDIT
+* STATUS
+
+Do not skip files.
+
+---
+
+## Phase 2 — Build Recovery Snapshot
+
+After reading everything:
+
+Generate a complete recovery snapshot containing:
+
+### Infrastructure
+
+* API status
+* Marketplace status
+* Mobile status
+* Database status
+
+### Database
+
+* tables count
+* enums
+* migrations
+* delivery zones
+
+### Accounts
+
+Admin:
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Verify their intended roles.
+
+---
+
+### Recovery Score
+
+Report:
+
+* current recovery score
+* passed modules
+* failed modules
+* warnings
+
+---
+
+### Homepage
+
+Determine:
+
+* current homepage version
+* hero implementation
+* banner implementation
+* wishlist status
+* card system status
+* theme status
+
+---
+
+### Roadmap
+
+Determine:
+
+Completed:
+
+* Order Fulfillment Workflow V1
+* Courier Dashboard V2
+* Seller Orders V2
+* Seller Analytics V2
+* Trust System V1
+* Seller Store Pages V2
+* Platform QA & Stabilization
+* Recovery Endpoint V2
+
+Determine remaining work.
+
+---
+
+## Phase 3 — Environment Validation
+
+Verify:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID keys
+
+Verify:
+
+* API boots
+* Marketplace boots
+* Mobile boots
+
+---
+
+## Phase 4 — TypeScript Audit
+
+Verify:
+
+* api-server
+* marketplace
+* mobile
+
+Report:
+
+TypeScript error count.
+
+---
+
+## Phase 5 — Endpoint Audit
+
+Check major endpoints:
+
+* auth
+* products
+* sellers
+* reviews
+* wishlist
+* cart
+* banners
+* analytics
+
+Report broken endpoints.
+
+---
+
+## Phase 6 — DO NOT CHANGE ANYTHING
+
+Recovery phase is READ ONLY.
+
+Do not:
+
+* edit files
+* create files
+* migrate schema
+* seed products
+* redesign UI
+
+Only analyze and report.
+
+---
+
+## Final Output
+
+Provide:
+
+### Recovery Summary
+
+### Current Score
+
+### Current Homepage Status
+
+### Current Roadmap Status
+
+### TypeScript Status
+
+### Service Status
+
+### Active Known Issues
+
+### Recommended Next Step
+
+Then stop and wait for instructions.
+
+No implementation until recovery is finished.

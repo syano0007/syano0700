@@ -1,0 +1,429 @@
+# SYANO Mobile Web-Parity Phase
+
+## Mission
+
+You are NOT redesigning the mobile app.
+
+You are NOT improving the mobile app.
+
+You are NOT creating a mobile interpretation.
+
+Your ONLY goal is:
+
+**Make the mobile homepage a pixel-faithful React Native implementation of the current web homepage.**
+
+The web homepage is the source of truth.
+
+The mobile homepage must become a direct implementation of the web version.
+
+---
+
+# CRITICAL RULE
+
+Do NOT continue to the next item until the current item is verified as matching the web implementation.
+
+Work sequentially.
+
+If item #1 is not fully matched:
+
+* STOP
+* Fix it
+* Recheck it
+* Then continue
+
+Never skip ahead.
+
+Never partially complete a section.
+
+Never say "close enough".
+
+Never approximate.
+
+---
+
+# SOURCE OF TRUTH
+
+Always use:
+
+artifacts/marketplace
+
+as the reference implementation.
+
+Everything inside:
+
+* Homepage
+* Hero
+* Navbar
+* Product cards
+* Footer
+* Typography
+* Colors
+* Spacing
+* Motion
+
+must be copied from web.
+
+If mobile differs from web:
+
+web wins.
+
+---
+
+# REQUIRED AUDIT PROCESS
+
+Before editing:
+
+1. Read web homepage.
+2. Read mobile homepage.
+3. Create parity checklist.
+4. Compare section-by-section.
+5. Only then implement.
+
+After every section:
+
+Create:
+
+WEB VS MOBILE PARITY REPORT
+
+with:
+
+* matched
+* missing
+* differences
+
+Do not continue until differences = 0.
+
+---
+
+# IMPLEMENTATION ORDER
+
+Follow this order exactly.
+
+---
+
+## PHASE 1 — NAVBAR
+
+This is priority #1.
+
+Current mobile navbar is NOT acceptable.
+
+Delete any mobile-specific navbar that does not exist on web.
+
+Rebuild the navbar from the web implementation.
+
+Match:
+
+* layout
+* icon placement
+* spacing
+* search bar
+* cart badge
+* notification badge
+* user actions
+* visual hierarchy
+* theme behavior
+* glass effects
+* borders
+* shadows
+
+Verification:
+
+Compare screenshots side-by-side.
+
+Continue only when navbar visually matches web.
+
+---
+
+## PHASE 2 — HERO SECTION
+
+Current hero is not matching.
+
+Copy:
+
+* structure
+* typography
+* card placement
+* banner placement
+* image ratios
+* floating cards
+* statistics
+* buttons
+* indicators
+
+Hero must look like the web version.
+
+Not inspired by.
+
+Not similar.
+
+The same implementation.
+
+Verification required.
+
+---
+
+## PHASE 3 — TYPOGRAPHY SYSTEM
+
+Build a shared typography system.
+
+Copy exact hierarchy from web:
+
+* hero title
+* section title
+* product title
+* badges
+* buttons
+* captions
+* footer text
+
+Remove arbitrary font sizes.
+
+Every font size must map to web tokens.
+
+Verification required.
+
+---
+
+## PHASE 4 — DESIGN TOKENS
+
+Copy all design tokens from web.
+
+Must include:
+
+### Colors
+
+* background
+* surface
+* elevated surface
+* border
+* muted text
+* primary text
+* accent
+
+### Radius
+
+All radius values.
+
+### Shadows
+
+All shadow levels.
+
+### Spacing
+
+All spacing scales.
+
+Verification required.
+
+---
+
+## PHASE 5 — PRODUCT CARDS
+
+Current cards do not match.
+
+Copy:
+
+* card proportions
+* image ratios
+* badge placement
+* rating placement
+* price layout
+* old price layout
+* favorite button
+* card spacing
+
+Verification required.
+
+---
+
+## PHASE 6 — CATEGORY SECTION
+
+Must match web.
+
+Copy:
+
+* grid structure
+* image treatment
+* overlays
+* typography
+* spacing
+
+Verification required.
+
+---
+
+## PHASE 7 — DEALS SECTION
+
+Copy:
+
+* countdown timer
+* card layout
+* spacing
+* colors
+* badges
+
+Verification required.
+
+---
+
+## PHASE 8 — STORES SECTION
+
+Copy:
+
+* store cards
+* image treatment
+* verification badges
+* spacing
+* buttons
+
+Verification required.
+
+---
+
+## PHASE 9 — NEW ARRIVALS
+
+Copy:
+
+* card sizes
+* image ratios
+* overlays
+* badges
+* spacing
+
+Verification required.
+
+---
+
+## PHASE 10 — TRENDING PRODUCTS
+
+Copy web exactly.
+
+Verification required.
+
+---
+
+## PHASE 11 — JOIN CTA
+
+Current mobile version differs.
+
+Copy:
+
+* layout
+* spacing
+* typography
+* cards
+* buttons
+
+Verification required.
+
+---
+
+## PHASE 12 — FOOTER
+
+Copy web footer exactly.
+
+Include:
+
+* branding
+* links
+* newsletter
+* legal section
+* payment methods
+
+Verification required.
+
+---
+
+## PHASE 13 — MOTION SYSTEM
+
+Current mobile has almost no parity.
+
+Copy motion behavior from web.
+
+Must include:
+
+* hover equivalents
+* press states
+* transitions
+* fades
+* scaling
+* entrance animations
+
+No arbitrary animation values.
+
+Verification required.
+
+---
+
+## PHASE 14 — DARK MODE
+
+Current mobile dark mode still differs.
+
+Copy exact web theme.
+
+Web is source of truth.
+
+Match:
+
+* surfaces
+* contrast
+* shadows
+* borders
+* overlays
+
+Verification required.
+
+---
+
+# FORBIDDEN
+
+Do NOT:
+
+* redesign
+* simplify
+* modernize
+* reinterpret
+* optimize visually
+* invent new layouts
+* add mobile-specific creativity
+
+Until parity is complete.
+
+---
+
+# COMPLETION REQUIREMENT
+
+Before declaring success:
+
+Create:
+
+FINAL WEB PARITY AUDIT
+
+For every section:
+
+| Section | Web Match % |
+| ------- | ----------- |
+
+Target:
+
+100% for every section.
+
+If any section is below 100%:
+
+Project is NOT complete.
+
+Continue fixing.
+
+---
+
+# FINAL GOAL
+
+The user should be able to place:
+
+* Web homepage
+* Mobile homepage
+
+side-by-side
+
+and immediately recognize them as the same product and same design system.
+
+Only after this is achieved may mobile-specific optimizations be proposed.

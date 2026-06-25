@@ -1,0 +1,860 @@
+Task: Semantic Search + Cache Layer — Full Implementation
+Phase: Search Improvement — Semantic Understanding & Performance
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file. Then read the
+full source of ALL of these files before writing a single line:
+  - artifacts/server/src/services/searchProcessor.ts (full file)
+  - artifacts/server/src/routes/search.ts (full file)
+  - artifacts/server/src/db/schema.ts (full file)
+  - artifacts/server/src/db/migrations/ (list every file, read
+    the latest 3 in full)
+  - artifacts/marketplace/src/pages/search/index.tsx (full file)
+  - artifacts/server/package.json (full file)
+  - replit.nix or .replit (full file — to understand current
+    Python availability and service configuration)
+  - artifacts/server/src/db/run-migrations.ts (full file)
+
+After reading, produce a written inventory of:
+  - Current Node.js server port and how it is started
+  - Whether Python 3 is available in the Replit environment
+  - Whether pgvector extension exists in the database:
+      SELECT * FROM pg_extension WHERE extname = 'vector';
+  - Whether an embedding column exists on products table
+  - Current search pipeline sequence (from Phase 5 comment block)
+  - Current average response time from query_logs if available
+  - Exact ranking formula currently active (from Phase 6)
+  - Whether any cache layer exists anywhere in the codebase
+  - All currently running workflows/services in .replit
+Do NOT begin any implementation until this inventory is written.
+
+PERMANENT REJECTIONS — never propose or implement any of these:
+  - External AI API calls at query time (no OpenAI, Cohere,
+    HuggingFace Inference API, or any paid/rate-limited service)
+  - Redis, Memcached, or any external cache infrastructure
+  - Any new npm packages not already installed in the project
+  - Dropping or modifying existing columns in any table
+  - Blocking the main Node.js event loop during embedding generation
+  - Generating embeddings synchronously at search time for
+    more than 1 query (batch only for products, single for queries)
+  - Any change to existing API response shape that would break
+    current frontend — only ADD new fields, never remove
+  - Rebuilding or replacing the existing FTS/NLP pipeline —
+    Semantic Search is ADDITIVE on top of existing search
+Stop and report if you are about to do any of these.
+
+════════════════════════════════════════════════════════════════════
+PHASE 1 — INFRASTRUCTURE SETUP
+════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────
+STEP 1 — Python Embedding Service
+──────────────────────────────────────────────────────────────────
+
+Create a standalone Python microservice at:
+  artifacts/embedding-service/main.py
+
+This service has ONE job: convert text to vectors.
+Nothing else. No business logic. No DB access.
+
+  1a. Service stack:
+      - FastAPI (lightweight HTTP framework)
+      - sentence-transformers (loads the model)
+      - uvicorn (ASGI server)
+      Install via: pip install fastapi uvicorn
+                              sentence-transformers torch --index-url
+                              https://download.pytorch.org/whl/cpu
+      CPU-only torch (smaller, faster to install, sufficient for
+      inference — no GPU needed on Railway/Replit).
+
+  1b. Model to use:
+      intfloat/multilingual-e5-small
+      - 384-dimensional vectors
+      - Supports Arabic + English natively
+      - ~470MB download, cached after first run
+      - Inference: ~10-30ms per query on CPU
+
+      Model loading strategy:
+        Load the model ONCE at startup using a global variable.
+        Never reload per request.
+        Log: "Model loaded in Xms" on startup.
+        If model fails to load: log error, exit with code 1
+        (do not serve requests with no model).
+
+  1c. Service endpoints — implement ALL of these:
+
+      GET /health
+        Returns: { status: "ok", model: "multilingual-e5-small",
+                   vector_dimensions: 384 }
+        Used by Node.js to verify service is ready before search.
+
+      POST /embed/query
+        Body: { text: string, language?: "ar" | "en" | "mixed" }
+        Returns: { embedding: number[], dimensions: 384,
+                   processing_ms: number }
+        Prefix strategy (CRITICAL for e5 model accuracy):
+          Arabic or mixed: prepend "query: " to text before encoding
+          English: prepend "query: " to text before encoding
+          (e5 model requires "query: " prefix for queries and
+           "passage: " prefix for documents — this is mandatory
+           for correct similarity scores)
+        Max text length: 512 tokens — truncate silently if longer.
+        Processing: model.encode([prefixed_text],
+                                  normalize_embeddings=True)
+        Return embedding as plain Python list (JSON-serializable).
+
+      POST /embed/batch
+        Body: { texts: string[], type: "passage" | "query" }
+        Returns: { embeddings: number[][], count: number,
+                   processing_ms: number }
+        Prefix strategy:
+          type="passage": prepend "passage: " to each text
+          type="query": prepend "query: " to each text
+        Batch size limit: 64 texts per request maximum.
+          If texts.length > 64: process in chunks of 64,
+          concatenate results, return all.
+        Processing: model.encode(prefixed_texts,
+                                  batch_size=32,
+                                  normalize_embeddings=True,
+                                  show_progress_bar=False)
+        This is used for bulk product embedding generation.
+
+  1d. Service configuration:
+      Port: 8001 (Node.js server stays on its current port)
+      Host: 0.0.0.0 (accessible from Node.js service)
+      Workers: 1 (single worker — model is not thread-safe
+                   without proper locking; 1 worker is correct)
+      Timeout: 120 seconds (for large batch requests)
+      CORS: allow all origins (internal service only)
+
+  1e. Create artifacts/embedding-service/requirements.txt:
+      fastapi>=0.104.0
+      uvicorn>=0.24.0
+      sentence-transformers>=2.2.2
+      torch>=2.0.0
+      numpy>=1.24.0
+
+  1f. Create artifacts/embedding-service/Dockerfile (for Railway):
+      FROM python:3.11-slim
+      WORKDIR /app
+      COPY requirements.txt .
+      RUN pip install --no-cache-dir -r requirements.txt
+      COPY main.py .
+      CMD ["uvicorn", "main:app", "--host", "0.0.0.0",
+           "--port", "8001"]
+
+  1g. Add the embedding service as a workflow in .replit:
+      Add a new workflow that runs:
+        cd artifacts/embedding-service && python main.py
+      or equivalent uvicorn command.
+      It must start in parallel with the existing Node.js server,
+      not replace it.
+
+  1h. Environment variable:
+      Add to the Node.js server environment:
+        EMBEDDING_SERVICE_URL=http://localhost:8001
+      Use process.env.EMBEDDING_SERVICE_URL everywhere in Node.js
+      code — never hardcode the URL.
+
+──────────────────────────────────────────────────────────────────
+STEP 2 — Database: pgvector Extension + Embedding Column
+──────────────────────────────────────────────────────────────────
+
+  2a. Enable pgvector extension:
+      Write an additive migration that runs:
+        CREATE EXTENSION IF NOT EXISTS vector;
+      This must be the FIRST statement in the migration,
+      before any table alterations.
+      If pgvector is not available on this PostgreSQL instance,
+      the migration must catch the error and log a clear message:
+        "pgvector extension not available — semantic search
+         will be disabled. Install pgvector to enable."
+      Never crash the server if pgvector is unavailable.
+
+  2b. Add embedding column to products table:
+      ALTER TABLE products
+        ADD COLUMN IF NOT EXISTS
+          embedding vector(384);
+      This column starts NULL for all existing products.
+      NULL = not yet embedded (will be filled by backfill job).
+
+  2c. Add IVFFlat index for fast similarity search:
+      CREATE INDEX IF NOT EXISTS idx_products_embedding
+        ON products
+        USING ivfflat (embedding vector_cosine_ops)
+        WITH (lists = 100);
+      Note: lists=100 is appropriate for ~5000 products.
+            For 100k+ products, increase to 1000.
+      This index only activates after enough rows have embeddings
+      — create it after the backfill is complete.
+
+  2d. Add embedding metadata columns (additive):
+      ALTER TABLE products
+        ADD COLUMN IF NOT EXISTS embedding_model
+          text DEFAULT NULL,
+        ADD COLUMN IF NOT EXISTS embedded_at
+          timestamp DEFAULT NULL;
+      These track which model version generated each embedding
+      and when — critical for future model updates.
+
+  2e. Add to Drizzle schema (schema.ts):
+      Import and use the pgvector type from drizzle-orm/pg-core
+      if available, otherwise use a custom column type.
+      Add to the products schema object:
+        embedding: customType or vector column (384 dims)
+        embeddingModel: text('embedding_model')
+        embeddedAt: timestamp('embedded_at')
+      If drizzle does not support vector type natively, define
+      a custom SQL column type:
+        const vectorColumn = customType<{ data: number[] }>({
+          dataType() { return 'vector(384)'; },
+          toDriver(value) { return JSON.stringify(value); },
+          fromDriver(value) {
+            if (typeof value === 'string') return JSON.parse(value);
+            return value as number[];
+          }
+        });
+
+════════════════════════════════════════════════════════════════════
+PHASE 2 — EMBEDDING GENERATION (BACKFILL)
+════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────
+STEP 3 — Bulk Embedding Backfill Script
+──────────────────────────────────────────────────────────────────
+
+Create artifacts/server/src/scripts/generateEmbeddings.ts
+
+This script runs ONCE to generate embeddings for all existing
+products. It must be re-runnable (idempotent) safely.
+
+  3a. Script logic:
+      1. Connect to DB using existing Drizzle connection
+      2. Query all products WHERE embedding IS NULL
+         (only process unembedded products — safe to re-run)
+      3. For each product, build the embedding text:
+           embeddingText = [
+             product.name_ar,
+             product.name,          // English name if exists
+             product.category,
+             product.subcategory,
+             product.description?.slice(0, 500),
+             product.search_tokens
+           ].filter(Boolean).join(' ')
+         This gives the model maximum context about the product.
+      4. Send to embedding service in batches of 50 products:
+           POST http://localhost:8001/embed/batch
+           Body: { texts: embeddingTexts, type: "passage" }
+      5. For each returned embedding, UPDATE the product:
+           UPDATE products
+           SET embedding = $1,
+               embedding_model = 'multilingual-e5-small',
+               embedded_at = NOW()
+           WHERE id = $2
+      6. Log progress every 100 products:
+           "Embedded 100/5042 products (2.0%) — avg Xms/product"
+      7. After all products: log final summary:
+           "Backfill complete: X products embedded in Xs
+            Failed: Y products (log their IDs)"
+
+  3b. Error handling:
+      - If embedding service is not running: wait up to 30 seconds
+        with 3-second retry intervals, then exit with error.
+      - If a batch fails: log the error, skip those products,
+        continue with next batch. Never crash the whole script.
+      - If DB update fails: log and continue.
+      - At the end: report total failed, so they can be retried.
+
+  3c. Run the backfill automatically after migration:
+      Add to run-migrations.ts (or a startup script):
+        After migrations complete, check if any products have
+        embedding IS NULL. If yes, AND if EMBEDDING_SERVICE_URL
+        is set AND the service responds to /health: run the
+        backfill script automatically in the background
+        (non-blocking — use setImmediate or spawn a child process).
+        Log: "Starting embedding backfill for X products..."
+
+  3d. Add npm script to server package.json:
+      "embed:generate": "ts-node src/scripts/generateEmbeddings.ts"
+      So it can be run manually: npm run embed:generate
+
+  3e. New product embedding (real-time):
+      When a new product is created via the seller API:
+        After the INSERT succeeds, fire an async background job
+        (non-blocking — do not await) to generate the embedding:
+          generateSingleEmbedding(productId, embeddingText)
+        This function:
+          1. Calls POST /embed/query (single embedding)
+          2. Updates the product's embedding column
+          3. Logs success or failure
+        The product is immediately available in FTS search.
+        It becomes available in semantic search within ~2 seconds.
+        Never delay the product creation response for this.
+
+════════════════════════════════════════════════════════════════════
+PHASE 3 — HYBRID SEARCH INTEGRATION
+════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────
+STEP 4 — Semantic Search in searchProcessor.ts
+──────────────────────────────────────────────────────────────────
+
+  4a. Add embedding service client to searchProcessor.ts:
+      Create a lightweight internal client (plain fetch — no new
+      packages):
+
+        async function getQueryEmbedding(
+          query: string
+        ): Promise<number[] | null> {
+          try {
+            const url = process.env.EMBEDDING_SERVICE_URL;
+            if (!url) return null;
+            const response = await fetch(`${url}/embed/query`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ text: query }),
+              signal: AbortSignal.timeout(2000) // 2s timeout
+            });
+            if (!response.ok) return null;
+            const data = await response.json();
+            return data.embedding ?? null;
+          } catch {
+            return null; // semantic search gracefully disabled
+          }
+        }
+
+      CRITICAL: the 2-second timeout is non-negotiable.
+      If the embedding service is slow or down, the search must
+      fall back to FTS-only without error. Never block search
+      for more than 2 seconds waiting for embeddings.
+
+  4b. Add semantic search DB query function:
+      Create a function semanticSearch that:
+        Takes: embedding: number[], limit: number
+        Builds this SQL query:
+          SELECT
+            p.id,
+            p.name,
+            p.name_ar,
+            p.price,
+            p.image_url,
+            p.category,
+            p.stock,
+            1 - (p.embedding <=> $1::vector) AS semantic_score
+          FROM products p
+          WHERE
+            p.embedding IS NOT NULL
+            AND 1 - (p.embedding <=> $1::vector) > 0.45
+            AND p.stock > 0
+          ORDER BY semantic_score DESC
+          LIMIT $2;
+
+        The <=> operator is pgvector cosine distance.
+        1 - distance = cosine similarity (0 to 1).
+        Threshold 0.45 = minimum similarity to be considered
+        relevant. Below this = noise, not a real match.
+        Adjust column names to match actual schema.
+
+        If pgvector is not available: catch the error, return
+        empty array, log warning once (not on every query).
+
+  4c. Hybrid scoring — combine FTS + Semantic:
+      After getting both FTS results and semantic results,
+      merge them using reciprocal rank fusion (RRF):
+
+        function reciprocalRankFusion(
+          ftsResults: SearchResult[],
+          semanticResults: SearchResult[],
+          k: number = 60
+        ): SearchResult[] {
+          const scores = new Map<number, number>();
+
+          ftsResults.forEach((result, index) => {
+            const current = scores.get(result.id) ?? 0;
+            scores.set(result.id, current + 1 / (k + index + 1));
+          });
+
+          semanticResults.forEach((result, index) => {
+            const current = scores.get(result.id) ?? 0;
+            scores.set(result.id,
+              current + 1 / (k + index + 1));
+          });
+
+          // Merge unique results, sort by RRF score
+          const allResults = [
+            ...ftsResults,
+            ...semanticResults.filter(s =>
+              !ftsResults.find(f => f.id === s.id))
+          ];
+
+          return allResults.sort((a, b) =>
+            (scores.get(b.id) ?? 0) - (scores.get(a.id) ?? 0)
+          );
+        }
+
+      Why RRF: it's the most robust fusion method that doesn't
+      require score normalization across different ranking systems.
+      Used by Elasticsearch, Pinecone, and Weaviate internally.
+
+  4d. Search mode selection logic:
+      Add logic to decide which search mode to use per query:
+
+        SEMANTIC_ONLY (never — always hybrid or FTS):
+          Never use semantic alone — FTS catches exact matches
+          better. Semantic is always additive.
+
+        HYBRID (FTS + Semantic):
+          Use when: query.length >= 3 words OR
+                    query contains intent signals OR
+                    FTS returns < 5 results
+          This is the primary mode for natural language queries.
+
+        FTS_ONLY (existing pipeline, no change):
+          Use when: embedding service is unavailable OR
+                    query is a single short word (< 8 chars) OR
+                    query is a known brand name (from brand cache)
+          Single-word exact queries are better served by FTS.
+
+        Add searchMode to the API response metadata so the
+        frontend and debug mode can show which mode was used.
+
+  4e. Updated pipeline sequence in searchProcessor.ts:
+      Replace the existing comment block with this updated one:
+
+        /*
+         * SYANO SEARCH PIPELINE — v3.0 (Semantic + Hybrid)
+         *
+         * Step 1:  Validate & sanitize (Zod + length check)
+         * Step 2:  Detect language per token
+         * Step 3:  Arabic normalization (7 transformations)
+         * Step 4:  Strip Syrian stop words (safety guard)
+         * Step 5:  Synonym expansion (cache → DB fallback)
+         * Step 6:  Intent detection (pure JS, < 1ms)
+         * Step 7:  Brand detection & boost flag
+         * Step 8:  Numeric token handling
+         * Step 9:  Select search mode (FTS / Hybrid / FTS-only)
+         * Step 10: [PARALLEL]
+         *            10a. FTS query with multi-signal ranking
+         *            10b. Query embedding (if Hybrid mode)
+         *                 → semantic search via pgvector
+         * Step 11: Merge results (RRF if Hybrid, FTS if FTS-only)
+         * Step 12: Apply fallback chain (if merged results = 0)
+         * Step 13: Seller diversity post-processing
+         * Step 14: Apply cache write (store result)
+         * Step 15: Return results with full metadata
+         */
+
+  4f. Run FTS and Semantic in PARALLEL (critical for performance):
+      Use Promise.all to run both searches simultaneously:
+
+        const [ftsResults, semanticResults] = await Promise.all([
+          executeFTSSearch(processedQuery, params),
+          searchMode === 'HYBRID'
+            ? getQueryEmbedding(query).then(emb =>
+                emb ? semanticSearch(emb, 20) : []
+              )
+            : Promise.resolve([])
+        ]);
+
+      This means total search time =
+        max(FTS_time, semantic_time) NOT FTS_time + semantic_time.
+      Since FTS takes ~0.5ms and embedding takes ~10-30ms,
+      total adds only ~10-30ms overhead in hybrid mode.
+
+════════════════════════════════════════════════════════════════════
+PHASE 4 — IN-MEMORY CACHE LAYER
+════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────
+STEP 5 — LRU Cache Implementation
+──────────────────────────────────────────────────────────────────
+
+Create artifacts/server/src/services/searchCache.ts
+
+Implement a production-grade in-memory LRU cache for search results.
+No Redis. No external dependencies. Pure TypeScript.
+
+  5a. Cache key strategy:
+      The cache key must be a deterministic string that represents
+      a unique search state. Build it from:
+        key = sha256-like hash of:
+          normalized_query + '|' +
+          sort + '|' +
+          category + '|' +
+          minPrice + '|' +
+          maxPrice + '|' +
+          page + '|' +
+          pageSize
+      Use Node.js built-in crypto module:
+        import { createHash } from 'crypto';
+        const key = createHash('md5')
+          .update(cacheKeyInput)
+          .digest('hex');
+      MD5 is fine for cache keys (not security — just uniqueness).
+      Intent modifiers DO affect the cache key (they change results).
+
+  5b. LRU implementation:
+      Implement a proper LRU (Least Recently Used) cache using
+      a Map + doubly-linked list pattern. Do NOT use a simple
+      Map with size limit (that's not true LRU).
+
+      Cache configuration:
+        MAX_SIZE: 500 entries
+          (500 unique queries * ~50KB avg = ~25MB max memory)
+        TTL: 300 seconds (5 minutes) for normal queries
+             60 seconds for intent=on_sale or intent=new_arrivals
+             (sale/new content changes more frequently)
+             600 seconds for fallback L4 (trending — changes slowly)
+        TTL_BYPASS: never cache queries with debug=ranking
+          (admins need fresh data)
+
+      Cache entry structure:
+        interface CacheEntry {
+          key: string;
+          value: SearchApiResponse;
+          createdAt: number;    // Date.now()
+          ttl: number;          // milliseconds
+          hits: number;         // how many times served from cache
+          queryText: string;    // for debugging
+        }
+
+  5c. Cache operations — implement all:
+
+      get(key: string): SearchApiResponse | null
+        1. Look up key in Map
+        2. If not found: return null (cache miss)
+        3. If found but expired (Date.now() > createdAt + ttl):
+           delete from Map, return null (stale)
+        4. Move entry to front of LRU list (most recently used)
+        5. Increment hits counter
+        6. Return value (cache hit)
+
+      set(key: string, value: SearchApiResponse,
+          ttl: number): void
+        1. If key already exists: update value and move to front
+        2. If cache is at MAX_SIZE: evict LRU entry (tail of list)
+        3. Insert new entry at front of list
+        4. Update Map
+
+      invalidate(pattern?: string): void
+        If pattern provided: delete all keys containing pattern
+          (e.g., invalidate('electronics') clears electronics cache)
+        If no pattern: clear entire cache
+        Call this when: products are updated, new products added,
+          prices change, reindex is run.
+
+      getStats(): CacheStats
+        Returns:
+          {
+            size: number,           // current entries
+            maxSize: number,        // 500
+            hitRate: number,        // hits / (hits + misses)
+            totalHits: number,
+            totalMisses: number,
+            totalEvictions: number,
+            memoryEstimateMB: number, // rough estimate
+            oldestEntryAge: number  // seconds
+          }
+
+  5d. Cache integration in search.ts:
+      Import the cache at the top of search.ts.
+      In the main search handler:
+
+        // Step 1: Check cache
+        const cacheKey = buildCacheKey(params);
+        const cached = searchCache.get(cacheKey);
+        if (cached) {
+          return res.json({
+            ...cached,
+            _cache: { hit: true, age: Math.floor(
+              (Date.now() - cached._cacheCreatedAt) / 1000
+            )}
+          });
+        }
+
+        // ... run full search pipeline ...
+
+        // Step 14: Write to cache
+        const ttl = getTTLForResult(detectedIntent, fallbackLevel);
+        searchCache.set(cacheKey, result, ttl);
+
+      Add _cache field to SearchApiResponse type:
+        _cache?: {
+          hit: boolean;
+          age?: number; // seconds since cached, only on hits
+        }
+
+  5e. Cache invalidation triggers:
+      Invalidate the cache (full clear) when:
+        - POST /api/admin/search/reindex is called
+        - A product is created, updated, or deleted
+        - A seller's status changes
+      Add invalidateSearchCache() calls in the relevant route
+      handlers. Find each handler and add the call — do not
+      skip any.
+
+  5f. Cache stats endpoint (admin only):
+      GET /api/admin/search/cache-stats
+        Returns the output of searchCache.getStats()
+        plus: { topCachedQueries: string[] } (top 10 by hits)
+
+══════════════════════════════════════════════════════════════════
+PHASE 5 — FRONTEND INTEGRATION
+══════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────
+STEP 6 — Search UI Updates
+──────────────────────────────────────────────────────────────────
+
+  6a. Add search mode indicator to search results page:
+      In artifacts/marketplace/src/pages/search/index.tsx:
+      When searchMode = 'HYBRID' in the API response,
+      show a subtle indicator near the results count:
+        Arabic: "بحث ذكي"
+        English: "Smart search"
+      Use a small sparkle icon (from existing icon set).
+      Style: very subtle — small text, secondary color.
+      Only show when hybrid mode was used.
+      Do NOT show when FTS-only mode.
+      This reassures users the search understands their intent.
+
+  6b. Cache hit indicator (dev/admin only):
+      When _cache.hit = true AND user is admin:
+      Show a tiny green "cached" badge next to result count.
+      Not visible to regular users.
+      This helps with debugging and performance monitoring.
+
+  6c. Extend SearchApiResponse TypeScript type:
+      Add to the existing type definition:
+        searchMode?: 'HYBRID' | 'FTS_ONLY';
+        _cache?: { hit: boolean; age?: number; };
+        semanticResultCount?: number;
+      Never change existing fields — only add optional ones.
+
+  6d. i18n strings to add:
+      In ar.json under search namespace:
+        "search.mode.hybrid": "بحث ذكي"
+        "search.mode.fts": "بحث نصي"
+        "search.cache.hit": "نتائج محفوظة"
+        "search.semantic.label": "تطابق حسب المعنى"
+
+      In en.json under search namespace:
+        "search.mode.hybrid": "Smart search"
+        "search.mode.fts": "Text search"
+        "search.cache.hit": "Cached results"
+        "search.semantic.label": "Semantic match"
+
+      Never hardcode these strings in components.
+
+════════════════════════════════════════════════════════════════════
+PHASE 6 — GRACEFUL DEGRADATION
+════════════════════════════════════════════════════════════════════
+
+CRITICAL: The entire Semantic Search feature must be optional.
+If the embedding service is down, the search must work perfectly
+using FTS-only mode. Users must never see an error because
+the embedding service is unavailable.
+
+  7a. Service availability check:
+      On Node.js startup, check if the embedding service is
+      available by calling GET /health with a 3-second timeout.
+      Store the result in a module-level variable:
+        let embeddingServiceAvailable = false;
+      If available: set to true, log "Embedding service ready"
+      If not available: set to false, log warning, continue.
+
+  7b. Periodic health check:
+      Every 30 seconds, re-check the embedding service health.
+      If it comes back online after being down:
+        Set embeddingServiceAvailable = true
+        Log "Embedding service reconnected"
+      If it goes offline:
+        Set embeddingServiceAvailable = false
+        Log warning
+      This means search automatically upgrades to hybrid mode
+      when the embedding service starts (no restart needed).
+
+  7c. Search mode override based on availability:
+      In the search mode selection logic (Step 4d):
+        if (!embeddingServiceAvailable) {
+          searchMode = 'FTS_ONLY'; // override regardless of query
+        }
+      This single check ensures all requests fall back to FTS
+      when the service is down.
+
+  7d. pgvector graceful degradation:
+      If pgvector extension is not installed on the DB:
+        - semanticSearch() catches the error on first call
+        - Sets a module-level flag: pgvectorAvailable = false
+        - All subsequent calls skip the DB query entirely
+        - Logs warning once: "pgvector not available —
+          semantic search disabled. Install pgvector to enable."
+      Never surface this error to end users.
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS (non-negotiable)
+════════════════════════════════════════════════════════════════════
+
+- Semantic search is ADDITIVE — never remove or replace FTS/NLP
+- 2-second hard timeout on ALL embedding service calls
+- Cache never stores debug=ranking results
+- All new TypeScript fully typed — no `any`, no `as unknown`
+- All new visible strings in ar.json and en.json only
+- All new UI uses existing Tailwind tokens only
+- RTL: all new UI renders correctly in Arabic
+- Dark mode: all new UI uses existing dark mode tokens
+- Mobile 375px: smart search badge and cache indicator
+  must not cause overflow or layout break
+- The main search response time TARGET after cache warm-up:
+    Cache hit: < 10ms
+    FTS-only (cold): < 150ms
+    Hybrid (cold): < 200ms
+    (These are targets — log actual times, flag if exceeded)
+- Embedding backfill must not block the server startup
+- New product embedding must not delay the create-product response
+- TypeScript: run npx tsc --noEmit across ALL packages after
+  every phase. Must return 0 errors before moving to next phase.
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION MATRIX
+════════════════════════════════════════════════════════════════════
+
+Run every test and log the exact result:
+
+EMBEDDING SERVICE:
+  - GET http://localhost:8001/health
+    Expected: { status: "ok", model: "multilingual-e5-small",
+                vector_dimensions: 384 }
+  - POST http://localhost:8001/embed/query
+    Body: { text: "هاتف ذكي سامسونج" }
+    Expected: embedding array of 384 numbers, processing_ms logged
+  - POST http://localhost:8001/embed/query
+    Body: { text: "smartphone samsung" }
+    Expected: embedding array, verify it is DIFFERENT from Arabic
+    but SIMILAR (cosine similarity > 0.7 — these mean same thing)
+  - POST http://localhost:8001/embed/batch
+    Body: { texts: ["هاتف", "لابتوب", "فستان"], type: "passage" }
+    Expected: 3 embeddings, each 384 dimensions
+
+DATABASE:
+  - SELECT COUNT(*) FROM products WHERE embedding IS NOT NULL;
+    Expected: same as total product count after backfill
+  - SELECT COUNT(*) FROM products WHERE embedding IS NULL;
+    Expected: 0
+  - Verify IVFFlat index exists:
+    SELECT indexname FROM pg_indexes
+    WHERE tablename='products' AND indexname LIKE '%embedding%';
+
+SEMANTIC SEARCH QUALITY:
+  - Search "بدي شي لأمي" (gift for mom — no product has this text)
+    Expected: searchMode=HYBRID, relevant gift products appear
+    Log: result count, searchMode, first 3 product names
+
+  - Search "شي للطبخ بيوفر وقت" (kitchen time-saver)
+    Expected: kitchen appliances appear (blenders, air fryers, etc.)
+    Log: result count, first 3 products
+
+  - Search "laptop" → should find Arabic-named laptop products
+    Expected: Arabic laptop products appear even if title is Arabic
+    Log: result count
+
+  - Search "هاتف" vs "موبايل" — should return similar results
+    Expected: both return phone products, high overlap
+    Log: result counts, how many products appear in both
+
+  - Search "شي يناسب الشتاء" (something for winter)
+    Expected: coats, heaters, warm clothing appear
+    Log: result count, first 3 products — these prove semantic
+    understanding (no product says "يناسب الشتاء" in its title)
+
+HYBRID vs FTS COMPARISON:
+  - Pick a natural language query (3+ words, not a product name)
+  - Compare results with searchMode forced to FTS vs HYBRID
+  - Log: are the results meaningfully different?
+  - Log: which mode returns more relevant results?
+
+CACHE:
+  - Run any search query twice in a row
+    First call: _cache.hit = false
+    Second call: _cache.hit = true, age >= 0
+    Log: response time of first call vs second call
+  - Run GET /api/admin/search/cache-stats
+    Expected: hitRate > 0 after the test above
+    Log: full response
+  - Call POST /api/admin/search/reindex
+    Then run the same cached query again
+    Expected: _cache.hit = false (cache was invalidated)
+    Log: confirm invalidation worked
+
+GRACEFUL DEGRADATION:
+  - Stop the embedding service process
+  - Run a search immediately
+    Expected: search works, searchMode=FTS_ONLY, no errors
+    Log: response, confirm no 500 errors
+  - Restart the embedding service
+  - Wait 35 seconds (health check interval)
+  - Run the same search
+    Expected: searchMode=HYBRID again (auto-recovered)
+    Log: confirm auto-recovery worked
+
+PERFORMANCE:
+  Run each query 3 times, log all 3 times + average:
+  P1: GET /api/search?q=هاتف (simple, should hit cache after 1st)
+      Target: < 10ms on cache hit
+  P2: GET /api/search?q=بدي شي رخيص لأمي (hybrid mode, cold)
+      Target: < 200ms
+  P3: GET /api/search?q=xyznonexistent (fallback L4)
+      Target: < 200ms
+  P4: GET /api/search?q=سامسونج جالاكسي (brand, FTS-only mode)
+      Target: < 150ms
+  Log all times. Flag any that exceed targets.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE
+════════════════════════════════════════════════════════════════════
+
+INFRASTRUCTURE:
+  Embedding service: running on port 8001? [yes/no]
+  Model loaded: [yes/no, load time in ms]
+  pgvector enabled: [yes/no]
+  Embedding column added: [yes/no]
+  IVFFlat index created: [yes/no]
+
+BACKFILL:
+  Products embedded: X / Y total
+  Failed embeddings: X (list IDs if any)
+  Backfill duration: Xs
+
+HYBRID SEARCH:
+  Semantic threshold used: 0.45
+  RRF k-value used: 60
+  searchMode=HYBRID activated for: [describe query types]
+  Sample hybrid result for "بدي شي لأمي": [first 3 products]
+
+CACHE:
+  Cache implementation: LRU, 500 entries, 300s TTL
+  Cache hit confirmed: [yes/no]
+  Invalidation confirmed: [yes/no]
+  Cache stats after tests: [hitRate, size]
+
+GRACEFUL DEGRADATION:
+  Service-down test: [search worked? FTS_ONLY mode activated?]
+  Auto-recovery test: [worked after 35s? yes/no]
+
+PERFORMANCE:
+  P1 (cached): avg Xms [target: <10ms]
+  P2 (hybrid cold): avg Xms [target: <200ms]
+  P3 (fallback): avg Xms [target: <200ms]
+  P4 (brand FTS): avg Xms [target: <150ms]
+
+SEMANTIC QUALITY:
+  "بدي شي لأمي" → [first 3 results — are they gift-appropriate?]
+  "شي للطبخ بيوفر وقت" → [first 3 results — relevant?]
+  "شي يناسب الشتاء" → [first 3 results — winter items?]
+
+TYPESCRIPT: "0 errors across all packages confirmed" ✓
+
+PIPELINE: "v3.0 comment block updated in searchProcessor.ts" ✓
+
+READY FOR PRODUCTION: yes / no
+  [If no: list exactly what needs fixing]

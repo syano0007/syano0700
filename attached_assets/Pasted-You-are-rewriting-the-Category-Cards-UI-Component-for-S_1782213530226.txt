@@ -1,0 +1,59 @@
+You are rewriting the Category Cards UI Component for SYANO (سوق سوريا) to explicitly match the Noon e-commerce design system layout seen in "Screenshot (448).jpg".
+
+Do NOT break existing backend APIs, category query hooks, or carousel scrolling state controllers.
+Do NOT modify database schemas, routing paths, or other sections of the homepage.
+
+Preserve:
+- Full RTL (Arabic native) translation and typography logic.
+- Smooth horizontal carousel desktop button scrolling and touch swipe actions.
+- Zero TypeScript errors across the workspace layout.
+
+==================================================
+GOAL
+==================================================
+Re-architect the category listing cards from their current layout seen in "Screenshot (446).jpg" to match the structural shape, size ratios, and rounded alignment of the Noon layout shown in "Screenshot (448).jpg".
+
+==================================================
+PART 1 — CARD LAYOUT RE-SHAPING & DIMENSIONS (NOON STYLE)
+==================================================
+- Current Behavior: The category elements render inside small, strict circular shapes.
+- New Behavior Configuration:
+  * Replace the absolute circular frame with a vertical rectangular aspect card.
+  * Desktop/Tablet Dimensions: Target a refined structural layout (e.g., set outer wrapper to `w-[110px] h-[140px]` or matching responsive flex-basis `min-w-[100px]`).
+  * Corner Radius: Apply a smooth, prominent rounded corner rule to the outer container using `rounded-2xl` or explicit `rounded-[20px]`/`rounded-[24px]`.
+  * Background Unified Tone: Ensure the entire background container of the card uses a uniform light tone (`bg-neutral-100`, `bg-gray-50`, or a customized off-white preset) with zero frame noise.
+
+==================================================
+PART 2 — IMAGE EMBEDDING & ISOLATION
+==================================================
+- Position the product asset image on the top upper area inside the newly dimensioned card wrapper.
+- Frame Constraints:
+  * Set the image block height to safely occupy roughly 65-70% of the card height (`h-[85px]` or `h-[90px]`).
+  * Use `object-contain` combined with an inner layout padding overlay (`p-3` or `p-4`) so that the core product asset stands perfectly isolated, centered, and visible against the card background.
+
+==================================================
+PART 3 — TYPOGRAPHY LAYER & BOTTOM ALIGNMENT
+==================================================
+- Position the category title text label at the absolute lower zone of the card wrapper layer.
+- Typography Settings:
+  * Align center perfectly (`text-center`).
+  * Text padding: Add balanced horizontal padding (`px-2`) and top margin (`mt-1` or `mt-2`) to keep the typography clear of the image boundaries.
+  * Use a clear, premium Arabic weight profile (`font-medium` or `font-semibold` with `text-[12px]` or `text-xs`).
+  * Enforce line clamps if any text string exceeds safe bounds to preserve mathematical grid stability.
+
+==================================================
+PART 4 — HOVER STATES & TRANSITION MATRIX
+==================================================
+- Implement a subtle, premium e-commerce interaction when users cursor hover or focus on a card asset:
+  * Elevation: Apply micro-translations (`hover:-translate-y-1 hover:shadow-sm`).
+  * Timing: Set smooth global interpolation values (`transition-all duration-200 ease-out`).
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before completion, verify:
+✓ Category cards successfully shift from circles to high-end vertical Noon-style cards with `rounded-2xl` masking.
+✓ Images are embedded with ideal internal container spacing using `object-contain`.
+✓ Titles are cleanly separated at the bottom base row, centered perfectly.
+✓ Infinite or continuous horizontal scrolling remains fully responsive across Mobile, Tablet, and Desktop viewport sizes.
+✓ Verify TypeScript compilation = 0 errors inside the frontend application workspace directory tree.

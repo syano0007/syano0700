@@ -1,0 +1,226 @@
+## SYANO — Phase 8, Step 4: Real-Time Autocomplete Engine (Search Suggestions)
+
+### PROJECT CONTEXT
+SYANO (سوق سوريا) is a live multi-vendor marketplace for Syria.
+Tech stack: React + TypeScript + Vite + TailwindCSS (frontend), Node.js + Express + TypeScript (backend), PostgreSQL + Drizzle ORM (database).
+RTL Arabic is the primary language. English is secondary. Both must work perfectly.
+Do NOT redesign anything. Extend only. Zero TypeScript errors required.
+
+---
+
+### WHAT WAS ALREADY BUILT (Steps 1–3 + 5, all complete):
+- searchProcessor.ts — Arabic/English text cleaning, stemming, normalizing
+- fts_vector column on products table with GIN index (sub-50ms full-text search)
+- Database trigger: auto-updates fts_vector on product insert/update
+- Hybrid Ranking formula already live: 65% FTS + 20% exact-match bonus + 25% trigram (typo resistance)
+- Intent analysis backend: detects price intent (رخيص/cheap), category mapping (بواط → shoes)
+- Shop page already exists with Intent Chips UI connected to backend
+
+---
+
+### WHAT WE ARE BUILDING NOW (Step 4):
+
+**Goal:** Build a blazing-fast Autocomplete API + Navbar dropdown that shows smart search suggestions the moment a user types 2+ characters in the search bar.
+
+---
+
+### BACKEND — New API Endpoint
+
+**Endpoint:** GET /api/search/suggestions?q={query}&lang={ar|en}&limit={5}
+
+**Response shape (strictly typed):**
+```typescript
+interface SearchSuggestion {
+  type: 'intent' | 'category' | 'store' | 'trending';
+  label: string;        // display text (Arabic or English based on lang param)
+  labelAr: string;      // always include Arabic label
+  labelEn: string;      // always include English label
+  icon: string;         // icon identifier: 'search' | 'tag' | 'store' | 'fire'
+  query: string;        // the search query to execute when user clicks
+  meta?: string;        // optional: e.g. "42 products", "in Electronics"
+}
+
+interface SuggestionsResponse {
+  suggestions: SearchSuggestion[];
+  recentSearches: string[];   // from session/localStorage (handled frontend)
+  trendingSearches: string[]; // top 5 from DB query_logs table
+  processingTimeMs: number;
+}
+```
+
+**Backend logic (implement ALL of these):**
+
+1. INTENT SUGGESTIONS — reuse existing intent analysis from Step 3.
+   - If query contains price intent (رخيص, cheap, بسعر, affordable) → add suggestion: "cheapest [detected category] results"
+   - If query contains quality intent (أفضل, best, عالي الجودة) → add suggestion: "top rated [detected category]"
+   - If query maps to a known category → add category suggestion
+
+2. CATEGORY SUGGESTIONS — query the categories table:
+   ```sql
+   SELECT id, name_ar, name_en, product_count
+   FROM categories
+   WHERE name_ar ILIKE '%{processed_query}%' 
+      OR name_en ILIKE '%{processed_query}%'
+      OR fts_vector @@ to_tsquery('arabic', '{processed_query}')
+   ORDER BY product_count DESC
+   LIMIT 3
+   ```
+
+3. STORE SUGGESTIONS — query stores table:
+   ```sql
+   SELECT id, name, logo_url, verified, rating
+   FROM stores
+   WHERE name ILIKE '%{query}%'
+      OR description ILIKE '%{query}%'
+   AND is_active = true
+   ORDER BY rating DESC, verified DESC
+   LIMIT 2
+   ```
+
+4. TRENDING SUGGESTIONS — build a query_logs table if it doesn't exist:
+   ```sql
+   CREATE TABLE IF NOT EXISTS query_logs (
+     id SERIAL PRIMARY KEY,
+     query TEXT NOT NULL,
+     lang VARCHAR(2) DEFAULT 'ar',
+     result_count INTEGER,
+     clicked BOOLEAN DEFAULT false,
+     created_at TIMESTAMP DEFAULT NOW()
+   );
+   ```
+   Then fetch top trending:
+   ```sql
+   SELECT query, COUNT(*) as search_count
+   FROM query_logs
+   WHERE created_at > NOW() - INTERVAL '7 days'
+     AND query ILIKE '%{query}%'
+   GROUP BY query
+   ORDER BY search_count DESC
+   LIMIT 3
+   ```
+
+5. LOG every search query to query_logs asynchronously (fire-and-forget, never block the response).
+
+6. DEBOUNCE-READY: the endpoint must respond in under 100ms. Run all DB queries in parallel using Promise.all(). Never run them sequentially.
+
+---
+
+### FRONTEND — Navbar Search Dropdown
+
+**Files to modify:** The existing Navbar component + SearchBar component (find them, don't create duplicates).
+
+**Behavior:**
+- User types 2+ characters → debounce 200ms → call /api/search/suggestions
+- Show dropdown BELOW the search input with rounded corners and subtle shadow
+- Dropdown disappears on: Escape key, click outside, clear input
+- Keyboard navigation: Arrow Up/Down moves highlight, Enter executes search
+
+**Dropdown sections (in order):**
+
+```
+[Recent Searches]          ← only if user has recent searches in localStorage
+  🕐 موبايل سامسونج
+  🕐 حذاء رياضي
+
+[Suggestions]              ← from API
+  🔍 موبايل سامسونج رخيص   (type: intent, sorted by price)
+  🏷️ إلكترونيات            (type: category, 142 products)
+  🏪 متجر التقنية           (type: store, ⭐ 4.8)
+
+[Trending Now]             ← from API trendingSearches
+  🔥 آيفون 15
+  🔥 شوز نايك
+```
+
+**Component requirements:**
+- Full RTL support (direction: rtl for Arabic, ltr for English)
+- Each suggestion row: icon on the right (RTL) + label + meta text
+- Store suggestions show store name + rating badge
+- Category suggestions show category name + product count
+- Intent suggestions show search phrase + intent badge (e.g. "الأرخص سعراً")
+- Clicking any suggestion: sets input value + navigates to /shop?q={query}&intent={type}
+- Arrow key navigation highlights rows with background change
+- Loading state: show 3 skeleton rows while fetching
+- Empty state: show "لا توجد اقتراحات" / "No suggestions found"
+
+**Accessibility:**
+- role="combobox" on input, role="listbox" on dropdown, role="option" on each row
+- aria-expanded, aria-activedescendant properly set
+- Keyboard trap handled correctly
+
+---
+
+### RECENT SEARCHES (localStorage)
+- Key: `syano_recent_searches`
+- Max 5 entries stored
+- On search execution: prepend to array, deduplicate, trim to 5
+- Show with clock icon, allow individual deletion (×)
+- Clear all button at section header
+
+---
+
+### PERFORMANCE REQUIREMENTS
+- Debounce: 200ms (not 300ms — feel snappy)
+- API calls: cancelled via AbortController when new keystroke arrives
+- DB queries: parallel via Promise.all()
+- No rerenders of parent Navbar on every keystroke (use local state in SearchBar)
+- If API fails: silently hide dropdown (never show error in suggestions)
+
+---
+
+### ROUTING INTEGRATION
+When user selects a suggestion and navigates to Shop:
+- Intent type → /shop?q={query}&intent=price_asc (or relevant intent)
+- Category type → /shop?q={query}&category={categoryId}
+- Store type → /stores/{storeId}
+- Trending/search type → /shop?q={query}
+
+The existing Shop page already reads these URL params — just pass them correctly.
+
+---
+
+### MIGRATION (if query_logs table doesn't exist)
+Create a new Drizzle migration file:
+```
+migrations/XXXX_add_query_logs.ts
+```
+Schema:
+```typescript
+export const queryLogs = pgTable('query_logs', {
+  id: serial('id').primaryKey(),
+  query: text('query').notNull(),
+  lang: varchar('lang', { length: 2 }).default('ar'),
+  resultCount: integer('result_count'),
+  clicked: boolean('clicked').default(false),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+```
+
+---
+
+### TESTING CHECKLIST (verify ALL before marking complete):
+
+□ Type "موبايل" → see category + intent suggestions within 200ms
+□ Type "iphon" (typo) → trigram kicks in, show iPhone-related suggestions
+□ Type "رخيص" alone → show price-intent suggestions across categories
+□ Type a store name → store suggestion appears with rating
+□ Recent searches appear correctly on first focus (if any saved)
+□ Arrow keys navigate the list without bugs
+□ Escape closes dropdown
+□ Click outside closes dropdown
+□ Arabic RTL layout is correct (icons on right side)
+□ English LTR layout is correct (icons on left side)
+□ Dark mode: dropdown readable, no invisible text
+□ Mobile: dropdown doesn't overflow screen edges
+□ Zero TypeScript errors after implementation
+
+---
+
+### AFTER COMPLETION:
+1. Update CURRENT_STATE.md: mark Step 4 (Autocomplete) as complete
+2. Update PROJECT_STATUS.md: Phase 8 progress = 4/5 steps done
+3. Update RECOVERY_GUIDE.md: document the new /api/search/suggestions endpoint and query_logs table
+4. Confirm: next step will be Step 5 UI polish + integration testing
+
+DO NOT modify existing search logic. DO NOT touch the Shop page intent chips. EXTEND only.
+Build clean, typed, RTL-first. Zero TypeScript errors.

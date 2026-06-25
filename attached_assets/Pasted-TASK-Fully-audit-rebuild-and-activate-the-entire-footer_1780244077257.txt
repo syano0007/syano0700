@@ -1,0 +1,254 @@
+TASK: Fully audit, rebuild, and activate the entire footer system of Syano Marketplace.
+
+IMPORTANT:
+Do not create placeholders.
+Do not leave dead links.
+Do not add dummy pages.
+Everything must be functional, translated, responsive, SEO-friendly, and connected to real routes.
+
+====================================================
+PHASE 1 — FOOTER AUDIT
+====================================================
+
+First inspect:
+
+- Footer component
+- Existing routes
+- React Router configuration
+- Translation files (AR/EN)
+- Existing pages
+- Seller pages
+- Support pages
+- Policy pages
+- Contact pages
+
+Generate a report of:
+
+1. Existing footer links
+2. Broken links
+3. Missing pages
+4. Duplicate routes
+5. Pages that need creation
+
+Then implement fixes.
+
+====================================================
+PHASE 2 — MAKE EVERY FOOTER LINK WORK
+====================================================
+
+Activate every footer item.
+
+GET TO KNOW US
+
+- About Us
+- Our Story
+- The Syano Team
+- Contact Us
+
+FOR SELLERS
+
+- Join as a Seller
+- How to Sell on Syano
+- Seller Terms
+- Seller Center
+- Commission Rates
+- Seller FAQ
+
+SYANO SERVICES
+
+- Shipping Information
+- Nationwide Shipping
+- Payment Methods
+- Syano Guarantee
+- Loyalty Program
+- Today's Deals
+
+HELP & SUPPORT
+
+- Help Center
+- Track Your Order
+- Returns Policy
+- Privacy Policy
+- Terms of Use
+- Contact Support
+
+====================================================
+PHASE 3 — BUILD PROFESSIONAL PAGES
+====================================================
+
+Create professional marketplace-grade pages.
+
+Each page must contain:
+
+- Hero section
+- Proper headings
+- Arabic version
+- English version
+- Responsive layout
+- SEO metadata
+- Internal navigation
+
+No empty pages.
+
+Every page must look like a real production marketplace.
+
+====================================================
+PHASE 4 — SELLER ECOSYSTEM
+====================================================
+
+Build complete seller information pages.
+
+Include:
+
+Join as Seller:
+- Benefits
+- Requirements
+- Seller registration button
+
+How to Sell:
+- Step-by-step guide
+- Product creation
+- Order management
+- Payments
+
+Commission Rates:
+- Marketplace commission explanation
+- Categories
+- Fee examples
+
+Seller FAQ:
+- Expandable FAQ system
+
+Seller Center:
+- Hub page linking seller resources
+
+====================================================
+PHASE 5 — HELP CENTER
+====================================================
+
+Create a real Help Center.
+
+Include:
+
+- Orders
+- Payments
+- Shipping
+- Returns
+- Account Issues
+- Seller Questions
+
+Add searchable FAQ functionality.
+
+====================================================
+PHASE 6 — POLICY PAGES
+====================================================
+
+Create professional legal pages:
+
+Privacy Policy
+Terms of Use
+Returns Policy
+
+Use marketplace-standard structure.
+
+Responsive.
+SEO friendly.
+
+====================================================
+PHASE 7 — CONTACT SYSTEM
+====================================================
+
+Create professional Contact page.
+
+Include:
+
+- Contact form
+- Email section
+- Marketplace support info
+- Seller support section
+
+Form validation required.
+
+====================================================
+PHASE 8 — SOCIAL MEDIA
+====================================================
+
+Inspect footer social icons.
+
+Facebook
+Instagram
+TikTok
+Telegram
+WhatsApp
+
+Verify:
+
+- Correct URLs
+- Open in new tab
+- Security attributes
+- Hover effects
+- Mobile compatibility
+
+If links are missing:
+
+Create centralized social-links configuration file.
+
+====================================================
+PHASE 9 — RESPONSIVE DESIGN
+====================================================
+
+Audit footer on:
+
+320px
+375px
+390px
+414px
+768px
+1024px
+1440px
+
+Requirements:
+
+- No overflow
+- No text clipping
+- No icon overlap
+- Proper spacing
+- Proper RTL/LTR alignment
+
+====================================================
+PHASE 10 — PROFESSIONAL UX
+====================================================
+
+Improve footer quality:
+
+- Better hierarchy
+- Consistent typography
+- Consistent icon sizing
+- Hover animations
+- Focus states
+- Accessibility support
+
+====================================================
+PHASE 11 — FINAL VERIFICATION
+====================================================
+
+After implementation:
+
+1. Crawl all footer links.
+2. Verify every route loads successfully.
+3. Verify Arabic and English versions.
+4. Verify mobile responsiveness.
+5. Verify SEO metadata.
+6. Verify no dead links exist.
+7. Verify no placeholder content exists.
+
+Finally generate a completion report containing:
+
+- Pages created
+- Links activated
+- Broken links fixed
+- Missing routes added
+- Mobile issues fixed
+- Remaining recommendations
+
+DO NOT STOP UNTIL ALL FOOTER LINKS ARE FUNCTIONAL.

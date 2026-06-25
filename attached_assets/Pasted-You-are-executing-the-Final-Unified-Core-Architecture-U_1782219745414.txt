@@ -1,0 +1,28 @@
+You are executing the Final Unified Core Architecture Upgrade for SYANO (سوق سوريا). 
+
+This comprehensive instructions set applies fluid mobile-first responsiveness across all device screens (Mobile, Tablet, Laptop, 4K), locks the Amazon-style 2x2 grid card system, and ensures ironclad map infrastructure deployment.
+
+Do NOT break any backend APIs, product queries, translation keys, or driver active session trackers.
+
+==================================================
+PART 1 — IRONCLAD FLUID RESPONSIVENESS & AMAZON GRID MATRIX
+==================================================
+Refactor the homepage layouts to eliminate the hardcoded heights causing layout breakage on mobile and ultra-wide viewports:
+
+1. Ultra-Wide Display Container Guard:
+   - Wrap the full-width cinematic hero slider and the underlying 4 master cards grid inside an absolute responsive content limiter:
+     `className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8"` (Prevents endless horizontal stretching on giant desktop monitors).
+
+2. Responsive Overlap & Master Grid Columns:
+   - Update the outer master grid container to adjust columns and negative margins fluidly across viewport breakpoints:
+     `className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full -mt-6 sm:-mt-12 lg:-mt-20 relative z-10"`
+     * Stacks to 1 single clean column on Mobile (`grid-cols-1`).
+     * Grid matrix shifts to a balanced 2x2 layout on Tablets (`sm:grid-cols-2`).
+     * Spreads into 4 parallel columns on Desktop/Laptops (`lg:grid-cols-4`).
+
+3. Dynamic Card Height & Alignment Refactoring:
+   - Target the 4 master white background card shells (`bg-white` boxes):
+     * Completely remove rigid constraints like `h-[420px]` or `h-[440px]`. Replace with fluid responsive heights:
+       `className="w-full h-auto lg:h-[450px] flex flex-col justify-between p-4 md:p-5 bg-white rounded-xl shadow-md border border-gray-100"`
+     * `h-auto`: On mobile/tablet, the card bounds naturally hug the internal content, removing any massive dead whitespace voids.
+     * `lg:h-[450px]`: On desktop screens, it locks all 4 columns to an identical perfectly aligned baseline

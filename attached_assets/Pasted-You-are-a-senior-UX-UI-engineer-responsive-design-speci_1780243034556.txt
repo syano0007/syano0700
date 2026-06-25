@@ -1,0 +1,237 @@
+You are a senior UX/UI engineer, responsive design specialist, React + Tailwind expert, and multilingual e-commerce architect.
+
+Project: Syano Marketplace
+
+Your task is NOT to apply quick fixes. Your task is to perform a complete production-grade audit and rebuild of the mobile responsive system, navigation drawer, product cards, typography system, spacing system, and multilingual layouts.
+
+Before making any change:
+
+1. Analyze the entire frontend architecture.
+2. Analyze all shared UI components.
+3. Analyze all product card components.
+4. Analyze all navigation and drawer components.
+5. Analyze typography and spacing across Arabic and English.
+6. Identify every responsive inconsistency.
+7. Create a unified responsive design system before implementing changes.
+
+═══════════════════════════════════
+PART 1 — PRODUCT CARD SYSTEM
+═══════════════════════════════════
+
+The product cards currently look inconsistent between Arabic and English.
+
+Fix this completely.
+
+Requirements:
+
+• Product cards must have identical visual structure in both Arabic and English.
+
+• No text overlap.
+
+• No cropped text.
+
+• No broken alignment.
+
+• No jumping elements between languages.
+
+• Product title area must always have a fixed height.
+
+• Product category area must always have a fixed height.
+
+• Seller name area must always have a fixed height.
+
+• Rating area must always have a fixed height.
+
+• Price area must always stay aligned.
+
+• Add proper line clamping.
+
+• Long English titles must not break layout.
+
+• Long Arabic titles must not break layout.
+
+• Card heights must remain identical across all products.
+
+• Discount badge must always remain proportional.
+
+• Product image ratio must remain consistent.
+
+• Price and buttons must never move vertically due to title length.
+
+• Test cards with:
+
+* Short Arabic names
+* Long Arabic names
+* Short English names
+* Long English names
+
+Goal:
+Every product card must look visually identical regardless of language.
+
+═══════════════════════════════════
+PART 2 — TYPOGRAPHY SYSTEM
+═══════════════════════════════════
+
+Create a unified typography scale.
+
+Current issue:
+Arabic and English text have different visual weight and sizing.
+
+Requirements:
+
+• Define typography tokens.
+
+• Mobile typography must scale consistently.
+
+• Arabic and English must have visually balanced sizes.
+
+• No oversized English text.
+
+• No oversized Arabic text.
+
+• Headings must scale correctly.
+
+• Product titles must scale correctly.
+
+• Buttons must scale correctly.
+
+• Navigation labels must scale correctly.
+
+• Seller names must scale correctly.
+
+• Prices must scale correctly.
+
+Create a professional mobile-first typography system.
+
+═══════════════════════════════════
+PART 3 — MOBILE NAVIGATION DRAWER
+═══════════════════════════════════
+
+Current issue:
+
+The drawer opens full-screen.
+
+This creates poor UX.
+
+Requirements:
+
+• Drawer must open from the right side.
+
+• Drawer width must be approximately 50% of screen width.
+
+• On very small devices:
+width = 65%.
+
+• Must never cover the entire screen.
+
+• Main page should remain partially visible behind drawer.
+
+• Add smooth slide animation.
+
+• Add backdrop blur.
+
+• Add proper closing behavior.
+
+• Ensure RTL support.
+
+• Ensure English support.
+
+• Ensure accessibility.
+
+═══════════════════════════════════
+PART 4 — MOBILE RESPONSIVE AUDIT
+═══════════════════════════════════
+
+Perform a complete mobile audit for:
+
+320px
+360px
+375px
+390px
+412px
+430px
+
+Check:
+
+• Navbar
+• Search bar
+• Logo
+• Categories
+• Product cards
+• Product page
+• Cart page
+• Checkout page
+• Seller dashboard
+• Admin dashboard
+• Drawer
+• Footer
+• Modals
+• Forms
+• Tables
+
+Fix:
+
+• Overflow issues
+• Wrapping issues
+• Clipping issues
+• Alignment issues
+• Scaling issues
+• RTL issues
+
+═══════════════════════════════════
+PART 5 — LANGUAGE CONSISTENCY
+═══════════════════════════════════
+
+Arabic and English must produce identical layouts.
+
+Requirements:
+
+• Switching language must not change card height.
+
+• Switching language must not break alignment.
+
+• Switching language must not create spacing inconsistencies.
+
+• Switching language must not resize components unexpectedly.
+
+• RTL and LTR must use the same design system.
+
+═══════════════════════════════════
+PART 6 — IMPLEMENTATION QUALITY
+═══════════════════════════════════
+
+Do not provide temporary fixes.
+
+Do not hardcode widths.
+
+Do not hardcode heights.
+
+Do not use hacks.
+
+Build reusable responsive components.
+
+Create shared responsive utility classes.
+
+Refactor components if necessary.
+
+Use production-grade architecture.
+
+═══════════════════════════════════
+FINAL REPORT
+═══════════════════════════════════
+
+After implementation provide:
+
+1. Every file modified.
+2. Every responsive issue found.
+3. Every responsive issue fixed.
+4. Before/after explanation.
+5. Mobile screenshots/tests for:
+   320px
+   360px
+   375px
+   390px
+   412px
+   430px
+
+Do not stop until all responsive issues are resolved and the UI is visually consistent across Arabic and English.

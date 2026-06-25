@@ -1,0 +1,190 @@
+PHASE 0 — FULL RECOVERY BEFORE ANY WORK
+
+This workspace was migrated to a new Replit account.
+
+Before making ANY code changes:
+
+1. Read ALL project memory/recovery files.
+2. Restore node_modules if missing.
+3. Verify API Server is running.
+4. Verify Marketplace is running.
+5. Verify Mobile is running.
+6. Verify database schema exists.
+7. If database is empty:
+
+   * recreate schema
+   * run migrations
+   * verify all delivery-system tables exist.
+8. Verify latest VariantBuilder changes are present.
+9. Verify latest delivery-system changes are present.
+10. Do NOT start new feature work until recovery is complete.
+
+---
+
+RECOVERY VALIDATION
+
+Verify:
+
+✅ Root Owner exists
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+✅ Seller test account exists
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+If seller account does not exist:
+recreate it and approve seller status.
+
+---
+
+CRITICAL UI VALIDATION
+
+DO NOT trust code inspection.
+
+You MUST validate on the REAL application.
+
+Login using:
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Use the REAL page:
+
+/seller/products/new
+
+and
+
+/seller/products/:id/edit
+
+DO NOT create debug pages.
+DO NOT create test routes.
+DO NOT create temporary components.
+
+Only use the real seller workflow.
+
+---
+
+VARIANT SYSTEM CHECKPOINT
+
+Latest saved checkpoint includes:
+
+1. VariantBuilder RTL/mobile improvements
+2. StepHeader mobile fixes
+3. Generate button mobile fixes
+4. Bulk toolbar mobile fixes
+5. Variant table mobile fixes
+6. Toggle fixes
+
+IMPORTANT:
+
+The Add Product page toggle was fixed.
+The Edit Product page toggle was fixed.
+
+You MUST verify both pages visually.
+
+If any thumb still escapes the track:
+
+Fix it on the real page and verify again.
+
+---
+
+DELIVERY SYSTEM CHECKPOINT
+
+Latest completed work includes:
+
+Database:
+
+* delivery_zones
+* couriers
+* courier_assignments
+* courier_wallet_transactions
+
+Orders:
+
+* delivery_fee
+* zone_id
+
+Statuses:
+
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+in_transit
+delivered
+
+API:
+
+/api/couriers/*
+/api/admin/delivery/*
+/api/seller/orders/:id/ready
+
+Frontend:
+
+/admin/delivery
+
+Tabs:
+
+* Ready for Pickup
+* Active Deliveries
+* Couriers
+* Delivery Zones
+
+Courier Dashboard:
+
+/courier/dashboard
+
+Seller Orders:
+
+* Mark Ready for Pickup button
+
+Order Timeline:
+
+ready_for_pickup
+courier_assigned
+picked_up
+in_transit
+delivered
+
+Arabic + English translations included.
+
+---
+
+DELIVERY SYSTEM AUDIT
+
+Before building anything new:
+
+Verify:
+
+✅ database tables exist
+✅ routes exist
+✅ admin page loads
+✅ courier dashboard loads
+✅ seller ready-for-pickup action exists
+✅ delivery statuses work
+
+Provide a complete audit report.
+
+---
+
+AFTER RECOVERY
+
+Create a report containing:
+
+1. What was restored
+2. What already existed
+3. What was missing
+4. What was repaired
+5. Variant system status
+6. Delivery system status
+7. Remaining delivery-system work
+
+Only after this report may new development begin.
+
+Finally:
+
+Update ALL recovery/memory files so this state becomes the new official checkpoint.

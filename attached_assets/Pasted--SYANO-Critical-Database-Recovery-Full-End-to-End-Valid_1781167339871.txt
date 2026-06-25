@@ -1,0 +1,509 @@
+# SYANO — Critical Database Recovery + Full End-to-End Validation Audit
+
+## Objective
+
+Fix the notification_type enum regression completely and then perform a full platform validation using real test accounts and real workflow execution.
+
+This is NOT a code-only task.
+
+This is a production verification task.
+
+Do not stop after the enum fix.
+
+Do not assume anything works.
+
+Prove that everything works.
+
+---
+
+# PHASE 1 — Fix notification_type Enum
+
+Current situation:
+
+DB contains:
+
+17 enum values
+
+Code expects:
+
+31 enum values
+
+This causes runtime failures during courier and order workflow notifications.
+
+---
+
+## Required Action
+
+Add all missing enum values safely using:
+
+```sql
+ALTER TYPE notification_type
+ADD VALUE IF NOT EXISTS ...
+```
+
+Never recreate enum.
+
+Never drop enum.
+
+Never reset data.
+
+Never perform destructive operations.
+
+Only additive fixes.
+
+---
+
+## After Fix
+
+Verify:
+
+```text
+Expected enum values = 31
+Actual enum values = 31
+```
+
+Output full list.
+
+---
+
+# PHASE 2 — Create Real Test Accounts
+
+Create or verify working accounts for every role.
+
+Use real database users.
+
+Do not simulate.
+
+Do not mock.
+
+Required accounts:
+
+## Admin
+
+Role:
+
+admin
+
+---
+
+## Seller
+
+Role:
+
+seller
+
+Approved seller account
+
+Store exists
+
+Seller dashboard works
+
+---
+
+## Courier
+
+Role:
+
+courier
+
+Approved courier
+
+Courier dashboard works
+
+Courier earnings profile exists
+
+---
+
+## Customer
+
+Role:
+
+customer
+
+Normal buyer account
+
+---
+
+## Guest
+
+Unauthenticated visitor
+
+---
+
+# PHASE 3 — Full End-to-End Workflow Test
+
+Execute the entire platform using the accounts above.
+
+Create real records.
+
+Use actual APIs.
+
+Use actual UI routes.
+
+No mocking.
+
+---
+
+## Product Flow
+
+Seller:
+
+Create product
+
+Verify:
+
+* Product saved
+* Product visible
+* Product detail page works
+* Variant system works
+* Inventory works
+
+---
+
+## Cart Flow
+
+Customer:
+
+Add product
+
+Update quantity
+
+Remove product
+
+Re-add product
+
+Verify totals.
+
+---
+
+## Checkout Flow
+
+Customer:
+
+Checkout using:
+
+* Delivery Zone
+* Full address
+
+Verify:
+
+* Zone fee applied
+* Order created
+* Total correct
+
+---
+
+# PHASE 4 — Order Fulfillment Workflow Validation
+
+Execute:
+
+```text
+pending
+↓
+confirmed
+↓
+preparing
+↓
+ready_for_pickup
+↓
+courier_assigned
+↓
+picked_up
+↓
+out_for_delivery
+↓
+delivered
+```
+
+Verify every transition.
+
+For every step verify:
+
+* DB updated
+* API updated
+* UI updated
+* Timeline updated
+* Notification created
+
+---
+
+## Notification Validation
+
+For every status:
+
+Verify notification insert succeeds.
+
+Verify:
+
+No enum errors.
+
+No DB errors.
+
+No transaction failures.
+
+---
+
+# PHASE 5 — Courier Workflow Validation
+
+Admin:
+
+Assign courier
+
+Verify:
+
+* Assignment appears in courier dashboard
+* Seller information visible
+* Customer information visible
+* Products visible
+* Zone visible
+
+---
+
+Courier:
+
+Execute:
+
+```text
+Picked Up
+↓
+Out For Delivery
+↓
+Delivered
+```
+
+Verify:
+
+* Status changes
+* Notifications sent
+* Timeline updated
+* History updated
+
+---
+
+# PHASE 6 — Earnings Validation
+
+Create at least one delivered order.
+
+Verify:
+
+Courier wallet transaction created.
+
+Verify:
+
+```text
+yourCut = deliveryFee × 0.8
+```
+
+Check:
+
+* wallet balance
+* earnings endpoint
+* today
+* thisWeek
+* thisMonth
+* allTime
+
+Verify values are correct.
+
+---
+
+# PHASE 7 — Failure Flow Validation
+
+Create another order.
+
+Execute:
+
+```text
+pending
+↓
+confirmed
+↓
+preparing
+↓
+ready_for_pickup
+↓
+courier_assigned
+↓
+picked_up
+↓
+out_for_delivery
+↓
+delivery_failed
+```
+
+Use real failure reason.
+
+Verify:
+
+* failure reason saved
+* history updated
+* notifications sent
+* admin dashboard updated
+
+---
+
+# PHASE 8 — Security Validation
+
+Verify:
+
+Customer cannot access:
+
+* other customer orders
+
+Seller cannot access:
+
+* other seller orders
+
+Courier cannot access:
+
+* orders not assigned to them
+
+Guest cannot access:
+
+* protected routes
+
+Verify:
+
+403 where expected.
+
+---
+
+# PHASE 9 — Platform Audit
+
+After workflow testing:
+
+Audit entire platform.
+
+Check:
+
+## Frontend
+
+* Console errors
+* Runtime errors
+* Broken pages
+* Missing translations
+* Layout issues
+* Mobile issues
+
+## Backend
+
+* Failed requests
+* Exceptions
+* Missing validations
+* Missing guards
+
+## Database
+
+* Missing relations
+* Invalid data
+* Orphaned records
+
+---
+
+# PHASE 10 — Fix Everything Found
+
+Any bug discovered during audit must be fixed immediately.
+
+This includes:
+
+* small bugs
+* medium bugs
+* critical bugs
+
+Do NOT defer issues.
+
+Fix them.
+
+Re-test them.
+
+Verify again.
+
+---
+
+# PHASE 11 — Final Verification
+
+Run final validation.
+
+Verify:
+
+✅ Admin works
+
+✅ Seller works
+
+✅ Courier works
+
+✅ Customer works
+
+✅ Guest works
+
+✅ Product flow works
+
+✅ Cart works
+
+✅ Checkout works
+
+✅ Delivery zones work
+
+✅ Notifications work
+
+✅ Order workflow works
+
+✅ Courier workflow works
+
+✅ Earnings work
+
+✅ Failure flow works
+
+✅ Security works
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+# PHASE 12 — Recovery Documentation Update (MANDATORY)
+
+Update ALL recovery files.
+
+This is required.
+
+Future agents must be able to restore the project instantly.
+
+Update:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* MEMORY.md
+* KNOWN_ISSUES.md
+
+Document:
+
+* enum fix
+* validation results
+* test accounts used
+* workflow results
+* bugs fixed
+* remaining issues (if any)
+
+---
+
+# FINAL OUTPUT
+
+Provide a structured report containing:
+
+1. Enum Fix Result
+2. Test Accounts Created
+3. Workflow Validation Results
+4. Courier Validation Results
+5. Earnings Validation Results
+6. Failure Flow Validation Results
+7. Security Validation Results
+8. Bugs Found
+9. Bugs Fixed
+10. Remaining Issues
+11. TypeScript Status
+12. Recovery Documentation Status
+
+Do not stop until the entire audit is completed and verified.

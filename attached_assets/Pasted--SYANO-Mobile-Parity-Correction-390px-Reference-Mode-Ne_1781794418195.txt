@@ -1,0 +1,243 @@
+# SYANO Mobile Parity Correction — 390px Reference Mode
+
+## New Rule (Highest Priority)
+
+Stop comparing the mobile app to the desktop web version.
+
+From now on:
+
+The reference implementation is:
+
+**artifacts/marketplace rendered at 390px width**
+
+Use Chrome responsive mode:
+
+* Width: 390px
+* Height: 844px
+* DPR: iPhone 13/14 style
+
+The mobile app must match the web homepage at this exact width.
+
+Not desktop.
+
+Not tablet.
+
+Not "mobile interpretation".
+
+The actual web page rendered at 390px.
+
+---
+
+# REQUIRED PROCESS
+
+Before editing anything:
+
+1. Run the web homepage at 390px width.
+2. Capture every section.
+3. Measure:
+
+* font sizes
+* line heights
+* paddings
+* margins
+* gaps
+* icon sizes
+* card dimensions
+* image ratios
+* section heights
+
+Create a parity table.
+
+Only then implement.
+
+---
+
+# PRIORITY 1 — TYPOGRAPHY
+
+Current typography still does NOT match web.
+
+I do NOT want design tokens guessed.
+
+I do NOT want scales estimated.
+
+I want the exact visual result from the web page at 390px width.
+
+For every visible element:
+
+* Hero title
+* Hero subtitle
+* Section titles
+* Product titles
+* Prices
+* Ratings
+* Badges
+* Buttons
+* Footer links
+
+Compare directly with the web page.
+
+Adjust until visually identical.
+
+Do not move on until typography parity is complete.
+
+---
+
+# PRIORITY 2 — PRODUCT CARDS
+
+Current product cards still differ.
+
+Audit:
+
+* card width
+* card height
+* image height
+* image ratio
+* border radius
+* spacing
+* favorite icon size
+* rating row
+* title height
+* price row
+* discount badge
+
+Match the web implementation at 390px width.
+
+No approximations.
+
+No redesign.
+
+---
+
+# PRIORITY 3 — SPACING SYSTEM
+
+Current spacing still differs.
+
+Audit every section:
+
+* top spacing
+* bottom spacing
+* section spacing
+* card spacing
+* grid spacing
+
+Use measurements from the actual web page.
+
+The mobile page must occupy approximately the same vertical rhythm as the web page at 390px width.
+
+---
+
+# PRIORITY 4 — NAVBAR
+
+Delete any remaining mobile-specific navbar behavior.
+
+Recreate the web navbar exactly as it appears at 390px width.
+
+Match:
+
+* logo size
+* search size
+* icon placement
+* badge placement
+* spacing
+* height
+
+No custom mobile interpretation.
+
+---
+
+# PRIORITY 5 — HERO
+
+Current hero still differs.
+
+Audit:
+
+* banner size
+* floating card position
+* text width
+* text wrapping
+* spacing
+* stats row
+
+Match the 390px web version.
+
+---
+
+# PRIORITY 6 — DARK THEME
+
+Current dark theme still differs.
+
+Do NOT use AMOLED black.
+
+Sample colors directly from the web implementation.
+
+Match:
+
+* page background
+* cards
+* borders
+* overlays
+* muted text
+
+until screenshots look visually identical.
+
+---
+
+# PRIORITY 7 — REMOVE NON-WEB ELEMENTS
+
+Anything visible on mobile but not visible on the web homepage at 390px width must be removed.
+
+Examples:
+
+* extra buttons
+* extra labels
+* extra product sections
+* extra navigation items
+* extra cards
+
+Web is source of truth.
+
+---
+
+# VERIFICATION REQUIREMENT
+
+For every completed section:
+
+Generate:
+
+WEB 390px VS MOBILE PARITY REPORT
+
+Include:
+
+* Typography Match %
+* Layout Match %
+* Card Match %
+* Color Match %
+* Spacing Match %
+
+Target:
+
+100% in all categories.
+
+If below 100%:
+
+continue fixing.
+
+---
+
+# STOP CONDITION
+
+Do NOT start Footer.
+
+Do NOT start Motion.
+
+Do NOT start any later phase.
+
+Until:
+
+Typography = 100%
+Product Cards = 100%
+Navbar = 100%
+Hero = 100%
+Spacing = 100%
+
+Only then continue.

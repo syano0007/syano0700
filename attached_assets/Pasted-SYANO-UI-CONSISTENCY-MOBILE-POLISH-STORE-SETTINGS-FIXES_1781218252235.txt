@@ -1,0 +1,324 @@
+SYANO — UI CONSISTENCY + MOBILE POLISH + STORE SETTINGS FIXES
+
+IMPORTANT:
+
+Before writing any code:
+
+1. Run GET /api/admin/recovery-check
+2. Verify score remains 100/100
+3. Read CURRENT_STATE.md
+4. Read CHANGELOG.md
+5. Read RECOVERY_GUIDE.md
+6. Audit existing implementation first
+7. Do NOT break existing functionality
+8. Preserve RTL
+9. Preserve translations
+10. Preserve mobile app compatibility
+11. Update recovery-check after every change
+12. Update CURRENT_STATE.md + CHANGELOG.md after completion
+
+==================================================
+ISSUE #1 — TRUST / VERIFICATION UI IS NOT CONSISTENT
+====================================================
+
+Currently trust is displayed differently across:
+
+* Store page
+* Store settings
+* Seller dashboard
+* Analytics
+* Trust page
+* Product page
+* Store cards
+
+This creates confusion.
+
+GOAL:
+
+Create ONE unified trust design system.
+
+Requirements:
+
+Verified seller badge:
+
+Same design everywhere.
+
+Use:
+
+* same icon
+* same color
+* same wording
+* same spacing
+* same hover behavior
+
+Trust level display:
+
+Show identical format everywhere:
+
+Verified Seller
+Trust Score: 82/100
+
+or
+
+Trusted Seller
+82/100
+
+Choose one system and use it globally.
+
+Trust ring:
+
+Use same component everywhere.
+
+Never have:
+
+* one page using ring
+* another using progress bar
+* another using text only
+
+Create reusable:
+
+TrustBadge
+TrustScore
+TrustRing
+
+components.
+
+==================================================
+ISSUE #2 — MOBILE STORE SETTINGS NAVIGATION
+===========================================
+
+Current mobile version feels weaker than desktop.
+
+Desktop currently uses cards.
+
+Mobile should NOT revert to tiny tabs.
+
+GOAL:
+
+Use card-based navigation on mobile too.
+
+But optimized.
+
+Example:
+
+┌─────────────┐
+│ General     │
+└─────────────┘
+
+┌─────────────┐
+│ Branding    │
+└─────────────┘
+
+┌─────────────┐
+│ Contact     │
+└─────────────┘
+
+2-column responsive grid.
+
+Requirements:
+
+Mobile:
+
+* 2 cards per row
+* touch friendly
+* minimum 44px touch target
+* icons visible
+* active state obvious
+
+Tablet:
+
+* 3 cards
+
+Desktop:
+
+* current premium layout
+
+Must feel native.
+
+==================================================
+ISSUE #3 — ANALYTICS DATE FILTER BUG
+====================================
+
+The date selector dropdown is broken.
+
+From screenshot:
+
+Dropdown overlaps UI.
+
+Layout is incorrect.
+
+Requirements:
+
+Audit:
+
+* z-index
+* positioning
+* popover width
+* RTL alignment
+* mobile layout
+
+Fix:
+
+* dropdown fully visible
+* no clipping
+* no overlap
+* no content hidden
+
+Test:
+
+* mobile
+* tablet
+* desktop
+
+All breakpoints.
+
+==================================================
+ISSUE #4 — BRAND ACCENT COLOR NOT WORKING
+=========================================
+
+Current visual identity color system is inconsistent.
+
+Accent color is not applied properly.
+
+Audit entire seller area:
+
+* Dashboard
+* Analytics
+* Store Settings
+* Orders
+* Products
+* Inventory
+* Messaging
+* Trust
+
+Requirements:
+
+Primary color:
+
+Use theme color consistently for:
+
+* active tabs
+* active cards
+* selected states
+* buttons
+* trust highlights
+* focus rings
+
+Remove random colors.
+
+Create one source of truth.
+
+Use design tokens.
+
+==================================================
+ISSUE #5 — STORE PAGE MOBILE TITLE TRUNCATION
+=============================================
+
+Current issue:
+
+Store name does not display correctly on mobile.
+
+Requirements:
+
+Audit:
+
+Store hero
+
+Fix:
+
+* full store name visible
+* no clipping
+* no overflow
+* no layout shift
+
+Handle:
+
+Short names
+
+Medium names
+
+Very long names
+
+Arabic names
+
+English names
+
+Mixed names
+
+If needed:
+
+Allow wrapping to second line.
+
+Never cut important store names.
+
+==================================================
+ISSUE #6 — GLOBAL MOBILE AUDIT
+==============================
+
+While working:
+
+Audit all seller pages for:
+
+* overflow
+* clipped text
+* broken flex layouts
+* misaligned cards
+* hidden content
+* RTL issues
+
+Fix any discovered issues.
+
+==================================================
+ISSUE #7 — RECOVERY CHECK INTEGRATION
+=====================================
+
+Extend:
+
+GET /api/admin/recovery-check
+
+Add:
+
+uiConsistency
+
+Checks:
+
+* Trust components unified
+* Mobile store settings cards present
+* Accent color system active
+* Store name rendering verified
+* Analytics date filter validated
+
+Recovery check must fail if:
+
+* old trust implementations remain
+* inconsistent badge systems exist
+
+==================================================
+VALIDATION
+==========
+
+Before completion verify:
+
+✅ Recovery score remains 100/100
+
+✅ Trust UI unified everywhere
+
+✅ Mobile navigation uses card system
+
+✅ Analytics filter fixed
+
+✅ Accent color working globally
+
+✅ Store title visible on mobile
+
+✅ No RTL regressions
+
+✅ No TypeScript errors
+
+✅ Mobile app unaffected
+
+✅ CURRENT_STATE updated
+
+✅ CHANGELOG updated
+
+Deliver only verified improvements.

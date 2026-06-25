@@ -1,0 +1,255 @@
+# SYANO — Restore & Run Project From Recovery Files
+
+You are restoring the SYANO (سوق سوريا) marketplace project from the recovery system.
+
+## STEP 1 — READ RECOVERY FILES
+
+Before touching any code, read completely:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md (if exists)
+* SESSION_NOTES.md (if exists)
+* ROADMAP.md (if exists)
+
+Build a full understanding of:
+
+* current architecture
+* completed phases
+* current active phase
+* known issues
+* latest recovery snapshot
+* pending roadmap items
+
+Do NOT skip any file.
+
+---
+
+# STEP 2 — RESTORE PROJECT STATE
+
+Restore the project exactly to the latest recovery snapshot.
+
+Verify:
+
+## Backend
+
+* Express server configured correctly
+* API routes registered
+* environment variables loaded
+* port configuration valid
+
+Expected:
+
+Port 8080
+
+---
+
+## Database
+
+Verify:
+
+* PostgreSQL connection
+* Drizzle schema
+* migrations applied
+* data accessible
+
+Confirm existence of:
+
+* users
+* stores
+* products
+* categories
+* messages
+* notifications
+
+Do NOT reseed unless data is missing.
+
+---
+
+## Frontend
+
+Verify:
+
+* Vite configuration
+* routes load correctly
+* assets load correctly
+* homepage renders
+
+---
+
+## Mobile
+
+Verify:
+
+* Expo configuration
+* Metro bundler starts
+* app compiles successfully
+
+---
+
+# STEP 3 — START ALL SERVICES
+
+Start:
+
+## API
+
+Confirm:
+
+* running
+* no startup errors
+* no migration errors
+
+---
+
+## Marketplace
+
+Confirm:
+
+* homepage loads
+* navigation works
+* no console errors
+
+---
+
+## Mobile
+
+Confirm:
+
+* Expo starts
+* no TypeScript issues
+
+---
+
+# STEP 4 — SYSTEM HEALTH CHECK
+
+Verify:
+
+## Authentication
+
+* login
+* register
+* logout
+
+## Marketplace
+
+* homepage
+* categories
+* products
+* stores
+
+## Shop Page
+
+* search
+* suggestions
+* filters
+* sorting
+
+## Cart
+
+* add/remove items
+
+## Wishlist
+
+* works correctly
+
+## Messaging V2
+
+* conversations
+* unread counts
+* messages
+* attachments
+* read receipts
+
+## Notifications
+
+* loading
+* badge counts
+
+## Theme
+
+* light mode
+* dark mode
+
+## Language
+
+* Arabic
+* English
+
+## Currency
+
+* SYP
+* USD
+
+---
+
+# STEP 5 — TYPESCRIPT VALIDATION
+
+Run full validation.
+
+Requirement:
+
+TypeScript = 0 errors
+
+Fix startup-breaking issues if found.
+
+Do not leave compilation errors.
+
+---
+
+# STEP 6 — RECOVERY REPORT
+
+After restoration provide:
+
+## Services
+
+Backend:
+Running / Failed
+
+Frontend:
+Running / Failed
+
+Mobile:
+Running / Failed
+
+## Database
+
+Connected:
+Yes / No
+
+## Recovery Files
+
+Loaded:
+Yes / No
+
+## TypeScript
+
+Error count
+
+## Current Roadmap
+
+Completed phases
+
+Current active phase
+
+Next pending phase
+
+## Known Issues
+
+List any discovered issues
+
+---
+
+# IMPORTANT RULES
+
+* Do NOT redesign UI.
+* Do NOT modify features.
+* Do NOT start new development.
+* Do NOT start Phase 8 work.
+* Do NOT change architecture.
+* Do NOT delete data.
+* Do NOT alter recovery files except when required by restoration.
+
+Goal:
+
+Restore the project to the latest known working state, start all services, verify all major systems, and confirm the platform is ready for development.

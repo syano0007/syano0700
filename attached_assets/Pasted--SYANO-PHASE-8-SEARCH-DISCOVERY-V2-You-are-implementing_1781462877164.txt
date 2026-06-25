@@ -1,0 +1,530 @@
+# SYANO — PHASE 8 — SEARCH & DISCOVERY V2
+
+You are implementing Phase 8 of the official SYANO roadmap.
+
+This is NOT a basic search upgrade.
+
+This is a complete marketplace-grade Search & Discovery system.
+
+Target quality:
+
+* Amazon
+* Noon
+* Trendyol
+* Etsy
+* Shopify Marketplace
+
+---
+
+# CRITICAL RULES
+
+Do NOT break existing search.
+
+Do NOT remove existing APIs.
+
+Use additive architecture.
+
+Preserve:
+
+* Arabic
+* English
+* RTL
+* Mobile
+* Existing routes
+
+TypeScript must finish with:
+
+0 errors
+
+---
+
+# PART 1 — GLOBAL SEARCH AUDIT
+
+First audit the current system.
+
+Inspect:
+
+* search APIs
+* frontend search
+* category filtering
+* store filtering
+* product filtering
+* search results pages
+
+Document limitations.
+
+Then improve.
+
+---
+
+# PART 2 — REAL SEARCH INDEX
+
+Build a proper search layer.
+
+Searchable fields:
+
+Products:
+
+* name_ar
+* name_en
+* description_ar
+* description_en
+* tags
+* brand
+* SKU
+
+Stores:
+
+* store name
+* store description
+
+Categories:
+
+* Arabic name
+* English name
+
+---
+
+# PART 3 — ARABIC SEARCH NORMALIZATION
+
+Must support Arabic properly.
+
+Examples:
+
+شاشة
+
+الشاشة
+
+شاشات
+
+شاشه
+
+All should return relevant products.
+
+Normalize:
+
+* ة / ه
+* ي / ى
+* أ / إ / آ
+* diacritics
+
+---
+
+# PART 4 — ENGLISH SEARCH NORMALIZATION
+
+Support:
+
+* plural forms
+* partial matching
+* case-insensitive search
+
+Examples:
+
+phone
+
+phones
+
+Phone
+
+PHONE
+
+Must behave identically.
+
+---
+
+# PART 5 — LIVE SEARCH
+
+Desktop:
+
+Typing in search box should instantly show:
+
+Products
+
+Stores
+
+Categories
+
+Suggestions
+
+No page reload.
+
+No lag.
+
+Debounced search.
+
+---
+
+# PART 6 — SEARCH OVERLAY
+
+Premium overlay.
+
+Display:
+
+Products
+
+Stores
+
+Categories
+
+Recent Searches
+
+Popular Searches
+
+Must feel modern.
+
+Not like a browser autocomplete.
+
+---
+
+# PART 7 — RECENT SEARCHES
+
+Per-user storage.
+
+Logged in:
+
+Database.
+
+Guest:
+
+Local storage.
+
+Allow:
+
+* delete item
+* clear history
+
+---
+
+# PART 8 — POPULAR SEARCHES
+
+Track:
+
+* search frequency
+* trending keywords
+
+Display:
+
+Popular Searches.
+
+---
+
+# PART 9 — SEARCH RESULTS PAGE
+
+Redesign results page.
+
+Display:
+
+Products
+
+Stores
+
+Categories
+
+Counts
+
+Sorting
+
+Filtering
+
+Pagination
+
+Professional layout.
+
+---
+
+# PART 10 — FILTER SYSTEM
+
+Support:
+
+Categories
+
+Price Range
+
+Store
+
+Brand
+
+Rating
+
+Availability
+
+Discount
+
+Newest
+
+Popular
+
+---
+
+# PART 11 — SORTING
+
+Support:
+
+Most Relevant
+
+Newest
+
+Price Low → High
+
+Price High → Low
+
+Most Popular
+
+Highest Rated
+
+Best Selling
+
+---
+
+# PART 12 — DISCOVERY SYSTEM
+
+Build recommendation sections.
+
+Examples:
+
+You may also like
+
+Similar products
+
+Related products
+
+Trending products
+
+Popular this week
+
+Newest arrivals
+
+Store recommendations
+
+---
+
+# PART 13 — PRODUCT RECOMMENDATIONS
+
+Generate based on:
+
+Category
+
+Store
+
+Brand
+
+Purchase history
+
+Wishlist
+
+Recently viewed
+
+---
+
+# PART 14 — RECENTLY VIEWED
+
+Track product views.
+
+Display:
+
+Recently Viewed section.
+
+Desktop + Mobile.
+
+---
+
+# PART 15 — TRENDING PRODUCTS
+
+Build endpoint.
+
+Show:
+
+Most viewed
+
+Most wishlisted
+
+Most purchased
+
+Trending this week
+
+---
+
+# PART 16 — CATEGORY DISCOVERY
+
+Improve category browsing.
+
+Add:
+
+Popular categories
+
+Trending categories
+
+Recommended categories
+
+---
+
+# PART 17 — STORE DISCOVERY
+
+Improve store discovery.
+
+Support:
+
+Top Rated
+
+Most Popular
+
+Newest Stores
+
+Trending Stores
+
+---
+
+# PART 18 — MOBILE EXPERIENCE
+
+Everything above must work on:
+
+Expo App
+
+including:
+
+* live search
+* filters
+* recommendations
+* trending products
+
+No degraded experience.
+
+---
+
+# PART 19 — API EXPANSION
+
+Add endpoints if necessary.
+
+Examples:
+
+/api/search
+
+/api/search/suggestions
+
+/api/search/trending
+
+/api/recommendations
+
+/api/recently-viewed
+
+/api/trending-products
+
+Maintain backward compatibility.
+
+---
+
+# PART 20 — PERFORMANCE
+
+Search responses:
+
+Target:
+
+<200ms
+
+Avoid N+1 queries.
+
+Use caching when beneficial.
+
+---
+
+# PART 21 — REAL DATA VALIDATION
+
+Do NOT show fake products.
+
+Do NOT show fake stores.
+
+Everything displayed must originate from real database content.
+
+No fabricated counts.
+
+No fake recommendations.
+
+---
+
+# PART 22 — END-TO-END TESTING
+
+Test using:
+
+Admin
+
+Seller
+
+Customer
+
+Guest
+
+Verify:
+
+Arabic search
+
+English search
+
+Filters
+
+Sorting
+
+Recommendations
+
+Recently viewed
+
+Trending
+
+Mobile
+
+Desktop
+
+---
+
+# PART 23 — RECOVERY FILES
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+Document:
+
+Search & Discovery V2 architecture.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Arabic search excellent
+
+✅ English search excellent
+
+✅ Live search works
+
+✅ Suggestions work
+
+✅ Filters work
+
+✅ Sorting works
+
+✅ Recommendations work
+
+✅ Trending works
+
+✅ Recently viewed works
+
+✅ Store discovery works
+
+✅ Category discovery works
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ Real data only
+
+✅ TypeScript 0 errors
+
+✅ Recovery files updated
+
+Do not stop until Search & Discovery feels like a production-grade marketplace system.

@@ -1,0 +1,278 @@
+Before we continue with any new features, I want a complete end-to-end validation, optimization, and performance audit of the entire platform.
+
+Do not just check for build success, TypeScript errors, or successful API responses.
+
+I want real-world testing of every workflow, every route, every user role, and every major feature currently present in the platform.
+
+The objective is:
+
+* Verify correctness
+* Verify stability
+* Verify security
+* Verify mobile usability
+* Eliminate bugs
+* Eliminate regressions
+* Achieve the fastest and smoothest experience realistically possible, especially on mobile devices
+
+==================================================
+PART 1 — FULL FUNCTIONAL VALIDATION
+===================================
+
+Test and verify all existing features:
+
+1. Authentication
+
+* Registration
+* Login
+* Logout
+* Remember me
+* Customer flow
+* Seller application flow
+* Seller approval flow
+* Session persistence
+* Mobile behavior
+
+2. Store Pages
+
+* Store slug generation
+* Store information
+* Logo
+* Banner
+* Trust stats
+* Product listings
+* Navigation
+* Mobile responsiveness
+
+3. Store Following
+
+* Follow
+* Unfollow
+* Follower count
+* Duplicate prevention
+* Notification generation
+
+4. Seller Reviews
+
+* Eligibility validation
+* Submission flow
+* Aggregated scores
+* Duplicate prevention
+* Display on store pages
+
+5. Messaging System
+
+* Conversation creation
+* Customer messaging
+* Seller messaging
+* Notification delivery
+* Conversation persistence
+* Read/unread state
+* Mobile usability
+
+6. Notifications
+
+* New follower
+* New message
+* New seller review
+* Store new product
+* SSE delivery
+* Notification center integration
+
+7. Products
+
+* Product creation
+* Product editing
+* Product deletion
+* Multiple images
+* Variants
+* Discounts
+* Featured products
+* Best offers
+* Product detail page
+
+8. Cart
+
+* Add to cart
+* Remove
+* Quantity changes
+* Mobile layout
+* Checkout transition
+
+9. Checkout
+
+* Address flow
+* Order creation
+* Seller visibility
+* Mobile usability
+
+10. Orders
+
+* Customer orders
+* Seller orders
+* Status progression:
+  Pending → Processing → Shipped → Delivered
+* Cancellation behavior
+* Permission validation
+
+11. Seller Dashboard
+
+* Statistics
+* Revenue
+* Followers
+* Seller score
+* Top products
+* Charts
+* Analytics calculations
+
+12. Product View Tracking
+
+* Increment behavior
+* Accuracy
+* Performance impact
+
+13. Admin Features
+
+* Verify all existing admin functionality
+* Verify permissions
+* Verify security boundaries
+
+==================================================
+PART 2 — MOBILE-FIRST AUDIT
+===========================
+
+Test every page at:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+Verify:
+
+* No horizontal scrolling
+* No overflow
+* No clipped text
+* No hidden buttons
+* No overlapping elements
+* No layout shifts
+* No RTL issues
+* No broken navigation
+* No inaccessible controls
+
+Pay special attention to:
+
+* Navbar
+* Search
+* Notifications
+* Cart
+* Product page
+* Seller dashboard
+* Messaging
+* Checkout
+* Orders
+* Store pages
+
+The mobile experience is the highest priority.
+
+==================================================
+PART 3 — GLOBAL PERFORMANCE & SMOOTHNESS AUDIT
+==============================================
+
+I want maximum practical speed and smoothness across the entire platform.
+
+Audit every page and identify:
+
+* Slow API calls
+* Slow database queries
+* N+1 queries
+* Over-fetching
+* Duplicate requests
+* Unnecessary rerenders
+* Large React trees
+* Blocking renders
+* Slow route transitions
+* Layout shifts
+* Excessive bundle size
+* Large images
+* Expensive calculations
+* Missing memoization
+* Missing caching
+* Missing pagination
+* Missing virtualization
+* Missing lazy loading
+
+==================================================
+PART 4 — MOBILE PERFORMANCE PRIORITY
+====================================
+
+The platform must feel nearly instant on mobile.
+
+Review and optimize:
+
+* Initial load speed
+* Route navigation speed
+* Product page opening speed
+* Store page opening speed
+* Seller dashboard speed
+* Messaging speed
+* Cart speed
+* Checkout speed
+
+Apply every safe optimization that improves responsiveness without changing functionality.
+
+Examples include:
+
+* Route prefetching
+* Data prefetching
+* React Query optimization
+* Smarter cache strategies
+* Query deduplication
+* Code splitting
+* Component lazy loading
+* Memoization
+* Image optimization
+* Render optimization
+* Bundle optimization
+
+The goal is:
+
+When a user taps any button, link, product, store, category, order, or dashboard section, the transition should feel immediate.
+
+==================================================
+PART 5 — STABILITY REQUIREMENT
+==============================
+
+Do NOT introduce:
+
+* Breaking changes
+* Database regressions
+* Permission regressions
+* Authentication regressions
+* Mobile regressions
+* UI regressions
+* RTL regressions
+
+Every optimization must preserve existing functionality.
+
+==================================================
+PART 6 — FINAL REPORT
+=====================
+
+After completion provide a detailed report containing:
+
+1. Functional issues found
+2. Functional issues fixed
+3. Mobile issues found
+4. Mobile issues fixed
+5. Performance bottlenecks found
+6. Performance optimizations applied
+7. Security findings
+8. Remaining recommendations
+9. Before/after performance comparison
+10. Estimated mobile performance improvement
+
+Do not start any new feature development until this validation, optimization, and performance audit is fully completed.
+
+The primary objective is maximum stability, maximum speed, and maximum smoothness across the entire Syano platform, with mobile experience being the highest priority.

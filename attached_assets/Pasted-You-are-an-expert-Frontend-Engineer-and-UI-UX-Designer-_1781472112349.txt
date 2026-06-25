@@ -1,0 +1,38 @@
+You are an expert Frontend Engineer and UI/UX Designer specializing in building advanced, intuitive E-commerce layouts using React, Tailwind CSS, and TanStack Query.
+
+The hybrid search backend (Step 2) is completely verified and live. Now, execute Step 3 by connecting the new dynamic payload metadata (`nlpBaseTokens`, `nlpExpandedCount`, `primaryLanguage`) into our core "Shop" (تسوق) page interface. Additionally, you are strictly required to update our workspace recovery documentation upon successful implementation.
+
+### I. EXPLICIT UI/UX FUNCTIONAL REQUIREMENTS
+
+1. DYNAMIC INTENT BADGES & CHIPS (رقاقات النية الذكية)
+- At the top of the product grid on the Shop page, design an elegant, non-intrusive metadata banner or alert badge that appears only when a search query `q` is active.
+- Display a localized summary badge using the returned metadata. For example, if `nlpExpandedCount > 0`, render:
+  * In Arabic mode: "🔍 تم مطابقة ${nlpExpandedCount} مرادفات لغوية لـ: ${nlpBaseTokens.join(', ')}"
+  * In English mode: "🔍 Matched ${nlpExpandedCount} linguistic synonyms for: ${nlpBaseTokens.join(', ')}"
+- Include a small language indicator badge (e.g., "العربية" or "English") based on the `primaryLanguage` property to provide immediate cognitive feedback to the customer regarding why cross-language results are displayed.
+
+2. FILTER CHIPS & ACTIVE QUERY RESET
+- Ensure the search query itself is rendered as a dismissible "Active Filter Chip". 
+- Clicking the 'X' button on the query chip must programmatic-wise clear the `q` parameter from the URL using `setSearchParams` and transition the Shop page back into its default generic catalog listing state seamlessly.
+
+3. ADVANCED INTERACTIVE SORTING BACKEND SYNC
+- Create a beautiful, accessible sorting dropdown panel at the header of the product display layout.
+- Bind the selection changes directly to the URL search parameter `sortBy`.
+- Ensure changing the dropdown selection dynamically triggers a fresh pagination query back to `GET /api/search/results` with the correct parameter values:
+  * "relevance" -> Default Score
+  * "price_asc" -> Price: Low to High
+  * "price_desc" -> Price: High to Low
+  * "rating" -> Top Rated
+  * "newest" -> New Arrivals
+
+### II. COMPLIANCE & QUALITY BOUNDARIES
+- Internationalization (i18n): Fully support translation matrices. Swap layouts cleanly based on the system's `isRtl` configuration.
+- Theme Integration: Apply semantic Tailwind color tokens (`bg-background`, `text-foreground`, `border-border`, along with custom primary highlights). The newly implemented filter panels and intent chips must blend natively into both Light Mode and Dark Mode.
+- No Regressions: Maintain exactly 0 TypeScript compilation errors and do not disrupt the pre-existing grid layout or vendor display criteria.
+
+### III. MANDATORY RECOVERY FILES & DOCUMENTATION UPDATE
+As the absolute final phase of this task, once the frontend code compiles perfectly with 0 errors, you MUST comprehensively update the following recovery tracking files to preserve our workspace's precise source of truth:
+
+1. `CURRENT_STATE.md`: Document the newly implemented frontend architecture for the Shop page, including routing hooks (`useSearchParams`), dynamic query payload mapping to TanStack Query, and the structure of the new UI metadata widgets.
+2. `PROJECT_STATUS.md`: Advance the project progress tracker, marking Step 3 (Frontend Discovery Integration) as 100% Completed, and log the explicit feature capabilities added.
+3. `RECOVERY_GUIDE.md`: Update or append any necessary frontend environment testing instructions, verification scripts, or build commands required to validate this newly unified search layout in future recoveries.

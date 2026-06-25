@@ -1,0 +1,175 @@
+You are restoring the SYANO (سوق سوريا) project after a GitHub import / project transfer.
+
+IMPORTANT:
+
+Do NOT start coding.
+
+Do NOT make changes.
+
+Do NOT add features.
+
+First perform a complete restoration and verification process.
+
+---
+
+## PHASE 1 — READ RECOVERY DOCUMENTATION
+
+Read ALL project recovery files first.
+
+Mandatory:
+
+* .local/RECOVERY.md
+* .agents/memory/*
+* all project memory files
+* restoration documentation
+* architecture notes
+* feature history notes
+
+Treat recovery files as the source of truth.
+
+---
+
+## PHASE 2 — RESTORE ENVIRONMENT
+
+Restore the project completely:
+
+1. Install dependencies
+2. Restore database schema
+3. Apply migrations
+4. Build libraries
+5. Start all services
+
+Required services:
+
+* API Server
+* Marketplace
+* Mobile App
+
+Verify all services are healthy.
+
+---
+
+## PHASE 3 — VERIFY DATABASE
+
+Verify:
+
+* users
+* products
+* variants
+* orders
+* delivery zones
+* courier system
+* messaging
+* reviews
+* seller system
+
+Confirm schema matches recovery documentation.
+
+---
+
+## PHASE 4 — VERIFY LAST MAJOR FEATURES
+
+Verify the following features are present and working:
+
+PRODUCT WIZARD
+
+* 5-step wizard
+* edit mode navigation
+* direct step access in edit mode
+* widened desktop layout
+* VariantBuilder integration
+
+VARIANT SYSTEM
+
+* card-based VariantBuilder
+* combination cards
+* bulk actions
+* image assignment
+* stock handling
+
+PRODUCT PAGE
+
+* unified discount calculations
+* sticky purchase bar
+* variant selection
+* stock logic
+* seller contact button
+
+CHECKOUT DELIVERY ZONE INTEGRATION
+
+This is the most recent major feature.
+
+Verify:
+
+* checkout loads delivery zones
+* zone selection required
+* delivery fee updates correctly
+* zone stored with order
+* zone name stored with order
+* order details display zone information
+* mobile checkout supports zones
+* API validates zones
+* delivery fee comes from DB (not client)
+
+---
+
+## PHASE 5 — TYPESCRIPT
+
+Run full validation.
+
+Verify:
+
+* marketplace
+* api-server
+* libraries
+
+Report all TypeScript errors.
+
+Identify:
+
+* new errors
+* pre-existing errors
+
+---
+
+## PHASE 6 — RECOVERY STATUS REPORT
+
+Provide a detailed report:
+
+1. Environment status
+2. Database status
+3. Services status
+4. Feature verification results
+5. TypeScript status
+6. Missing features
+7. Regression check
+
+---
+
+## PHASE 7 — CONFIRM PROJECT BASELINE
+
+Before doing any new development:
+
+Confirm the project has been successfully restored to the latest documented state.
+
+Specifically confirm:
+
+✅ Product Wizard improvements
+
+✅ VariantBuilder redesign
+
+✅ Edit-mode navigation improvements
+
+✅ Desktop width improvements
+
+✅ Delivery Zone checkout integration
+
+✅ Order zone storage
+
+✅ Mobile checkout zone support
+
+✅ Seller contact button fix
+
+✅ Unified discount system
+
+Only after successful restoration and verification should any new task begin.

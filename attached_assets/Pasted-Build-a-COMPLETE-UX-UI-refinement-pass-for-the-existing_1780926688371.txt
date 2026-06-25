@@ -1,0 +1,403 @@
+Build a COMPLETE UX/UI refinement pass for the existing Product Variant Builder.
+
+IMPORTANT:
+- This is a VISUAL + UX improvement task.
+- DO NOT rewrite the backend.
+- DO NOT change APIs.
+- DO NOT change database schema.
+- DO NOT break existing VariantBuilder props or public interfaces.
+- Preserve all current functionality.
+- This is a responsive layout and usability upgrade only.
+
+==================================================
+PRIMARY GOAL
+==================================================
+
+The current builder works functionally, but the desktop layout wastes a lot of horizontal space while the mobile layout must remain excellent.
+
+The final experience should feel close to modern seller panels like:
+
+- Shopify Admin
+- Amazon Seller Central
+- Trendyol Seller
+- Etsy Seller
+- WooCommerce Product Variants
+
+The UI should look premium, clean, spacious, and easy to understand.
+
+==================================================
+RESPONSIVE LAYOUT REQUIREMENTS
+==================================================
+
+Desktop (>=1400px):
+
+Use the available width efficiently.
+
+Current problem:
+- Large empty margins.
+- Main content occupies only about 50-60% of the screen.
+
+Target:
+
+----------------------------------------------------
+| Preview Panel |      Main Builder Area           |
+|               |                                 |
+|               | Attribute Presets               |
+|               |                                 |
+|               | Added Groups                    |
+|               |                                 |
+|               | Variant Management              |
+----------------------------------------------------
+
+Suggested proportions:
+
+Preview Sidebar:
+width: 320-360px
+
+Main Content:
+flex: 1
+
+Container max-width:
+1600-1700px
+
+Use CSS Grid or Flexbox.
+
+Example:
+
+grid-template-columns:
+340px minmax(0,1fr);
+
+Gap:
+24-32px
+
+Do NOT leave large unused screen areas.
+
+==================================================
+TABLE WIDTH
+==================================================
+
+The generated variants table should use the entire available content width.
+
+Columns:
+
+[Image]
+[Variant]
+[SKU]
+[Price]
+[Compare Price]
+[Stock]
+[Enabled]
+[Select]
+
+No compressed tiny columns.
+
+==================================================
+PREVIEW SIDEBAR REDESIGN
+==================================================
+
+Current sidebar is too large and visually heavy.
+
+Make it more compact.
+
+Structure:
+
+--------------------------------
+Variants Preview
+
+4 Variants Generated
+
+● Black / 512GB / 8GB
+● Black / 512GB / 12GB
+● Black / 1TB / 8GB
+● Black / 1TB / 12GB
+
+----------------------
+Total: 4
+Active: 4
+Disabled: 0
+----------------------
+
+Helpful Tips:
+• Choose only relevant attributes
+• Customers see these options
+• You can edit later
+--------------------------------
+
+Do NOT use oversized cards.
+
+Reduce vertical space.
+
+Keep sidebar sticky on desktop.
+
+==================================================
+ATTRIBUTE VALUE INPUT
+==================================================
+
+Replace:
+
+[Input........]
+[Add]
+
+with a professional Tag Input.
+
+Desired behavior:
+
+Selected values:
+
+[ Black × ]
+[ White × ]
+[ Gold × ]
+
+Input placeholder:
+
+Type and press Enter...
+
+User can:
+- press Enter
+- press Comma
+- paste multiple values
+- click suggestion chips
+
+No separate Add button.
+
+==================================================
+SUGGESTION CHIPS
+==================================================
+
+Current preset chips are good.
+
+Improve them:
+
+- Smaller
+- Better spacing
+- Wrap nicely
+- Hover animation
+- Already selected chips disappear
+
+Color chips should show real colors.
+
+Example:
+
+● Black
+● White
+● Blue
+● Red
+
+==================================================
+COLOR SYSTEM
+==================================================
+
+Reduce green overload.
+
+Current issue:
+Almost every component is green.
+
+Use hierarchy:
+
+Primary Action:
+Syano Green
+
+Secondary Buttons:
+Dark Gray
+
+Information:
+Neutral Gray
+
+Suggestion Chips:
+Soft Cyan / Dark Gray
+
+Warnings:
+Amber
+
+Success:
+Green
+
+Avoid making every badge and chip bright green.
+
+==================================================
+GROUP CARDS
+==================================================
+
+Each attribute card should look cleaner.
+
+Header:
+
+-----------------------------------
+☰  Color              ●
+    Enabled Toggle
+
+Delete Icon
+Collapse Icon
+-----------------------------------
+
+Body:
+
+Selected Tags
+
+Suggestion Chips
+
+Input
+
+-----------------------------------
+
+Use better spacing.
+
+Reduce visual clutter.
+
+==================================================
+VARIANT GENERATION SECTION
+==================================================
+
+Current "Generate Variants" block should feel smarter.
+
+Show:
+
+Formula:
+
+2 Colors
+×
+2 Storage
+×
+2 RAM
+
+=
+8 Variants
+
+Button:
+
+[ Generate 8 Variants ]
+
+Button text updates dynamically.
+
+==================================================
+BULK ACTION TOOLBAR
+==================================================
+
+Current toolbar is confusing.
+
+Replace multiple tiny buttons with:
+
+-------------------------------------------------
+
+Select All □
+
+Price:
+[______]
+
+Compare Price:
+[______]
+
+Stock:
+[______]
+
+SKU Prefix:
+[______]
+
+[Apply To Selected]
+
+[Enable Selected]
+
+[Disable Selected]
+
+-------------------------------------------------
+
+Cleaner.
+More professional.
+
+==================================================
+VARIANT TABLE IMPROVEMENTS
+==================================================
+
+Add Image column.
+
+Example:
+
+------------------------------------------------------------
+Image | Variant | SKU | Price | Stock | Enabled | Select
+------------------------------------------------------------
+📷     Black / 512GB / 8GB
+       SKU001
+       999$
+       15
+       ON
+------------------------------------------------------------
+
+Variant label should be large and readable.
+
+==================================================
+WORKFLOW GUIDANCE
+==================================================
+
+At the top add a subtle progress helper:
+
+① Choose Attributes
+      ↓
+② Add Values
+      ↓
+③ Generate Variants
+      ↓
+④ Edit Price & Stock
+
+This helps first-time sellers.
+
+==================================================
+RTL + MOBILE
+==================================================
+
+VERY IMPORTANT.
+
+Desktop improvements MUST NOT break mobile.
+
+Mobile (<768px):
+
+Everything stacks vertically.
+
+Order:
+
+1. Attribute Presets
+2. Added Groups
+3. Generate Variants
+4. Variant Table
+5. Preview Card
+
+Preview sidebar becomes a normal card.
+
+Table becomes horizontally scrollable.
+
+Tag input wraps correctly.
+
+Touch targets:
+minimum 44px.
+
+No overflow.
+No broken RTL.
+No hidden buttons.
+
+Test widths:
+
+320px
+375px
+390px
+414px
+768px
+1024px
+1440px
+1920px
+
+==================================================
+NON-NEGOTIABLE RULES
+==================================================
+
+- Keep all existing backend logic.
+- Keep all APIs unchanged.
+- Keep existing VariantBuilder interfaces.
+- Keep existing variant generation logic.
+- No database changes.
+- No regressions.
+- Preserve dark mode.
+- Preserve Arabic RTL.
+- Preserve English LTR.
+- Preserve existing i18n.
+- Preserve current functionality.
+
+This task is purely a professional UX/UI and responsive layout upgrade that should make the Variant Builder feel like a modern world-class marketplace seller dashboard.

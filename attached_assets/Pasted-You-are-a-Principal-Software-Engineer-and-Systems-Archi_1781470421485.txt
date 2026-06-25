@@ -1,0 +1,61 @@
+You are a Principal Software Engineer and Systems Architect specializing in Arabic/English Computational Linguistics, Natural Language Processing (NLP), and High-Scale Enterprise E-commerce Search Pipelines.
+
+Your objective is to implement Step 1 of our Noon-like search infrastructure for the "SYANO" (سوق سوريا) marketplace platform. Create a standalone, highly optimized, and production-grade text processing module inside `/src/utils/searchProcessor.ts` (or the appropriate utility directory). 
+
+This module must be written in strict, modern TypeScript with exactly 0 type errors (avoid any 'any' typings, use explicit interfaces), utilizing performant array and string manipulations designed to handle microsecond-level invocation overhead.
+
+### I. EXPLICIT COMPONENT ARCHITECTURE REQUIREMENTS
+
+1. ADVANCED ARABIC NORMALIZATION ENGINE (`normalizeArabicText`)
+Implement an ultra-precise Arabic text normalizer that processes an input string by executing the following transformations in sequence:
+- Strip all Arabic diacritics / Tashkeel entirely: Fatha (ـَ), Damma (ـُ), Kasra (ـِ), Sukun (ـْ), Shadda (ـّ), Tanween Fath (ـً), Tanween Damm (ـٌ), Tanween Kasr (ـٍ).
+- Strip the Arabic elongation character / Tatweel / Kashida (ـ) entirely.
+- Normalize all Alef variants to a bare Alef: (أ, إ, آ, ٱ) -> (ا).
+- Normalize Taa Marbouta to Haa: (ة) -> (ه) to prevent dialect mismatches (e.g., "سماعة" matches "سماعه").
+- Normalize Yaa and Alef Maksoura to a standard Yaa character: (ى) -> (ي).
+- Normalize complex Hamza patterns based on common e-commerce typo variances: (ؤ, ئ) -> (ء).
+- Convert Eastern Arabic numerals to standard Western Arabic numerals: (٠, ١, ٢, ٣, ٤, ٥, ٦, ٧, ٨, ٩) -> (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) to ensure perfect model/SKU matching (e.g., "ايفون ١٥" -> "ايفون 15").
+
+2. HIGH-FREQUENCY E-COMMERCE STICKY TOKEN RESOLVER (`splitStickyTokens`)
+Colloquial users frequently concatenate keywords without inserting spaces. Implement a deterministic token de-concatenation loop:
+- Embed a localized high-frequency e-commerce vocabulary array consisting of primary nouns and adjectives: ["سماعة", "سماعه", "بلوتوث", "شاحن", "سريع", "بوط", "بواط", "رجالي", "رجالية", "فستان", "سهرة", "موبايل", "جوال", "ايفون", "تلفزيون", "شاشة", "ماركة", "أصلي", "اصلي", "رخيص"].
+- If a string token does not directly match any full word but contains a length greater than 6 characters, scan it using a sliding window algorithm. If it contains exactly two concatenated words from the vocabulary array, automatically split them into separate distinct tokens (e.g., "سماعهبلوتوث" yields ["سماعه", "بلوتوث"]; "شاحنسريع" yields ["شاحن", "سريع"]).
+
+3. ENGLISH NORMALIZATION & PLURAL-TO-SINGULAR STEMMER (`normalizeEnglishText`)
+Implement an optimized utility for English segments:
+- Lowercase the entire string stream and remove all non-alphanumeric punctuation marks via highly efficient Regular Expressions.
+- Implement a lightweight, custom e-commerce suffix stemming layer to strip basic plurals down to their root form to optimize index intersection hits:
+  * Trailing "shoes" -> "shoe"
+  * Trailing "phones" -> "phone"
+  * Trailing "laptops" -> "laptop"
+  * Trailing "shirts" -> "shirt"
+  * General trailing "s" patterns where word length > 3.
+
+4. BIDIRECTIONAL CROSS-LANGUAGE TRANSLITERATION BRIDGE (`crossLanguageBridge`)
+E-commerce search requires cross-language equivalence mapping. Create a comprehensive bidirectional dictionary. When a token matches a language-specific key, the system must expand the token array to include its paired translation/transliteration counterparts automatically:
+- "iphone" / "ايفون"
+- "samsung" / "سامسونج"
+- "laptop" / "لابتوب" / "كمبيوتر"
+- "shoes" / "sneakers" / "احذية" / "أحذية" / "بوط" / "بواط" / "كندرة"
+- "makeup" / "cosmetics" / "مكياج" / "مكياجات"
+- "perfume" / "عطور" / "عطورات" / "ريحة"
+- "charger" / "شاحن" / "شواحن"
+
+5. BILINGUAL STOPWORDS CLEANER (`stripStopwords`)
+Implement an array-based filter to exclude non-contextual, low-value conjunctions and prepositions in both languages:
+- Arabic Stopwords: ["في", "من", "على", "مع", "الى", "عن", "ب", "ل", "و", "ال", "هذا", "هذه", "او", "ثم"]
+- English Stopwords: ["the", "a", "an", "and", "or", "but", "for", "with", "in", "on", "at", "to", "from", "by", "of"]
+
+### II. THE UNIFIED DATA PIPELINE INTEGRATION
+Export a master unified function with the following strict TypeScript contract interface:
+
+```typescript
+export interface ProcessedSearchPayload {
+  originalQuery: string;
+  normalizedQuery: string;
+  primaryLanguage: 'ar' | 'en';
+  baseTokens: string[];
+  expandedTokens: string[];
+}
+
+export function processSearchQuery(rawQuery: string): ProcessedSearchPayload;

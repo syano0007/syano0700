@@ -1,0 +1,388 @@
+# SYANO — GLOBAL NAVBAR POLISH & CONSISTENCY PASS
+
+STOP.
+
+This task is NOT about adding new features.
+
+This task is ONLY about making the Navbar production-quality across the entire platform.
+
+The Navbar is currently inconsistent between pages, themes, breakpoints, and states.
+
+Your mission is to make the Navbar feel like a premium, unified system similar to:
+
+* Shopify
+* Amazon
+* Trendyol
+* Noon
+
+while preserving the existing SYANO design language.
+
+---
+
+# CRITICAL RULES
+
+DO NOT redesign the Navbar.
+
+DO NOT change the structure.
+
+DO NOT move major elements.
+
+DO NOT break routing.
+
+DO NOT remove existing functionality.
+
+DO NOT touch desktop layout unless required for consistency.
+
+This is a polish and consistency pass.
+
+---
+
+# PART 1 — GLOBAL NAVBAR AUDIT
+
+Perform a complete audit.
+
+Inspect every page that uses the Navbar:
+
+* Homepage
+* Products
+* Categories
+* Stores
+* Store Pages
+* Product Details
+* Cart
+* Wishlist
+* Messaging
+* Notifications
+* User Profile
+* Seller Dashboard
+* Courier Dashboard
+* Admin Dashboard
+* Settings
+* Auth Pages
+* Any page using shared navigation
+
+Verify the same Navbar component is being used consistently.
+
+Remove visual drift.
+
+---
+
+# PART 2 — TYPOGRAPHY CONSISTENCY
+
+Audit every Navbar text element.
+
+Verify:
+
+* font size
+* weight
+* line height
+* spacing
+* color
+* hover states
+
+Must be identical everywhere.
+
+---
+
+# PART 3 — ICON CONSISTENCY
+
+Audit ALL Navbar icons:
+
+* Cart
+* Wishlist
+* Notifications
+* Messages
+* Settings
+* User Avatar
+* Language
+* Theme
+* Currency
+* Mobile Menu
+
+Verify:
+
+* same visual weight
+* same size
+* same alignment
+* same hover effect
+* same active state
+
+No icon should look heavier or lighter than others.
+
+No blurry icons.
+
+No misaligned icons.
+
+---
+
+# PART 4 — SPACING CONSISTENCY
+
+Audit:
+
+* icon spacing
+* button spacing
+* navbar height
+* paddings
+* margins
+* gaps
+
+Verify:
+
+Desktop
+
+Tablet
+
+Mobile
+
+All match a single spacing system.
+
+No crowded areas.
+
+No empty areas.
+
+---
+
+# PART 5 — LIGHT MODE POLISH
+
+This is currently the weakest area.
+
+Audit Navbar in Light Mode.
+
+Verify:
+
+* readability
+* contrast
+* borders
+* shadows
+* backgrounds
+* hover states
+
+Remove:
+
+washed-out appearance
+
+foggy appearance
+
+low-contrast appearance
+
+gray-on-gray appearance
+
+Everything must remain crisp and readable.
+
+---
+
+# PART 6 — DARK MODE POLISH
+
+Audit Navbar in Dark Mode.
+
+Verify:
+
+* contrast
+* icon visibility
+* hover states
+* dropdown visibility
+* active states
+
+No element should disappear into the background.
+
+---
+
+# PART 7 — SETTINGS DROPDOWN
+
+Audit:
+
+Settings Dropdown
+
+Theme Dropdown
+
+Language Dropdown
+
+Currency Dropdown
+
+Verify:
+
+* alignment
+* spacing
+* shadows
+* borders
+* text hierarchy
+* active indicators
+
+Must feel like a premium component.
+
+Not a debug menu.
+
+Not a default browser menu.
+
+---
+
+# PART 8 — NOTIFICATION BUTTON
+
+Audit notification button globally.
+
+Verify:
+
+* icon centered
+* badge centered
+* badge positioning
+* hover state
+* active state
+
+Must match Cart and Wishlist quality.
+
+---
+
+# PART 9 — MOBILE NAVBAR
+
+Audit:
+
+* Header
+* Drawer
+* Icons
+* Search
+* Navigation Links
+
+Verify consistency with Desktop.
+
+The mobile Navbar should feel like the same product.
+
+Not a separate design.
+
+---
+
+# PART 10 — RESPONSIVE QA
+
+Verify:
+
+320px
+
+375px
+
+390px
+
+414px
+
+768px
+
+1024px
+
+1440px
+
+No clipping.
+
+No wrapping.
+
+No overlap.
+
+No misalignment.
+
+---
+
+# PART 11 — ACCESSIBILITY
+
+Verify:
+
+focus states
+
+keyboard navigation
+
+hover states
+
+active states
+
+screen-reader labels
+
+No regressions.
+
+---
+
+# PART 12 — ROUTING VALIDATION
+
+Test EVERY Navbar action:
+
+* Home
+* Products
+* Stores
+* Deals
+* Search
+* Cart
+* Wishlist
+* Notifications
+* Messages
+* Settings
+* Profile
+* Seller
+* Courier
+* Admin
+
+Every button must work.
+
+Every route must work.
+
+No dead links.
+
+---
+
+# PART 13 — FULL SITE VALIDATION
+
+After completion:
+
+Navigate through the entire site.
+
+Verify the Navbar behaves identically everywhere.
+
+Fix any page-specific Navbar issues.
+
+No exceptions.
+
+---
+
+# PART 14 — RECOVERY FILES
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+Document Navbar polish pass.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Navbar identical across site
+
+✅ Desktop polished
+
+✅ Tablet polished
+
+✅ Mobile polished
+
+✅ Light mode crisp
+
+✅ Dark mode crisp
+
+✅ Icons consistent
+
+✅ Typography consistent
+
+✅ Spacing consistent
+
+✅ Notifications aligned
+
+✅ Dropdowns polished
+
+✅ Routing verified
+
+✅ Accessibility verified
+
+✅ No regressions
+
+✅ Recovery files updated
+
+Do not stop until the Navbar feels like a production-quality marketplace navigation system across the entire SYANO platform.

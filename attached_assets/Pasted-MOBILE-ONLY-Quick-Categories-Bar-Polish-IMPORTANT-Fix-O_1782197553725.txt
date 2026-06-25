@@ -1,0 +1,194 @@
+MOBILE ONLY — Quick Categories Bar Polish
+
+IMPORTANT:
+
+Fix ONLY the mobile version of the Quick Categories bar.
+
+DO NOT modify:
+
+* Desktop layout
+* Tablet layout
+* Hero banner layout
+* Banner proportions
+* Category cards section
+* Any desktop spacing
+
+Desktop and tablet are already correct.
+
+---
+
+# CURRENT PROBLEM
+
+On mobile:
+
+* category names are crowded
+* text appears compressed
+* categories touch each other
+* horizontal readability is poor
+
+The desktop implementation must remain unchanged.
+
+---
+
+# MOBILE REQUIREMENTS ONLY
+
+Target:
+
+< 768px
+
+Do not affect:
+
+≥ 768px
+
+---
+
+# DESIGN GOAL
+
+Match major marketplaces:
+
+* Noon
+* Amazon
+* Trendyol
+
+The bar should feel clean and easy to scan.
+
+---
+
+# REQUIRED FIX
+
+Keep horizontal scrolling.
+
+Do NOT wrap into multiple rows.
+
+Do NOT create a dropdown.
+
+Do NOT hide categories.
+
+Keep all categories visible through scrolling.
+
+---
+
+# SPACING
+
+Increase:
+
+* horizontal chip padding
+* gap between categories
+* touch target size
+
+Minimum tap height:
+
+44px
+
+Preferred:
+
+48px
+
+---
+
+# TEXT
+
+Mobile only:
+
+* slightly reduce font size if necessary
+* keep readability
+* prevent text overlap
+* prevent clipping
+
+Never allow:
+
+"الكترونياتأزياءهواتف"
+
+Each category must be visually separated.
+
+---
+
+# RTL BEHAVIOR
+
+Arabic:
+
+* preserve RTL
+* first category starts from the right side
+* scrolling remains natural
+
+English:
+
+* preserve LTR
+
+Do not break either language.
+
+---
+
+# SCROLL EXPERIENCE
+
+Use:
+
+overflow-x-auto
+
+Hide scrollbar visually.
+
+Allow smooth touch scrolling.
+
+Momentum scrolling on iOS.
+
+No layout jumps.
+
+---
+
+# MOBILE WIDTH TESTS
+
+Verify:
+
+320px
+
+360px
+
+390px
+
+412px
+
+430px
+
+All must remain usable.
+
+---
+
+# DESKTOP REGRESSION RULE
+
+Before finishing verify:
+
+Desktop screenshot before/after identical.
+
+Tablet screenshot before/after identical.
+
+Only mobile changed.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Mobile categories readable
+
+✅ Mobile categories separated
+
+✅ Smooth horizontal scrolling
+
+✅ RTL preserved
+
+✅ LTR preserved
+
+✅ No text overlap
+
+✅ No clipping
+
+✅ Touch targets ≥ 44px
+
+✅ Desktop unchanged
+
+✅ Tablet unchanged
+
+✅ TypeScript = 0 errors
+
+Only ship if mobile improves without affecting desktop or tablet.

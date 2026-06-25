@@ -1,0 +1,512 @@
+# SYANO — Courier V3.1
+
+# Delivery Mission Layer
+
+## Internal Execution Plan
+
+This phase is divided into sub-phases.
+
+Complete them strictly in order.
+
+Do NOT start the next sub-phase until the current one is fully complete and verified.
+
+---
+
+# A1 — Database Foundation
+
+## Goal
+
+Create the Delivery Mission database architecture.
+
+### Tasks
+
+Create:
+
+```ts
+DeliveryMission
+```
+
+Table.
+
+Fields:
+
+```ts
+id
+
+orderId
+
+sellerId
+
+customerId
+
+courierId nullable
+
+status
+
+deliveryFee
+
+deliverySize
+
+pickupAddress
+
+dropoffAddress
+
+pickupLat nullable
+
+pickupLng nullable
+
+dropoffLat nullable
+
+dropoffLng nullable
+
+createdAt
+
+updatedAt
+
+acceptedAt nullable
+
+pickedUpAt nullable
+
+deliveredAt nullable
+
+cancelledAt nullable
+
+failedAt nullable
+```
+
+---
+
+Create enum:
+
+```ts
+PENDING
+ASSIGNED
+ACCEPTED
+PICKED_UP
+IN_TRANSIT
+DELIVERED
+FAILED
+CANCELLED
+```
+
+---
+
+Create enum:
+
+```ts
+SMALL
+MEDIUM
+LARGE
+```
+
+---
+
+Requirements:
+
+✅ Additive migration only
+
+✅ Existing orders unaffected
+
+✅ Existing data preserved
+
+---
+
+# A2 — ORM & Relations
+
+## Goal
+
+Connect DeliveryMission to existing domain models.
+
+### Tasks
+
+Create relations:
+
+```text
+Order
+↓
+DeliveryMission
+```
+
+---
+
+```text
+Seller
+↓
+DeliveryMission
+```
+
+---
+
+```text
+Customer
+↓
+DeliveryMission
+```
+
+---
+
+```text
+Courier
+↓
+DeliveryMission
+```
+
+---
+
+Requirements:
+
+✅ No circular dependency issues
+
+✅ Clean Prisma/Drizzle schema
+
+✅ Existing models untouched
+
+---
+
+# A3 — Service Layer
+
+## Goal
+
+Create reusable mission services.
+
+### Tasks
+
+Build:
+
+```ts
+createDeliveryMission()
+```
+
+---
+
+```ts
+getMission()
+```
+
+---
+
+```ts
+updateMissionStatus()
+```
+
+---
+
+Requirements:
+
+Future phases must reuse these services.
+
+No duplicated business logic.
+
+---
+
+# B1 — Mission Creation Workflow
+
+## Goal
+
+Automatically create missions.
+
+### Trigger
+
+Seller changes order status to:
+
+```text
+Ready For Pickup
+```
+
+---
+
+### System Action
+
+Automatically:
+
+```text
+Create Delivery Mission
+```
+
+---
+
+Populate:
+
+```ts
+orderId
+
+sellerId
+
+customerId
+
+deliverySize
+
+deliveryFee
+```
+
+---
+
+Initial state:
+
+```text
+PENDING
+```
+
+---
+
+Requirements:
+
+No courier assignment.
+
+No GPS.
+
+No notifications.
+
+No future functionality.
+
+Mission creation only.
+
+---
+
+# B2 — Status Management
+
+## Goal
+
+Mission lifecycle management.
+
+### Implement
+
+Status update pipeline.
+
+Allow:
+
+```text
+PENDING
+↓
+ASSIGNED
+↓
+ACCEPTED
+↓
+PICKED_UP
+↓
+IN_TRANSIT
+↓
+DELIVERED
+```
+
+---
+
+Also support:
+
+```text
+FAILED
+```
+
+---
+
+```text
+CANCELLED
+```
+
+---
+
+No UI yet.
+
+Backend only.
+
+---
+
+# C1 — Internal APIs
+
+## Goal
+
+Mission API layer.
+
+### Create
+
+```http
+GET /api/delivery-missions/:id
+```
+
+---
+
+```http
+GET /api/seller/delivery-missions
+```
+
+---
+
+```http
+GET /api/admin/delivery-missions
+```
+
+---
+
+Requirements:
+
+Read-only.
+
+No editing APIs yet.
+
+---
+
+# C2 — Validation & Permissions
+
+## Goal
+
+Secure access.
+
+### Customer
+
+Can only access:
+
+```text
+Own mission
+```
+
+---
+
+### Seller
+
+Can only access:
+
+```text
+Own missions
+```
+
+---
+
+### Admin
+
+Can access:
+
+```text
+All missions
+```
+
+---
+
+# D1 — Admin Visibility
+
+## Goal
+
+Minimal operational visibility.
+
+### Create
+
+Admin Delivery Missions table.
+
+Columns:
+
+```text
+Mission ID
+
+Order ID
+
+Seller
+
+Customer
+
+Courier
+
+Status
+
+Delivery Size
+
+Created At
+```
+
+---
+
+Requirements:
+
+Read-only.
+
+No assignment.
+
+No actions.
+
+No editing.
+
+---
+
+# D2 — Architecture Verification
+
+## Goal
+
+Future-proof validation.
+
+Verify architecture supports future phases:
+
+```text
+Courier Availability
+
+Auto Assignment
+
+Wallet
+
+Settlement
+
+GPS
+
+Maps
+
+Proof Of Delivery
+
+Tips
+
+Ratings
+
+Analytics
+```
+
+Without requiring schema redesign.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Existing orders still work
+
+✅ Existing sellers still work
+
+✅ Existing customers still work
+
+✅ Mission creation works
+
+✅ Ready For Pickup creates mission
+
+✅ Mission starts as PENDING
+
+✅ APIs function
+
+✅ Admin visibility works
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+# HARD RULE
+
+Do NOT implement:
+
+❌ GPS
+
+❌ Maps
+
+❌ Tracking
+
+❌ Wallet
+
+❌ Settlement
+
+❌ Assignment Engine
+
+❌ Courier Availability
+
+❌ Customer Tracking
+
+❌ Proof Of Delivery
+
+These belong to future Courier V3 phases.
+
+Only build the Delivery Mission Layer foundation.

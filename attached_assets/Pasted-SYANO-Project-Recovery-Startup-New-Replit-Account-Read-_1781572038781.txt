@@ -1,0 +1,67 @@
+SYANO — Project Recovery & Startup (New Replit Account)
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Your only job is to get all services running and verify the 42 existing test products are present. Do not seed products. Do not run search quality tests.
+
+Step 1 — Install Python dependencies
+Do not use uv or the Replit package manager. Use only this exact command:
+pip install --no-cache-dir sentence-transformers torch --index-url https://download.pytorch.org/whl/cpu fastapi uvicorn numpy psycopg2-binary
+
+Step 2 — Start the embedding service
+cd artifacts/embedding-service && uvicorn main:app --host 0.0.0.0 --port 8001
+Wait up to 30 seconds for the model to fully load. Then verify:
+GET http://localhost:8001/health
+Expected:
+json{ "status": "ok", "model": "paraphrase-multilingual-MiniLM-L12-v2", "vector_dimensions": 384 }
+
+Step 3 — Run database migrations
+cd artifacts/api-server && npm install && npm run db:migrate
+This restores the full schema including pgvector extension and embedding columns.
+
+Step 4 — Start the API server
+cd artifacts/api-server && npm run dev
+
+Step 5 — Start the frontend
+cd artifacts/marketplace && npm install && npm run dev
+
+Step 6 — Verify existing data
+Run these SQL queries and report the counts:
+sqlSELECT COUNT(*) FROM products;
+SELECT COUNT(*) FROM users;
+SELECT COUNT(*) FROM orders;
+Expected:
+
+Products: 42
+If products count is 0: run npm run db:seed from artifacts/api-server to restore the 42 test products only — nothing more
+
+
+Step 7 — Embed the 42 products
+cd artifacts/api-server && npm run embed:generate
+This is fast — only 42 products, under 2 minutes.
+
+Step 8 — Set environment variable
+EMBEDDING_SERVICE_URL=http://localhost:8001
+
+Step 9 — TypeScript check
+npx tsc --noEmit
+Run in both artifacts/api-server and artifacts/marketplace. Must return 0 errors.
+
+Step 10 — Final report
+✅ Embedding service: [model name] — [dimensions] dims
+✅ API server: running on port [X]
+✅ Frontend: running on port [X]
+✅ Products: 42
+✅ Embeddings: 42/42
+✅ TypeScript: 0 errors
+
+Constraints:
+
+Do not seed more than 42 products
+Do not run the large seeder (seed:large)
+Do not modify any existing code
+Do not run performance benchmarks

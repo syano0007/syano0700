@@ -1,0 +1,372 @@
+This task is ONLY about React re-render profiling and elimination.
+
+Do NOT work on:
+
+* bundle size
+* TTI/LCP
+* scroll optimization
+* virtualization
+* memory optimization
+* CPU profiling
+* animations
+* CSS effects
+* networking
+* API caching
+* service worker
+* image optimization
+* lazy loading
+
+Those categories have their own dedicated passes.
+
+Your ONLY objective is to eliminate unnecessary React renders across the entire platform while preserving identical behavior.
+
+IMPORTANT:
+
+• Audit first.
+• Measure first.
+• Never optimize blindly.
+• Never add React.memo/useMemo/useCallback everywhere.
+• Only optimize PROVEN render bottlenecks.
+• Verify every fix before moving to the next one.
+• Do NOT continue to the next phase until the current phase is fully completed and verified.
+
+==================================================
+PHASE 1 — COMPLETE RENDER AUDIT
+===============================
+
+Perform a complete render analysis across:
+
+• Marketplace (web)
+• Admin Dashboard
+• Seller Dashboard
+• Customer Dashboard
+• Mobile App (Expo)
+
+Inspect every major screen:
+
+* Home
+* Products
+* Product Detail
+* Cart
+* Checkout
+* Orders
+* Notifications
+* Conversations
+* Chat
+* Seller Dashboard
+* Admin Dashboard
+* User Profile
+* Settings
+
+Profile actual render behavior.
+
+Identify:
+
+* Components rerendering without prop changes
+* Context updates cascading through unrelated trees
+* Parent renders recreating child props
+* Arrays recreated every render
+* Objects recreated every render
+* Inline callbacks recreated every render
+* Inline styles recreated every render
+* Derived values recalculated every render
+* Expensive map/filter/reduce operations
+* React Query updates causing excessive rerenders
+* Translation hooks causing tree-wide updates
+* Search state propagating unnecessarily
+* Form state rerendering entire pages
+* Modal open/close rerendering unrelated components
+
+Do NOT implement before the audit is complete.
+
+==================================================
+PHASE 2 — CONTEXT PROVIDER ANALYSIS
+===================================
+
+Audit ALL providers.
+
+Including but not limited to:
+
+AuthContext
+CurrencyContext
+GuestCartContext
+NotificationProvider
+Language/i18n provider
+QueryClientProvider wrappers
+Theme providers
+Seller providers
+Admin providers
+Any custom context
+
+Verify:
+
+* value object stability
+* callback stability
+* derived values
+* memoization correctness
+
+Find cases like:
+
+const value = {
+user,
+logout,
+login,
+settings
+}
+
+being recreated every render.
+
+Apply useMemo ONLY where proven necessary.
+
+Do NOT wrap unstable dependencies that still recreate every render.
+
+==================================================
+PHASE 3 — COMPONENT RENDER PROFILING
+====================================
+
+Audit major reusable components.
+
+Especially:
+
+Navbar
+Footer
+ProductCard
+ProductGrid
+CategoryStrip
+FlashSaleSection
+BestSellerSection
+FeaturedProducts
+SearchBar
+MobileDrawer
+Dialogs
+NotificationCenter
+ChatBubble
+MessageList
+OrderCard
+SellerCard
+Admin tables
+Dashboard widgets
+
+Measure:
+
+* render count
+* rerender causes
+* prop identity changes
+
+Apply React.memo ONLY where:
+
+* props are stable
+* component is expensive
+* rerender is unnecessary
+
+Do NOT memo tiny components with trivial render cost.
+
+Avoid over-memoization.
+
+==================================================
+PHASE 4 — CALLBACK STABILITY
+============================
+
+Audit every:
+
+onClick
+onChange
+onSubmit
+onRemove
+onDelete
+onAddToCart
+onFollow
+onSearch
+onFilter
+
+Find inline callbacks:
+
+onClick={() => ...}
+
+Determine whether they break memoization.
+
+Apply useCallback ONLY when:
+
+* callback is passed to memoized children
+* callback identity causes rerenders
+
+Do NOT wrap local event handlers that never leave the component.
+
+==================================================
+PHASE 5 — ARRAY / OBJECT STABILITY
+==================================
+
+Find objects and arrays recreated every render.
+
+Examples:
+
+const links = [...]
+const tabs = [...]
+const sortOptions = {...}
+const filters = [...]
+const columns = [...]
+
+Move to:
+
+useMemo(...)
+
+ONLY if identity affects child rerenders.
+
+Do NOT memo static constants that can simply live outside the component.
+
+Prefer module-level constants whenever possible.
+
+==================================================
+PHASE 6 — EXPENSIVE COMPUTATIONS
+================================
+
+Audit:
+
+map()
+filter()
+reduce()
+sort()
+grouping
+search
+derived totals
+cart calculations
+price calculations
+notification counts
+seller statistics
+dashboard summaries
+
+Find expensive computations executed every render.
+
+Cache using useMemo ONLY if:
+
+* computation is measurable
+* dependencies are stable
+
+Avoid stale-cache bugs.
+
+==================================================
+PHASE 7 — REACT QUERY ANALYSIS
+==============================
+
+Audit React Query usage.
+
+Verify:
+
+* stable query keys
+* no accidental object recreation
+* no duplicate queries
+* no unnecessary refetches
+* no unstable select callbacks
+* no provider recreating QueryClient
+
+Confirm:
+
+Home
+Products
+Settings
+Cart
+Notifications
+Orders
+Best Sellers
+
+do not rerender unnecessarily because of cache identity changes.
+
+==================================================
+PHASE 8 — FORM RENDER OPTIMIZATION
+==================================
+
+Audit all forms:
+
+Login
+Register
+Forgot Password
+Seller Application
+Create Product
+Edit Product
+Checkout
+Admin Forms
+
+Verify typing in one field does NOT rerender unrelated sections.
+
+Identify:
+
+* entire page rerenders
+* validation rerenders
+* preview rerenders
+* image uploader rerenders
+
+Optimize only proven bottlenecks.
+
+==================================================
+PHASE 9 — MOBILE (EXPO)
+=======================
+
+Audit React Native renders.
+
+Inspect:
+
+Home
+Product Detail
+Cart
+Orders
+Messages
+Notifications
+Profile
+
+Verify:
+
+FlatList item rerenders
+Header rerenders
+Footer rerenders
+Context cascades
+Navigation rerenders
+
+Use React.memo/useMemo/useCallback only where profiling proves benefit.
+
+==================================================
+PHASE 10 — VERIFICATION
+=======================
+
+Do NOT finish until ALL checks pass.
+
+Verify:
+
+✓ TypeScript = 0 errors.
+✓ No console errors.
+✓ No HMR issues.
+✓ No broken translations.
+✓ No broken RTL.
+✓ No broken navigation.
+✓ No broken forms.
+✓ No broken dialogs.
+✓ No broken cart.
+✓ No broken checkout.
+✓ No broken seller dashboard.
+✓ No broken admin dashboard.
+✓ No broken mobile app.
+
+Re-profile the application.
+
+Compare BEFORE vs AFTER.
+
+Report exactly:
+
+* every component optimized,
+* why it rerendered,
+* what change was applied,
+* measured render reduction,
+* why that optimization was safe.
+
+IMPORTANT:
+
+Do NOT invent performance improvements.
+
+Do NOT report theoretical gains.
+
+Only report optimizations that were actually measured and verified.
+
+Do NOT suggest any new features.
+
+Do NOT move to another optimization category.
+
+The task ends ONLY when React re-render profiling and elimination is completely finished and verified.

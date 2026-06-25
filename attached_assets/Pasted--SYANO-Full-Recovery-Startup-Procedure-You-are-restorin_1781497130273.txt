@@ -1,0 +1,284 @@
+# SYANO — Full Recovery & Startup Procedure
+
+You are restoring the SYANO (سوق سوريا) marketplace project from the recovery files.
+
+## CRITICAL FIRST STEP
+
+Before making any changes:
+
+Read ALL recovery and project state files completely:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md (if exists)
+* SESSION_NOTES.md (if exists)
+* ROADMAP.md (if exists)
+
+Do not skip any file.
+
+Build a complete understanding of:
+
+* architecture
+* current completion status
+* implemented systems
+* pending phases
+* known issues
+* recovery notes
+
+---
+
+# PROJECT OVERVIEW
+
+SYANO (سوق سوريا)
+
+A full Syria-wide marketplace platform containing:
+
+## Web Marketplace
+
+React
+TypeScript
+Vite
+TanStack Query
+Tailwind
+
+## Backend
+
+Express
+TypeScript
+PostgreSQL
+Drizzle ORM
+
+## Mobile
+
+Expo
+React Native
+TypeScript
+
+---
+
+# CURRENT ROADMAP STATUS
+
+Completed:
+
+✅ Phase 1 — Order Fulfillment Workflow V1
+
+✅ Phase 2 — Courier Operations Dashboard V2
+
+✅ Phase 3 — Seller Order Management V2
+
+✅ Phase 4 — Seller Analytics Dashboard V2
+
+✅ Phase 5 — Trust System V1
+
+✅ Phase 6 — Seller Store Pages V2
+
+✅ Phase 7 — Messaging V2
+
+In Progress:
+
+⏳ Phase 8 — Search & Discovery V2
+
+Remaining:
+
+⏳ Phase 9 — Follow System Expansion
+
+⏳ Phase 10 — Waitlist / Lead Capture
+
+⏳ Phase 11 — Launch Preparation
+
+⏳ Phase 12 — Performance & Scalability V1
+
+---
+
+# RESTORE DATABASE
+
+Verify:
+
+* PostgreSQL connection
+* Drizzle schema
+* migrations applied
+* seed data present
+
+Confirm:
+
+* products exist
+* stores exist
+* categories exist
+* users exist
+
+Do not reseed unless required.
+
+---
+
+# START SERVICES
+
+Verify and start:
+
+## Backend
+
+Expected:
+
+Port 8080
+
+Confirm:
+
+* API boots successfully
+* no startup errors
+* no migration failures
+
+---
+
+## Frontend
+
+Expected:
+
+Vite marketplace app starts
+
+Confirm:
+
+* homepage loads
+* routing works
+* no console errors
+
+---
+
+## Mobile
+
+Expected:
+
+Expo starts successfully
+
+Confirm:
+
+* Metro bundler runs
+* no TypeScript errors
+
+---
+
+# HEALTH CHECK
+
+Verify all major systems:
+
+## Authentication
+
+* login
+* register
+* logout
+
+## Marketplace
+
+* products
+* categories
+* stores
+
+## Cart
+
+* add item
+* remove item
+
+## Wishlist
+
+* works
+
+## Messaging
+
+* conversations
+* messages
+* unread counts
+
+## Notifications
+
+* loading
+* badge counts
+
+## Search
+
+* search suggestions
+* search results
+* shop page
+
+## Theme
+
+* light
+* dark
+
+## Language
+
+* Arabic
+* English
+
+## Currency
+
+* SYP
+* USD
+
+---
+
+# TYPESCRIPT
+
+Run complete project validation.
+
+Requirement:
+
+TypeScript = 0 errors
+
+Do not leave warnings unresolved if they affect functionality.
+
+---
+
+# RECOVERY VALIDATION REPORT
+
+After startup provide:
+
+## Services
+
+Backend:
+Running / Failed
+
+Frontend:
+Running / Failed
+
+Mobile:
+Running / Failed
+
+## Database
+
+Connected:
+Yes / No
+
+## Recovery Files
+
+Loaded:
+Yes / No
+
+## TypeScript
+
+Error count
+
+## Roadmap Status
+
+Current phase
+
+## Known Issues
+
+List any discovered issues
+
+---
+
+# IMPORTANT RULES
+
+* Do NOT redesign anything.
+* Do NOT modify UI.
+* Do NOT change architecture.
+* Do NOT begin new feature work.
+* Do NOT start Phase 8 tasks.
+* Only restore, verify, and start the project.
+* Preserve all existing functionality.
+* Preserve RTL.
+* Preserve translations.
+* Preserve recovery files.
+
+Goal:
+
+Return the project to the exact last known working state and confirm that all services are operational before any new development begins.

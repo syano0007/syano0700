@@ -1,0 +1,79 @@
+You are executing the Core Delivery & Checkout Integration Pipeline for SYANO (سوق سوريا).
+
+This is a production-grade multi-vendor digital marketplace.
+
+Do NOT break existing backend APIs or database schemas (44 tables).
+Do NOT break JWT token handling, existing order mutation controllers, or search pipelines.
+
+Preserve:
+- Full RTL (Arabic native) compliance across all screens.
+- Responsive design integrity (Vite 7 + React 19 + Tailwind v4 + Wouter).
+- Zero TypeScript errors across the entire repository.
+
+==================================================
+GOAL
+==================================================
+Establish a single source of truth for user delivery data. Seamlessly link the Map Location Selector, User Profile/Account Data, Cart Operations, and the Final Checkout Page Flow so that shipping zones, coordinates, and pricing rules sync instantly without regressions.
+
+==================================================
+PART 1 — GLOBAL LOCATION CONTEXT STATE (SINGLE SOURCE OF TRUTH)
+==================================================
+- Ensure a unified global React Context or state listener manages the user's selected location data layer.
+- This state object must capture:
+  * `latitude` (number | null)
+  * `longitude` (number | null)
+  * `zoneId` (number | null -> matching one of the 40 authenticated `delivery_zones`)
+  * `zoneName` (string | null)
+  * `formattedAddress` (string | null)
+- Hydration Rule: On application boot, initialize this state by reading the authenticated user's profile details (`users` table state). If a guest or no address is stored, fallback gracefully to the session cache or default Aleppo center context.
+
+==================================================
+PART 2 — LINKING MAP MODAL TO THE GLOBAL STATE
+==================================================
+- When the user confirms their location inside the Interactive Map Modal:
+  1. Update the global location context state immediately.
+  2. Sync the updated parameters instantly to the Navbar Location Button display text.
+  3. Execute a background update mutation to store these coordinates and `zoneId` inside the user's account database row so that it persists permanently.
+
+==================================================
+PART 3 — PROFILE & ACCOUNT PAGE SYNCHRONIZATION
+==================================================
+- Path: `/account` or `/profile`
+- The Address Management module on this page must subscribe directly to the global location context state.
+- When the global location changes via the navbar map modal, the form inputs on this page (Selected Zone Dropdown, exact coordinates indicator) must re-render and display the updated data instantly without requiring a manual page refresh.
+- Allow users to manually type sub-details (e.g., floor number, building, nearby landmark) which appends onto the core geographical location parameters safely.
+
+==================================================
+PART 4 — THE INTEGRATED CHECKOUT PAGE FLOW ("صفحة إتمام الطلب")
+==================================================
+- Path: `/checkout`
+- This page must pull delivery and shipping boundaries directly from the global location context state automatically.
+- UI Layout Architecture on Checkout:
+  1. Shipping Address Preview Box:
+     - Display the actively selected delivery zone name (e.g., "حلب، الجميلية") and the detailed address string prominently at the top.
+     - Add a "تعديل الموقع" (Edit Location) shortcut button right inside this box. Clicking this shortcut must trigger the exact same Map Modal overlay, allowing on-the-fly address modifications that instantly re-hydrate the checkout data fields.
+  2. Dynamic Shipping Fee Calculation:
+     - Read the dynamic shipping fee/delivery pricing rule mapped specifically to the currently active `zoneId` (from the `delivery_zones` table).
+     - Inject this fee directly into the Order Invoice Summary block dynamically.
+  3. Total Invoice Breakdown:
+     - Ensure the calculation formula computes perfectly in real-time:
+       Subtotal (مجموع المنتجات) + Delivery Fee (رسوم التوصيل) = Grand Total (الإجمالي الكلي).
+  4. Final Order Mutation Payload:
+     - When the user hits "إرسال الطلب" / "تأكيد الشراء", the checkout submit payload must explicitly pass the correct active `zoneId`, delivery coordinates, and final computed shipping fee parameters into the backend order creation controller.
+
+==================================================
+PART 5 — TAILWIND V4 & LOGICAL COMPLIANCE RULES
+==================================================
+- Write clean, precise Tailwind v4 markup.
+- Absolutely FORBID hardcoded left/right layout utility values (`ml-`, `mr-`, `pl-`, `pr-`, `left-`, `right-`).
+- Mandate logical properties globally to secure simultaneous Arabic (RTL) and English (LTR) interface accuracy (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`).
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Confirming a location on the Map Modal updates the Navbar button text and background database records simultaneously.
+✓ Navigating to `/account` shows the updated location coordinates and correct matching Aleppo delivery zone dropdown choice.
+✓ Entering `/checkout` automatically loads the active zone data, appends the precise shipping cost to the invoice total, and locks it to the final order dispatch payload.
+✓ Clicking "Edit Location" on checkout opens the map window, and changing the pin dynamically updates the checkout shipping fees on the fly.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend `artifacts/marketplace` framework directory tree.

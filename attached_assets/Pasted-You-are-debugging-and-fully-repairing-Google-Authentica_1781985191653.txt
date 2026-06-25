@@ -1,0 +1,295 @@
+You are debugging and fully repairing Google Authentication for the SYANO (سوق سوريا) production marketplace.
+
+This is NOT a feature implementation task.
+
+This is a full authentication audit, diagnosis, repair, and validation task.
+
+The Google login button was recently added but it is not working correctly.
+
+Your job is to identify the exact failure point and fix it completely.
+
+---
+
+# CRITICAL RULES
+
+Do NOT assume the problem.
+
+Do NOT blindly rewrite auth code.
+
+Do NOT replace existing auth architecture.
+
+Inspect first.
+
+Verify everything.
+
+Then repair only what is broken.
+
+---
+
+# PHASE 1 — FULL AUTH AUDIT
+
+Inspect all Google authentication related code.
+
+Find:
+
+* frontend login components
+* login modal
+* Google button component
+* auth hooks
+* auth providers
+* API routes
+* backend auth controllers
+* OAuth callbacks
+* session creation
+* JWT generation
+* user creation logic
+* user linking logic
+* environment variables
+* OAuth configuration
+
+Produce an internal diagnosis before changing anything.
+
+---
+
+# PHASE 2 — VERIFY GOOGLE CLOUD CONFIGURATION
+
+Verify compatibility with:
+
+* Google Identity Services
+* OAuth 2.0
+* Current Google APIs
+
+Check:
+
+GOOGLE_CLIENT_ID
+
+GOOGLE_CLIENT_SECRET
+
+Redirect URIs
+
+Authorized Origins
+
+Callback URLs
+
+Production URLs
+
+Replit URLs
+
+Domain configuration
+
+Detect any mismatch.
+
+---
+
+# PHASE 3 — TRACE THE FULL LOGIN FLOW
+
+Trace the complete path:
+
+User clicks Google Login
+
+↓
+
+Google popup appears
+
+↓
+
+User selects account
+
+↓
+
+Google returns credential
+
+↓
+
+Frontend receives token
+
+↓
+
+Backend validates token
+
+↓
+
+User account lookup
+
+↓
+
+User creation (if needed)
+
+↓
+
+Session creation
+
+↓
+
+Login success
+
+↓
+
+Redirect
+
+Verify every step.
+
+Find the exact failing step.
+
+---
+
+# PHASE 4 — BROWSER DEBUGGING
+
+Inspect:
+
+* Console errors
+* Network errors
+* Failed requests
+* OAuth popup errors
+* CORS errors
+* CSP errors
+* Invalid redirect errors
+* Invalid client errors
+* Token validation errors
+
+Do not ignore warnings.
+
+---
+
+# PHASE 5 — USER ACCOUNT HANDLING
+
+Verify:
+
+Existing users:
+
+* login works
+
+New users:
+
+* account creation works
+
+Repeated login:
+
+* links correctly
+
+Email collision:
+
+* handled safely
+
+No duplicate accounts created.
+
+---
+
+# PHASE 6 — SESSION VALIDATION
+
+After login verify:
+
+* user appears authenticated
+* navbar updates correctly
+* profile data loads
+* protected routes work
+* refresh persists session
+* logout works
+
+---
+
+# PHASE 7 — ENVIRONMENT VALIDATION
+
+Inspect:
+
+Secrets
+
+Environment variables
+
+Runtime variables
+
+Server startup logs
+
+Ensure:
+
+No missing keys
+
+No malformed values
+
+No incorrect URLs
+
+No development placeholders remain
+
+---
+
+# PHASE 8 — MOBILE COMPATIBILITY
+
+Verify:
+
+Desktop Chrome
+
+Desktop Firefox
+
+Desktop Edge
+
+Mobile browsers
+
+Ensure Google login works consistently.
+
+---
+
+# PHASE 9 — FIX ONLY VERIFIED ISSUES
+
+Do NOT perform speculative rewrites.
+
+Only fix confirmed failures.
+
+Preserve existing auth system.
+
+Preserve email/password login.
+
+Preserve current users.
+
+Preserve sessions.
+
+---
+
+# PHASE 10 — FINAL VALIDATION
+
+Before finishing:
+
+Perform a complete login test.
+
+Verify:
+
+✅ Google popup opens
+
+✅ Account selection works
+
+✅ Google returns credential
+
+✅ Backend validates token
+
+✅ User account exists or gets created
+
+✅ Session created
+
+✅ User becomes logged in
+
+✅ Navbar updates
+
+✅ Refresh keeps login
+
+✅ Logout works
+
+✅ No console errors
+
+✅ No network failures
+
+✅ No TypeScript errors
+
+---
+
+# REQUIRED OUTPUT
+
+After completion provide:
+
+1. Root cause found
+2. Files modified
+3. Exact fixes applied
+4. Validation results
+5. Remaining issues (if any)
+
+Do not stop at "Google button added".
+
+The task is only complete when Google login successfully works end-to-end.

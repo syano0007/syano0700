@@ -1,0 +1,508 @@
+SYANO — STORE REVIEW SYSTEM V1 (COMPLETE REVIEW LIFECYCLE)
+
+IMPORTANT
+
+This is NOT a new review system.
+
+The backend already exists.
+
+The seller_reviews table exists.
+
+The API exists.
+
+Validation exists.
+
+Delivery gate exists.
+
+Trust score integration exists.
+
+The problem is that customers currently have NO WAY to submit store reviews.
+
+Your task is to complete the entire review lifecycle and make Store Reviews a first-class production feature.
+
+Before changing anything:
+
+1. Run full recovery.
+2. Run Recovery Check.
+3. Verify confidenceScore = 100.
+4. Read all existing seller review routes.
+5. Read trustScore.ts.
+6. Read seller store page.
+7. Read order details pages.
+8. Read mobile order tracking screens.
+9. Audit current review flow.
+10. Only then implement.
+
+Do NOT create duplicate review systems.
+
+Extend the existing one.
+
+---
+
+GOAL
+
+After an order is delivered:
+
+Customer should be encouraged to review the seller.
+
+Review should affect:
+
+* Store rating
+* Trust score
+* Store page
+* Seller analytics
+* Seller dashboard
+
+The flow must feel like Amazon, Noon, Trendyol, Etsy, and Shopify marketplaces.
+
+---
+
+PART 1 — POST DELIVERY REVIEW PROMPT
+
+When:
+
+order.status == delivered
+
+Show:
+
+Review Your Seller
+
+inside:
+
+* Order Details page
+* Order Tracking page
+* Customer Orders page
+
+Priority:
+
+high visibility
+
+Example:
+
+★★★★★
+
+How was your experience with this seller?
+
+[ Leave Review ]
+
+Requirements:
+
+* elegant card
+* marketplace style
+* theme colors
+* RTL compatible
+* mobile friendly
+
+---
+
+PART 2 — REVIEW ELIGIBILITY
+
+Customer may review ONLY if:
+
+* order delivered
+* customer owns order
+* order belongs to seller
+
+Verify backend rules remain enforced.
+
+Frontend must show:
+
+Eligible
+Already Reviewed
+Not Yet Delivered
+
+states correctly.
+
+---
+
+PART 3 — REVIEW FORM
+
+Clicking Leave Review opens:
+
+Desktop:
+
+Modal
+
+Mobile:
+
+Bottom Sheet
+
+Fields:
+
+Communication
+
+★★★★★
+
+Shipping Experience
+
+★★★★★
+
+Professionalism
+
+★★★★★
+
+Comment (optional)
+
+Textarea
+
+Max 1000 chars
+
+Live counter
+
+Example:
+
+"Seller was very responsive and delivery was fast."
+
+Buttons:
+
+Cancel
+
+Submit Review
+
+---
+
+PART 4 — REVIEW SUBMISSION UX
+
+After submit:
+
+Show success animation.
+
+Update instantly:
+
+* Store rating
+* Review count
+* Trust score
+* Review list
+
+No refresh.
+
+No manual reload.
+
+Optimistic updates preferred.
+
+---
+
+PART 5 — STORE PAGE ENHANCEMENTS
+
+Current Reviews tab must become premium.
+
+Add:
+
+Review summary card
+
+Example:
+
+4.8 ★
+
+Based on 143 reviews
+
+Communication 4.9
+
+Shipping 4.7
+
+Professionalism 4.8
+
+with progress bars.
+
+---
+
+PART 6 — REVIEW LIST
+
+Each review card:
+
+Avatar
+
+Customer display name
+
+Review date
+
+3 ratings
+
+Comment
+
+Example:
+
+Communication ★★★★★
+
+Shipping ★★★★☆
+
+Professionalism ★★★★★
+
+Verified Purchase badge
+
+Must look premium.
+
+---
+
+PART 7 — VERIFIED PURCHASE BADGE
+
+Every store review originating from delivered orders:
+
+Display:
+
+Verified Purchase
+
+badge.
+
+Trust-building feature.
+
+Must appear:
+
+* Store page
+* Seller dashboard review list
+
+---
+
+PART 8 — SELLER DASHBOARD
+
+Create seller review analytics section.
+
+Metrics:
+
+Average Rating
+
+Review Count
+
+Rating Trend
+
+Communication Avg
+
+Shipping Avg
+
+Professionalism Avg
+
+Newest Reviews
+
+Low Reviews (<3 stars)
+
+Seller can monitor reputation.
+
+---
+
+PART 9 — SELLER ANALYTICS INTEGRATION
+
+Extend Analytics Dashboard V2.
+
+Add:
+
+Store Reputation section.
+
+Charts:
+
+Rating Trend
+
+Review Growth
+
+Review Distribution
+
+Trust Impact
+
+Top positive reviews
+
+Recent critical reviews
+
+---
+
+PART 10 — TRUST SYSTEM INTEGRATION
+
+Verify trustScore.ts.
+
+Ensure:
+
+Store rating comes ONLY from seller_reviews.
+
+Never from product reviews.
+
+Verify:
+
+Communication
+Shipping
+Professionalism
+
+are used correctly.
+
+Audit all formulas.
+
+Fix any inconsistencies.
+
+---
+
+PART 11 — MOBILE IMPLEMENTATION
+
+Expo app must support:
+
+Review Prompt
+
+Review Form
+
+Review List
+
+Review Summary
+
+Verified Purchase badge
+
+Same experience as web.
+
+No degraded implementation.
+
+---
+
+PART 12 — EDGE CASES
+
+Handle:
+
+Already reviewed
+
+Deleted order
+
+Unauthorized review
+
+Duplicate review
+
+Seller reviewing self
+
+Missing seller
+
+Missing order
+
+Graceful UI everywhere.
+
+---
+
+PART 13 — UI QUALITY
+
+Target quality:
+
+Amazon
+
+Noon
+
+Trendyol
+
+Shopify
+
+Etsy
+
+No admin-style forms.
+
+No plain stars.
+
+Use premium reusable components.
+
+Accessible.
+
+Keyboard friendly.
+
+RTL perfect.
+
+Mobile perfect.
+
+---
+
+PART 14 — RECOVERY CHECK INTEGRATION (MANDATORY)
+
+This feature MUST be added to:
+
+GET /api/admin/recovery-check
+
+Create:
+
+reviewSystem
+
+module.
+
+Verify:
+
+seller_reviews table
+
+review API
+
+delivery gate
+
+review prompt visibility
+
+verified purchase logic
+
+store rating separation
+
+trust integration
+
+seller analytics integration
+
+mobile screen presence
+
+Review UI components
+
+Review routes
+
+Review hooks
+
+Review form
+
+Review summary
+
+Review list
+
+Review badge
+
+Recovery Check must fail if any critical piece is missing.
+
+Weight:
+
+5
+
+Update:
+
+Promise.all
+
+sections
+
+roadmap
+
+module list
+
+documentation
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+---
+
+FINAL VALIDATION
+
+Verify:
+
+✅ Customer sees review prompt
+
+✅ Review modal works
+
+✅ Review saved
+
+✅ Verified Purchase badge appears
+
+✅ Store rating updates
+
+✅ Trust score updates
+
+✅ Seller dashboard updates
+
+✅ Analytics updates
+
+✅ Mobile works
+
+✅ RTL works
+
+✅ TypeScript = 0
+
+✅ Recovery Check = 100
+
+✅ reviewSystem module passing
+
+Only finish when the entire review lifecycle is production-ready.

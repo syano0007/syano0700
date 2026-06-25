@@ -1,0 +1,586 @@
+SYANO — STORE SETTINGS V4 + STORE PAGE CONSISTENCY
+
+CRITICAL:
+
+DO NOT redesign from scratch.
+
+DO NOT invent your own UI.
+
+DO NOT simplify.
+
+DO NOT approximate.
+
+The attached reference images are the source of truth.
+
+Your job is to reproduce the visual structure, UX hierarchy, spacing philosophy, and behavior shown in the reference images as closely as possible while preserving SYANO design language.
+
+==================================================
+PRIMARY OBJECTIVE
+=================
+
+Transform Store Settings and related Store Trust presentation into the exact experience demonstrated in the provided reference images.
+
+Target quality:
+
+Shopify
+Stripe Dashboard
+Linear
+Notion
+Amazon Seller Central
+
+but visually aligned with SYANO.
+
+==================================================
+PART 1 — CARD NAVIGATION REDESIGN
+=================================
+
+Current implementation is not good enough.
+
+Replace current navigation with:
+
+Desktop:
+
+Large card grid.
+
+Each section becomes a premium card.
+
+Example:
+
+General
+
+Branding
+
+Contact
+
+Policies
+
+SEO
+
+Trust
+
+Store Health
+
+Advanced
+
+Requirements:
+
+* equal card sizes
+* premium spacing
+* rounded-xl
+* hover animation
+* subtle shadow
+* icon + title + description
+* clear active state
+
+Cards must look exactly like the reference.
+
+NOT tabs.
+
+NOT tiny buttons.
+
+NOT dashboard pills.
+
+---
+
+Mobile:
+
+Use the same card philosophy.
+
+NOT horizontal text tabs.
+
+NOT tiny chips.
+
+NOT desktop tabs squeezed onto mobile.
+
+Use responsive card grid:
+
+2 columns
+
+comfortable spacing
+
+large touch targets
+
+thumb-friendly
+
+==================================================
+PART 2 — DROPDOWN BUG FIX
+=========================
+
+The analytics date-range dropdown currently renders incorrectly.
+
+The issue visible in screenshots MUST be fixed.
+
+Requirements:
+
+* proper z-index
+* proper RTL alignment
+* no clipping
+* no overflow issues
+* works on desktop
+* works on mobile
+* works in dialogs
+* works inside cards
+
+Audit ALL dropdowns platform-wide.
+
+Not just analytics.
+
+==================================================
+PART 3 — VISUAL IDENTITY COLOR
+==============================
+
+Current highlight color is inconsistent.
+
+Audit entire seller experience:
+
+Dashboard
+
+Analytics
+
+Orders
+
+Products
+
+Store Settings
+
+Store Page
+
+Trust Page
+
+Messages
+
+Inventory
+
+Apply SYANO accent color consistently.
+
+Examples:
+
+active cards
+
+active tabs
+
+progress bars
+
+toggles
+
+focus rings
+
+selected states
+
+badges
+
+trust indicators
+
+completion indicators
+
+buttons
+
+links
+
+==================================================
+PART 4 — TRUST SYSTEM UNIFICATION
+=================================
+
+Current trust presentation is inconsistent.
+
+This is unacceptable.
+
+Every place showing trust must use:
+
+same score
+
+same calculations
+
+same terminology
+
+same labels
+
+same level
+
+same colors
+
+same breakdown
+
+same progress
+
+same badge state
+
+Audit:
+
+Trust page
+
+Store page
+
+Store settings
+
+Seller dashboard
+
+Store cards
+
+Store header
+
+Recovery check
+
+Admin panels
+
+---
+
+Current bug:
+
+New seller receives delivery score despite no deliveries.
+
+This MUST NEVER happen.
+
+Rules:
+
+No completed deliveries:
+
+delivery success = 0
+
+No reviews:
+
+review score = 0
+
+No orders:
+
+order score = 0
+
+Everything starts honestly at zero.
+
+No fake points.
+
+No assumptions.
+
+No hidden bonuses.
+
+==================================================
+PART 5 — TRUST EXPLANATION
+==========================
+
+Current trust system is not self-explanatory.
+
+Redesign trust section.
+
+Show:
+
+Current score
+
+Current level
+
+Exact breakdown
+
+Maximum points
+
+Current points
+
+How to improve
+
+Progress toward next level
+
+Example:
+
+Completed Orders
+
+12 / 30
+
+Need 18 more points
+
+---
+
+Every metric must be understandable.
+
+No mystery scoring.
+
+==================================================
+PART 6 — STORE PAGE IMPROVEMENTS
+================================
+
+Store page must include:
+
+Contact tab
+
+Policies tab
+
+only when data exists.
+
+---
+
+Contact tab:
+
+Phone
+
+Email
+
+Website
+
+WhatsApp
+
+Telegram
+
+Facebook
+
+Instagram
+
+---
+
+Policies tab:
+
+Shipping Policy
+
+Return Policy
+
+Warranty Policy
+
+Privacy Policy
+
+---
+
+Presentation must match reference images.
+
+Professional cards.
+
+Readable.
+
+Mobile optimized.
+
+==================================================
+PART 7 — STORE NAME VISIBILITY
+==============================
+
+Current bug:
+
+Store name can become truncated on mobile.
+
+Requirements:
+
+Store name visible completely whenever possible.
+
+Smart wrapping.
+
+Responsive scaling.
+
+No ugly clipping.
+
+No broken ellipsis.
+
+Must work for:
+
+Arabic names
+
+English names
+
+Long names
+
+Mixed names
+
+==================================================
+PART 8 — STORE COMPLETION EXPERIENCE
+====================================
+
+Completion banner must match reference.
+
+Show:
+
+Completion %
+
+Missing fields
+
+Completion progress
+
+Direct shortcuts
+
+Example:
+
+Missing:
+
+Logo
+
+Banner
+
+Shipping Policy
+
+WhatsApp
+
+SEO Description
+
+---
+
+Clicking item navigates directly to section.
+
+==================================================
+PART 9 — HEALTH SCORE REDESIGN
+==============================
+
+Store Health page should be actionable.
+
+Each missing item displays:
+
+Current state
+
+Improvement value
+
+Points gained
+
+Fix action
+
+Example:
+
+Add Banner
+
++5 points
+
+[Fix Now]
+
+---
+
+Must feel like a checklist.
+
+==================================================
+PART 10 — RESPONSIVE AUDIT
+==========================
+
+Audit ALL seller pages.
+
+Fix:
+
+edge touching
+
+insufficient padding
+
+broken grids
+
+overflow
+
+clipped text
+
+mobile spacing
+
+tablet spacing
+
+desktop spacing
+
+---
+
+No content may touch screen edges.
+
+==================================================
+PART 11 — ANIMATIONS
+====================
+
+Add subtle premium motion:
+
+hover
+
+active
+
+completion progress
+
+card selection
+
+section transitions
+
+No excessive animation.
+
+==================================================
+PART 12 — RECOVERY CHECK INTEGRATION
+====================================
+
+Mandatory.
+
+Extend:
+
+GET /api/admin/recovery-check
+
+Add new module:
+
+storeSettingsV4
+
+Validate:
+
+card navigation
+
+trust consistency
+
+store completion
+
+contact tab
+
+policies tab
+
+trust calculations
+
+mobile responsiveness checks
+
+dropdown fixes
+
+visual identity consistency
+
+store name visibility
+
+---
+
+Recovery score must fail if:
+
+trust calculations diverge
+
+contact tab breaks
+
+policies tab breaks
+
+store settings sections missing
+
+dropdown bug returns
+
+==================================================
+PART 13 — VALIDATION
+====================
+
+After implementation verify:
+
+Desktop
+
+Tablet
+
+Mobile
+
+RTL
+
+Arabic
+
+English
+
+Dark mode
+
+Light mode
+
+Recovery Check
+
+TypeScript
+
+Store Page
+
+Store Settings
+
+Trust Page
+
+Seller Dashboard
+
+---
+
+Required outcome:
+
+TypeScript = 0 errors
+
+Recovery Check = 100/100
+
+Store Settings V4 visually matches reference images
+
+Trust system fully unified
+
+No regressions
+
+No placeholders
+
+No unfinished UI
+
+Build production-quality implementation only.

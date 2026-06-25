@@ -1,0 +1,508 @@
+COURIER V3.3 — PHASE A6
+
+REAL ROAD ROUTING ENGINE (OSRM)
+
+IMPORTANT
+
+Before doing any work:
+
+Read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* project.manifest.json
+* replit.md
+
+Verify:
+
+* API Server healthy
+* Marketplace healthy
+* Embedding Service healthy
+* Mobile healthy
+
+DO NOT create workflows.
+DO NOT create previews.
+DO NOT create duplicate services.
+
+Use existing architecture only.
+
+---
+
+GOAL
+
+Phase A5 already provides:
+
+* Live courier tracking
+* Leaflet map
+* ETA V2
+* GPS tracking
+* Timeline
+* Customer tracking page
+* Seller tracking page
+
+Current limitation:
+
+ETA uses Haversine approximation.
+
+Current route visualization uses straight lines.
+
+This is NOT acceptable for production launch.
+
+Build a real routing layer using:
+
+OSRM
+
+(Open Source Routing Machine)
+
+No Google Maps.
+No Mapbox paid APIs.
+No API keys.
+
+---
+
+TARGET RESULT
+
+Customer sees:
+
+Real road route
+
+Courier position
+
+Real road distance
+
+Real ETA
+
+Road polyline
+
+Seller sees:
+
+Same
+
+Admin sees:
+
+Same
+
+Courier will later use this route engine for navigation.
+
+---
+
+A6.1
+
+OSRM SERVICE
+
+Create:
+
+osrmService.ts
+
+Responsibilities:
+
+* request routes
+* request distance
+* request duration
+* request geometry
+
+Base URL:
+
+https://router.project-osrm.org
+
+Use:
+
+/route/v1/driving
+
+---
+
+A6.2
+
+ROUTE RESPONSE MODEL
+
+Create:
+
+RouteData
+
+{
+distanceMeters,
+durationSeconds,
+geometry,
+source,
+destination
+}
+
+---
+
+A6.3
+
+GEOMETRY DECODING
+
+Convert OSRM geometry into:
+
+Leaflet-compatible coordinates
+
+Output:
+
+[
+[lat,lng],
+[lat,lng]
+]
+
+Must be reusable.
+
+---
+
+A6.4
+
+ETA ENGINE V3
+
+Replace Haversine ETA.
+
+Current:
+
+distance / average speed
+
+Replace with:
+
+OSRM duration
+
+Rules:
+
+Not picked up:
+
+Courier
+→ Store
+
+Store
+→ Customer
+
+Pickup complete:
+
+Courier
+→ Customer
+
+Output:
+
+{
+distanceRemainingKm,
+etaMinutes,
+confidence
+}
+
+Confidence:
+
+HIGH
+
+when OSRM succeeds
+
+MEDIUM
+
+when fallback used
+
+---
+
+A6.5
+
+FAILSAFE MODE
+
+OSRM can fail.
+
+When OSRM unavailable:
+
+Fallback automatically to:
+
+ETA V2
+
+Current Haversine engine
+
+Never break tracking page.
+
+Never return 500.
+
+---
+
+A6.6
+
+ROUTE CACHE
+
+Avoid hitting OSRM every refresh.
+
+Create:
+
+routeCacheService.ts
+
+TTL:
+
+60 seconds
+
+Cache key:
+
+missionId
+
+Store:
+
+geometry
+distance
+duration
+
+---
+
+A6.7
+
+TRACKING API ENRICHMENT
+
+Extend:
+
+GET /api/tracking/:missionId
+
+Return:
+
+{
+route,
+routeDistanceKm,
+routeDurationMinutes,
+geometry,
+...
+}
+
+---
+
+A6.8
+
+TRACKING MAP UPGRADE
+
+Current map:
+
+straight line
+
+Replace with:
+
+real road polyline
+
+Render:
+
+Courier
+
+Store
+
+Customer
+
+Actual road path
+
+Use:
+
+emerald route line
+
+Weight:
+
+5
+
+Opacity:
+
+0.9
+
+---
+
+A6.9
+
+LIVE ROUTE REFRESH
+
+Do NOT request OSRM every 5 seconds.
+
+Rules:
+
+Courier moved >100m
+
+OR
+
+Cache expired
+
+THEN:
+
+recalculate route
+
+Otherwise:
+
+reuse cached route
+
+---
+
+A6.10
+
+CUSTOMER EXPERIENCE
+
+Tracking page must show:
+
+Distance Remaining
+
+ETA
+
+Route Status
+
+Road Route
+
+Examples:
+
+4.8 km remaining
+
+12 min ETA
+
+Courier heading to pickup
+
+---
+
+A6.11
+
+SELLER EXPERIENCE
+
+Same route view
+
+Same ETA
+
+Same distance
+
+---
+
+A6.12
+
+ADMIN ROUTE DIAGNOSTICS
+
+Create:
+
+/admin/routing
+
+Purpose:
+
+Debug routing engine
+
+Inputs:
+
+Lat/Lng A
+
+Lat/Lng B
+
+Outputs:
+
+Distance
+
+Duration
+
+Geometry
+
+Map preview
+
+OSRM response time
+
+Cache hit/miss
+
+Admin only.
+
+---
+
+A6.13
+
+MOBILE APP
+
+Expo tracking page must use:
+
+same route data
+
+same ETA
+
+same geometry
+
+same distance
+
+No degraded experience.
+
+---
+
+A6.14
+
+PERFORMANCE
+
+OSRM requests must not:
+
+block UI
+
+block tracking updates
+
+block courier location updates
+
+Use async architecture.
+
+---
+
+A6.15
+
+SECURITY
+
+No external route requests from browser.
+
+Browser must only call:
+
+SYANO API
+
+OSRM requests only from backend.
+
+---
+
+A6.16
+
+VALIDATION
+
+Create full test route:
+
+Courier
+→ Store
+→ Customer
+
+Verify:
+
+✓ geometry returned
+
+✓ polyline displayed
+
+✓ ETA realistic
+
+✓ distance realistic
+
+✓ cache works
+
+✓ fallback works
+
+✓ mobile works
+
+✓ seller works
+
+✓ customer works
+
+✓ admin diagnostics works
+
+✓ TypeScript = 0 errors
+
+---
+
+DOCUMENTATION
+
+After completion update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+
+Include:
+
+A6 completed
+
+OSRM architecture
+
+Fallback architecture
+
+Cache architecture
+
+Validation results
+
+Do not mark complete unless every validation passes.

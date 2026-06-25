@@ -1,0 +1,360 @@
+# SYANO — FULL SYSTEM ACTIVATION & REAL-WORLD VERIFICATION
+
+Before building ANY new feature, perform a COMPLETE SYSTEM ACTIVATION and END-TO-END VERIFICATION of the entire SYANO platform.
+
+Goal:
+
+I want to perform real manual testing of the marketplace.
+
+Every major system must be:
+
+* running
+* reachable
+* visible
+* functional
+* verified
+
+No assumptions.
+
+No code-only validation.
+
+No "it should work".
+
+Everything must be tested from the actual UI.
+
+---
+
+# CRITICAL REQUIREMENT
+
+If any feature exists but is hidden, inaccessible, disconnected, not routed, not mounted, not visible, or not testable:
+
+FIX IT.
+
+Do not leave dormant systems.
+
+---
+
+# PHASE S1 — SYSTEM INVENTORY
+
+Create a full inventory of every implemented system.
+
+Include:
+
+Marketplace Core
+Seller Systems
+Customer Systems
+Courier Systems
+Wallet Systems
+Tracking Systems
+Admin Systems
+Variant Systems
+Search Systems
+Store Systems
+Messaging Systems
+Maps
+Embeddings
+AI Features
+Analytics
+Trust Systems
+Notifications
+
+For each:
+
+* Exists?
+* Visible?
+* Routed?
+* Working?
+* Testable?
+
+---
+
+# PHASE S2 — ROUTING AUDIT
+
+Verify every page is reachable.
+
+Check:
+
+Customer Pages
+Seller Pages
+Courier Pages
+Admin Pages
+
+Find:
+
+404s
+Hidden pages
+Orphan routes
+Unlinked screens
+Unreachable workflows
+
+Fix everything.
+
+---
+
+# PHASE S3 — EMBEDDING AUDIT
+
+Previous agents repeatedly failed to expose embedding systems.
+
+Audit:
+
+* embedding services
+* vector services
+* AI search
+* recommendation engines
+* semantic search
+* ranking systems
+
+Verify:
+
+1. Service exists
+2. Service starts
+3. Service reachable
+4. Connected to APIs
+5. Connected to UI
+
+If not:
+
+fix immediately.
+
+---
+
+# PHASE S4 — MAP SYSTEM AUDIT
+
+Verify ALL maps.
+
+Customer Tracking Map
+Courier Workspace Map
+Admin Courier Map
+Routing Diagnostics Map
+
+Check:
+
+* renders
+* markers appear
+* coordinates update
+* routes draw
+* OpenStreetMap loads
+* Leaflet loads
+* no console errors
+
+Verify visually.
+
+---
+
+# PHASE S5 — SELLER TEST
+
+Create real seller workflow:
+
+Create Product
+
+with:
+
+Variants
+Images
+Prices
+Stock
+Discount
+
+Publish.
+
+Verify:
+
+Product appears publicly.
+
+---
+
+# PHASE S6 — CUSTOMER TEST
+
+Create real customer workflow:
+
+Browse
+Search
+Open Product
+Choose Variant
+Add To Cart
+Checkout
+
+Verify:
+
+Order created.
+
+---
+
+# PHASE S7 — COURIER TEST
+
+Verify:
+
+Mission Offer
+Accept
+Navigate
+Pickup
+Delivery
+Completion
+
+Verify:
+
+tracking updates
+GPS updates
+wallet updates
+
+---
+
+# PHASE S8 — WALLET TEST
+
+Verify:
+
+earnings added
+wallet updates
+transactions created
+payout request works
+admin approval works
+
+---
+
+# PHASE S9 — TRACKING TEST
+
+Verify:
+
+Customer sees courier.
+
+Seller sees courier.
+
+Admin sees courier.
+
+Courier sees route.
+
+Verify route updates live.
+
+---
+
+# PHASE S10 — ADMIN TEST
+
+Verify:
+
+Dashboard
+Orders
+Products
+Couriers
+Tracking
+Payouts
+Variants
+
+Everything visible.
+
+Everything reachable.
+
+---
+
+# PHASE S11 — CONSOLE AUDIT
+
+Open:
+
+Marketplace
+Admin
+Seller
+Courier
+
+Inspect:
+
+Console
+Network
+
+Fix:
+
+Errors
+Warnings
+Failed requests
+
+---
+
+# PHASE S12 — PERFORMANCE AUDIT
+
+Verify:
+
+API startup
+
+Marketplace startup
+
+Map startup
+
+Tracking startup
+
+Embedding startup
+
+No broken services.
+
+---
+
+# PHASE S13 — FINAL REPORT
+
+Produce:
+
+## Working Systems
+
+List every verified system.
+
+## Broken Systems
+
+List every remaining issue.
+
+## Hidden Systems Activated
+
+List pages/features that existed but were unreachable and are now accessible.
+
+## Embedding Status
+
+Explain exactly:
+
+* what embedding model runs
+* where it runs
+* what uses it
+* how it was verified
+
+## Maps Status
+
+Explain:
+
+* which maps work
+* which routes work
+* which markers work
+
+## Manual Testing URLs
+
+Provide direct URLs for:
+
+Customer
+Seller
+Courier
+Admin
+Tracking
+Wallet
+Variants
+Maps
+Embeddings
+Diagnostics
+
+---
+
+# SUCCESS CRITERIA
+
+The project must be fully testable by a human without touching code.
+
+I should be able to manually test:
+
+* customer
+* seller
+* courier
+* admin
+* wallet
+* tracking
+* variants
+* maps
+* embeddings
+
+through the actual UI.
+
+Do not stop at code review.
+
+Do not stop at API testing.
+
+Verify everything visually and functionally.

@@ -1,0 +1,391 @@
+Perform a COMPLETE enterprise-grade CHECKOUT, PAYMENT, and ORDER EXPERIENCE transformation across the entire Syano marketplace platform. Treat this as a world-class ecommerce conversion and transaction system inspired by Amazon, Noon, Shopify, Apple Store, and modern high-converting marketplaces.
+
+The checkout and order experience is now one of the MOST CRITICAL parts of the entire platform.
+
+The goal is to maximize:
+- completed purchases
+- customer trust
+- checkout speed
+- mobile usability
+- order clarity
+- transaction confidence
+- conversion rates
+
+The final experience must feel:
+- ultra smooth
+- trustworthy
+- premium
+- modern
+- fast
+- mobile-first
+- native-app-like
+- enterprise-grade
+
+==================================================
+CORE OBJECTIVE
+==================================================
+
+Transform the entire purchase flow into a frictionless premium ecommerce experience.
+
+Customers must be able to:
+- checkout quickly
+- understand costs clearly
+- trust payments
+- track orders easily
+- receive realtime updates
+- complete purchases comfortably on mobile
+
+The experience must feel:
+- safe
+- smooth
+- organized
+- responsive
+- professional
+
+==================================================
+GLOBAL CHECKOUT EXPERIENCE
+==================================================
+
+Rebuild the complete checkout flow professionally.
+
+Requirements:
+- streamlined checkout UX
+- minimal friction
+- clean step hierarchy
+- responsive layouts
+- clear pricing
+- delivery information
+- order summary visibility
+- fast interactions
+- realtime validation
+- graceful error handling
+
+The checkout flow must feel:
+- instant
+- modern
+- premium
+- conversion optimized
+
+==================================================
+MOBILE-FIRST CHECKOUT
+==================================================
+
+Mobile checkout is the HIGHEST PRIORITY.
+
+Requirements:
+- thumb-friendly interactions
+- large touch targets
+- sticky order summary if beneficial
+- responsive forms
+- lightweight rendering
+- smooth keyboard behavior
+- optimized spacing
+- instant feedback
+
+Ensure:
+- no broken layouts
+- no hidden buttons
+- no overflow
+- no lag
+- no frustrating forms
+
+The mobile checkout should feel like:
+- a premium native shopping app
+
+==================================================
+ORDER SUMMARY EXPERIENCE
+==================================================
+
+Build a premium order summary system.
+
+Display clearly:
+- products
+- quantities
+- seller information
+- delivery fees
+- discounts
+- subtotal
+- total price
+- estimated delivery
+- payment method
+
+Ensure:
+- transparent pricing
+- clear hierarchy
+- responsive rendering
+
+==================================================
+CUSTOMER INFORMATION FLOW
+==================================================
+
+Optimize customer information collection professionally.
+
+Requirements:
+- full name
+- phone number
+- detailed address
+- city/location
+- optional delivery notes
+- smart validation
+- realtime formatting
+- autofill support where beneficial
+
+The form experience must feel:
+- effortless
+- fast
+- clean
+
+==================================================
+PAYMENT EXPERIENCE
+==================================================
+
+Build a secure and professional payment architecture.
+
+Requirements:
+- COD support (critical for Syria)
+- future online payment readiness
+- secure payment handling
+- clear payment instructions
+- payment confirmation states
+- failed payment handling
+- payment status tracking
+
+The payment flow must feel:
+- safe
+- trustworthy
+- professional
+
+==================================================
+ORDER CREATION FLOW
+==================================================
+
+Optimize order creation and confirmation.
+
+Requirements:
+- instant order creation
+- responsive loading states
+- realtime order confirmation
+- smooth success screens
+- automatic notification triggering
+- proper stock updates
+- order persistence
+
+Customers must instantly understand:
+- order status
+- next steps
+- expected delivery process
+
+==================================================
+ORDER TRACKING SYSTEM
+==================================================
+
+Implement a COMPLETE modern order tracking experience.
+
+Requirements:
+- realtime order statuses
+- order timeline/progress
+- processing states
+- shipping states
+- delivery states
+- cancellation states
+- refund states
+- notification integration
+
+The tracking experience must feel:
+- modern
+- reassuring
+- transparent
+
+==================================================
+SELLER & ADMIN ORDER FLOWS
+==================================================
+
+Integrate seller/admin workflows deeply.
+
+Requirements:
+- seller order acceptance/rejection
+- processing updates
+- delivery status updates
+- refund management
+- admin intervention support
+- dispute handling
+
+All actions must trigger:
+- realtime updates
+- push notifications
+- status synchronization
+
+==================================================
+CART EXPERIENCE OPTIMIZATION
+==================================================
+
+Deeply optimize the cart system.
+
+Requirements:
+- smooth quantity editing
+- realtime total updates
+- seller grouping if applicable
+- clear pricing
+- stock validation
+- persistent cart state
+- mobile optimization
+
+Ensure:
+- no lag
+- no inconsistent totals
+- no broken calculations
+
+==================================================
+DELIVERY & SHIPPING EXPERIENCE
+==================================================
+
+Improve delivery clarity professionally.
+
+Requirements:
+- estimated delivery visibility
+- delivery methods
+- shipping costs
+- city/location handling
+- order note support
+- future delivery scalability
+
+Customers must clearly understand:
+- where the order goes
+- when it arrives
+- how delivery works
+
+==================================================
+PERFORMANCE OPTIMIZATION
+==================================================
+
+The checkout and order system must remain:
+- extremely fast
+- lightweight
+- stable
+- scalable
+
+Optimize:
+- cart rendering
+- checkout rendering
+- order APIs
+- realtime updates
+- mobile interactions
+- form validation
+- state management
+
+Ensure smooth behavior on:
+- weak Syrian internet
+- low-end Android devices
+- low RAM phones
+
+==================================================
+ERROR HANDLING & UX
+==================================================
+
+Implement professional failure handling.
+
+Requirements:
+- graceful API failure handling
+- retry mechanisms
+- validation messaging
+- stock conflict handling
+- payment failure handling
+- connectivity issue handling
+
+Errors must feel:
+- helpful
+- non-scary
+- professional
+
+==================================================
+SECURITY & TRUST
+==================================================
+
+Improve checkout trust dramatically.
+
+Requirements:
+- secure checkout messaging
+- protected order flows
+- safe validation
+- abuse prevention
+- anti-spam protections
+- trusted visual indicators
+
+Customers must feel:
+- safe purchasing
+- protected
+- confident
+
+==================================================
+RTL & ARABIC OPTIMIZATION
+==================================================
+
+Ensure perfect Arabic RTL checkout experience.
+
+Requirements:
+- Arabic-friendly forms
+- RTL alignment
+- localized phone formatting
+- proper Arabic typography
+- responsive Arabic rendering
+
+Arabic UX must feel:
+- native
+- polished
+- premium
+
+==================================================
+LOADING STATES & PERCEIVED PERFORMANCE
+==================================================
+
+Improve perceived speed dramatically.
+
+Implement:
+- skeleton loaders
+- smooth transitions
+- optimistic updates
+- graceful loading states
+- instant-feeling interactions
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically detect and fix:
+- broken checkout flows
+- incorrect totals
+- hidden buttons
+- mobile overflow
+- failed validations
+- notification sync issues
+- order state inconsistencies
+- slow rendering
+- RTL bugs
+- performance bottlenecks
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test complete checkout flow
+- test cart functionality
+- test order creation
+- test seller order management
+- test admin order management
+- test realtime notifications
+- test mobile checkout UX
+- test weak internet conditions
+- test low-end Android devices
+- test Arabic RTL rendering
+- verify no hidden controls
+- verify no broken calculations
+- verify no console errors
+- verify smooth performance everywhere
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class ecommerce checkout system
+- a premium mobile-first ordering experience
+- highly optimized for conversions
+- trustworthy and professional
+- enterprise-grade and production-ready

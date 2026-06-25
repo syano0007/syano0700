@@ -1,0 +1,112 @@
+You are an expert Staff Backend Engineer specializing in Advanced PostgreSQL Full-Text Search, Arabic Natural Language Processing (NLP), and High-Performance E-commerce Architectures.
+
+Your task is to implement/upgrade the complete Search and Discovery Backend Engine for "SYANO" (سوق سوريا), an operational multi-vendor marketplace built using Node.js, Express, TypeScript, Drizzle ORM, and PostgreSQL.
+
+Implement two comprehensive, production-ready router endpoints inside `/api/search.ts`:
+1. GET `/api/search/suggestions?q=<term>` -> Returns { suggestions: string[], categories: any[], stores: any[], trending: string[] } (Strictly ZERO product cards, zero prices).
+2. GET `/api/search/results` -> Returns paginated, sorted, and filtered product results based on parsed intent, keywords, and dialect mappings.
+
+### I. THE COMPLETE SYRIAN DIALECT & INTENT DICTIONARY
+Embed this exact dictionary directly into the search processing pipeline to map colloquial Syrian terms to standard database fields, tags, and categories:
+
+const SYRIAN_DIALECT_DICTIONARY: Record<string, { category: string; keywords: string[] }> = {
+  // Shoes
+  "بواط": { category: "shoes", keywords: ["أحذية", "أحذية رياضية", "بوط", "سناكرز"] },
+  "بوط": { category: "shoes", keywords: ["أحذية", "أحذية رياضية", "سبور"] },
+  "شحاطات": { category: "shoes", keywords: ["أحذية", "شحاطة", "صنادل", "نعال"] },
+  "شحاطة": { category: "shoes", keywords: ["أحذية", "شحاطة", "صندل"] },
+  "صباط": { category: "shoes", keywords: ["أحذية", "أحذية رسمية", "كندرة"] },
+  "صبابيط": { category: "shoes", keywords: ["أحذية", "أحذية رسمية"] },
+  "كندرة": { category: "shoes", keywords: ["أحذية", "أحذية رسمية", "كعب عالي"] },
+  "كنادر": { category: "shoes", keywords: ["أحذية", "أحذية رسمية"] },
+  "جزمة": { category: "shoes", keywords: ["أحذية", "جزمات", "بوط شتوي", "أحذية طويلة"] },
+  "جزم": { category: "shoes", keywords: ["أحذية", "جزمات"] },
+  "بابوج": { category: "shoes", keywords: ["أحذية", "خف منزل", "شحاطة بيت"] },
+  // Clothing
+  "أواعي": { category: "clothing", keywords: ["ملابس", "أزياء", "ثياب"] },
+  "ثياب": { category: "clothing", keywords: ["ملابس", "أزياء"] },
+  "لبس": { category: "clothing", keywords: ["ملابس", "أزياء"] },
+  "هدوم": { category: "clothing", keywords: ["ملابس", "ثياب"] },
+  "كسوة": { category: "clothing", keywords: ["ملابس", "تجهيز العرائس"] },
+  "مانطو": { category: "clothing", keywords: ["ملابس نسائية", "جاكيت طويل", "بالطو"] },
+  "مانطويا": { category: "clothing", keywords: ["ملابس نسائية", "جاكيتات"] },
+  "كنزة": { category: "clothing", keywords: ["ملابس", "بلوزة", "سويتر", "تيشيرت"] },
+  "تناوير": { category: "clothing", keywords: ["ملابس نسائية", "تنورة"] },
+  "فستان": { category: "clothing", keywords: ["ملابس نسائية", "فساتين", "سهرة"] },
+  "دشاديش": { category: "clothing", keywords: ["ملابس رجالية", "جلابيات"] },
+  "كلابية": { category: "clothing", keywords: ["ملابس", "جلابية"] },
+  "بجامة": { category: "clothing", keywords: ["ملابس نوم", "بيجامات", "ترينغ"] },
+  "ترينغ": { category: "clothing", keywords: ["ملابس رياضية", "بيجامة سبور"] },
+  // Electronics
+  "موبايل": { category: "electronics", keywords: ["هواتف ذكية", "جوالات", "موبايلات"] },
+  "جوال": { category: "electronics", keywords: ["هواتف ذكية", "موبايل"] },
+  "خليوي": { category: "electronics", keywords: ["هواتف ذكية", "جوال"] },
+  "تليفون": { category: "electronics", keywords: ["هواتف ذكية", "موبايلات"] },
+  "شاشة": { category: "electronics", keywords: ["تلفزيونات", "شاشات ذكية", "TV"] },
+  "تلفزيون": { category: "electronics", keywords: ["شاشات", "تلفزيونات"] },
+  "لابتوب": { category: "electronics", keywords: ["كمبيوترات محمولة", "حاسوب", "لاب توب"] },
+  "كمبيوتر": { category: "electronics", keywords: ["حاسوب", "أجهزة مكتبية", "PC"] },
+  "وصلة": { category: "electronics", keywords: ["كابلات", "شواحن", "وصلة شحن"] },
+  "باوربانك": { category: "electronics", keywords: ["بنك طاقة", "شاحن سفري"] },
+  "سماعات": { category: "electronics", keywords: ["سماعات أذن", "هيدفون", "ايربودز"] },
+  // Home & Kitchen
+  "غراض بيت": { category: "home", keywords: ["أدوات منزلية", "ديكور", "أثاث"] },
+  "طناجر": { category: "home", keywords: ["أدوات المطبخ", "طنجرة", "قدور طبخ"] },
+  "صحون": { category: "home", keywords: ["أدوات المطبخ", "أطباق"] },
+  "معالق": { category: "home", keywords: ["أدوات المطبخ", "ملاعق"] },
+  "كاسات": { category: "home", keywords: ["أدوات المطبخ", "أكواب"] },
+  "حرامات": { category: "home", keywords: ["مفروشات", "بطانيات", "لحف"] },
+  "برداية": { category: "home", keywords: ["ستائر", "برادي"] },
+  "برادي": { category: "home", keywords: ["ستائر", "مفروشات"] },
+  "صوبيا": { category: "home", keywords: ["وسائل تدفئة", "مدفأة", "صوبيات"] },
+  "نملية": { category: "home", keywords: ["خزائن مطبخ", "منظمات"] },
+  // Groceries
+  "مونة": { category: "groceries", keywords: ["أغذية مجففة", "زيت زيتون", "مكدوس", "تموين"] },
+  "غراض طبق": { category: "groceries", keywords: ["خضروات", "لحوم", "مواد غذائية"] },
+  "أكل": { category: "groceries", keywords: ["سوبرماركت", "مواد غذائية"] },
+  "بزر": { category: "groceries", keywords: ["مكسرات", "تسالي"] },
+  "سكاكر": { category: "groceries", keywords: ["حلويات", "بسكويت", "شوكولا"] },
+  // Beauty
+  "مكياجات": { category: "beauty", keywords: ["مكياج", "مستحضرات تجميل"] },
+  "حمرة": { category: "beauty", keywords: ["أحمر شفاه", "مكياج"] },
+  "ريحة": { category: "beauty", keywords: ["عطور", "برفيوم"] },
+  "عطورات": { category: "beauty", keywords: ["عطور", "برفيوم"] }
+};
+
+const INTENT_MODIFIERS = {
+  cheap: ["رخيص", "لقطة", "ببلاش", "على قد الايد", "اقتصادي", "حرق", "تنزيلات", "عروض", "كسر"],
+  premium: ["غالي", "فخم", "اصلي", "نخب اول", "ماركة", "براند", "ملوكي", "ممتاز", "وكالة"],
+  used: ["مستعمل", "شغال", "نضيف", "نص عمر", "بحالة الوكالة"]
+};
+
+### II. ALGORITHMIC REQUIREMENTS
+1. Arabic NLP Normalization Function: Write a utility function `normalizeArabic(text: string)` that:
+   - Strips all Arabic diacritics (Tashkeel: Fatha, Damma, Kasra, Sukun, Shadda, Tanween).
+   - Normalizes Alef variations: (أ, إ, آ) -> (ا).
+   - Normalizes Taa Marbouta: (ة) -> (ه).
+   - Normalizes Yaa / Alef Maksoura: (ى) -> (ي).
+   - Normalizes Waw/Hamza variants: (ؤ, ئ) -> (ء).
+   - Cleans duplicate whitespace and strips leading/trailing spaces.
+
+2. Intent & Token Parsing Pipeline:
+   - Break down the incoming query string `q` into lowercase, normalized tokens.
+   - Match tokens against `INTENT_MODIFIERS`. If a "cheap" modifier is captured, inject a price-sorting weight to prefer lower-cost items. If "premium", favor high-priced/highly-rated items. If "used", add a strict filter where condition to items tagged as condition = 'used'.
+   - Match tokens against `SYRIAN_DIALECT_DICTIONARY`. If a match is found, append all correlated keywords and the specific category identifier into the final search text array.
+
+3. Drizzle ORM + PostgreSQL Hybrid Query Execution:
+   - Construct a dynamic SQL query using Drizzle's `sql` tagged template literal syntax.
+   - Combine PostgreSQL Full-Text Search Vectors (`to_tsvector('arabic', ...)` or combined english/arabic vectors) with Trigram similarity (`similarity(column, query)`) via `pg_trgm` extension to ensure absolute typo tolerance.
+   - Apply strict tier weighting inside the relevance scoring engine:
+     * Tier A (Weight 1.0): Exact store name match or direct mapped category match.
+     * Tier B (Weight 0.6): Fuzzy title / title_ar match.
+     * Tier C (Weight 0.3): Tag / Brand / Dialect keyword matches.
+     * Tier D (Weight 0.1): Description / description_ar matches.
+   - Filter out unapproved vendors, unapproved stores, or soft-deleted items. Every displayed product must come from a fully verified active seller context.
+
+### III. CODE OUTPUT EXPECTATIONS
+- Target: Clean, structured, enterprise-grade TypeScript with exactly 0 type errors.
+- Ensure all DB interactions match typical Drizzle schemas (`products`, `stores`, `categories`). If schema field names vary slightly, add clear inline comments where parameters should be adjusted.
+- Support full internationalization safety flags (i18n) by pulling and ranking results by both `name` and `name_ar`.
+- Return highly optimized JSON data payloads with sub-50ms response metrics, utilizing clean indexing methods.
+
+Generate the absolute best version of this entire modular search architecture now.

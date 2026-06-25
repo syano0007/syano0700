@@ -1,0 +1,442 @@
+# SYANO — AUTH + MOBILE + PRODUCT DATA INTEGRITY FIX PASS
+
+This is a production bug-fix pass.
+
+Do NOT implement quick hacks or temporary workarounds.
+Find the real root cause of every issue and fix it properly.
+
+Before modifying anything:
+
+1. Audit the entire related code path.
+2. Identify the exact root cause.
+3. Fix the root cause.
+4. Verify there are no regressions.
+5. Run TypeScript.
+6. Run the production build.
+7. Test the feature end-to-end.
+
+Do NOT move to the next issue until the current one is fully solved and verified.
+
+---
+
+# ISSUE 1
+
+# "Forgot Password" Feature
+
+Currently there is no password recovery flow.
+
+Implement a complete production-ready solution.
+
+## Login Page
+
+Add a clear and professional:
+
+* "Forgot Password?"
+* "نسيت كلمة المرور؟"
+
+button/link below the password field.
+
+It should match the site's existing design system.
+
+It must work correctly in both:
+
+* Arabic (RTL)
+* English (LTR)
+
+---
+
+## Recovery Flow
+
+Implement the complete flow:
+
+Step 1:
+User enters email.
+
+Step 2:
+System verifies account exists.
+
+Step 3:
+Send OTP / reset code.
+
+Step 4:
+User enters verification code.
+
+Step 5:
+User chooses new password.
+
+Step 6:
+Password is updated securely.
+
+Step 7:
+User can immediately log in.
+
+---
+
+## Validation
+
+Handle properly:
+
+* non-existing account
+* expired code
+* invalid code
+* already used code
+* rate limiting
+* weak password
+* server failure
+
+All errors must be translated.
+
+Do NOT expose sensitive information.
+
+---
+
+## Security
+
+Ensure:
+
+* bcrypt hashing
+* one-time token usage
+* expiration time
+* replay protection
+* brute-force protection
+* rate limiting
+
+Verify the entire flow end-to-end.
+
+---
+
+# ISSUE 2
+
+# Mobile Horizontal Scrolling Broken
+
+On mobile devices, horizontal scrolling inside lists and containers does not work correctly.
+
+Audit the ENTIRE application.
+
+Check every page and every component.
+
+Examples:
+
+* category chips
+* filter bars
+* variant selectors
+* image galleries
+* tabs
+* admin tables
+* seller tables
+* order history
+* navigation strips
+* horizontal product lists
+* carousels
+* any overflow-x containers
+
+Find every place where horizontal scrolling should work.
+
+---
+
+## Root Cause Investigation
+
+Check for:
+
+* overflow:hidden
+* wrong overflow-x
+* flex-shrink problems
+* width constraints
+* touch-action issues
+* pointer-events issues
+* nested scrolling conflicts
+* parent container clipping
+* CSS resets
+* overscroll-behavior
+* passive touch listeners
+* momentum scrolling
+
+Especially inspect mobile Safari and Chrome behavior.
+
+---
+
+## Required Result
+
+Horizontal scrolling should feel native.
+
+Users should be able to swipe naturally.
+
+No lag.
+
+No accidental page scrolling.
+
+No blocked gestures.
+
+No layout breaking.
+
+Apply fixes consistently across the entire project.
+
+---
+
+# ISSUE 3
+
+# Product Price & Stock Corruption
+
+This is a critical data integrity bug.
+
+After creating a product:
+
+* price changes unexpectedly
+* stock quantity changes unexpectedly
+* products sometimes become "Out of Stock"
+* values do not remain identical to what the seller entered
+
+Do NOT patch the UI.
+
+Find the REAL source.
+
+---
+
+## Audit Entire Product Flow
+
+Check:
+
+Seller Product Creation
+
+↓
+
+Validation
+
+↓
+
+Zod schemas
+
+↓
+
+Frontend payload
+
+↓
+
+API request
+
+↓
+
+Backend route
+
+↓
+
+DTO mapping
+
+↓
+
+Database insert
+
+↓
+
+Default values
+
+↓
+
+Variant generation
+
+↓
+
+Product update logic
+
+↓
+
+Inventory calculation
+
+↓
+
+Product retrieval
+
+↓
+
+Frontend rendering
+
+---
+
+## Specifically Verify
+
+* product price
+* compare_at_price
+* variant price
+* variant stock
+* product stock
+* inventory aggregation
+* default values
+* null handling
+* undefined handling
+* number parsing
+* decimal conversion
+* integer conversion
+* string conversion
+* automatic recalculation
+* background jobs
+* startup migrations
+* database triggers
+* ORM mappings
+
+Check whether:
+
+0
+
+null
+
+undefined
+
+empty string
+
+are accidentally overwriting values.
+
+---
+
+## Variant System
+
+Audit the complete variant architecture.
+
+Check:
+
+variant groups
+
+variant options
+
+variant values
+
+variant images
+
+variant pricing
+
+variant inventory
+
+parent product inventory
+
+derived stock calculations
+
+Ensure parent product stock never becomes incorrect because of variant recalculation.
+
+---
+
+## Database Audit
+
+Verify:
+
+products table
+
+product_variants table
+
+all inventory-related columns
+
+all defaults
+
+all migrations
+
+all schema definitions
+
+all insert/update queries
+
+Make sure no migration or startup script silently modifies values.
+
+---
+
+## End-to-End Verification
+
+Create multiple products:
+
+Simple product.
+
+Variable product with colors.
+
+Variable product with sizes.
+
+Variable product with colors + sizes.
+
+Product without variants.
+
+Product with stock = 0.
+
+Product with stock > 0.
+
+Product with decimal price.
+
+Product with compare price.
+
+Reload the page.
+
+Restart the server.
+
+Restart workflows.
+
+Refresh cache.
+
+Verify every value remains exactly identical.
+
+Nothing should change automatically.
+
+---
+
+# REGRESSION TESTING
+
+After all fixes:
+
+Test:
+
+* Login
+* Register
+* Forgot Password
+* Seller Dashboard
+* Product Creation
+* Product Editing
+* Product Listing
+* Product Detail
+* Cart
+* Checkout
+* Admin Dashboard
+* Mobile Navigation
+* Variant Selection
+
+Ensure nothing else broke.
+
+---
+
+# FINAL VALIDATION
+
+Do NOT finish until all are confirmed:
+
+✅ TypeScript = 0 errors
+
+✅ Production build succeeds
+
+✅ Runtime validation passes
+
+✅ Browser console = 0 errors
+
+✅ Mobile horizontal scrolling works everywhere
+
+✅ Forgot Password flow works end-to-end
+
+✅ Product prices remain stable
+
+✅ Product stock remains stable
+
+✅ Variant inventory remains correct
+
+✅ No automatic price changes
+
+✅ No automatic stock changes
+
+✅ No regressions introduced
+
+---
+
+# FINAL REPORT
+
+Do NOT simply say "done".
+
+Provide a complete report including:
+
+1. Root cause of each issue.
+2. Exactly what was fixed.
+3. Why the bug happened.
+4. How you verified the fix.
+5. What tests were performed.
+6. What related issues were found and fixed.
+7. Confirmation that no regressions remain.
+
+Do not stop until every issue is completely solved and verified.

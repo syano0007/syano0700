@@ -1,0 +1,216 @@
+SYANO — IMPORT HARDENING FINAL PASS
+
+CRITICAL GOAL
+
+This task is NOT feature development.
+
+This task is dedicated exclusively to making SYANO import cleanly into a brand-new Replit workspace without creating duplicate previews, duplicate artifacts, duplicate workflows, or requiring recovery fixes.
+
+The objective is:
+
+GitHub Import
+↓
+Install Dependencies
+↓
+Run
+↓
+Only official services exist
+↓
+No extra Marketplace preview
+↓
+No extra API preview
+↓
+No Component Preview Server
+↓
+No manual fixes required
+
+---
+
+PHASE 1 — OFFICIAL SERVICE INVENTORY
+
+Audit the project and determine the ONLY officially supported services.
+
+The final approved list must be:
+
+1. API Server
+2. Marketplace
+3. Mobile App
+4. Embedding Service
+
+No other services should exist.
+
+---
+
+PHASE 2 — ARTIFACT AUDIT
+
+Inspect:
+
+.replit
+
+workflows
+
+preview configuration
+
+artifact configuration
+
+canvas configuration
+
+mobile preview configuration
+
+Determine exactly why Replit is generating:
+
+* duplicate Marketplace preview
+* artifact Marketplace
+* artifact API Server
+* Component Preview Server
+
+Identify the root cause.
+
+---
+
+PHASE 3 — REMOVE DUPLICATE PREVIEW SOURCES
+
+Find every configuration that can generate:
+
+extra Marketplace preview
+
+extra Web preview
+
+extra API preview
+
+Component Preview Server
+
+Remove or disable them.
+
+The project should expose ONLY:
+
+Marketplace
+Mobile App
+
+inside Preview selector.
+
+---
+
+PHASE 4 — WORKFLOW HARDENING
+
+Verify that only these workflows remain:
+
+API Server
+Marketplace
+Mobile App
+Embedding Service
+
+If artifact-generated duplicates are coming from configuration:
+
+remove the triggering configuration.
+
+Do NOT create new workflows.
+
+Do NOT rename workflows.
+
+Do NOT add temporary workflows.
+
+---
+
+PHASE 5 — FRESH IMPORT SIMULATION
+
+Simulate:
+
+brand new Replit import
+
+empty cache
+
+empty node_modules
+
+fresh install
+
+Then verify:
+
+pnpm install
+
+API starts
+
+Marketplace starts
+
+Mobile starts
+
+Embedding starts
+
+No duplicate previews appear.
+
+No duplicate workflows appear.
+
+---
+
+PHASE 6 — AUTO-RECOVERY AUDIT
+
+Act as a brand-new Replit Agent.
+
+Assume:
+
+you know nothing about SYANO.
+
+Start only from:
+
+project.manifest.json
+
+/api/healthz
+
+.replit
+
+Verify:
+
+the project self-describes correctly.
+
+No recovery confusion exists.
+
+No workflow confusion exists.
+
+No artifact confusion exists.
+
+---
+
+PHASE 7 — PERMANENT FIXES ONLY
+
+Apply only fixes that survive:
+
+GitHub push
+↓
+GitHub import
+↓
+New Replit workspace
+
+Do NOT apply temporary workspace-only fixes.
+
+Do NOT apply fixes that disappear after import.
+
+---
+
+PHASE 8 — FINAL CERTIFICATION
+
+Provide:
+
+1. Root cause of duplicate Marketplace preview.
+
+2. Root cause of any artifact-generated workflows.
+
+3. Exact fixes applied.
+
+4. Confirmation that only these services remain:
+
+API Server
+Marketplace
+Mobile App
+Embedding Service
+
+5. Confirmation that future imports will not regenerate duplicate Marketplace previews.
+
+Do NOT develop features.
+
+Do NOT modify business logic.
+
+Do NOT modify Courier.
+
+Do NOT modify Mobile parity.
+
+Only harden project import behavior.

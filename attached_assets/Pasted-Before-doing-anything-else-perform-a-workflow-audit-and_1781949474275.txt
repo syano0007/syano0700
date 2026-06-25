@@ -1,0 +1,131 @@
+Before doing anything else, perform a workflow audit and cleanup.
+
+GOAL:
+Keep only the required production workflows and remove duplicate/obsolete workflows that were created during previous phases.
+
+REQUIREMENTS:
+
+1. Audit all active workflows/processes.
+2. Identify duplicate workflows serving the same purpose.
+3. Remove or disable duplicate workflows.
+4. Keep ONLY the primary production workflows:
+
+* API Server
+* Marketplace Web
+* Embedding Service
+* Mobile Expo (only if required)
+
+5. Verify there is exactly ONE active workflow per service.
+
+---
+
+EMBEDDING SYSTEM
+
+I do NOT want fallback mode as the primary system.
+
+Audit the embedding stack and:
+
+1. Verify whether sentence-transformers is installed.
+2. Verify whether torch is installed.
+3. Verify whether the multilingual embedding model is actually loading.
+4. If not installed, install and configure the proper production embedding stack.
+5. Rebuild embeddings for all products.
+6. Verify that semantic search uses the real transformer embeddings, not only TF-IDF fallback.
+
+Required final state:
+
+* pgvector active
+* 384-dim embeddings
+* sentence-transformers operational
+* multilingual model loaded
+* all products indexed
+* semantic search verified
+
+---
+
+MAPS & ROUTING
+
+Verify and activate all mapping infrastructure:
+
+* Leaflet
+* React Leaflet
+* OSRM
+* Tracking maps
+* Courier workspace maps
+* Customer tracking maps
+* Admin routing diagnostics
+
+Confirm:
+
+* route geometry generation
+* ETA generation
+* live map rendering
+* route polylines
+* markers
+* tracking sessions
+
+---
+
+SYSTEM ACTIVATION
+
+Do NOT run functional business tests.
+
+I do NOT want customer/seller/courier order-flow testing.
+
+Instead:
+
+* Verify infrastructure exists
+* Verify services start correctly
+* Verify routes compile
+* Verify APIs register
+* Verify maps load
+* Verify embeddings load
+* Verify databases connect
+* Verify caches initialize
+* Verify scheduled services initialize
+
+---
+
+FINAL REPORT
+
+Produce a clean report:
+
+WORKFLOWS
+
+* Active workflows
+* Removed duplicates
+* Remaining production workflows
+
+EMBEDDINGS
+
+* Model name
+* Dimension count
+* Product count indexed
+* Transformer status
+
+MAPS
+
+* Leaflet status
+* OSRM status
+* Tracking status
+
+SERVICES
+
+* API
+* Marketplace
+* Embedding
+* Mobile
+
+DATABASE
+
+* Table count
+* pgvector status
+
+TypeScript
+
+* Marketplace status
+* API status
+
+Only report VERIFIED facts.
+Do not assume anything.
+Do not mark anything as PASS unless it was directly verified.

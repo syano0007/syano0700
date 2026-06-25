@@ -1,0 +1,227 @@
+CRITICAL AUTH REGRESSION INVESTIGATION
+
+STOP ALL CODE CHANGES.
+
+DO NOT PATCH ANYTHING.
+DO NOT GUESS.
+DO NOT APPLY QUICK FIXES.
+
+I need a full forensic investigation first.
+
+==================================================
+PROBLEMS
+==================================================
+
+Problem #1
+Seller can open Product Edit page normally.
+When changing discount and pressing Save Discount:
+
+"تعذر حفظ الخصم"
+Status 401
+
+Problem #2
+Seller can open Store Settings normally.
+When saving any store settings:
+
+"Invalid or expired token"
+
+Both operations are performed by the SAME authenticated seller account.
+
+The seller can still:
+- Access seller dashboard
+- View products
+- View orders
+- View inventory
+- Browse protected seller pages
+
+So authentication is partially working.
+
+==================================================
+INVESTIGATION REQUIREMENTS
+==================================================
+
+Trace BOTH failures completely from:
+
+Frontend UI
+↓
+Submit handler
+↓
+Mutation / API call
+↓
+API client
+↓
+Request headers
+↓
+Backend route
+↓
+Middleware chain
+↓
+JWT verification
+↓
+Ownership validation
+↓
+Controller logic
+
+NO CODE CHANGES until root cause is proven.
+
+==================================================
+STEP 1
+IDENTIFY EXACT ENDPOINTS
+==================================================
+
+Find the exact endpoint used for:
+
+A)
+Save Discount
+
+B)
+Save Store Settings
+
+Show:
+
+- frontend file
+- function name
+- mutation name
+- request method
+- request URL
+
+==================================================
+STEP 2
+COMPARE WITH WORKING REQUESTS
+==================================================
+
+Compare against requests that currently work:
+
+- Product update
+- Inventory update
+- Product creation
+- Store dashboard data
+- Seller orders
+
+Determine exactly what differs.
+
+==================================================
+STEP 3
+AUTH HEADER AUDIT
+==================================================
+
+For BOTH failing requests verify:
+
+- Authorization header exists?
+- Bearer token exists?
+- Token value populated?
+- Same token as current session?
+- API client interceptor executed?
+- Request bypassing api client?
+- Request using fetch directly?
+- Request using different base URL?
+- Request using different auth helper?
+
+Show evidence.
+
+==================================================
+STEP 4
+BACKEND ROUTE AUDIT
+==================================================
+
+For BOTH endpoints show:
+
+- exact route file
+- exact route handler
+- middleware chain order
+
+Example:
+
+requireAuth
+requireActiveAccount
+requireSeller
+ownershipCheck
+handler
+
+Identify exactly where execution stops.
+
+==================================================
+STEP 5
+JWT AUDIT
+==================================================
+
+Determine:
+
+A)
+Token not sent
+
+B)
+Token sent but malformed
+
+C)
+Token sent but expired
+
+D)
+Token sent but verified using wrong secret
+
+E)
+Different middleware rejecting token
+
+F)
+Token refresh issue
+
+G)
+Cookie vs Authorization mismatch
+
+Provide proof.
+
+==================================================
+STEP 6
+FIND THE EXACT 401 SOURCE
+==================================================
+
+Locate the exact line generating:
+
+"Invalid or expired token"
+
+and the exact line generating:
+
+Status 401
+
+Show:
+
+- file
+- line number
+- condition that triggers it
+
+==================================================
+STEP 7
+CHECK RECENT AUTH CHANGES
+==================================================
+
+Audit all recent modifications involving:
+
+- requireActiveAccount
+- requireAuth
+- JWT
+- auth middleware
+- seller routes
+- cart routes
+- orders routes
+
+Determine whether a recent security hardening change introduced these regressions.
+
+==================================================
+STEP 8
+FINAL REPORT
+==================================================
+
+Before writing any code provide:
+
+1. Root cause of discount failure
+2. Root cause of store settings failure
+3. Whether both failures share the same root cause
+4. Exact files affected
+5. Exact lines affected
+6. Minimal safe fix
+7. Risk analysis
+
+DO NOT MODIFY CODE UNTIL THE REPORT IS COMPLETE.
+
+Success criteria:
+I want evidence-backed root causes, not assumptions.

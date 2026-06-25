@@ -1,0 +1,193 @@
+You are restoring the SYANO project after a Replit migration.
+
+IMPORTANT:
+
+Do NOT start any new development.
+
+Do NOT implement any roadmap item.
+
+Do NOT modify business logic.
+
+Your ONLY task is recovery, validation, and verification.
+
+---
+
+# PHASE 1 — RECOVERY
+
+Perform recovery exactly in this order:
+
+1. Verify environment variables:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_SUBJECT
+
+Report any missing values.
+
+2. Install dependencies:
+
+pnpm install --force
+
+3. Restore database:
+
+psql "$DATABASE_URL" -f schema.sql
+
+4. Build shared libraries:
+
+npx tsc --build lib/db lib/api-zod lib/api-client-react
+
+5. Start all services:
+
+* API Server
+* Marketplace
+* Mobile
+
+6. Verify:
+
+GET /api/healthz
+
+Must return:
+
+{"status":"ok"}
+
+---
+
+# PHASE 2 — RECOVERY CHECK V2
+
+Run:
+
+GET /api/admin/recovery-check
+
+Validate:
+
+* confidenceScore
+* all modules
+* failures
+* warnings
+
+Expected:
+
+confidenceScore = 100
+
+modules passing = 14/14
+
+failures = 0
+
+If score is below 100:
+
+STOP
+
+Investigate
+
+Fix
+
+Run recovery-check again
+
+Repeat until score reaches maximum possible value.
+
+---
+
+# PHASE 3 — BOOTSTRAP ACCOUNT VALIDATION
+
+Verify all permanent accounts exist and work:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+00Amer00
+
+Validate:
+
+* login
+* JWT creation
+* role
+* seller application
+* courier profile
+* verification state
+
+---
+
+# PHASE 4 — PLATFORM VALIDATION
+
+Verify:
+
+* Product Wizard
+* Variant System
+* Delivery Zones
+* Order Fulfillment Workflow V1
+* Courier Operations Dashboard V2
+* Seller Orders V2
+* Seller Analytics Dashboard V2
+* Trust System V1
+* Recently Viewed Products
+* Notifications
+* Mobile Routes
+
+Use actual routes and APIs.
+
+Do not assume functionality.
+
+---
+
+# PHASE 5 — DOCUMENTATION AUDIT
+
+Read and compare:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+Ensure documentation matches actual platform state.
+
+Report mismatches.
+
+Update only if required.
+
+---
+
+# PHASE 6 — FINAL REPORT
+
+Return:
+
+1. Recovery Status
+
+2. Services Status
+
+3. Database Status
+
+4. Recovery Check Score
+
+5. Bootstrap Accounts Status
+
+6. TypeScript Status
+
+7. Platform Validation Status
+
+8. Regressions Found
+
+9. Documentation Status
+
+10. Exact Roadmap Position
+
+11. Safe Next Step
+
+Do NOT start new development.
+
+Stop after delivering the report.

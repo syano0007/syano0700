@@ -1,0 +1,124 @@
+Perform a complete mobile-only redesign and optimization of the homepage product cards.
+
+IMPORTANT:
+Do not optimize desktop first.
+The primary target is mobile devices.
+
+Audit and test on:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 412px
+* 430px
+
+Current mobile problems:
+
+1. Product image is too small.
+2. Seller text breaks layout.
+3. Rating section is crowded.
+4. Arabic text occupies more space than English.
+5. Product cards look inconsistent.
+6. Text occupies too much space compared to image.
+7. Cards do not feel like a professional marketplace.
+8. Arabic and English versions have different visual balance.
+
+MOBILE PRODUCT CARD REQUIREMENTS
+
+IMAGE AREA
+
+* Product image must become the dominant element.
+* Increase image height significantly.
+* Image should occupy roughly 60% of the card.
+* Maintain consistent aspect ratio.
+* Use object-fit correctly.
+* Image must be larger than all text areas combined visually.
+
+TITLE AREA
+
+* Maximum 2 lines.
+* Use line-clamp.
+* Never allow title overflow.
+* Never allow title to push other content.
+* Same reserved height in Arabic and English.
+
+SELLER AREA
+
+* Fixed-height section.
+* Seller name must stay on one line.
+* Truncate with ellipsis when needed.
+* No wrapping.
+* No layout shifting.
+
+RATING AREA
+
+* Fixed-height section.
+* Stars and review text must align correctly.
+* No wrapping.
+* No overlap.
+* Same layout in both languages.
+
+PRICE AREA
+
+* Price must be visually stronger than seller and rating.
+* Discount and old price must align properly.
+* Prevent overflow on small devices.
+
+CARD HEIGHT
+
+* Every card on mobile must have identical height.
+* No card may become taller because of language differences.
+* No card may become taller because of long titles.
+
+ARABIC OPTIMIZATION
+Audit every Arabic product card and fix:
+
+* clipping
+* wrapping
+* spacing
+* overflow
+* line-height issues
+* inconsistent font sizes
+
+ENGLISH OPTIMIZATION
+Audit every English product card and fix:
+
+* long names
+* wrapping
+* overflow
+* inconsistent spacing
+
+FINAL VISUAL TARGET
+
+The mobile homepage should visually resemble a modern marketplace such as Amazon, Noon, Trendyol, or Temu.
+
+Priority order:
+
+1. Large product image
+2. Product title
+3. Price
+4. Seller
+5. Rating
+
+Image must always receive the most visual attention.
+
+FINAL VALIDATION
+
+Before finishing:
+
+* Test Arabic homepage on all mobile breakpoints.
+* Test English homepage on all mobile breakpoints.
+* Compare multiple products side by side.
+* Verify all cards remain perfectly aligned.
+* Verify no text overlaps.
+* Verify seller and rating sections remain readable.
+
+Provide a report containing:
+
+* Files modified.
+* Components modified.
+* Mobile issues found.
+* Mobile issues fixed.
+* Screens tested.
+* Remaining issues (if any).

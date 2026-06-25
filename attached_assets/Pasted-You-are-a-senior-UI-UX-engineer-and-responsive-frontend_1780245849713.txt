@@ -1,0 +1,166 @@
+You are a senior UI/UX engineer and responsive frontend specialist.
+
+CRITICAL ISSUE:
+
+The social media section in the footer is visually broken.
+
+Current problems:
+
+* Social media icons are cramped.
+* Icons do not have enough horizontal spacing.
+* The "Follow Us" title is partially hidden/cut off.
+* Text appears clipped.
+* Layout feels crowded.
+* Arabic and English versions are not rendering properly.
+* The section does not look professional on mobile.
+
+IMPORTANT:
+
+Do NOT apply a quick CSS patch.
+
+Perform a complete audit of the footer social section and fix the root cause.
+
+==================================================
+ANALYZE FIRST
+=============
+
+Inspect:
+
+* Footer component
+* Footer layout containers
+* Flex/Grid configuration
+* Width constraints
+* Overflow settings
+* Typography settings
+* Responsive breakpoints
+* RTL/LTR behavior
+
+Identify exactly why:
+
+* icons are crowded
+* title is clipped
+* spacing is inconsistent
+
+==================================================
+SOCIAL SECTION REDESIGN
+=======================
+
+Create a professional social media block.
+
+Requirements:
+
+1. Follow Us title
+
+* Fully visible.
+* Never clipped.
+* Proper font size.
+* Proper font weight.
+* Proper line height.
+* Proper spacing above and below.
+
+2. Social icons
+
+* Equal icon size.
+* Equal spacing between icons.
+* Perfect alignment.
+* Consistent touch targets.
+* Never overlap.
+* Never touch container edges.
+
+3. Layout
+
+* Centered properly.
+* Balanced visually.
+* Professional marketplace appearance.
+
+==================================================
+MOBILE FIRST
+============
+
+Highest priority: Mobile.
+
+Test on:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 412px
+* 430px
+
+Requirements:
+
+* No clipping.
+* No overflow.
+* No icon collisions.
+* No text truncation.
+* Comfortable spacing.
+
+==================================================
+DESKTOP VALIDATION
+==================
+
+Verify:
+
+* Tablet
+* Laptop
+* Desktop
+* Ultrawide
+
+The layout must remain balanced.
+
+==================================================
+RTL / LTR SUPPORT
+=================
+
+Verify:
+
+Arabic:
+
+* تابعنا
+
+English:
+
+* Follow Us
+
+Requirements:
+
+* Both versions fit perfectly.
+* No clipping.
+* No layout shifts.
+* No broken alignment.
+
+==================================================
+ACCESSIBILITY
+=============
+
+Ensure:
+
+* Proper touch target size.
+* Keyboard accessibility.
+* Hover states.
+* Focus states.
+* Screen reader compatibility.
+
+==================================================
+FINAL QA
+========
+
+Before finishing:
+
+1. Verify the title is fully visible.
+2. Verify all icons fit comfortably.
+3. Verify no overflow exists.
+4. Verify Arabic and English layouts.
+5. Verify mobile and desktop layouts.
+6. Verify visual consistency with the rest of the footer.
+
+Provide a final report including:
+
+* Root cause found.
+* Files modified.
+* Responsive fixes applied.
+* Mobile validation results.
+* Desktop validation results.
+
+Do not stop until the social media section looks production-ready and visually polished.

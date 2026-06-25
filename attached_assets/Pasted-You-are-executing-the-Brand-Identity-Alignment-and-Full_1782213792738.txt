@@ -1,0 +1,64 @@
+You are executing the Brand Identity Alignment and Full English/Arabic Translation Sync for the Map Modal in SYANO (سوق سوريا).
+
+Do NOT break existing backend APIs, geographic coordinate calculation loops, or checkout page total calculators.
+Do NOT modify database models or core user authentication sessions.
+
+Preserve:
+- Strict RTL and LTR layout properties handling.
+- Free-form Syria-wide delivery zone assignment logic.
+- Zero TypeScript errors across the entire application tree.
+
+==================================================
+GOAL
+==================================================
+1. Invert all interactive map UI accents from blue to SYANO's signature navbar green.
+2. Replace hardcoded Arabic text strings with localization dictionary hooks to ensure seamless English and Arabic multi-language rendering.
+
+==================================================
+PART 1 — MULTI-LANGUAGE TRANSLATION DICTIONARY SYNC (i18n)
+==================================================
+Locate the localization configuration files or directory structures (e.g., `ar.json` / `en.json` or equivalent translation lookup files inside the workspace). Inject the following locale blocks dynamically:
+
+For Arabic Object Bundle File ("ar"):
+"map": {
+  "deliver_here": "وصّل طلبي إلى هنا",
+  "current_address_label": "عنوان التوصيل الحالي",
+  "locating_placeholder": "جاري تحديد تفاصيل العنوان...",
+  "locate_me": "تحديد موقعي التلقائي"
+}
+
+For English Object Bundle File ("en"):
+"map": {
+  "deliver_here": "Deliver my order here",
+  "current_address_label": "Current Delivery Address",
+  "locating_placeholder": "Determining address details...",
+  "locate_me": "Locate me automatically"
+}
+
+==================================================
+PART 2 — MODAL CODE REWRITING & DICTIONARY HOOK INTEGRATION
+==================================================
+Open `LocationMapModal.tsx` and implement the translation interface bindings (using the project's native translation hook layout, e.g., `t('map.*')`):
+
+1. Custom Center Pin Tooltip Capsule:
+   - Replace the static text with the localization reference variable: `t('map.deliver_here')`.
+2. Floating Geolocation Target Button:
+   - Change the hardcoded phrase to use the lookup variable: `t('map.locate_me')`.
+3. Sticky Bottom Informational Footer:
+   - Wire up the dynamic status reading parameters using: `t('map.current_address_label')` and `t('map.locating_placeholder')` for clean translation rendering.
+
+==================================================
+PART 3 — BRAND VISUAL OVERHAUL (SWAPPING BLUE TO NAVBAR GREEN)
+==================================================
+Scrub all blue styling attributes from the map layout components and inject your custom corporate navbar green:
+- Bottom Action Confirmation Button ("تأكيد الموقع"): Convert all utility background frames and shadow states from blue (`bg-blue-600`, `shadow-blue-500/20`) directly into your global navbar green config (e.g., `bg-emerald-600` or `bg-green-600` with native green shadow depth).
+- Center Pin Vector Layers: Adjust the central custom floating pin asset SVG vectors to utilize the identical green color layer tokens.
+- Footer Icons & Actions: Ensure all tracking iconography (like the MapPin or radar vectors) reference the green palette rules when loaded.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Toggling the application language state dynamically swaps all map strings between English and Arabic seamlessly without errors.
+✓ The user interface displays 100% green corporate accent features with zero remaining blue elements.
+✓ Verify TypeScript compilation = 0 errors across the entire marketplace application layout directory.

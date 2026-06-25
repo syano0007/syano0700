@@ -1,0 +1,357 @@
+# SYANO Mobile Parity Completion Protocol
+
+## CRITICAL EXECUTION MODE
+
+You are NOT building new features.
+
+You are NOT starting a new roadmap phase.
+
+You are NOT planning future work.
+
+You are entering:
+
+```text
+SYANO MOBILE PARITY COMPLETION MODE
+```
+
+Your only objective:
+
+```text
+Make Mobile = Web
+```
+
+until parity reaches:
+
+```text
+100%
+```
+
+---
+
+# ABSOLUTE FIRST STEP
+
+Before writing a single line of code:
+
+Read completely:
+
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+
+Then read:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+These files are the official source of truth.
+
+---
+
+# NON-NEGOTIABLE RULE
+
+You MUST follow the exact implementation order already defined inside:
+
+```text
+MOBILE_PARITY_GAP_REPORT.md
+```
+
+Do NOT create your own order.
+
+Do NOT reorder tasks.
+
+Do NOT skip ahead.
+
+Do NOT decide something is more important.
+
+Do NOT optimize the roadmap.
+
+Follow the file exactly.
+
+---
+
+# EXECUTION RULE
+
+For every item marked:
+
+```text
+MISSING
+```
+
+or
+
+```text
+PARTIAL
+```
+
+you must:
+
+1. Locate web implementation.
+2. Locate mobile implementation.
+3. Compare behavior.
+4. Compare UI.
+5. Compare business logic.
+6. Compare permissions.
+7. Implement missing parts.
+8. Verify.
+9. Mark COMPLETE.
+
+Only then move to the next item.
+
+---
+
+# HARD STOP CONDITIONS
+
+You are NOT allowed to:
+
+❌ Start Phase M2 manually
+
+❌ Start Phase M3 manually
+
+❌ Start new roadmap phases
+
+❌ Propose new features
+
+❌ Create future recommendations
+
+❌ Stop because "core functionality exists"
+
+❌ Stop because "good enough"
+
+❌ Stop because parity is high
+
+❌ Leave known gaps unresolved
+
+---
+
+# REQUIRED PARITY
+
+The mobile app must match the web platform in:
+
+## Customer
+
+* Home
+* Search
+* Categories
+* Product Details
+* Reviews
+* Wishlist
+* Cart
+* Checkout
+* Orders
+* Tracking
+* Notifications
+* Messaging
+* AI Support
+* Profile
+* Settings
+
+---
+
+## Seller
+
+* Dashboard
+* Analytics
+* Products
+* Variants
+* Orders
+* Store Management
+* Reviews
+* Followers
+* Messaging
+* Verification
+
+---
+
+## Courier
+
+* Dashboard
+* Availability
+* Mission Offers
+* Active Missions
+* Mission History
+* Status Updates
+* Delivery Workflow
+
+---
+
+## Admin
+
+* Monitoring
+* Moderation
+* Delivery Operations
+* Courier Management
+* Support Tickets
+* Analytics
+* Verification
+
+---
+
+# UI PARITY RULE
+
+The mobile app must visually match the web app.
+
+Match:
+
+* Colors
+* Theme
+* Typography hierarchy
+* Component behavior
+* Empty states
+* Loading states
+* Error states
+* Filters
+* Tabs
+* Badges
+* Cards
+* Buttons
+* Navigation structure
+
+If web changed:
+
+```text
+Mobile must change too.
+```
+
+---
+
+# FEATURE DISCOVERY RULE
+
+Whenever you discover:
+
+```text
+Web feature exists
+Mobile feature missing
+```
+
+Do NOT document it.
+
+Do NOT postpone it.
+
+Do NOT create a TODO.
+
+Implement it immediately.
+
+Then update parity files.
+
+---
+
+# PROGRESS RULE
+
+After every completed batch:
+
+Update:
+
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Never leave recovery files outdated.
+
+---
+
+# COMPLETION REQUIREMENTS
+
+You are NOT finished until:
+
+```text
+Customer = 100%
+
+Seller = 100%
+
+Courier = 100%
+
+Admin = 100%
+```
+
+AND
+
+```text
+Every entry in MOBILE_PARITY_MATRIX.md
+is marked COMPLETE.
+```
+
+AND
+
+```text
+No MISSING entries remain.
+```
+
+AND
+
+```text
+No PARTIAL entries remain.
+```
+
+---
+
+# FINAL VALIDATION
+
+Before claiming completion:
+
+Verify:
+
+✅ Mobile routes
+
+✅ Mobile navigation
+
+✅ Mobile APIs
+
+✅ Mobile permissions
+
+✅ Mobile UI
+
+✅ Mobile workflows
+
+✅ Mobile TypeScript
+
+✅ Mobile RTL
+
+✅ Mobile Arabic
+
+✅ Mobile English
+
+✅ Mobile recovery docs
+
+---
+
+# FINAL REPORT FORMAT
+
+Provide:
+
+```text
+Total Web Features
+
+Total Mobile Features
+
+Completed
+
+Remaining
+
+Customer %
+
+Seller %
+
+Courier %
+
+Admin %
+
+Overall Mobile Parity %
+```
+
+Then explicitly state:
+
+```text
+Mobile App = Web Platform
+```
+
+and confirm:
+
+```text
+No parity gaps remain.
+```

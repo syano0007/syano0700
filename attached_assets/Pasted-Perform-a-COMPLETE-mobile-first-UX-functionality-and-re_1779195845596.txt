@@ -1,0 +1,197 @@
+Perform a COMPLETE mobile-first UX, functionality, and responsive audit across the entire Syano marketplace platform. Mobile experience is now the HIGHEST PRIORITY for the entire project.
+
+The site must behave like a premium native ecommerce app on smartphones, especially Android devices commonly used in Syria.
+
+CRITICAL ISSUE TO FIX IMMEDIATELY:
+On mobile product pages/product cards, the "Add to Cart" button is missing or inaccessible. This MUST be fixed completely across all screen sizes and product states.
+
+The Add to Cart button must:
+- always appear clearly on mobile
+- remain fully visible without layout breaking
+- never overflow outside cards
+- never be hidden by responsive CSS
+- never disappear due to flex/grid issues
+- remain easy to tap with thumb
+- maintain proper spacing
+- work correctly on all product cards and product pages
+
+==================================================
+FULL MOBILE-FIRST AUDIT
+==================================================
+
+Audit and test EVERY SINGLE PAGE on mobile devices.
+
+This includes:
+- homepage
+- discover page
+- categories
+- product pages
+- product cards
+- cart
+- checkout
+- seller dashboard
+- admin dashboard
+- notifications
+- authentication pages
+- profile pages
+- order tracking
+- settings
+- search results
+- filters
+- mobile menus
+- modals
+- forms
+- dropdowns
+
+Find and fix ALL mobile issues.
+
+==================================================
+MOBILE RESPONSIVE FIXES
+==================================================
+
+Aggressively fix:
+- broken layouts
+- overflowing content
+- hidden buttons
+- cropped text
+- overlapping elements
+- improper spacing
+- RTL alignment issues
+- inconsistent padding
+- incorrect flex behavior
+- grid issues
+- broken cards
+- bad scaling
+- viewport problems
+- touch target issues
+
+Ensure:
+- nothing touches screen edges
+- spacing is consistent
+- components resize properly
+- typography remains readable
+- cards look premium
+- product grids stay clean
+- forms are easy to use
+- buttons are always visible
+
+==================================================
+ADD TO CART MOBILE EXPERIENCE
+==================================================
+
+Rebuild the mobile Add to Cart UX professionally.
+
+Requirements:
+- sticky Add to Cart bar on product pages (optional if beneficial)
+- large thumb-friendly tap targets
+- proper responsive sizing
+- visible quantity controls
+- instant feedback after adding
+- loading state support
+- smooth animations
+- no accidental hidden states
+
+Product purchase flow must feel native-app quality.
+
+==================================================
+MOBILE PERFORMANCE OPTIMIZATION
+==================================================
+
+Optimize specifically for mobile devices and weak internet.
+
+Requirements:
+- ultra-fast loading
+- lightweight rendering
+- smooth scrolling
+- smooth touch interactions
+- low bandwidth usage
+- minimal layout shifts
+- reduced JS execution
+- optimized images for mobile
+- fast perceived loading
+
+Ensure smooth experience even on:
+- weak Android phones
+- slow CPUs
+- unstable Syrian internet
+- low RAM devices
+
+==================================================
+MOBILE NAVIGATION EXPERIENCE
+==================================================
+
+Improve ALL navigation behavior on mobile.
+
+Requirements:
+- intuitive navigation
+- smooth menus
+- fast route transitions
+- easy category browsing
+- touch-friendly UI
+- no accidental taps
+- proper sticky headers where useful
+- optimized search UX
+- responsive filter panels
+
+==================================================
+MOBILE UI/UX QUALITY
+==================================================
+
+The site must feel like a modern premium ecommerce app.
+
+Requirements:
+- polished spacing
+- modern responsive layout
+- smooth animations
+- excellent readability
+- premium product presentation
+- consistent component sizing
+- visually balanced mobile sections
+
+==================================================
+RTL & ARABIC MOBILE SUPPORT
+==================================================
+
+Ensure perfect Arabic RTL behavior on mobile.
+
+Fix:
+- RTL spacing issues
+- icon alignment issues
+- Arabic text overflow
+- broken RTL flex/grid behavior
+- incorrect mobile alignment
+
+Arabic experience must feel fully native and polished.
+
+==================================================
+TOUCH & INTERACTION OPTIMIZATION
+==================================================
+
+Optimize all touch interactions.
+
+Requirements:
+- no delayed taps
+- smooth gestures
+- responsive buttons
+- correct active states
+- proper tap feedback
+- thumb-friendly controls
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+After all fixes:
+- test ALL pages on mobile widths
+- test multiple screen sizes
+- test Android/iPhone layouts
+- verify all buttons work
+- verify Add to Cart is always visible
+- verify no overflow exists
+- verify no hidden UI elements remain
+- verify no responsive regressions
+- verify seller/admin/customer flows all work on mobile
+- verify no console errors
+- verify smooth mobile experience everywhere
+
+The final result must feel like a fully polished, premium, mobile-first ecommerce application optimized for real smartphone users in Syria.

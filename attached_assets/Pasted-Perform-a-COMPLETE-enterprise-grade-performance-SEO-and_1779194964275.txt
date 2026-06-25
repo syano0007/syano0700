@@ -1,0 +1,260 @@
+Perform a COMPLETE enterprise-grade performance, SEO, and Core Web Vitals optimization pass across the entire Syano marketplace platform. Treat this as a production-level optimization project for a high-traffic ecommerce marketplace similar to Amazon, Noon, or AliExpress. The goal is to achieve the fastest possible real-world experience on both desktop and mobile, especially on very weak internet connections and low-end devices in Syria.
+
+CRITICAL OBJECTIVES:
+- Maximize PageSpeed Insights score
+- Optimize Core Web Vitals
+- Improve perceived loading speed
+- Make navigation feel instant
+- Reduce bandwidth usage aggressively
+- Ensure smooth UX on low-end Android devices
+- Preserve visual quality and premium feel
+- Ensure zero layout shifts and zero broken responsive layouts
+- Maintain full Arabic RTL support
+- Keep the site modern and premium-looking while being extremely lightweight
+
+==================================================
+GLOBAL PERFORMANCE OPTIMIZATION
+==================================================
+
+Analyze and optimize ALL pages, layouts, routes, components, APIs, assets, and rendering flows.
+
+Implement:
+- aggressive lazy loading
+- route-based code splitting
+- dynamic imports everywhere possible
+- tree shaking
+- bundle size reduction
+- dead code elimination
+- component memoization
+- optimized hydration
+- prefetching only when beneficial
+- defer all non-critical scripts
+- eliminate render-blocking resources
+- eliminate unnecessary re-renders
+- optimize React rendering patterns
+- reduce JavaScript execution time
+- reduce DOM size
+- reduce memory usage
+- reduce CPU usage on low-end devices
+
+Ensure the app feels instant even on slow 3G internet.
+
+==================================================
+IMAGE OPTIMIZATION
+==================================================
+
+Implement an enterprise-level image optimization system.
+
+Requirements:
+- Convert all possible images to WebP or AVIF
+- Responsive image sizing
+- Proper srcset generation
+- Lazy load all below-the-fold images
+- Blur-up placeholders
+- Skeleton loaders
+- Prevent layout shifts during image load
+- Compress aggressively without visible quality loss
+- Optimize category images, banners, product thumbnails, avatars, logos, and sliders
+- Preload only the critical hero image
+- Avoid oversized images entirely
+- Ensure mobile devices download smaller image sizes automatically
+
+Products and categories must appear visually fast even before full loading.
+
+==================================================
+CORE WEB VITALS OPTIMIZATION
+==================================================
+
+Optimize aggressively for:
+- LCP
+- CLS
+- INP
+- FCP
+- TTFB
+- Speed Index
+
+Targets:
+- LCP under 2s
+- CLS near 0
+- INP under 200ms
+- Fast first paint on weak devices
+
+Fix ALL causes of:
+- layout shifts
+- font flashes
+- delayed interactions
+- slow rendering
+- hydration issues
+- oversized bundles
+
+==================================================
+NETWORK & API OPTIMIZATION
+==================================================
+
+Optimize ALL API requests and backend communication.
+
+Implement:
+- request deduplication
+- caching strategy
+- stale-while-revalidate
+- optimistic updates
+- minimized payload sizes
+- compressed responses
+- efficient pagination
+- batched requests where possible
+- prevent duplicate fetching
+- smart retry logic
+- request timeout handling
+
+Ensure pages remain usable even during unstable internet conditions.
+
+==================================================
+SEO OPTIMIZATION
+==================================================
+
+Implement FULL enterprise ecommerce SEO.
+
+Requirements:
+- perfect semantic HTML
+- proper heading hierarchy
+- dynamic metadata
+- Open Graph tags
+- Twitter cards
+- canonical URLs
+- robots.txt optimization
+- XML sitemap generation
+- structured data / schema.org
+- product schema
+- category schema
+- organization schema
+- breadcrumb schema
+- multilingual SEO support
+- Arabic RTL SEO optimization
+- proper indexing behavior
+- optimized crawlability
+- internal linking improvements
+
+Ensure:
+- all pages are indexable
+- product pages are SEO optimized
+- categories rank properly
+- no duplicate metadata
+- no broken meta tags
+- no crawl issues
+- no console SEO warnings
+
+==================================================
+MOBILE EXPERIENCE
+==================================================
+
+The mobile experience is PRIORITY NUMBER ONE.
+
+Optimize specifically for:
+- low-end Android devices
+- small screens
+- weak CPUs
+- unstable internet
+- touch responsiveness
+
+Ensure:
+- smooth scrolling
+- instant taps
+- responsive gestures
+- no lag
+- no UI freezing
+- fast transitions
+- lightweight animations only
+- no heavy effects harming performance
+
+All pages must be fully responsive:
+- homepage
+- discover page
+- product page
+- seller dashboard
+- admin dashboard
+- checkout
+- notifications
+- orders
+- authentication pages
+
+==================================================
+USER EXPERIENCE OPTIMIZATION
+==================================================
+
+Improve perceived speed dramatically.
+
+Implement:
+- skeleton loading states
+- shimmer placeholders
+- progressive rendering
+- optimistic UI
+- instant navigation feeling
+- smooth transitions
+- intelligent preloading
+- smart caching
+
+The site should FEEL premium and ultra-fast even before data fully loads.
+
+==================================================
+HOMEPAGE & PRODUCT LOADING
+==================================================
+
+Optimize homepage and discover page heavily.
+
+Requirements:
+- products load progressively
+- categories appear instantly
+- hero section loads first
+- avoid large initial payloads
+- infinite scrolling optimization
+- virtualization where needed
+- fast filtering/search
+- smooth product grid rendering
+
+==================================================
+FONT & RTL OPTIMIZATION
+==================================================
+
+Optimize Arabic typography carefully.
+
+Requirements:
+- prevent font flashing
+- preload critical Arabic fonts
+- optimize font loading
+- reduce font payload size
+- maintain excellent readability
+- preserve RTL alignment perfectly
+
+==================================================
+CLEANUP & QUALITY CONTROL
+==================================================
+
+Perform a FULL platform audit and fix:
+- hydration mismatches
+- layout inconsistencies
+- accessibility issues
+- broken responsive behavior
+- unnecessary dependencies
+- console warnings/errors
+- unused CSS
+- unused JS
+- duplicate components
+- memory leaks
+- inefficient rendering patterns
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+After optimization:
+- test all pages on desktop and mobile
+- verify RTL correctness
+- verify no broken layouts
+- verify all routes work
+- verify APIs still function
+- verify seller/admin/customer flows work
+- verify no regressions
+- verify Lighthouse/PageSpeed improvements
+- verify stable behavior on slow internet
+
+The final result must feel like a modern, premium, enterprise ecommerce platform optimized for real users in Syria with weak internet and mobile-first usage patterns.

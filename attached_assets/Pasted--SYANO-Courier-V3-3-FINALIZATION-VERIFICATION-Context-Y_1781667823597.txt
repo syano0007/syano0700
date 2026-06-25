@@ -1,0 +1,535 @@
+# SYANO — Courier V3.3 FINALIZATION & VERIFICATION
+
+## Context
+
+You have already implemented most of Courier V3.3.
+
+DO NOT start V3.4.
+
+DO NOT build new delivery phases.
+
+DO NOT build GPS tracking.
+
+DO NOT build courier wallet.
+
+DO NOT build proof of delivery.
+
+DO NOT build customer tracking maps.
+
+Your ONLY objective is:
+
+**Verify V3.3 completely, fix missing logic, implement any unfinished requirements, and certify the phase as production-ready.**
+
+---
+
+# MANDATORY TASK
+
+Before writing any code:
+
+Create a verification report.
+
+Audit the entire V3.3 implementation.
+
+Verify every requirement from the original specification.
+
+Do not assume anything works.
+
+Prove it.
+
+---
+
+# SECTION 1 — VERIFY NEAREST COURIER LOGIC
+
+Check:
+
+```ts
+findNearestCouriers()
+```
+
+Current implementation must be inspected.
+
+If couriers are being selected using:
+
+* completed deliveries
+* ratings
+* creation date
+* random order
+
+THAT IS WRONG.
+
+---
+
+Current official business rule:
+
+```text
+Nearest couriers must be selected by geographical distance
+between:
+
+Courier Current Location
+and
+Pickup Location
+```
+
+---
+
+If location-based ordering is not implemented:
+
+Build it now.
+
+---
+
+Requirements:
+
+Use:
+
+```text
+courier.latitude
+courier.longitude
+```
+
+and
+
+```text
+mission.pickupLatitude
+mission.pickupLongitude
+```
+
+---
+
+Sort ascending by distance.
+
+Return:
+
+```text
+Nearest 3 Couriers
+```
+
+only.
+
+---
+
+# SECTION 2 — VERIFY ROUND SYSTEM
+
+Prove that:
+
+```text
+Round 1
+```
+
+sends offers to:
+
+```text
+Nearest 3
+```
+
+---
+
+After timeout:
+
+```text
+60 seconds
+```
+
+system must automatically run:
+
+```text
+Round 2
+```
+
+using:
+
+```text
+Next nearest 3
+```
+
+---
+
+After timeout:
+
+```text
+Round 3
+```
+
+using:
+
+```text
+Next nearest 3
+```
+
+---
+
+Generate logs proving:
+
+```text
+Round 1
+Round 2
+Round 3
+```
+
+actually execute.
+
+---
+
+# SECTION 3 — VERIFY NO_COURIER_FOUND
+
+After:
+
+```text
+3 failed rounds
+```
+
+system must:
+
+```text
+Mission Status
+→ NO_COURIER_FOUND
+```
+
+---
+
+Verify.
+
+Test.
+
+Generate proof.
+
+---
+
+If missing:
+
+Implement.
+
+---
+
+# SECTION 4 — DISPATCH ALERTS
+
+This requirement is mandatory.
+
+After:
+
+```text
+NO_COURIER_FOUND
+```
+
+system must create:
+
+```text
+Dispatch Alert
+```
+
+for admin.
+
+---
+
+Build:
+
+DispatchAlert table if missing.
+
+Example:
+
+```ts
+DispatchAlert
+
+id
+
+missionId
+
+type
+
+message
+
+createdAt
+
+resolvedAt
+```
+
+---
+
+Admin dashboard must display:
+
+```text
+Unassigned Missions
+```
+
+alerts.
+
+---
+
+# SECTION 5 — VERIFY AUTOMATIC BUSY STATE
+
+Current agreement:
+
+When:
+
+```text
+Mission
+→ ASSIGNED
+```
+
+Courier must automatically become:
+
+```text
+BUSY
+```
+
+and:
+
+```text
+Accepting Deliveries = false
+```
+
+---
+
+Verify.
+
+Generate proof.
+
+---
+
+If missing:
+
+Implement.
+
+---
+
+# SECTION 6 — VERIFY ONLINE RESTORE
+
+When mission becomes:
+
+```text
+DELIVERED
+```
+
+or
+
+```text
+FAILED
+```
+
+or
+
+```text
+CANCELLED
+```
+
+Courier must automatically return to:
+
+```text
+ONLINE
+```
+
+if delivery reception remains enabled.
+
+Otherwise:
+
+```text
+OFFLINE
+```
+
+---
+
+Verify.
+
+Generate proof.
+
+---
+
+# SECTION 7 — VERIFY RACE CONDITION SAFETY
+
+Simulate:
+
+```text
+Courier A accepts
+Courier B accepts
+```
+
+at the same time.
+
+---
+
+Verify:
+
+Only one courier wins.
+
+Only one assignment occurs.
+
+No duplicate assignments.
+
+No corrupted mission state.
+
+---
+
+If any weakness exists:
+
+Fix it.
+
+---
+
+# SECTION 8 — VERIFY OFFER CLEANUP
+
+After:
+
+```text
+Courier accepts
+```
+
+all remaining offers must become:
+
+```text
+CANCELLED
+```
+
+or
+
+```text
+EXPIRED
+```
+
+according to implementation.
+
+---
+
+Verify.
+
+Generate proof.
+
+---
+
+# SECTION 9 — VERIFY ADMIN MONITORING
+
+Admin must see:
+
+```text
+Mission
+
+Current Round
+
+Offers Sent
+
+Accepted
+
+Declined
+
+Expired
+
+Assigned Courier
+```
+
+---
+
+Verify every field exists.
+
+Implement missing fields.
+
+---
+
+# SECTION 10 — PERFORMANCE AUDIT
+
+Review:
+
+* mission queries
+* courier queries
+* offer queries
+
+---
+
+Verify indexes exist.
+
+Avoid N² loops.
+
+Avoid full table scans.
+
+Add indexes where necessary.
+
+---
+
+# SECTION 11 — DATABASE AUDIT
+
+Verify:
+
+```text
+delivery_missions
+
+mission_offers
+
+dispatch_alerts
+```
+
+all have:
+
+* indexes
+* foreign keys
+* timestamps
+
+---
+
+# SECTION 12 — RECOVERY DOCUMENTATION
+
+After ALL work finishes:
+
+Update ALL recovery files.
+
+Required:
+
+```text
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+```
+
+---
+
+Must include:
+
+```text
+Courier V3.3
+FINALIZED
+VERIFIED
+PRODUCTION READY
+```
+
+only after all tests pass.
+
+---
+
+# FINAL VALIDATION REPORT
+
+At the end produce:
+
+```text
+V3.3 Verification Report
+```
+
+with:
+
+✅ Nearest 3 verified
+
+✅ Round 1 verified
+
+✅ Round 2 verified
+
+✅ Round 3 verified
+
+✅ No Courier Found verified
+
+✅ Dispatch Alerts verified
+
+✅ Auto BUSY verified
+
+✅ Auto ONLINE verified
+
+✅ Offer Cleanup verified
+
+✅ Race Conditions verified
+
+✅ Admin Monitoring verified
+
+✅ Performance verified
+
+✅ Recovery Files Updated
+
+Only mark items complete after actual verification.

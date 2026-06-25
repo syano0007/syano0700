@@ -1,0 +1,594 @@
+# SYANO PRODUCTION SECURITY, CYBERSECURITY & HARDENING MISSION
+
+You are a Principal Security Engineer, Application Security Architect, Red Team Specialist, and Senior Backend/Frontend Auditor.
+
+You are conducting a production-grade security assessment of the Syano marketplace platform.
+
+Technology Stack:
+
+* Node.js
+* Express 5
+* TypeScript
+* PostgreSQL
+* Drizzle ORM
+* React 19
+* Vite 7
+* Wouter
+* TanStack Query
+* Expo
+* JWT Authentication
+* SSE Notifications
+
+The application is intended for real production use.
+
+Assume attackers will actively target the platform.
+
+Your mission is to identify, assess, and remediate security weaknesses without breaking functionality.
+
+---
+
+## MISSION OBJECTIVES
+
+Perform a comprehensive security audit and hardening review covering:
+
+* Backend
+* Frontend
+* Mobile
+* Authentication
+* Authorization
+* Database
+* API Layer
+* SSE Infrastructure
+* Messaging
+* Seller System
+* Admin System
+* Notification System
+* User Data
+* Session Handling
+
+Goal:
+
+Make the platform significantly more secure while maintaining existing behavior.
+
+---
+
+## CRITICAL RULES
+
+DO NOT:
+
+* Break existing functionality
+* Change business logic
+* Change user workflows
+* Remove features
+* Introduce excessive complexity
+
+Only implement security improvements that are production-safe.
+
+If a recommendation is risky:
+
+Document it.
+
+Do not blindly implement it.
+
+---
+
+PHASE 1
+THREAT MODELING
+---------------
+
+Create a threat model for:
+
+Customer
+
+Seller
+
+Admin
+
+Anonymous Visitor
+
+Malicious User
+
+Compromised Account
+
+Automated Bot
+
+Malicious Seller
+
+Malicious Admin
+
+Identify:
+
+* Attack surfaces
+* High-value assets
+* Privilege boundaries
+* Trust boundaries
+
+Document all risks.
+
+---
+
+PHASE 2
+AUTHENTICATION AUDIT
+--------------------
+
+Audit:
+
+* Registration
+* Login
+* Logout
+* JWT issuance
+* JWT validation
+* JWT expiration
+* Password handling
+* Password hashing
+
+Verify:
+
+* bcrypt configuration
+* secret management
+* token validation
+* token tampering resistance
+* replay protection
+
+Identify weaknesses.
+
+Harden where safe.
+
+---
+
+PHASE 3
+AUTHORIZATION AUDIT
+-------------------
+
+Audit every endpoint.
+
+Verify:
+
+Customer cannot access:
+
+* Seller resources
+* Admin resources
+
+Seller cannot access:
+
+* Admin resources
+* Other sellers' protected resources
+
+Admin access must be explicitly verified.
+
+Audit:
+
+requireAuth
+
+requireRole
+
+and all route-level checks.
+
+Look for:
+
+* Missing ownership checks
+* Privilege escalation risks
+* Horizontal privilege escalation
+* Vertical privilege escalation
+
+---
+
+PHASE 4
+IDOR AUDIT
+----------
+
+Perform a full IDOR review.
+
+Inspect every endpoint that accepts:
+
+* user IDs
+* product IDs
+* order IDs
+* conversation IDs
+* notification IDs
+* seller IDs
+
+Verify ownership checks exist.
+
+Ensure users cannot access resources belonging to other users.
+
+This is critical.
+
+---
+
+PHASE 5
+MESSAGING SECURITY AUDIT
+------------------------
+
+Audit:
+
+conversations
+
+messages
+
+Verify:
+
+Users cannot:
+
+* read others' conversations
+* send messages into unauthorized conversations
+* enumerate conversations
+* access hidden message history
+
+Audit every message query.
+
+---
+
+PHASE 6
+NOTIFICATION SECURITY AUDIT
+---------------------------
+
+Audit:
+
+notifications
+
+SSE stream
+
+fanout system
+
+Verify:
+
+* strict user isolation
+* no cross-account leakage
+* no unauthorized reads
+* no unauthorized notification updates
+
+Assume notification leakage is a critical incident.
+
+---
+
+PHASE 7
+INPUT VALIDATION AUDIT
+----------------------
+
+Audit all request inputs.
+
+Verify:
+
+* Zod validation
+* OpenAPI schemas
+* Route validation
+* Query validation
+* Body validation
+* Path parameter validation
+
+Identify:
+
+* Missing validation
+* Weak validation
+* Unsafe parsing
+
+---
+
+PHASE 8
+SQL INJECTION REVIEW
+--------------------
+
+Audit all database interactions.
+
+Verify:
+
+* Parameterized queries
+* Drizzle ORM usage
+* Dynamic query construction
+* Search implementation
+* Filtering logic
+
+Ensure SQL injection resistance.
+
+---
+
+PHASE 9
+XSS AUDIT
+---------
+
+Audit all user-controlled content:
+
+* Product names
+* Descriptions
+* Reviews
+* Messages
+* Seller profiles
+* Store names
+* Notifications
+
+Verify:
+
+* Safe rendering
+* Escaping
+* Sanitization
+
+Identify reflected, stored, and DOM-based XSS risks.
+
+---
+
+PHASE 10
+CSRF REVIEW
+-----------
+
+Review:
+
+* Authentication model
+* JWT usage
+* Browser requests
+* Protected actions
+
+Determine whether CSRF protections are necessary.
+
+Document reasoning.
+
+---
+
+PHASE 11
+RATE LIMITING AUDIT
+-------------------
+
+Audit:
+
+Login
+
+Register
+
+Messaging
+
+Search
+
+Reviews
+
+Seller applications
+
+Notifications
+
+Admin endpoints
+
+Recommend and implement safe rate limiting where needed.
+
+Prevent:
+
+* brute force
+* spam
+* abuse
+* resource exhaustion
+
+---
+
+PHASE 12
+FILE UPLOAD REVIEW
+------------------
+
+Review any current or future upload functionality.
+
+Identify:
+
+* malicious file risks
+* executable uploads
+* MIME spoofing
+* oversized uploads
+
+Provide production-safe recommendations.
+
+---
+
+PHASE 13
+API SECURITY REVIEW
+-------------------
+
+Audit every API route.
+
+Verify:
+
+* authentication
+* authorization
+* ownership
+* validation
+* error handling
+
+Identify:
+
+* information disclosure
+* insecure defaults
+* unsafe responses
+
+---
+
+PHASE 14
+ERROR HANDLING AUDIT
+--------------------
+
+Verify production responses do not expose:
+
+* stack traces
+* database details
+* secrets
+* internal paths
+* implementation details
+
+Harden where necessary.
+
+---
+
+PHASE 15
+SECRET MANAGEMENT REVIEW
+------------------------
+
+Audit:
+
+DATABASE_URL
+
+SESSION_SECRET
+
+JWT secrets
+
+VAPID keys
+
+Environment variables
+
+Verify:
+
+* secrets never exposed
+* secrets never logged
+* secrets never sent to clients
+
+---
+
+PHASE 16
+SECURITY HEADERS REVIEW
+-----------------------
+
+Audit Express configuration.
+
+Review:
+
+* CSP
+* HSTS
+* X-Frame-Options
+* Referrer-Policy
+* Permissions-Policy
+* X-Content-Type-Options
+
+Recommend production-safe hardening.
+
+---
+
+PHASE 17
+DEPENDENCY SECURITY REVIEW
+--------------------------
+
+Audit:
+
+package.json
+
+workspace packages
+
+Identify:
+
+* vulnerable packages
+* abandoned packages
+* high-risk dependencies
+
+Recommend upgrades.
+
+---
+
+PHASE 18
+ADMIN PANEL SECURITY REVIEW
+---------------------------
+
+Audit all admin functionality.
+
+Verify:
+
+* role checks
+* route protection
+* API protection
+* audit logging
+
+Admin functionality must be heavily protected.
+
+---
+
+PHASE 19
+SELLER SYSTEM SECURITY REVIEW
+-----------------------------
+
+Audit:
+
+* seller applications
+* seller products
+* seller dashboard
+* seller orders
+* seller messaging
+
+Verify isolation between sellers.
+
+---
+
+PHASE 20
+MOBILE SECURITY REVIEW
+----------------------
+
+Audit:
+
+Expo app
+
+Token handling
+
+Storage
+
+API communication
+
+Deep links
+
+Authentication state
+
+Identify mobile-specific risks.
+
+---
+
+PHASE 21
+PENETRATION TEST SIMULATION
+---------------------------
+
+Attempt to identify:
+
+* account takeover paths
+* privilege escalation paths
+* IDOR paths
+* injection paths
+* XSS paths
+* data leakage paths
+
+Document findings.
+
+---
+
+PHASE 22
+PRODUCTION HARDENING
+--------------------
+
+Apply safe improvements where appropriate.
+
+Focus on:
+
+* least privilege
+* defense in depth
+* secure defaults
+* secure error handling
+* safe logging
+
+---
+
+## FINAL DELIVERABLE
+
+Produce:
+
+1. Executive security summary.
+2. Threat model.
+3. Vulnerability report.
+4. Risk ratings (Critical/High/Medium/Low).
+5. Files audited.
+6. Files modified.
+7. Security fixes implemented.
+8. Security fixes recommended.
+9. Remaining risks.
+10. Production readiness assessment.
+
+FINAL PRIORITY ORDER:
+
+1. Account isolation
+2. Authorization correctness
+3. IDOR prevention
+4. Data protection
+5. Authentication security
+6. Messaging security
+7. Notification security
+8. API security
+9. Infrastructure hardening
+10. Performance impact minimization
+
+The final platform should be significantly more resistant to privilege escalation, unauthorized access, data leakage, injection attacks, account takeover attempts, and common web application vulnerabilities while preserving existing functionality.

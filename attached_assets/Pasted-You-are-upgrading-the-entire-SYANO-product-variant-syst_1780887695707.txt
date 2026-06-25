@@ -1,0 +1,387 @@
+You are upgrading the entire **SYANO (سوق سوريا)** product variant system.
+
+## Goal
+
+Replace the current basic variant implementation with a modern marketplace-grade system similar to Shopify, Amazon, Trendyol, and Noon.
+
+This is an enhancement of the existing system, NOT a rewrite of the marketplace.
+
+---
+
+# CRITICAL RULES
+
+* Do NOT break existing products.
+* Do NOT remove existing database columns unless absolutely necessary.
+* Prefer additive migrations.
+* Preserve all existing APIs whenever possible.
+* Keep backward compatibility with products that have no variants.
+* Preserve RTL support.
+* Preserve Arabic and English translations.
+* Preserve current theme, colors, spacing, shadows, and border radius.
+* No placeholder UI.
+* No ugly admin-style forms.
+* TypeScript must finish with 0 errors.
+* Mobile app compatibility must remain intact.
+
+---
+
+# CURRENT PROBLEM
+
+The existing variant system is very primitive:
+
+* difficult to create variants
+* poor UX
+* variant images not integrated properly
+* option combinations confusing
+* front-end selector feels unfinished
+* inventory management is weak
+* pricing behavior is inconsistent
+
+The goal is to make the experience feel like a professional global e-commerce platform.
+
+---
+
+# PART 1 — Seller Product Creation UI
+
+Redesign the "Add Product" variant section completely.
+
+## Variant Groups
+
+Seller can create groups like:
+
+* Color
+* Size
+* Storage
+* RAM
+* Material
+* Capacity
+* Length
+* Weight
+* Edition
+
+Seller can also create custom group names.
+
+Example:
+
+Group:
+Color
+
+Values:
+Red
+Blue
+Black
+White
+
+*
+
+Group:
+Size
+
+Values:
+S
+M
+L
+XL
+
+---
+
+## Modern UI
+
+Display groups as beautiful cards.
+
+Example layout:
+
+---
+
+Variant Groups
+
+┌────────────────────────────────────┐
+│ Color                          ✕   │
+│                                  │
+│ [ Red ] [ Blue ] [ Black ] [+]   │
+└────────────────────────────────────┘
+
+┌────────────────────────────────────┐
+│ Size                           ✕   │
+│                                  │
+│ [ S ] [ M ] [ L ] [ XL ] [+]     │
+└────────────────────────────────────┘
+
+* Add Variant Group
+
+---
+
+Use:
+
+* rounded-xl
+* soft borders
+* subtle shadows
+* theme colors
+* spacing consistent with current marketplace
+
+Must feel premium.
+
+---
+
+# PART 2 — Automatic Combination Generator
+
+After creating groups, generate all combinations automatically.
+
+Example:
+
+Color:
+Red
+Blue
+
+Size:
+S
+M
+
+Generate:
+
+Red / S
+Red / M
+Blue / S
+Blue / M
+
+Display them inside a professional table/card layout.
+
+Columns:
+
+| Enabled |
+| Combination |
+| SKU |
+| Original Price |
+| Sale Price |
+| Stock |
+| Image |
+
+Each row should allow editing.
+
+Seller can disable individual combinations.
+
+---
+
+# PART 3 — Variant Images
+
+Allow image assignment per combination.
+
+Example:
+
+Red variants → red shirt images
+
+Blue variants → blue shirt images
+
+Image picker should integrate with current uploader.
+
+Thumbnail preview visible directly in the table.
+
+---
+
+# PART 4 — Product Page Frontend
+
+Redesign variant selection completely.
+
+Current implementation should be replaced with a premium selector.
+
+Example:
+
+Color
+
+○ White
+● Black
+○ Blue
+
+or
+
+[ White ]
+[ Black ]
+[ Blue ]
+
+Selected option:
+
+* theme primary color
+* smooth transition
+* subtle scale animation
+* accessible focus ring
+
+Size selector:
+
+[ S ] [ M ] [ L ] [ XL ]
+
+Unavailable options:
+
+* faded
+* crossed out
+* non-clickable
+
+---
+
+# PART 5 — Live Variant Updates
+
+When user changes variant:
+
+Immediately update:
+
+* product image
+* price
+* old price
+* stock state
+* SKU
+* selected combination
+
+No page refresh.
+
+No loading spinner.
+
+Instant UI update.
+
+---
+
+# PART 6 — Stock Logic
+
+Each combination owns its own inventory.
+
+Example:
+
+Red / M = 3
+
+Red / L = 0
+
+Blue / M = 12
+
+If selected combination reaches zero:
+
+* disable Add To Cart
+* show localized Out Of Stock label
+* keep other combinations available
+
+---
+
+# PART 7 — Seller Experience
+
+Provide bulk actions:
+
+* Apply same price to all
+* Apply same stock to all
+* Apply same SKU prefix
+* Duplicate previous row values
+
+Avoid repetitive manual editing.
+
+---
+
+# PART 8 — Data Model
+
+Extend existing schema if needed.
+
+Support:
+
+VariantGroup
+VariantOption
+VariantCombination
+
+Each combination contains:
+
+* id
+* sku
+* originalPrice
+* salePrice
+* stock
+* image
+* enabled
+* optionValueIds[]
+
+Preserve existing data.
+
+Use additive migrations only.
+
+---
+
+# PART 9 — APIs
+
+Ensure APIs expose complete variant data:
+
+Product Details:
+
+* groups
+* options
+* combinations
+* selected images
+* stock
+* prices
+
+Seller APIs:
+
+* create
+* update
+* delete
+* bulk update
+
+Keep existing endpoints compatible.
+
+---
+
+# PART 10 — Mobile App
+
+The Expo app must support the exact same variant experience:
+
+* chip selectors
+* instant updates
+* image switching
+* stock handling
+
+No degraded mobile implementation.
+
+---
+
+# PART 11 — Design Quality
+
+Target visual quality:
+
+* Shopify
+* Amazon
+* Trendyol
+* Noon
+
+The UI should look native to the existing SYANO design language.
+
+Do NOT create a dashboard-looking table.
+
+Do NOT use plain HTML controls.
+
+Use reusable modern components.
+
+---
+
+# FINAL VALIDATION
+
+After implementation verify:
+
+✅ Existing products still work
+
+✅ Products without variants still work
+
+✅ Add Product page works
+
+✅ Edit Product page works
+
+✅ Product details page works
+
+✅ Cart uses correct selected variant
+
+✅ Orders save correct variant information
+
+✅ Stock decrements correctly
+
+✅ Arabic RTL preserved
+
+✅ English preserved
+
+✅ Mobile works
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+Only implement verified improvements. Do not simplify features. Build a production-quality variant system.

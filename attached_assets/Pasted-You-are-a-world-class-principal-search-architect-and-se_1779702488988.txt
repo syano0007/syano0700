@@ -1,0 +1,323 @@
+You are a world-class principal search architect and senior AI ecommerce engineer.
+
+Your mission is to redesign and rebuild the ENTIRE marketplace search engine into a production-grade intelligent multilingual discovery system comparable to modern global ecommerce platforms like Amazon, Alibaba, Noon, and AI-powered search systems.
+
+The current implementation is NOT acceptable because it relies on limited hardcoded keyword mappings and only works for a few manually defined words.
+
+This must be completely replaced with a scalable, intelligent, future-proof architecture.
+
+==================================================
+PRIMARY OBJECTIVE
+=================
+
+Build a TRUE multilingual semantic ecommerce search engine that works naturally across:
+
+* Arabic
+* English
+* mixed-language queries
+* future language expansion
+
+WITHOUT manually defining translations word-by-word.
+
+Users must discover relevant products regardless of:
+
+* the language they type
+* the language the product was created in
+* transliteration differences
+* partial wording
+* synonyms
+* spelling variations
+
+==================================================
+CORE REQUIREMENTS
+=================
+
+1. TRUE CROSS-LANGUAGE SEARCH
+
+Examples:
+
+* "phone" finds "هاتف", "موبايل", "smartphone"
+* "سكين" finds "knife"
+* "laptop" finds Arabic laptop products
+* Arabic queries find English products
+* English queries find Arabic products
+* mixed-language queries work naturally
+
+This must work PLATFORM-WIDE.
+
+==================================================
+2. REMOVE DEPENDENCY ON MANUAL DICTIONARIES
+===========================================
+
+The current hardcoded mapping system must NOT be the core logic anymore.
+
+DO NOT build:
+
+* giant static translation objects
+* manually maintained synonym files
+* limited keyword mappings
+
+Instead implement scalable intelligent indexing.
+
+==================================================
+3. MULTILINGUAL SEARCH INDEX PIPELINE
+=====================================
+
+Create a professional indexing architecture.
+
+For EACH product automatically generate:
+
+* normalized tokens
+* multilingual searchable fields
+* translated variants
+* semantic keyword expansions
+* stemmed versions
+* partial-match indexes
+
+Index:
+
+* title
+* translated title
+* description
+* translated description
+* category
+* subcategory
+* tags
+* attributes
+* seller metadata if relevant
+
+==================================================
+4. AUTOMATIC TRANSLATION LAYER
+==============================
+
+Implement automatic multilingual indexing.
+
+When a product is:
+
+* created
+* edited
+* imported
+
+Automatically generate searchable equivalents in:
+
+* Arabic
+* English
+
+Use:
+
+* translation service architecture
+* local translation utilities
+* semantic mapping layer
+* AI-assisted indexing if architecture allows
+
+Products should become searchable in BOTH languages automatically.
+
+==================================================
+5. ADVANCED ARABIC LANGUAGE PROCESSING
+======================================
+
+Implement proper Arabic-aware normalization:
+
+* remove diacritics
+* normalize alef variations
+* normalize taa marbuta
+* normalize ya/alef maksura
+* remove tatweel
+* punctuation stripping
+* Unicode normalization
+
+Handle:
+
+* colloquial variants
+* spacing inconsistencies
+* Arabic/English mixed text
+
+==================================================
+6. ENGLISH LANGUAGE PROCESSING
+==============================
+
+Implement:
+
+* lowercase normalization
+* stemming
+* singular/plural handling
+* typo tolerance
+* punctuation normalization
+* partial token matching
+
+==================================================
+7. SEMANTIC / INTELLIGENT MATCHING
+==================================
+
+Search should understand MEANING — not only exact words.
+
+Support:
+
+* synonym relevance
+* category similarity
+* semantic expansion
+* contextual matching
+* partial intent understanding
+
+Example:
+Searching:
+"gaming"
+should help discover:
+
+* gaming laptops
+* gaming mouse
+* RGB keyboards
+
+Even without exact phrase matches.
+
+==================================================
+8. PROFESSIONAL RESULT RANKING
+==============================
+
+Build intelligent ranking logic.
+
+Prioritize:
+
+1. exact matches
+2. semantic matches
+3. title relevance
+4. translated relevance
+5. category relevance
+6. popularity
+7. click-through behavior if available
+
+Avoid:
+
+* irrelevant noise
+* duplicate results
+* low-quality ranking
+
+==================================================
+9. AUTOCOMPLETE / SUGGESTIONS
+=============================
+
+Completely redesign autocomplete.
+
+Requirements:
+
+* instant suggestions
+* multilingual suggestions
+* semantic suggestions
+* typo-tolerant suggestions
+* mobile optimized
+* desktop optimized
+
+Arabic input should suggest English products.
+English input should suggest Arabic products.
+
+==================================================
+10. FIX ALL EXISTING UI BUGS
+============================
+
+CURRENT BUGS TO FULLY FIX:
+
+* desktop suggestions sometimes invisible
+* mobile suggestion click not routing
+* dropdown state inconsistencies
+* z-index issues
+* focus handling problems
+* overlay interaction bugs
+
+When clicking ANY suggestion:
+
+* instantly navigate to product page
+* close dropdown correctly
+* preserve routing state
+* work flawlessly on mobile touch devices
+
+==================================================
+11. MOBILE-FIRST UX
+===================
+
+The search experience must feel premium on:
+
+* iPhone
+* Android
+* tablets
+* desktop
+
+Requirements:
+
+* smooth animations
+* no lag
+* responsive dropdowns
+* touch-friendly
+* keyboard-safe
+* no layout shifts
+
+==================================================
+12. PERFORMANCE & SCALABILITY
+=============================
+
+This system must scale to:
+
+* thousands of products
+* large catalogs
+* future traffic growth
+
+Optimize:
+
+* indexing
+* query speed
+* caching
+* debounce behavior
+* async loading
+* memory usage
+
+Avoid inefficient brute-force filtering.
+
+==================================================
+13. CLEAN ARCHITECTURE
+======================
+
+Use production-grade architecture:
+
+* reusable search utilities
+* centralized indexing logic
+* maintainable structure
+* modular services
+* future extensibility
+
+Code should feel enterprise-level.
+
+==================================================
+14. DEBUGGING & VALIDATION
+==========================
+
+Perform deep debugging and validation.
+
+Test:
+
+* Arabic-only products
+* English-only products
+* mixed-language products
+* typo queries
+* partial queries
+* semantic queries
+* desktop behavior
+* mobile touch routing
+* autocomplete
+* performance under load
+
+==================================================
+15. FINAL RESULT
+================
+
+The final search engine should feel like:
+
+* Amazon-quality discovery
+* AI-assisted multilingual ecommerce search
+* intelligent product understanding
+* premium modern UX
+* production-ready infrastructure
+
+No fake fixes.
+No temporary hacks.
+No limited manual dictionaries.
+
+Build a REAL intelligent multilingual ecommerce search system.

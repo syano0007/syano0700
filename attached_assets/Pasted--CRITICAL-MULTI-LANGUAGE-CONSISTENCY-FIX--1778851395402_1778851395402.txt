@@ -1,0 +1,128 @@
+==================================================
+CRITICAL MULTI-LANGUAGE CONSISTENCY FIX
+=======================================
+
+Carefully audit and fix the ENTIRE multilingual system across ALL pages and components.
+
+IMPORTANT:
+Some pages (especially product-related pages) are not properly respecting the selected language or RTL/LTR behavior.
+
+You MUST fully verify and fix all language inconsistencies WITHOUT rebuilding the project or breaking existing functionality.
+
+==================================================
+LANGUAGE SYSTEM REQUIREMENTS
+============================
+
+SUPPORTED LANGUAGES:
+
+* Arabic (RTL)
+* English (LTR)
+
+The selected language MUST correctly affect:
+
+* ALL pages
+* ALL components
+* ALL product-related pages
+* ALL navigation
+* ALL dashboards
+* ALL forms
+* ALL buttons
+* ALL search/filter UI
+* ALL notifications/messages
+* ALL cart/order interfaces
+
+==================================================
+CRITICAL FIXES REQUIRED
+=======================
+
+Fix any page/component where:
+
+* text remains untranslated
+* RTL layout breaks
+* spacing/alignment becomes incorrect
+* language switch does not fully update content
+* mixed Arabic/English appears incorrectly
+* product pages ignore selected language
+* navbar/search/cart do not update correctly
+* seller/customer pages are inconsistent
+
+==================================================
+RTL / LTR BEHAVIOR
+==================
+
+Arabic mode MUST:
+
+* use proper RTL layout
+* flip spacing/alignment correctly
+* maintain professional typography hierarchy
+* maintain responsive layout
+
+English mode MUST:
+
+* use proper LTR layout
+* preserve clean spacing and alignment
+* maintain modern ecommerce appearance
+
+IMPORTANT:
+Do NOT use fake RTL hacks.
+Implement proper scalable RTL/LTR support.
+
+==================================================
+PRODUCT PAGE FIXES (HIGH PRIORITY)
+==================================
+
+Carefully verify ALL product-related pages including:
+
+* product cards
+* product details page
+* search results
+* category pages
+* cart items
+* checkout
+* seller product management
+
+Ensure:
+
+* language switches correctly everywhere
+* product metadata renders correctly
+* pricing layout remains stable
+* buttons and badges align properly
+* no broken responsive behavior
+
+==================================================
+SEARCH + FILTER LOCALIZATION
+============================
+
+Ensure search/filter system fully supports:
+
+* Arabic search
+* English search
+* translated UI labels
+* proper RTL/LTR layout
+
+==================================================
+STATE & PERSISTENCE
+===================
+
+Selected language MUST:
+
+* persist across refreshes
+* persist across navigation
+* update entire UI instantly
+* synchronize globally across app
+
+==================================================
+FINAL VALIDATION (MANDATORY)
+============================
+
+Before completion verify:
+
+* ALL pages fully support Arabic + English
+* ALL layouts switch correctly between RTL/LTR
+* Product pages work perfectly in both languages
+* No untranslated UI remains
+* No broken spacing/alignment
+* Navbar/cart/search remain stable
+* Mobile responsiveness preserved
+* No existing functionality broken
+* Production-ready multilingual stability

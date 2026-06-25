@@ -1,0 +1,207 @@
+Continue from the CURRENT approved mockup.
+
+Do NOT restart.
+
+Do NOT redesign.
+
+Do NOT rebuild from scratch.
+
+Use the current mockup as the baseline and only apply the following corrections.
+
+The homepage is now structurally close to the screenshots, but there are still several important visual mismatches.
+
+This is a FINAL VISUAL REFINEMENT PASS.
+
+---
+
+# ISSUE 1 — TYPOGRAPHY IS TOO LARGE
+
+The current hero typography is noticeably larger than the screenshots.
+
+The screenshots have a premium hierarchy, but they are NOT oversized.
+
+Current version feels exaggerated.
+
+Adjust all typography to visually match the screenshots.
+
+Audit:
+
+* Hero title size
+* Hero subtitle size
+* Hero description size
+* Category titles
+* Section headings
+* Product titles
+* Product pricing
+* CTA text
+* Footer text
+
+Do NOT guess.
+
+Compare directly against the screenshots.
+
+Reduce sizes where needed.
+
+The goal is visual parity.
+
+---
+
+# ISSUE 2 — STICKY NAVBAR
+
+The navigation bar must remain visible while scrolling.
+
+Current behavior:
+
+* Navbar disappears after scrolling.
+
+Required behavior:
+
+* Sticky/Fixed navigation.
+* Always visible throughout the page.
+* Smooth transition.
+* No layout jump.
+* No CLS.
+* No flickering.
+
+Behavior should feel similar to:
+
+* Amazon
+* Noon
+* Trendyol
+
+Requirements:
+
+* Smooth background blur.
+* Subtle backdrop.
+* Premium shadow.
+* Preserve RTL.
+* Preserve mobile responsiveness.
+
+---
+
+# ISSUE 3 — HERO IMAGE SHOULD FEEL ALIVE
+
+Current hero image feels static.
+
+The screenshots feel more dynamic.
+
+I want the hero visual to continuously feel alive.
+
+Requirements:
+
+* Continuous motion.
+* Smooth movement.
+* Premium feel.
+* No aggressive animation.
+* No cheap slider effects.
+* No lag.
+
+Possible approaches:
+
+* Multi-layer parallax.
+* Slow cinematic motion.
+* Enhanced Ken Burns.
+* Floating product highlights.
+* Depth movement.
+
+The effect must feel expensive and premium.
+
+The user should immediately feel that the homepage is active.
+
+Animation must remain smooth on low-end devices.
+
+Use GPU-friendly transforms only.
+
+---
+
+# ISSUE 4 — PRODUCT CARDS MUST MATCH THE SCREENSHOTS
+
+This is one of the biggest remaining differences.
+
+The product cards still do not look like the screenshots.
+
+Perform a side-by-side audit.
+
+Match:
+
+* Card proportions.
+* Image ratio.
+* Discount badge.
+* Favorite icon.
+* Rating placement.
+* Price hierarchy.
+* Old price styling.
+* Button styling.
+* Colors.
+* Shadows.
+* Corner radius.
+* Internal spacing.
+* Hover effects.
+
+I want the cards to visually feel like they came directly from the screenshots.
+
+Do NOT approximate.
+
+Recreate them.
+
+---
+
+# VISUAL AUDIT REQUIRED
+
+Before making changes:
+
+Compare:
+
+A) Current mockup
+B) Target screenshots
+
+List every remaining mismatch.
+
+Then fix those mismatches.
+
+---
+
+# QUALITY TARGET
+
+The homepage should feel:
+
+* Premium
+* Elegant
+* Spacious
+* Modern
+* Marketplace-grade
+
+Comparable to:
+
+* Noon
+* Trendyol
+* Amazon
+
+But visually matching the provided screenshots.
+
+---
+
+# DO NOT
+
+* Restart the design.
+* Change section order.
+* Change approved layout.
+* Invent new sections.
+* Add random UI ideas.
+
+---
+
+# SUCCESS CRITERIA
+
+After these corrections:
+
+1. Typography visually matches screenshots.
+2. Navbar remains visible during scrolling.
+3. Hero continuously feels alive and animated.
+4. Product cards are nearly identical to screenshots.
+5. Overall similarity reaches 98–100%.
+6. Preserve RTL.
+7. Preserve responsiveness.
+8. Preserve performance.
+9. Preserve accessibility.
+10. Zero TypeScript errors.

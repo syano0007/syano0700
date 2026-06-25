@@ -1,0 +1,142 @@
+CRITICAL FORENSIC INVESTIGATION – Messaging Page Opens at Wrong Scroll Position + Missing Back Button
+
+STOP.
+
+Do not write any code yet.
+
+The previous fix investigated message auto-scroll inside the conversation thread.
+
+That was NOT the real bug.
+
+Actual behavior:
+
+User opens Messages.
+User clicks a conversation.
+Router navigates correctly.
+Conversation page loads.
+The browser opens somewhere lower on the page instead of at the top.
+
+Important:
+
+This is NOT "scrolling to the last message".
+
+This is the ENTIRE PAGE opening at an incorrect scroll position.
+
+Evidence:
+
+User sometimes lands near the message input area.
+User sometimes lands in the middle of the conversation layout.
+Happens for both customer and seller.
+Happens on mobile and desktop.
+Previous auto-scroll fix did not solve it.
+
+Investigate ALL of the following:
+
+Navigation:
+
+router.push
+Link components
+navigate calls
+route state
+
+Scroll restoration:
+
+browser scroll restoration
+history.scrollRestoration
+React Router behavior
+page transition behavior
+
+Layout:
+
+parent layouts
+page wrappers
+ScrollArea components
+overflow containers
+min-height calculations
+flex layouts
+sticky headers
+fixed headers
+
+Effects:
+
+scrollIntoView
+scrollTo
+window.scrollTo
+element.scrollTop
+focus()
+textarea auto-focus
+input auto-focus
+
+Find the EXACT reason why the PAGE itself opens lower than expected.
+
+Actual behavior:
+
+Sometimes when opening a conversation:
+
+Back button appears.
+Other times it is missing.
+User cannot easily return to conversation list.
+
+Investigate:
+
+Conditional rendering logic
+Mobile breakpoints
+Desktop breakpoints
+RTL mode
+LTR mode
+selectedConversation state
+selectedConversationId state
+route params
+header components
+conversation detail components
+CSS display conditions
+hidden classes
+z-index issues
+responsive visibility classes
+
+Find every code path where the back button can disappear.
+
+Read ALL messaging-related files first.
+
+Customer:
+
+pages/messages/*
+components used by messages
+
+Seller:
+
+pages/seller/messages*
+related components
+
+Shared:
+
+layouts
+navbar
+routing helpers
+scroll containers
+
+Then provide:
+
+Root cause of Bug #1
+Exact file(s)
+Exact line(s)
+Why previous fix did not solve it
+Root cause of Bug #2
+Exact file(s)
+Exact line(s)
+Proposed fix
+Regression risks
+
+ONLY AFTER proving the root causes should you modify code.
+
+Do not stop at the first explanation.
+Verify on:
+
+Customer web
+Seller web
+Mobile layout
+Desktop layout
+Arabic RTL
+English LTR
+
+Then implement the smallest safe fix.

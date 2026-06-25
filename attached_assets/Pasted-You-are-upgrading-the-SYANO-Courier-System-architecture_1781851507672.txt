@@ -1,0 +1,470 @@
+You are upgrading the SYANO (سوق سوريا) Courier System architecture.
+
+# OBJECTIVE
+
+Before starting Phase A8, convert the courier experience from a Mobile-First implementation into a Web-First implementation.
+
+The courier must be able to perform the complete delivery workflow directly from the Marketplace web application.
+
+The Expo mobile app must remain supported, but it is no longer the primary experience.
+
+The Marketplace web courier workspace becomes the primary operational environment.
+
+---
+
+# CRITICAL RULES
+
+Read before doing anything:
+
+AGENT_BOOTSTRAP.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+project.manifest.json
+
+replit.md
+
+WORKFLOW_AUDIT.md
+
+Do not create workflows.
+
+Do not create previews.
+
+Do not create duplicate services.
+
+Do not modify service ports.
+
+Preserve:
+
+API Server = 8080
+
+Marketplace = 5000
+
+Embedding Service = 8000
+
+Mobile = Expo
+
+---
+
+# ARCHITECTURAL GOAL
+
+Current situation:
+
+Customer → Web
+
+Seller → Web
+
+Admin → Web
+
+Courier → Mostly Mobile
+
+Target:
+
+Customer → Web
+
+Seller → Web
+
+Admin → Web
+
+Courier → Web
+
+Mobile remains secondary.
+
+The entire delivery operation must work from browser only.
+
+---
+
+# PHASE W1 — WEB COURIER HOME
+
+Replace the current courier dashboard structure.
+
+Current:
+
+Profile
+→ Mission Workspace
+
+Target:
+
+# Courier Home
+
+Mission Workspace
+
+The workspace becomes the default courier landing page.
+
+No extra navigation required.
+
+When courier logs in:
+
+Open workspace immediately.
+
+---
+
+# PHASE W2 — MAP-FIRST INTERFACE
+
+The map must always be visible.
+
+Even when there is no active mission.
+
+Layout:
+
+---
+
+Map (70-85% viewport)
+
+---
+
+Bottom operational panel
+
+---
+
+States:
+
+OFFLINE
+
+ONLINE
+
+WAITING_FOR_OFFER
+
+OFFER_RECEIVED
+
+TO_PICKUP
+
+TO_CUSTOMER
+
+MISSION_COMPLETE
+
+All states operate inside the same screen.
+
+No page switching.
+
+No modal-driven workflow.
+
+---
+
+# PHASE W3 — OFFER HANDLING
+
+Offer cards appear above the map.
+
+Display:
+
+Pickup location
+
+Delivery location
+
+Estimated earnings
+
+Countdown timer
+
+Distance
+
+Accept
+
+Decline
+
+Urgency styling:
+
+> 15 seconds = normal
+
+≤15 seconds = warning
+
+≤5 seconds = danger
+
+Accepting immediately updates the workspace state.
+
+No page refresh.
+
+---
+
+# PHASE W4 — PICKUP WORKFLOW
+
+After acceptance:
+
+Map remains visible.
+
+Show:
+
+Store details
+
+Phone number
+
+Navigate button
+
+Order reference
+
+Expected earnings
+
+Primary action:
+
+Picked Up
+
+When pressed:
+
+Mission transitions:
+
+TO_PICKUP
+→
+TO_CUSTOMER
+
+Automatically.
+
+---
+
+# PHASE W5 — DELIVERY WORKFLOW
+
+Show:
+
+Customer details
+
+Phone number
+
+Delivery notes
+
+Navigate button
+
+ETA
+
+Distance remaining
+
+Primary actions:
+
+Delivered
+
+Report Failure
+
+Failure requires reason.
+
+Delivered triggers:
+
+Mission completion
+
+Tracking session stop
+
+Availability restoration
+
+Wallet updates
+
+All existing backend logic must remain intact.
+
+---
+
+# PHASE W6 — BROWSER GPS
+
+Do not depend on Expo GPS.
+
+Implement browser tracking.
+
+Use:
+
+navigator.geolocation.watchPosition()
+
+Requirements:
+
+Automatic updates
+
+Reuse existing A3 location endpoint
+
+Reuse freshness system
+
+Reuse location validation
+
+Respect:
+
+ONLINE
+
+BUSY
+
+OFFLINE
+
+OFFLINE must stop location reporting.
+
+---
+
+# PHASE W7 — REAL-TIME TRACKING
+
+Workspace map must update live.
+
+Courier marker moves.
+
+ETA updates.
+
+Distance updates.
+
+Route updates.
+
+Use existing:
+
+A4 Tracking
+
+A5 Tracking
+
+A6 Routing
+
+No duplicate tracking system.
+
+Use current backend.
+
+---
+
+# PHASE W8 — COURIER HISTORY PAGE
+
+Separate page.
+
+Contains:
+
+Completed missions
+
+Failed missions
+
+Cancelled missions
+
+Mission details
+
+Filters
+
+Search
+
+Map is NOT required here.
+
+---
+
+# PHASE W9 — EARNINGS PAGE
+
+Separate page.
+
+Contains:
+
+Wallet balance
+
+Transactions
+
+Payouts
+
+Statistics
+
+Mission earnings history
+
+Reuse existing wallet infrastructure.
+
+---
+
+# PHASE W10 — PROFILE PAGE
+
+Separate page.
+
+Contains:
+
+Vehicle information
+
+Availability settings
+
+Language
+
+Account settings
+
+Logout
+
+Remove operational workflow from Profile.
+
+Profile becomes settings only.
+
+---
+
+# PHASE W11 — WEB PARITY VALIDATION
+
+Verify that courier can complete:
+
+Offer received
+
+Offer accepted
+
+Navigate to store
+
+Picked Up
+
+Navigate to customer
+
+Delivered
+
+Wallet updated
+
+Tracking updated
+
+Availability updated
+
+Without opening the mobile app.
+
+---
+
+# PHASE W12 — MOBILE PRESERVATION
+
+Do not remove Expo functionality.
+
+Do not break mobile.
+
+Mobile should continue working.
+
+But web becomes the primary operational platform.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Courier can work entirely from web
+
+✅ Map always visible
+
+✅ Offer handling works
+
+✅ Pickup workflow works
+
+✅ Delivery workflow works
+
+✅ Browser GPS works
+
+✅ Tracking updates live
+
+✅ Routing works
+
+✅ Wallet updates
+
+✅ History page works
+
+✅ Earnings page works
+
+✅ Profile page works
+
+✅ Existing APIs preserved
+
+✅ Mobile preserved
+
+✅ No workflow changes
+
+✅ No regressions
+
+✅ TypeScript = 0 errors
+
+After implementation, perform a complete end-to-end test using real system accounts and a real mission lifecycle.
+
+Do not stop at implementation.
+
+Verify the complete workflow as if you are a new tester with no prior project knowledge.
+
+Update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+WORKFLOW_AUDIT.md
+
+replit.md
+
+Only finish when the entire courier workflow is fully usable from the web application.

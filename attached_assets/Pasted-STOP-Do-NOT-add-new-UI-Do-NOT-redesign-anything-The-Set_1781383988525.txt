@@ -1,0 +1,285 @@
+STOP.
+
+Do NOT add new UI.
+
+Do NOT redesign anything.
+
+The Settings dropdown already exists.
+
+The problem is functionality.
+
+Your task is to fully connect Theme, Language, and Currency to the real SYANO backend and make them work across the entire platform.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PROBLEM
+
+The Settings menu exists visually.
+
+Theme button does not actually change the site.
+
+Language button does not actually localize the site.
+
+Currency button does not actually update prices.
+
+The UI exists but functionality is incomplete.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GOAL
+
+Implement a production-grade global settings system.
+
+Everything must work.
+
+Everything must persist.
+
+Everything must survive page refresh.
+
+Everything must work across Marketplace, Admin, Seller, Courier, and Mobile.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 1 — THEME SYSTEM
+
+Connect:
+
+* Light
+* Dark
+* System
+
+Requirements:
+
+✅ Entire website updates instantly
+
+✅ No page refresh
+
+✅ Persist selection
+
+✅ Store in localStorage
+
+✅ Store in user profile when authenticated
+
+✅ Restore automatically after login
+
+✅ Restore automatically after refresh
+
+System mode:
+
+* follow OS theme
+* update dynamically
+
+Verify:
+
+* navbar
+* homepage
+* product pages
+* dashboards
+* modals
+* dropdowns
+* drawers
+
+all update correctly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 2 — LANGUAGE SYSTEM
+
+Connect:
+
+* العربية
+* English
+
+Requirements:
+
+✅ Full i18n
+
+✅ RTL/LTR switching
+
+✅ Navbar updates
+
+✅ Homepage updates
+
+✅ Product pages update
+
+✅ Admin updates
+
+✅ Seller dashboard updates
+
+✅ Courier dashboard updates
+
+✅ Forms update
+
+✅ Validation messages update
+
+Persist selection:
+
+* localStorage
+* user profile
+
+Restore after login.
+
+Restore after refresh.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 3 — CURRENCY SYSTEM
+
+Connect:
+
+* SYP
+* USD
+
+Requirements:
+
+When currency changes:
+
+All prices update instantly.
+
+Including:
+
+* Hero cards
+* Product cards
+* Product pages
+* Cart
+* Checkout
+* Orders
+* Seller dashboard
+* Analytics
+
+Use a centralized currency service.
+
+Do NOT hardcode.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 4 — BACKEND
+
+Create/verify settings API.
+
+Example:
+
+GET /api/user/settings
+
+PATCH /api/user/settings
+
+Response:
+
+{
+"theme":"dark",
+"language":"ar",
+"currency":"SYP"
+}
+
+Authenticated users:
+
+save settings in database.
+
+Guests:
+
+save locally.
+
+When user logs in:
+
+merge guest settings correctly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 5 — GLOBAL STATE
+
+Create one settings source of truth.
+
+Use:
+
+* Context
+  or
+* Zustand
+  or existing global store
+
+Avoid duplicated state.
+
+Everything must read from the same source.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 6 — HOMEPAGE V7
+
+Verify all Homepage V7 components respect settings:
+
+* Hero
+* Categories
+* Deals
+* Stores
+* Products
+* Footer
+
+No component may bypass settings.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 7 — MOBILE
+
+Expo app must support:
+
+* Theme
+* Language
+* Currency
+
+same behavior as web.
+
+No degraded implementation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 8 — RECOVERY FILES
+
+After implementation update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+project memory
+
+architecture docs
+
+Document:
+
+* settings architecture
+* APIs
+* persistence flow
+* storage locations
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VALIDATION
+
+Verify:
+
+✅ Theme changes instantly
+
+✅ Language changes instantly
+
+✅ Currency changes instantly
+
+✅ Refresh keeps settings
+
+✅ Login keeps settings
+
+✅ Logout keeps settings
+
+✅ Mobile works
+
+✅ API works
+
+✅ Database saves correctly
+
+✅ No console errors
+
+✅ No TypeScript errors
+
+✅ No regressions
+
+Do not stop at UI.
+
+Implement full functionality end-to-end.

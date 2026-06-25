@@ -1,0 +1,237 @@
+Before doing anything else, create a PERMANENT RECOVERY CHECKPOINT for this workspace.
+
+The goal is that if this project is ever moved to another Replit account again, I should only have to say:
+
+"Restore and run the project."
+
+and the workspace should automatically return to this exact state.
+
+---
+
+# CRITICAL RULES
+
+Do NOT modify working features.
+
+Do NOT redesign anything.
+
+Do NOT create placeholder data.
+
+Do NOT remove existing recovery files.
+
+Instead, update and consolidate the recovery documentation.
+
+---
+
+# APPLY THE ATTACHED LOGO
+
+A logo image will be attached together with this prompt.
+
+This attached logo is now the official SYANO branding asset.
+
+Before updating the recovery files:
+
+* Locate every place where the project uses the main SYANO logo.
+* Replace the old logo with the attached one.
+* Preserve the existing sizing and styling unless adjustment is required for proper display.
+* Verify the logo works correctly in:
+
+  * Navbar
+  * Mobile Navbar
+  * Footer
+  * Login/Register pages (if applicable)
+  * Favicon / PWA assets (if the project derives them from the main logo)
+  * OpenGraph image references (only if appropriate)
+
+Verify:
+
+* No broken image links.
+* No 404 asset errors.
+* Proper RTL alignment.
+* Proper scaling on desktop and mobile.
+* Vite resolves the asset correctly.
+* Public asset paths remain valid.
+
+Do NOT use placeholder images.
+
+Do NOT change the project branding beyond replacing the official logo with the attached asset.
+
+After successfully applying it, update the recovery documentation so future restorations know that this attached logo is the current official branding asset and should be preserved during migrations.
+
+---
+
+# CREATE A COMPLETE RECOVERY SNAPSHOT
+
+Update or create (whichever already exists):
+
+* PROJECT_MEMORY.md
+* RECOVERY.md
+* RESTORE.md
+* CURRENT_STATE.md
+* CHECKPOINT.md
+
+(or the equivalent recovery files already used by this workspace).
+
+Do NOT duplicate conflicting information.
+
+Create one authoritative latest checkpoint.
+
+---
+
+# SAVE THE CURRENT VERIFIED STATE
+
+Record that this workspace has been fully recovered and audited.
+
+Include that the following repairs have already been completed and MUST NOT be repeated unnecessarily:
+
+## Recovery Repairs
+
+* Dependencies restored.
+* pnpm workspace verified.
+* API server running.
+* Marketplace running.
+* Expo workspace running.
+* DATABASE_URL verified.
+* PostgreSQL connected.
+
+## Database Repairs
+
+* users.reset_otp_hash
+* users.reset_otp_expires_at
+* users.reset_otp_attempts
+* users.reset_otp_locked_until
+
+exist and were restored.
+
+* variant_images table exists.
+* variant_images migration added to run-migrations.ts.
+* Database schema now contains 22 tables.
+* All migrations are idempotent.
+
+## Asset Repairs
+
+* Inter font restored.
+* Official SYANO logo restored and verified.
+* Public asset paths verified.
+* Vite asset resolution verified.
+
+## UI Repairs
+
+* Products page footer overlap fixed.
+* Virtualizer removed.
+* CSS Grid uses auto-fill/minmax layout.
+* Footer participates in normal document flow.
+
+## Existing Systems Verified
+
+* Variant Builder
+* Notifications (AR/EN)
+* SSE
+* Seller Applications
+* Role change refresh
+* Messaging
+* Cart
+* Orders
+* Admin
+* Mobile
+* RTL
+* i18n
+
+All verified working.
+
+---
+
+# SAVE IMPORTANT PROJECT FACTS
+
+Record that:
+
+* Package manager = pnpm
+* API Port = 8080
+* Marketplace = Vite
+* Mobile = Expo
+* PostgreSQL is required
+* The project uses workspace packages directly from source.
+* TS7006 implicit-any warnings are known pre-existing warnings and are NOT regressions.
+
+---
+
+# SAVE RECOVERY PROCEDURE
+
+Future recovery process should always be:
+
+1. Read all recovery files.
+2. Install pnpm dependencies.
+3. Verify environment variables.
+4. Connect to PostgreSQL.
+5. Run idempotent migrations.
+6. Start API.
+7. Start Marketplace.
+8. Start Mobile.
+9. Verify 22 database tables.
+10. Verify all branding assets and logos.
+11. Verify Variant Builder.
+12. Verify Notifications.
+13. Verify Seller System.
+14. Report status.
+
+Do NOT rebuild features unless a defect is proven.
+
+---
+
+# SAVE CURRENT STATUS
+
+Mark this workspace as:
+
+LATEST VERIFIED CHECKPOINT
+
+Recovery Version:
+Post-Migration Stable Build
+
+Database:
+22 Tables Verified
+
+Assets:
+Verified
+
+Official Logo:
+Verified and Stored
+
+API:
+Healthy
+
+Marketplace:
+Healthy
+
+Mobile:
+Healthy
+
+Variant System:
+Verified
+
+Notification System:
+Verified
+
+Seller System:
+Verified
+
+Known Structural Issues:
+None
+
+Known Runtime Issues:
+None
+
+Known Pending Features:
+None
+
+This checkpoint should become the default reference for all future recoveries.
+
+---
+
+# FINAL TASK
+
+After updating the recovery files:
+
+1. List every recovery file updated.
+2. List every logo/branding file updated.
+3. Explain what information was added.
+4. Confirm that future migrations to a new Replit account can use these files as the single source of truth.
+5. Confirm that future recovery agents should restore this exact checkpoint, including the official logo, instead of rebuilding or guessing project state.

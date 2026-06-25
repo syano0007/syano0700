@@ -1,0 +1,116 @@
+You are upgrading the SYANO (سوق سوريا) Marketplace Homepage UI/UX.
+
+This is a production-grade multi-vendor digital marketplace serving Aleppo and surrounding Syrian cities.
+
+Do NOT break existing backend APIs, database models (44 tables), or search pipelines.
+Do NOT modify embedding service interactions or map configurations.
+Do NOT break existing routing or page paths.
+
+Preserve:
+- Full RTL (Arabic native) & LTR (English) support via logical properties.
+- Responsive web behavior (Vite 7 + React 19 + Tailwind v4 + Wouter).
+- Existing state management and TanStack Query data fetching.
+- Mobile app parity layouts.
+
+==================================================
+GOAL
+==================================================
+Re-architect and upgrade the current homepage layout as captured in "Screenshot (445).jpg" into an ultra-premium, modern, and high-converting e-commerce storefront.
+
+Target UX/UI benchmarks:
+- Noon
+- Amazon AE
+- Trendyol
+- AliExpress
+
+The upgraded homepage must feel mathematically balanced, visually pristine, structurally lightweight, and clear of clutter.
+
+==================================================
+PART 1 — MAIN HEADER & INTERACTIVE NAVIGATION REFINEMENT
+==================================================
+Current UI Analysis (from Right-to-Left in RTL view):
+- SYANO Logo -> Search Input -> Quick Action Icons (Favorites, Cart, Settings) -> Login Button ("تسجيل الدخول").
+
+Modifications & Spacing Refinement:
+- Increase the overall height of the main navbar container slightly to provide vertical breathing room.
+- Apply a uniform, generous horizontal gap (`gap-x-4` to `gap-x-6`) between the action icons (Wishlist, Cart, Settings) to prevent accidental clicks.
+- Group the action icons within a dedicated flex container that manages its own padding and alignment.
+- Style the Login Button ("تسجيل الدخول"):
+  * Change its current static black layout to a refined, interactive component.
+  * Internal padding: `px-5 py-2` or `px-6 py-2.5`.
+  * Border radius: `rounded-xl` or `rounded-full` for a sleeker look.
+  * Transitions: `transition-all duration-200 ease-in-out`.
+  * States: Add distinct `:hover` background tint changes and interactive active feedback.
+- Adjust the Search Bar layout wrapper to ensure it shares proportional screen real estate without crushing the surrounding navigation items.
+
+==================================================
+PART 2 — SUBNAVBAR REMOVAL & VERTICAL SPACING ADJUSTMENT
+==================================================
+Requirement:
+- Completely REMOVE the subnavigation category link bar (the horizontal list containing: إلكترونيات، أزياء، هواتف، منزل ومطبخ...) located directly beneath the main header.
+- Delete the component or layout row entirely from the DOM.
+- Adjust the vertical layout flow: ensure the Hero Banner Section now aligns beautifully and directly beneath the main header navigation with an optimized, clean vertical margin (`mt-4` or `mt-6`) to maintain structural balance.
+
+==================================================
+PART 3 — HERO BANNER GRID RE-ENGINEERING (ELIMINATE DUPLICATION)
+==================================================
+Current UI Analysis:
+- The grid layout features visual asset duplication (the exact same gym/weights image is loaded in both the main slider slot and the secondary bottom-left thumbnail slot), which looks broken and unpolished.
+- Banners are structurally flat, lack typographic layers, and have no Call-To-Action (CTA) indicators.
+
+Modifications & Spacing Refinement:
+- Visual Asset Resolution:
+  * Eliminate the image duplication completely.
+  * Ensure each container element loads its own unique, contextually relevant, crisp, high-resolution lifestyle photograph.
+  * Image 1 (Main Slider): High-end sports/fitness or tech collection.
+  * Image 2 (Top Left Banner): Premium Perfumes/Cosmetics matching the perfume bottle context.
+  * Image 3 (Bottom Left Banner): A separate distinct category (e.g., Household, Electronics, or Local Marketplace specials).
+- Premium Graphic & Overlay Layering:
+  * For every banner container, apply an absolute-positioned dark-to-transparent text-protection linear gradient at the base layer (`bg-gradient-to-t from-black/80 via-black/30 to-transparent`).
+  * Layer a typography wrapper onto each banner: Include a clear title (e.g., "أقوى العروض الرياضية", "مجموعة العطور الفاخرة") using an elegant font weight (`font-bold`, `tracking-wide`).
+  * Add a subtle, clean absolute-positioned Call-to-Action button on each banner ("تسوق الآن" / "Shop Now"): Minimal design, border-based or clean solid light background, appearing cleanly or elevating on state changes (`hover:scale-105 transition-transform`).
+- Aspect Ratio & Scaling: Set rigorous `aspect-*` definitions or exact grid layouts so the images adapt uniformly across changing viewports using `object-cover`.
+
+==================================================
+PART 4 — CATEGORIES SCROLLING CAROUSEL PREMIUM POLISH
+==================================================
+Current UI Analysis:
+- The circular category carousel elements render full photographic lifestyle environments packed within a small space, creating intense visual noise and an unaligned aesthetic.
+- The accompanying category title texts are cramped tightly beneath the elements.
+
+Modifications & Spacing Refinement:
+- Icon Card Redesign:
+  * Transition from busy background photos to clean, isolated e-commerce presentation layers.
+  * Ensure images inside the circular/rounded cards use optimized framing (`object-contain` or `object-cover` centered perfectly).
+  * Implement a soft, neutralized, and matching background tint/shading overlay (`bg-neutral-50` or a very muted gray-tint) behind the item vectors to eliminate color clashing and frame noise.
+- Circular Card Hover State:
+  * Introduce a smooth micro-interaction upon hover (e.g., soft elevation via `hover:shadow-md` or subtle scaling `hover:-translate-y-1 transition-all duration-200`).
+- Category Text Layout & Typography:
+  * Improve spacing beneath the circles using strict logical top margins (`mt-2` or `mt-3`).
+  * Update the typography settings to a highly legible Arabic typeface variant: `font-medium`, `text-xs` or `text-sm`, with balanced letter tracking.
+  * Ensure the text label is perfectly centered relative to its parent circular card.
+
+==================================================
+PART 5 — TAILWIND V4 & LOGICAL COMPLIANCE RULES
+==================================================
+- Write clean, precise Tailwind v4 markup.
+- Absolutely FORBID hardcoded left/right layout utility values (`ml-`, `mr-`, `pl-`, `pr-`, `left-`, `right-`).
+- Mandate logical properties globally to secure simultaneous Arabic (RTL) and English (LTR) interface accuracy:
+  * Use `ms-*` instead of `ml-*`
+  * Use `me-*` instead of `mr-*`
+  * Use `ps-*` instead of `pl-*`
+  * Use `pe-*` instead of `pr-*`
+  * Use `start-*` / `end-*` instead of `left-*` / `right-*`
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring the update complete, perform the following verification protocols:
+✓ Header navigation actions and user profile items are balanced with optimal horizontal padding.
+✓ Secondary category links bar (Subnavbar) is completely removed from the DOM.
+✓ Hero banner asset duplication is completely resolved with unique placeholder configurations.
+✓ Every hero grid banner contains high-end typography overlays and legible micro-gradients.
+✓ The circular category scroll layout looks minimal, modern, visually uniform, and premium.
+✓ Layout scaling is fully verified across Desktop, Tablet, and Mobile adaptive breakpoints.
+✓ RTL layout rendering is perfect with zero overlapping elements or flipped directional spacing.
+✓ Verify TypeScript compilation = 0 errors across the entire `artifacts/marketplace` package directory structure.

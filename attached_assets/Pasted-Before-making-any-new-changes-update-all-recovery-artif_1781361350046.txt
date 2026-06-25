@@ -1,0 +1,329 @@
+Before making any new changes, update all recovery artifacts and system documentation so they reflect the latest state of the platform.
+
+### Recovery & Documentation Sync
+
+Update:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* Recovery audit files
+* Homepage architecture documentation
+* API endpoint documentation
+* Bootstrap/recovery notes
+* Recovery score references
+
+Ensure a future recovery restores the platform exactly as it exists after this task.
+
+---
+
+# HOMEPAGE CHANGES
+
+## 1. Remove Feature Strip Completely
+
+Remove the entire section containing:
+
+* توصيل سريع
+* دفع آمن
+* تاجر موثوق
+* دعم سريع
+
+Requirements:
+
+* Remove the whole block.
+* Do not leave empty space.
+* Reflow layout naturally.
+
+---
+
+## 2. Fix Category Cards In Light Mode
+
+Current problem:
+
+Category images become too dark in light mode.
+
+Requirements:
+
+* Dark mode keeps current overlay behavior.
+* Light mode uses a much lighter overlay.
+* Images remain vibrant and clearly visible.
+* Text remains readable.
+* Test every category card in both modes.
+
+---
+
+## 3. Fix Product Ratings
+
+Current problem:
+
+Homepage product cards display fake/static ratings.
+
+Requirements:
+
+* Do not show fabricated ratings.
+* Use real rating data only.
+* If a product has no reviews:
+
+  * show no rating
+  * or show "لا توجد تقييمات"
+* No hardcoded values.
+* No fake stars.
+
+Apply this to:
+
+* Hot Deals
+* Trending Products
+* Recently Viewed
+* Any homepage product card
+
+---
+
+## 4. Currency Conversion Must Work Everywhere
+
+Current problem:
+
+Prices remain in SYP even after switching currency.
+
+Requirements:
+
+When currency changes:
+
+* Homepage cards update instantly.
+* Hot Deals update.
+* Trending updates.
+* Recently Viewed updates.
+* Product page updates.
+* Cart updates.
+
+Verify:
+
+* SYP
+* USD
+
+No stale prices.
+
+No cached wrong values.
+
+---
+
+## 5. Recently Viewed Cards Must Match Main Product Cards
+
+Current problem:
+
+Recently Viewed uses a different card design.
+
+Requirements:
+
+Use the EXACT SAME product card component used in:
+
+* Hot Deals
+* Trending Products
+
+Same:
+
+* layout
+* spacing
+* buttons
+* badges
+* image sizes
+* typography
+* hover states
+
+No visual differences.
+
+---
+
+## 6. Add To Cart Buttons Must Actually Add To Cart
+
+Current problem:
+
+Buttons redirect to product page.
+
+Requirements:
+
+Buttons:
+
+* أضف
+* أضف إلى السلة
+
+must immediately:
+
+* add product to cart
+* update cart count
+* show success feedback
+
+WITHOUT opening product page.
+
+Use existing cart system.
+
+Apply to:
+
+* Hot Deals
+* Trending
+* Recently Viewed
+
+Verify for:
+
+* guest users
+* logged-in users
+
+---
+
+## 7. Implement Wishlist System
+
+Create complete Wishlist functionality.
+
+Requirements:
+
+### Backend
+
+Wishlist table.
+
+Store:
+
+* userId
+* productId
+* createdAt
+
+Create endpoints:
+
+* GET wishlist
+* POST add
+* DELETE remove
+
+---
+
+### Frontend
+
+Heart icon on product cards:
+
+When clicked:
+
+* save product
+* toggle active state
+
+When already saved:
+
+* remove product
+
+---
+
+### Wishlist Page
+
+Create dedicated page:
+
+/wishlist
+
+Features:
+
+* grid of saved products
+* same card design as homepage
+* remove button
+* add to cart button
+
+Navbar:
+
+Add wishlist access.
+
+Persist across sessions.
+
+Use real account data.
+
+---
+
+## 8. Stock Display Logic
+
+Current problem:
+
+Stock information is not useful.
+
+Requirements:
+
+Only show stock count when stock is low.
+
+Examples:
+
+Stock 3:
+
+"متبقي 3 فقط"
+
+Stock 5:
+
+"متبقي 5 فقط"
+
+Stock 50:
+
+Show nothing.
+
+Threshold:
+
+≤ 5 items
+
+Only then show low stock warning.
+
+Apply everywhere product cards appear.
+
+---
+
+# QA REQUIREMENTS
+
+Use actual platform accounts:
+
+Admin:
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Do not stop testing because login appears.
+
+Actually log in and verify functionality.
+
+---
+
+# FINAL VERIFICATION
+
+Verify:
+
+✅ 0 TypeScript errors
+
+✅ 0 console errors
+
+✅ 0 API errors
+
+✅ Recovery files updated
+
+✅ Endpoint documentation updated
+
+✅ Homepage documentation updated
+
+✅ Feature strip removed
+
+✅ Category cards fixed in light mode
+
+✅ Real ratings only
+
+✅ Currency conversion works everywhere
+
+✅ Recently Viewed matches product cards
+
+✅ Add-to-cart works instantly
+
+✅ Wishlist fully implemented
+
+✅ Wishlist page created
+
+✅ Heart buttons functional
+
+✅ Low-stock logic implemented
+
+✅ Dark mode preserved
+
+✅ Light mode preserved
+
+Only finish when every item above is verified and passing.

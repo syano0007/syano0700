@@ -1,0 +1,329 @@
+SYANO — FULL RECOVERY, STARTUP & CHECKPOINT VALIDATION (LATEST VERIFIED STATE)
+
+IMPORTANT:
+
+Do NOT implement new features.
+Do NOT refactor.
+Do NOT modify UI.
+Do NOT optimize anything.
+
+Goal:
+
+Restore the project exactly to the latest verified checkpoint, start all services, validate all critical systems, and confirm that the platform matches the latest documented state before any new investigation begins.
+
+==================================================
+PHASE 1 — READ ALL RECOVERY DOCUMENTATION
+=========================================
+
+Read completely:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Read before executing anything.
+
+Produce a short summary of:
+
+* last completed roadmap item
+* current project version
+* known issues
+* recovery requirements
+
+==================================================
+PHASE 2 — ENVIRONMENT RECOVERY
+==============================
+
+Execute:
+
+1. pnpm install --force
+
+2. Verify required environment variables:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_SUBJECT
+
+and any other documented required variables.
+
+3. If DB is empty:
+
+Restore schema.
+
+Preferred order:
+
+* drizzle-kit push
+* documented recovery procedure
+
+4. Build shared libraries:
+
+npx tsc --build lib/db lib/api-zod lib/api-client-react
+
+==================================================
+PHASE 3 — START ALL SERVICES
+============================
+
+Start and verify:
+
+API Server
+Marketplace
+Mobile (Expo)
+
+Verify:
+
+* API health endpoint responds
+* Marketplace loads
+* Mobile bundler starts
+
+==================================================
+PHASE 4 — DATABASE VALIDATION
+=============================
+
+Verify all expected tables exist.
+
+Expected total:
+
+26 tables
+
+Including:
+
+* users
+* products
+* product_variants
+* product_variant_groups
+* product_variant_options
+* product_variant_values
+* variant_images
+* orders
+* order_items
+* order_status_history
+* delivery_zones
+* couriers
+* courier_assignments
+* courier_wallet_transactions
+* notifications
+* seller_applications
+* seller_reviews
+* store_follows
+* conversations
+* messages
+* reviews
+* platform_settings
+* admin_audit_log
+* verification_audit_log
+
+and remaining documented tables.
+
+==================================================
+PHASE 5 — ENUM VALIDATION
+=========================
+
+CRITICAL
+
+Verify notification_type enum.
+
+Expected:
+
+31 values.
+
+Confirm all courier and delivery notification values exist.
+
+If any are missing:
+
+repair using additive ALTER TYPE ADD VALUE IF NOT EXISTS.
+
+Re-check afterward.
+
+==================================================
+PHASE 6 — TYPESCRIPT VALIDATION
+===============================
+
+Run validation for:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+* artifacts/api-server
+* artifacts/marketplace
+* artifacts/mobile
+
+Expected:
+
+0 TypeScript errors.
+
+==================================================
+PHASE 7 — ROOT OWNER VALIDATION
+===============================
+
+Verify Root Owner exists:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Role:
+admin
+
+Verify login works.
+
+Verify bootstrapRootAdmin() still functions.
+
+==================================================
+PHASE 8 — FEATURE CHECKPOINT VALIDATION
+=======================================
+
+Verify the latest completed roadmap items:
+
+A) Product Wizard
+
+* create mode
+* edit mode
+* 5-step flow
+* inventory UX
+
+B) Variant System
+
+* VariantBuilder
+* bulk actions
+* variant images
+* RTL toggle fix
+
+C) Delivery Zones
+
+* 40 zones
+* checkout integration
+* admin management
+
+D) Order Fulfillment Workflow V1
+
+Verify all statuses:
+
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+in_transit
+out_for_delivery
+delivered
+delivery_failed
+returned
+cancelled
+refunded
+
+E) Courier Operations Dashboard V2
+
+Verify:
+
+Admin Delivery Center
+
+* stats bar
+* search
+* filters
+* courier load indicators
+* courier ratings
+* zone display
+
+Courier Dashboard
+
+* Deliveries tab
+* History tab
+* Earnings tab
+
+Verify endpoints:
+
+* /couriers/history
+* /couriers/earnings
+* /admin/delivery/stats
+
+Verify:
+
+* successRate
+* walletBalance
+* earnings breakdown
+* failure reasons
+
+F) Order Tracking
+
+Verify:
+
+* courier info card
+* delivery fee display
+* timeline
+* SSE invalidation
+* 30-second polling fallback
+
+Web + Mobile
+
+G) Recently Viewed Products
+
+Verify:
+
+* hook exists
+* product page integration
+* homepage integration
+
+==================================================
+PHASE 9 — SECURITY VALIDATION
+=============================
+
+Verify:
+
+* RBAC
+* seller isolation
+* courier isolation
+* customer isolation
+* admin protection
+* root owner protection
+
+==================================================
+PHASE 10 — EXACT STATE REPORT
+=============================
+
+Return:
+
+1. Service status
+2. DB status
+3. Enum status
+4. TypeScript status
+5. Root owner status
+6. Feature verification status
+7. Any regressions
+8. Any missing features
+9. Exact roadmap position
+
+Expected roadmap state:
+
+✅ Order Fulfillment Workflow V1 — COMPLETE
+
+✅ Courier Operations Dashboard V2 — COMPLETE
+
+Next planned item:
+
+Seller Order Management V2 verification / investigation
+
+==================================================
+PHASE 11 — DO NOT DEVELOP
+=========================
+
+After recovery finishes:
+
+STOP.
+
+Do not implement anything.
+
+Do not modify code.
+
+Do not fix UI.
+
+Do not optimize.
+
+Wait for instructions.
+
+This recovery session exists only to restore, validate, and confirm the current checkpoint.

@@ -1,0 +1,110 @@
+Fix the Shop page layering and sticky-header overlap issues across desktop, tablet, and mobile.
+
+Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md first.
+
+Issue:
+
+The Shop page contains a search-toolbar section with:
+
+* Products tab
+* Stores tab
+* Categories tab
+* Results count badge
+
+This layer is currently overlapping content below it.
+
+Symptoms:
+
+MOBILE:
+
+* Filter controls are hidden underneath the Products/Stores/Categories toolbar.
+* Users cannot fully see the filters because the toolbar sits on top of them.
+
+DESKTOP:
+
+* The first row of product cards is partially covered.
+* Top portion of the first product row appears underneath the toolbar layer.
+
+Root Cause:
+
+Likely one or more of:
+
+* incorrect sticky positioning
+* incorrect top offset
+* incorrect z-index hierarchy
+* missing padding-top on content container
+* sticky element height not being reserved in layout
+
+Required Fix:
+
+1. Audit all Shop page containers involved:
+
+   * search toolbar
+   * category/store/product switcher
+   * results counter
+   * filter panel
+   * product grid
+
+2. Identify every element using:
+
+   * position: sticky
+   * position: fixed
+   * z-index
+
+3. Ensure the toolbar never overlaps:
+
+   * filters
+   * first product row
+   * store cards
+   * category results
+
+4. If toolbar remains sticky:
+
+   * reserve its height correctly
+   * add proper spacing underneath
+   * ensure content starts below toolbar
+
+5. Verify behavior on:
+
+   * 320px
+   * 375px
+   * 390px
+   * 414px
+   * tablet widths
+   * desktop widths
+
+6. Verify:
+
+   * filters fully visible
+   * first product row fully visible
+   * no content hidden behind any sticky layer
+   * no extra blank space introduced
+
+7. Preserve:
+
+   * current design
+   * current spacing system
+   * current RTL behavior
+   * current desktop layout
+
+8. Do NOT redesign the page.
+   Only fix layout, stacking, spacing, and sticky behavior.
+
+Validation:
+
+* Products tab works
+* Stores tab works
+* Categories tab works
+* Filters visible on mobile
+* First row visible on desktop
+* No overlap remains
+* RTL preserved
+* TypeScript = 0 errors
+
+After fixing:
+
+* update CURRENT_STATE.md
+* update PROJECT_STATUS.md
+* update RECOVERY_GUIDE.md
+* update all recovery files
+* save the fix into recovery snapshots

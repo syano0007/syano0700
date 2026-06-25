@@ -1,0 +1,448 @@
+SYANO سوق سوريا
+
+HOMEPAGE PREMIUM MARKETPLACE REFINEMENT
+FINAL DESIGN POLISH PASS
+
+IMPORTANT:
+
+Use the attached reference image as the target visual direction.
+
+This task is NOT a redesign.
+
+This is a premium refinement pass intended to bring the homepage to launch-quality marketplace standards.
+
+The objective is to create a homepage that feels:
+
+* Premium
+* Modern
+* Trustworthy
+* Clean
+* Marketplace-first
+* Scalable
+
+while maintaining excellent RTL support and mobile responsiveness.
+
+Do not add visual clutter.
+Do not add unnecessary widgets.
+Do not introduce dashboard-like UI patterns.
+
+==================================================
+PRIMARY OBJECTIVE
+=================
+
+Transform the homepage into a premium marketplace experience with visual quality approaching modern ecommerce leaders while remaining cleaner and more focused.
+
+The homepage must feel intentional, elegant, and highly polished.
+
+Every section should have a clear purpose.
+
+Every component should contribute to product discovery, store discovery, or marketplace growth.
+
+==================================================
+REFERENCE IMAGE
+===============
+
+Use the attached image as visual inspiration for:
+
+* section order
+* hierarchy
+* spacing
+* marketplace flow
+* product presentation
+* store presentation
+
+Do NOT copy it literally.
+
+Adapt it to SYANO branding and architecture.
+
+==================================================
+SECTION 1
+TYPOGRAPHY SYSTEM UNIFICATION
+=============================
+
+Current issue:
+
+Typography scale is still inconsistent.
+
+Reference section:
+
+الفئات الأكثر شيوعاً
+
+This section currently has the most balanced visual scale on the homepage.
+
+Required:
+
+Use the visual proportions of:
+
+الفئات الأكثر شيوعاً
+
+as the master design reference.
+
+Apply the same design rhythm to:
+
+* section headings
+* subsection headings
+* product cards
+* store cards
+* pricing text
+* metadata text
+* labels
+* CTA sizing
+
+Goal:
+
+Everything should feel like it belongs to the same design system.
+
+Avoid:
+
+* oversized headings
+* oversized product cards
+* oversized store cards
+* oversized buttons
+* oversized typography
+
+The entire homepage should visually align with the scale and density of:
+
+الفئات الأكثر شيوعاً
+
+==================================================
+SECTION 2
+CARD SYSTEM STANDARDIZATION
+===========================
+
+Current issue:
+
+Card sizing and proportions still feel inconsistent.
+
+Required:
+
+Create one unified card system.
+
+Apply consistency to:
+
+* product cards
+* store cards
+* category cards
+
+Maintain:
+
+* consistent border radius
+* consistent padding
+* consistent spacing
+* consistent image ratios
+* consistent hover effects
+
+Goal:
+
+Every card should feel like part of the same ecosystem.
+
+==================================================
+SECTION 3
+REMOVE ALL DUPLICATED TRUST MESSAGING
+=====================================
+
+Critical requirement.
+
+The following messages must NOT be repeated anywhere:
+
+* توصيل سريع
+* دفع آمن
+* بائعون موثوقون
+* حماية المشتري
+
+Current issue:
+
+Trust-related content appears multiple times across the homepage.
+
+Required:
+
+Remove all duplicated trust messaging.
+
+If trust messaging exists in one location:
+
+remove it from every other location.
+
+The user should never encounter the same promise twice.
+
+==================================================
+SECTION 4
+REMOVE TRUST MESSAGES FROM HERO
+===============================
+
+Important.
+
+The hero section should become more premium and cinematic.
+
+Required:
+
+Remove all trust-related badges and labels from the hero.
+
+Remove:
+
+* توصيل سريع
+* دفع آمن
+* بائعون موثوقون
+* حماية المشتري
+
+from the hero area.
+
+Keep hero focused on:
+
+* visual impact
+* marketplace identity
+* strong headline
+* short supporting text
+* primary CTA
+
+Hero should feel luxurious, minimal, and confident.
+
+The image should be the star.
+
+==================================================
+SECTION 5
+PREMIUM HERO EXPERIENCE
+=======================
+
+Hero requirements:
+
+* full-width layout
+* premium carousel
+* cinematic imagery
+* subtle overlays
+* premium gradients
+* smooth transitions
+* elegant motion
+
+Avoid:
+
+* excessive text
+* clutter
+* repeated information
+* large icon groups
+
+Hero should communicate:
+
+"SYANO is Syria's premium marketplace."
+
+within a few seconds.
+
+==================================================
+SECTION 6
+HOMEPAGE FLOW
+=============
+
+Final homepage order should be:
+
+Navbar
+
+↓
+
+Premium Hero
+
+↓
+
+الفئات الأكثر شيوعاً
+
+↓
+
+عروض مميزة
+
+↓
+
+متاجر موثوقة
+
+↓
+
+المنتجات الرائجة
+
+↓
+
+وصل حديثاً
+
+↓
+
+انضم إلى منظومة سيانو
+
+(بيع أو توصيل)
+
+↓
+
+Footer
+
+Remove duplicate sections.
+
+Remove redundant navigation sections.
+
+Remove repeated category browsing experiences.
+
+==================================================
+SECTION 7
+TRUSTED STORES UPGRADE
+======================
+
+Store cards should feel significantly more premium.
+
+Include:
+
+* cover image
+* store logo
+* store name
+* rating
+* product count
+* visit store CTA
+
+Improve:
+
+* spacing
+* readability
+* hover interactions
+* visual hierarchy
+
+Goal:
+
+Stores should feel discoverable and professional.
+
+==================================================
+SECTION 8
+PRODUCT DISCOVERY QUALITY
+=========================
+
+Product sections should feel premium.
+
+Requirements:
+
+* consistent card sizing
+* consistent image sizing
+* improved alignment
+* cleaner pricing hierarchy
+* better whitespace
+
+Products should feel easier to browse.
+
+Avoid visual noise.
+
+==================================================
+SECTION 9
+WHITESPACE & VISUAL RHYTHM
+==========================
+
+Improve perceived quality through spacing.
+
+Required:
+
+* consistent margins
+* consistent paddings
+* balanced vertical rhythm
+* balanced section spacing
+
+Avoid:
+
+* giant empty areas
+* crowded sections
+* inconsistent gaps
+
+==================================================
+SECTION 10
+MOBILE & RTL VALIDATION
+=======================
+
+Verify:
+
+* desktop layout
+* tablet layout
+* mobile layout
+* RTL rendering
+
+Ensure premium experience across all viewports.
+
+==================================================
+PROJECT RECOVERY REQUIREMENTS
+=============================
+
+This task is NOT complete after UI changes.
+
+After implementation:
+
+1. Update all project recovery files.
+
+2. Update all project restoration references.
+
+3. Update all homepage-related recovery snapshots.
+
+4. Update any project state files that reference homepage structure.
+
+5. Verify future recovery operations restore the new homepage version.
+
+6. Ensure no recovery process can revert to an outdated homepage layout.
+
+==================================================
+ENDPOINT & API VALIDATION
+=========================
+
+After implementation:
+
+1. Verify all homepage endpoints.
+
+2. Verify all homepage API integrations.
+
+3. Verify category loading.
+
+4. Verify product loading.
+
+5. Verify trusted store loading.
+
+6. Verify hero banner loading.
+
+7. Verify homepage data fetching.
+
+8. Verify frontend/backend communication.
+
+9. Remove any obsolete endpoint references.
+
+10. Fix any broken API dependency discovered during implementation.
+
+==================================================
+FINAL DELIVERY REQUIREMENTS
+===========================
+
+Do not finish the task until all checks pass.
+
+Provide:
+
+1. Desktop screenshot
+2. Tablet screenshot
+3. Mobile screenshot
+4. Modified files list
+5. Typography changes summary
+6. Card sizing changes summary
+7. Trust-message cleanup summary
+8. Recovery files update summary
+9. Recovery snapshot update summary
+10. Endpoint/API verification summary
+11. Final homepage audit report
+
+The task is only considered complete after:
+
+✓ UI implementation complete
+
+✓ Typography unified
+
+✓ Card sizing standardized
+
+✓ Trust message duplication removed
+
+✓ Hero simplified
+
+✓ RTL verified
+
+✓ Mobile verified
+
+✓ Recovery files updated
+
+✓ Recovery snapshots updated
+
+✓ Homepage endpoints verified
+
+✓ API integrations verified
+
+✓ Project operational state confirmed

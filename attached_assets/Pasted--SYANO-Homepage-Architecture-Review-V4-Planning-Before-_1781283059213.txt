@@ -1,0 +1,229 @@
+# SYANO Homepage Architecture Review & V4 Planning
+
+Before implementing Homepage V4, stop all coding and perform a complete homepage architecture review.
+
+The goal is NOT to redesign the hero section.
+
+The goal is to determine whether the entire homepage structure supports a premium multi-vendor marketplace experience comparable to Amazon, Noon, and Trendyol.
+
+---
+
+## Project Context
+
+Project:
+SYANO (سوق سوريا)
+
+Type:
+Multi-Vendor Marketplace
+
+Not:
+
+* Single-vendor store
+* Landing page
+* Marketing website
+
+The homepage must immediately communicate:
+
+* Products
+* Categories
+* Active marketplace activity
+* Trust
+* Seller ecosystem
+* Commerce intent
+
+The homepage should feel like a marketplace first and a marketing experience second.
+
+---
+
+## Critical Requirement
+
+Do NOT assume Hero Banner V3 is the correct foundation.
+
+Evaluate the current homepage objectively.
+
+Determine whether:
+
+* The hero is too large
+* The hero occupies too much above-the-fold space
+* The homepage relies too heavily on banners
+* Important commerce content is pushed below the fold
+* The homepage looks like a landing page instead of a marketplace
+
+---
+
+## Required Audit
+
+Analyze the current homepage and identify:
+
+### 1. Visual Hierarchy
+
+What does a first-time user notice within the first 3 seconds?
+
+List elements in order of visual attention.
+
+Determine whether this order is optimal for a marketplace.
+
+---
+
+### 2. Marketplace Signals
+
+Evaluate whether the homepage immediately communicates:
+
+* products
+* deals
+* categories
+* sellers
+* trust
+* activity
+
+If not, explain why.
+
+---
+
+### 3. Above-The-Fold Analysis
+
+Audit every component above the fold.
+
+Determine:
+
+* what adds value
+* what creates clutter
+* what can be removed
+* what should be relocated
+
+---
+
+### 4. Mobile Experience
+
+Review the homepage from a mobile-first perspective.
+
+Determine whether:
+
+* hero height is excessive
+* users see products quickly enough
+* scrolling effort is reasonable
+* CTA placement is effective
+
+---
+
+### 5. Trust & Conversion
+
+Determine whether the homepage builds confidence quickly.
+
+Review:
+
+* trust indicators
+* seller visibility
+* marketplace credibility
+* conversion opportunities
+
+---
+
+## Deliverables
+
+Provide:
+
+### Option A
+
+Premium Marketplace Layout
+
+### Option B
+
+Commerce-First Layout
+
+### Option C
+
+Hybrid Marketplace Layout
+
+For each option provide:
+
+* section order
+* rationale
+* strengths
+* weaknesses
+* expected UX impact
+
+---
+
+## V4 Selection
+
+After comparing all options:
+
+Choose the strongest homepage architecture.
+
+Explain:
+
+* why it is superior
+* why it best fits SYANO
+* why it scales as the marketplace grows
+
+---
+
+## Implementation Constraints
+
+Respect all existing project rules:
+
+* Premium UX
+* Minimal clutter
+* Native Arabic experience
+* RTL support
+* Mobile-first
+* No fake content
+* No fake metrics
+* No fake sellers
+* No fake trust indicators
+
+---
+
+## Technical Requirements
+
+After implementation is completed:
+
+### Recovery Documentation
+
+Update all project recovery files to reflect:
+
+* homepage architecture changes
+* new components
+* removed components
+* new routes
+* new APIs
+* new data dependencies
+
+### Endpoint Documentation
+
+Update all endpoint documentation.
+
+Document:
+
+* new endpoints
+* modified endpoints
+* removed endpoints
+* request schemas
+* response schemas
+
+### Project State Documentation
+
+Update project state files so future recovery sessions accurately represent:
+
+* homepage version
+* homepage architecture
+* component hierarchy
+* active systems
+* implementation status
+
+Do not leave recovery documentation outdated.
+
+Documentation updates are mandatory and considered part of the task completion criteria.
+
+---
+
+Do not begin coding immediately.
+
+First perform the analysis.
+
+Present findings.
+
+Recommend the best architecture.
+
+Only then proceed with implementation.

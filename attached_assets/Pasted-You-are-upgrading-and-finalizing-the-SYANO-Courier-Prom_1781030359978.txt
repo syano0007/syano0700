@@ -1,0 +1,429 @@
+You are upgrading and finalizing the SYANO (سوق سوريا) Courier Promotion & Courier Management System.
+
+IMPORTANT: Before making any changes, fully audit the existing implementation and understand the current architecture.
+
+This task is an enhancement of the existing courier system, NOT a rewrite.
+
+---
+
+# PRE-IMPLEMENTATION REQUIREMENTS
+
+Before coding:
+
+1. Read and understand:
+
+   * Courier Application System
+   * Courier Dashboard
+   * Customer Dashboard
+   * Admin Delivery System
+   * Seller Application System
+   * Role Management System
+   * Auth & Refresh Logic
+   * Notifications System
+
+2. Verify current behavior.
+
+3. Identify all existing courier-related routes, APIs, tables, components, and permissions.
+
+4. Preserve existing functionality.
+
+Do NOT begin implementation until the audit is complete.
+
+---
+
+# CRITICAL RULES
+
+* Do NOT break any existing functionality.
+* Do NOT remove existing database columns.
+* Do NOT remove existing APIs.
+* Prefer additive changes.
+* Preserve RTL support.
+* Preserve Arabic and English translations.
+* Preserve current SYANO design language.
+* No debug pages.
+* No temporary routes.
+* No fake data.
+* No placeholder UI.
+* TypeScript must finish with 0 NEW errors.
+* Mobile compatibility must remain intact.
+
+---
+
+# BUSINESS RULE
+
+A user can only have ONE active role.
+
+Allowed roles:
+
+* customer
+* seller
+* courier
+* admin
+
+A user MUST NOT be:
+
+* customer + courier
+* customer + seller
+* seller + courier
+
+at the same time.
+
+The role must be exclusive.
+
+Workflow:
+
+Customer → applies → approved → becomes Courier
+
+Customer → applies → approved → becomes Seller
+
+Role transition must be clear and consistent across the entire system.
+
+---
+
+# TASK 1 — CREATE DEDICATED ADMIN COURIER APPLICATIONS PAGE
+
+Current implementation incorrectly mixes courier applications with delivery operations.
+
+Create a dedicated Admin page:
+
+/admin/courier-applications
+
+Add it to the Admin Sidebar navigation.
+
+This page must be completely separate from:
+
+/admin/delivery
+
+---
+
+Inside the page create professional tabs:
+
+1. Pending Applications
+2. Approved Couriers
+3. Rejected Applications
+4. Suspended Couriers
+
+Use the same quality level as Seller Application management.
+
+---
+
+# TASK 2 — FULL COURIER APPLICATION DETAILS PAGE
+
+Clicking a courier application must open a dedicated review page.
+
+Example:
+
+/admin/courier-applications/:id
+
+This page should be comparable in quality and detail to Seller Application review pages.
+
+---
+
+Display:
+
+## User Information
+
+* Full Name
+* Email
+* Phone
+* Registration Date
+
+## Courier Information
+
+* Vehicle Type
+* District
+* Additional Notes
+
+## Application Timeline
+
+* Submitted
+* Approved
+* Rejected
+* Suspended
+* Re-activated
+
+## Current Status
+
+* Pending
+* Approved
+* Rejected
+* Suspended
+
+---
+
+Admin actions:
+
+* Approve
+* Reject
+* Suspend
+* Re-activate
+
+---
+
+# TASK 3 — COMPLETE STATUS SYSTEM
+
+Implement a complete bilingual status workflow.
+
+English:
+
+* Pending Review
+* Approved
+* Rejected
+* Suspended
+
+Arabic:
+
+* قيد المراجعة
+* مقبول
+* مرفوض
+* موقوف
+
+These statuses must appear consistently in:
+
+* Admin pages
+* Courier pages
+* Application status pages
+* Notifications
+* Dashboards
+
+---
+
+# TASK 4 — FIX APPROVAL FLOW
+
+Current issue:
+
+After approval, the courier experience is inconsistent and does not fully activate.
+
+Fix the complete approval flow.
+
+After approval:
+
+* user.role becomes courier
+* refreshAuth executes correctly
+* navbar updates immediately
+* dashboard updates immediately
+* customer-only actions disappear
+* courier dashboard becomes accessible
+* permissions refresh correctly
+
+User must NOT need to log out and back in.
+
+Everything should update instantly.
+
+---
+
+# TASK 5 — CUSTOMER DASHBOARD COURIER CTA
+
+Currently there is a Seller CTA ("Open Your Store").
+
+Create the courier equivalent.
+
+When role = customer:
+
+Show a dedicated Courier card.
+
+Arabic:
+
+أصبح مندوباً
+
+English:
+
+Become a Courier
+
+---
+
+If no application exists:
+
+Button:
+
+* Submit Application
+
+---
+
+If application is Pending:
+
+Button:
+
+* Track Application
+
+---
+
+If Approved:
+
+Button:
+
+* Open Courier Dashboard
+
+---
+
+If Rejected:
+
+Button:
+
+* View Decision
+
+---
+
+If Suspended:
+
+Button:
+
+* Account Suspended
+
+---
+
+Design quality must match Seller CTA cards.
+
+---
+
+# TASK 6 — EXPAND ALEPPO DELIVERY ZONES
+
+Current delivery zones are incomplete.
+
+Expand the Aleppo zones dataset significantly.
+
+Requirements:
+
+* Keep all existing zones.
+* Do NOT delete existing records.
+* Add missing neighborhoods and districts.
+* Use realistic Aleppo districts only.
+* Seed data only.
+
+The goal is to cover the city much more comprehensively.
+
+---
+
+# TASK 7 — NOTIFICATIONS
+
+Create real notifications for:
+
+* Approval
+* Rejection
+* Suspension
+* Re-activation
+
+Notifications must support:
+
+Arabic and English.
+
+Use the existing notification infrastructure.
+
+No placeholder notifications.
+
+---
+
+# TASK 8 — PERMISSIONS AUDIT
+
+Perform a complete role audit.
+
+Verify:
+
+Customer:
+
+* Cannot access courier dashboard
+
+Courier:
+
+* Can access courier dashboard
+* Cannot access seller dashboard
+
+Seller:
+
+* Can access seller dashboard
+* Cannot access courier dashboard
+
+Admin:
+
+* Full access
+
+Ensure role exclusivity is enforced.
+
+---
+
+# TASK 9 — UI CONSISTENCY
+
+All new pages must:
+
+* Match SYANO styling
+* Support RTL
+* Support LTR
+* Support mobile
+* Support desktop
+
+No admin-looking placeholder layouts.
+
+No raw tables unless already consistent with SYANO design.
+
+Use reusable components whenever possible.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Customer can apply to become a courier
+
+✅ Application appears in Admin Courier Applications
+
+✅ Admin can review application
+
+✅ Admin can approve
+
+✅ Admin can reject
+
+✅ Admin can suspend
+
+✅ Admin can reactivate
+
+✅ Status updates correctly
+
+✅ Notifications work
+
+✅ User role updates correctly
+
+✅ Courier Dashboard works
+
+✅ Customer Dashboard CTA works
+
+✅ Admin Sidebar entry exists
+
+✅ Expanded Aleppo zones seeded
+
+✅ Arabic works
+
+✅ English works
+
+✅ Mobile works
+
+✅ No regressions
+
+---
+
+# DOCUMENTATION & CHECKPOINT
+
+After implementation:
+
+Update all project recovery/state files:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+
+Create a new recovery checkpoint.
+
+Include in the final report:
+
+1. Files modified
+2. New routes
+3. New components
+4. Database changes
+5. APIs changed
+6. Permissions changes
+7. Notifications added
+8. Issues fixed
+9. Validation results
+
+Do not mark the task complete until all verification steps have passed.

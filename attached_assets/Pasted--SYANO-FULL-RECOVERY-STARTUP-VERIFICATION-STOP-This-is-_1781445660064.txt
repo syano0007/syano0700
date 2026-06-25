@@ -1,0 +1,405 @@
+# SYANO — FULL RECOVERY + STARTUP + VERIFICATION
+
+STOP.
+
+This is NOT a new project.
+
+This is an existing production-scale marketplace.
+
+Before writing any code:
+
+You MUST fully recover the project from recovery artifacts and start all services.
+
+Do NOT redesign.
+
+Do NOT implement features.
+
+Do NOT modify code.
+
+Recover first.
+
+Report second.
+
+Wait for instructions third.
+
+---
+
+# STEP 1 — READ RECOVERY ARTIFACTS
+
+Read ALL recovery files completely.
+
+Priority order:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_COMPLETE.md
+* PROJECT_STATUS.md
+* CHANGELOG.md
+* docs/*
+* recovery/*
+* memory/*
+* architecture/*
+* endpoint documentation
+* homepage architecture documentation
+
+Build a complete understanding of:
+
+* current project state
+* completed roadmap phases
+* pending roadmap phases
+* homepage version
+* navbar version
+* theme system
+* language system
+* currency system
+* seller system
+* courier system
+* admin system
+* recovery process
+
+Do NOT skip this step.
+
+---
+
+# STEP 2 — VERIFY ENVIRONMENT
+
+Verify all required environment variables.
+
+Examples:
+
+DATABASE_URL
+
+SESSION_SECRET
+
+SITE_URL
+
+CORS_ORIGIN
+
+JWT_SECRET
+
+VAPID_PUBLIC_KEY
+
+VAPID_PRIVATE_KEY
+
+and any additional variables used by the project.
+
+Report missing values.
+
+---
+
+# STEP 3 — INSTALL DEPENDENCIES
+
+Recover workspace dependencies.
+
+Verify:
+
+* api-server
+* marketplace
+* mobile
+* shared packages
+
+Install everything required.
+
+Ensure lockfiles remain valid.
+
+---
+
+# STEP 4 — DATABASE RECOVERY
+
+Verify database connectivity.
+
+Check:
+
+Tables
+
+Enums
+
+Indexes
+
+Seed data
+
+Expected:
+
+* 29 tables
+* notification_type enum
+* order_status enum
+* delivery zones
+* wishlists
+* seller_verification_log
+* hero_banners
+
+If schema is missing:
+
+Apply schema.sql
+
+Then run startup migrations.
+
+---
+
+# STEP 5 — START API SERVER
+
+Start API server.
+
+Expected:
+
+Port 8080
+
+Verify:
+
+GET /api/healthz
+
+returns:
+
+{"status":"ok"}
+
+---
+
+# STEP 6 — VERIFY BOOTSTRAP ACCOUNTS
+
+Verify:
+
+Admin
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Repair automatically if needed.
+
+Verify:
+
+roles
+
+permissions
+
+seller approval
+
+courier activation
+
+---
+
+# STEP 7 — VERIFY MARKETPLACE DATA
+
+Verify demo marketplace data.
+
+Expected:
+
+Products
+
+Stores
+
+Categories
+
+Product images
+
+Homepage content
+
+Do NOT duplicate records.
+
+Respect idempotent bootstrap behavior.
+
+---
+
+# STEP 8 — START FRONTEND
+
+Start Marketplace (Vite).
+
+Verify:
+
+Homepage loads.
+
+No runtime errors.
+
+No router errors.
+
+No hydration errors.
+
+No broken imports.
+
+---
+
+# STEP 9 — START MOBILE
+
+Start Expo application.
+
+Verify:
+
+No startup failures.
+
+No TypeScript errors.
+
+---
+
+# STEP 10 — TYPESCRIPT AUDIT
+
+Verify:
+
+api-server
+
+marketplace
+
+mobile
+
+shared libraries
+
+Expected:
+
+0 TypeScript errors.
+
+---
+
+# STEP 11 — PLATFORM HEALTH CHECK
+
+Verify:
+
+Homepage
+
+Navbar
+
+Theme switching
+
+Language switching
+
+Currency switching
+
+Wishlist
+
+Cart
+
+Store pages
+
+Product pages
+
+Admin dashboard
+
+Seller dashboard
+
+Courier dashboard
+
+Trust system
+
+Verification system
+
+Variant system
+
+Follow system
+
+Recovery system
+
+---
+
+# STEP 12 — ROADMAP STATUS
+
+Read recovery artifacts and determine current roadmap state.
+
+Expected:
+
+Completed:
+
+1. Order Fulfillment Workflow Completion V1
+
+2. Courier Operations Dashboard V2
+
+3. Seller Order Management V2
+
+4. Seller Analytics Dashboard V2
+
+5. Trust System V1
+
+6. Seller Store Pages V2
+
+Pending:
+
+7. Messaging V2
+
+8. Search & Discovery V2
+
+9. Follow System Expansion
+
+10. Waitlist / Lead Capture System
+
+11. Launch Preparation Layer
+
+12. Performance & Scalability Program V1
+
+Verify recovery files match this roadmap status.
+
+---
+
+# STEP 13 — RECOVERY SCORE
+
+Run recovery validation.
+
+Expected:
+
+95/100 or higher.
+
+Known acceptable exception:
+
+heroBannerSystem false negative caused by HeroV4 inline implementation.
+
+Do NOT treat that as a real failure.
+
+---
+
+# STEP 14 — REPORT
+
+Provide:
+
+Service status
+
+Database status
+
+Bootstrap account status
+
+Marketplace status
+
+Mobile status
+
+TypeScript status
+
+Recovery score
+
+Known issues
+
+Current roadmap phase
+
+Current homepage version
+
+Current navbar version
+
+Current theme status
+
+Current language status
+
+Current currency status
+
+---
+
+# IMPORTANT
+
+After recovery:
+
+DO NOT implement new features.
+
+DO NOT redesign.
+
+DO NOT modify code.
+
+Wait for my next instructions.
+
+Your mission is:
+
+Recover.
+
+Start.
+
+Verify.
+
+Report.

@@ -1,0 +1,278 @@
+SYANO — Customer Order Tracking Experience V1
+
+## IMPORTANT
+
+Before changing anything:
+
+1. Read MEMORY.md
+2. Read CURRENT_STATE.md
+3. Read RECOVERY_GUIDE.md
+4. Read CHANGELOG.md
+5. Read the current Order Fulfillment Workflow
+6. Read Courier Operations implementation
+7. Read Order Details page (web + mobile)
+8. Read notification system
+9. Read delivery workflow
+
+Do not start coding before completing the audit.
+
+---
+
+# GOAL
+
+Build a professional customer-facing order tracking experience.
+
+Not just a map.
+
+The customer should always know:
+
+* What is happening
+* Who is handling the order
+* Where the order is in the workflow
+* What happens next
+
+Similar quality to:
+
+* Amazon
+* Noon
+* Trendyol
+* Talabat
+* HungerStation
+
+---
+
+# PHASE 1 — AUDIT
+
+Audit current:
+
+Order Details page
+Order Timeline
+Courier Dashboard
+Notifications
+Delivery Workflow
+
+Verify:
+
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+out_for_delivery
+delivered
+delivery_failed
+returned
+cancelled
+
+Document current state before changing anything.
+
+---
+
+# PHASE 2 — ORDER TRACKING TIMELINE
+
+Upgrade customer order tracking.
+
+Current timeline should become a premium experience.
+
+Show:
+
+Order Placed
+Order Confirmed
+Preparing Order
+Ready For Pickup
+Courier Assigned
+Picked Up
+Out For Delivery
+Delivered
+
+Each stage should include:
+
+* icon
+* timestamp
+* status description
+* active state
+* completed state
+
+Use:
+
+* theme colors
+* RTL support
+* mobile-first design
+
+No admin-looking UI.
+
+---
+
+# PHASE 3 — COURIER INFORMATION
+
+Once courier is assigned:
+
+Show customer:
+
+Courier Name
+Courier Phone
+Courier Status
+
+Examples:
+
+Assigned
+Picked Up
+Out For Delivery
+
+If courier is not assigned:
+
+Do not show placeholders.
+
+---
+
+# PHASE 4 — DELIVERY INFORMATION CARD
+
+Add a dedicated card:
+
+Delivery Zone
+Delivery Address
+Delivery Fee
+Order Total
+
+Show clearly.
+
+---
+
+# PHASE 5 — LIVE STATUS EXPERIENCE
+
+When order status changes:
+
+Immediately reflect:
+
+Timeline
+Status Badge
+Courier Section
+
+No page refresh required.
+
+Use existing query invalidation / realtime strategy if available.
+
+Do not introduce unstable architecture.
+
+---
+
+# PHASE 6 — OPTIONAL MAP SUPPORT
+
+ONLY IF CURRENT DATA SUPPORTS IT.
+
+Audit first.
+
+If no reliable courier GPS data exists:
+
+DO NOT fake maps.
+
+DO NOT generate fake coordinates.
+
+DO NOT create pretend tracking.
+
+Instead:
+
+Show workflow tracking only.
+
+If GPS infrastructure already exists:
+
+Implement real tracking.
+
+Otherwise skip this phase.
+
+---
+
+# PHASE 7 — NOTIFICATIONS
+
+Verify customer receives notifications for:
+
+Order Confirmed
+Preparing
+Ready For Pickup
+Courier Assigned
+Picked Up
+Out For Delivery
+Delivered
+Delivery Failed
+
+Fix any missing notification paths.
+
+---
+
+# PHASE 8 — MOBILE APP
+
+Mirror the same experience in Expo.
+
+No degraded implementation.
+
+Timeline
+Courier Card
+Delivery Card
+Status Updates
+
+Must match web quality.
+
+---
+
+# PHASE 9 — VALIDATION
+
+Verify:
+
+✅ Customer sees correct status
+
+✅ Timeline updates correctly
+
+✅ Courier appears only when assigned
+
+✅ Delivery details are correct
+
+✅ Notifications work
+
+✅ Mobile works
+
+✅ RTL works
+
+✅ English works
+
+✅ Arabic works
+
+✅ No fake GPS data
+
+✅ No TypeScript errors
+
+---
+
+# PHASE 10 — RECOVERY UPDATE (MANDATORY)
+
+After implementation:
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+
+Document:
+
+Tracking Architecture
+Timeline System
+Courier Visibility Logic
+Notification Flows
+Mobile Support
+
+A future agent must be able to restore and continue development immediately from the recovery files.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+1. Audit findings
+2. Changes made
+3. Files changed
+4. Validation results
+5. Any skipped functionality and why
+6. Confirmation that recovery files were updated

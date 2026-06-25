@@ -1,0 +1,151 @@
+CRITICAL REPLIT MIGRATION TASK
+
+DO NOT START FIXING RANDOMLY.
+
+I have moved the entire project to a NEW Replit account.
+
+Your mission is to make the project run EXACTLY as it did on the previous account.
+
+==================================================
+PHASE 1 — FULL MIGRATION AUDIT
+==================================================
+
+First perform a complete audit.
+
+Check:
+
+1. Environment variables
+2. Replit Secrets
+3. Database connection
+4. Database schema
+5. Database migrations
+6. JWT secrets
+7. Session/auth configuration
+8. Email credentials
+9. Upload/storage configuration
+10. Domain-related configuration
+11. API base URLs
+12. Frontend environment variables
+13. Backend environment variables
+14. Build commands
+15. Run commands
+16. Deployment configuration
+17. Scheduled jobs/background tasks
+18. Any account-specific Replit settings
+
+Create a report of EVERYTHING missing or broken.
+
+DO NOT CHANGE CODE YET.
+
+==================================================
+PHASE 2 — DATABASE VERIFICATION
+==================================================
+
+Verify:
+
+- Database is reachable
+- Connection string is valid
+- All tables exist
+- All indexes exist
+- All foreign keys exist
+- All migrations are applied
+- Seed data exists if required
+
+List any missing tables or migrations.
+
+==================================================
+PHASE 3 — AUTHENTICATION VERIFICATION
+==================================================
+
+Verify:
+
+- Login works
+- Registration works
+- JWT generation works
+- JWT verification works
+- Token refresh works
+- Protected routes work
+- Seller routes work
+- Admin routes work
+
+==================================================
+PHASE 4 — ADMIN ACCOUNT RECOVERY
+==================================================
+
+Find the administrator account.
+
+If no admin exists:
+
+Create ONE admin account safely.
+
+Show:
+
+- email
+- role
+- creation method
+
+Do NOT create duplicates.
+
+==================================================
+PHASE 5 — FEATURE VERIFICATION
+==================================================
+
+Verify:
+
+Customer:
+- browse products
+- cart
+- checkout
+- orders
+- messages
+
+Seller:
+- dashboard
+- products
+- inventory
+- discounts
+- store settings
+- orders
+- messages
+
+Admin:
+- dashboard
+- users
+- sellers
+- products
+- orders
+- settings
+
+==================================================
+PHASE 6 — FIXES
+==================================================
+
+Only after the audit is complete:
+
+Fix issues in priority order.
+
+Priority:
+1. Project startup
+2. Database
+3. Authentication
+4. Admin access
+5. Core marketplace functionality
+6. Secondary features
+
+==================================================
+PHASE 7 — FINAL REPORT
+==================================================
+
+Provide:
+
+- What was broken
+- What was fixed
+- Files changed
+- Secrets required
+- Database status
+- Admin account status
+- Remaining issues
+
+Success criteria:
+
+The project on the new Replit account behaves exactly like the project on the old account, with database connected, admin access working, and all web marketplace functionality operational.

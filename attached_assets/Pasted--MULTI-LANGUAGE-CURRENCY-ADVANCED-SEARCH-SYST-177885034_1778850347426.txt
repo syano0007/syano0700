@@ -1,0 +1,225 @@
+==================================================
+MULTI-LANGUAGE + CURRENCY + ADVANCED SEARCH SYSTEM
+==================================================
+
+Implement a professional multilingual and advanced search experience WITHOUT breaking the existing architecture, routing, authentication, cart, inventory, seller system, or current UI.
+
+Use clean scalable implementation only.
+
+==================================================
+
+1. MULTI-LANGUAGE SYSTEM (ARABIC + ENGLISH)
+   ==================================================
+
+Implement a complete bilingual system:
+
+SUPPORTED LANGUAGES:
+
+* Arabic (default)
+* English
+
+REQUIREMENTS:
+
+* Full language toggle/switcher
+* Instant language switching
+* Persistent language preference
+* Full RTL support for Arabic
+* Proper LTR support for English
+* Correct layout flipping when changing language
+* No broken spacing/layout issues
+* No hardcoded text remaining
+
+IMPORTANT:
+The entire UI must adapt correctly between:
+
+* RTL Arabic
+* LTR English
+
+Apply language support across:
+
+* homepage
+* navbar
+* dashboards
+* product pages
+* cart
+* checkout
+* seller pages
+* settings
+* buttons
+* forms
+* validation/errors
+* notifications
+* order system
+
+==================================================
+2. PROFESSIONAL LANGUAGE SWITCHER
+=================================
+
+Add a clean premium language switcher.
+
+REQUIREMENTS:
+
+* Accessible from navbar/header
+* Easy to use
+* Mobile responsive
+* Visually integrated with premium AMOLED green theme
+
+BEHAVIOR:
+
+* Arabic → العربية
+* English → English
+
+Persist selected language across sessions.
+
+==================================================
+3. MULTI-CURRENCY SYSTEM
+========================
+
+Implement dual-currency support:
+
+SUPPORTED CURRENCIES:
+
+* Syrian Pound (SYP)
+* US Dollar (USD)
+
+REQUIREMENTS:
+
+* User can switch currency globally
+* Prices update instantly
+* Currency preference persists
+* All pricing areas update consistently
+
+APPLY TO:
+
+* product cards
+* product pages
+* cart
+* checkout
+* discounts
+* totals
+* orders
+* seller dashboard pricing
+
+==================================================
+4. SMART CURRENCY DISPLAY
+=========================
+
+Display pricing professionally.
+
+FORMATS:
+
+* SYP → ل.س
+* USD → $
+
+IMPORTANT:
+
+* Proper number formatting
+* Clean readable UI
+* Maintain pricing consistency everywhere
+* Avoid rounding inconsistencies
+
+OPTIONAL:
+
+* Auto currency conversion logic if applicable
+* Manual exchange rate configuration for admin/system
+
+==================================================
+5. ADVANCED SEARCH SYSTEM (HIGH PRIORITY)
+=========================================
+
+Implement a powerful ecommerce-style search experience.
+
+SEARCH MUST SUPPORT:
+
+* product names
+* partial matching
+* typo tolerance
+* category search
+* seller/product keywords
+* smart filtering
+* fast results
+* real-time suggestions/autocomplete
+
+SEARCH EXPERIENCE SHOULD FEEL:
+
+* modern
+* fast
+* accurate
+* premium
+* scalable
+
+==================================================
+6. SEARCH UI / UX
+=================
+
+SEARCH BAR REQUIREMENTS:
+
+* prominent navbar search bar
+* responsive design
+* instant search suggestions
+* loading states
+* no laggy behavior
+
+SEARCH RESULTS:
+
+* relevant ranking
+* clean product cards
+* category grouping if useful
+* empty state handling
+* fast rendering
+
+==================================================
+7. SEARCH FILTERS & SORTING
+===========================
+
+Add advanced filtering/sorting if compatible with current architecture.
+
+FILTERS MAY INCLUDE:
+
+* category
+* price range
+* discount
+* newest
+* best selling
+* availability
+
+SORT OPTIONS:
+
+* newest
+* price low → high
+* price high → low
+* most relevant
+
+IMPORTANT:
+Filters must work smoothly without breaking performance.
+
+==================================================
+8. PERFORMANCE & SCALABILITY
+============================
+
+Ensure:
+
+* optimized search performance
+* minimal rerenders
+* scalable architecture
+* no UI flickering
+* mobile responsiveness
+* fast search response
+* proper caching/state handling if needed
+
+==================================================
+9. FINAL VALIDATION
+===================
+
+Before completion verify:
+
+* Arabic RTL works perfectly
+* English LTR works perfectly
+* no broken layouts in either language
+* currency switching works globally
+* prices remain consistent everywhere
+* search is accurate and fast
+* filters/sorting work correctly
+* mobile responsiveness preserved
+* no broken existing functionality
+* production-ready stability

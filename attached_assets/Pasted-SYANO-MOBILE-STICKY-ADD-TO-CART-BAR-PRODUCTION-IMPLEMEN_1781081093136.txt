@@ -1,0 +1,397 @@
+SYANO (سوق سوريا)
+
+MOBILE STICKY ADD TO CART BAR
+PRODUCTION IMPLEMENTATION
+
+IMPORTANT:
+
+This is a UX enhancement.
+
+DO NOT redesign the product page.
+
+DO NOT modify the existing variant logic.
+
+DO NOT change pricing logic.
+
+DO NOT change cart logic.
+
+DO NOT change checkout logic.
+
+DO NOT introduce React loops.
+
+DO NOT introduce hydration issues.
+
+DO NOT introduce layout shifts.
+
+DO NOT break desktop layout.
+
+DO NOT create duplicate purchase controls.
+
+Preserve all current functionality.
+
+---
+
+## PHASE 0 — AUDIT FIRST
+
+Before writing code:
+
+Read:
+
+* product detail page
+* purchase card component
+* variant selection logic
+* cart integration
+* current mobile layout
+
+Understand the current implementation completely.
+
+Identify:
+
+* current purchase card
+* current add to cart flow
+* current buy now flow
+* selected variant state
+* stock state
+* price state
+
+Only after audit begin implementation.
+
+---
+
+## PHASE 1 — GOAL
+
+Implement a premium mobile sticky purchase bar.
+
+Inspiration:
+
+* Amazon
+* Noon
+* Trendyol
+* AliExpress
+
+Behavior:
+
+While user scrolls below the primary purchase section:
+
+Show a sticky bottom purchase bar.
+
+While user is viewing the top purchase section:
+
+Hide the sticky bar.
+
+No duplication on screen.
+
+Only one purchase experience visible at a time.
+
+---
+
+## PHASE 2 — MOBILE ONLY
+
+Sticky bar must appear ONLY on mobile.
+
+Target:
+
+< 768px
+
+Desktop:
+
+NO changes.
+
+Tablet/Desktop:
+
+Keep existing layout exactly as it is.
+
+---
+
+## PHASE 3 — STICKY BAR CONTENT
+
+Bar should contain:
+
+LEFT SIDE
+
+Current price
+
+Example:
+
+1078$
+
+If discount exists:
+
+Old price
+New price
+
+Use existing price logic.
+
+Do not duplicate calculations.
+
+---
+
+RIGHT SIDE
+
+Primary action button:
+
+Add To Cart
+
+OR
+
+Buy Now
+
+Use whichever action is already primary in current purchase card.
+
+---
+
+Optional secondary action:
+
+Cart icon button
+
+Only if existing design supports it.
+
+---
+
+## PHASE 4 — VARIANT INTEGRATION
+
+Sticky bar must use current selected variant.
+
+When variant changes:
+
+Immediately update:
+
+* price
+* compare price
+* stock state
+
+inside sticky bar.
+
+No refresh.
+
+No reload.
+
+No delay.
+
+---
+
+## PHASE 5 — STOCK INTEGRATION
+
+If selected variant:
+
+Out Of Stock
+
+Sticky bar must show:
+
+Out Of Stock
+
+Disable purchase button.
+
+Match existing purchase card behavior.
+
+No separate logic.
+
+Reuse existing stock state.
+
+---
+
+## PHASE 6 — VISIBILITY RULES
+
+Use IntersectionObserver.
+
+Observe the existing purchase card.
+
+Rules:
+
+Purchase card visible:
+
+Sticky bar hidden.
+
+Purchase card leaves viewport:
+
+Sticky bar appears.
+
+Purchase card returns:
+
+Sticky bar disappears.
+
+No scroll event spam.
+
+No polling.
+
+No performance hacks.
+
+---
+
+## PHASE 7 — DESIGN
+
+Design quality:
+
+Amazon
+Noon
+Trendyol
+
+Use current SYANO design system.
+
+Requirements:
+
+* rounded-xl
+* subtle shadow
+* backdrop blur
+* safe-area support
+* proper spacing
+* RTL support
+* dark mode support if applicable
+
+Must feel native.
+
+---
+
+## PHASE 8 — SAFE AREA
+
+Support:
+
+iPhone safe area
+
+Use:
+
+env(safe-area-inset-bottom)
+
+No clipped buttons.
+
+No overlap with browser UI.
+
+---
+
+## PHASE 9 — ANIMATION
+
+Appearance:
+
+translateY + fade
+
+Duration:
+
+150–200ms
+
+Smooth.
+
+Professional.
+
+No bounce.
+
+No flashy animation.
+
+---
+
+## PHASE 10 — PERFORMANCE
+
+No expensive re-renders.
+
+Memoize where appropriate.
+
+Avoid:
+
+* repeated state updates
+* observer recreation loops
+* unnecessary effects
+
+No React warnings.
+
+No console errors.
+
+---
+
+## PHASE 11 — ACCESSIBILITY
+
+Preserve:
+
+* keyboard navigation
+* screen reader labels
+* focus states
+
+Buttons must remain accessible.
+
+---
+
+## PHASE 12 — VALIDATION
+
+Verify:
+
+Mobile:
+
+* iPhone width
+* Android width
+
+Desktop:
+
+* unchanged
+
+Verify:
+
+Variant changes
+
+Price updates
+
+Stock updates
+
+Add To Cart
+
+Buy Now
+
+Out Of Stock
+
+All work correctly.
+
+---
+
+## PHASE 13 — REGRESSION CHECK
+
+Verify:
+
+Product page loads
+
+No React loop
+
+No invalid hook call
+
+No Radix Presence error
+
+No hydration warnings
+
+No layout shift
+
+No TypeScript errors introduced
+
+---
+
+## PHASE 14 — SCREENSHOTS
+
+Take screenshots:
+
+1. Product page top
+2. Product page while scrolled
+3. Sticky bar visible
+4. Out of stock state
+5. Variant change state
+
+Confirm visually.
+
+---
+
+## PHASE 15 — UPDATE RECOVERY FILES
+
+After implementation:
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* variant-system.md
+
+Document:
+
+* Sticky Add To Cart implementation
+* IntersectionObserver behavior
+* mobile-only rules
+* validation results
+
+Make this the new recovery baseline.
+
+Future recoveries must restore this feature automatically.
+
+Do not skip recovery file updates.

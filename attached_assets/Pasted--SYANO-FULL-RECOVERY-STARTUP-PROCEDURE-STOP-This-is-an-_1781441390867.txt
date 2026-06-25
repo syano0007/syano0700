@@ -1,0 +1,354 @@
+# SYANO — FULL RECOVERY + STARTUP PROCEDURE
+
+STOP.
+
+This is an existing project.
+
+Do NOT create a new project.
+
+Do NOT redesign anything.
+
+Do NOT start implementing features.
+
+Your first task is to fully restore the current project state from the recovery files and start all services.
+
+---
+
+# STEP 1 — READ RECOVERY FILES
+
+Before doing anything:
+
+Read and analyze all recovery artifacts.
+
+Priority:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_COMPLETE.md
+* PROJECT_STATUS.md
+* CHANGELOG.md
+* docs/*
+* recovery/*
+* memory/*
+* .agents/memory/*
+
+Build an accurate understanding of:
+
+* current platform version
+* homepage version
+* navbar version
+* theme system
+* language system
+* currency system
+* seller system
+* courier system
+* admin system
+* database state
+
+Do NOT skip this step.
+
+---
+
+# STEP 2 — VERIFY ENVIRONMENT
+
+Verify:
+
+DATABASE_URL
+
+SESSION_SECRET
+
+SITE_URL
+
+CORS_ORIGIN
+
+VAPID_PUBLIC_KEY
+
+VAPID_PRIVATE_KEY
+
+and all required environment variables.
+
+Report any missing values.
+
+---
+
+# STEP 3 — INSTALL DEPENDENCIES
+
+If node_modules is missing or incomplete:
+
+Run the equivalent recovery process:
+
+pnpm install --force
+
+Ensure all workspace packages install successfully.
+
+Verify:
+
+* API
+* Marketplace
+* Mobile
+
+dependencies are present.
+
+---
+
+# STEP 4 — DATABASE RECOVERY
+
+Verify database connectivity.
+
+Check:
+
+* tables
+* enums
+* indexes
+
+Expected:
+
+29 tables
+
+notification_type enum
+
+order_status enum
+
+delivery_zones
+
+wishlists
+
+hero_banners
+
+seller_verification_log
+
+and all recovery tables.
+
+If schema is missing:
+
+Apply schema.sql
+
+Then run startup migrations.
+
+---
+
+# STEP 5 — START API SERVER
+
+Start API.
+
+Expected:
+
+Port 8080
+
+Verify:
+
+GET /api/healthz
+
+returns:
+
+{"status":"ok"}
+
+---
+
+# STEP 6 — BOOTSTRAP ACCOUNTS
+
+Verify existence of:
+
+Admin:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Repair them automatically if required.
+
+Verify:
+
+* roles
+* permissions
+* seller approval
+* courier activation
+
+---
+
+# STEP 7 — VERIFY DEMO MARKETPLACE DATA
+
+Expected:
+
+Products:
+
+42+
+
+Stores:
+
+multiple approved stores
+
+Categories:
+
+all homepage categories
+
+If demo marketplace bootstrap exists:
+
+verify it executed correctly.
+
+Do NOT duplicate records.
+
+Respect idempotency rules.
+
+---
+
+# STEP 8 — START FRONTEND
+
+Start:
+
+Marketplace (Vite)
+
+Verify:
+
+Homepage loads successfully.
+
+No runtime crashes.
+
+No hydration errors.
+
+No router errors.
+
+---
+
+# STEP 9 — START MOBILE
+
+Start:
+
+Expo app
+
+Verify:
+
+No TypeScript errors.
+
+No startup failures.
+
+---
+
+# STEP 10 — TYPESCRIPT VALIDATION
+
+Verify:
+
+lib/db
+
+lib/api-zod
+
+lib/api-client-react
+
+api-server
+
+marketplace
+
+mobile
+
+Expected:
+
+0 TypeScript errors.
+
+---
+
+# STEP 11 — PLATFORM HEALTH CHECK
+
+Verify:
+
+Homepage
+
+Navbar
+
+Theme switching
+
+Language switching
+
+Currency switching
+
+Wishlist
+
+Cart
+
+Store pages
+
+Product pages
+
+Admin dashboard
+
+Seller dashboard
+
+Courier dashboard
+
+Trust system
+
+Verification system
+
+---
+
+# STEP 12 — RECOVERY SCORE
+
+Run recovery audit.
+
+Expected:
+
+95/100
+
+or higher.
+
+Known exception:
+
+heroBannerSystem false negative may appear.
+
+Do NOT treat that as a real failure.
+
+---
+
+# STEP 13 — REPORT
+
+Provide:
+
+Service status
+
+Database status
+
+Bootstrap account status
+
+TypeScript status
+
+Recovery score
+
+Known issues
+
+Current project version
+
+Current homepage version
+
+Current navbar version
+
+Current theme status
+
+Current language status
+
+Current currency status
+
+---
+
+# IMPORTANT
+
+After recovery:
+
+DO NOT implement new features.
+
+DO NOT modify code.
+
+DO NOT redesign UI.
+
+Wait for my next instructions.
+
+Your only goal is:
+
+Restore.
+Start.
+Verify.
+Report.

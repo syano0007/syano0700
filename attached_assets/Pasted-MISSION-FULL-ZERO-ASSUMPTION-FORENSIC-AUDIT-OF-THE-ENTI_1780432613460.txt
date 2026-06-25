@@ -1,0 +1,396 @@
+MISSION: FULL ZERO-ASSUMPTION FORENSIC AUDIT OF THE ENTIRE APPLICATION.
+
+This is NOT a targeted fix.
+This is NOT a performance pass.
+This is NOT a UI pass.
+
+Your task is to perform the most exhaustive audit possible of the entire codebase and application.
+
+MANDATORY RULES:
+
+1. DO NOT start modifying code immediately.
+2. FIRST perform a complete reconnaissance phase.
+3. Read and map the entire architecture.
+4. Build a complete inventory of:
+   - Pages
+   - Routes
+   - Components
+   - APIs
+   - Hooks
+   - Contexts
+   - Providers
+   - Database tables
+   - Database relations
+   - Background jobs
+   - Notifications
+   - Messaging
+   - Authentication
+   - Authorization
+   - Upload systems
+   - Search systems
+   - Payment systems
+   - Mobile app screens
+   - Admin screens
+   - Seller screens
+   - Customer screens
+
+5. DO NOT skip files because they look unrelated.
+6. DO NOT assume previous audits were correct.
+7. Re-audit everything from scratch.
+
+====================================================
+PHASE 1 — ARCHITECTURE MAPPING
+====================================================
+
+Create a complete architecture map.
+
+Identify:
+
+- Frontend structure
+- Backend structure
+- Shared packages
+- API client generation
+- Query system
+- Auth flow
+- Database flow
+- Notification flow
+- Messaging flow
+- Store flow
+- Product flow
+- Order flow
+- Review flow
+- Admin flow
+
+Produce a dependency map before changing code.
+
+====================================================
+PHASE 2 — ROLE AUDIT
+====================================================
+
+Audit every role independently.
+
+Guest
+Customer
+Seller
+Admin
+
+For each role:
+
+- Accessible pages
+- Forbidden pages
+- Navigation
+- Menus
+- Buttons
+- Actions
+- Forms
+- API calls
+
+Verify permissions.
+
+Look for:
+
+- privilege escalation
+- missing guards
+- broken redirects
+- unauthorized access
+- hidden routes
+- stale sessions
+- token issues
+
+====================================================
+PHASE 3 — PAGE AUDIT
+====================================================
+
+Audit EVERY page.
+
+No exceptions.
+
+For every page verify:
+
+- layout
+- responsiveness
+- translations
+- RTL
+- LTR
+- loading states
+- empty states
+- error states
+- skeletons
+- pagination
+- search
+- filters
+- sorting
+- forms
+- validation
+
+List all issues.
+
+====================================================
+PHASE 4 — COMPONENT AUDIT
+====================================================
+
+Audit every reusable component.
+
+Look for:
+
+- broken props
+- stale state
+- race conditions
+- memory leaks
+- unnecessary renders
+- missing cleanup
+- duplicated logic
+- accessibility issues
+- keyboard navigation issues
+
+====================================================
+PHASE 5 — MOBILE AUDIT
+====================================================
+
+Audit the entire application on:
+
+320px
+360px
+375px
+390px
+414px
+
+Check:
+
+- text overflow
+- clipped text
+- clipped buttons
+- currency labels
+- language labels
+- statistics cards
+- tables
+- dialogs
+- sidebars
+- navigation drawers
+- forms
+- store pages
+- seller pages
+- admin pages
+
+Produce evidence.
+
+====================================================
+PHASE 6 — LANGUAGE AUDIT
+====================================================
+
+Audit ALL translations.
+
+Arabic
+English
+
+Look for:
+
+- hardcoded strings
+- missing translations
+- mixed languages
+- RTL issues
+- incorrect alignment
+- truncation
+- text overflow
+- untranslated validation messages
+
+Fix globally.
+
+Do not patch individual pages if a system-wide fix exists.
+
+====================================================
+PHASE 7 — DATABASE AUDIT
+====================================================
+
+Audit every table.
+
+Verify:
+
+- indexes
+- foreign keys
+- unique constraints
+- query plans
+- N+1 patterns
+- sequential scans
+- redundant queries
+
+Find every performance bottleneck.
+
+====================================================
+PHASE 8 — API AUDIT
+====================================================
+
+Audit every endpoint.
+
+Verify:
+
+- auth
+- validation
+- ownership
+- permissions
+- rate limiting
+- pagination
+- error handling
+- race conditions
+
+Look for:
+
+- IDOR
+- TOCTOU
+- privilege escalation
+- stale cache issues
+
+====================================================
+PHASE 9 — NOTIFICATION AUDIT
+====================================================
+
+Audit:
+
+- SSE
+- Web Push
+- Notification Center
+- Toasts
+- Unread counts
+- Cache synchronization
+- Logout/Login transitions
+- Multi-tab behavior
+
+Verify user isolation.
+
+====================================================
+PHASE 10 — MESSAGING AUDIT
+====================================================
+
+Audit:
+
+- conversations
+- unread counts
+- polling
+- SSE
+- message ownership
+- attachment handling
+
+Verify no message leakage.
+
+====================================================
+PHASE 11 — STORE AUDIT
+====================================================
+
+Audit ALL seller store pages.
+
+Verify:
+
+- products
+- reviews
+- ratings
+- follower counts
+- stats
+- seller profile
+- RTL/LTR
+- mobile layouts
+- desktop layouts
+
+This includes every store page, not just examples.
+
+====================================================
+PHASE 12 — ORDER FLOW AUDIT
+====================================================
+
+Audit:
+
+- cart
+- checkout
+- order creation
+- order tracking
+- seller order management
+- admin order management
+
+Verify consistency.
+
+====================================================
+PHASE 13 — SECURITY AUDIT
+====================================================
+
+Look for:
+
+- XSS
+- CSRF
+- IDOR
+- privilege escalation
+- insecure uploads
+- broken ownership checks
+- leaked secrets
+- unsafe queries
+- race conditions
+
+====================================================
+PHASE 14 — PERFORMANCE AUDIT
+====================================================
+
+Look for:
+
+- N+1 queries
+- duplicate requests
+- cache misses
+- stale cache
+- overfetching
+- unnecessary rerenders
+- large bundles
+- memory leaks
+
+====================================================
+PHASE 15 — FIXING
+====================================================
+
+After reconnaissance:
+
+1. Group issues by severity:
+   - Critical
+   - High
+   - Medium
+   - Low
+
+2. Fix Critical first.
+
+3. Fix High.
+
+4. Fix Medium.
+
+5. Fix Low.
+
+Never modify code blindly.
+
+====================================================
+PHASE 16 — VERIFICATION
+====================================================
+
+After every fix:
+
+- Re-read affected files.
+- Verify compilation.
+- Verify imports.
+- Verify types.
+- Verify runtime flow.
+
+====================================================
+FINAL DELIVERABLE
+====================================================
+
+Produce:
+
+1. Full architecture report
+2. Complete bug inventory
+3. Security report
+4. Performance report
+5. Database report
+6. Mobile report
+7. Translation report
+8. List of modified files
+9. Exact fixes applied
+10. Remaining issues
+11. Risk assessment
+12. Verification proof
+
+Do not stop early.
+
+Do not declare success until every phase is completed and verified.

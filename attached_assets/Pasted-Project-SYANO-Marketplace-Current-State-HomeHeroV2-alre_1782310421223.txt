@@ -1,0 +1,188 @@
+Project: SYANO Marketplace
+
+Current State
+
+HomeHeroV2 already exists and the structural layout is complete.
+
+Do NOT modify layout dimensions.
+Do NOT modify card heights.
+Do NOT modify responsive behavior.
+
+This phase focuses ONLY on visual foundation styling.
+
+Objective
+
+Transform the wireframe into a premium luxury marketplace hero section matching the provided reference design.
+
+We are NOT adding images yet.
+
+We are building:
+
+- color system
+- background system
+- depth
+- atmosphere
+- premium visual hierarchy
+
+Scope
+
+Modify only:
+
+artifacts/marketplace/src/components/home/HomeHeroV2.tsx
+
+Create helper classes if necessary.
+
+No routing changes.
+No page integration.
+No backend changes.
+
+VISUAL SPECIFICATION
+
+SECTION 1 — HERO BACKGROUND
+
+Create a rich premium green background.
+
+Use layered backgrounds.
+
+Primary palette:
+
+#16311F
+#234229
+#355A39
+#4F7553
+
+Requirements:
+
+- dark luxury look
+- smooth gradients
+- depth
+- soft transitions
+
+No bright neon colors.
+
+SECTION 2 — DECORATIVE ORGANIC SHAPES
+
+Add subtle decorative elements.
+
+Inspired by the reference image:
+
+- abstract leaf silhouettes
+- curved line patterns
+- soft radial glow areas
+
+Requirements:
+
+- opacity between 4% and 12%
+- must never distract from content
+- purely decorative
+
+Implementation:
+
+Use absolute-positioned decorative layers.
+
+SECTION 3 — CARD APPEARANCE
+
+Apply premium card styling.
+
+Featured Card:
+
+- background:
+  rgba(255,255,255,0.06)
+
+- border:
+  rgba(255,255,255,0.10)
+
+- backdrop blur
+
+- shadow:
+  soft luxury shadow
+
+Right Cards:
+
+same design language
+
+slightly darker than hero card
+
+SECTION 4 — TYPOGRAPHY HIERARCHY
+
+Featured Title:
+
+- large
+- bold
+- premium
+
+Featured Subtitle:
+
+- reduced emphasis
+
+Right card titles:
+
+strong but smaller
+
+SECTION 5 — DEPTH SYSTEM
+
+Create layered depth:
+
+Background
+↓
+Decorative shapes
+↓
+Cards
+↓
+Text
+
+Visual hierarchy must feel expensive.
+
+SECTION 6 — BUTTON STYLING
+
+Explore button:
+
+- pill shape
+- premium appearance
+- hover state
+
+No animations beyond subtle hover transition.
+
+SECTION 7 — DESIGN CONSTRAINTS
+
+DO NOT:
+
+- add photos
+- add category images
+- add sliders
+- add carousels
+- add motion effects
+- add floating widgets
+
+This phase is visual atmosphere only.
+
+QUALITY REQUIREMENTS
+
+- Production quality
+- Consistent spacing
+- Consistent radius system
+- No visual clutter
+- No accessibility regressions
+- No TypeScript errors
+
+Deliverables
+
+1. Updated HomeHeroV2
+2. Premium luxury background system
+3. Decorative organic layers
+4. Premium card styling
+5. Summary of all visual changes
+
+Acceptance Criteria
+
+✓ Immediately feels close to the reference image atmosphere
+
+✓ Luxury green marketplace aesthetic
+
+✓ Premium depth
+
+✓ Clean visual hierarchy
+
+✓ No images yet
+
+✓ Ready for image integration in Phase 3

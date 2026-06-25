@@ -1,0 +1,117 @@
+You are a senior mobile-first UI/UX + frontend engineer working on a premium ecommerce marketplace.
+
+IMPORTANT:
+Refine and redesign the navbar/header branding section for PERFECT mobile responsiveness and premium visual quality.
+
+Current issues:
+
+* The logo placement is not optimized for phones with front camera cutouts / notches / dynamic islands.
+* The logo beside the “Syano” text does not feel visually balanced on mobile.
+* The brand identity needs stronger premium presence.
+
+Your task is to redesign the mobile header branding system professionally.
+
+Requirements:
+
+1. MOBILE SAFE AREA OPTIMIZATION
+
+* Properly handle:
+
+  * iPhone notch
+  * Dynamic Island
+  * Android camera cutouts
+  * status bar spacing
+* Respect safe-area insets.
+* Ensure the header never collides with camera/notch areas.
+* Add proper top padding dynamically where needed.
+
+2. NEW BRAND LAYOUT
+   Change the branding layout from:
+   [logo + Syano side-by-side]
+
+TO:
+
+[Large Logo]
+[SYANO text underneath]
+
+Vertical stacked premium layout.
+
+3. LOGO SIZE
+
+* Make the logo significantly larger and more premium-looking.
+* Optimize size separately for:
+
+  * desktop
+  * tablet
+  * mobile
+
+Mobile should prioritize strong visual branding without breaking layout.
+
+4. PREMIUM VISUAL STYLE
+   Maintain:
+
+* futuristic luxury aesthetic
+* emerald glow
+* metallic silver identity
+* dark premium UI
+
+The logo/text combination should feel similar to:
+
+* luxury tech brands
+* premium gaming hardware brands
+* futuristic ecommerce startups
+
+5. RESPONSIVE HEADER BEHAVIOR
+   Ensure:
+
+* navbar remains clean
+* no overlap with icons/buttons
+* balanced spacing
+* touch-friendly layout
+* smooth scaling on all screen sizes
+
+6. DARK/LIGHT MODE OPTIMIZATION
+   Create a properly optimized logo treatment for both:
+
+* dark backgrounds
+* light backgrounds
+
+Ensure:
+
+* excellent contrast
+* no muddy edges
+* sharp rendering
+* premium glow visibility
+
+7. IMPLEMENTATION QUALITY
+
+* Use reusable centralized header/navbar branding component.
+* Avoid duplicated styles.
+* Keep production-ready architecture.
+
+8. PERFORMANCE
+
+* Optimize image rendering.
+* Prevent layout shifts (CLS).
+* Use responsive image sizing.
+* Ensure fast mobile rendering.
+
+9. FINAL QA
+   Test thoroughly on:
+
+* iPhone notch devices
+* Dynamic Island devices
+* Android punch-hole cameras
+* tablets
+* desktop
+
+Verify:
+
+* alignment
+* spacing
+* visibility
+* scaling
+* premium feel
+* no overflow issues
+
+The final result should feel like a world-class premium mobile ecommerce application with a strong futuristic brand identity.

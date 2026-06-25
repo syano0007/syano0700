@@ -1,0 +1,285 @@
+MISSION: HERO BANNER UX/UI REFINEMENT (SYANO Marketplace)
+
+IMPORTANT:
+Before modifying ANY code, create a complete visual prototype inside Replit Canva (NOT Canvas code editor). Build the proposed design in Canva first, show the final mockup, explain all changes, then implement only after approval.
+
+====================================================
+OBJECTIVE
+====================================================
+
+Improve the homepage Hero Banner to behave like modern marketplace platforms (Amazon, Noon, Trendyol, Alibaba).
+
+The current banner has several UX issues:
+
+1. Arabic text is positioned incorrectly.
+2. Navbar visually overlaps the banner from the top.
+3. Banner height is too large and wastes vertical space.
+4. Navigation arrows are outdated and visually noisy.
+5. Hero content is not aligned properly for RTL.
+6. Mobile experience is not optimal.
+7. Banner should feel like a modern marketplace, not a landing page.
+
+====================================================
+PHASE 1 — DISCOVERY
+====================================================
+
+First inspect:
+
+- Hero Banner component
+- Slider component
+- Carousel library
+- Homepage layout
+- Navbar layout
+- Mobile layout
+- RTL implementation
+
+Document:
+
+- Current component names
+- Current slider library
+- Current dimensions
+- Current breakpoints
+- Current spacing values
+
+Do NOT modify anything yet.
+
+====================================================
+PHASE 2 — CANVA PROTOTYPE
+====================================================
+
+Create a full mockup in Replit Canva.
+
+Show:
+
+Desktop version
+Tablet version
+Mobile version
+
+Include:
+
+- Banner image
+- Arabic text placement
+- CTA buttons
+- Indicator dots
+- Swipe behavior notes
+
+Only after presenting the Canva prototype proceed to implementation.
+
+====================================================
+PHASE 3 — TEXT POSITIONING FIX
+====================================================
+
+Arabic is RTL.
+
+Move ALL textual content to the RIGHT SIDE of the banner.
+
+Current state:
+Text appears too centered and visually conflicts with image elements.
+
+Required:
+
+Desktop:
+- Text block aligned right
+- Badge on top
+- Main title
+- Subtitle
+- CTA buttons
+
+Tablet:
+- Same structure
+
+Mobile:
+- Text stacked vertically
+- Proper spacing
+
+Text block should occupy approximately:
+
+Desktop:
+35%–45% width
+
+Tablet:
+50% width
+
+Mobile:
+100% width
+
+====================================================
+PHASE 4 — FIX NAVBAR OVERLAP
+====================================================
+
+Navbar currently visually covers the top of the hero section.
+
+Required:
+
+- Add proper top spacing.
+- Ensure hero starts below navbar.
+- No clipping.
+- No overlap.
+- No hidden content.
+
+Banner must look naturally attached to the page.
+
+====================================================
+PHASE 5 — REDUCE BANNER HEIGHT
+====================================================
+
+Current banner is too tall.
+
+Target heights:
+
+Desktop:
+320px–420px
+
+Tablet:
+260px–360px
+
+Mobile:
+200px–280px
+
+Goal:
+
+- More products visible above the fold.
+- Faster marketplace feel.
+- Less landing-page feel.
+
+Do NOT create giant hero sections.
+
+====================================================
+PHASE 6 — REMOVE ARROWS
+====================================================
+
+Remove completely:
+
+- Previous arrow
+- Next arrow
+- Floating side controls
+
+No arrow controls anywhere.
+
+====================================================
+PHASE 7 — ENABLE TOUCH / DRAG
+====================================================
+
+Replace arrows with natural gesture navigation.
+
+Required:
+
+Desktop:
+- Mouse drag
+
+Mobile:
+- Finger swipe
+
+Tablet:
+- Touch swipe
+
+Behavior:
+
+Swipe left:
+Next banner
+
+Swipe right:
+Previous banner
+
+Must feel smooth.
+
+No lag.
+
+No accidental triggering.
+
+====================================================
+PHASE 8 — DOT INDICATORS
+====================================================
+
+Keep only bottom indicators.
+
+Position:
+
+Bottom center.
+
+Style:
+
+Inactive:
+- Small
+- Neutral
+
+Active:
+- SYANO primary color
+
+Requirements:
+
+- Elegant
+- Minimal
+- Modern
+
+====================================================
+PHASE 9 — RESPONSIVE REQUIREMENTS
+====================================================
+
+Must work perfectly on:
+
+320px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+1920px
+
+No:
+
+- Overflow
+- Cropping
+- Horizontal scroll
+- Text clipping
+
+====================================================
+PHASE 10 — PERFORMANCE
+====================================================
+
+Do not introduce:
+
+- Heavy animations
+- New large dependencies
+- Render loops
+
+Prefer existing slider library.
+
+If replacing it:
+
+Explain why.
+
+====================================================
+PHASE 11 — TESTING
+====================================================
+
+After implementation verify:
+
+✓ Desktop drag works
+✓ Mobile swipe works
+✓ RTL alignment correct
+✓ Text on right side
+✓ Navbar no longer overlaps
+✓ Height reduced
+✓ Arrows removed
+✓ Dots visible
+✓ Responsive on all breakpoints
+✓ Lighthouse performance unaffected
+
+====================================================
+FINAL DELIVERABLE
+====================================================
+
+Provide:
+
+1. Discovery findings
+2. Canva prototype screenshots
+3. Files modified
+4. Exact changes made
+5. Before vs After comparison
+6. Responsive verification
+7. Performance verification
+
+Do not stop until all requirements are fully implemented and verified.

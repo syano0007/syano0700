@@ -1,0 +1,288 @@
+SYANO (سوق سوريا) — Product Wizard Final UX Fixes
+
+You are improving the existing ProductWizard implementation.
+
+IMPORTANT:
+
+* Do NOT redesign the entire wizard.
+* Do NOT modify API contracts.
+* Do NOT modify database schema.
+* Do NOT change VariantBuilder logic.
+* Do NOT break Create Product.
+* Do NOT break Edit Product.
+* Preserve RTL.
+* Preserve Arabic and English.
+* Preserve all existing functionality.
+* TypeScript must finish with 0 errors.
+
+This task only targets TWO remaining UX problems:
+
+1. Category Dropdown UX
+2. Specifications Step UX
+
+These should be implemented with production-quality marketplace UX.
+
+---
+
+## PART 1 — CATEGORY DROPDOWN FIX
+
+Current problem:
+
+The category selector behaves inconsistently.
+
+Issues observed:
+
+* Dropdown sometimes opens upward.
+* Dropdown can exceed viewport boundaries.
+* Mobile experience feels cramped.
+* Long category lists become difficult to navigate.
+* RTL positioning is inconsistent.
+
+Goal:
+
+Make category selection feel like Shopify / Amazon / Trendyol.
+
+Requirements:
+
+Category dropdown must:
+
+* Always prefer opening downward.
+* Never render outside viewport.
+* Never be clipped by parent containers.
+* Support internal scrolling.
+* Work correctly in RTL.
+* Work correctly on mobile.
+* Work correctly on desktop.
+
+Use Radix best practices.
+
+Dropdown content:
+
+* max-height: 320px
+* overflow-y-auto
+* smooth scrolling
+* proper touch scrolling on iOS
+
+Category rows:
+
+* min-height: 44px
+* hover state
+* selected state
+* keyboard navigation
+* focus ring
+
+Mobile behavior:
+
+When screen width < 768px:
+
+* dropdown width = trigger width
+* max-height = 50vh
+* easy thumb scrolling
+
+Desktop behavior:
+
+* width fits content
+* max-height 320px
+
+If Radix Select currently forces incorrect placement:
+
+Use collision handling and positioning so the menu naturally stays below the trigger whenever possible.
+
+Verify:
+
+✅ Opens downward
+
+✅ Never clipped
+
+✅ RTL correct
+
+✅ Mobile correct
+
+✅ Desktop correct
+
+---
+
+## PART 2 — SPECIFICATIONS STEP REBUILD
+
+Current problem:
+
+Specifications UI still feels like a form.
+
+Current structure:
+
+[ Key ] [ Value ] [ Delete ]
+
+This feels crowded and difficult on mobile.
+
+Goal:
+
+Make Specifications feel like premium marketplace editing.
+
+---
+
+## NEW SPECIFICATION CARD DESIGN
+
+Each specification becomes its own card.
+
+Example:
+
+┌───────────────────────────────┐
+│ Specification #1             │
+│                              │
+│ Label                        │
+│ [ Weight ]                   │
+│                              │
+│ Value                        │
+│ [ 1.5 kg ]                   │
+│                              │
+│ Remove Specification         │
+└───────────────────────────────┘
+
+Use:
+
+* rounded-xl
+* border
+* subtle shadow
+* spacing
+* current theme colors
+
+---
+
+## MOBILE LAYOUT
+
+On mobile:
+
+Each card stacks vertically.
+
+Example:
+
+Label
+[____________]
+
+Value
+[____________]
+
+[ Remove ]
+
+No side-by-side fields.
+
+No cramped layout.
+
+Comfortable spacing.
+
+Touch friendly.
+
+---
+
+## DESKTOP LAYOUT
+
+Desktop may use:
+
+Label | Value
+
+inside the card.
+
+But the card must still remain visually separated.
+
+Do NOT return to table-style layout.
+
+---
+
+## ADD SPECIFICATION BUTTON
+
+Current add action is weak.
+
+Replace with:
+
+* Add Specification
+
+Large touch-friendly button.
+
+Full width on mobile.
+
+Clearly visible.
+
+---
+
+## EMPTY STATE
+
+When no specifications exist:
+
+Show elegant empty state.
+
+Example:
+
+No specifications added yet.
+
+Use specifications to describe your product in detail.
+
+[ + Add Specification ]
+
+No ugly placeholder text.
+
+---
+
+## DELETE ACTION
+
+Delete button should:
+
+* remain visible
+* not overlap inputs
+* not cause layout jumps
+
+Use a proper destructive style.
+
+---
+
+## SPECIFICATION DATA COMPATIBILITY
+
+Preserve existing logic:
+
+* parseSpecsFromDescription
+* specs state
+* description merge
+* edit page loading
+* create page submit
+* update page submit
+
+Do NOT alter storage format.
+
+Do NOT alter API format.
+
+Only improve UX.
+
+---
+
+## FINAL VALIDATION
+
+Verify all of the following:
+
+✅ Create Product works
+
+✅ Edit Product works
+
+✅ Existing products load correctly
+
+✅ Existing specs load correctly
+
+✅ Saving products still works
+
+✅ No API changes
+
+✅ No DB changes
+
+✅ No VariantBuilder changes
+
+✅ Mobile UX improved
+
+✅ Desktop UX improved
+
+✅ RTL preserved
+
+✅ Arabic preserved
+
+✅ English preserved
+
+✅ TypeScript = 0 errors
+
+Implement only verified improvements.

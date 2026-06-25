@@ -1,0 +1,227 @@
+SYANO Mobile Web UX Fixes
+
+This task is MOBILE WEB ONLY.
+
+Do NOT modify desktop behavior.
+
+Do NOT modify tablet behavior unless required by responsive breakpoints.
+
+Audit first, then fix.
+
+---
+
+# ISSUE 1 — Mobile Sidebar Still Shows "Sign Up"
+
+Current behavior:
+
+The mobile menu / sidebar still shows:
+
+* Sign Up
+* Create Account
+
+This is outdated.
+
+We already migrated the authentication flow to:
+
+* Login button
+* Sign Up inside Login modal
+
+Required:
+
+Remove:
+
+* Sign Up
+* Create Account
+
+from the mobile sidebar completely.
+
+Keep:
+
+* Login
+
+only.
+
+The Login action should open the same authentication modal used elsewhere.
+
+Do not create a separate mobile auth flow.
+
+---
+
+# ISSUE 2 — Login Modal Appears In The Middle Of The Page
+
+Current behavior:
+
+When opening Login on mobile:
+
+The modal appears partially down the page instead of behaving like a proper mobile overlay.
+
+Required:
+
+Audit:
+
+* Dialog implementation
+* Radix Dialog
+* Modal positioning
+* z-index
+* viewport calculations
+* fixed vs absolute positioning
+
+Fix so the Login modal:
+
+* opens centered in viewport
+* ignores page scroll position
+* locks background scrolling
+* covers entire screen correctly
+* works after scrolling long pages
+* behaves like native mobile apps
+
+Validation:
+
+Open Login at:
+
+* top of page
+* middle of page
+* bottom of page
+
+Must always open correctly.
+
+---
+
+# ISSUE 3 — Smart Support Button Too Large On Mobile
+
+Current behavior:
+
+Smart Support floating button is oversized.
+
+Desktop was already fixed.
+
+Mobile still looks too large.
+
+Required:
+
+Make mobile Smart Support button:
+
+* compact
+* circular
+* visually similar to desktop version
+* not intrusive
+
+Target:
+
+* 44–52px diameter
+* proper touch target
+* floating action button style
+
+Keep:
+
+* accessibility
+* tap area
+* animations
+
+Do not remove functionality.
+
+---
+
+# ISSUE 4 — White Text On Green Backgrounds
+
+Current behavior:
+
+After changing the SYANO brand color to:
+
+```text
+#276221
+```
+
+many mobile elements still use:
+
+* black text
+* dark icons
+* dark labels
+
+on green backgrounds.
+
+This reduces readability.
+
+Required:
+
+Audit ALL mobile UI elements using:
+
+```text
+#276221
+```
+
+or any SYANO green variant.
+
+For every green background:
+
+* buttons
+* dropdowns
+* menus
+* navigation items
+* sidebar actions
+* chips
+* category pills
+* account actions
+* login actions
+* modal actions
+* Smart Support actions
+* mobile navigation items
+
+Ensure:
+
+* text = white
+* icons = white
+* labels = white
+
+unless accessibility requires another color.
+
+Target:
+
+* strong contrast
+* consistent branding
+* identical behavior to desktop
+
+Do NOT leave black text sitting on green backgrounds.
+
+Verify every mobile screen.
+
+---
+
+# ISSUE 5 — Mobile Validation
+
+Verify:
+
+✅ Sidebar no longer shows Sign Up
+
+✅ Login opens modal correctly
+
+✅ Login modal always centered
+
+✅ No scroll-position bugs
+
+✅ Smart Support button smaller
+
+✅ All green buttons use white text
+
+✅ All green icons use white color
+
+✅ No black text on green backgrounds
+
+✅ No desktop regressions
+
+✅ No tablet regressions
+
+✅ TypeScript = 0 errors
+
+---
+
+# REPORT
+
+Provide:
+
+* Root causes found
+* Files modified
+* Mobile screenshots verified
+* Validation results
+
+Only ship verified fixes.

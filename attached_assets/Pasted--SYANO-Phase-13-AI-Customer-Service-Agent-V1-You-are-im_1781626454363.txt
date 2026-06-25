@@ -1,0 +1,403 @@
+# SYANO — Phase 13: AI Customer Service Agent V1
+
+You are implementing Phase 13 of the SYANO (سوق سوريا) roadmap.
+
+This phase introduces the first AI-powered customer support system.
+
+Read ALL recovery files before making any changes:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+
+Understand the current architecture completely before writing code.
+
+---
+
+# IMPORTANT
+
+This is NOT a chatbot toy.
+
+This is NOT a floating AI widget.
+
+This is NOT a separate messaging system.
+
+The AI Agent must become a first-class citizen inside the existing SYANO architecture.
+
+---
+
+# CORE RULE
+
+DO NOT create:
+
+* a new chat system
+* a separate inbox
+* a support popup
+* a standalone assistant page
+
+Messaging V2 already exists.
+
+Reuse it.
+
+Extend it.
+
+Do not rebuild it.
+
+---
+
+# PHASE GOAL
+
+Create:
+
+## Smart Support Agent
+
+Arabic:
+
+الدعم الذكي
+
+English:
+
+Smart Support
+
+The support agent must appear as a normal conversation inside Messaging V2.
+
+Users should interact with it exactly like any other conversation.
+
+---
+
+# LOCATION
+
+The AI Agent must live inside:
+
+Messaging V2
+
+Existing:
+
+* conversations
+* unread counts
+* notifications
+* read receipts
+* attachments
+* mobile messaging
+
+must continue working.
+
+---
+
+# PHASE 13 V1 SCOPE
+
+Implement the infrastructure first.
+
+The AI provider is intentionally undecided.
+
+Build the architecture so providers can be swapped later.
+
+---
+
+# PART 1 — AI Provider Abstraction Layer
+
+Create:
+
+AIProvider interface
+
+Example:
+
+* generateReply()
+* classifyIntent()
+* searchKnowledge()
+
+No provider should be hardcoded.
+
+The system must support future integration with:
+
+* Claude
+* OpenAI
+* Qwen
+* Falcon
+* Self-hosted models
+
+without rewriting the platform.
+
+---
+
+# PART 2 — Smart Support Conversation
+
+When a user opens:
+
+الدعم الذكي
+
+A normal conversation should be created.
+
+Conversation behaves exactly like:
+
+* seller chats
+* customer chats
+
+except messages come from the AI agent.
+
+---
+
+# PART 3 — FAQ KNOWLEDGE SYSTEM
+
+Build a structured knowledge base.
+
+Topics:
+
+## Orders
+
+* order status
+* cancellation
+* delivery
+
+## Payments
+
+* payment methods
+* refunds
+
+## Shipping
+
+* delivery timing
+* courier questions
+
+## Marketplace
+
+* seller accounts
+* products
+* stores
+
+## Trust System
+
+* verification
+* reports
+
+Responses must support:
+
+Arabic
+
+English
+
+---
+
+# PART 4 — ORDER TRACKING
+
+The agent must answer:
+
+Examples:
+
+Arabic:
+
+* وين طلبي؟
+* شو حالة طلبي؟
+* الطلب ما وصل
+
+English:
+
+* Where is my order?
+* Order status
+
+The agent should:
+
+* retrieve user orders
+* determine status
+* respond with real data
+
+Never hallucinate.
+
+Never invent status values.
+
+Use actual database data.
+
+---
+
+# PART 5 — PRODUCT RECOMMENDATIONS
+
+Examples:
+
+* بدي لابتوب للألعاب
+* بدي موبايل سامسونج
+* أرخص تلفزيون
+
+The agent should:
+
+* search existing products
+* suggest real products
+* link users to actual listings
+
+Never recommend nonexistent products.
+
+---
+
+# PART 6 — HUMAN ESCALATION
+
+If confidence is low:
+
+or user requests:
+
+* مشكلتي مع بائع
+* بدي مشرف
+* حولني للدعم
+
+The agent should:
+
+* mark conversation as escalated
+* create support ticket
+* notify admins
+
+---
+
+# PART 7 — SUPPORT TICKETS
+
+Create:
+
+SupportTicket entity
+
+Fields:
+
+* id
+* userId
+* conversationId
+* status
+* category
+* priority
+* assignedAdmin
+* createdAt
+
+Statuses:
+
+* open
+* pending
+* resolved
+* closed
+
+---
+
+# PART 8 — ADMIN SUPPORT DASHBOARD
+
+Create support moderation tools.
+
+Admins can:
+
+* see escalated conversations
+* assign tickets
+* close tickets
+* review AI responses
+
+---
+
+# PART 9 — MOBILE APP
+
+Mobile support must match web.
+
+No degraded implementation.
+
+Users must be able to:
+
+* open Smart Support
+* receive replies
+* track tickets
+* view escalations
+
+---
+
+# PART 10 — SECURITY
+
+The AI Agent may access only:
+
+* current user
+* current user orders
+* public marketplace data
+
+Never expose:
+
+* other users
+* admin data
+* seller private data
+
+---
+
+# PART 11 — ANALYTICS
+
+Track:
+
+* conversations started
+* tickets created
+* escalations
+* resolved conversations
+* unanswered intents
+
+Create analytics tables if needed.
+
+Use additive migrations only.
+
+---
+
+# PART 12 — UI
+
+The AI conversation should look native.
+
+Use current Messaging V2 design.
+
+Do not create:
+
+* flashy AI UI
+* glowing chatbot widgets
+* futuristic assistant designs
+
+Keep it professional.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Messaging V2 still works
+
+✅ Seller conversations still work
+
+✅ Notifications still work
+
+✅ Mobile messaging still works
+
+✅ Smart Support conversation works
+
+✅ FAQ responses work
+
+✅ Order tracking uses real data
+
+✅ Product recommendations use real products
+
+✅ Escalation works
+
+✅ Support tickets work
+
+✅ Admin dashboard works
+
+✅ Arabic works
+
+✅ English works
+
+✅ TypeScript = 0 errors
+
+---
+
+# RECOVERY
+
+After completion:
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+
+Document all new:
+
+* APIs
+* database tables
+* support workflows
+* ticket lifecycle
+
+Save everything into recovery snapshots.
+
+Build this as production infrastructure, not as a demo chatbot.

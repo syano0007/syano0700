@@ -1,0 +1,371 @@
+You are NOT implementing new features.
+
+You are performing a FULL END-TO-END QA AUDIT of the entire SYANO review ecosystem.
+
+IMPORTANT:
+
+Do not assume anything works.
+
+Do not trust previous reports.
+
+Do not trust Recovery Check.
+
+Do not trust documentation.
+
+Everything must be verified using real accounts and real flows.
+
+==================================================
+MISSION
+=======
+
+Audit every review-related feature in the platform.
+
+Act like a senior QA engineer preparing the marketplace for launch.
+
+You must discover:
+
+* broken flows
+* missing UI
+* incorrect calculations
+* hidden bugs
+* missing integrations
+* inconsistent data
+* trust-score mistakes
+* mobile issues
+* RTL issues
+
+==================================================
+TEST ACCOUNTS
+=============
+
+Use ONLY these accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+00Amer00
+
+Create or use a real customer account.
+
+==================================================
+PART 1 — REVIEW SYSTEM INVENTORY
+================================
+
+First produce a complete map.
+
+List every file, route, table, component, hook, page and API related to:
+
+* product reviews
+* seller reviews
+* trust score
+* store rating
+* review prompts
+* review dashboard
+* review replies
+* analytics
+* notifications
+
+Output audit inventory.
+
+==================================================
+PART 2 — PRODUCT REVIEW AUDIT
+=============================
+
+Verify:
+
+Can customer review product?
+
+When?
+
+After delivery only?
+
+Can customer review twice?
+
+Can customer edit review?
+
+Can customer delete review?
+
+Does rating affect product score?
+
+Does rating affect seller score?
+
+Do stars render correctly?
+
+Does review appear immediately?
+
+Does review appear on:
+
+* product page
+* seller page
+* analytics
+
+Verify every step manually.
+
+==================================================
+PART 3 — STORE REVIEW AUDIT
+===========================
+
+Verify:
+
+Customer can review store
+
+Only after delivery
+
+Correct seller relationship
+
+No duplicate reviews
+
+Review form appears
+
+Review modal appears
+
+Review saved
+
+Review updated
+
+Review displayed
+
+Review count updated
+
+Store rating updated
+
+Store rating cached correctly
+
+Verify with real data.
+
+==================================================
+PART 4 — SELLER REPLY AUDIT
+===========================
+
+Verify:
+
+Reply button exists
+
+Reply modal/form works
+
+Edit reply works
+
+Delete reply works
+
+Ownership protection works
+
+Reply displays publicly
+
+Reply timestamps correct
+
+Reply edited state correct
+
+Reply visible on mobile
+
+Reply visible on web
+
+Verify everything manually.
+
+==================================================
+PART 5 — TRUST SYSTEM AUDIT
+===========================
+
+Verify:
+
+Trust score calculation
+
+Store rating points
+
+Review count points
+
+Delivery success points
+
+Completion points
+
+Verification points
+
+Follower points
+
+Penalty points
+
+Use real seller account.
+
+Manually calculate expected trust score.
+
+Compare to actual score.
+
+Report mismatches.
+
+==================================================
+PART 6 — DELIVERY → REVIEW FLOW
+===============================
+
+Create a full real flow:
+
+Customer places order
+
+Seller accepts
+
+Courier delivers
+
+Order becomes delivered
+
+Customer reviews product
+
+Customer reviews store
+
+Trust updates
+
+Analytics update
+
+Verify every stage.
+
+==================================================
+PART 7 — ANALYTICS AUDIT
+========================
+
+Verify review metrics appear in:
+
+Seller Analytics
+
+Seller Reviews Dashboard
+
+Store Reputation
+
+Trust Page
+
+Admin Analytics
+
+Verify counts and averages are correct.
+
+==================================================
+PART 8 — NOTIFICATION AUDIT
+===========================
+
+Verify:
+
+Customer receives review prompts
+
+Seller receives new review notifications
+
+Customer receives seller reply notifications
+
+If any part missing:
+
+Report it.
+
+==================================================
+PART 9 — MOBILE AUDIT
+=====================
+
+Verify all review flows on mobile:
+
+Product review
+
+Store review
+
+Reply display
+
+Trust display
+
+Review prompts
+
+No visual regressions.
+
+Take screenshots.
+
+==================================================
+PART 10 — RTL AUDIT
+===================
+
+Verify:
+
+Arabic
+
+RTL
+
+Mobile RTL
+
+Desktop RTL
+
+Long text
+
+Long names
+
+Long comments
+
+No clipping.
+
+==================================================
+PART 11 — RECOVERY CHECK AUDIT
+==============================
+
+Verify Recovery Check actually tests:
+
+Product reviews
+
+Store reviews
+
+Seller replies
+
+Trust integration
+
+Analytics integration
+
+Notifications
+
+Mobile integration
+
+If Recovery Check falsely passes:
+
+Fix it.
+
+==================================================
+PART 12 — FINAL REPORT
+======================
+
+Produce:
+
+WORKING FEATURES
+
+BROKEN FEATURES
+
+MISSING FEATURES
+
+INCORRECT CALCULATIONS
+
+MOBILE ISSUES
+
+RTL ISSUES
+
+TRUST ISSUES
+
+ANALYTICS ISSUES
+
+NOTIFICATION ISSUES
+
+RECOVERY CHECK GAPS
+
+==================================================
+FINAL RULE
+==========
+
+Do not implement wishlist.
+
+Do not implement new marketplace features.
+
+Do not stop after reading code.
+
+Actually execute the flows using real accounts.
+
+Actually verify behavior.
+
+Actually reproduce issues.
+
+Anything not manually tested must be marked:
+
+"NOT VERIFIED"
+
+Never claim a feature works unless you personally tested it.

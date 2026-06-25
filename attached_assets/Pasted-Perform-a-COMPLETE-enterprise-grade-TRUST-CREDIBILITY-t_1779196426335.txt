@@ -1,0 +1,324 @@
+Perform a COMPLETE enterprise-grade TRUST & CREDIBILITY transformation across the entire Syano marketplace platform. The goal is to make Syano feel highly trustworthy, safe, professional, and reliable for both customers and sellers — similar to major ecommerce marketplaces like Amazon, Noon, and Alibaba.
+
+This is NOT just a visual update.
+This is a full marketplace trust-system architecture upgrade.
+
+The primary goal is:
+- increase customer trust
+- reduce fear of scams
+- improve purchase confidence
+- improve seller quality
+- create a safe marketplace ecosystem
+- maximize conversion rates
+
+The platform must feel:
+- secure
+- verified
+- professional
+- transparent
+- reliable
+- premium
+
+==================================================
+GLOBAL TRUST SYSTEM ARCHITECTURE
+==================================================
+
+Design and implement a complete trust ecosystem across:
+- customer experience
+- seller experience
+- product experience
+- checkout flow
+- order tracking
+- notifications
+- reviews
+- seller verification
+- moderation systems
+
+Trust indicators must appear naturally and professionally throughout the marketplace.
+
+==================================================
+SELLER VERIFICATION SYSTEM
+==================================================
+
+Deeply improve and polish the seller verification system.
+
+Requirements:
+- verified seller badges
+- seller trust levels
+- seller verification statuses
+- seller application review states
+- seller quality scoring
+- visible seller credibility indicators
+
+Seller profiles must display:
+- verification badge
+- join date
+- response speed
+- order completion rate
+- seller rating
+- customer satisfaction
+- successful orders count
+
+Trust levels examples:
+- New Seller
+- Verified Seller
+- Premium Seller
+- Top Rated Seller
+
+Badges must look:
+- premium
+- modern
+- trustworthy
+- visually consistent
+
+==================================================
+PRODUCT TRUST EXPERIENCE
+==================================================
+
+Improve trust directly inside product pages.
+
+Requirements:
+- verified seller visibility
+- clear pricing transparency
+- discount authenticity
+- stock visibility
+- delivery expectations
+- secure checkout messaging
+- trust indicators near Add to Cart
+- product authenticity indicators
+- clear product details hierarchy
+
+Customers should instantly feel:
+- safe buying
+- confident
+- informed
+
+==================================================
+REVIEWS & RATING SYSTEM
+==================================================
+
+Build a premium review ecosystem.
+
+Requirements:
+- product ratings
+- seller ratings
+- verified purchase indicators
+- review sorting
+- review helpfulness voting
+- image reviews support
+- review statistics
+- review summaries
+
+Prevent fake/spam reviews professionally.
+
+==================================================
+ORDER & DELIVERY TRUST
+==================================================
+
+Improve confidence during the entire order flow.
+
+Requirements:
+- clear order statuses
+- delivery progress tracking
+- order history visibility
+- cancellation transparency
+- refund status visibility
+- notification updates
+- estimated delivery information
+
+Order tracking must feel:
+- modern
+- reliable
+- reassuring
+
+==================================================
+SECURITY & SAFETY UX
+==================================================
+
+Improve perceived and real platform security.
+
+Requirements:
+- secure checkout indicators
+- account safety messaging
+- professional authentication UX
+- anti-spam systems
+- secure form validation
+- abuse prevention systems
+- suspicious behavior protection
+
+Avoid making the UI feel scary or overcomplicated.
+
+==================================================
+CUSTOMER CONFIDENCE UX
+==================================================
+
+Increase customer confidence across all purchase flows.
+
+Implement:
+- trust messaging
+- secure purchase indicators
+- professional empty states
+- helpful microcopy
+- reassuring checkout UX
+- transparent pricing
+- clear support/contact visibility
+
+==================================================
+NOTIFICATION TRUST EXPERIENCE
+==================================================
+
+Notifications must improve trust instead of feeling random.
+
+Requirements:
+- professional notification styling
+- clear order updates
+- seller communication states
+- delivery updates
+- approval/rejection transparency
+- refund/cancellation visibility
+
+==================================================
+ANTI-SPAM & MARKETPLACE QUALITY
+==================================================
+
+Improve marketplace quality systems.
+
+Requirements:
+- prevent fake sellers
+- prevent spam listings
+- prevent duplicate products
+- moderation queues
+- reporting system
+- seller strikes
+- suspension flow
+- suspicious activity handling
+
+==================================================
+REPORTING & SUPPORT SYSTEM
+==================================================
+
+Implement customer safety tools.
+
+Requirements:
+- report seller
+- report product
+- report scam/spam
+- support request flow
+- issue escalation flow
+- moderation visibility
+
+Users should feel protected.
+
+==================================================
+MOBILE TRUST EXPERIENCE
+==================================================
+
+Mobile trust UX is CRITICAL.
+
+Ensure:
+- trust badges visible on mobile
+- ratings readable
+- secure checkout visible
+- seller information accessible
+- no hidden trust indicators
+- premium mobile presentation
+
+The mobile experience must feel:
+- safe
+- smooth
+- professional
+- modern
+
+==================================================
+VISUAL TRUST DESIGN
+==================================================
+
+The UI must visually communicate professionalism.
+
+Improve:
+- spacing
+- typography
+- badge consistency
+- iconography
+- card quality
+- visual hierarchy
+- premium styling
+
+Avoid:
+- clutter
+- noisy UI
+- fake-looking badges
+- inconsistent colors
+
+==================================================
+PERFORMANCE & TRUST
+==================================================
+
+A fast site feels more trustworthy.
+
+Ensure:
+- fast loading
+- smooth navigation
+- stable layouts
+- no glitches
+- no flickering
+- no broken components
+- no console errors
+
+==================================================
+RTL & ARABIC TRUST EXPERIENCE
+==================================================
+
+Ensure the Arabic experience feels fully native and trustworthy.
+
+Fix:
+- RTL alignment
+- Arabic typography
+- trust badge positioning
+- review layouts
+- mobile Arabic rendering
+
+Arabic UI must feel:
+- polished
+- premium
+- professional
+
+==================================================
+AUTOMATIC QUALITY AUDIT
+==================================================
+
+Automatically scan and improve:
+- inconsistent UI
+- broken trust flows
+- confusing UX
+- hidden information
+- weak seller visibility
+- unclear order states
+- poor mobile trust experience
+- misleading discount presentation
+- weak review visibility
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test customer purchase confidence flow
+- test seller verification visibility
+- test review system
+- test trust badges
+- test order tracking
+- test reporting system
+- test mobile trust experience
+- test Arabic RTL rendering
+- test desktop responsiveness
+- verify no trust-related UI bugs
+- verify all trust indicators are visible
+- verify smooth performance
+- verify premium marketplace feel
+
+FINAL RESULT MUST FEEL LIKE:
+- a trusted professional ecommerce marketplace
+- a safe platform for Syrian users
+- a premium modern shopping experience
+- highly polished and production-ready

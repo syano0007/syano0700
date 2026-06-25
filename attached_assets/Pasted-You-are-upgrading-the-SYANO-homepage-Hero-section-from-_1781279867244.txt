@@ -1,0 +1,427 @@
+You are upgrading the SYANO homepage Hero section from a premium carousel into a flagship marketplace experience.
+
+IMPORTANT:
+
+Do NOT start coding immediately.
+
+First audit the current implementation.
+
+Read:
+
+* Homepage hero component
+* Banner system
+* Admin banner management
+* Mobile implementation
+* Analytics tracking
+* Recovery check
+
+Then create an implementation plan.
+
+Only after understanding the current architecture begin development.
+
+---
+
+MISSION
+
+The current Hero Banner V2 is technically good.
+
+However it still feels like:
+
+"Image + Text + Button"
+
+This is NOT enough.
+
+The homepage must feel like a serious marketplace.
+
+Target quality:
+
+* Amazon
+* Noon
+* Trendyol
+* Alibaba
+* AliExpress
+* Carrefour Online
+
+When users open the homepage they should immediately feel:
+
+"This is a real marketplace."
+
+---
+
+CRITICAL RULES
+
+Do NOT break:
+
+* banner management
+* analytics
+* impression tracking
+* click tracking
+* RTL
+* mobile app compatibility
+* recovery check
+* TypeScript
+
+Maintain:
+
+* 0 TypeScript errors
+* no layout shift
+* no console errors
+* high Lighthouse score
+* smooth animations
+
+---
+
+NEW DESIGN DIRECTION
+
+Current direction:
+
+Image-first
+
+New direction:
+
+Commerce-first
+
+The hero must sell products.
+
+Not display images.
+
+---
+
+HERO STRUCTURE
+
+Create a multi-layer hero.
+
+Not a simple banner.
+
+Structure:
+
+Layer 1:
+
+Main promotional slide
+
+Layer 2:
+
+Offer information
+
+Layer 3:
+
+Product highlights
+
+Layer 4:
+
+Trust signals
+
+Layer 5:
+
+Quick category shortcuts
+
+---
+
+DESKTOP LAYOUT
+
+Premium marketplace layout.
+
+Example structure:
+
+---
+
+| Large Hero Area | Featured Deals Panel |
+| | |
+| Main Campaign | Deal 1 |
+| CTA | Deal 2 |
+| Products | Deal 3 |
+| | Deal 4 |
+
+---
+
+Below hero:
+
+Trust Bar
+
+---
+
+✓ Fast Shipping
+
+✓ Secure Payment
+
+✓ Verified Sellers
+
+✓ Buyer Protection
+
+✓ Customer Support
+
+---
+
+Must feel native.
+
+---
+
+CATEGORY SHORTCUTS
+
+Inside hero add:
+
+Visual category chips/cards.
+
+Examples:
+
+Electronics
+
+Fashion
+
+Home
+
+Beauty
+
+Sports
+
+Automotive
+
+Groceries
+
+Clicking category:
+
+goes directly to category.
+
+---
+
+FEATURED PRODUCTS INSIDE HERO
+
+Each banner may optionally display:
+
+* product cards
+* offer cards
+* featured items
+
+Examples:
+
+Sale Price
+
+Old Price
+
+Discount Badge
+
+Stock Badge
+
+---
+
+PROMOTION SYSTEM
+
+Support promotional banners:
+
+* seasonal
+* featured
+* launch
+* flash sale
+* category campaign
+
+Not all banners are equal.
+
+Allow visual differences.
+
+---
+
+FLASH SALE BLOCK
+
+Inside hero support:
+
+Flash Sale presentation.
+
+Countdown.
+
+Stock urgency.
+
+Limited quantity.
+
+Only show if active.
+
+---
+
+TRUST LAYER
+
+Hero should communicate trust immediately.
+
+Examples:
+
+10,000+ Products
+
+Verified Sellers
+
+Buyer Protection
+
+Secure Checkout
+
+Fast Delivery
+
+Use real values when available.
+
+Otherwise hide.
+
+Do NOT fake metrics.
+
+---
+
+VISUAL QUALITY
+
+Upgrade:
+
+Typography
+
+Spacing
+
+Contrast
+
+Shadows
+
+Depth
+
+Gradients
+
+Animations
+
+Motion hierarchy
+
+Everything should feel expensive.
+
+---
+
+ANIMATION SYSTEM
+
+Keep:
+
+Ken Burns
+
+Crossfade
+
+Progress bars
+
+Add:
+
+Parallax layers
+
+Depth movement
+
+Staggered reveals
+
+Micro-interactions
+
+Hover polish
+
+Premium CTA motion
+
+No flashy effects.
+
+Everything must remain elegant.
+
+---
+
+MOBILE EXPERIENCE
+
+Mobile must NOT be a compressed desktop.
+
+Design mobile independently.
+
+Requirements:
+
+Large visual impact
+
+Thumb-friendly interactions
+
+Clean hierarchy
+
+No crowded content
+
+Category shortcuts visible
+
+Trust bar visible
+
+Featured content visible
+
+Perfect RTL
+
+---
+
+ADMIN SYSTEM
+
+Extend Hero Banner admin.
+
+Add optional support for:
+
+Featured Products
+
+Categories
+
+Campaign Type
+
+Flash Sale Mode
+
+Priority Level
+
+Trust Highlights
+
+Display Rules
+
+Maintain backward compatibility.
+
+Existing banners must continue working.
+
+---
+
+PERFORMANCE
+
+Critical.
+
+Use:
+
+lazy loading
+
+GPU transforms
+
+optimized motion
+
+minimal rerenders
+
+no CLS
+
+No performance regressions.
+
+---
+
+VALIDATION
+
+Before finishing verify:
+
+✅ Hero feels marketplace-first
+
+✅ Not image-first
+
+✅ Desktop premium layout
+
+✅ Mobile premium layout
+
+✅ Featured deals panel
+
+✅ Category shortcuts
+
+✅ Trust bar
+
+✅ Flash sale support
+
+✅ Featured products support
+
+✅ Existing banners still work
+
+✅ Admin still works
+
+✅ Analytics still work
+
+✅ RTL preserved
+
+✅ No TypeScript errors
+
+✅ No console errors
+
+✅ No layout shift
+
+✅ Recovery check still passes
+
+The final result should feel worthy of a major marketplace launch and significantly closer to Noon and Amazon than the current implementation.

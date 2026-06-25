@@ -1,0 +1,368 @@
+Perform a COMPLETE enterprise-grade PRODUCT PAGE & PURCHASE EXPERIENCE transformation across the entire Syano marketplace platform. Treat this as a world-class ecommerce conversion optimization project inspired by Amazon, Noon, Apple Store, and modern high-converting ecommerce platforms.
+
+The PRODUCT PAGE is now one of the MOST IMPORTANT areas of the entire marketplace.
+
+The goal is to maximize:
+- trust
+- conversions
+- usability
+- mobile experience
+- purchase speed
+- perceived product quality
+- customer confidence
+
+The final experience must feel:
+- premium
+- modern
+- ultra polished
+- conversion optimized
+- mobile-first
+- fast
+- trustworthy
+- native-app-like
+
+==================================================
+CORE OBJECTIVES
+==================================================
+
+Transform every product page into a premium high-converting ecommerce experience.
+
+The customer should instantly:
+- understand the product
+- trust the seller
+- understand pricing
+- feel safe purchasing
+- navigate comfortably on mobile
+- add to cart effortlessly
+- proceed to checkout quickly
+
+The product page must feel:
+- visually premium
+- clean
+- organized
+- smooth
+- responsive
+- professional
+
+==================================================
+GLOBAL PRODUCT PAGE AUDIT
+==================================================
+
+Deeply analyze and improve:
+- product layouts
+- image galleries
+- pricing UI
+- discounts
+- seller info
+- reviews
+- Add to Cart flow
+- quantity controls
+- delivery information
+- mobile responsiveness
+- loading behavior
+- animations
+- trust indicators
+- related products
+- specifications
+- product descriptions
+- product variations
+
+Fix ALL UX and responsive issues automatically.
+
+==================================================
+MOBILE-FIRST PRODUCT EXPERIENCE
+==================================================
+
+Mobile experience is the HIGHEST PRIORITY.
+
+The product page must feel like a premium native shopping app.
+
+Requirements:
+- thumb-friendly layout
+- responsive image gallery
+- smooth scrolling
+- large touch targets
+- clean spacing
+- easy reading
+- instant interactions
+- smooth image swiping
+- optimized typography
+- premium visual hierarchy
+
+Ensure:
+- no hidden buttons
+- no overflow
+- no cramped layouts
+- no overlapping elements
+- no broken responsive behavior
+
+==================================================
+ADD TO CART & PURCHASE FLOW
+==================================================
+
+Completely optimize the Add to Cart and purchase experience.
+
+Requirements:
+- Add to Cart button ALWAYS visible on mobile
+- sticky purchase bar if beneficial
+- large thumb-friendly buttons
+- instant feedback after adding
+- smooth loading states
+- quantity controls
+- Buy Now support if beneficial
+- clear pricing visibility
+- fast checkout flow
+
+Purchase actions must feel:
+- instant
+- responsive
+- smooth
+- trustworthy
+
+==================================================
+PRODUCT IMAGE EXPERIENCE
+==================================================
+
+Build a premium product media experience.
+
+Requirements:
+- responsive image gallery
+- swipe support on mobile
+- optimized lazy loading
+- zoom support if beneficial
+- fast image rendering
+- skeleton placeholders
+- blur-up loading
+- smooth transitions
+- optimized thumbnails
+
+Ensure:
+- images load fast
+- scrolling remains smooth
+- no layout shifts occur
+
+==================================================
+PRODUCT INFORMATION HIERARCHY
+==================================================
+
+Reorganize product information professionally.
+
+The page must clearly display:
+- product title
+- price
+- discount
+- availability
+- seller info
+- ratings
+- delivery info
+- specifications
+- description
+- reviews
+- related products
+
+Information hierarchy must feel:
+- clean
+- readable
+- conversion-focused
+- modern
+
+==================================================
+SELLER TRUST INTEGRATION
+==================================================
+
+Improve seller visibility and trust directly inside product pages.
+
+Display clearly:
+- verified seller badge
+- seller rating
+- response speed
+- completed orders
+- seller reputation
+- join date
+
+Customers must instantly trust the seller.
+
+==================================================
+REVIEWS & SOCIAL PROOF
+==================================================
+
+Build a premium review experience.
+
+Requirements:
+- product ratings
+- review summaries
+- verified purchase badges
+- image reviews
+- helpful review voting
+- review sorting
+- responsive review cards
+
+Reviews must feel:
+- trustworthy
+- modern
+- easy to read
+
+==================================================
+RELATED PRODUCTS & DISCOVERY
+==================================================
+
+Improve product discovery inside product pages.
+
+Requirements:
+- related products
+- similar products
+- frequently viewed products
+- recommended products
+- same-category suggestions
+
+Ensure:
+- smooth horizontal scrolling
+- fast rendering
+- mobile responsiveness
+- optimized lazy loading
+
+==================================================
+DELIVERY & ORDER CONFIDENCE
+==================================================
+
+Improve order confidence.
+
+Display clearly:
+- estimated delivery
+- delivery methods
+- stock status
+- return/refund info
+- secure checkout messaging
+
+The customer must feel:
+- safe
+- informed
+- confident purchasing
+
+==================================================
+PRODUCT VARIATIONS & OPTIONS
+==================================================
+
+Optimize product option selection professionally.
+
+Requirements:
+- responsive variant selectors
+- easy size/color selection
+- touch-friendly controls
+- clear active states
+- instant updates
+- smooth interaction feedback
+
+==================================================
+LOADING STATES & PERCEIVED PERFORMANCE
+==================================================
+
+Improve perceived loading speed dramatically.
+
+Implement:
+- skeleton loaders
+- shimmer placeholders
+- progressive rendering
+- smooth transitions
+- instant-feeling interactions
+- graceful image loading
+
+The page should FEEL ultra-fast even before everything loads.
+
+==================================================
+PERFORMANCE OPTIMIZATION
+==================================================
+
+Aggressively optimize product page performance.
+
+Requirements:
+- fast rendering
+- optimized image delivery
+- lightweight interactions
+- reduced JS execution
+- smooth scrolling
+- low memory usage
+- fast API responses
+- minimal layout shifts
+
+Ensure smooth behavior on:
+- weak internet
+- low-end Android phones
+- slow CPUs
+- low RAM devices
+
+==================================================
+RTL & ARABIC OPTIMIZATION
+==================================================
+
+Ensure perfect Arabic RTL product experience.
+
+Fix:
+- Arabic typography
+- RTL alignment
+- text overflow
+- icon directions
+- responsive RTL layouts
+- Arabic readability
+
+Arabic UI must feel:
+- native
+- polished
+- premium
+
+==================================================
+ACCESSIBILITY & USABILITY
+==================================================
+
+Improve usability and accessibility professionally.
+
+Requirements:
+- readable typography
+- proper contrast
+- accessible buttons
+- keyboard accessibility where appropriate
+- touch-friendly interactions
+- comfortable spacing
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically detect and fix:
+- hidden Add to Cart buttons
+- broken responsive layouts
+- overlapping content
+- slow image loading
+- layout shifts
+- mobile overflow
+- inconsistent spacing
+- broken RTL layouts
+- performance bottlenecks
+- visual inconsistencies
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test ALL product pages on mobile
+- test Add to Cart visibility
+- test image gallery behavior
+- test reviews
+- test seller visibility
+- test purchase flow
+- test checkout transition
+- test RTL Arabic rendering
+- test weak internet behavior
+- test low-end Android devices
+- verify no layout breaking exists
+- verify no hidden UI exists
+- verify no console errors exist
+- verify premium smooth behavior everywhere
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class ecommerce product page
+- highly optimized for conversions
+- premium mobile shopping experience
+- ultra polished marketplace UX
+- fast, trustworthy, and production-ready

@@ -1,0 +1,470 @@
+You are a Principal Frontend Architect, React 19 Specialist, UX Engineer, Mobile Web Expert, RTL/i18n Specialist, and QA Lead.
+
+Project: Syano Marketplace.
+
+IMPORTANT:
+
+This is NOT a feature task.
+
+This is a FORENSIC BUG-HUNT AND STABILIZATION TASK.
+
+Your mission is to find and fix EVERY remaining bug, inconsistency, layout issue, localization issue, responsive issue, overflow issue, alignment issue, and unfinished implementation that still exists after the previous performance audit.
+
+DO NOT redesign pages.
+
+DO NOT change business logic.
+
+DO NOT modify API contracts.
+
+DO NOT modify database schema.
+
+ONLY fix bugs and improve correctness.
+
+=================================================
+PHASE 1 — COMPLETE STORE PAGE AUDIT
+=================================================
+
+Audit ALL store pages:
+
+/store/:slug
+
+and every component used inside:
+
+StoreHeader
+StoreBanner
+StoreStats
+StoreProducts
+StoreReviews
+StoreAbout
+FollowStoreButton
+StoreBadges
+TrustBadges
+SellerProfile sections
+
+Verify:
+
+Desktop
+Tablet
+Mobile
+
+Light Mode
+Dark Mode
+
+Arabic
+English
+
+USD
+SYP
+
+Check:
+
+- text overflow
+- card overflow
+- image overflow
+- badge overflow
+- button overflow
+- clipping
+- truncation
+- wrapping issues
+- RTL bugs
+- LTR bugs
+- alignment issues
+- spacing inconsistencies
+- responsive breakpoints
+
+=================================================
+PHASE 2 — FULL I18N FORENSIC AUDIT
+=================================================
+
+Audit ALL store-related pages.
+
+Find:
+
+Hardcoded English strings.
+
+Hardcoded Arabic strings.
+
+Mixed-language UI.
+
+Missing translation keys.
+
+Fallback text.
+
+Untranslated buttons.
+
+Untranslated tabs.
+
+Untranslated placeholders.
+
+Untranslated status labels.
+
+Untranslated badges.
+
+Untranslated statistics.
+
+Untranslated seller information.
+
+Verify every visible string uses:
+
+t("key")
+
+through i18next.
+
+No exceptions.
+
+=================================================
+PHASE 3 — RTL/LTR CORRECTNESS
+=================================================
+
+Verify:
+
+Arabic mode:
+
+dir="rtl"
+
+English mode:
+
+dir="ltr"
+
+Check:
+
+Headers
+Tabs
+Buttons
+Cards
+Badges
+Dropdowns
+Menus
+Pagination
+Breadcrumbs
+Store stats
+
+Fix:
+
+wrong alignment
+reversed margins
+wrong paddings
+misplaced icons
+
+=================================================
+PHASE 4 — PRODUCT CARD INSIDE STORE
+=================================================
+
+Audit store product cards.
+
+Verify:
+
+Product title
+Price
+Discount
+Badges
+Buttons
+Images
+
+Check:
+
+Long English names.
+
+Long Arabic names.
+
+Mixed Arabic-English names.
+
+Prevent:
+
+overflow
+clipping
+layout shift
+
+Apply:
+
+proper truncation
+line-clamp
+responsive wrapping
+
+without changing design.
+
+=================================================
+PHASE 5 — RESPONSIVE AUDIT
+=================================================
+
+Audit ALL breakpoints:
+
+320px
+360px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+
+Verify:
+
+No horizontal scrolling.
+
+No clipped elements.
+
+No hidden buttons.
+
+No inaccessible controls.
+
+No overlapping content.
+
+=================================================
+PHASE 6 — ADMIN PANEL BUG SWEEP
+=================================================
+
+Audit all admin pages.
+
+Focus on unresolved issues.
+
+Find:
+
+broken layouts
+
+misaligned controls
+
+overflow
+
+mobile bugs
+
+responsive bugs
+
+missing translations
+
+hidden buttons
+
+Verify:
+
+Admin Settings
+
+Admin Sellers
+
+Admin Applications
+
+Admin Dashboard
+
+Admin Analytics
+
+Admin Logs
+
+Admin Users
+
+Admin Products
+
+Admin Orders
+
+Admin Notifications
+
+=================================================
+PHASE 7 — KNOWN ISSUES TO VERIFY
+=================================================
+
+Specifically verify:
+
+1.
+SYP currency switcher.
+
+Problem previously reported:
+
+When language is English,
+the SYP button partially exits its container.
+
+Verify every location:
+
+Navbar
+Sidebar
+Drawer
+Mobile menu
+Admin pages
+
+Fix globally.
+
+2.
+Admin Settings page.
+
+Problem previously reported:
+
+Save button positioning is incorrect.
+
+Verify:
+
+all breakpoints
+
+all languages
+
+all themes
+
+Fix globally.
+
+3.
+Admin mobile sidebar.
+
+Problem previously reported:
+
+Drawer occupies too much screen space.
+
+Verify:
+
+drawer width
+
+safe area
+
+scroll behavior
+
+close behavior
+
+Fix globally.
+
+4.
+Store page tabs.
+
+Products / About / Reviews
+
+Verify:
+
+mobile layout
+
+RTL/LTR
+
+overflow
+
+wrapping
+
+touch targets
+
+Fix globally.
+
+=================================================
+PHASE 8 — REMAINING BUGS FROM PREVIOUS AUDITS
+=================================================
+
+Review findings from previous audits.
+
+Verify unresolved items:
+
+TypeScript warnings.
+
+TypeScript errors.
+
+Pre-existing compile warnings.
+
+HMR warnings.
+
+Incorrect query usage.
+
+Incorrect cache usage.
+
+Incorrect responsive classes.
+
+Find every item marked:
+
+"pre-existing"
+
+"not fixed"
+
+"future work"
+
+"no action taken"
+
+and re-audit it.
+
+=================================================
+PHASE 9 — VISUAL CONSISTENCY
+=================================================
+
+Audit consistency of:
+
+spacing
+
+border radius
+
+typography
+
+badge sizing
+
+button sizing
+
+icon sizing
+
+card heights
+
+header heights
+
+between:
+
+Customer pages
+
+Seller pages
+
+Store pages
+
+Admin pages
+
+Goal:
+
+one coherent design system.
+
+=================================================
+PHASE 10 — FINAL VALIDATION
+=================================================
+
+After fixes:
+
+Test:
+
+Customer account.
+
+Seller account.
+
+Admin account.
+
+Arabic.
+
+English.
+
+Mobile.
+
+Tablet.
+
+Desktop.
+
+Dark mode.
+
+Light mode.
+
+USD.
+
+SYP.
+
+Verify:
+
+No console errors.
+
+No React warnings.
+
+No hydration warnings.
+
+No layout shifts.
+
+No overflows.
+
+No untranslated strings.
+
+No responsive bugs.
+
+=================================================
+DELIVERABLE
+=================================================
+
+Provide:
+
+1. Every bug found.
+2. Root cause.
+3. Files modified.
+4. Fix applied.
+5. Validation proof.
+6. Remaining risks (if any).
+
+Do not stop until the entire audit is complete.

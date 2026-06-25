@@ -1,0 +1,429 @@
+CRITICAL PRODUCT SYSTEM & PERFORMANCE ARCHITECTURE UPGRADE
+
+This is NOT a simple feature request.
+
+The goal is to redesign the product system and image pipeline so the marketplace remains extremely fast, smooth, and scalable even with:
+
+* Thousands of sellers
+* Tens of thousands of products
+* Hundreds of thousands of images
+* Large traffic volumes
+* Heavy mobile usage
+
+Every decision must prioritize:
+
+1. Performance
+2. Scalability
+3. Mobile experience
+4. Long-term maintainability
+
+Think like Amazon, Etsy, Shopify, Noon.
+
+Do NOT implement quick fixes.
+
+Do NOT implement basic upload functionality.
+
+Build a production-grade architecture.
+
+══════════════════════════════════════
+PHASE 1 — FULL PERFORMANCE AUDIT
+══════════════════════════════════════
+
+Before implementing anything:
+
+Audit the entire product system.
+
+Investigate:
+
+* Product creation flow
+* Product listing flow
+* Product page flow
+* Image uploads
+* Image delivery
+* Search requests
+* Homepage product loading
+* Category loading
+* Seller store loading
+* API payload sizes
+* Database queries
+* React rendering performance
+* Bundle sizes
+* Mobile performance
+
+Identify real bottlenecks.
+
+Do not guess.
+
+Provide findings before optimization.
+
+══════════════════════════════════════
+PHASE 2 — MULTI-IMAGE PRODUCT SYSTEM
+══════════════════════════════════════
+
+Upgrade product creation.
+
+Allow sellers to upload:
+
+* 1 cover image
+* Up to 10 gallery images
+
+Requirements:
+
+* Mobile upload support
+* Desktop upload support
+* Drag and drop support
+* Image preview
+* Image reordering
+* Cover image selection
+* Image deletion
+* Edit existing images
+
+The seller experience must feel modern and professional.
+
+══════════════════════════════════════
+PHASE 3 — PROFESSIONAL IMAGE PIPELINE
+══════════════════════════════════════
+
+This is the most important part.
+
+Never serve original uploaded images directly.
+
+When a seller uploads an image:
+
+Automatically generate:
+
+1. Thumbnail version
+2. Medium version
+3. Large version
+
+Example:
+
+Thumbnail:
+Used for:
+
+* Homepage
+* Search
+* Categories
+* Product cards
+* Store pages
+
+Medium:
+Used for:
+
+* Product details page
+
+Large:
+Used for:
+
+* Gallery zoom
+* Fullscreen viewing
+
+Only load the size actually required.
+
+Never load large images where small images are sufficient.
+
+══════════════════════════════════════
+PHASE 4 — IMAGE COMPRESSION
+══════════════════════════════════════
+
+Convert uploaded images automatically.
+
+Preferred format hierarchy:
+
+1. AVIF
+2. WebP
+3. JPG fallback
+
+Goal:
+
+Maximum visual quality.
+
+Minimum file size.
+
+Example:
+
+A 3MB JPG should become a highly optimized image that loads dramatically faster while maintaining visual quality.
+
+Avoid oversized PNG assets whenever possible.
+
+══════════════════════════════════════
+PHASE 5 — RESPONSIVE IMAGE DELIVERY
+══════════════════════════════════════
+
+Do not send desktop-sized images to mobile devices.
+
+Serve image sizes dynamically based on:
+
+* Device size
+* Screen resolution
+* Viewport requirements
+
+Mobile users must receive lighter assets.
+
+Desktop users may receive larger assets when necessary.
+
+══════════════════════════════════════
+PHASE 6 — LAZY LOADING
+══════════════════════════════════════
+
+Implement aggressive image lazy loading.
+
+Rules:
+
+Only visible images should load initially.
+
+Images below the viewport should not load until needed.
+
+Homepage:
+
+Only above-the-fold images load immediately.
+
+Everything else loads progressively.
+
+Reduce initial network usage as much as possible.
+
+══════════════════════════════════════
+PHASE 7 — PRODUCT VARIANTS SYSTEM
+══════════════════════════════════════
+
+Replace the current simplistic product attributes system.
+
+Implement a true variants architecture.
+
+Support:
+
+* Color
+* Size
+* Version
+* Storage
+* Material
+* Model
+* Custom attributes
+
+Example:
+
+Colors:
+Black
+White
+Blue
+
+Sizes:
+S
+M
+L
+XL
+
+Generate valid variant combinations.
+
+Each variant must support:
+
+* Stock quantity
+* SKU
+* Price adjustment
+* Image assignment
+* Availability status
+
+Architecture must scale efficiently.
+
+══════════════════════════════════════
+PHASE 8 — DISCOUNT SYSTEM
+══════════════════════════════════════
+
+Upgrade discount handling.
+
+Allow sellers to define:
+
+* Original price
+* Sale price
+
+Automatically calculate:
+
+* Discount percentage
+
+Do NOT require manual discount calculations.
+
+Display discounts consistently across:
+
+* Product cards
+* Product pages
+* Search
+* Categories
+* Store pages
+
+══════════════════════════════════════
+PHASE 9 — BEST OFFERS INTEGRATION
+══════════════════════════════════════
+
+Discounted products should integrate naturally with:
+
+Best Offers
+
+Requirements:
+
+* Automatic eligibility detection
+* Optional seller control
+* No duplicate products
+* No manual duplication process
+
+══════════════════════════════════════
+PHASE 10 — DATABASE OPTIMIZATION
+══════════════════════════════════════
+
+Audit every product-related query.
+
+Check:
+
+* Missing indexes
+* N+1 queries
+* Slow joins
+* Unnecessary joins
+* Duplicate queries
+* Over-fetching
+
+Optimize:
+
+* Homepage queries
+* Search queries
+* Product page queries
+* Category queries
+* Store queries
+
+The system must remain fast at scale.
+
+══════════════════════════════════════
+PHASE 11 — API OPTIMIZATION
+══════════════════════════════════════
+
+Reduce payload sizes aggressively.
+
+Example:
+
+Homepage product cards should NOT fetch:
+
+* Full descriptions
+* Full galleries
+* Large metadata
+* Unused fields
+
+Homepage cards should only fetch:
+
+* Product ID
+* Title
+* Thumbnail
+* Price
+* Rating
+* Seller name
+
+Additional data should load only when entering the product page.
+
+══════════════════════════════════════
+PHASE 12 — REACT PERFORMANCE
+══════════════════════════════════════
+
+Audit frontend performance.
+
+Identify:
+
+* Unnecessary renders
+* Expensive renders
+* Re-render loops
+* Heavy components
+
+Implement where appropriate:
+
+* React.memo
+* useMemo
+* useCallback
+* Lazy imports
+* Route code splitting
+* Component optimization
+
+Do not add optimizations blindly.
+
+Apply them only where they improve performance.
+
+══════════════════════════════════════
+PHASE 13 — PRODUCT LIST SCALING
+══════════════════════════════════════
+
+Audit large product grids.
+
+If necessary:
+
+Implement virtualization or equivalent optimization.
+
+Avoid rendering large hidden lists unnecessarily.
+
+Ensure smooth scrolling on mobile.
+
+══════════════════════════════════════
+PHASE 14 — MOBILE PERFORMANCE PRIORITY
+══════════════════════════════════════
+
+This is the highest priority.
+
+Test:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+Verify:
+
+* Fast page loading
+* Smooth scrolling
+* Smooth navigation
+* No image flickering
+* No layout shifts
+* No oversized downloads
+
+The mobile experience should feel significantly faster than the current implementation.
+
+══════════════════════════════════════
+PHASE 15 — REGRESSION TESTING
+══════════════════════════════════════
+
+Verify nothing breaks:
+
+* Arabic
+* English
+* RTL
+* LTR
+* Mobile
+* Desktop
+* Search
+* Product creation
+* Product editing
+* Seller dashboard
+* Cart
+* Checkout
+* Orders
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Do NOT finish silently.
+
+Provide:
+
+1. Architecture changes implemented.
+2. Database changes.
+3. Image pipeline architecture.
+4. Variant architecture.
+5. Compression strategy.
+6. Performance bottlenecks discovered.
+7. Performance optimizations applied.
+8. Bundle size before/after.
+9. Homepage load time before/after.
+10. Product page load time before/after.
+11. Mobile performance improvements.
+12. Files modified.
+13. Screenshots demonstrating the new system.
+
+Success criteria:
+
+The marketplace must feel noticeably faster, smoother, and more scalable than before, especially on mobile devices, while supporting multi-image products, variants, discounts, and future growth.

@@ -1,0 +1,635 @@
+# SYANO — Courier V3.3 Phase A8
+
+# Courier Operations Center V1 (FINAL COURIER SYSTEM PHASE)
+
+IMPORTANT
+
+This is the FINAL major courier phase.
+
+Everything built in:
+
+* A1 Discovery
+* A2 Assignment Offers
+* A3 GPS Updates
+* A4 Tracking Infrastructure
+* A5 Customer/Seller Tracking
+* A6 Real Road Routing
+* A7 Courier Workspace
+
+must remain fully functional.
+
+DO NOT rewrite.
+
+DO NOT replace.
+
+EXTEND ONLY.
+
+Preserve:
+
+* Existing APIs
+* Existing mobile support
+* Existing tracking
+* Existing routing
+* Existing assignments
+* Existing GPS updates
+* Existing history
+* Existing earnings
+
+Use additive migrations only.
+
+TypeScript must finish with 0 NEW errors.
+
+---
+
+# MANDATORY FIRST STEP
+
+Before writing code:
+
+Read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+* WORKFLOW_AUDIT.md
+
+Then inspect:
+
+* courier workspace
+* tracking system
+* assignment system
+* earnings system
+* delivery mission system
+
+Document:
+
+A8_IMPLEMENTATION_PLAN.md
+
+containing:
+
+* existing architecture
+* files to modify
+* APIs to extend
+* validation strategy
+
+Only then begin implementation.
+
+---
+
+# GOAL
+
+Transform courier operations from:
+
+"Accept mission and deliver"
+
+into
+
+"Professional logistics workflow"
+
+similar to:
+
+* Uber Driver
+* DoorDash Driver
+* Talabat Driver
+* Deliveroo Rider
+
+---
+
+# A8.1 Navigation Center
+
+Inside courier workspace.
+
+Add:
+
+Navigation Hub.
+
+Courier chooses:
+
+* Google Maps
+* Waze
+* Apple Maps (if supported)
+* Default Navigator
+
+Store preference.
+
+Persist.
+
+---
+
+## Requirements
+
+When pressing Navigate:
+
+Open selected navigator.
+
+Use real destination coordinates.
+
+Examples:
+
+Pickup:
+
+Store location
+
+Delivery:
+
+Customer location
+
+---
+
+# A8.2 Delivery Failure Workflow
+
+Current failure handling is primitive.
+
+Replace with professional flow.
+
+When courier presses:
+
+"Report Problem"
+
+Show modal.
+
+Options:
+
+* Customer not answering
+* Wrong address
+* Customer unavailable
+* Store unavailable
+* Vehicle issue
+* Accident
+* Safety concern
+* Other
+
+---
+
+## Other
+
+Require custom note.
+
+Cannot submit empty.
+
+---
+
+## Result
+
+Create delivery event.
+
+Store:
+
+problem type
+note
+timestamp
+courier
+
+Notify:
+
+* seller
+* admin
+
+Add to timeline.
+
+---
+
+# A8.3 Reschedule Workflow
+
+Admin can mark mission:
+
+RESCHEDULE_REQUIRED
+
+Courier can request it.
+
+Store:
+
+requestedAt
+reason
+requestedBy
+
+---
+
+# A8.4 Delivery Proof
+
+Before delivery completion.
+
+Require proof.
+
+Support:
+
+Photo proof
+OR
+Customer confirmation
+
+---
+
+## Photo Proof
+
+Upload image.
+
+Store:
+
+proofImageUrl
+
+Mission event:
+
+DELIVERY_PROOF_UPLOADED
+
+---
+
+## Customer Confirmation
+
+Checkbox:
+
+"Customer confirmed receipt"
+
+Store:
+
+confirmedByCourier
+
+---
+
+## Completion Rule
+
+Mission cannot become DELIVERED without:
+
+proof OR confirmation.
+
+---
+
+# A8.5 Earnings Settlement Center
+
+Extend earnings page.
+
+Show:
+
+Today
+This Week
+This Month
+All Time
+
+---
+
+## Breakdown
+
+Completed deliveries
+
+Bonuses
+
+Adjustments
+
+Withdrawals
+
+Pending
+
+Available
+
+Lifetime earnings
+
+---
+
+## UI
+
+Professional analytics cards.
+
+Not tables.
+
+---
+
+# A8.6 Performance Center
+
+Create courier performance metrics.
+
+Show:
+
+Success Rate
+
+Acceptance Rate
+
+Cancellation Rate
+
+Average Delivery Time
+
+Average Pickup Time
+
+Average Rating
+
+Completed Deliveries
+
+---
+
+## Visual
+
+Progress rings
+
+Badges
+
+Trend indicators
+
+---
+
+# A8.7 Courier Rating System
+
+After delivery.
+
+Customer can rate:
+
+1–5 stars
+
+Optional comment
+
+Store:
+
+rating
+comment
+
+---
+
+## Courier Profile
+
+Show:
+
+Average Rating
+
+Total Ratings
+
+Recent Feedback
+
+---
+
+# A8.8 Dispatch Visibility
+
+Admin needs operational visibility.
+
+Create:
+
+/admin/dispatch-center
+
+---
+
+## Dashboard
+
+Show:
+
+All active missions
+
+All couriers
+
+All cities
+
+All problem reports
+
+All reschedule requests
+
+---
+
+## Filters
+
+City
+
+Status
+
+Courier
+
+Mission
+
+---
+
+## Live Indicators
+
+Fresh GPS
+
+Warning GPS
+
+Offline GPS
+
+Busy
+
+Available
+
+---
+
+# A8.9 Courier Safety Events
+
+Add:
+
+SAFETY_INCIDENT
+
+Workflow.
+
+Courier presses:
+
+Emergency
+
+Show:
+
+Accident
+Threat
+Harassment
+Medical
+Other
+
+---
+
+## Result
+
+Create critical event.
+
+Notify admin immediately.
+
+Store timeline entry.
+
+---
+
+# A8.10 Operations Timeline
+
+Every mission should have a complete audit trail.
+
+Events:
+
+MISSION_ASSIGNED
+
+OFFER_SENT
+
+OFFER_ACCEPTED
+
+NAVIGATION_STARTED
+
+ARRIVED_PICKUP
+
+PICKED_UP
+
+NAVIGATION_CUSTOMER
+
+DELIVERY_PROOF_UPLOADED
+
+DELIVERED
+
+PROBLEM_REPORTED
+
+RESCHEDULE_REQUESTED
+
+SAFETY_INCIDENT
+
+TRACKING_STOPPED
+
+etc.
+
+---
+
+# A8.11 Admin Mission Details Upgrade
+
+Mission details page should display:
+
+Courier
+
+Tracking
+
+ETA
+
+Route
+
+Timeline
+
+Proof
+
+Ratings
+
+Issues
+
+Reschedules
+
+Safety Events
+
+Everything.
+
+Single operational screen.
+
+---
+
+# A8.12 Web-First Validation
+
+The WEB implementation is priority.
+
+Verify:
+
+Courier can:
+
+Accept mission
+
+Navigate
+
+Upload proof
+
+Report issue
+
+Request reschedule
+
+Complete delivery
+
+View earnings
+
+View performance
+
+---
+
+Admin can:
+
+Monitor dispatch
+
+Review issues
+
+Review proof
+
+Review ratings
+
+Review safety events
+
+---
+
+Customer can:
+
+Track courier
+
+Rate courier
+
+---
+
+# REQUIRED TESTING
+
+Create REAL test scenario.
+
+Use REAL accounts.
+
+Run complete flow:
+
+1. Create order
+2. Create mission
+3. Send offer
+4. Accept offer
+5. Start navigation
+6. Pickup
+7. Upload proof
+8. Deliver
+9. Rate courier
+10. Verify earnings
+11. Verify admin visibility
+
+NO mocked verification.
+
+NO assumptions.
+
+Actually execute the workflow.
+
+---
+
+# REQUIRED DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Add:
+
+Courier V3.3 Phase A8 Complete
+
+Include:
+
+APIs
+Pages
+Events
+Validation Results
+
+---
+
+# FINAL ACCEPTANCE CHECKLIST
+
+✅ Navigation Hub
+
+✅ Failure Reporting
+
+✅ Reschedule Requests
+
+✅ Delivery Proof
+
+✅ Earnings Center
+
+✅ Performance Center
+
+✅ Courier Ratings
+
+✅ Dispatch Center
+
+✅ Safety Events
+
+✅ Mission Timeline
+
+✅ Admin Mission Upgrade
+
+✅ Real End-to-End Validation
+
+✅ Documentation Updated
+
+✅ TypeScript = 0 NEW errors
+
+Only finish after every validation passes.

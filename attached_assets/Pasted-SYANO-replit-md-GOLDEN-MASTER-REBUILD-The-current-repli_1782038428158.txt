@@ -1,0 +1,310 @@
+SYANO — replit.md GOLDEN MASTER REBUILD
+
+The current replit.md has accumulated historical information over multiple development phases.
+
+Its primary purpose has become diluted.
+
+I want replit.md to become the single authoritative entry point for future agents.
+
+This is NOT a content expansion task.
+
+This is a documentation architecture task.
+
+---
+
+# OBJECTIVE
+
+Transform replit.md into a clean, production-grade operational guide.
+
+Future agents should be able to understand the entire project within minutes.
+
+Avoid historical clutter.
+
+Avoid duplicated information.
+
+Avoid outdated milestones.
+
+Avoid archived implementation logs.
+
+---
+
+# IMPORTANT RULES
+
+Do NOT remove important recovery information.
+
+Do NOT remove active architecture information.
+
+Do NOT remove deployment-critical information.
+
+Do NOT remove migration-critical information.
+
+Instead:
+
+Archive historical information.
+
+Preserve current operational information.
+
+---
+
+# REQUIRED STRUCTURE
+
+Rebuild replit.md using the following structure:
+
+---
+
+# SYANO Overview
+
+Short description of:
+
+* Marketplace
+* Roles
+* Core systems
+
+Maximum:
+10–15 lines
+
+---
+
+# Current Production State
+
+Document ONLY:
+
+Current verified state.
+
+Include:
+
+* Database tables count
+* Product count
+* Embedding status
+* Search status
+* Auth status
+* Map status
+* Turnstile status
+
+No historical states.
+
+No previous phase descriptions.
+
+---
+
+# Official Workflows
+
+List ONLY:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+For each:
+
+* purpose
+* port
+* startup role
+
+---
+
+# Service Architecture
+
+Document:
+
+API
+
+Marketplace
+
+Mobile
+
+Embedding Service
+
+Database
+
+Search
+
+Maps
+
+Tracking
+
+Courier
+
+Admin
+
+High-level only.
+
+No implementation history.
+
+---
+
+# Authentication
+
+Document:
+
+* Email Login
+* Google Login
+* Turnstile
+* JWT
+
+Current status only.
+
+---
+
+# Search & Embeddings
+
+Document:
+
+* sentence-transformers
+* model dimensions
+* pgvector
+
+Recovery verification steps.
+
+---
+
+# Mapping System
+
+Document:
+
+Required packages:
+
+* leaflet
+* react-leaflet
+
+Verification steps.
+
+Known migration risks.
+
+---
+
+# Required Secrets
+
+IMPORTANT:
+
+Never store secret values.
+
+Only store:
+
+* secret names
+* subsystem
+* required/optional
+
+Nothing else.
+
+---
+
+# Migration Recovery Checklist
+
+Fresh Import →
+
+Install →
+
+Secrets →
+
+Workflows →
+
+Validation →
+
+Production Ready
+
+Keep concise.
+
+---
+
+# Common Migration Failures
+
+For each:
+
+Symptoms
+
+Cause
+
+Fix
+
+Examples:
+
+* Missing Leaflet
+* Missing pgvector
+* Missing sentence-transformers
+* Missing Google credentials
+* Missing Turnstile keys
+* Workflow duplication
+
+---
+
+# Validation Checklist
+
+Agent must verify:
+
+* API
+* Marketplace
+* Mobile
+* Embeddings
+* Search
+* Maps
+* Auth
+* Turnstile
+* Workflows
+
+before considering recovery complete.
+
+---
+
+# Current Roadmap Reference
+
+Do NOT copy roadmap.
+
+Only reference:
+
+PROJECT_STATUS.md
+
+as the roadmap authority.
+
+---
+
+# ARCHIVING RULES
+
+Move historical information to:
+
+CHANGELOG.md
+
+or
+
+ARCHIVE.md
+
+Do NOT keep completed development history inside replit.md.
+
+replit.md must describe the current system, not the project's life story.
+
+---
+
+# SIZE TARGET
+
+Target:
+
+150–250 lines maximum.
+
+Prioritize clarity over completeness.
+
+Future agents should be able to understand the project within 5 minutes.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ No outdated information remains
+
+✅ No duplicated sections remain
+
+✅ No historical logs remain
+
+✅ Recovery information preserved
+
+✅ Secrets not exposed
+
+✅ Workflow information accurate
+
+✅ Current architecture documented
+
+Goal:
+
+replit.md becomes the definitive operational handbook for SYANO.

@@ -1,0 +1,244 @@
+STOP.
+
+The current design is still not close enough to the provided screenshots.
+
+You are still interpreting the design instead of reproducing it.
+
+This is now a DESIGN CORRECTION PASS.
+
+The screenshots are the specification.
+
+The screenshots are the source of truth.
+
+The screenshots win over your design decisions.
+
+---
+
+CRITICAL RULE
+
+Do NOT tell me the design is finished.
+
+Do NOT move to implementation.
+
+Do NOT write code.
+
+Do NOT optimize.
+
+Do NOT improve.
+
+Do NOT modernize.
+
+Do NOT redesign.
+
+Keep iterating until the homepage visually matches the screenshots as closely as possible.
+
+---
+
+YOUR TASK
+
+Perform a section-by-section comparison between:
+
+1. Your current mockup
+2. The provided screenshots
+
+Identify every difference.
+
+Then correct every difference.
+
+---
+
+MATCH THESE ITEMS EXACTLY
+
+HEADER
+
+* Navbar height
+* Logo size
+* Search bar width
+* Search bar height
+* Search bar positioning
+* Navigation spacing
+* Button sizing
+* Button corner radius
+* Button padding
+* Vertical alignment
+
+Everything must match.
+
+---
+
+HERO SECTION
+
+This is the most important section.
+
+Match exactly:
+
+* Hero height
+* Image scale
+* Image positioning
+* Typography size
+* Typography weight
+* Line breaks
+* CTA button size
+* CTA button placement
+* Statistics placement
+* Statistics size
+* Statistics spacing
+* Overall composition
+
+The hero should immediately look like the screenshots.
+
+If viewed side-by-side, the structure should feel nearly identical.
+
+---
+
+CATEGORY SECTION
+
+Current version is still too different.
+
+Match:
+
+* Card aspect ratios
+* Card heights
+* Card widths
+* Image darkness
+* Overlay treatment
+* Typography placement
+* Grid spacing
+* Section spacing
+
+The category section should visually resemble the screenshots almost exactly.
+
+---
+
+FEATURED DEALS
+
+Match:
+
+* Card dimensions
+* Product image sizing
+* Discount badge size
+* Discount badge placement
+* Countdown placement
+* Price hierarchy
+* Rating placement
+* Button sizing
+
+Do not improvise.
+
+---
+
+TRUSTED STORES
+
+Match:
+
+* Card proportions
+* Cover image height
+* Avatar/logo placement
+* Rating placement
+* Text hierarchy
+* CTA placement
+
+---
+
+TRENDING PRODUCTS
+
+Match:
+
+* Card layout
+* Image ratios
+* Card height
+* Card width
+* Typography scale
+* Price scale
+* Button scale
+
+---
+
+NEW ARRIVALS
+
+This section must be rebuilt to match the screenshots.
+
+Pay special attention to:
+
+* Large featured card
+* Supporting cards
+* Relative proportions
+* Visual hierarchy
+
+---
+
+CTA SECTION
+
+Match:
+
+* Layout
+* Card sizing
+* Spacing
+* Typography
+* Alignment
+
+---
+
+FOOTER
+
+Match:
+
+* Column spacing
+* Typography scale
+* Newsletter block size
+* Social icon placement
+* Visual density
+
+---
+
+VISUAL SYSTEM
+
+Match exactly:
+
+* Border radius
+* Shadows
+* Glow intensity
+* Grid overlays
+* Dark background treatment
+* Section spacing
+* Container widths
+* Vertical rhythm
+
+---
+
+SELF-CHECK BEFORE SHOWING RESULTS
+
+Before presenting the updated design, ask yourself:
+
+"If someone placed my design next to the screenshots, would they immediately assume it is the same design?"
+
+If the answer is NO:
+
+Keep correcting.
+
+Do not stop.
+
+Do not finalize.
+
+---
+
+TARGET
+
+Visual similarity:
+95–100%
+
+Not:
+
+"similar"
+
+Not:
+
+"inspired by"
+
+Not:
+
+"same quality"
+
+The goal is:
+
+"Looks like the screenshots were rebuilt inside SYANO."

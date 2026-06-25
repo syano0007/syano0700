@@ -1,0 +1,591 @@
+# SYANO — Courier V3.3 Phase A2
+
+# Mission Offer & Acceptance System
+
+You are upgrading the existing SYANO courier system.
+
+Read first:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Understand the existing Courier V3.3 architecture before writing code.
+
+---
+
+# IMPORTANT
+
+Phase A1 is already complete.
+
+Already implemented:
+
+* Haversine distance engine
+* findNearestCouriers()
+* courier discovery endpoint
+* courier availability states
+* ONLINE / BUSY / OFFLINE
+* auto ONLINE → BUSY
+* auto BUSY → ONLINE
+* delivery mission foundation
+
+Do NOT rebuild any of these.
+
+Extend them.
+
+---
+
+# GOAL
+
+Build the complete Mission Offer System.
+
+This is the layer that automatically offers delivery missions to nearby couriers.
+
+The system should work similarly to Uber Eats, DoorDash, Talabat and Deliveroo.
+
+---
+
+# BUSINESS FLOW
+
+Order
+
+↓
+
+READY_FOR_PICKUP
+
+↓
+
+Delivery Mission Created
+
+↓
+
+Nearest Couriers Found
+
+↓
+
+Offer Sent
+
+↓
+
+Courier Accepts
+
+↓
+
+Mission Assigned
+
+---
+
+# PHASE A2 COMPONENTS
+
+Implement:
+
+A2.1 Offer Database Layer
+
+A2.2 Offer Service Layer
+
+A2.3 Offer Lifecycle Engine
+
+A2.4 Courier Offer API
+
+A2.5 Courier Dashboard Offer Card
+
+A2.6 Automatic Reassignment
+
+A2.7 Admin Visibility
+
+---
+
+# A2.1 OFFER DATABASE LAYER
+
+Create additive schema.
+
+Never remove existing columns.
+
+Create:
+
+delivery_mission_offers
+
+Fields:
+
+id
+
+missionId
+
+courierId
+
+offerRound
+
+status
+
+offeredAt
+
+expiresAt
+
+respondedAt
+
+responseReason
+
+createdAt
+
+updatedAt
+
+Status enum:
+
+PENDING
+
+ACCEPTED
+
+DECLINED
+
+EXPIRED
+
+CANCELLED
+
+Indexes:
+
+missionId
+
+courierId
+
+status
+
+expiresAt
+
+---
+
+# A2.2 OFFER SERVICE LAYER
+
+Create:
+
+services/missionOfferService.ts
+
+Functions:
+
+createOffer()
+
+acceptOffer()
+
+declineOffer()
+
+expireOffer()
+
+cancelOffer()
+
+getActiveOffer()
+
+getMissionOffers()
+
+getCourierPendingOffers()
+
+---
+
+# A2.3 OFFER LIFECYCLE ENGINE
+
+Core engine:
+
+offerMissionToNearestCouriers()
+
+Input:
+
+missionId
+
+Process:
+
+1.
+
+Load mission
+
+2.
+
+Determine pickup coordinates
+
+3.
+
+Call:
+
+findNearestCouriers()
+
+4.
+
+Take nearest 3 couriers
+
+5.
+
+Create offer for first courier
+
+6.
+
+Start countdown
+
+Default:
+
+5 minutes
+
+Store:
+
+expiresAt
+
+Mission state becomes:
+
+OFFERING
+
+---
+
+# A2.4 ACCEPT FLOW
+
+When courier accepts:
+
+Validate:
+
+* offer exists
+* offer still active
+* mission not assigned
+* courier still available
+
+Then:
+
+Offer:
+
+ACCEPTED
+
+Mission:
+
+ASSIGNED
+
+Courier:
+
+BUSY
+
+mission.courierId = accepted courier
+
+Cancel remaining offers automatically
+
+---
+
+# A2.5 DECLINE FLOW
+
+When courier declines:
+
+Offer:
+
+DECLINED
+
+Store:
+
+respondedAt
+
+Immediately:
+
+Offer next courier
+
+If another courier exists.
+
+---
+
+# A2.6 EXPIRE FLOW
+
+If countdown expires:
+
+Offer:
+
+EXPIRED
+
+Automatically:
+
+Offer next courier
+
+No manual intervention.
+
+---
+
+# A2.7 ALL COURIERS FAILED
+
+If:
+
+all 3 couriers
+
+declined
+
+or expired
+
+Then:
+
+Mission:
+
+UNASSIGNED
+
+Assignment status:
+
+FAILED_AUTO_ASSIGNMENT
+
+Visible in admin dashboard.
+
+---
+
+# COURIER DASHBOARD
+
+This is critical.
+
+Do NOT build a temporary UI.
+
+Do NOT use alerts.
+
+Do NOT use browser confirms.
+
+Build a premium SYANO card.
+
+Display at top of courier dashboard.
+
+Only when offer exists.
+
+Card:
+
+New Delivery Request
+
+Pickup Address
+
+Customer Name
+
+Distance
+
+Estimated Earnings
+
+Countdown
+
+Buttons:
+
+Accept
+
+Decline
+
+Live countdown.
+
+Updates every second.
+
+When countdown reaches zero:
+
+Card disappears automatically.
+
+---
+
+# EARNINGS DISPLAY
+
+Do not calculate final earnings yet.
+
+Temporary:
+
+Show:
+
+Delivery Reward Available
+
+No fake amounts.
+
+No hardcoded numbers.
+
+Future phases will calculate reward.
+
+---
+
+# REALTIME BEHAVIOR
+
+Offer accepted:
+
+Card disappears instantly
+
+Mission becomes active
+
+Map switches to mission mode
+
+Offer declined:
+
+Card disappears instantly
+
+System offers next courier
+
+---
+
+# ADMIN VISIBILITY
+
+Mission page must show:
+
+Offer History
+
+Example:
+
+Round 1
+
+Courier أحمد
+
+Status:
+
+DECLINED
+
+Time:
+
+12:35
+
+Round 2
+
+Courier خالد
+
+Status:
+
+EXPIRED
+
+Time:
+
+12:41
+
+Round 3
+
+Courier محمد
+
+Status:
+
+ACCEPTED
+
+Time:
+
+12:44
+
+Full audit trail.
+
+Never lose offer history.
+
+---
+
+# SECURITY
+
+Courier can only respond to:
+
+their own offer
+
+Cannot accept:
+
+expired offer
+
+declined offer
+
+another courier offer
+
+already assigned mission
+
+Must validate server-side.
+
+---
+
+# LOGGING
+
+Structured logs:
+
+Offer Created
+
+Offer Accepted
+
+Offer Declined
+
+Offer Expired
+
+Mission Assigned
+
+Auto Assignment Failed
+
+Use existing logger pattern.
+
+---
+
+# DESIGN RULES
+
+Use existing SYANO design system.
+
+Same:
+
+colors
+
+spacing
+
+radius
+
+shadows
+
+RTL
+
+Arabic
+
+English
+
+No admin-looking UI.
+
+No ugly tables.
+
+No placeholder cards.
+
+Must feel production-ready.
+
+---
+
+# TESTING
+
+Verify:
+
+Courier A accepts
+
+Courier becomes BUSY
+
+Mission assigned
+
+Offer history stored
+
+Verify:
+
+Courier declines
+
+Next courier receives offer
+
+Verify:
+
+Offer expires
+
+Next courier receives offer
+
+Verify:
+
+All 3 fail
+
+Mission becomes UNASSIGNED
+
+Verify:
+
+Admin sees full offer history
+
+Verify:
+
+TypeScript = 0 errors
+
+Verify:
+
+No regressions
+
+Verify:
+
+Existing courier flows still work
+
+---
+
+# DOCUMENTATION
+
+After successful completion update:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+
+Reflect actual implemented state.
+
+Do not mark anything complete unless verified.

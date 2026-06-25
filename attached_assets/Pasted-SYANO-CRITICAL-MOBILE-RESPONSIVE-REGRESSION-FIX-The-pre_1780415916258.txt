@@ -1,0 +1,173 @@
+SYANO - CRITICAL MOBILE RESPONSIVE REGRESSION FIX
+
+The previous mobile UI fixes are NOT fully complete.
+
+A visual audit shows remaining responsive issues.
+
+This is a HIGH PRIORITY bug-fix task.
+
+DO NOT redesign anything.
+
+DO NOT change functionality.
+
+DO NOT change business logic.
+
+DO NOT change APIs.
+
+Only fix the remaining mobile responsive defects.
+
+==================================================
+ISSUE 1 — CURRENCY SWITCHER STILL BROKEN
+==================================================
+
+The Currency row inside the mobile sidebar is still not responsive.
+
+Observed:
+
+- USD and SYP controls are compressed.
+- SYP touches the edge of the drawer.
+- On smaller devices it may overflow again.
+- The control area is too narrow.
+
+Perform a full audit of:
+
+- CurrencySwitcher
+- Mobile sidebar
+- Admin drawer
+- Customer drawer
+- Seller drawer
+
+Requirements:
+
+- Currency controls must never overflow.
+- Currency controls must never be clipped.
+- SYP must always be fully visible.
+- USD must always be fully visible.
+- Works at 320px width.
+- Works at 360px width.
+- Works at 390px width.
+- Works in English.
+- Works in Arabic.
+- Works in LTR and RTL.
+
+Do NOT hardcode widths.
+
+Use responsive layouts.
+
+Fix the root cause.
+
+==================================================
+ISSUE 2 — SELLER PERFORMANCE TAB BROKEN
+==================================================
+
+Mobile screenshot shows:
+
+"Seller Performance" tab is truncated.
+
+Text is cut off.
+
+Tabs overflow horizontally.
+
+Current implementation is not mobile-safe.
+
+Audit:
+
+- Tabs component
+- Admin pages
+- Seller analytics pages
+- Seller application pages
+- Any segmented controls
+
+Requirements:
+
+- No tab label clipping.
+- No text truncation.
+- No horizontal overflow.
+- No hidden actions.
+
+Choose the safest production solution:
+
+Possible acceptable solutions:
+
+- Responsive wrapping
+- Scrollable tab list
+- Adaptive tab sizing
+- Mobile-specific layout
+
+BUT:
+
+Do not redesign the page.
+
+Do not remove functionality.
+
+Maintain existing behavior.
+
+==================================================
+FULL MOBILE RESPONSIVE AUDIT
+==================================================
+
+Search for every occurrence of:
+
+overflow-x-auto
+overflow-hidden
+truncate
+line-clamp
+w-full
+min-w
+max-w
+flex-nowrap
+whitespace-nowrap
+
+Inspect all admin mobile screens.
+
+Verify:
+
+- Seller Applications
+- Seller Performance
+- Settings
+- Dashboard
+- Users
+- Products
+- Analytics
+- Orders
+
+Requirements:
+
+- No clipped text.
+- No clipped buttons.
+- No horizontal scrolling caused by layout bugs.
+- No controls partially outside viewport.
+
+==================================================
+VALIDATION REQUIRED
+==================================================
+
+Verify on:
+
+320px
+360px
+375px
+390px
+412px
+430px
+
+Verify:
+
+English
+Arabic
+
+Verify:
+
+Admin
+Seller
+Customer
+
+Provide:
+
+1. Root cause.
+2. Files changed.
+3. Exact fix applied.
+4. Before/after behavior.
+5. Confirmation that SYP is fully visible.
+6. Confirmation that Seller Performance is fully visible.
+7. Screenshots proving the fixes.

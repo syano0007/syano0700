@@ -1,0 +1,33 @@
+You are executing a Critical Map Network Rescue in BOTH `LocationMapModal.tsx` and `TrackingMap.tsx`.
+
+Current Issue analyzed from "Screenshot (459).jpg":
+The CartoDB Voyager CDN is completely failing to load tiles (solid gray canvas), indicating a network block or CORS failure in this environment. Consequently, the map loses its bounding box and defaults to [0,0], triggering the "Delivery outside Syria" error banner.
+
+==================================================
+PART 1 — BULLETPROOF TILE PROVIDER SWAP (ESRI ARCGIS)
+==================================================
+- Open `LocationMapModal.tsx` and `TrackingMap.tsx`.
+- Locate the `<TileLayer>` configurations.
+- Replace the blocked CartoDB url with the enterprise-grade, globally unblocked Esri World Street Map server:
+  * New URL: `https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}`
+  * New Attribution: `&copy; <a href="https://www.esri.com/">Esri</a>`
+
+==================================================
+PART 2 — STRICT INITIAL COORDINATE GUARD
+==================================================
+- In `LocationMapModal.tsx`, locate the state handling the initial map center coordinates (e.g., `position`, `center`, or `mapCenter`).
+- You MUST enforce a strict fallback to Damascus Center `[33.5138, 36.2765]` if the initial geolocation is null, undefined, or still loading.
+- Prevent the map from ever initializing at `[0, 0]`, which is what incorrectly triggers the `t('map.outside_syria_warning')` error layout on the first load.
+
+==================================================
+PART 3 — CANVAS INVALIDATION RE-TRIGGER
+==================================================
+- Ensure `map.invalidateSize()` is called immediately after the modal's open state `isOpen` becomes true, ensuring the Leaflet container draws the Esri tiles correctly without getting stuck.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The Esri ArcGIS tiles load instantly and perfectly.
+✓ The map initializes over Syria (Damascus) without throwing the red "Unsupported Location" error initially.
+✓ Verify TypeScript compilation = 0 errors across the workspaces.

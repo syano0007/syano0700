@@ -1,0 +1,499 @@
+# SYANO Courier V3.3 — Phase 4 / A3
+
+# Real-Time Courier Location Updates
+
+# Replit Agent Implementation Prompt
+
+You are implementing **Courier V3.3 — Phase 4 / A3** for the SYANO (سوق سوريا) marketplace.
+
+This is the next phase after:
+
+* Delivery Mission Foundation ✅
+* Courier Availability System ✅
+* Courier Discovery Engine ✅
+* Mission Offer Engine ✅
+
+Everything already exists.
+
+You MUST EXTEND the current architecture.
+
+Never rebuild existing systems.
+
+Never create duplicate workflows.
+
+Never create temporary artifacts.
+
+Read first:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+before changing anything.
+
+---
+
+# GOAL
+
+Build the complete foundation for:
+
+Real-Time Courier GPS Tracking.
+
+At the end of this phase:
+
+* Courier app continuously sends live GPS coordinates.
+* API stores latest courier location.
+* Database tracks live courier positions.
+* Admin can inspect courier locations.
+* Mission assignment uses fresh GPS instead of stale data.
+* Everything is production-safe.
+
+IMPORTANT:
+
+This phase does NOT yet build customer tracking maps.
+
+This phase only builds the live GPS infrastructure.
+
+Customer-facing tracking comes later in A4/A5.
+
+---
+
+# CURRENT ARCHITECTURE
+
+Already exists:
+
+delivery_missions
+
+mission offers
+
+courier availability
+
+courier discovery
+
+nearest courier engine
+
+assignment engine
+
+mission lifecycle
+
+---
+
+# PHASE A3
+
+## A3.1 — Courier Live Location Schema
+
+Extend existing courier schema.
+
+DO NOT create new tables unless absolutely required.
+
+Add additive fields only.
+
+Courier must store:
+
+currentLat
+
+currentLng
+
+currentHeading
+
+currentSpeed
+
+currentAccuracy
+
+lastLocationUpdateAt
+
+locationSource
+
+Example:
+
+GPS
+
+NETWORK
+
+MANUAL
+
+---
+
+Add indexes where useful.
+
+---
+
+# A3.2 — Location Update Service
+
+Create:
+
+courierLocationService.ts
+
+Responsibilities:
+
+Update courier position.
+
+Validate coordinates.
+
+Reject invalid values.
+
+Track update timestamps.
+
+Provide helper methods:
+
+updateCourierLocation()
+
+getCourierLocation()
+
+getCourierLastKnownLocation()
+
+isLocationFresh()
+
+Fresh location definition:
+
+less than 60 seconds old
+
+---
+
+# A3.3 — Courier Location API
+
+Create endpoints:
+
+PATCH /api/courier/location
+
+GET /api/courier/location
+
+GET /api/admin/couriers/live-locations
+
+Permissions:
+
+Courier:
+own location only
+
+Admin:
+all locations
+
+---
+
+PATCH payload:
+
+lat
+
+lng
+
+heading
+
+speed
+
+accuracy
+
+timestamp
+
+---
+
+Validate:
+
+lat between -90 and 90
+
+lng between -180 and 180
+
+Reject invalid coordinates.
+
+---
+
+# A3.4 — Automatic Location Reporting
+
+Courier mobile app must automatically send updates.
+
+Frequency:
+
+every 5 seconds while ONLINE
+
+every 10 seconds while BUSY
+
+every 30 seconds in background
+
+Do NOT hardcode.
+
+Centralize config.
+
+---
+
+Must support:
+
+Expo
+
+React Native
+
+Existing mobile architecture
+
+---
+
+# A3.5 — Availability Integration
+
+Integrate with:
+
+Courier Availability System
+
+Rules:
+
+ONLINE:
+location updates active
+
+BUSY:
+location updates active
+
+OFFLINE:
+location updates disabled
+
+---
+
+If courier goes OFFLINE:
+
+stop reporting.
+
+---
+
+# A3.6 — Discovery Engine Upgrade
+
+Current discovery engine uses stored coordinates.
+
+Upgrade it.
+
+Nearest courier search must use:
+
+latest live coordinates
+
+instead of stale values.
+
+No breaking changes.
+
+No API changes.
+
+Only improve underlying logic.
+
+---
+
+# A3.7 — Location Freshness Protection
+
+Prevent assignment to couriers with stale GPS.
+
+Rule:
+
+If location older than 60 seconds:
+
+courier NOT eligible.
+
+Discovery engine must exclude:
+
+stale couriers
+
+offline couriers
+
+busy couriers
+
+unapproved couriers
+
+---
+
+# A3.8 — Admin Live Location Dashboard
+
+Create:
+
+/admin/courier-locations
+
+Purpose:
+
+Inspect courier positions.
+
+Show:
+
+Courier name
+
+Status
+
+Last update
+
+Latitude
+
+Longitude
+
+Accuracy
+
+Speed
+
+Fresh / Stale badge
+
+---
+
+NO MAP YET.
+
+Map comes later.
+
+This page is diagnostics only.
+
+---
+
+# A3.9 — Logging
+
+Use existing logging system.
+
+Log:
+
+location updates
+
+invalid coordinates
+
+stale locations
+
+assignment exclusions
+
+Do NOT spam logs.
+
+Structured logs only.
+
+---
+
+# A3.10 — Security
+
+Courier can update ONLY own location.
+
+Admin can view all.
+
+No public endpoints.
+
+No customer access.
+
+No seller access.
+
+---
+
+# A3.11 — Performance
+
+Location updates will eventually scale.
+
+Design accordingly.
+
+Avoid:
+
+N+1 queries
+
+heavy joins
+
+full table scans
+
+unindexed lookups
+
+Use batched reads.
+
+Use indexes.
+
+---
+
+# A3.12 — Future Compatibility
+
+This phase must prepare for:
+
+A4 — Real-Time Tracking Pipeline
+
+A5 — Customer Tracking Map
+
+Future fields should not require DB redesign.
+
+Design now for:
+
+Courier → Seller → Customer tracking
+
+Live map updates
+
+ETA calculations
+
+Route visualization
+
+---
+
+# UI REQUIREMENTS
+
+Preserve:
+
+SYANO theme
+
+RTL
+
+Arabic
+
+English
+
+existing spacing
+
+existing colors
+
+existing shadows
+
+existing cards
+
+existing typography
+
+No admin-looking placeholders.
+
+No ugly tables.
+
+No raw HTML forms.
+
+Must feel native to SYANO.
+
+---
+
+# VALIDATION CHECKLIST
+
+Verify:
+
+✅ Courier updates location
+
+✅ GPS stored successfully
+
+✅ Invalid coordinates rejected
+
+✅ Offline courier stops reporting
+
+✅ Busy courier continues reporting
+
+✅ Discovery uses live coordinates
+
+✅ Stale couriers excluded
+
+✅ Admin page works
+
+✅ Mobile app works
+
+✅ API secured
+
+✅ TypeScript = 0 errors
+
+✅ No regressions
+
+---
+
+# RECOVERY FILES
+
+AFTER implementation is fully completed and verified:
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Document:
+
+Phase 4 / A3 complete
+
+New APIs
+
+New schema
+
+New services
+
+Architectural decisions
+
+Validation results
+
+Do NOT mark complete until fully verified.

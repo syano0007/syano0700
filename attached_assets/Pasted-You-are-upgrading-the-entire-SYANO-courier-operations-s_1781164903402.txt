@@ -1,0 +1,501 @@
+You are upgrading the entire SYANO (سوق سوريا) courier operations system.
+
+Project:
+Courier Operations Dashboard V2
+
+This is the highest priority roadmap item after Order Fulfillment Workflow V1.
+
+IMPORTANT:
+
+This is NOT a redesign.
+
+This is an operational upgrade.
+
+Preserve all existing functionality.
+
+Preserve APIs whenever possible.
+
+Preserve DB schema whenever possible.
+
+Prefer additive changes.
+
+Do not break existing courier workflows.
+
+Do not remove existing features.
+
+Do not introduce regressions.
+
+Update recovery documentation when finished.
+
+══════════════════════════════════════════════
+PHASE 0 — MANDATORY AUDIT
+══════════════════════════════════════════════
+
+Before changing anything:
+
+Audit:
+
+* courier dashboard
+* admin delivery dashboard
+* courier assignment flow
+* courier earnings
+* courier wallet
+* courier statistics
+* courier application flow
+* delivery zones
+* order status transitions
+* notifications
+* mobile courier views
+
+Produce findings first.
+
+Then implement.
+
+══════════════════════════════════════════════
+PHASE 1 — ADMIN DELIVERY OPERATIONS CENTER
+══════════════════════════════════════════════
+
+Current page is functional but basic.
+
+Transform it into a logistics control center.
+
+For every order display:
+
+Customer:
+
+* name
+* phone
+* zone
+* address
+
+Seller:
+
+* store name
+* seller name
+* seller phone
+* pickup location
+
+Order:
+
+* order number
+* order date
+* total
+* delivery fee
+* payment type
+* item count
+
+Products:
+
+* product names
+* quantities
+
+Courier:
+
+* assigned courier
+* active assignments
+* courier rating
+* courier completion rate
+
+Add:
+
+Courier Capacity Indicator
+
+Example:
+
+Available
+2 Active
+5 Active
+Overloaded
+
+Use visual indicators.
+
+Add:
+
+Filters:
+
+* Ready For Pickup
+* Assigned
+* Picked Up
+* Out For Delivery
+* Failed
+* Delivered
+
+Add:
+
+Search:
+
+* order id
+* customer
+* courier
+* seller
+
+Add:
+
+Stats bar:
+
+Ready
+Assigned
+In Transit
+Failed
+Delivered Today
+
+══════════════════════════════════════════════
+PHASE 2 — COURIER DASHBOARD V2
+══════════════════════════════════════════════
+
+Current courier dashboard is incomplete.
+
+Build a professional operations dashboard.
+
+Sections:
+
+My Active Deliveries
+
+My Completed Deliveries
+
+Failed Deliveries
+
+Earnings
+
+Performance
+
+For every active delivery show:
+
+Pickup Information:
+
+* store name
+* seller name
+* seller phone
+* pickup address
+
+Customer Information:
+
+* customer name
+* customer phone
+* delivery zone
+* delivery address
+
+Order Information:
+
+* order number
+* order value
+* delivery fee
+* products
+* quantities
+
+Actions:
+
+Pickup Order
+
+Start Delivery
+
+Mark Delivered
+
+Report Failure
+
+Large touch-friendly buttons.
+
+Mobile-first.
+
+══════════════════════════════════════════════
+PHASE 3 — DELIVERY COMPLETION FLOW
+══════════════════════════════════════════════
+
+Current workflow must become complete.
+
+Required flow:
+
+Courier Assigned
+↓
+Picked Up
+↓
+Out For Delivery
+↓
+Delivered
+
+or
+
+Courier Assigned
+↓
+Picked Up
+↓
+Out For Delivery
+↓
+Delivery Failed
+
+Implement:
+
+Delivered button
+
+Failed button
+
+Failure modal
+
+Reasons:
+
+* customer unavailable
+* wrong address
+* customer rejected
+* phone unreachable
+* other
+
+Store reason.
+
+Persist reason.
+
+Show reason to admin.
+
+══════════════════════════════════════════════
+PHASE 4 — COURIER EARNINGS SYSTEM
+══════════════════════════════════════════════
+
+Current earnings are incomplete.
+
+Create:
+
+Courier Earnings Overview
+
+Today
+
+This Week
+
+This Month
+
+All Time
+
+Display:
+
+Completed Deliveries
+
+Delivery Revenue
+
+Average Daily Deliveries
+
+Average Rating
+
+Success Rate
+
+Failure Rate
+
+Wallet Balance
+
+Recent Earnings
+
+Recent Deliveries
+
+Earnings must only count:
+
+Delivered orders
+
+Never failed orders.
+
+══════════════════════════════════════════════
+PHASE 5 — COURIER PERFORMANCE METRICS
+══════════════════════════════════════════════
+
+Add:
+
+Completion Rate
+
+Success Rate
+
+Failure Rate
+
+Average Deliveries Per Day
+
+Average Delivery Time
+
+Total Deliveries
+
+Lifetime Earnings
+
+Late Deliveries
+
+Dashboard cards required.
+
+══════════════════════════════════════════════
+PHASE 6 — DELIVERY TIMELINE IMPROVEMENTS
+══════════════════════════════════════════════
+
+Enhance tracking.
+
+Admin
+
+Seller
+
+Customer
+
+Courier
+
+must all see:
+
+Courier Assigned
+
+Picked Up
+
+Out For Delivery
+
+Delivered
+
+Failed
+
+with timestamps.
+
+Timeline must be visually clear.
+
+══════════════════════════════════════════════
+PHASE 7 — MOBILE EXPERIENCE
+══════════════════════════════════════════════
+
+Courier dashboard must be fully mobile optimized.
+
+Large buttons.
+
+Large cards.
+
+No tiny tables.
+
+No desktop-only layouts.
+
+Test:
+
+360px
+390px
+430px
+
+══════════════════════════════════════════════
+PHASE 8 — NOTIFICATIONS
+══════════════════════════════════════════════
+
+Verify notifications fire for:
+
+Courier Assigned
+
+Picked Up
+
+Out For Delivery
+
+Delivered
+
+Delivery Failed
+
+Notify:
+
+Customer
+
+Seller
+
+Admin
+
+Courier
+
+where appropriate.
+
+Fix gaps.
+
+══════════════════════════════════════════════
+PHASE 9 — QA VALIDATION
+══════════════════════════════════════════════
+
+Create test scenarios:
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+Run complete workflow:
+
+Pending
+Confirmed
+Preparing
+Ready For Pickup
+Courier Assigned
+Picked Up
+Out For Delivery
+Delivered
+
+Then:
+
+Failure path
+
+Verify:
+
+notifications
+
+wallet
+
+earnings
+
+statistics
+
+timeline
+
+permissions
+
+mobile
+
+No regressions allowed.
+
+══════════════════════════════════════════════
+PHASE 10 — RECOVERY DOCUMENTATION
+══════════════════════════════════════════════
+
+MANDATORY.
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+MEMORY.md
+
+RECOVERY_GUIDE.md
+
+Document:
+
+Courier Operations Dashboard V2
+
+new endpoints
+
+new statistics
+
+new earnings logic
+
+new workflow behavior
+
+new dashboard architecture
+
+future extension points
+
+Recovery files must allow a new Replit environment to restore directly to this exact state.
+
+══════════════════════════════════════════════
+SUCCESS CRITERIA
+══════════════════════════════════════════════
+
+Courier Dashboard feels comparable to:
+
+* Amazon Logistics
+* Noon
+* Trendyol Go
+* Talabat Courier
+* Uber Delivery Partner
+
+Admin Delivery Center feels like:
+
+A real logistics operations console.
+
+No regressions.
+
+TypeScript = 0 errors.
+
+All services healthy.
+
+Recovery docs updated.
+
+Only finish when everything is verified.

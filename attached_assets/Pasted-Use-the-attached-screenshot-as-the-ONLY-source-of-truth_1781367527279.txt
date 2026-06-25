@@ -1,0 +1,262 @@
+Use the attached screenshot as the ONLY source of truth.
+
+Do NOT redesign.
+
+Do NOT modernize.
+
+Do NOT improve.
+
+Do NOT reinterpret.
+
+Your goal is to recreate this Hero section with 97%+ visual accuracy.
+
+---
+
+# IMPORTANT
+
+The attached screenshot is already approved.
+
+I want this exact design.
+
+Everything must match:
+
+* layout
+* proportions
+* spacing
+* typography
+* button sizes
+* shadows
+* border radius
+* colors
+* gradients
+* floating cards
+* statistics row
+* grid background
+* section heights
+* image placement
+
+The screenshot is the reference.
+
+Follow it exactly.
+
+---
+
+# HERO LAYOUT
+
+Keep the exact split layout.
+
+Right side:
+
+* badge
+* headline
+* description
+* CTA buttons
+* statistics row
+
+must remain exactly as shown.
+
+Do not change:
+
+* sizing
+* alignment
+* spacing
+
+---
+
+# LEFT SIDE HERO IMAGE
+
+This is the ONLY requested change.
+
+Instead of a single static image:
+
+Create a premium image carousel.
+
+Requirements:
+
+* Auto-play
+* Smooth transitions
+* No layout shift
+* Same dimensions as screenshot
+* Same proportions as screenshot
+* Same rounded corners
+* Same shadow treatment
+
+The carousel must stay inside the existing hero image container.
+
+Do NOT make it larger.
+
+Do NOT make it smaller.
+
+Do NOT move it.
+
+---
+
+# HERO IMAGE CAROUSEL
+
+Use multiple slides.
+
+Examples:
+
+* Electronics
+* Fashion
+* Perfumes
+* Home & Living
+* Accessories
+
+But maintain the exact visual composition.
+
+Each slide must feel like it belongs to the same design system.
+
+---
+
+# FLOATING PRODUCT CARDS
+
+Keep all floating cards.
+
+Match exactly:
+
+* positions
+* sizes
+* shadows
+* border radius
+* spacing
+
+Cards should update according to the current slide.
+
+Example:
+
+Fashion slide:
+→ fashion card
+
+Electronics slide:
+→ electronics card
+
+Perfume slide:
+→ perfume card
+
+But preserve the exact appearance.
+
+---
+
+# GRID BACKGROUND
+
+Keep the exact grid background visible in the screenshot.
+
+Do not reduce opacity.
+
+Do not increase opacity.
+
+Match exactly.
+
+---
+
+# TYPOGRAPHY
+
+Match exactly:
+
+Headline:
+
+اكتشف آلاف المنتجات من المتاجر السورية
+
+Keep:
+
+* size
+* weight
+* line breaks
+* alignment
+
+exactly as shown.
+
+---
+
+# CTA BUTTONS
+
+Keep exact appearance:
+
+* dimensions
+* radius
+* spacing
+* icon placement
+
+No redesign.
+
+---
+
+# STATISTICS ROW
+
+Keep:
+
+* 12,000+
+* 25,000+
+* 500+
+
+Same positioning.
+
+Same spacing.
+
+Same typography.
+
+---
+
+# RESPONSIVENESS
+
+Desktop first.
+
+After desktop matches screenshot:
+
+Create responsive versions for:
+
+* 1280px
+* 1024px
+* 768px
+* 390px
+
+Maintain the same visual identity.
+
+---
+
+# DO NOT TOUCH
+
+Do not modify:
+
+* navbar structure
+* categories section
+* products section
+* footer
+
+This task is ONLY for the Hero section.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Hero visually matches screenshot
+
+✅ Split layout unchanged
+
+✅ Carousel added
+
+✅ Multiple hero images
+
+✅ Floating cards preserved
+
+✅ Grid background preserved
+
+✅ CTA buttons unchanged
+
+✅ Typography unchanged
+
+✅ Statistics row unchanged
+
+✅ Mobile verified
+
+✅ Desktop verified
+
+Target similarity:
+
+97%+ to the provided screenshot.
+
+The only intentional difference should be:
+the left image area becomes a rotating carousel while preserving the exact design.

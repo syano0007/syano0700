@@ -1,0 +1,90 @@
+Task: Layout Fix — Search Results Page (3 Confirmed Bugs, Surgical Fix Only)
+
+Context: Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md
+first before touching any code.
+
+This is a SURGICAL BUG-FIX PASS ONLY targeting 3 confirmed visual bugs.
+Do NOT build new features. Do NOT propose "Save Search", "Recently Searched",
+"jump to top", or any other feature — all are permanently rejected and must
+never be proposed again on this project.
+
+═══════════════════════════════════════════════════════
+CONFIRMED BUGS — DIAGNOSED FROM SCREENSHOTS
+═══════════════════════════════════════════════════════
+
+BUG 1 — Desktop: product cards cut off under sticky header (no-query state)
+Observed: /shop (no search query) at 1280px, Arabic, dark mode.
+The sticky tabs bar ("24 المنتجات / المتاجر / الفئات") overlaps and hides
+the top portion of the first row of product cards.
+NOT observed when a query is active (/shop?q=رخيص) — because a query adds
+an extra "نتائج البحث عن..." line that pushes content down enough.
+
+Root cause to verify: The main content area (product grid + sidebar wrapper)
+has a static top padding/margin that was tuned for the WITH-query header
+height, which is taller. In the no-query state the header is shorter, so
+the static offset is too large and the content starts ABOVE where the header
+ends, getting covered.
+
+Fix required: The product grid container's top spacing must account for the
+ACTUAL rendered height of the sticky header in BOTH states (with and without
+query). Use a ResizeObserver on the sticky header div to measure its real
+height on every render, store it in React state (e.g. `headerHeight`), and
+apply it as `paddingTop: headerHeight` (or marginTop) on the scrollable
+content container below it. This replaces any static rem/px value currently
+used. Provide a reasonable initial fallback (e.g. the current static value)
+to avoid layout flash before measurement fires.
+Also update scroll-padding-top in index.css (or inline) to use the same
+measured value + a small fixed buffer (0.5rem is fine).
+
+BUG 2 — Mobile: filter panel cuts off at top + no spacing between controls
+Observed: /shop (no query) at 375px, Arabic, dark mode.
+Two sub-issues:
+  2a. The top of the inline filter panel (الفئة label and السعر label) is
+      cut off / partially hidden — same root cause as Bug 1 (sticky header
+      height mismatch), but on mobile the filter panel is inline (not a
+      sidebar), so it needs the same dynamic top-padding fix applied to the
+      mobile layout as well.
+  2b. All filter controls (category dropdown, price inputs, rating stars,
+      checkboxes) are packed with no visible spacing between them — they
+      look cramped and hard to use.
+
+Fix required:
+  2a. Apply the same ResizeObserver-based dynamic paddingTop to the mobile
+      content container (the one that wraps the inline filter panel +
+      product grid at < lg breakpoint). It must use the same `headerHeight`
+      state variable as Bug 1's fix — one measurement, used in both
+      breakpoints.
+  2b. Add consistent vertical spacing between each filter section on mobile.
+      Check how other filter/form panels in this codebase space their
+      sections (e.g. seller dashboard forms, admin panels) and reuse the
+      same spacing pattern. Do not invent new spacing values — use existing
+      Tailwind gap/space/py/mb tokens already used elsewhere.
+
+BUG 3 — Mobile with query: intent chip hidden behind Filters button
+Observed: /shop?q=رخيص at 375px, Arabic, dark mode.
+When a search query is active, there is an intent chip (e.g. amber pill
+showing "رخيص") that should appear in the row below the tabs bar. In the
+mobile layout this chip row is partially or fully hidden behind/under the
+"الفلاتر" button row, making it invisible or barely visible.
+
+Root cause to verify: The intent chip / NLP banner row and the mobile
+Filters button row are either siblings in the same flex container without
+proper ordering/stacking, or the chip row has a z-index/positioning issue
+that places it under the Filters button.
+
+Fix required: Ensure the intent chip row and the Filters+Sort button row
+are stacked vertically with clear separation (not overlapping). The correct
+order from top to bottom should be:
+  1. Tabs bar (المنتجات / المتاجر / الفئات) — sticky
+  2. NLP/intent banner + chip row (only when query is active) — below tabs
+  3. Sort dropdown + Filters button row — below chips
+  4. Filter panel (when open) — below sort/filters row
+  5. Product grid — below everything
+Use existing flex-col container structure and existing gap/py tokens to
+separate these rows. Do not use absolute/z-index hacks.
+
+═══════════════════════════════════════════════════════
+IMPLEMENTATION RULES
+═══════════════════════════════════════════════════════
+
+- Fix ONLY the 3 bugs

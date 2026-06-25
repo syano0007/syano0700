@@ -1,0 +1,526 @@
+# SYANO Mobile Parity Program
+
+# PHASE M1 — Marketplace Parity Complete
+
+## Context
+
+Phase M0 is complete.
+
+The following files already exist and MUST be treated as the official baseline:
+
+```text
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+
+MOBILE_PARITY_ROADMAP.md
+```
+
+Read them first.
+
+Do NOT ignore them.
+
+Do NOT regenerate them.
+
+Use them as the source of truth.
+
+---
+
+# OBJECTIVE
+
+The mobile application must become visually and functionally identical to the web marketplace experience.
+
+This phase focuses ONLY on:
+
+```text
+Marketplace Parity
+```
+
+Nothing else.
+
+No Seller Systems.
+
+No Courier Systems.
+
+No Admin Systems.
+
+No AI Support.
+
+No Delivery Tracking.
+
+No Wallet.
+
+No Rewards.
+
+No Future Features.
+
+Only marketplace parity.
+
+---
+
+# CRITICAL RULES
+
+## GOLDEN RULE
+
+The mobile app must NOT be:
+
+```text
+similar to web
+```
+
+The mobile app must be:
+
+```text
+the same as web
+```
+
+Visually.
+
+Functionally.
+
+Behaviorally.
+
+---
+
+## DO NOT REINVENT
+
+Do NOT redesign.
+
+Do NOT simplify.
+
+Do NOT create mobile alternatives.
+
+Do NOT create mobile-specific workflows.
+
+Mirror the web.
+
+---
+
+## COPY WEB LOGIC
+
+If a feature exists on web:
+
+```text
+Copy it.
+```
+
+If a component exists on web:
+
+```text
+Reuse the same behavior.
+```
+
+If a workflow exists on web:
+
+```text
+Replicate it.
+```
+
+---
+
+# M1.1 — Homepage Parity
+
+Replicate the homepage completely.
+
+Audit the web homepage and mirror:
+
+* Hero section
+* Categories
+* Featured products
+* Trending products
+* New arrivals
+* Best sellers
+* Store showcases
+* Promotional sections
+* Search entry points
+* Follow system entry points
+
+Everything.
+
+No missing blocks.
+
+---
+
+# M1.2 — Shop Page Parity
+
+Replace any simplified mobile shop experience.
+
+Implement:
+
+* identical category browsing
+* identical filters
+* identical sorting
+* identical pagination / load more behavior
+* identical product cards
+* identical badges
+* identical price display
+
+Support:
+
+```text
+best_selling
+
+newest
+
+price
+
+rating
+
+discount
+```
+
+Same as web.
+
+---
+
+# M1.3 — Search V2 Parity
+
+This is mandatory.
+
+Implement ALL Search V2 capabilities.
+
+---
+
+## Search Suggestions
+
+Same behavior as web.
+
+Show:
+
+* search suggestions
+* categories
+* stores
+* trending searches
+
+NO product cards inside suggestions.
+
+Same as web.
+
+---
+
+## Trending Searches
+
+Must appear exactly like web.
+
+---
+
+## Search Results
+
+Implement:
+
+* Products tab
+* Stores tab
+* Categories tab
+
+Same layout as web.
+
+---
+
+## Filters
+
+Implement all filters from web:
+
+* category
+* price
+* rating
+* stock
+* sale
+* sorting
+
+---
+
+## Semantic Search
+
+Must use existing backend.
+
+Do NOT rebuild.
+
+---
+
+## Synonyms
+
+Must work automatically.
+
+Do NOT implement separately.
+
+Use existing APIs.
+
+---
+
+# M1.4 — Product Details Parity
+
+Replicate product page completely.
+
+---
+
+## Product Gallery
+
+Same image gallery behavior.
+
+Support:
+
+* swipe
+* zoom
+* thumbnails
+* image switching
+
+Same as web.
+
+---
+
+## Product Information
+
+Same:
+
+* title
+* price
+* old price
+* badges
+* stock
+* SKU
+
+---
+
+## Variant System
+
+Mandatory.
+
+Must match web.
+
+Support:
+
+* Color
+* Size
+* Storage
+* RAM
+* Capacity
+* Custom Variants
+
+All live updates:
+
+* image
+* price
+* stock
+* SKU
+
+must update instantly.
+
+---
+
+## Reviews
+
+Implement:
+
+* review list
+* ratings
+* review count
+* review breakdown
+
+Same as web.
+
+---
+
+## Related Products
+
+Same logic as web.
+
+---
+
+# M1.5 — Wishlist Parity
+
+Implement the complete wishlist system.
+
+Support:
+
+* heart button
+* add/remove
+* persistence
+* synchronization
+
+Same APIs as web.
+
+No duplicate logic.
+
+---
+
+# M1.6 — Store Page Parity
+
+Implement complete store pages.
+
+Support:
+
+* banner
+* logo
+* description
+* follower count
+* follow button
+* store products
+* store categories
+
+Same as web.
+
+---
+
+# M1.7 — Follow System Parity
+
+Implement:
+
+* follow store
+* unfollow store
+* follower count
+* followed stores
+
+Same backend.
+
+Same behavior.
+
+---
+
+# M1.8 — Design Parity
+
+This is mandatory.
+
+Audit web design continuously.
+
+Ensure:
+
+* colors
+* typography
+* spacing
+* shadows
+* radius
+* cards
+* buttons
+* loading states
+* empty states
+* skeletons
+
+match web.
+
+---
+
+# M1.9 — API Parity
+
+Verify all marketplace APIs used by web are consumed by mobile.
+
+No missing integrations.
+
+No mocked data.
+
+No placeholder content.
+
+---
+
+# M1.10 — Performance
+
+Do not create unnecessary requests.
+
+Reuse existing:
+
+* React Query
+* API hooks
+* caching patterns
+
+Follow existing architecture.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Homepage matches web
+
+✅ Shop matches web
+
+✅ Search V2 matches web
+
+✅ Suggestions match web
+
+✅ Trending searches work
+
+✅ Search filters work
+
+✅ Search tabs work
+
+✅ Product gallery matches web
+
+✅ Variant system matches web
+
+✅ Reviews work
+
+✅ Related products work
+
+✅ Wishlist works
+
+✅ Store pages work
+
+✅ Follow system works
+
+✅ RTL preserved
+
+✅ Arabic preserved
+
+✅ English preserved
+
+✅ Mobile performance acceptable
+
+✅ No regressions
+
+---
+
+# DOCUMENTATION UPDATE (MANDATORY)
+
+When implementation is finished:
+
+Update ALL recovery documentation.
+
+---
+
+Update:
+
+```text
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+replit.md
+```
+
+---
+
+Update Mobile Parity files:
+
+```text
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+
+MOBILE_PARITY_ROADMAP.md
+```
+
+---
+
+Mark M1 as:
+
+```text
+COMPLETE
+```
+
+Only after verification.
+
+Do not leave documentation outdated.
+
+Generate a final implementation report listing:
+
+* Features completed
+* Screens completed
+* APIs integrated
+* Remaining parity phases (M2–M7)
+* Updated parity percentage

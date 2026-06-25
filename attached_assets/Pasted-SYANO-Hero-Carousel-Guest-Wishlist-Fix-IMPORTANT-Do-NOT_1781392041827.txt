@@ -1,0 +1,240 @@
+SYANO — Hero Carousel + Guest Wishlist Fix
+
+IMPORTANT
+
+Do NOT redesign anything.
+
+Do NOT change spacing.
+
+Do NOT change typography.
+
+Do NOT change colors.
+
+Do NOT change layout.
+
+Do NOT change hero proportions.
+
+Do NOT change navbar.
+
+Do NOT change buttons.
+
+The current homepage design is approved.
+
+Only implement the requested functionality.
+
+====================================================
+TASK 1 — FIX GUEST WISHLIST
+===========================
+
+Current issue:
+
+When a guest clicks the Wishlist (heart) button on a product, the system redirects to Login.
+
+This is incorrect.
+
+Required behavior:
+
+Guests must be able to:
+
+* Add products to Wishlist
+* Remove products from Wishlist
+* Open Wishlist page
+* See Wishlist count in Navbar
+
+WITHOUT authentication.
+
+Requirements:
+
+* Use existing Guest Wishlist architecture
+* Use localStorage persistence
+* No login redirect
+* No auth wall
+* No modal forcing login
+* Instant UI updates
+* Wishlist survives refresh
+* Wishlist survives browser restart
+
+Verify:
+
+ProductCard
+ProductGrid
+ProductDetail
+Wishlist page
+Navbar heart counter
+
+Perform real runtime testing.
+
+Fix any remaining auth guards that still redirect guests.
+
+====================================================
+TASK 2 — HERO IMAGE CAROUSEL
+============================
+
+Current hero design is approved.
+
+Keep EXACTLY:
+
+* Layout
+* Text
+* Buttons
+* Statistics
+* Image size
+* Image position
+* Floating cards
+* Grid background
+* Spacing
+
+Only replace the single hero image behavior.
+
+====================================================
+REQUIRED BEHAVIOR
+=================
+
+The hero image area on the LEFT must become a carousel.
+
+Requirements:
+
+* Auto-play only
+* No layout changes
+* No visual redesign
+* No moving elements
+* No resizing
+
+Carousel must rotate:
+
+Image 1
+Image 2
+Image 3
+Image 4
+Image 5
+Image 6
+Image 7
+
+====================================================
+TIMING
+======
+
+Change image every:
+
+5 seconds
+
+Loop infinitely.
+
+====================================================
+ANIMATION
+=========
+
+Use a premium transition.
+
+Preferred:
+
+* Fade
+  or
+* Fade + slight zoom
+
+Avoid:
+
+* Slide animation
+* Aggressive motion
+* Anything distracting
+
+Animation should feel:
+
+Apple
+Stripe
+Shopify
+
+quality.
+
+====================================================
+INITIAL DATA
+============
+
+Add 7 temporary hero images.
+
+Use marketplace-relevant imagery:
+
+* Electronics
+* Fashion
+* Home
+* Beauty
+* Grocery
+* Sports
+* Automotive
+
+The carousel architecture must support future dynamic images.
+
+====================================================
+FUTURE READY
+============
+
+Implement architecture so images can later come from:
+
+hero_banners table
+
+without rewriting the component.
+
+Prepare for:
+
+title
+subtitle
+image
+cta
+sort order
+active status
+
+but do NOT build admin features now.
+
+====================================================
+RESPONSIVE
+==========
+
+Verify:
+
+Desktop
+Tablet
+Mobile
+
+No layout shifts.
+
+No CLS.
+
+No overflow.
+
+====================================================
+TESTING
+=======
+
+Actually test:
+
+1. Guest add wishlist item
+2. Guest remove wishlist item
+3. Guest refresh page
+4. Wishlist persists
+5. Wishlist counter updates
+6. Hero carousel rotates every 5 seconds
+7. Carousel loops correctly
+8. Mobile rendering
+9. Tablet rendering
+10. Dark theme
+11. Light theme
+
+====================================================
+FINAL REPORT
+============
+
+Provide:
+
+* Files changed
+* Guest wishlist issues fixed
+* Hero carousel implementation details
+* Images added
+* Runtime tests executed
+* Bugs fixed
+* Final verification status
+
+Again:
+
+DO NOT redesign the homepage.
+
+Keep the current approved visual design exactly as it is.

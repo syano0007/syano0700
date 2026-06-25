@@ -1,0 +1,282 @@
+You are continuing work on the SYANO (سوق سوريا) marketplace after a workspace migration.
+
+IMPORTANT:
+
+Do NOT assume previous fixes are correct.
+Do NOT trust code comments, memory files, changelogs, or theoretical CSS reasoning.
+Trust only the real running UI.
+
+Your mission has TWO phases:
+
+PHASE 1 — FULL RECOVERY
+
+Before touching any code:
+
+1. Read ALL project-memory files.
+2. Verify workspace integrity.
+3. Run:
+
+   * pnpm install
+   * build declarations
+   * database schema verification
+4. Ensure:
+
+   * API Server runs
+   * Marketplace runs
+   * Mobile runs
+5. Verify Root Owner account works:
+
+   * [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+   * 00Amer00
+6. Remove any leftover debug artifacts:
+
+   * vb-debug
+   * vb-test
+   * temporary audit pages
+   * orphan routes
+   * unused debug imports
+
+Do NOT continue until all services are running successfully.
+
+---
+
+PHASE 2 — REAL UI VERIFICATION
+
+CRITICAL:
+
+The previous sessions repeatedly claimed the VariantBuilder was fixed.
+
+However the actual UI still contains bugs.
+
+You MUST verify using the REAL Add Product page.
+
+Login.
+
+Open:
+
+Seller Dashboard
+→ Products
+→ Add Product
+
+Switch language to Arabic.
+
+Enable product variants.
+
+Verify the actual rendered UI.
+
+DO NOT rely on code inspection.
+
+DO NOT rely on mathematical positioning calculations.
+
+DO NOT assume.
+
+Use the real rendered page.
+
+---
+
+BUG #1 — MAIN VARIANTS TOGGLE THUMB
+
+Current problem:
+
+The thumb of the main:
+
+"تفعيل خيارات المنتج"
+
+toggle is still escaping the track.
+
+Evidence:
+
+The thumb appears outside the track and overlaps nearby text.
+
+Required outcome:
+
+* Thumb always remains inside track.
+* OFF state = left side.
+* ON state = right side.
+* No overlap.
+* No overflow.
+* Works in Arabic RTL.
+* Works in English LTR.
+* Verify visually.
+
+DO NOT stop after implementing.
+
+Open the page again and verify visually.
+
+---
+
+BUG #2 — VARIANT GROUP TOGGLES
+
+Verify all variant group enable/disable toggles.
+
+Example:
+
+Color group
+Size group
+
+Requirements:
+
+* Thumb never escapes.
+* Track remains intact.
+* Visual behavior consistent.
+* Arabic and English both correct.
+
+---
+
+BUG #3 — MOBILE RESPONSIVENESS
+
+The previous fixes improved mobile but issues remain.
+
+Audit the ENTIRE VariantBuilder on:
+
+320px
+360px
+390px
+412px
+768px
+1024px
+
+Check every section:
+
+Variant Groups
+Add Values
+Quick Add Chips
+Preview Sidebar
+Generate Combinations
+Manage Combinations
+Bulk Actions
+Variant Cards
+Variant Table
+
+Fix:
+
+* clipped buttons
+* truncated controls
+* overlapping elements
+* half-visible content
+* awkward wrapping
+* inconsistent spacing
+* broken touch targets
+
+Target quality:
+
+Shopify
+Noon
+Trendyol
+Amazon
+
+---
+
+BUG #4 — STEP 4 HEADER
+
+Inspect:
+
+Generate Combinations
+
+Manage Combinations
+
+Ensure:
+
+* button never squeezes title
+* title never wraps awkwardly
+* button placement is clean
+* mobile layout remains usable
+
+Verify visually.
+
+---
+
+BUG #5 — REAL RTL AUDIT
+
+Do a complete Arabic audit.
+
+Inspect every:
+
+Button
+Chip
+Input
+Badge
+Toggle
+Toolbar
+
+Ensure:
+
+* visual direction feels natural
+* no reversed interaction
+* no misplaced elements
+* no logical CSS mistakes
+
+---
+
+VERIFICATION REQUIREMENTS
+
+After every fix:
+
+Reload page.
+
+Verify visually.
+
+Do NOT conclude based on code.
+
+Only conclude based on rendered UI.
+
+---
+
+FINAL CHECKLIST
+
+Verify all:
+
+✅ API running
+
+✅ Marketplace running
+
+✅ Mobile running
+
+✅ Root Owner login works
+
+✅ No debug routes remain
+
+✅ Main variants toggle fixed
+
+✅ Group toggles fixed
+
+✅ Mobile layouts clean
+
+✅ No clipped buttons
+
+✅ No overlapping elements
+
+✅ No horizontal scrolling
+
+✅ RTL visually correct
+
+✅ English visually correct
+
+✅ TypeScript = 0 errors
+
+---
+
+SAVE NEW CHECKPOINT
+
+After ALL fixes are verified:
+
+Update:
+
+CURRENT_STATE.md
+CURRENT_TASK.md
+PROJECT_STATE.md
+CHANGELOG.md
+KNOWN_ISSUES.md
+RECOVERY_GUIDE.md
+VARIANT_SYSTEM_STATE.md
+
+Create a new recovery checkpoint.
+
+Document:
+
+* exact fixes performed
+* exact files changed
+* exact verification performed
+* viewport sizes tested
+
+Do not mark the task complete until the real UI has been visually verified.

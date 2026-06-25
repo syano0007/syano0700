@@ -1,0 +1,177 @@
+SYANO (سوق سوريا)
+
+DARK THEME CINEMATIC BACKGROUND UPGRADE
+
+IMPORTANT:
+
+Use the attached visual reference as the target.
+
+Do NOT copy colors blindly.
+
+Analyze the background multiple times and recreate its visual atmosphere.
+
+This task is ONLY about background rendering and visual depth.
+
+Do NOT modify:
+
+* Product Cards
+* Layout
+* Components
+* Navbar
+* Typography
+* Filters
+* Search
+* Currency System
+* Language System
+
+---
+
+TARGET LOOK
+
+The background should feel:
+
+* Cinematic
+* Premium
+* Deep
+* Modern
+* Luxury marketplace quality
+
+The page must feel more expensive and immersive.
+
+---
+
+BACKGROUND STRUCTURE
+
+The reference does NOT use flat black.
+
+Build a layered background system.
+
+Layer 1:
+Deep black base
+
+Layer 2:
+Subtle dark gradients
+
+Layer 3:
+Soft ambient glow
+
+Layer 4:
+Micro texture/noise
+
+---
+
+VIGNETTE EFFECT
+
+Create a subtle vignette.
+
+Edges should be slightly darker.
+
+Center should feel more illuminated.
+
+Users should feel depth without consciously noticing it.
+
+Avoid strong visible vignette.
+
+---
+
+AMBIENT GREEN GLOW
+
+Introduce an extremely subtle SYANO green atmospheric glow.
+
+Requirements:
+
+* almost invisible
+* opacity under 5%
+* blurred heavily
+* background only
+
+The glow should feel premium.
+
+Never obvious.
+
+Never neon.
+
+---
+
+DEPTH GRADIENTS
+
+Use multiple overlapping gradients.
+
+Avoid a single flat color.
+
+The background should transition smoothly between:
+
+#090909
+#060606
+#030303
+
+with soft depth variations.
+
+---
+
+NOISE LAYER
+
+Add a very subtle texture layer.
+
+Goal:
+
+* eliminate flatness
+* increase perceived quality
+* create a premium surface
+
+The effect should be barely noticeable.
+
+---
+
+SURFACE CONTRAST
+
+Cards must naturally separate from the background.
+
+Do NOT increase card brightness.
+
+Improve background depth instead.
+
+---
+
+PREMIUM MARKETPLACE FEEL
+
+Visual inspiration:
+
+Apple Keynotes
+Linear
+Stripe
+Luxury Ecommerce
+High-End Marketplace Platforms
+
+The final result should feel:
+
+* darker
+* richer
+* more dimensional
+* more cinematic
+
+without becoming distracting.
+
+---
+
+SUCCESS CRITERIA
+
+✓ Background feels alive
+
+✓ No flat black areas
+
+✓ Soft atmospheric depth
+
+✓ Subtle green premium glow
+
+✓ Slight vignette effect
+
+✓ Better visual separation
+
+✓ Luxury marketplace appearance
+
+✓ No functionality changes
+
+✓ No component redesign
+
+✓ Dark mode feels noticeably more premium

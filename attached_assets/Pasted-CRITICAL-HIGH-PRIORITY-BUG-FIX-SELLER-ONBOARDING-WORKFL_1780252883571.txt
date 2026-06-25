@@ -1,0 +1,65 @@
+CRITICAL HIGH-PRIORITY BUG FIX - SELLER ONBOARDING WORKFLOW
+
+There is a major architectural flaw in the seller registration system.
+
+**Current Incorrect Behavior:**
+If a user starts the "Become a Seller" process but does not complete and submit the application (closes the page, goes back, refreshes, or logs out), the system incorrectly changes the account state. The user then becomes stuck and cannot submit a new seller application later.
+
+This breaks the core user journey.
+
+══════════════════════════════════════
+REQUIRED CORRECT ARCHITECTURE
+══════════════════════════════════════
+
+- Customer Account is the base state.
+- Starting a seller application must **NEVER** change the user's role or permissions.
+- Only **successful approval** by admin should convert a Customer to Seller.
+- Users must be able to start, leave, return, and resubmit applications freely.
+
+**Correct Flow:**
+Customer → Click "Become a Seller" → Fill Application (can be saved as DRAFT) → Submit → Pending Review → Admin Approval → Seller Account
+
+══════════════════════════════════════
+MANDATORY REQUIREMENTS
+══════════════════════════════════════
+
+1. Opening the seller application page must have **ZERO side effects** on user role or permissions.
+2. Incomplete / abandoned applications must remain as DRAFT and never lock the user.
+3. Any Customer must always be able to:
+   - Start a new seller application
+   - Continue a previous draft
+   - Submit a new application if previous one was rejected or abandoned
+4. The system must support multiple application attempts.
+
+**Application States to implement:**
+- NO_APPLICATION
+- DRAFT
+- PENDING_REVIEW
+- APPROVED
+- REJECTED
+
+══════════════════════════════════════
+TASK
+══════════════════════════════════════
+
+Audit the current codebase and database schema related to users, roles, seller_applications, and onboarding logic.
+
+Fix the entire workflow so that:
+- No user is ever permanently blocked from applying to become a seller.
+- Only approved applications grant seller permissions.
+- Draft and abandoned applications do not affect account status.
+
+After fixing, test these scenarios:
+- User opens application then leaves
+- User starts application then logs out
+- User has rejected application and tries again
+- User has draft and continues later
+
+Provide:
+1. Root cause of the bug
+2. All files you modified
+3. Any database changes
+4. Summary of the fixed workflow
+5. Confirmation that the issue is fully resolved
+
+This is a critical business logic fix. Do it thoroughly and cleanly.

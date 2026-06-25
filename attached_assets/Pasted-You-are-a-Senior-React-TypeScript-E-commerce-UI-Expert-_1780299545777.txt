@@ -1,0 +1,43 @@
+You are a Senior React/TypeScript E-commerce UI Expert.
+
+Project: Syano Marketplace
+
+The Customer Reviews section on the Cart page is STILL NOT properly implemented, even after previous attempts. It appears empty or poorly rendered as shown in the screenshot.
+
+Fix it with maximum attention to detail and visibility.
+
+### Requirements for Cart Product Reviews Section:
+
+1. **Position**:
+   - For every product in the cart:
+     - First: Product information (image, name, seller, price, quantity controls, remove button)
+     - Second: **Customer Reviews Section** titled "تقييمات العملاء" (Arabic) / "Customer Reviews" (English)
+     - Third: "قد يعجبك أيضاً" / "You May Also Like" section
+
+2. **Reviews Section Design** (Must look rich and professional):
+   - Overall Rating: Big number (e.g. 4.6) + stars + "(124 تقييم)"
+   - Rating Breakdown: Horizontal bars (5★, 4★, 3★, 2★, 1★) with percentages
+   - List of individual reviews (show 3 reviews by default):
+     - Each review contains:
+       - Reviewer name (e.g. أحمد محمد, Sarah K.)
+       - Verified badge (✓)
+       - Star rating (colored stars)
+       - Review date (منذ أسبوع)
+       - Review text (2-3 lines realistic comment in Arabic or English according to language)
+     - Scrollable area with max-h on mobile
+   - Button at bottom: "عرض جميع التقييمات (X)" 
+
+3. **Technical Requirements**:
+   - Use React.memo on the reviews component
+   - Support full RTL for Arabic
+   - Beautiful Tailwind styling (Amazon/Etsy style)
+   - If no real data from API, show rich realistic sample reviews (at least 3 in Arabic + 3 in English)
+   - Make the section clearly visible with good spacing and borders
+   - Responsive and mobile-optimized
+
+Rewrite the Cart page components (especially CartItem and CartProductReviews) completely and cleanly.
+
+Provide the full code for the updated components.
+Make sure the reviews section is rich, scrollable, and clearly visible on mobile.
+
+Start now and prioritize making this section look complete and professional.

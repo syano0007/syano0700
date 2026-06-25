@@ -1,0 +1,227 @@
+Perform a COMPLETE ultra-smooth high refresh rate optimization pass across the entire Syano marketplace platform. The goal is to make the website feel perfectly fluid, responsive, and native-like on 120Hz, 144Hz, 165Hz, and higher refresh rate displays across desktop and mobile devices.
+
+Treat this as a premium flagship ecommerce experience similar to Apple, Amazon, or high-end native applications.
+
+==================================================
+HIGH REFRESH RATE EXPERIENCE GOALS
+==================================================
+
+The entire site must feel:
+- ultra smooth
+- instant
+- responsive
+- lightweight
+- fluid during scrolling
+- fluid during animations
+- fluid during transitions
+- fluid during interactions
+
+The site must maintain smooth rendering and interaction performance consistently at:
+- 120Hz
+- 144Hz
+- 165Hz
+- 240Hz displays
+
+especially on:
+- gaming monitors
+- flagship phones
+- high-end laptops
+- iPads/tablets with ProMotion
+
+==================================================
+SCROLLING OPTIMIZATION
+==================================================
+
+Optimize ALL scrolling behavior globally.
+
+Requirements:
+- eliminate scroll stutter
+- eliminate scroll lag
+- eliminate scroll jank
+- ensure buttery smooth scrolling
+- optimize momentum scrolling
+- optimize touch scrolling
+- optimize wheel scrolling
+- avoid main-thread blocking during scroll
+
+Implement:
+- passive event listeners
+- GPU-accelerated transforms
+- efficient rendering paths
+- lightweight animation calculations
+- requestAnimationFrame where appropriate
+- avoid forced reflows/repaints
+- avoid expensive scroll listeners
+
+Ensure scrolling remains smooth even on pages with:
+- many products
+- infinite scrolling
+- large grids
+- filters
+- dashboards
+- notifications
+- seller panels
+
+==================================================
+ANIMATION & TRANSITION OPTIMIZATION
+==================================================
+
+Audit ALL animations and transitions.
+
+Requirements:
+- animations must remain smooth at high refresh rates
+- eliminate choppy animations
+- eliminate inconsistent frame pacing
+- avoid animation drops
+- reduce animation cost drastically
+
+Use ONLY performant properties:
+- transform
+- opacity
+
+Avoid:
+- animating width
+- animating height
+- animating top/left
+- expensive shadows
+- expensive blur effects
+- expensive filters
+
+Ensure:
+- transitions feel premium and smooth
+- hover effects are fluid
+- modals open smoothly
+- dropdowns feel responsive
+- page transitions are lightweight
+- mobile animations remain responsive
+
+==================================================
+RENDERING PERFORMANCE
+==================================================
+
+Optimize rendering pipeline aggressively.
+
+Implement:
+- React memoization
+- virtualization where beneficial
+- minimized re-renders
+- stable component trees
+- optimized state updates
+- efficient reconciliation
+- batched updates
+- lightweight rendering logic
+
+Reduce:
+- paint cost
+- layout recalculation
+- composite cost
+- JavaScript execution spikes
+
+==================================================
+GPU & HARDWARE ACCELERATION
+==================================================
+
+Ensure the interface properly utilizes GPU acceleration where beneficial.
+
+Requirements:
+- smooth compositing
+- optimized transform layers
+- efficient animation rendering
+- prevent unnecessary layer creation
+- avoid GPU memory waste
+
+Use:
+- will-change only where truly needed
+- translate3d where appropriate
+- hardware accelerated transforms
+
+==================================================
+INTERACTION LATENCY OPTIMIZATION
+==================================================
+
+Make ALL interactions feel instant.
+
+Optimize:
+- button clicks
+- taps
+- dropdowns
+- filters
+- cart interactions
+- product cards
+- search interactions
+- mobile gestures
+- dashboard actions
+
+Reduce input latency aggressively.
+
+Target:
+- instant visual feedback
+- ultra-responsive UI feel
+- no delayed interactions
+- no blocking operations
+
+==================================================
+MOBILE HIGH REFRESH OPTIMIZATION
+==================================================
+
+Optimize specifically for:
+- 120Hz Android phones
+- iPhone ProMotion displays
+- gaming phones
+- flagship Samsung devices
+- tablets with high refresh rate panels
+
+Ensure:
+- touch interactions remain fluid
+- scrolling remains stable
+- no dropped frames during gestures
+- lightweight mobile rendering
+
+==================================================
+PAGE TRANSITION OPTIMIZATION
+==================================================
+
+Optimize navigation experience.
+
+Requirements:
+- instant-feeling route changes
+- smooth transitions
+- no flashing
+- no white screens
+- no lag spikes
+- preserve scroll performance during route changes
+
+Use:
+- lightweight transition system
+- smart preloading
+- optimized suspense/loading states
+
+==================================================
+PRODUCT GRID & MARKETPLACE OPTIMIZATION
+==================================================
+
+Optimize product rendering heavily.
+
+Requirements:
+- smooth grid scrolling
+- fast hover interactions
+- smooth lazy loading
+- optimized card rendering
+- efficient infinite scroll
+- prevent frame drops with many products
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+After optimization:
+- test entire site on 120Hz+ displays
+- verify stable frame pacing
+- verify smooth scrolling everywhere
+- verify smooth animations
+- verify responsive touch interactions
+- verify no lag spikes
+- verify no heavy rendering bottlenecks
+- verify smoothness on desktop and mobile
+
+The final experience should feel premium, fluid, ultra-responsive, and native-like across all modern high refresh rate displays.

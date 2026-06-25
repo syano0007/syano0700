@@ -1,0 +1,130 @@
+import React from 'react';
+
+const showcaseData = {
+  mainFeature: {
+    titleAr: "منظومة العيش الحديثة",
+    titleEn: "The Modern Gourmet Kitchen",
+    // صورة مطبخ فاخر وعالي الدقة ومجرب للتأكد من ظهوره فوراً
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop", 
+    hotspots: [
+      { text: "تقنيات مدمجة فائقة الذكاء", top: "38%", left: "15%" },
+      { text: "المطبخ العصري الجريء", top: "72%", left: "20%" }
+    ],
+    link: "/category/kitchen"
+  },
+  subFeatures: [
+    {
+      titleAr: "التجهيزات الذكية",
+      titleEn: "Precision Electronics",
+      category: "High-end audio & smart tech",
+      // صورة سماعات ومعدات صوتية فاخرة مطابقة للمفهوم
+      image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=600&auto=format&fit=crop",
+      link: "/category/electronics"
+    },
+    {
+      titleAr: "أزياء منتقاة بعناية",
+      titleEn: "Curated Style",
+      category: "Men's & Women's apparel",
+      // صورة أزياء عصرية فخمة
+      image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop",
+      link: "/category/fashion"
+    }
+  ]
+};
+
+export const HeroShowcase: React.FC = () => {
+  return (
+    // الخلفية الانسيابية التي تتدرج من الأخضر الزيتي العميق وتفتح في الأسفل لتطابق التصميم الأصلي
+    <section className="relative w-full bg-gradient-to-b from-[#1c3022] via-[#2d4635] to-[#f3f6f4] py-14 px-4 md:px-8 lg:px-16 overflow-hidden min-h-[700px] flex items-center">
+      
+      {/* شبكة الخطوط الانسيابية المتوازية الدقيقة المتطابقة مع الـ Mockup */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40">
+        <svg className="w-full h-full" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-100,220 C400,50 600,450 1100,120 C1350,0 1500,250 1600,180" stroke="#ffffff" strokeWidth="1" fill="none" />
+          <path d="M-100,240 C400,70 600,470 1100,140 C1350,20 1500,270 1600,200" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="4 4" fill="none" />
+          <path d="M-100,260 C400,90 600,490 1100,160 C1350,40 1500,290 1600,220" stroke="#a4bda9" strokeWidth="1" fill="none" />
+          <path d="M-100,280 C400,110 600,510 1100,180" stroke="#a4bda9" strokeWidth="0.5" fill="none" />
+        </svg>
+      </div>
+
+      {/* أوراق الشجر النباتية الفخمة الموزعة على الأطراف بدقة لتوفير اللمسة الطبيعية */}
+      <div className="absolute top-12 -right-16 w-80 h-80 pointer-events-none opacity-25 z-10 mix-blend-screen transform scale-x-[-1] rotate-12"
+           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop')", backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}></div>
+      <div className="absolute bottom-12 -left-16 w-80 h-80 pointer-events-none opacity-25 z-10 mix-blend-screen rotate-45"
+           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop')", backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}></div>
+
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 w-full relative z-20" dir="ltr">
+        
+        {/* الكرت الرئيسي الكبير (المطبخ الفاخر الواضح بدون طبقات ألوان تحجبه) */}
+        <div 
+          onClick={() => window.location.href = showcaseData.mainFeature.link}
+          className="w-full lg:w-2/3 relative overflow-hidden rounded-[2.5rem] h-[420px] md:h-[520px] lg:h-[580px] shadow-[0_35px_70px_rgba(0,0,0,0.25)] group cursor-pointer border border-white/20 backdrop-blur-sm bg-stone-900"
+        >
+          {/* الصورة رئيسية في الخلفية مع الحفاظ على الحجم الكامل */}
+          <img 
+            src={showcaseData.mainFeature.image} 
+            alt={showcaseData.mainFeature.titleEn}
+            className="absolute inset-0 object-cover w-full h-full transition-transform duration-[2000ms] group-hover:scale-103 z-0"
+          />
+          {/* تدرج علوي خفيف جداً لنقاء النص مع إبقاء المطبخ ساطعاً كما في صورتك */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-10" />
+
+          {/* نصوص ممركزة في الأعلى تماماً مثل التصميم الأصلي */}
+          <div className="absolute top-10 left-4 right-4 text-center z-20 flex flex-col gap-1.5 px-4">
+            <span className="text-white text-sm md:text-base font-medium tracking-widest bg-black/10 backdrop-blur-md px-4 py-1 rounded-full w-max mx-auto border border-white/10">
+              {showcaseData.mainFeature.titleAr}
+            </span>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg tracking-tight mt-1">
+              {showcaseData.mainFeature.titleEn}
+            </h2>
+          </div>
+
+          {/* الكبسولات الزجاجية العائمة التفاعلية (Glassmorphic Hotspots) */}
+          {showcaseData.mainFeature.hotspots.map((spot, idx) => (
+            <div 
+              key={idx} 
+              style={{ top: spot.top, left: spot.left }} 
+              className="absolute z-20 hidden md:flex items-center gap-2 group/spot transition-transform duration-300 hover:scale-105"
+            >
+              <div className="bg-black/40 backdrop-blur-xl border border-white/30 text-white text-[12px] md:text-[13px] font-medium px-5 py-3 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                {spot.text}
+                <span className="text-gray-400 text-xs">‹</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* العمود الجانبي الأيمن المكدس (الإلكترونيات والأزياء) */}
+        <div className="w-full lg:w-1/3 flex flex-col gap-6 lg:h-[580px]">
+          {showcaseData.subFeatures.map((item, index) => (
+            <div 
+              key={index}
+              onClick={() => window.location.href = item.link}
+              className="flex-1 relative overflow-hidden rounded-[2.5rem] min-h-[260px] shadow-[0_25px_50px_rgba(0,0,0,0.2)] group cursor-pointer border border-white/20 bg-neutral-800"
+            >
+              <img 
+                src={item.image} 
+                alt={item.titleEn}
+                className="absolute inset-0 object-cover w-full h-full transition-transform duration-[2000ms] group-hover:scale-103 z-0"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-10" />
+
+              {/* توزيع نصوص الكروت الفرعية بدقة فنية تماثل التصميم الأصلي */}
+              <div className="absolute inset-0 p-8 flex flex-col justify-between z-20">
+                <div className="text-right" dir="rtl">
+                   <h3 className="text-lg md:text-xl font-bold text-white drop-shadow-md">{item.titleAr}</h3>
+                   <p className="text-[11px] text-emerald-300 font-light mt-0.5 tracking-wider uppercase opacity-90">{item.category}</p>
+                </div>
+                <div className="text-left">
+                   <h4 className="text-xl md:text-2xl font-bold text-white drop-shadow-md tracking-tight">{item.titleEn}</h4>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+};

@@ -1,0 +1,509 @@
+SYANO — RECENTLY VIEWED PRODUCTS + PRODUCT WIZARD INVENTORY UX
+FULL AUDIT → IMPLEMENTATION → VALIDATION → RECOVERY UPDATE
+
+CRITICAL RULES
+
+Read ALL recovery documentation first.
+Read ALL memory files first.
+Read ALL handoff files first.
+
+Inspect existing implementation before making any change.
+
+Do NOT assume architecture.
+Do NOT guess.
+Do NOT rewrite existing systems.
+Do NOT introduce regressions.
+Do NOT break existing functionality.
+
+Preserve:
+
+* RTL support
+* Arabic support
+* English support
+* Existing Product Wizard
+* Existing VariantBuilder
+* Existing Product Page
+* Existing Product API contracts
+* Existing Product Schema
+* Existing Edit Product flow
+* Existing Mobile support
+* Existing Marketplace UX
+* Existing Checkout flow
+* Existing Variant inventory logic
+
+Prefer additive changes.
+
+Maintain backward compatibility.
+
+==================================================
+PHASE 0 — RECOVERY VERIFICATION
+===============================
+
+Before development:
+
+Verify current workspace state.
+
+Confirm:
+
+* Current branch
+* Current commit
+* Clean git status
+* Database health
+* API health
+* Marketplace health
+* Mobile health
+
+Verify latest completed checkpoint:
+
+"Move suggested attributes to the specifications step"
+
+Verify no unfinished work exists.
+
+Do not start implementation until recovery is confirmed.
+
+==================================================
+TASK 1
+RECENTLY VIEWED PRODUCTS
+========================
+
+GOAL
+
+Implement a REAL, FULLY FUNCTIONAL Recently Viewed Products system.
+
+Not a fake section.
+
+Not static data.
+
+Not placeholder UI.
+
+==================================================
+AUDIT FIRST
+===========
+
+Inspect:
+
+* Product page
+* Product detail queries
+* Homepage architecture
+* ProductCard architecture
+* Existing localStorage usage
+* Existing user state
+* Guest browsing flow
+* Authenticated browsing flow
+* Existing caching strategy
+* Existing mobile behavior
+
+Determine the safest architecture.
+
+==================================================
+REQUIREMENTS
+============
+
+When a product page is opened:
+
+Add that product to Recently Viewed.
+
+Support:
+
+* Guest users
+* Authenticated users
+
+Requirements:
+
+* No duplicates
+* Repeated views move product to the front
+* Preserve ordering
+* Reasonable history limit
+* Real persistence
+* Works after refresh
+* Works immediately after browsing
+
+Example:
+
+View A
+View B
+View C
+
+History:
+
+C
+B
+A
+
+View A again
+
+History:
+
+A
+C
+B
+
+==================================================
+DISPLAY
+=======
+
+Show Recently Viewed Products on homepage.
+
+Reuse existing ProductCard components.
+
+Match current design language.
+
+Preserve:
+
+* Mobile responsiveness
+* Desktop responsiveness
+* RTL
+* EN support
+
+No duplicate card implementations.
+
+==================================================
+VALIDATION
+==========
+
+Guest User
+
+* Open products
+* Refresh
+* History persists
+
+Authenticated User
+
+* Open products
+* Refresh
+* History persists
+
+Duplicate Prevention
+
+* Reopen existing product
+* Product moves to front
+* No duplicate entry created
+
+Homepage
+
+* Recently Viewed section appears
+* Uses real data
+* Uses existing ProductCard
+
+==================================================
+TASK 2
+PRODUCT WIZARD INVENTORY UX REVIEW
+==================================
+
+CURRENT PROBLEM
+
+Current flow appears to be:
+
+Step 2
+
+Pricing
+
+* Price
+* Stock
+
+Step 3
+
+Variants
+
+User may later enable variants.
+
+When variants are enabled:
+
+Inventory becomes controlled by variant stock.
+
+Example:
+
+Product stock = 50
+
+Then:
+
+Red = 10
+Blue = 20
+Black = 20
+
+The original stock field becomes confusing because it no longer represents actual inventory.
+
+==================================================
+AUDIT REQUIRED
+==============
+
+Inspect:
+
+* ProductWizard
+* Pricing step
+* Variant step
+* Product schema
+* Save logic
+* Edit product flow
+* Product creation flow
+* Inventory calculations
+* Variant inventory calculations
+* Product page inventory display
+* Order inventory deductions
+
+Determine:
+
+* Which inventory source is authoritative
+* What happens when variants exist
+* Whether product stock is ignored
+* Whether stock remains stored
+* Any risks of changing UX
+
+==================================================
+DESIRED UX
+==========
+
+If product has NO variants:
+
+Show stock field normally.
+
+If product HAS variants:
+
+Do NOT ask sellers for inventory that will later be ignored.
+
+Investigate safest UX.
+
+Possible approaches:
+
+* Hide stock field
+* Disable stock field
+* Informational notice
+* Conditional UI
+
+Choose the safest solution that matches the architecture.
+
+==================================================
+IMPORTANT
+=========
+
+Do NOT change inventory logic until you understand:
+
+* Current save flow
+* Current edit flow
+* Current stock calculations
+
+Protect:
+
+* Existing products
+* Existing orders
+* Existing variant inventory
+* Existing edit mode
+
+==================================================
+VALIDATION
+==========
+
+Scenario 1
+
+Simple product
+
+No variants
+
+Result:
+
+* Stock visible
+* Stock editable
+* Stock saved normally
+
+Scenario 2
+
+Variant product
+
+Result:
+
+* Seller clearly understands inventory source
+* No confusion
+
+Scenario 3
+
+Edit existing variant product
+
+Result:
+
+* No data loss
+* No confusion
+* Existing data preserved
+
+Scenario 4
+
+Existing products
+
+Result:
+
+* Fully backward compatible
+* No migration required
+
+==================================================
+IMPLEMENTATION ORDER
+====================
+
+Follow this exact order.
+
+Phase 1
+
+Audit Recently Viewed architecture.
+
+Phase 2
+
+Audit Product Wizard inventory architecture.
+
+Phase 3
+
+Present root causes.
+
+Phase 4
+
+Present architecture decisions.
+
+Phase 5
+
+Implement Recently Viewed.
+
+Phase 6
+
+Validate Recently Viewed.
+
+Phase 7
+
+Implement Product Wizard inventory UX improvement.
+
+Phase 8
+
+Validate Product Wizard inventory UX.
+
+Phase 9
+
+Update recovery documentation.
+
+Do NOT blindly implement both systems before auditing.
+
+==================================================
+SAFETY REQUIREMENTS
+===================
+
+Before modifying any file:
+
+Identify:
+
+* Files affected
+* Why they must change
+* Risks involved
+
+Prefer minimal changes.
+
+Do not remove functionality.
+
+Do not create duplicate systems.
+
+Do not break:
+
+* Product creation
+* Product editing
+* Product page
+* VariantBuilder
+* Inventory calculations
+* Guest browsing
+* Mobile app
+* Existing APIs
+
+If architecture risks are discovered:
+
+STOP
+
+Report findings first.
+
+Wait before risky implementation.
+
+==================================================
+MANDATORY RECOVERY UPDATE
+=========================
+
+This task is NOT complete until recovery documentation is updated.
+
+After implementation:
+
+Update:
+
+* MEMORY.md
+* Recovery files
+* Project state files
+* Handoff files
+* Feature documentation
+
+Document:
+
+PREVIOUS BEHAVIOR
+
+* Recently Viewed before implementation
+* Previous inventory UX behavior
+
+NEW BEHAVIOR
+
+* Recently Viewed architecture
+
+* Persistence mechanism
+
+* Guest behavior
+
+* Authenticated user behavior
+
+* Ordering logic
+
+* Duplicate prevention logic
+
+* History limits
+
+* Product inventory behavior
+
+* Variant inventory behavior
+
+* UX decisions made
+
+* Inventory ownership rules
+
+FILES CHANGED
+
+For every modified file:
+
+* File path
+* Reason for change
+* Logic added
+* Dependencies
+
+VALIDATION RESULTS
+
+Document:
+
+* Guest testing
+* Authenticated testing
+* Product creation testing
+* Product editing testing
+* Variant product testing
+* Homepage testing
+* Mobile testing
+
+==================================================
+FINAL OUTPUT
+============
+
+Provide:
+
+1. Recovery verification
+2. Root causes
+3. Architecture analysis
+4. Architecture decisions
+5. Files changed
+6. UX decisions
+7. Validation results
+8. Recovery files updated
+9. Handoff files updated
+10. Current project state summary
+
+Do not guess.
+
+Audit first.
+Implement second.
+Validate third.
+Document fourth.
+
+Assume the next agent will continue from your documentation.

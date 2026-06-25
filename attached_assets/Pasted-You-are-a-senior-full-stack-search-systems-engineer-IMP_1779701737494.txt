@@ -1,0 +1,184 @@
+You are a senior full-stack search systems engineer.
+
+IMPORTANT:
+The multilingual search fix is STILL NOT WORKING correctly.
+
+Analyze the current implementation and FIX the issues completely.
+
+CURRENT PROBLEMS (confirmed):
+
+1. DESKTOP SEARCH SUGGESTIONS DO NOT APPEAR
+
+* On desktop, typing in the navbar search sometimes shows NO autocomplete suggestions/dropdown.
+* The dropdown rendering logic is broken or not updating properly.
+
+2. MOBILE SEARCH RESULT CLICK DOES NOT NAVIGATE
+
+* On mobile, clicking/tapping a search result still does NOT open the product page.
+* The app remains on the homepage instead of routing to the selected product.
+
+3. MULTILINGUAL SEARCH STILL FAILS
+
+* Products ONLY appear if the search language EXACTLY matches the stored product language.
+* English searches do NOT return Arabic products.
+* Arabic searches do NOT return English products.
+
+EXAMPLE:
+Searching:
+
+* knife
+  should still find:
+* Damascus Steel Knife
+  AND Arabic-tagged knife products.
+
+Searching:
+
+* هاتف
+  should also find:
+* phone
+* smartphone
+* mobile
+
+CURRENT IMPLEMENTATION IS NOT ENOUGH.
+
+---
+
+## PART 1 — FIX MULTILINGUAL SEARCH PROPERLY
+
+REQUIRED:
+Implement REAL multilingual cross-language product discovery.
+
+DO NOT rely only on exact string matching.
+
+IMPLEMENT:
+
+1. SEARCH TERM EXPANSION DICTIONARY
+   Create centralized multilingual mappings for ecommerce terms.
+
+Examples:
+phone ↔ هاتف ↔ موبايل ↔ smartphone
+knife ↔ سكين
+laptop ↔ لابتوب
+headphones ↔ سماعات
+watch ↔ ساعة
+etc.
+
+2. QUERY EXPANSION
+   When user searches:
+
+* automatically expand search into related multilingual terms
+* merge results
+* rank intelligently
+
+3. SEARCH ACROSS:
+
+* product title
+* translated title
+* description
+* category
+* tags
+* seller metadata
+
+4. NORMALIZATION
+   Handle:
+
+* Arabic normalization
+* lowercase
+* punctuation stripping
+* Unicode-safe comparison
+* partial matching
+
+5. RESULT RANKING
+   Prioritize:
+
+* exact match
+* translated synonym match
+* category relevance
+* partial relevance
+
+---
+
+## PART 2 — FIX DESKTOP AUTOCOMPLETE
+
+The desktop navbar search dropdown is broken.
+
+FIX:
+
+* dropdown visibility state
+* async updates
+* rendering conditions
+* focus handling
+* z-index issues
+* loading state issues
+
+Ensure:
+
+* suggestions appear instantly while typing
+* desktop behavior works consistently
+* dropdown closes correctly when needed
+
+---
+
+## PART 3 — FIX MOBILE NAVIGATION
+
+The mobile result click routing is broken.
+
+When tapping:
+
+* suggestion
+* autocomplete item
+* search result
+
+The app MUST:
+
+* navigate to the product page
+* close the dropdown/modal
+* preserve correct route state
+
+Verify:
+
+* touch events
+* event propagation
+* mobile routing behavior
+* overlays/modals not blocking navigation
+
+---
+
+## PART 4 — MOBILE + DESKTOP QA
+
+Test ALL cases:
+
+Desktop:
+
+* typing English
+* typing Arabic
+* suggestions visible
+* clicking suggestion opens product
+
+Mobile:
+
+* touch suggestion
+* routing works
+* dropdown closes properly
+
+Cross-language:
+
+* Arabic query finds English products
+* English query finds Arabic products
+* mixed-language queries work
+
+---
+
+## PART 5 — FINAL RESULT
+
+The final search system should feel like a world-class ecommerce marketplace:
+
+* intelligent
+* multilingual
+* instant
+* mobile-first
+* reliable
+* production-ready
+
+No fake fixes or partial implementations.
+Fully debug and solve the underlying issues.

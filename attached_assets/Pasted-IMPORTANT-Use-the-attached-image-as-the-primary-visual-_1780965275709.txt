@@ -1,0 +1,378 @@
+IMPORTANT:
+Use the attached image as the primary visual reference.
+Do NOT simply imitate the layout approximately. Rebuild the current Variant Builder so that its UX, spacing, hierarchy, alignment, and workflow feel very close to the reference while preserving the existing Syano design system and current backend/API contracts.
+
+====================================================
+GOAL
+====================================================
+
+Transform the current Product Variant Builder into a modern Shopify/Amazon-grade experience.
+
+This is a UI/UX refinement task.
+Do NOT modify database schema.
+Do NOT modify API payloads.
+Do NOT break existing VariantBuilder props or backend compatibility.
+
+Current functionality already works.
+Only redesign and reorganize the interface.
+
+====================================================
+GENERAL DESIGN RULES
+====================================================
+
+- Keep Syano branding.
+- Support both Light and Dark themes.
+- Full RTL support.
+- Mobile-first responsive.
+- Desktop must utilize the entire available width.
+- No large empty spaces.
+- Smooth animations (150-200ms).
+- Rounded corners 12-16px.
+- Soft borders.
+- Clean shadows.
+- Premium ecommerce dashboard appearance.
+
+Desktop:
+----------------------------------------------------
+Use a two-column layout.
+
+LEFT (~70% width):
+Main Variant Builder
+
+RIGHT (~30% width):
+Sticky Preview Sidebar
+
+On mobile:
+Preview panel moves below the builder automatically.
+
+====================================================
+TOP HEADER
+====================================================
+
+Create a clean header similar to the reference image.
+
+Large title:
+إدارة خيارات المنتج (الفاريانت)
+
+Small subtitle:
+أنشئ مجموعات الخيارات وأضف القيم ثم ولد التركيبات
+
+Right side:
+Modern rounded icon container.
+
+Above the builder place:
+
+[ المنتج يحتوي على خيارات متعددة ] Toggle
+
+with proper spacing.
+
+====================================================
+STEP 1
+إضافة مجموعة خيارات
+====================================================
+
+Display preset chips horizontally:
+
+لون
+مقاس
+سعة
+RAM
+نمط
+خامة
+موديل
+إصدار
+ماركة
+مخصص +
+
+Each chip:
+- outlined
+- icon
+- hover animation
+- active state
+
+Clicking a preset instantly creates a new group.
+
+Custom opens inline input.
+
+Allow horizontal wrapping.
+
+====================================================
+STEP 2
+مجموعات الخيارات المضافة
+====================================================
+
+Each group becomes a beautiful card.
+
+Header contains:
+
+☰ drag handle
+Group Number
+Group Icon
+Group Name
+
+Actions on left:
+
+Enable toggle
+Delete
+Collapse
+
+Card should have:
+
+Example:
+
+1. اللون
+
+---------------------------------
+☰   اللون 🎨
+
+[toggle]
+
+[delete]
+
+[collapse]
+---------------------------------
+
+Selected values displayed as rounded pills.
+
+Examples:
+
+● أسود
+○ أبيض
+● أزرق
+● أخضر
+
+Color groups:
+Real color circles.
+
+Size:
+S M L XL XXL
+
+Storage:
+128GB
+256GB
+512GB
+1TB
+
+RAM:
+4GB
+8GB
+12GB
+16GB
+
+Suggestion pills disappear once selected.
+
+Input should look like:
+
+[ + إضافة لون ]
+
+NOT:
+
+[text field] [button]
+
+Press Enter automatically creates value.
+
+Support:
+- Enter
+- comma
+- paste multiple values
+
+Allow drag & drop reorder between groups.
+
+====================================================
+STEP 3
+PREVIEW SIDEBAR
+====================================================
+
+Sticky right sidebar.
+
+Card 1:
+
+Badge:
+12 تركيبة
+
+Title:
+معاينة التركيبات
+
+Small helper text:
+تتحدث المعاينة تلقائياً مع أي تغيير
+
+Then formula box:
+
+عدد التركيبات = 3 × 4 × 2 = 24
+
+Below:
+
+لون (3)
+مقاس (4)
+سعة (2)
+
+Variant preview list:
+
+[thumbnail]
+أسود / S / 128GB
+نشط
+
+[>]
+
+Scrollable if large.
+
+Bottom button:
+
+عرض كل 24 تركيبة
+
+Card 2:
+
+نصائح مهمة
+
+• اختر فقط الخصائص المناسبة.
+• كلما كانت القيم دقيقة أصبح الاختيار أسهل.
+• يمكنك تعديل أي قيمة لاحقاً.
+
+====================================================
+STEP 4
+إدارة التركيبات
+====================================================
+
+Large section.
+
+Top:
+
+Apply To Selected toolbar:
+
+Dropdown:
+تطبيق على المحدد
+
+Button:
+تطبيق
+
+Fields:
+
+السعر
+السعر قبل الخصم
+المخزون
+SKU Prefix
+
+Single Apply button updates all selected variants.
+
+Below:
+
+Generate button:
+
+توليد التركيبات
+
+or
+
+إعادة توليد التركيبات
+
+Display count automatically.
+
+====================================================
+VARIANT TABLE
+====================================================
+
+Modern full-width table.
+
+Columns:
+
+Checkbox
+Image
+Variant
+Price
+Compare Price
+Stock
+SKU
+Status
+Actions
+
+Desktop:
+Proper table.
+
+Mobile:
+Cards.
+
+Rows should have:
+
+Thumbnail
+
+أسود / S / 128GB
+
+Editable inputs.
+
+Status toggle.
+
+Selection checkbox.
+
+No cramped columns.
+
+Use entire screen width.
+
+====================================================
+DESKTOP WIDTH
+====================================================
+
+Current builder wastes almost half the screen.
+
+Fix this completely.
+
+Builder container should expand naturally.
+
+Use max-width around:
+
+1500-1700px
+
+Center container.
+
+Preview fixed on right.
+
+Main builder occupies remaining width.
+
+No giant black empty margins.
+
+====================================================
+MOBILE
+====================================================
+
+Must remain excellent.
+
+Builder stacks vertically.
+
+Sidebar moves below.
+
+Cards become full width.
+
+Table converts to cards.
+
+Touch targets at least 44px.
+
+====================================================
+DO NOT CHANGE
+====================================================
+
+- API
+- Database
+- Variant generation logic
+- Backend payload
+- Cart compatibility
+- Mobile app compatibility
+- Existing TypeScript interfaces
+
+Keep full backward compatibility.
+
+====================================================
+FINAL VALIDATION
+====================================================
+
+After implementation:
+
+- Run TypeScript.
+- Fix all errors.
+- Verify RTL.
+- Verify Dark Mode.
+- Verify Mobile.
+- Verify Desktop.
+- Verify drag & drop.
+- Verify variant generation still works.
+- Verify no backend changes occurred.
+
+Goal:
+When comparing the final result against the attached reference image, the UI should feel extremely close in workflow, spacing, visual hierarchy, and usability while still looking like a native Syano component.

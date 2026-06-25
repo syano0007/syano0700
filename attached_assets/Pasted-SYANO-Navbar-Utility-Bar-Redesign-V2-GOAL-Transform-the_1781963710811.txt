@@ -1,0 +1,342 @@
+SYANO (سوق سوريا) — Navbar + Utility Bar Redesign V2
+
+GOAL
+
+Transform the current navbar into a premium marketplace navigation system inspired by:
+
+* Amazon
+* Noon
+* Trendyol
+* Alibaba
+
+while remaining 100% consistent with SYANO branding and emerald-green identity.
+
+The navbar must use the FULL horizontal width efficiently.
+
+I do NOT want empty space.
+
+I do NOT want a floating navbar.
+
+I do NOT want a minimalist startup navbar.
+
+I want a real marketplace navbar.
+
+---
+
+CRITICAL RULES
+
+* Desktop only
+* Do not modify mobile navbar
+* Preserve RTL
+* Preserve dark theme
+* Preserve existing functionality
+* Preserve search functionality
+* Preserve cart, wishlist, notifications
+* Preserve auth logic
+* Preserve current routes
+
+Only redesign layout, hierarchy, spacing, sizing and visual structure.
+
+---
+
+PART 1 — MAIN NAVBAR
+
+Current issue:
+
+Large portions of the navbar are visually wasted.
+
+The header does not feel dense enough for a marketplace.
+
+Fix that.
+
+Requirements:
+
+* Full-width layout
+* Height 80–88px
+* Background must use SYANO emerald green
+* Rich gradient:
+
+from:
+#00d68f
+
+to:
+#00b97c
+
+with subtle depth
+
+Example feeling:
+
+Noon + Amazon + modern fintech UI
+
+Navbar must feel like:
+
+"this marketplace contains thousands of products"
+
+---
+
+PART 2 — USE 100% OF NAVBAR WIDTH
+
+NO EMPTY ZONES.
+
+Layout:
+
+LEFT SIDE
+
+Logo
+Brand
+Marketplace identity
+
+CENTER
+
+Large search bar
+
+RIGHT SIDE
+
+Navigation links
+Offers
+Stores
+Categories
+New arrivals
+Trending
+
+Icons
+
+Wishlist
+Cart
+Notifications
+Settings
+
+Auth area
+
+Login
+Register
+
+Everything should visually fill the header width.
+
+No dead space.
+
+No oversized gaps.
+
+---
+
+PART 3 — LARGE MARKETPLACE SEARCH
+
+Search is the most important element.
+
+Requirements:
+
+Width:
+600–700px
+
+Height:
+48px
+
+Premium appearance:
+
+* glass effect
+* inner shadow
+* emerald focus glow
+* larger placeholder
+
+Placeholder:
+
+ابحث عن منتجات، متاجر، فئات...
+
+Search icon larger.
+
+Feels like Amazon search importance.
+
+---
+
+PART 4 — UTILITY BAR
+
+Add a SECONDARY BAR under navbar.
+
+Height:
+
+40–48px
+
+Background:
+
+slightly darker emerald tone
+
+Purpose:
+
+Marketplace shortcuts.
+
+Example items:
+
+🔥 عروض اليوم
+
+⚡ الأكثر مبيعاً
+
+🆕 وصل حديثاً
+
+🏪 المتاجر
+
+⭐ المتاجر الموثوقة
+
+🚚 توصيل سريع
+
+💎 منتجات مميزة
+
+🎯 خصومات
+
+This should scroll horizontally if needed.
+
+Must feel alive.
+
+Must increase discoverability.
+
+Must NOT feel like plain text links.
+
+Use pills/chips.
+
+---
+
+PART 5 — ACTIVE NAVIGATION
+
+Current active state is weak.
+
+Improve:
+
+Active item:
+
+* brighter emerald
+* stronger contrast
+* bottom indicator
+* subtle glow
+
+Hover:
+
+* smooth animation
+* soft elevation
+* color transition
+
+Duration:
+
+200–300ms
+
+---
+
+PART 6 — ICON AREA
+
+Increase visual importance.
+
+Current icons feel small.
+
+Upgrade:
+
+Buttons:
+40–44px
+
+Icons:
+20–22px
+
+Badges:
+
+larger
+clearer
+
+Hover:
+
+* scale
+* glow
+* lift
+
+Marketplace-grade polish.
+
+---
+
+PART 7 — AUTH BUTTONS
+
+Register button:
+
+primary emerald CTA
+
+larger
+
+strong shadow
+
+premium feel
+
+Login button:
+
+secondary style
+
+outlined
+
+clean
+
+Both must align perfectly with header height.
+
+---
+
+PART 8 — MARKETPLACE FEEL
+
+The final result should immediately communicate:
+
+* many products
+* many stores
+* many categories
+* active marketplace
+* large inventory
+
+The header alone should make users feel:
+
+"There is a lot to explore."
+
+---
+
+PART 9 — VISUAL QUALITY
+
+Target quality:
+
+Amazon navigation density
+
+Noon visual hierarchy
+
+Trendyol discoverability
+
+Modern SaaS polish
+
+Do NOT create:
+
+* empty whitespace
+* startup navbar
+* minimalist landing page header
+
+Create:
+
+dense
+rich
+professional
+high-conversion marketplace navigation
+
+---
+
+FINAL VALIDATION
+
+Verify:
+
+✅ Uses full navbar width
+
+✅ No wasted horizontal space
+
+✅ Emerald SYANO branding
+
+✅ Utility bar added
+
+✅ Search dominates visually
+
+✅ Icons larger
+
+✅ Auth buttons stronger
+
+✅ RTL preserved
+
+✅ Mobile untouched
+
+✅ Feels like a major marketplace
+
+✅ More premium than current version

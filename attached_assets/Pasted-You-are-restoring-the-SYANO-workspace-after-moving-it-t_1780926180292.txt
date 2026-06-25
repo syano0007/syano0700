@@ -1,0 +1,191 @@
+You are restoring the SYANO (سوق سوريا) workspace after moving it to a new Replit account.
+
+IMPORTANT:
+This is a recovery operation, NOT a development task.
+
+DO NOT add features.
+DO NOT refactor.
+DO NOT modify existing behavior.
+DO NOT "improve" anything.
+Your only goal is to restore the workspace to the exact previous working state.
+
+==================================================
+STEP 1 — READ PROJECT MEMORY
+============================
+
+Read ALL files inside:
+
+project-memory/
+
+Especially:
+
+* RECOVERY_GUIDE.md
+* PROJECT_STATE.md
+* CURRENT_TASK.md
+* CHANGELOG.md
+* DATABASE_STATE.md
+* API_STATE.md
+* AUTH_STATE.md
+* PERFORMANCE_STATE.md
+* VARIANT_SYSTEM_STATE.md
+* KNOWN_ISSUES.md
+
+Treat these files as the source of truth.
+
+==================================================
+STEP 2 — INSTALL & BUILD
+========================
+
+Run:
+
+pnpm install
+
+Then rebuild all TypeScript project references and declaration files.
+
+Verify:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+==================================================
+STEP 3 — DATABASE
+=================
+
+Check DATABASE_URL and all required environment variables.
+
+Verify all tables exist.
+
+If database is empty:
+
+* run drizzle-kit push
+* allow additive startup migrations
+
+DO NOT delete data.
+DO NOT reset database.
+
+==================================================
+STEP 4 — SERVICES
+=================
+
+Start and verify:
+
+* API Server
+* Marketplace (Vite)
+* Mobile (Expo)
+
+Verify they are running without build errors.
+
+==================================================
+STEP 5 — ROOT ADMIN VERIFICATION
+================================
+
+This account is the permanent root administrator.
+
+EMAIL:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+PASSWORD:
+00Amer00
+
+REQUIREMENTS:
+
+* This account MUST always exist.
+* If missing, recreate it.
+* If present but wrong role, fix it.
+* If password differs, update it.
+* role = admin
+* account_status = active
+* is_verified = true
+
+Never overwrite this account with customer role.
+
+Never create a duplicate.
+
+The recovery is NOT complete until this exact account works.
+
+After restoring, actually test login using:
+
+Email:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Password:
+00Amer00
+
+If login fails, fix the cause automatically and test again.
+
+==================================================
+STEP 6 — SYSTEM AUDIT
+=====================
+
+Verify:
+
+✓ Authentication
+✓ JWT
+✓ Register
+✓ Login
+✓ Forgot Password
+✓ Reset Password
+✓ Product APIs
+✓ Seller Dashboard
+✓ Admin Dashboard
+✓ Variant APIs
+✓ Notifications
+✓ Messaging
+✓ Reviews
+✓ Cart
+✓ Orders
+✓ Push Notifications
+✓ Existing Variant Builder
+
+Do not stop at route existence.
+Actually verify functionality.
+
+==================================================
+STEP 7 — TYPESCRIPT
+===================
+
+Run TypeScript validation.
+
+Do not introduce changes except minimal additive fixes required for successful build.
+
+==================================================
+STEP 8 — DO NOT START DEVELOPMENT
+=================================
+
+When recovery is complete:
+
+STOP.
+
+Do NOT begin the Variant System upgrade.
+
+Do NOT implement any new feature.
+
+Wait for my next instruction.
+
+==================================================
+FINAL REPORT
+============
+
+Provide a report including:
+
+* Dependencies
+* Database
+* Environment Variables
+* Admin Account Status
+* Authentication Test Result
+* Services Status
+* TypeScript Status
+* Current Active Task from CURRENT_TASK.md
+* Whether workspace exactly matches previous state
+
+Recovery is successful ONLY if:
+
+1. Workspace matches previous state.
+2. Root admin account works.
+3. Login with:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+is successful.

@@ -1,0 +1,263 @@
+SYANO سوق سوريا
+
+PIXEL-PERFECT HOMEPAGE IMPLEMENTATION TASK
+
+IMPORTANT:
+
+Use the attached reference image as the primary design source.
+
+This is NOT an inspiration task.
+
+This is NOT a redesign task.
+
+This is a pixel-perfect implementation task.
+
+The objective is to recreate the visual structure, hierarchy, spacing, proportions, section order, and premium feeling of the attached homepage design as closely as possible within the existing SYANO architecture.
+
+==================================================
+IMPLEMENTATION PHILOSOPHY
+=========================
+
+Treat the attached image as the target homepage.
+
+Build the real homepage to visually match it as closely as possible.
+
+Preserve existing marketplace functionality.
+
+Replace the current homepage presentation with the structure shown in the image.
+
+Priority order:
+
+1. Visual hierarchy
+2. Layout structure
+3. Section ordering
+4. Card proportions
+5. Typography scale
+6. Spacing system
+7. Marketplace functionality
+
+==================================================
+HERO SECTION
+============
+
+Recreate the hero section shown in the reference image.
+
+Requirements:
+
+* Full-width premium hero
+* Large cinematic marketplace imagery
+* Strong dark luxury aesthetic
+* Green SYANO accent color
+* Large headline
+* Short supporting text
+* Single primary CTA
+* Premium overlay
+* Smooth carousel support
+* Elegant transitions
+
+Remove:
+
+* category blocks inside hero
+* trust badges
+* trust messages
+* duplicated informational elements
+
+Hero must feel like a premium marketplace campaign.
+
+==================================================
+TYPOGRAPHY
+==========
+
+Match typography proportions from the reference image.
+
+Requirements:
+
+* Similar heading scale
+* Similar card title scale
+* Similar section title scale
+* Similar visual density
+
+Avoid oversized text.
+
+Everything should feel balanced and premium.
+
+==================================================
+CATEGORY SECTION
+================
+
+Recreate category presentation similar to the reference image.
+
+Requirements:
+
+* compact cards
+* consistent sizing
+* equal spacing
+* elegant hover states
+* premium image treatment
+
+Use categories as the visual sizing benchmark for the rest of the homepage.
+
+==================================================
+FEATURED DEALS SECTION
+======================
+
+Create a premium featured deals section matching the visual structure shown in the image.
+
+Requirements:
+
+* horizontal product card layout
+* discount indicators
+* consistent pricing hierarchy
+* premium product imagery
+* elegant spacing
+
+==================================================
+TRUSTED STORES SECTION
+======================
+
+Rebuild store cards to match the premium presentation shown in the image.
+
+Include:
+
+* store cover image
+* store logo
+* store name
+* rating
+* product count
+* visit store button
+
+Store cards should feel modern and professional.
+
+==================================================
+TRENDING PRODUCTS
+=================
+
+Implement a product discovery section visually matching the reference image.
+
+Requirements:
+
+* identical card sizing system
+* identical spacing rhythm
+* consistent image ratios
+* premium hover interactions
+
+==================================================
+JOIN SYANO SECTION
+==================
+
+Create a premium CTA section similar to the reference image.
+
+Purpose:
+
+* seller onboarding
+* courier onboarding
+
+This section should appear only near the footer.
+
+Do NOT repeat seller messaging elsewhere.
+
+==================================================
+STRICT DUPLICATION RULES
+========================
+
+Do NOT repeat:
+
+* توصيل سريع
+* دفع آمن
+* بائعون موثوقون
+* حماية المشتري
+
+Remove duplicated trust messaging.
+
+Remove repeated category navigation.
+
+Remove repeated marketplace claims.
+
+==================================================
+VISUAL CONSISTENCY
+==================
+
+All homepage elements must visually feel part of one design system.
+
+Match the reference image for:
+
+* spacing
+* margins
+* paddings
+* border radius
+* shadows
+* typography scale
+* card density
+
+The homepage should feel intentionally designed rather than assembled from unrelated components.
+
+==================================================
+MOBILE & RTL
+============
+
+Verify:
+
+* RTL layout
+* desktop layout
+* tablet layout
+* mobile layout
+
+Maintain premium appearance on all breakpoints.
+
+==================================================
+PROJECT RECOVERY REQUIREMENTS
+=============================
+
+After implementation:
+
+1. Update all recovery files.
+2. Update all restoration references.
+3. Update homepage recovery snapshots.
+4. Update project state files referencing homepage structure.
+5. Ensure recovery restores the new homepage version.
+
+==================================================
+ENDPOINT & API VALIDATION
+=========================
+
+After implementation:
+
+1. Verify homepage endpoints.
+2. Verify homepage API integrations.
+3. Verify hero banner loading.
+4. Verify category loading.
+5. Verify product loading.
+6. Verify store loading.
+7. Verify frontend/backend communication.
+8. Remove obsolete endpoint references if discovered.
+
+==================================================
+FINAL DELIVERY
+==============
+
+Provide:
+
+1. Desktop screenshot
+2. Tablet screenshot
+3. Mobile screenshot
+4. Modified files list
+5. Recovery files update summary
+6. Recovery snapshot update summary
+7. Endpoint verification summary
+8. Final homepage audit report
+
+The task is NOT complete until:
+
+✓ Homepage visually matches the reference image as closely as possible
+
+✓ RTL verified
+
+✓ Mobile verified
+
+✓ Recovery files updated
+
+✓ Recovery snapshots updated
+
+✓ Endpoints verified
+
+✓ Homepage fully operational

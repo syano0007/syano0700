@@ -1,0 +1,223 @@
+You are performing a **UI/UX Polish & Consistency Pass** for the SYANO (سوق سوريا) seller product creation page.
+
+This is **NOT a redesign** and **NOT a feature rewrite**.
+
+The recent VariantBuilder redesign introduced several visual and localization regressions that must be fixed while preserving all existing functionality.
+
+---
+
+# CRITICAL RULES
+
+* Do NOT rewrite the VariantBuilder logic.
+* Do NOT change API contracts.
+* Do NOT modify database schema.
+* Do NOT remove any existing features.
+* Do NOT break mobile compatibility.
+* Preserve RTL support.
+* Preserve Arabic and English translations.
+* Preserve TypeScript = 0 structural errors.
+* Preserve all drag-and-drop, bulk actions, cartesian generation, and payload builders.
+* This is purely a UI/UX cleanup and consistency pass.
+
+---
+
+# TASK 1 — FULL LOCALIZATION AUDIT
+
+Audit the entire Add Product page.
+
+Inspect every:
+
+* label
+* button
+* placeholder
+* helper text
+* tooltip
+* badge
+* empty state
+* section title
+* variant builder text
+* bulk action text
+* table header
+* toggle label
+
+Find and fix:
+
+* English strings left behind
+* mixed Arabic/English wording
+* untranslated placeholders
+* inconsistent terminology
+* duplicate wording
+* clipped text
+
+All user-facing strings must come from the existing i18n system.
+
+No hardcoded UI text.
+
+Arabic should feel natural and professional.
+
+---
+
+# TASK 2 — VARIANT TOGGLE FIX
+
+The enable/disable variants control currently feels visually disconnected.
+
+Fix:
+
+* spacing
+* alignment
+* border
+* hover state
+* active state
+* typography
+
+The toggle should feel like a premium marketplace component.
+
+When enabled:
+
+* use SYANO primary color
+* smooth transition
+* proper shadow
+* clear visual feedback
+
+When disabled:
+
+* subtle neutral styling
+* still easily discoverable
+
+---
+
+# TASK 3 — VARIANT PRIMARY COLOR CONSISTENCY
+
+The VariantBuilder currently uses incorrect blue accents.
+
+Audit every variant-related component:
+
+* preset chips
+* selected chips
+* active pills
+* count badges
+* group badges
+* add buttons
+* generate button
+* focus rings
+* active inputs
+* hover states
+* selected table rows
+* toggle states
+
+Replace incorrect colors with the existing SYANO design system.
+
+Use the marketplace primary color already used elsewhere.
+
+Do NOT introduce a new color palette.
+
+Everything should match the existing branding.
+
+---
+
+# TASK 4 — SPACING & ALIGNMENT PASS
+
+Carefully inspect the entire Add Product page.
+
+Fix:
+
+* inconsistent margins
+* uneven padding
+* clipped text
+* overflowing labels
+* vertically misaligned icons
+* buttons with different heights
+* cards that don't align
+* section gaps
+
+The page should feel visually balanced.
+
+---
+
+# TASK 5 — RTL POLISH
+
+Verify:
+
+* right alignment
+* icon positions
+* badge placement
+* chip ordering
+* flex direction
+* paddings
+* border radius consistency
+
+No LTR leftovers.
+
+---
+
+# TASK 6 — RESPONSIVE CHECK
+
+Verify:
+
+Desktop:
+
+* wide layout
+* proper spacing
+* no stretching
+
+Tablet:
+
+* no overflow
+* clean wrapping
+
+Mobile:
+
+* no clipped controls
+* no horizontal scrolling
+* cards remain readable
+
+---
+
+# TASK 7 — VISUAL CONSISTENCY
+
+Compare VariantBuilder styling with the rest of the marketplace.
+
+The Variant section should feel like it was originally designed with the rest of SYANO.
+
+Avoid anything that looks:
+
+* admin dashboard
+* bootstrap
+* generic form builder
+* third-party widget
+
+Use existing shadows, spacing, rounded corners, and typography.
+
+---
+
+# TASK 8 — FINAL AUDIT
+
+After implementation verify:
+
+✅ Arabic complete
+
+✅ English complete
+
+✅ No mixed-language UI
+
+✅ Variant toggle polished
+
+✅ Wrong blue colors removed
+
+✅ Marketplace primary color used consistently
+
+✅ No clipped text
+
+✅ No overflow
+
+✅ RTL preserved
+
+✅ Mobile preserved
+
+✅ TypeScript = 0 structural errors
+
+✅ No API changes
+
+✅ No database changes
+
+Only make verified UI improvements.

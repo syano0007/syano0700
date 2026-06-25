@@ -1,0 +1,391 @@
+# A7 VISIBILITY & INTEGRATION VERIFICATION (MANDATORY)
+
+STOP.
+
+Do NOT build A8.
+
+Do NOT add features.
+
+Do NOT create new pages.
+
+Do NOT refactor.
+
+Your only mission is to prove that the A7 Courier Workspace system actually works and is visible to a real courier user inside the running marketplace.
+
+Current evidence from the live system shows:
+
+* Courier login still lands on the old dashboard.
+* Courier menu still shows the old navigation.
+* Workspace pages are not visible from the UI.
+* We have NOT seen the map-first experience.
+* We have NOT seen History.
+* We have NOT seen Earnings.
+* We have NOT seen Profile.
+* We have NOT verified the new routing.
+
+Therefore A7 is NOT considered complete until visibility and integration are proven.
+
+---
+
+# PHASE V1 — DISCOVER ACTUAL STATE
+
+Before changing anything:
+
+Verify all of these routes exist:
+
+/courier
+/courier/history
+/courier/earnings
+/courier/profile
+/courier/dashboard
+
+For each route:
+
+1. Open it in browser.
+2. Capture screenshot.
+3. Record:
+
+   * HTTP status
+   * rendered component
+   * visible content
+   * errors
+
+Create:
+
+A7_ROUTE_AUDIT.md
+
+Table:
+
+Route
+Exists?
+Loads?
+Redirect?
+Visible?
+Screenshot saved?
+
+---
+
+# PHASE V2 — VERIFY LOGIN FLOW
+
+Login using REAL courier account.
+
+Use:
+
+Test Courier
+
+Verify where login lands.
+
+Record actual URL.
+
+Expected:
+
+/courier
+
+If login lands anywhere else:
+
+A7 FAIL
+
+Fix it.
+
+Then retest.
+
+Repeat until:
+
+Courier Login
+→ /courier
+
+100% reliably.
+
+---
+
+# PHASE V3 — VERIFY WORKSPACE VISIBILITY
+
+Open:
+
+/courier
+
+Expected:
+
+Map-first courier workspace.
+
+The map must be visible immediately.
+
+Not hidden.
+
+Not behind tabs.
+
+Not behind buttons.
+
+Not inside modals.
+
+Not requiring navigation.
+
+The first thing a courier sees must be:
+
+MAP
+
+Verify with screenshot.
+
+Save:
+
+A7_WORKSPACE_VISIBLE.png
+
+---
+
+# PHASE V4 — VERIFY OLD DASHBOARD STATUS
+
+Open:
+
+/courier/dashboard
+
+Verify:
+
+Old dashboard still exists.
+
+Record:
+
+* reachable?
+* broken?
+* hidden?
+* linked?
+
+Expected:
+
+Legacy route exists for compatibility.
+
+But:
+
+Courier should NOT land here after login.
+
+---
+
+# PHASE V5 — VERIFY NAVIGATION ACCESS
+
+From actual courier UI:
+
+Can user reach:
+
+Workspace
+History
+Earnings
+Profile
+
+without typing URLs?
+
+Answer:
+
+YES or NO.
+
+If NO:
+
+Fix navigation.
+
+Add visible entry points.
+
+Retest.
+
+Take screenshots.
+
+Save:
+
+A7_NAVIGATION_VERIFICATION.md
+
+---
+
+# PHASE V6 — VERIFY HISTORY PAGE
+
+Open:
+
+/courier/history
+
+Verify:
+
+Page loads.
+
+No blank screen.
+
+No crash.
+
+No missing translations.
+
+No console errors.
+
+Take screenshot.
+
+---
+
+# PHASE V7 — VERIFY EARNINGS PAGE
+
+Open:
+
+/courier/earnings
+
+Verify:
+
+Page loads.
+
+Values render.
+
+No crash.
+
+No missing translations.
+
+Take screenshot.
+
+---
+
+# PHASE V8 — VERIFY PROFILE PAGE
+
+Open:
+
+/courier/profile
+
+Verify:
+
+Page loads.
+
+Availability controls visible.
+
+Settings visible.
+
+No errors.
+
+Take screenshot.
+
+---
+
+# PHASE V9 — VERIFY MAP ACTUALLY WORKS
+
+Inside workspace:
+
+Verify:
+
+* Leaflet renders
+* tiles load
+* no blank gray box
+* no JS errors
+* courier marker visible when location exists
+
+Record:
+
+Map Loaded = YES/NO
+
+Take screenshot.
+
+---
+
+# PHASE V10 — END-TO-END REAL COURIER FLOW
+
+Using real accounts:
+
+Create or use real order.
+
+Trigger assignment.
+
+Courier receives offer.
+
+Accept offer.
+
+Open workspace.
+
+Verify:
+
+Offer state
+→ Pickup state
+→ Delivery state
+
+Map remains visible during entire flow.
+
+Take screenshots for each state.
+
+Save:
+
+A7_FLOW_OFFER.png
+A7_FLOW_PICKUP.png
+A7_FLOW_DELIVERY.png
+
+---
+
+# PHASE V11 — CONSOLE & NETWORK AUDIT
+
+Inspect browser.
+
+Must confirm:
+
+No React crashes.
+
+No routing errors.
+
+No 404s.
+
+No hydration errors.
+
+No infinite redirects.
+
+No failed JS chunks.
+
+Record all findings.
+
+---
+
+# PHASE V12 — FINAL CERTIFICATION
+
+Create:
+
+A7_FINAL_VISIBILITY_REPORT.md
+
+Include:
+
+## Routes
+
+PASS/FAIL
+
+## Login Flow
+
+PASS/FAIL
+
+## Workspace Visible
+
+PASS/FAIL
+
+## History Visible
+
+PASS/FAIL
+
+## Earnings Visible
+
+PASS/FAIL
+
+## Profile Visible
+
+PASS/FAIL
+
+## Map Visible
+
+PASS/FAIL
+
+## Real Courier Flow
+
+PASS/FAIL
+
+## Screenshots Attached
+
+YES/NO
+
+---
+
+# HARD RULES
+
+Do NOT claim success without screenshots.
+
+Do NOT assume routes work.
+
+Do NOT trust code.
+
+Verify from browser.
+
+Verify from real courier account.
+
+Verify from running marketplace.
+
+A7 is only complete when a courier can log in and immediately see the map-first workspace in the live application.

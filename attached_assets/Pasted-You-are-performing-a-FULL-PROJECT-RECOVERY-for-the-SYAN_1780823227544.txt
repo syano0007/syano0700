@@ -1,0 +1,336 @@
+You are performing a FULL PROJECT RECOVERY for the SYANO marketplace after migration to a new Replit workspace.
+
+IMPORTANT:
+Do NOT assume anything.
+Do NOT skip verification.
+Do NOT say something is fixed unless you have actually verified it.
+Do NOT move to the next phase until the current phase is completely finished and validated.
+
+For every phase:
+1. Audit.
+2. Find root cause.
+3. Fix.
+4. Verify.
+5. Only then continue.
+
+Always work from the existing source code.
+Never replace working systems with simplified versions.
+Preserve all existing architecture, features, animations, optimizations, i18n, and database structures.
+
+==================================================
+PHASE 1 — ENVIRONMENT RECOVERY
+==================================================
+
+Audit and restore:
+
+• pnpm dependencies
+• node_modules
+• workspace packages
+• generated API client
+• build artifacts
+• workflows
+
+Verify:
+
+✅ API Server starts
+✅ Marketplace starts
+✅ Mobile (Expo) starts
+✅ No missing package errors
+✅ No import errors
+
+Do not continue until all services run.
+
+==================================================
+PHASE 2 — ENVIRONMENT VARIABLES
+==================================================
+
+Verify existence of ALL required secrets:
+
+DATABASE_URL
+SESSION_SECRET
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_EMAIL
+SITE_URL
+CORS_ORIGIN
+VITE_SUPPORT_PHONE
+REPLIT_DEV_DOMAIN
+REPLIT_DOMAINS
+REPL_ID
+
+Report missing ones.
+
+Do NOT create fake placeholders unless absolutely required for booting.
+
+==================================================
+PHASE 3 — DATABASE RECOVERY
+==================================================
+
+Audit database.
+
+If empty:
+
+• locate drizzle schema
+• locate migrations
+• locate drizzle config
+• restore entire schema
+
+Verify every table exists.
+
+Expected tables include (minimum):
+
+users
+products
+categories
+product_variants
+product_variant_groups
+product_variant_options
+product_variant_values
+variant_images
+orders
+order_items
+order_status_history
+cart_items
+seller_applications
+notifications
+conversations
+messages
+platform_settings
+reviews
+seller_reviews
+store_follows
+push_subscriptions
+admin_audit_log
+verification_audit_log
+
+Verify table count.
+
+==================================================
+PHASE 4 — ADMIN ACCOUNT RECOVERY
+==================================================
+
+Canonical administrator:
+
+Email:
+delewatiamer7@gmail.com
+
+Password:
+00Amer00
+
+Requirements:
+
+role = admin
+status = active
+email_verified = true
+
+Remove old placeholder admins if they exist:
+
+admin@marketplace.com
+admin@syano.online
+
+Ensure EXACTLY ONE admin account exists.
+
+Update/fix seed-admin.ts so future fresh databases always recreate this exact account automatically.
+
+Verify:
+
+Correct login -> JWT issued.
+Wrong password -> INVALID_PASSWORD.
+Old admin emails -> USER_NOT_FOUND.
+
+==================================================
+PHASE 5 — AUTHENTICATION SYSTEM
+==================================================
+
+Verify all previous fixes survived migration.
+
+Must work:
+
+• case-insensitive emails
+• USER_NOT_FOUND
+• INVALID_PASSWORD
+• ACCOUNT_SUSPENDED
+• JWT generation
+• seller/admin/customer login
+• OTP flows
+• forgot password flow
+
+Forgot password must still include:
+
+POST /auth/forgot-password
+POST /auth/verify-reset-otp
+POST /auth/reset-password
+
+Verify UI links still exist.
+
+==================================================
+PHASE 6 — PREVIOUS FEATURE PRESERVATION
+==================================================
+
+Confirm the following systems still exist exactly as before:
+
+• Guest Cart
+• Seller Dashboard
+• Admin Dashboard
+• Messaging
+• Notifications
+• Store Follow
+• Reviews
+• Seller Reviews
+• Product Variants
+• Variant Images
+• Variant Builder
+• Order History
+• Platform Settings
+• Suspension System
+• Google Translate protection
+• Mobile app support
+
+Do not rewrite them.
+Only restore if broken.
+
+==================================================
+PHASE 7 — PERFORMANCE OPTIMIZATIONS
+==================================================
+
+Verify ALL previously implemented optimizations still exist:
+
+Frontend:
+
+✅ Lazy routes
+✅ RoutePreloader
+✅ React.memo usage
+✅ Service Worker asset caching
+✅ Skeleton shimmer loaders
+✅ Page transitions
+✅ Motion system
+✅ Dialog animations
+✅ ProductCard hover effects
+✅ Navigation progress
+✅ content-visibility:auto
+✅ contain:layout/style
+✅ API cache seeding
+✅ Self-hosted Inter font
+✅ Font preload
+✅ Home eager import
+✅ i18n static loading
+✅ Context useMemo fixes
+✅ NotificationProvider optimization
+✅ GuestCart optimization
+✅ Navbar rerender fixes
+✅ RoutePreloader cache-key fix
+✅ Cloudinary/Unsplash preconnect
+
+Backend:
+
+✅ gzip compression
+✅ Cache-Control headers
+✅ stale-while-revalidate
+✅ ETags
+
+Do not duplicate existing work.
+Only restore missing pieces.
+
+==================================================
+PHASE 8 — MOBILE FIXES
+==================================================
+
+Verify previous mobile fixes survived:
+
+• horizontal scrolling
+• FlatList optimizations
+• timer cleanup
+• memory leak fixes
+• mobile forgot-password screen
+
+==================================================
+PHASE 9 — LOCALIZATION
+==================================================
+
+Verify:
+
+Arabic
+English
+RTL
+Pagination keys
+Forgot-password translations
+Notification translations
+Admin translations
+Seller translations
+
+Verify language switching still works.
+
+==================================================
+PHASE 10 — TYPE SAFETY
+==================================================
+
+Run complete TypeScript validation.
+
+Target:
+
+0 TypeScript errors.
+
+Fix any migration-related issues.
+
+Do not silence errors.
+Fix root causes.
+
+==================================================
+PHASE 11 — FUNCTIONAL TESTING
+==================================================
+
+Actually test:
+
+Admin login
+Seller login
+Customer login
+Forgot password
+JWT generation
+Products endpoint
+Best sellers endpoint
+Settings endpoint
+Notifications endpoint
+Admin dashboard
+Marketplace frontend
+Mobile app
+
+Verify they work.
+
+==================================================
+PHASE 12 — FINAL AUDIT
+==================================================
+
+Before declaring success:
+
+Confirm:
+
+✅ Dependencies restored
+✅ Workflows running
+✅ Database restored
+✅ Admin restored
+✅ Auth fixed
+✅ Previous optimizations preserved
+✅ Motion system preserved
+✅ Mobile fixes preserved
+✅ i18n preserved
+✅ TypeScript = 0 errors
+✅ Marketplace renders correctly
+✅ Mobile builds
+✅ API healthy
+
+Finally generate a COMPLETE RECOVERY REPORT showing:
+
+- What was missing.
+- What was restored.
+- What was already healthy.
+- Every verification performed.
+- Any remaining manual action (if absolutely unavoidable).
+
+CRITICAL RULES:
+
+- Never skip a phase.
+- Never assume success.
+- Never continue until current phase is verified.
+- Never replace existing systems with simpler implementations.
+- Preserve every feature and optimization already built.
+- Work like a senior production migration engineer performing a zero-regression recovery.

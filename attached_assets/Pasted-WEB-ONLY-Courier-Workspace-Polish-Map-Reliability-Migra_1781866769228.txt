@@ -1,0 +1,332 @@
+WEB ONLY — Courier Workspace Polish + Map Reliability + Migration Protection
+
+IMPORTANT:
+
+Apply these changes ONLY to the WEB courier experience.
+
+Targets:
+
+* /courier
+* /courier/profile
+* Web marketplace implementation
+
+DO NOT modify:
+
+* Expo mobile app
+* React Native screens
+* mobile/*
+* mobile navigation
+* mobile settings
+
+This task is WEB ONLY.
+
+---
+
+# CRITICAL PRE-WORK
+
+Before changing anything:
+
+1. Open the courier workspace page.
+2. Verify the map is actually rendering.
+3. Verify tiles are loading.
+4. Verify markers are loading.
+5. Verify Leaflet assets are loading.
+6. Verify browser console.
+7. Verify network requests.
+
+Do NOT assume the map works.
+
+Actually test it.
+
+---
+
+# CHANGE 0 — FIX MAP RELIABILITY
+
+Current issue:
+
+The courier map is not reliably visible.
+
+I need a real verification.
+
+## Requirements
+
+Verify:
+
+* Leaflet CSS loaded
+* Leaflet JS loaded
+* Tile provider responding
+* Map container height valid
+* z-index not hiding map
+* Markers visible
+* Polyline visible
+* No console errors
+
+If any issue exists:
+
+Fix it.
+
+Then verify again.
+
+---
+
+# CHANGE 1 — Fix Courier Label
+
+Current issue:
+
+The floating card contains:
+
+Courier
+
+or
+
+المندوب
+
+positioned above the call button.
+
+This looks broken.
+
+## Required
+
+Move the courier label into the card header.
+
+Example:
+
+🚚 المندوب
+
+GPS نشط
+
+[اتصال]
+
+or
+
+🚚 Courier
+
+GPS Active
+
+[Call]
+
+Requirements:
+
+* Use i18n.
+* No hardcoded text.
+* Preserve EN/AR.
+* Preserve RTL.
+* No overlap.
+
+---
+
+# CHANGE 2 — Preferences Section
+
+Target:
+
+/courier/profile
+
+Use the EXISTING profile page.
+
+Do NOT create:
+
+* new route
+* popup
+* modal
+* separate settings page
+
+Add section:
+
+━━━━━━━━━━━━
+
+التفضيلات
+
+المظهر
+
+اللغة
+
+العملة
+
+━━━━━━━━━━━━
+
+العودة للصفحة الرئيسية
+
+━━━━━━━━━━━━
+
+تسجيل الخروج
+
+---
+
+# CHANGE 3 — Theme
+
+Options:
+
+* System
+* Light
+* Dark
+
+Requirements:
+
+* Use existing theme system.
+* Persist selection.
+* Apply instantly.
+* No refresh.
+
+---
+
+# CHANGE 4 — Language
+
+Options:
+
+* العربية
+* English
+
+Requirements:
+
+* Use existing i18n.
+* Persist selection.
+* Apply instantly.
+* No reload.
+
+---
+
+# CHANGE 5 — Currency
+
+Options ONLY:
+
+* SYP
+* USD
+
+Requirements:
+
+* Persist selection.
+* Use existing currency system if available.
+* No extra currencies.
+
+---
+
+# CHANGE 6 — Home Button
+
+Add:
+
+🏠 العودة للصفحة الرئيسية
+
+Position:
+
+Directly above Logout.
+
+Behavior:
+
+Navigate to:
+
+/
+
+Requirements:
+
+* Preserve authentication.
+* Do not logout.
+* Use existing router.
+
+---
+
+# MAP VALIDATION (MANDATORY)
+
+After all changes:
+
+Open:
+
+/courier
+
+Verify visually:
+
+✅ Map visible
+
+✅ Tiles visible
+
+✅ Courier marker visible
+
+✅ Route visible
+
+✅ No blank gray area
+
+✅ No console errors
+
+✅ No network errors
+
+Take a screenshot for proof.
+
+---
+
+# MIGRATION PROTECTION (VERY IMPORTANT)
+
+We recently lost map functionality after migration.
+
+Prevent this forever.
+
+Update ALL project recovery files:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+* project.manifest.json 
+
+Document:
+
+## Web Mapping Dependencies
+
+This project requires:
+
+* leaflet
+* react-leaflet
+
+Map requirements:
+
+* Leaflet CSS must be imported.
+* Leaflet assets must be present.
+* Courier workspace depends on Leaflet.
+* Admin routing diagnostics depends on Leaflet.
+* Tracking pages depend on Leaflet.
+
+When importing/migrating the project:
+
+1. Verify leaflet package installed.
+2. Verify react-leaflet installed.
+3. Verify map renders visually.
+4. Verify markers render.
+5. Verify routes render.
+6. Verify no blank map.
+
+Migration is NOT complete until map verification succeeds.
+
+Add this permanently so future agents cannot forget it.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Courier label fixed
+
+✅ Preferences section visible
+
+✅ Theme works
+
+✅ Language works
+
+✅ Currency works
+
+✅ Home button works
+
+✅ Logout works
+
+✅ Courier map visually works
+
+✅ Leaflet dependencies documented
+
+✅ Recovery files updated
+
+✅ Screenshot captured
+
+✅ No mobile files modified
+
+✅ TypeScript = 0 new errors
+
+Only finish after all checks pass.

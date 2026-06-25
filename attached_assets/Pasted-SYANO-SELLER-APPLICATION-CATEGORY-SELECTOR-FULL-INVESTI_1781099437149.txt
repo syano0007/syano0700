@@ -1,0 +1,154 @@
+SYANO — SELLER APPLICATION CATEGORY SELECTOR
+FULL INVESTIGATION + UX FIX
+
+CRITICAL PROJECT CONTEXT
+
+This is a production marketplace.
+
+Do NOT assume code state.
+Do NOT implement a quick CSS patch before understanding the component architecture.
+Do NOT rewrite the seller application flow.
+Do NOT replace existing UI libraries.
+Do NOT introduce regressions.
+
+Preserve:
+
+* RTL support
+* Arabic support
+* English support
+* Mobile layouts
+* Desktop layouts
+* Existing design language
+* Existing validation logic
+* Existing category selection logic
+* Existing checkbox behavior
+* Existing form submission behavior
+
+CURRENT ISSUE
+
+On the Seller Application page:
+
+/seller/apply
+
+Store category names are truncated on mobile.
+
+Examples:
+
+* الإلكترون...
+* الموضة...
+* السيارات...
+* المستلزمات...
+
+The user cannot easily understand which category they are selecting.
+
+CURRENT REQUIREMENT
+
+Full category names must be visible.
+
+However:
+
+Do NOT stop at removing truncate.
+
+Investigate whether the current mobile category selector is the best UX for long Arabic category names.
+
+INVESTIGATION PHASE
+
+Before writing code:
+
+1. Read recovery documentation.
+2. Read memory/project documentation.
+3. Inspect Seller Application implementation.
+4. Inspect category selector implementation.
+5. Inspect mobile rendering.
+6. Inspect category card layout.
+7. Inspect grid layout.
+8. Inspect checkbox rendering.
+9. Inspect RTL behavior.
+
+Identify:
+
+* Exact element causing truncation.
+* Whether truncation is caused by CSS utilities.
+* Whether truncation is caused by container width.
+* Whether truncation is caused by grid sizing.
+* Whether truncation is caused by badge/card styling.
+* Whether category names are safe to wrap to multiple lines.
+* Whether the current component remains usable when names become longer.
+
+ROOT CAUSE OUTPUT
+
+Provide:
+
+1. Files inspected.
+2. Current implementation architecture.
+3. Exact root cause.
+4. Why truncation occurs.
+5. Risks of a naive fix.
+
+UX REVIEW
+
+Evaluate whether the current mobile category selection experience is optimal.
+
+If a better solution exists WITHOUT changing the overall design language, propose it.
+
+Examples:
+
+* Better card sizing.
+* Better wrapping behavior.
+* Better spacing.
+* Better mobile readability.
+
+Do NOT redesign the page.
+
+Do NOT replace the current component architecture.
+
+IMPLEMENTATION PHASE
+
+Implement the smallest safe improvement that achieves ALL of the following:
+
+1. Full category names visible.
+2. No clipped text.
+3. No horizontal scrolling.
+4. No broken RTL alignment.
+5. No overlapping text.
+6. No checkbox misalignment.
+7. Mobile remains easy to use.
+8. Desktop remains unchanged or improved.
+9. Existing styling remains consistent with SYANO.
+
+VALIDATION PHASE
+
+Test with long Arabic category names.
+
+Examples:
+
+* الإلكترونيات والأجهزة الذكية
+* مستلزمات المنزل والمطبخ
+* المعدات الصناعية والورش
+* مستلزمات الأطفال والرضع
+
+Verify:
+
+* Mobile portrait
+* Mobile narrow width
+* Tablet width
+* Desktop width
+
+FINAL OUTPUT
+
+Provide:
+
+1. Root cause.
+2. Files changed.
+3. Exact classes changed.
+4. Before vs after behavior.
+5. UX improvements made.
+6. Validation results.
+7. Confirmation that no existing functionality was modified.
+
+Do not guess.
+
+Inspect first.
+Understand second.
+Improve third.
+Validate fourth.

@@ -1,0 +1,139 @@
+STOP.
+
+Do not implement Homepage V4 yet.
+
+Do not connect APIs.
+
+Do not modify backend logic.
+
+Do not update routes.
+
+Do not touch existing homepage architecture yet.
+
+--------------------------------------------------
+PHASE 1 ONLY
+VISUAL PROTOTYPE APPROVAL
+--------------------------------------------------
+
+I want a visual prototype first.
+
+Build a static frontend-only Homepage V4 prototype based on the attached reference image.
+
+The goal is design validation.
+
+The goal is NOT functionality.
+
+Use mock data only.
+
+Use placeholder products only.
+
+Use placeholder categories only.
+
+Do not connect any real data.
+
+Do not modify database code.
+
+Do not modify API endpoints.
+
+Do not modify business logic.
+
+--------------------------------------------------
+DELIVERABLE
+--------------------------------------------------
+
+Create a fully styled homepage prototype that matches the attached reference as closely as possible.
+
+I want to review:
+
+- layout
+- spacing
+- proportions
+- hierarchy
+- typography
+- visual density
+- mobile behavior
+- desktop behavior
+
+before any real implementation begins.
+
+--------------------------------------------------
+REQUIRED SECTIONS
+--------------------------------------------------
+
+1. Header
+2. Hero + Product Mosaic
+3. Popular Categories
+4. Today's Deals
+5. Best Sellers
+6. Verified Stores
+7. New Arrivals
+8. Explore Categories
+9. Seller + Courier CTA Band
+10. Footer
+
+--------------------------------------------------
+IMPORTANT
+--------------------------------------------------
+
+Use static mock content.
+
+Hardcode everything temporarily.
+
+The objective is visual approval only.
+
+--------------------------------------------------
+SCREENSHOTS REQUIRED
+--------------------------------------------------
+
+After the prototype is complete:
+
+Provide screenshots of:
+
+1. Desktop homepage
+2. Tablet homepage
+3. Mobile homepage
+
+Show the entire first screen.
+
+Show section spacing.
+
+Show responsive behavior.
+
+--------------------------------------------------
+DO NOT CONTINUE
+--------------------------------------------------
+
+After screenshots are generated:
+
+STOP.
+
+Wait for approval.
+
+Do NOT proceed to real implementation.
+
+Do NOT connect APIs.
+
+Do NOT update backend.
+
+Do NOT update documentation.
+
+Do NOT refactor existing systems.
+
+Wait for design approval first.
+
+--------------------------------------------------
+PHASE 2
+--------------------------------------------------
+
+Only after approval:
+
+- replace mock data with real data
+- connect APIs
+- integrate homepage systems
+- update documentation
+- update recovery files
+- update endpoint documentation
+
+For now:
+
+Build the visual prototype only and wait for approval.

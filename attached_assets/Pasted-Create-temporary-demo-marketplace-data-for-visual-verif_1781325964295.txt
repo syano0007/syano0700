@@ -1,0 +1,155 @@
+Create temporary demo marketplace data for visual verification only.
+
+Do NOT build new features.
+Do NOT modify business logic.
+Do NOT redesign the homepage.
+
+==================================================
+PART 1 — HERO BANNERS
+=====================
+
+Populate the hero_banners table with 3 active demo banners.
+
+Banner 1:
+
+* General marketplace campaign
+* CTA: تسوق الآن
+
+Banner 2:
+
+* Electronics campaign
+* CTA: استكشف الإلكترونيات
+
+Banner 3:
+
+* Fashion campaign
+* CTA: اكتشف الموضة
+
+Requirements:
+
+* Existing Hero Banner system only
+* Existing autoplay
+* Existing analytics
+* Existing tracking
+* Existing RTL support
+* Existing mobile support
+
+==================================================
+PART 2 — DEMO MARKETPLACE CONTENT
+=================================
+
+Create enough demo content to visually populate the homepage.
+
+Add:
+
+* Categories
+* Products
+* Featured products
+* Best sellers
+* Featured stores
+* New arrivals
+* Deals
+
+The objective is to make every homepage section look populated so we can evaluate the design and UX.
+
+==================================================
+CONTENT RULES
+=============
+
+Use realistic Syrian marketplace content.
+
+Examples:
+
+Electronics
+Fashion
+Home & Living
+Beauty
+Accessories
+Sports
+Kids
+Books
+
+Products should include:
+
+* image
+* title
+* price
+* category
+
+Stores should include:
+
+* store name
+* logo
+* cover image
+* rating
+
+==================================================
+IMPORTANT
+=========
+
+This data is for visual testing only.
+
+Mark all created content clearly as:
+
+TEST DATA
+
+or
+
+DEMO DATA
+
+so it can be removed later.
+
+Do NOT create fake company history.
+Do NOT create fake statistics.
+Do NOT create fake growth metrics.
+
+==================================================
+VERIFICATION
+============
+
+After seeding:
+
+Provide:
+
+1. Product count
+2. Category count
+3. Store count
+4. Active banner count
+
+Verify:
+
+* Homepage sections populated
+* Hero autoplay works
+* Banner transitions work
+* Mobile rendering
+* Tablet rendering
+* Desktop rendering
+* RTL rendering
+
+==================================================
+DELIVERABLES
+============
+
+Provide:
+
+* Desktop homepage screenshot
+* Tablet homepage screenshot
+* Mobile homepage screenshot
+* Hero Banner screenshot
+* Homepage visual audit
+
+This is a temporary visual verification environment only.
+
+Do not build admin features yet.
+Do not modify recovery files for demo content.
+
+```
+
+هيك سترى الصفحة الرئيسية بشكل قريب من الواقع، وتستطيع تقييم:
+- هل الـ Hero ناجح؟
+- هل أحجام الكروت مناسبة؟
+- هل ترتيب الأقسام صحيح؟
+- هل الـ UX فعلاً Premium؟
+
+قبل أن تبدأ أي تطوير جديد.
+```

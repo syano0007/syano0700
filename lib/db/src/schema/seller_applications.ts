@@ -1,0 +1,52 @@
+import { pgTable, serial, integer, text, timestamp, index } from "drizzle-orm/pg-core";
+import { usersTable } from "./users";
+
+export const sellerApplicationsTable = pgTable("seller_applications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => usersTable.id, { onDelete: "cascade" }),
+  storeName: text("store_name").notNull(),
+  storeNameAr: text("store_name_ar"),
+  phone: text("phone").notNull(),
+  contactPhone: text("contact_phone"),
+  contactEmail: text("contact_email"),
+  city: text("city").notNull(),
+  address: text("address"),
+  category: text("category").notNull(),
+  categories: text("categories").array(),
+  description: text("description").notNull(),
+  descriptionAr: text("description_ar"),
+  socialLinks: text("social_links"),
+  website: text("website"),
+  accentColor: text("accent_color"),
+  businessInfo: text("business_info"),
+  idImageUrl: text("id_image_url"),
+  storeLogo: text("store_logo"),
+  storeBanner: text("store_banner"),
+  storeSlug: text("store_slug"),
+  shippingPolicy: text("shipping_policy"),
+  returnPolicy: text("return_policy"),
+  warrantyPolicy: text("warranty_policy"),
+  privacyPolicy: text("privacy_policy"),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  seoImageUrl: text("seo_image_url"),
+  whatsapp: text("whatsapp"),
+  telegram: text("telegram"),
+  facebook: text("facebook"),
+  instagram: text("instagram"),
+  status: text("status").notNull().default("pending"),
+  adminNotes: text("admin_notes"),
+  rejectionReason: text("rejection_reason"),
+  reviewedAt: timestamp("reviewed_at"),
+  reviewedById: integer("reviewed_by_id"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (t) => [
+  index("idx_seller_apps_user_id").on(t.userId),
+  index("idx_seller_apps_status").on(t.status),
+  index("idx_seller_apps_store_slug").on(t.storeSlug),
+  index("idx_seller_apps_created_at").on(t.createdAt),
+]);
+
+export type SellerApplication = typeof sellerApplicationsTable.$inferSelect;
+export type InsertSellerApplication = typeof sellerApplicationsTable.$inferInsert;

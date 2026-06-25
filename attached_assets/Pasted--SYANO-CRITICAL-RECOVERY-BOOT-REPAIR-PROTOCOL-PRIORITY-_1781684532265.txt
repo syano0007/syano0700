@@ -1,0 +1,569 @@
+# SYANO — CRITICAL RECOVERY & BOOT REPAIR PROTOCOL
+
+## PRIORITY
+
+The project has been moved to a new environment.
+
+The website and/or mobile application are not fully operational.
+
+Your mission is NOT feature development.
+
+Your mission is:
+
+```text
+Recover
+Repair
+Boot
+Verify
+Document
+```
+
+The entire system.
+
+---
+
+# DO NOT
+
+❌ Build new features
+
+❌ Add screens
+
+❌ Refactor architecture
+
+❌ Change business logic
+
+❌ Start parity work
+
+❌ Modify UI design
+
+Until the entire platform is healthy.
+
+---
+
+# GOAL
+
+Reach:
+
+```text
+API Server        ✅ Running
+
+Marketplace       ✅ Running
+
+Mobile App        ✅ Running
+
+Embedding Service ✅ Running
+
+Database          ✅ Healthy
+
+Authentication    ✅ Working
+
+Search            ✅ Working
+```
+
+Only then stop.
+
+---
+
+# STEP 1 — READ ALL RECOVERY FILES
+
+Read completely:
+
+```text
+replit.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+MOBILE_PARITY_AUDIT.md
+
+MOBILE_PARITY_MATRIX.md
+
+MOBILE_PARITY_GAP_REPORT.md
+```
+
+Read every line.
+
+Do not skip.
+
+---
+
+# STEP 2 — VERIFY PROJECT STRUCTURE
+
+Verify:
+
+```text
+api-server
+
+marketplace
+
+mobile app
+
+shared libs
+
+database schema
+
+migrations
+
+embedding service
+```
+
+Find anything missing.
+
+Report it.
+
+Fix it.
+
+---
+
+# STEP 3 — INSTALL & BUILD
+
+Verify:
+
+```text
+pnpm install
+```
+
+completed successfully.
+
+Verify:
+
+```text
+lib/db
+
+lib/api-zod
+
+lib/api-client-react
+```
+
+build successfully.
+
+Fix all build blockers.
+
+---
+
+# STEP 4 — DATABASE RECOVERY
+
+Verify:
+
+```text
+DATABASE_URL
+```
+
+exists.
+
+---
+
+Verify:
+
+```text
+schema.sql
+```
+
+creates ALL required tables.
+
+---
+
+Compare:
+
+```text
+schema.sql
+
+Drizzle schema
+
+run-migrations.ts
+```
+
+---
+
+If any table exists in code but NOT in schema.sql:
+
+Fix schema.sql.
+
+Critical example:
+
+```text
+delivery_missions
+```
+
+must exist permanently.
+
+No manual workaround.
+
+No temporary fixes.
+
+Fix root cause.
+
+---
+
+Verify:
+
+```text
+37+ tables
+```
+
+exist after clean recovery.
+
+---
+
+# STEP 5 — RUN MIGRATIONS
+
+Run:
+
+```text
+run-migrations.ts
+```
+
+Verify:
+
+```text
+0 failures
+```
+
+---
+
+Fix:
+
+```text
+missing tables
+
+missing enums
+
+missing indexes
+
+missing columns
+```
+
+until migrations finish cleanly.
+
+---
+
+# STEP 6 — API SERVER RECOVERY
+
+Start API Server.
+
+Verify:
+
+```text
+GET /api/healthz
+```
+
+returns:
+
+```json
+{"status":"ok"}
+```
+
+---
+
+Fix:
+
+```text
+startup crashes
+
+port conflicts
+
+missing env vars
+
+migration failures
+
+schema failures
+```
+
+---
+
+API Server must stay running.
+
+---
+
+# STEP 7 — EMBEDDING SERVICE
+
+Verify:
+
+```text
+Embedding Service running
+```
+
+---
+
+Verify model loads.
+
+---
+
+Verify:
+
+```text
+embeddings generated
+```
+
+---
+
+Current target:
+
+```text
+42 / 42 products embedded
+```
+
+or equivalent current count.
+
+---
+
+No:
+
+```text
+0 embeddings
+```
+
+allowed.
+
+---
+
+Fix service.
+
+Backfill embeddings.
+
+Verify completion.
+
+---
+
+# STEP 8 — AUTHENTICATION
+
+Verify:
+
+```text
+Register
+
+Login
+
+Logout
+
+Refresh Session
+
+Auth Me
+```
+
+---
+
+Test REAL requests.
+
+Do not assume.
+
+---
+
+Verify:
+
+```text
+customer
+
+seller
+
+courier
+
+admin
+```
+
+can authenticate.
+
+---
+
+# STEP 9 — MARKETPLACE
+
+Verify:
+
+```text
+Homepage
+
+Shop
+
+Product Page
+
+Store Page
+
+Cart
+
+Checkout
+
+Orders
+```
+
+load correctly.
+
+---
+
+Fix:
+
+```text
+API URL bugs
+
+missing /api prefixes
+
+broken fetches
+
+routing issues
+```
+
+---
+
+# STEP 10 — MOBILE APP
+
+Start Expo.
+
+Verify:
+
+```text
+App boots
+```
+
+---
+
+Verify:
+
+```text
+Login
+
+Register
+
+Home
+
+Products
+
+Stores
+
+Profile
+```
+
+open.
+
+---
+
+Fix:
+
+```text
+routing
+
+API URLs
+
+authentication
+
+crashes
+
+broken hooks
+```
+
+---
+
+Do not stop at compile success.
+
+Verify runtime.
+
+---
+
+# STEP 11 — TYPESCRIPT
+
+Run checks:
+
+```text
+API Server
+
+Marketplace
+
+Mobile
+
+Shared Libs
+```
+
+---
+
+Target:
+
+```text
+0 new errors
+```
+
+---
+
+Fix every recovery-related issue.
+
+---
+
+# STEP 12 — FINAL VERIFICATION
+
+Verify:
+
+```text
+API Server      ✅
+
+Marketplace     ✅
+
+Mobile App      ✅
+
+Embedding       ✅
+
+Database        ✅
+
+Authentication  ✅
+
+Search          ✅
+```
+
+---
+
+# STEP 13 — UPDATE RECOVERY FILES
+
+After ALL fixes:
+
+Update:
+
+```text
+replit.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+```
+
+---
+
+Document:
+
+```text
+What was broken
+
+Root cause
+
+Fix applied
+
+Final status
+```
+
+---
+
+# FINAL RULE
+
+Do NOT stop when you find a problem.
+
+Do NOT stop after reporting.
+
+Do NOT stop after partial fixes.
+
+Continue automatically until:
+
+```text
+Everything boots
+
+Everything runs
+
+Everything verified
+```
+
+Then generate:
+
+```text
+BOOT_RECOVERY_REPORT.md
+```
+
+with complete certification.

@@ -1,0 +1,215 @@
+CRITICAL UI CLEANUP & PERFORMANCE OPTIMIZATION
+
+This task contains UI cleanup fixes and a full performance optimization audit.
+
+Implement all requirements exactly as specified.
+
+══════════════════════════════════════
+
+1. REMOVE CATEGORY SELECTOR FROM DESKTOP HOMEPAGE
+   ══════════════════════════════════════
+
+On the homepage desktop search bar there is a category selector/dropdown next to the search field.
+
+This selector currently provides no meaningful value.
+
+Requirements:
+
+* Remove the category selector from the desktop homepage search area.
+* Keep the search input fully functional.
+* Keep search suggestions/autocomplete fully functional.
+* Preserve layout balance after removal.
+* Do not affect mobile search.
+* Do not affect search functionality.
+
+After removal the search area should look cleaner and more modern.
+
+══════════════════════════════════════
+2. SELLER INVENTORY DISCOUNT INPUT FIX
+══════════════════════════════════════
+
+On the Seller Inventory / Product Management page there is a problem with the discount field.
+
+Current issue:
+
+An extra "%" symbol is displayed.
+
+Requirements:
+
+* Audit the discount input component.
+* Remove duplicate percentage symbols.
+* Ensure only one percentage indicator exists.
+* Verify correct behavior in Arabic and English.
+* Verify correct behavior on desktop and mobile.
+* Verify correct behavior when editing existing products.
+
+══════════════════════════════════════
+3. FULL PERFORMANCE OPTIMIZATION AUDIT
+══════════════════════════════════════
+
+The website feels slower than expected.
+
+Observed issues:
+
+* Homepage takes too long to load.
+* Some pages take noticeable time to open.
+* Mobile performance is weaker than desired.
+* Navigation is not as smooth as it should be.
+
+Goal:
+
+Make the marketplace feel significantly faster and smoother.
+
+══════════════════════════════════════
+PERFORMANCE INVESTIGATION
+══════════════════════════════════════
+
+Perform a complete performance audit.
+
+Analyze:
+
+* Initial page load
+* Route transitions
+* API requests
+* Database queries
+* React rendering
+* React re-renders
+* Images
+* Product cards
+* Search requests
+* Seller dashboard
+* Home page sections
+* Lazy loading implementation
+* Bundle sizes
+* Vendor chunks
+* Caching strategy
+
+Do not guess.
+
+Identify actual bottlenecks.
+
+══════════════════════════════════════
+FRONTEND OPTIMIZATION
+══════════════════════════════════════
+
+Audit and optimize:
+
+* React rendering
+* Component re-renders
+* Expensive computations
+* Context providers
+* State updates
+* Product grids
+* Search components
+* Image loading
+
+Implement where appropriate:
+
+* React.memo
+* useMemo
+* useCallback
+* Route-based code splitting
+* Lazy loading
+* Suspense
+* Virtualization where beneficial
+
+══════════════════════════════════════
+IMAGE OPTIMIZATION
+══════════════════════════════════════
+
+Audit all images.
+
+Verify:
+
+* Proper dimensions
+* Lazy loading
+* Responsive loading
+* Compression
+* No oversized assets
+
+Prioritize mobile performance.
+
+══════════════════════════════════════
+API & DATABASE OPTIMIZATION
+══════════════════════════════════════
+
+Audit:
+
+* Product queries
+* Search queries
+* Homepage queries
+* Store queries
+* Order queries
+
+Check for:
+
+* N+1 queries
+* Duplicate requests
+* Unnecessary requests
+* Missing indexes
+* Slow queries
+
+Optimize where necessary.
+
+══════════════════════════════════════
+MOBILE PERFORMANCE PRIORITY
+══════════════════════════════════════
+
+Mobile performance is the highest priority.
+
+Test:
+
+* Homepage loading
+* Product page loading
+* Search loading
+* Cart loading
+* Checkout loading
+* Seller dashboard loading
+
+Ensure smooth scrolling and navigation.
+
+══════════════════════════════════════
+REGRESSION TESTING
+══════════════════════════════════════
+
+Verify optimizations do NOT break:
+
+* Arabic
+* English
+* Desktop
+* Mobile
+* Dark mode
+* Light mode
+* Search
+* Seller dashboard
+* Authentication
+
+══════════════════════════════════════
+MEASURE RESULTS
+══════════════════════════════════════
+
+Before and after comparison required.
+
+Provide:
+
+* Bundle size before
+* Bundle size after
+* Homepage load time before
+* Homepage load time after
+* Largest performance bottlenecks found
+* Improvements implemented
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Files modified.
+2. Desktop category selector removal.
+3. Discount field fix.
+4. Performance bottlenecks discovered.
+5. Optimizations applied.
+6. Mobile improvements.
+7. Load-time comparison.
+8. Confirmation that the marketplace is now significantly faster and smoother.

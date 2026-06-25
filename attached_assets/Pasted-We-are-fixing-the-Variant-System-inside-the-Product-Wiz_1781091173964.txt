@@ -1,0 +1,338 @@
+We are fixing the Variant System inside the Product Wizard.
+
+IMPORTANT:
+
+Do NOT redesign unrelated pages.
+Do NOT touch pricing.
+Do NOT touch publishing.
+Do NOT touch specifications.
+Do NOT touch seller dashboard.
+
+Focus ONLY on the Variants step.
+
+CURRENT PROBLEMS
+
+The Variants page is currently broken.
+
+Observed issues:
+
+1. Variant layout is not usable on mobile.
+2. Variant layout is not usable on desktop.
+3. Creating variant groups feels confusing.
+4. Variant values are difficult to manage.
+5. Combination generation is unclear.
+6. Variant images are difficult to understand.
+7. Pricing and stock editing are not intuitive.
+8. The page feels unstable and unfinished.
+9. It does not feel like Shopify, Amazon, Trendyol, Noon, or modern marketplaces.
+10. Sellers should never feel confused while creating variants.
+
+GOAL
+
+Rebuild ONLY the Variants step into a production-grade experience.
+
+Do NOT remove any existing functionality.
+
+Preserve:
+
+* existing APIs
+* existing database schema
+* existing VariantBuilder logic
+* existing variant generation logic
+* existing inventory logic
+
+Improve the UX and structure only.
+
+---
+
+## PHASE 1 — FULL AUDIT
+
+Before changing anything:
+
+Analyze:
+
+* ProductWizard.tsx
+* VariantBuilder.tsx
+* variant APIs
+* variant database tables
+* variant generation logic
+
+Document:
+
+* current workflow
+* current problems
+* mobile issues
+* desktop issues
+* usability issues
+
+Do not start rebuilding until the audit is complete.
+
+---
+
+## PHASE 2 — VARIANT GROUP CREATION
+
+The first screen should be:
+
+Variant Groups
+
+Examples:
+
+Color
+Size
+Storage
+RAM
+Material
+Capacity
+Length
+Weight
+Edition
+
+Allow custom groups.
+
+Layout:
+
+Card style.
+
+Example:
+
+Color
+
+[ Red ]
+[ Blue ]
+[ Black ]
+[ + Add Value ]
+
+---
+
+Size
+
+[ S ]
+[ M ]
+[ L ]
+[ XL ]
+[ + Add Value ]
+
+---
+
+* Add Variant Group
+
+Requirements:
+
+* full width
+* touch friendly
+* mobile optimized
+* beautiful chips
+* rounded-xl
+* proper spacing
+* RTL support
+
+Must feel premium.
+
+---
+
+## PHASE 3 — COMBINATION GENERATION
+
+After groups exist:
+
+Generate combinations automatically.
+
+Example:
+
+Color:
+Red
+Blue
+
+Size:
+S
+M
+
+Generate:
+
+Red / S
+Red / M
+Blue / S
+Blue / M
+
+Display as cards.
+
+NOT tables.
+
+Each combination card:
+
+---
+
+Red / S
+
+SKU
+Price
+Sale Price
+Stock
+
+Image
+
+Enabled Toggle
+
+---
+
+Requirements:
+
+* mobile friendly
+* desktop friendly
+* easy to scan
+* no horizontal scrolling
+
+---
+
+## PHASE 4 — MOBILE EXPERIENCE
+
+Mobile is highest priority.
+
+Requirements:
+
+* no overflow
+* no horizontal scroll
+* no clipped inputs
+* no tiny buttons
+* minimum 48px touch targets
+* spacing similar to Shopify mobile
+
+Everything must fit naturally on:
+
+390px width
+412px width
+
+---
+
+## PHASE 5 — DESKTOP EXPERIENCE
+
+Desktop should use available space.
+
+Current wizard feels too narrow.
+
+Variant step should use:
+
+max-w-6xl
+
+or equivalent.
+
+Do NOT trap content inside a narrow column.
+
+Use responsive grids.
+
+---
+
+## PHASE 6 — VARIANT IMAGES
+
+Each combination should support images.
+
+Display:
+
+thumbnail preview
+
+upload button
+
+remove button
+
+directly inside the combination card.
+
+No hidden workflows.
+
+---
+
+## PHASE 7 — BULK ACTIONS
+
+Add:
+
+Apply price to all
+
+Apply stock to all
+
+Apply sale price to all
+
+Apply SKU prefix to all
+
+Requirements:
+
+One click.
+
+No repetitive editing.
+
+---
+
+## PHASE 8 — VALIDATION
+
+Verify:
+
+Single group
+
+Multiple groups
+
+10+ combinations
+
+50+ combinations
+
+No variants
+
+Variants with images
+
+Variants with stock
+
+Variants with sale prices
+
+Everything must work.
+
+---
+
+## PHASE 9 — REGRESSION TEST
+
+Verify:
+
+Product creation still works
+
+Product editing still works
+
+Variant products still work
+
+Non-variant products still work
+
+Cart still works
+
+Orders still work
+
+Inventory still works
+
+Mobile still works
+
+RTL still works
+
+English still works
+
+TypeScript finishes with 0 new errors
+
+---
+
+## PHASE 10 — REPORT
+
+Provide:
+
+1. Problems found
+2. Root causes
+3. Files modified
+4. Improvements made
+5. Mobile screenshots
+6. Desktop screenshots
+7. Validation results
+
+IMPORTANT
+
+Do not stop after making visual changes.
+
+Verify the entire variant workflow from creation to publish.
+
+The final experience should feel comparable to Shopify, Amazon, Trendyol, and Noon.
+
+After implementation:
+
+Update ALL recovery files, memory files, restoration files, checkpoint files, and project recovery documentation.
+
+Make this the new official recovery baseline for the project.

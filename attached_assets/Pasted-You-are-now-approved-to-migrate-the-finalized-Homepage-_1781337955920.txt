@@ -1,0 +1,306 @@
+You are now approved to migrate the finalized Homepage Redesign mockup into the real SYANO production homepage.
+
+IMPORTANT:
+This is NOT a redesign phase anymore.
+This is a production implementation phase.
+
+The current Canvas/Mockup version is the source of truth.
+
+Your task is to reproduce it in the live marketplace with maximum visual fidelity.
+
+---
+
+GOAL
+
+Replace the current homepage implementation with the finalized premium marketplace homepage.
+
+Target quality:
+
+* Noon
+* Trendyol
+* Amazon
+* Modern premium marketplaces
+
+The final result must feel:
+
+* Premium
+* Fast
+* Clean
+* Spacious
+* High-end
+* Trustworthy
+
+NOT crowded.
+NOT dashboard-like.
+NOT template-looking.
+
+---
+
+CRITICAL RULES
+
+* Preserve RTL perfectly.
+* Preserve Arabic and English.
+* Preserve SEO.
+* Preserve existing routing.
+* Preserve analytics.
+* Preserve impression tracking.
+* Preserve click tracking.
+* Preserve performance.
+* Preserve accessibility.
+* Preserve mobile responsiveness.
+* Preserve existing APIs.
+* No TypeScript errors.
+* No CLS (layout shift).
+* No broken pages.
+
+---
+
+IMPLEMENTATION REQUIREMENTS
+
+Apply EVERYTHING from the approved mockup:
+
+### HERO
+
+* Same structure
+* Same spacing
+* Same typography
+* Same hierarchy
+* Same gradients
+* Same image treatment
+* Same floating cards
+* Same badge positions
+* Same statistics row
+
+---
+
+### HERO ANIMATION
+
+Premium quality only.
+
+Use:
+
+* layered parallax
+* smooth fade transitions
+* subtle depth movement
+* premium easing curves
+
+Target:
+
+Apple / Linear / Stripe quality.
+
+No generic fade-up effects.
+
+---
+
+### NAVBAR
+
+Keep sticky.
+
+Requirements:
+
+* visible while scrolling
+* blur backdrop
+* premium shadow
+* smooth state transition
+
+No jitter.
+
+---
+
+### CATEGORIES
+
+Implement exactly as approved:
+
+* same card size
+* same spacing
+* same overlays
+* same typography
+
+No oversized cards.
+
+---
+
+### FEATURED DEALS
+
+Implement exact approved structure:
+
+* badge positions
+* card proportions
+* ratings
+* pricing
+* CTA placement
+
+Maintain visual hierarchy exactly.
+
+---
+
+### TRUSTED STORES
+
+Implement:
+
+* banner
+* avatar
+* verified badge
+* rating
+* CTA
+
+Exactly like approved mockup.
+
+---
+
+### TRENDING PRODUCTS
+
+Match approved version exactly.
+
+Especially:
+
+* badges
+* heart icon placement
+* ratings
+* pricing
+* CTA
+
+---
+
+### NEW ARRIVALS
+
+Maintain:
+
+* asymmetric layout
+* large card
+* small cards
+
+Exactly like mockup.
+
+---
+
+### FOOTER
+
+Implement approved premium footer.
+
+Maintain:
+
+* 4-column structure
+* newsletter block
+* payment methods
+* social icons
+
+---
+
+### SPACING SYSTEM
+
+Create ONE unified spacing system.
+
+Every section must align to the same container width.
+
+No section should feel wider or narrower than another.
+
+Use shared constants/tokens.
+
+---
+
+### TYPOGRAPHY SYSTEM
+
+Create one source of truth.
+
+No inconsistent title sizes.
+
+No section should accidentally become larger or smaller.
+
+---
+
+### ANIMATIONS
+
+Implement:
+
+* reveal animations
+* stagger animations
+* hover interactions
+* CTA micro interactions
+
+Requirements:
+
+* smooth
+* elegant
+* slower premium timing
+* GPU accelerated
+
+Avoid:
+
+* excessive movement
+* flashy effects
+* distracting animations
+
+---
+
+### PERFORMANCE
+
+Keep:
+
+* 60 FPS
+* transform + opacity animations
+* will-change where appropriate
+
+Avoid:
+
+* heavy JS animation loops
+* unnecessary rerenders
+
+---
+
+### QA BEFORE FINISHING
+
+Verify:
+
+✅ Desktop
+
+✅ Tablet
+
+✅ Mobile
+
+✅ RTL
+
+✅ Arabic
+
+✅ English
+
+✅ Sticky navbar
+
+✅ Hero animations
+
+✅ Category cards
+
+✅ Deal cards
+
+✅ Store cards
+
+✅ Trending section
+
+✅ New arrivals
+
+✅ Footer
+
+✅ Tracking
+
+✅ Analytics
+
+✅ No layout shift
+
+✅ No console errors
+
+✅ No TypeScript errors
+
+---
+
+FINAL DELIVERABLE
+
+Provide:
+
+1. List of files changed.
+2. Before/after summary.
+3. Any compromises that were necessary.
+4. Remaining differences (if any).
+
+Target visual fidelity:
+
+99%+ match to the approved homepage mockup.

@@ -1,0 +1,316 @@
+CRITICAL ARCHITECTURE REFACTOR
+
+This is not a bug fix.
+
+This is a complete authentication and role architecture redesign.
+
+IMPORTANT:
+
+Before making ANY changes:
+
+* Analyze the entire authentication system.
+* Analyze user roles.
+* Analyze seller onboarding.
+* Analyze seller permissions.
+* Analyze registration flows.
+* Analyze login flows.
+* Analyze database schema.
+* Analyze route protection.
+* Analyze admin approval logic.
+
+DO NOT start coding immediately.
+
+Create a migration plan first.
+
+Preserve all existing data.
+
+Do not break existing users.
+
+══════════════════════════════════════
+NEW BUSINESS MODEL
+══════════════════════════════════════
+
+The marketplace must use a SINGLE ACCOUNT MODEL.
+
+There will no longer be:
+
+* Customer Account
+* Seller Account
+
+as separate account types.
+
+Instead:
+
+Every account starts as a Customer account.
+
+A seller is simply a Customer account that has been approved for selling privileges.
+
+══════════════════════════════════════
+NEW USER JOURNEY
+══════════════════════════════════════
+
+Registration:
+
+User
+↓
+Create Account
+↓
+Customer Account
+
+There must be only ONE registration flow.
+
+There must be only ONE login flow.
+
+There must be only ONE account type at registration.
+
+No seller registration.
+
+No seller login.
+
+No seller account creation.
+
+══════════════════════════════════════
+REMOVE SELLER AUTHENTICATION
+══════════════════════════════════════
+
+Remove:
+
+* Seller Registration page
+* Seller Login page
+* Seller Signup routes
+* Seller Authentication routes
+* Seller-specific account creation flows
+
+The platform must have:
+
+* Login
+* Register
+
+only.
+
+══════════════════════════════════════
+SELLER UPGRADE FLOW
+══════════════════════════════════════
+
+Customer Account
+↓
+Click "Open Your Store"
+↓
+Seller Application
+↓
+Submit Application
+↓
+Pending Review
+↓
+Admin Decision
+
+If Approved:
+↓
+Seller Privileges Enabled
+
+If Rejected:
+↓
+Remain Customer
+
+The user account itself never changes.
+
+Only permissions change.
+
+══════════════════════════════════════
+ROLE SYSTEM
+══════════════════════════════════════
+
+Implement roles similar to:
+
+CUSTOMER
+
+CUSTOMER_PENDING_SELLER_REVIEW
+
+SELLER
+
+ADMIN
+
+Do NOT create separate seller accounts.
+
+Use permissions.
+
+══════════════════════════════════════
+DATABASE REFACTOR
+══════════════════════════════════════
+
+Audit database completely.
+
+Ensure:
+
+Users table remains primary identity.
+
+Seller status should be stored as:
+
+sellerStatus
+
+Possible values:
+
+NONE
+
+PENDING
+
+APPROVED
+
+REJECTED
+
+or equivalent architecture.
+
+Seller profile information should be linked to user account.
+
+Do not create duplicate user identities.
+
+══════════════════════════════════════
+PERMISSIONS
+══════════════════════════════════════
+
+CUSTOMER:
+
+* Browse
+* Buy
+* Wishlist
+* Reviews
+
+Cannot:
+
+* Create products
+* Manage store
+
+══════════════════════════════════════
+
+PENDING SELLER:
+
+Same permissions as customer.
+
+Additional:
+
+* View application status
+
+Cannot:
+
+* Sell products
+* Access seller dashboard
+
+══════════════════════════════════════
+
+SELLER:
+
+Customer permissions +
+
+* Create products
+* Manage store
+* View seller dashboard
+* Process orders
+
+══════════════════════════════════════
+
+ADMIN:
+
+Full permissions.
+
+══════════════════════════════════════
+OPEN YOUR STORE BUTTON
+══════════════════════════════════════
+
+This becomes the only seller onboarding entry point.
+
+Behavior:
+
+If user is not logged in:
+→ Redirect to login.
+
+If logged in as customer:
+→ Open seller application.
+
+If application pending:
+→ Show application status.
+
+If approved seller:
+→ Open seller dashboard.
+
+══════════════════════════════════════
+ABANDONED APPLICATIONS
+══════════════════════════════════════
+
+If user starts application and leaves:
+
+* Account remains customer.
+* No permissions change.
+* No lockout.
+* User can return later.
+* User can continue application.
+* User can restart application if appropriate.
+
+══════════════════════════════════════
+MIGRATION SAFETY
+══════════════════════════════════════
+
+Before modifying database:
+
+* Audit all user records.
+* Audit all seller records.
+* Audit all foreign keys.
+* Audit all permissions.
+
+Do not lose any existing users.
+
+Do not lose any seller data.
+
+Create safe migrations.
+
+══════════════════════════════════════
+FULL REGRESSION TESTING
+══════════════════════════════════════
+
+Test:
+
+Customer registration
+
+Customer login
+
+Seller application
+
+Seller approval
+
+Seller rejection
+
+Seller dashboard access
+
+Product creation
+
+Admin approval flow
+
+Permissions
+
+Route protection
+
+Mobile
+
+Desktop
+
+Arabic
+
+English
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Current architecture discovered.
+2. New architecture implemented.
+3. Database changes.
+4. Role changes.
+5. Authentication changes.
+6. Migration changes.
+7. Files modified.
+8. Permissions validation.
+9. Regression tests performed.
+10. Confirmation that the platform now uses a single-account model where every seller is first a customer and gains seller privileges only after approval.
+
+Do not mark complete until the entire authentication and seller system has been migrated successfully.

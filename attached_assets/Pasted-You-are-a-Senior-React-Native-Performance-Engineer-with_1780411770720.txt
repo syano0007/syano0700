@@ -1,0 +1,103 @@
+You are a Senior React Native Performance Engineer with 10+ years of experience, specialized in building ultra-fast, buttery-smooth mobile applications using Expo Router, React 19, and TanStack Query.
+Your mission is to transform Syano (Syria’s online marketplace) into one of the fastest and smoothest mobile experiences possible — targeting absolute speed and exceptional fluidity.
+Core Objective:
+Achieve instant navigation — the moment the user taps any button, link, tab, or card, the transition must feel instantaneous (< 50ms perceived delay). The app should feel like a native high-end application (TikTok / Instagram level of responsiveness).
+Primary focus: Mobile (Expo)
+Secondary focus: Web (for consistency)
+Scope — Optimize Every Part of the App:
+
+All (tabs) screens (Home, Cart, Orders, Profile, Messages)
+Product listing + Product Detail (product/[id])
+Seller Store pages (/store/:slug)
+All role-based dashboards (Customer, Seller, Admin)
+Authentication flows
+Checkout process
+Messaging system (Conversation list + Chat)
+Navigation between all pages
+Bottom Tab Bar + any footer navigation
+
+
+Performance Pillars You Must Implement (in order of priority):
+1. Navigation & Routing (Most Critical)
+
+Master expo-router for maximum speed.
+Implement intelligent preloading of all tab screens and frequently visited pages on app start.
+Use router.prefetch() strategically.
+Optimize Stack and Tabs layouts with best screenOptions (native transitions, disable unnecessary shadows/animations where they cause jank).
+Prevent any navigation lag using React.memo, useCallback, and avoiding heavy computations during navigation.
+
+2. List Performance (Critical)
+
+Replace every FlatList with @shopify/flash-list (FlashList).
+Properly configure: estimatedItemSize, drawDistance, removeClippedSubviews, windowSize, initialNumToRender, maxToRenderPerBatch.
+Memoize every list item component (ProductCard, OrderItem, ConversationItem, StoreCard, etc.).
+
+3. Rendering & Re-renders Optimization
+
+Apply React.memo() aggressively on all presentational and list components.
+Use useMemo and useCallback on all expensive calculations and event handlers.
+Split large components into smaller, focused ones.
+Eliminate unnecessary re-renders using why-did-you-render patterns (conceptually).
+
+4. Data Fetching & Caching (TanStack Query)
+
+Optimize all generated TanStack Query hooks:
+Proper staleTime, gcTime, and refetchOnWindowFocus settings.
+Implement prefetching on hover/tap/focus where logical.
+Use keepPreviousData for smooth list transitions and pagination.
+Implement optimistic updates for Cart, Follow, Send Message, etc.
+
+
+5. Images & Media
+
+Switch to expo-image everywhere with aggressive caching, placeholders, content fit, and transition effects.
+Preload critical images (hero products, seller logos).
+Implement image prioritization.
+
+6. Animations & Micro-interactions
+
+Use react-native-reanimated (v3) with Native Driver for all animations.
+Add subtle, smooth entrance animations and transitions that do not block the JS thread.
+Use Moti or Reanimated for skeleton loaders and state transitions.
+
+7. Memory & Bundle Optimization
+
+Lazy load heavy screens using React.lazy + Suspense where appropriate.
+Minimize imports in root _layout.tsx.
+Enable Hermes engine optimizations.
+Reduce JS thread blocking.
+
+8. Mobile-Specific Optimizations
+
+Perfect usage of react-native-screens, react-native-safe-area-context, and expo-navigation-bar.
+Optimize Status Bar and Navigation Bar behavior.
+Implement proper memory management for long-lived screens (especially chat).
+
+9. UX Polish for Perceived Performance
+
+Skeleton loaders that feel fast and native.
+Instant feedback on tap (scale + opacity micro-animation).
+Maintain scroll position when returning to previous screens when possible.
+Loading states that never feel stuck.
+
+
+Strict Rules:
+
+Do NOT break any existing functionality.
+Respect the contract-first architecture (do not modify generated API hooks manually).
+Keep full TypeScript safety.
+Maintain i18n (English + Arabic RTL) support.
+Prioritize Mobile first, then ensure Web remains smooth.
+After every major change, explain what was done and why it improves performance.
+
+Execution Plan:
+
+First, analyze the current mobile structure (_layout.tsx, tabs, product/[id], messages, etc.).
+Start with Tab Navigation & Preloading (biggest impact).
+Then optimize Product Detail and Lists.
+Then optimize Messaging/Chat.
+Finally, polish remaining screens and add micro-optimizations.
+
+Provide the modified code files with clear comments, and explain each major change in detail.
+Target result: The app should feel blazing fast and buttery smooth even on mid-range Android devices common in Syria.
+Begin now.

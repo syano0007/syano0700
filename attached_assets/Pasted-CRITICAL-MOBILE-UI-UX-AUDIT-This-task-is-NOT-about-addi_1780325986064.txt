@@ -1,0 +1,327 @@
+CRITICAL MOBILE UI & UX AUDIT
+
+This task is NOT about adding new features.
+
+The goal is to make the marketplace feel like a polished, production-ready mobile application.
+
+Mobile experience is the highest priority.
+
+Most users will access the marketplace from mobile devices.
+
+Every screen must be audited and optimized.
+
+══════════════════════════════════════
+OBJECTIVE
+══════════════════════════════════════
+
+Perform a complete mobile-first UI/UX audit across the entire marketplace.
+
+Identify:
+
+* Layout issues
+* Overflow issues
+* Alignment issues
+* RTL issues
+* LTR issues
+* Spacing issues
+* Typography issues
+* Touch-target issues
+* Navigation issues
+* Visual consistency issues
+
+Do not assume screens are correct.
+
+Audit every page.
+
+══════════════════════════════════════
+REQUIRED SCREEN AUDIT
+══════════════════════════════════════
+
+Audit every major page:
+
+Homepage
+
+Search
+
+Categories
+
+Product Details
+
+Cart
+
+Checkout
+
+Customer Dashboard
+
+Seller Dashboard
+
+Orders
+
+Notifications
+
+Store Pages
+
+Authentication Pages
+
+Become Seller Pages
+
+Settings Pages
+
+Admin Pages
+
+All Modals
+
+All Drawers
+
+All Menus
+
+All Dialogs
+
+══════════════════════════════════════
+DEVICE TESTING
+══════════════════════════════════════
+
+Test thoroughly on:
+
+320px
+
+360px
+
+375px
+
+390px
+
+414px
+
+430px
+
+Do not only test desktop.
+
+Mobile behavior is mandatory.
+
+══════════════════════════════════════
+SAFE AREA AUDIT
+══════════════════════════════════════
+
+Audit all modern devices with:
+
+* Camera cutouts
+* Notches
+* Dynamic Island
+* Safe-area insets
+
+Verify:
+
+No icon
+
+No button
+
+No logo
+
+No navigation element
+
+is hidden behind camera areas.
+
+Use proper safe-area handling.
+
+══════════════════════════════════════
+NAVIGATION AUDIT
+══════════════════════════════════════
+
+Audit:
+
+Navbar
+
+Mobile menu
+
+Drawer menu
+
+Bottom actions
+
+Search bar
+
+Notifications
+
+Cart button
+
+Language switcher
+
+Theme switcher
+
+Ensure consistent sizing and spacing.
+
+Nothing should overlap.
+
+Nothing should appear crowded.
+
+══════════════════════════════════════
+PRODUCT CARD AUDIT
+══════════════════════════════════════
+
+Audit all product cards.
+
+Verify:
+
+* Image proportions
+* Seller information
+* Ratings
+* Prices
+* Discounts
+* Buttons
+* Arabic layout
+* English layout
+
+Prevent:
+
+* Text clipping
+* Overflow
+* Wrapping issues
+* Misalignment
+
+Cards must remain visually consistent.
+
+══════════════════════════════════════
+PRODUCT PAGE AUDIT
+══════════════════════════════════════
+
+Audit:
+
+* Gallery
+* Title
+* Price
+* Variants
+* Reviews
+* Seller information
+* Add to cart button
+* Buy now button
+
+Ensure proper hierarchy.
+
+The page must feel premium.
+
+══════════════════════════════════════
+TYPOGRAPHY AUDIT
+══════════════════════════════════════
+
+Audit:
+
+* Font sizes
+* Font weights
+* Line heights
+* Truncation
+* Long product names
+
+Arabic and English must both render correctly.
+
+No cut-off text.
+
+No broken wrapping.
+
+══════════════════════════════════════
+RTL / LTR AUDIT
+══════════════════════════════════════
+
+Verify:
+
+Arabic mode
+
+English mode
+
+Every component must correctly support:
+
+* RTL
+* LTR
+
+No mirrored bugs.
+
+No incorrect spacing.
+
+No directional inconsistencies.
+
+══════════════════════════════════════
+TOUCH TARGET AUDIT
+══════════════════════════════════════
+
+All interactive elements must be easy to tap.
+
+Audit:
+
+* Buttons
+* Icons
+* Filters
+* Menus
+* Variant selectors
+
+Ensure proper touch sizes.
+
+══════════════════════════════════════
+CONSISTENCY AUDIT
+══════════════════════════════════════
+
+Ensure consistency across the entire platform:
+
+* Icon sizes
+* Button styles
+* Input styles
+* Card styles
+* Header styles
+* Spacing system
+
+The marketplace should feel like one cohesive product.
+
+══════════════════════════════════════
+PERFORMANCE AUDIT
+══════════════════════════════════════
+
+Verify:
+
+* Smooth scrolling
+* Smooth navigation
+* No layout shifts
+* No flickering
+* No oversized elements
+
+UI improvements must not reduce performance.
+
+══════════════════════════════════════
+TESTING
+══════════════════════════════════════
+
+Test:
+
+Mobile
+
+Tablet
+
+Desktop
+
+Arabic
+
+English
+
+RTL
+
+LTR
+
+Dark Mode
+
+Light Mode
+
+══════════════════════════════════════
+FINAL REPORT REQUIRED
+══════════════════════════════════════
+
+Provide:
+
+1. Screens audited.
+2. Issues discovered.
+3. Fixes applied.
+4. Before/after screenshots.
+5. Mobile compatibility report.
+6. RTL/LTR compatibility report.
+7. Safe-area report.
+8. Files modified.
+
+Success criteria:
+
+The marketplace should feel polished, consistent, responsive, modern, and production-ready on all mobile devices without layout issues, clipping, overlaps, or navigation problems.

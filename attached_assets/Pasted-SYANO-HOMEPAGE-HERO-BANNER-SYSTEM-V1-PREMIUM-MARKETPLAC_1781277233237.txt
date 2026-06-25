@@ -1,0 +1,493 @@
+SYANO — HOMEPAGE HERO BANNER SYSTEM V1
+(PREMIUM MARKETPLACE EDITION)
+
+IMPORTANT:
+
+This is NOT a simple image slider.
+
+This is NOT a carousel component.
+
+This is NOT a cosmetic UI change.
+
+You are building the flagship visual experience of the entire marketplace.
+
+The result must feel comparable to:
+
+* Amazon
+* Noon
+* Trendyol
+* AliExpress
+* Carrefour
+* Best Buy
+
+The moment a user opens the homepage they must instantly feel:
+
+"this is a serious, professional marketplace."
+
+==================================================
+MISSION
+=======
+
+Replace the current homepage hero section completely.
+
+Create a premium announcement/banner platform that becomes the visual centerpiece of SYANO.
+
+This section must look polished enough that it could be used on launch day without redesign.
+
+==================================================
+CRITICAL REQUIREMENTS
+=====================
+
+DO NOT:
+
+* use a basic slider
+* use a generic carousel package UI
+* use ugly arrows
+* use stock placeholder designs
+* create layout shifts
+* break RTL
+* hurt Core Web Vitals
+* hurt Lighthouse score
+
+DO:
+
+* preserve existing design language
+* preserve spacing system
+* preserve theme colors
+* preserve shadows
+* preserve radius system
+* preserve responsiveness
+
+==================================================
+PART 1 — VISUAL TARGET
+======================
+
+Hero should feel:
+
+Luxury
+Modern
+Fast
+Premium
+Marketplace-grade
+
+Visual quality target:
+
+Amazon Homepage Hero
++
+Noon Hero
++
+Trendyol Campaign Area
+
+==================================================
+PART 2 — HERO STRUCTURE
+=======================
+
+Desktop Layout
+
+┌────────────────────────────────────────────┐
+│                                            │
+│          Main Premium Banner               │
+│                                            │
+│      Headline                              │
+│      Description                           │
+│      CTA                                   │
+│                                            │
+│                     Product Artwork        │
+│                                            │
+└────────────────────────────────────────────┘
+
+Height:
+
+520–620px
+
+Must adapt beautifully.
+
+==================================================
+PART 3 — ANIMATIONS
+===================
+
+Extremely important.
+
+Animation quality must feel expensive.
+
+When banner changes:
+
+Old banner:
+
+* fade
+* slight scale down
+
+New banner:
+
+* fade in
+* slight scale up
+* smooth spring motion
+
+Text:
+
+headline:
+fade + translate
+
+description:
+stagger
+
+button:
+stagger
+
+image:
+soft parallax motion
+
+No harsh transitions.
+
+Target:
+
+60fps.
+
+Use Framer Motion.
+
+==================================================
+PART 4 — AUTOPLAY
+=================
+
+Autoplay:
+
+6–8 seconds
+
+Pause on:
+
+* hover
+* focus
+* touch interaction
+
+Resume automatically.
+
+Infinite loop.
+
+No flicker.
+
+No jumps.
+
+==================================================
+PART 5 — TOUCH EXPERIENCE
+=========================
+
+Mobile experience must be first-class.
+
+Support:
+
+* swipe left
+* swipe right
+
+Momentum feeling.
+
+No accidental triggering.
+
+Must feel native.
+
+==================================================
+PART 6 — DESKTOP CONTROLS
+=========================
+
+Modern arrows.
+
+Not generic buttons.
+
+Requirements:
+
+* floating
+* glass effect
+* subtle blur
+* elegant hover
+
+Also include:
+
+progress indicators
+
+Example:
+
+● ○ ○ ○ ○
+
+or
+
+animated progress bars
+
+Must look premium.
+
+==================================================
+PART 7 — RESPONSIVE DESIGN
+==========================
+
+Desktop
+Laptop
+Tablet
+Mobile
+
+All must feel intentionally designed.
+
+Mobile:
+
+* image repositioned
+* shorter text
+* preserved readability
+
+No cropped headlines.
+
+No clipping.
+
+No overflow.
+
+==================================================
+PART 8 — PERFORMANCE
+====================
+
+Mandatory.
+
+Implement:
+
+* lazy image loading
+* preload first slide
+* next-slide prefetch
+* image optimization
+* no CLS
+
+Largest Contentful Paint must remain excellent.
+
+==================================================
+PART 9 — BANNER MANAGEMENT SYSTEM
+=================================
+
+Create full admin management.
+
+Admin can:
+
+Create banner
+
+Edit banner
+
+Delete banner
+
+Disable banner
+
+Schedule banner
+
+Reorder banners
+
+==================================================
+PART 10 — BANNER MODEL
+======================
+
+Support:
+
+id
+
+title_ar
+title_en
+
+subtitle_ar
+subtitle_en
+
+description_ar
+description_en
+
+desktopImage
+
+mobileImage
+
+ctaLabelAr
+ctaLabelEn
+
+ctaUrl
+
+backgroundColor
+
+textColor
+
+priority
+
+active
+
+startDate
+
+endDate
+
+sortOrder
+
+createdAt
+
+updatedAt
+
+==================================================
+PART 11 — SCHEDULING
+====================
+
+Banner should appear only when:
+
+current date >= startDate
+
+AND
+
+current date <= endDate
+
+Otherwise hidden automatically.
+
+==================================================
+PART 12 — MULTIPLE CTA SUPPORT
+==============================
+
+Support:
+
+Primary CTA
+
+Secondary CTA
+
+Examples:
+
+Shop Now
+
+Learn More
+
+Explore Deals
+
+View Collection
+
+==================================================
+PART 13 — ANALYTICS
+===================
+
+Track:
+
+Impressions
+
+Clicks
+
+CTR
+
+Per banner.
+
+Admin dashboard must show:
+
+Top banner
+
+Worst banner
+
+Total impressions
+
+Total clicks
+
+CTR %
+
+==================================================
+PART 14 — RTL
+=============
+
+Must be flawless.
+
+Arabic must feel native.
+
+Text alignment.
+
+Animations.
+
+Controls.
+
+Progress indicators.
+
+Everything.
+
+==================================================
+PART 15 — ACCESSIBILITY
+=======================
+
+Keyboard navigation.
+
+Screen readers.
+
+Focus states.
+
+ARIA labels.
+
+Pause controls.
+
+==================================================
+PART 16 — RECOVERY CHECK
+========================
+
+Add dedicated module:
+
+heroBannerSystem
+
+Verify:
+
+* tables
+* APIs
+* active banners
+* scheduling
+* analytics
+* admin routes
+* homepage rendering
+
+Recovery Check must validate everything.
+
+==================================================
+PART 17 — DOCUMENTATION
+=======================
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+MEMORY.md
+
+==================================================
+PART 18 — VALIDATION
+====================
+
+Before completion verify:
+
+✅ Desktop
+
+✅ Mobile
+
+✅ Tablet
+
+✅ RTL
+
+✅ EN
+
+✅ AR
+
+✅ Touch gestures
+
+✅ Keyboard
+
+✅ Scheduling
+
+✅ Analytics
+
+✅ Admin CRUD
+
+✅ Recovery Check
+
+✅ TypeScript = 0 errors
+
+==================================================
+FINAL RULE
+==========
+
+Do not stop at implementation.
+
+Actually run the marketplace.
+
+Actually test interactions.
+
+Actually test mobile layouts.
+
+Actually verify transitions.
+
+Anything not manually verified must be reported.
+
+The final result should be something SYANO can proudly use as its launch-day homepage hero section.

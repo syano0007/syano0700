@@ -1,0 +1,141 @@
+SYANO سوق سوريا
+
+CRITICAL HERO FIX
+
+The uploaded banner image is approved and must remain exactly as it is.
+
+Do NOT replace it.
+Do NOT regenerate it.
+Do NOT edit it.
+Do NOT add text layers above it.
+Do NOT add another headline.
+Do NOT add another subtitle.
+Do NOT add another badge.
+
+The image already contains:
+
+- badge
+- headline
+- subtitle
+- visual CTA design
+
+These are part of the image and must remain untouched.
+
+==================================================
+CURRENT ISSUE
+==================================================
+
+The "تسوق الآن" button visible in the banner is part of the image only.
+
+It is not a real button.
+
+Users cannot click it.
+
+This creates a broken CTA experience.
+
+==================================================
+REQUIRED SOLUTION
+==================================================
+
+Keep the uploaded image exactly as the Hero Banner.
+
+Then create a REAL clickable CTA overlay.
+
+The overlay button must be positioned exactly on top of the button shown inside the image.
+
+The goal is:
+
+Users believe they are clicking the button shown in the banner.
+
+==================================================
+BUTTON REQUIREMENTS
+==================================================
+
+- Real HTML/React button
+- Clickable
+- Keyboard accessible
+- Mobile accessible
+- RTL compatible
+- Navigate to marketplace browsing page
+- Preserve existing routing
+
+==================================================
+VISUAL REQUIREMENTS
+==================================================
+
+The real button must visually disappear into the image.
+
+It should align perfectly with:
+
+- position
+- width
+- height
+- border radius
+
+of the button already visible inside the image.
+
+No visible mismatch.
+
+No duplicate button.
+
+No second button.
+
+No floating CTA elsewhere.
+
+==================================================
+DO NOT ADD
+==================================================
+
+Do NOT add:
+
+- another title
+- another subtitle
+- another badge
+- another CTA
+- another trust strip
+- another seller section
+- another marketing block
+
+The image already contains the visual content.
+
+==================================================
+RESPONSIVE
+==================================================
+
+Desktop:
+Button overlays perfectly.
+
+Tablet:
+Button remains aligned.
+
+Mobile:
+Button remains clickable and positioned correctly.
+
+==================================================
+VALIDATION
+==================================================
+
+Before completing:
+
+1. Verify the uploaded image is still used directly.
+2. Verify no extra text was added.
+3. Verify no duplicate CTA exists.
+4. Verify the button is clickable.
+5. Verify navigation works.
+6. Capture desktop screenshot.
+7. Capture tablet screenshot.
+8. Capture mobile screenshot.
+
+==================================================
+RECOVERY
+==================================================
+
+After completion:
+
+Update:
+
+- RECOVERY_GUIDE.md
+- CURRENT_STATE.md
+- Homepage recovery snapshots
+
+so future recoveries restore this Hero implementation.

@@ -1,0 +1,447 @@
+GLOBAL TYPOGRAPHY & RESPONSIVE TEXT SYSTEM AUDIT (MOBILE + TABLET + DESKTOP)
+
+Perform a COMPLETE FULL-CODEBASE audit of the entire typography system across the whole marketplace.
+
+DO NOT patch individual pages.
+
+I want a SYSTEM-WIDE solution that fixes text sizing, number sizing, font scaling, overflow, wrapping, spacing, readability, and responsive typography behavior on ALL pages.
+
+This is a production-grade audit.
+
+PRIMARY OBJECTIVE
+
+Create a unified typography system that works perfectly on:
+
+Mobile phones (320px+)
+Small phones
+Large phones
+Tablets
+Laptops
+Desktop screens
+Ultra-wide screens
+
+The solution must affect:
+
+Marketplace pages
+Seller stores
+Seller dashboard
+Admin panel
+Authentication pages
+Product pages
+Messaging
+Notifications
+Orders
+Cart
+Checkout
+Profile pages
+Settings pages
+Analytics pages
+All dialogs
+All drawers
+All sheets
+All dropdowns
+All cards
+All tables
+
+EVERYWHERE.
+
+PHASE 1 — FIND ALL TYPOGRAPHY PROBLEMS
+
+Scan the entire codebase and identify:
+
+Oversized text
+
+Examples:
+
+Huge numbers
+Large statistics
+Revenue cards
+Dashboard metrics
+Product prices
+
+Find every occurrence.
+
+Undersized text
+
+Examples:
+
+Tiny labels
+Small buttons
+Small helper text
+Small metadata
+
+Find all occurrences.
+
+Text overflow
+
+Detect:
+
+Text leaving container
+Text clipping
+Text hidden
+Text overlapping icons
+Text covering buttons
+
+Find every case.
+
+Arabic issues
+
+Detect:
+
+Incorrect RTL layouts
+Wrong text alignment
+Broken Arabic wrapping
+Mixed Arabic/English rendering
+
+Examples:
+
+Arabic + English
+
+Arabic + Numbers
+
+Arabic + Currency
+
+Arabic + Dates
+
+Must be audited.
+
+Number rendering problems
+
+Detect:
+
+Revenue numbers too large
+Statistics too large
+Currency text breaking layout
+Long numbers overflowing cards
+
+Examples:
+
+3,250,000
+
+12,500,000
+
+125,000,000
+
+Must display correctly on mobile.
+
+PHASE 2 — BUILD GLOBAL TYPOGRAPHY SYSTEM
+
+Create a unified scale.
+
+Example hierarchy:
+
+Display
+
+Heading 1
+
+Heading 2
+
+Heading 3
+
+Body Large
+
+Body
+
+Body Small
+
+Caption
+
+Micro
+
+Use a centralized design token system.
+
+NO hardcoded font sizes.
+
+Replace scattered:
+
+text-xs
+text-sm
+text-base
+text-lg
+text-xl
+text-2xl
+text-3xl
+text-4xl
+
+with semantic typography tokens.
+
+PHASE 3 — RESPONSIVE FONT SCALING
+
+Implement responsive scaling.
+
+All typography must adapt automatically.
+
+Examples:
+
+Desktop:
+Heading = larger
+
+Mobile:
+Heading = smaller
+
+Without layout breakage.
+
+Use:
+
+clamp()
+
+or equivalent responsive system.
+
+Avoid fixed px sizes.
+
+PHASE 4 — STATISTICS & DASHBOARD CARDS
+
+Audit ALL statistic cards.
+
+Examples:
+
+Revenue cards
+
+Order cards
+
+Analytics cards
+
+Admin dashboard
+
+Seller dashboard
+
+Store statistics
+
+Notification counters
+
+Charts
+
+KPI cards
+
+Requirements:
+
+Numbers must NEVER overflow.
+
+Numbers must scale down automatically.
+
+Cards must stay readable.
+
+No text clipping.
+
+No wrapping bugs.
+
+No layout jumps.
+
+PHASE 5 — BUTTON TYPOGRAPHY
+
+Audit every button.
+
+Check:
+
+Font size
+Height
+Padding
+Icon alignment
+Text alignment
+
+Requirements:
+
+Buttons remain readable on:
+
+320px
+360px
+390px
+414px
+768px
+1024px+
+
+PHASE 6 — TABLES
+
+Audit all tables.
+
+Check:
+
+Admin tables
+
+Orders tables
+
+Products tables
+
+Users tables
+
+Seller tables
+
+Requirements:
+
+Text never overlaps.
+
+Columns collapse correctly.
+
+Mobile view remains usable.
+
+PHASE 7 — STORE PAGES (VERY IMPORTANT)
+
+Audit ALL seller store pages globally.
+
+Not only one store.
+
+Check:
+
+Store header
+
+Store statistics
+
+Products grid
+
+About tab
+
+Reviews tab
+
+Followers
+
+Badges
+
+Store metrics
+
+Store analytics
+
+Store cards
+
+Fix ALL language and typography issues.
+
+Examples:
+
+Verified Seller
+
+Back to products
+
+Products
+
+Reviews
+
+About
+
+Followers
+
+Statistics
+
+Everything must properly translate and scale.
+
+No English text should appear when Arabic is selected.
+
+No Arabic text should appear when English is selected.
+
+Audit every store page in the platform.
+
+PHASE 8 — GLOBAL LANGUAGE SYSTEM
+
+Perform a complete i18n audit.
+
+Find:
+
+Hardcoded English strings
+
+Hardcoded Arabic strings
+
+Missing translations
+
+Broken translation keys
+
+Unused translation keys
+
+Translation fallbacks
+
+Fix everything.
+
+Requirements:
+
+100% translation coverage.
+
+No mixed-language UI.
+
+No untranslated buttons.
+
+No untranslated tabs.
+
+No untranslated badges.
+
+No untranslated notifications.
+
+No untranslated store pages.
+
+PHASE 9 — ACCESSIBILITY
+
+Ensure:
+
+Minimum readable font sizes.
+
+Proper contrast.
+
+Readable mobile text.
+
+Proper line height.
+
+Proper spacing.
+
+Touch-friendly controls.
+
+WCAG compliant typography.
+
+PHASE 10 — VALIDATION
+
+After implementation:
+
+Run a complete audit.
+
+Test:
+
+320px
+360px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+1920px
+
+For BOTH:
+
+Arabic
+
+English
+
+Verify:
+
+No overflow.
+
+No clipping.
+
+No unreadable text.
+
+No broken cards.
+
+No broken dashboards.
+
+No broken seller stores.
+
+No broken admin pages.
+
+No broken mobile layouts.
+
+FINAL REPORT REQUIRED
+
+Do NOT stop after coding.
+
+Provide:
+
+Every file modified.
+Every typography bug fixed.
+Every translation bug fixed.
+Every responsive issue fixed.
+Before/after behavior.
+Remaining issues (if any).
+Screenshots proving fixes.
+Verification on mobile + tablet + desktop.
+Confirmation that ALL pages were audited.
+Confirmation that seller store pages were audited globally, not just one store.
+
+DO NOT ASSUME ANY PAGE IS CORRECT.
+
+VERIFY EVERYTHING.

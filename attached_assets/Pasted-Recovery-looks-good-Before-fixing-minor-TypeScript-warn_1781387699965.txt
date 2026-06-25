@@ -1,0 +1,152 @@
+Recovery looks good.
+
+Before fixing minor TypeScript warnings or building new features, I want a complete visual, UX, functionality, and platform validation of the current SYANO platform using the real restored data.
+
+Use the actual database content:
+
+* 42+ products
+* 5 stores
+* 5 approved sellers
+* existing users
+* existing categories
+* existing homepage data
+
+Do not rely on code inspection.
+
+Verify everything through actual runtime behavior.
+
+---
+
+## REQUIRED VISUAL AUDIT
+
+Provide screenshots for:
+
+* Desktop Homepage (full page)
+* Mobile Homepage
+* Hero section
+* Categories section
+* Featured Deals
+* Trusted Stores
+* Trending Products
+* New Arrivals
+* Navbar (desktop)
+* Navbar (mobile)
+* Settings dropdown
+* Product page
+* Store page
+* Seller dashboard
+* Admin dashboard
+* Courier dashboard
+
+Test:
+
+* Arabic
+* English
+* Dark theme
+* Light theme
+
+---
+
+## REQUIRED FUNCTIONAL VALIDATION
+
+Verify:
+
+* Theme switching
+* Language switching
+* Currency switching
+* RTL behavior
+* Mobile responsiveness
+* Homepage data loading
+* Search
+* Product filtering
+* Product detail pages
+* Cart
+* Wishlist
+* Checkout
+* Seller dashboard
+* Store pages
+* Notifications
+* Messaging
+* Admin pages
+* Courier pages
+
+Use actual runtime testing.
+
+---
+
+## BUG DISCOVERY & FIXING
+
+Do not only report issues.
+
+Fix issues when found.
+
+For every bug discovered:
+
+1. Identify root cause.
+2. Implement the fix.
+3. Verify the fix through runtime testing.
+4. Ensure no regressions are introduced.
+
+This includes:
+
+* UI bugs
+* RTL bugs
+* responsive issues
+* broken links
+* runtime errors
+* API issues
+* state management issues
+* theme issues
+* language issues
+* currency issues
+* accessibility issues
+* visual inconsistencies
+* TypeScript errors
+* console errors
+* hydration issues
+* performance regressions
+
+---
+
+## QUALITY PASS
+
+While auditing, improve obvious quality issues when safe to do so:
+
+* spacing inconsistencies
+* typography inconsistencies
+* visual hierarchy problems
+* broken layouts
+* poor mobile rendering
+* theme inconsistencies
+* translation issues
+* low-quality empty states
+
+Do NOT redesign major sections.
+
+Do NOT change approved architecture.
+
+Do NOT replace Homepage V7.
+
+Do NOT replace HeroV4.
+
+Do NOT remove existing systems.
+
+Focus on polishing and fixing.
+
+---
+
+## FINAL DELIVERABLE
+
+Provide:
+
+1. Screenshots
+2. Bugs found
+3. Fixes applied
+4. Before/after evidence
+5. Remaining issues
+6. Recommendations
+7. Updated recovery/state documentation if changes were made
+
+If an issue is found and can be safely fixed during the audit, fix it immediately instead of only reporting it.
+
+The goal is to leave the platform in a cleaner, more stable, more polished state than before the audit.

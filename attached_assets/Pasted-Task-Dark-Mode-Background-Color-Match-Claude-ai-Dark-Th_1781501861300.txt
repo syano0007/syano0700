@@ -1,0 +1,162 @@
+Task: Dark Mode Background Color — Match Claude.ai Dark Theme
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file.
+
+PERMANENT REJECTIONS — never propose or implement any of these ever again:
+  - "Save Search" / "Recently Searched" / "Jump to top"
+  - Any feature not explicitly requested in this task
+
+════════════════════════════════════════════════════════════════════
+OBJECTIVE
+════════════════════════════════════════════════════════════════════
+
+The current dark mode uses pure black (#000000 or zinc-950/neutral-950)
+as the main background. The target is to match the dark background color
+used by Claude.ai — which is a dark muted gray, approximately:
+  #1a1a1a  or  zinc-900 (#18181b)  or  neutral-900 (#171717)
+
+The exact target value: pick whichever of these three is the closest
+visual match to Claude.ai's dark background:
+  Option A: #1a1a1a  (pure dark gray)
+  Option B: #18181b  (Tailwind zinc-900)
+  Option C: #171717  (Tailwind neutral-900)
+Test all three by temporarily applying each to the main background and
+screenshot at full page — pick the one that most closely matches
+Claude.ai's dark chat background, then proceed with that value only.
+
+════════════════════════════════════════════════════════════════════
+PHASE 1 — AUDIT: HOW IS THE DARK BACKGROUND DEFINED?
+════════════════════════════════════════════════════════════════════
+
+Before making any change, identify exactly where and how the dark
+background color is currently defined. Report:
+
+A) Open tailwind.config.ts (or tailwind.config.js) — check if there
+   is a `darkMode` config and if the dark background color is defined
+   as a CSS variable or a direct Tailwind color extension under
+   `theme.extend.colors` or `theme.extend.backgroundColor`.
+   Copy the relevant section here.
+
+B) Open the main CSS file (likely index.css or globals.css or
+   app.css) — check if there are CSS custom properties defined under
+   :root or .dark that control background colors, e.g.:
+     --background: ...
+     --card: ...
+     --popover: ...
+   Copy the full :root and .dark blocks here.
+
+C) Check the root layout component (App.tsx or Layout.tsx or
+   RootLayout.tsx) — what class is applied to the outermost div
+   when dark mode is active? (e.g. `dark:bg-black`,
+   `dark:bg-zinc-950`, `bg-background`, etc.)
+   Copy the relevant JSX here.
+
+D) Search for any hardcoded dark background colors in these files:
+     artifacts/marketplace/src/pages/search/index.tsx
+     artifacts/marketplace/src/components/Navbar.tsx
+     artifacts/marketplace/src/components/ui/card.tsx (if exists)
+   Report any `dark:bg-black` or `dark:bg-zinc-950` or similar
+   hardcoded dark bg classes found.
+
+The goal of Phase 1 is to identify whether the background is
+controlled from ONE central place (CSS variable / Tailwind config)
+or scattered across many components.
+
+════════════════════════════════════════════════════════════════════
+PHASE 2 — IMPLEMENT THE CHANGE
+════════════════════════════════════════════════════════════════════
+
+Based on Phase 1 findings, apply the change using the MINIMUM number
+of edits — ideally ONE change in ONE place that propagates everywhere.
+
+CASE A — If background is controlled via CSS custom property
+(e.g. --background in .dark block in index.css):
+  Change ONLY the --background value (and --card, --popover if they
+  also use pure black) in the .dark block to the chosen target color.
+  Do not touch any component files.
+  Example:
+    .dark {
+      --background: 24 24 27;   /* zinc-900 in HSL space if using HSL */
+      --card: 28 28 32;         /* slightly lighter than background */
+    }
+  Match the format already used (HSL space values, or hex, or RGB —
+  whatever format the existing variables use).
+
+CASE B — If background is a Tailwind color extension in config:
+  Change ONLY the dark mode background entry in tailwind.config.ts
+  to the chosen target color. Do not touch component files.
+
+CASE C — If background is hardcoded via dark:bg-* classes scattered
+across components:
+  This is the worst case. Report this finding clearly. Then:
+  FIRST: introduce a CSS variable --background in the .dark block
+  in index.css with the chosen target color.
+  SECOND: in tailwind.config.ts, map bg-background to
+  `hsl(var(--background))` (or the appropriate format).
+  THIRD: replace hardcoded dark:bg-black / dark:bg-zinc-950 classes
+  with bg-background in ONLY the top-level layout wrappers
+  (App.tsx, Layout.tsx, the outermost page wrapper) — do NOT
+  refactor every single component, only the root-level containers
+  that set the page background.
+
+IMPORTANT RULES FOR THE CHANGE:
+  - Change ONLY the main page background and card/surface backgrounds.
+  - Do NOT change: text colors, border colors, button colors, accent
+    colors, the primary green color, icon colors, or any color that
+    is not a background surface.
+  - The sidebar, navbar, cards, dropdowns, modals, and sheets should
+    all become slightly lighter than the main background — they should
+    NOT all become the same flat color. If they currently use
+    dark:bg-zinc-950 for background and dark:bg-zinc-900 for cards,
+    shift BOTH values by the same amount toward the target, maintaining
+    the same relative lightness difference between them.
+  - Do NOT change anything in the light theme.
+  - Do NOT change the mobile Expo app theme in this task — web only.
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION
+════════════════════════════════════════════════════════════════════
+
+After applying the change, screenshot these pages in dark mode:
+  - Home page (/)
+  - Search results (/shop?q=موبايل)
+  - Product card area (zoom in on 2-3 cards)
+  - Navbar
+  - Filter sidebar (desktop)
+  - Any modal or dropdown open state
+
+For each screenshot, confirm:
+  - Background is dark muted gray (matching Claude.ai), not pure black
+  - Cards and surfaces are visibly slightly lighter than the background
+    (depth/layering is preserved)
+  - Text remains readable (contrast not broken)
+  - No pure white elements appeared unexpectedly
+  - Light theme is completely unaffected (screenshot home in light
+    mode to confirm)
+
+Run: npx tsc --noEmit across ALL 6 packages → must be 0 errors.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT
+════════════════════════════════════════════════════════════════════
+
+PHASE 1 AUDIT:
+  - Where background is defined: [CSS var / Tailwind config / hardcoded]
+  - Exact current value: [copy the relevant code block]
+  - Case identified: [A / B / C]
+
+PHASE 2 CHANGE:
+  - Target color chosen: [which option A/B/C and why]
+  - Files changed: [list — should be 1-2 files maximum]
+  - Exact lines changed: [before → after for each]
+
+VERIFICATION:
+  - Screenshots: [all pages listed above in dark mode]
+  - Light mode unaffected: [screenshot confirmation]
+  - 0 TypeScript errors confirmed
+
+FEATURE REJECTIONS CONFIRMED:
+  "Save Search — not implemented, not proposed"
+  "Recently Searched — not implemented, not proposed"
+  "Jump to top — not implemented, not proposed"

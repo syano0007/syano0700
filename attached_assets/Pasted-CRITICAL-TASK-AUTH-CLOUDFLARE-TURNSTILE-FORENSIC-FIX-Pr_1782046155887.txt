@@ -1,0 +1,204 @@
+CRITICAL TASK — AUTH + CLOUDFLARE TURNSTILE FORENSIC FIX
+
+Project: SYANO (سوق سوريا)
+
+Before changing ANY code:
+
+1. Read completely:
+- AGENT_BOOTSTRAP.md
+- CURRENT_STATE.md
+- PROJECT_STATUS.md
+- RECOVERY_GUIDE.md
+- AUTH_SYSTEM_CERTIFICATION.md
+- RECOVERY_REPORT.md
+
+2. Verify actual runtime state:
+- API Server health
+- Marketplace
+- Mobile
+- Authentication endpoints
+- Turnstile configuration
+
+DO NOT assume documentation is correct.
+Trust runtime + code.
+
+==================================================
+ISSUE #1 — EMAIL LOGIN / REGISTER FAILURE
+==================================================
+
+Observed behavior:
+
+- Login fails using email/password
+- Register fails using email/password
+- User receives generic error messages
+- Need root cause, not workaround
+
+Perform full forensic audit:
+
+Frontend:
+- artifacts/marketplace/src/pages/login.tsx
+- artifacts/marketplace/src/pages/register.tsx
+- all auth hooks
+- API client
+- request interceptors
+- error handlers
+
+Backend:
+- artifacts/api-server/src/routes/auth*
+- login endpoints
+- register endpoints
+- validation layer
+- rate limiter
+- CORS layer
+- JWT generation
+- account_status checks
+
+Verify:
+
+- request payload
+- response payload
+- HTTP status
+- validation errors
+- Zod schemas
+- API contracts
+
+Then:
+
+Create actual root cause report.
+
+Fix ONLY root cause.
+
+Do NOT introduce temporary hacks.
+
+==================================================
+ISSUE #2 — CLOUDFLARE TURNSTILE IS TOO SLOW
+==================================================
+
+Current behavior:
+
+- Verification takes too long
+- Bad user experience
+- Mobile users affected
+
+Audit:
+
+- Turnstile component
+- Render mode
+- Explicit vs auto rendering
+- Network requests
+- Retry settings
+- Theme settings
+- Site key usage
+- Server verification
+
+Find every reason for delay.
+
+Optimize for:
+
+- Fastest possible load
+- Fastest verification
+- Lowest friction
+
+Requirements:
+
+- Keep security intact
+- Keep Cloudflare Turnstile enabled
+- No bypasses
+- No disabling protection
+
+Target:
+
+Verification should feel nearly instant.
+
+==================================================
+ISSUE #3 — MOBILE TURNSTILE LAYOUT BROKEN
+==================================================
+
+Current issue:
+
+Turnstile container width is incorrect on mobile.
+
+Audit:
+
+- Login page
+- Register page
+- All auth forms
+
+Verify on:
+
+- 375px
+- 390px
+- 414px
+
+Requirements:
+
+- No horizontal overflow
+- No clipping
+- No layout shift
+- Full RTL support
+- Light mode
+- Dark mode
+
+Widget must be perfectly centered.
+
+Widget must fit inside form width.
+
+==================================================
+TESTING REQUIREMENTS
+==================================================
+
+After fixes:
+
+Run real tests.
+
+Verify:
+
+Admin:
+delewatiamer7@gmail.com
+
+Seller:
+delewatiamer8@gmail.com
+
+Courier:
+delewatiamer9@gmail.com
+
+Test:
+
+1. Login
+2. Register
+3. Logout
+4. Turnstile verification
+5. Mobile viewport
+
+Verify:
+
+- Success path
+- Failure path
+- Validation path
+
+==================================================
+DELIVERABLES
+==================================================
+
+Provide:
+
+1. Root cause discovered
+2. Files modified
+3. Exact fixes implemented
+4. Test results
+5. Screenshots if needed
+
+Do NOT stop at diagnosis.
+
+Do NOT create documentation-only changes.
+
+Do NOT claim fixed unless login and register actually succeed.
+
+Goal:
+
+Email login works.
+Email registration works.
+Cloudflare Turnstile loads and verifies as fast as possible.
+Turnstile layout is perfect on mobile.
+No TypeScript errors.
+No regressions.

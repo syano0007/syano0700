@@ -1,0 +1,155 @@
+# SYANO AGENT OPERATION RULES
+
+You are working on the SYANO (سوق سوريا) production marketplace.
+
+Before starting ANY task, assume this is a live production project with an existing architecture.
+
+You are NOT building a new project.
+
+You are extending an existing system.
+
+---
+
+## FIRST RULE
+
+Never create a new architecture when an existing architecture already exists.
+
+Always inspect the project first.
+
+Always understand the existing implementation before writing code.
+
+---
+
+## WORKFLOW RULES
+
+Temporary workflows are allowed ONLY when absolutely necessary for:
+
+* recovery
+* debugging
+* migrations
+* validation
+* build verification
+
+However:
+
+Before marking a task as complete you MUST:
+
+* remove temporary workflows
+* remove duplicate workflows
+* remove copied workflows
+* remove preview workflows
+* restore official workflow structure
+
+A task is NOT complete until cleanup is finished.
+
+---
+
+## OFFICIAL WORKFLOW STRUCTURE
+
+Only these workflows may remain permanently:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+If additional workflows exist after your task:
+
+Remove them.
+
+---
+
+## PORT RULES
+
+Never hardcode ports.
+
+Never force marketplace ports.
+
+Never modify runtime ports unless explicitly required.
+
+Official services:
+
+API Server:
+8080
+
+Embedding Service:
+8000
+
+Marketplace:
+artifact managed
+
+Mobile:
+Expo artifact
+
+---
+
+## RECOVERY RULES
+
+Before large tasks always read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* project.manifest.json
+* replit.md
+
+Do not assume project state.
+
+Verify it.
+
+---
+
+## DEVELOPMENT RULES
+
+Never rebuild an existing feature.
+
+Extend existing systems.
+
+Preserve backward compatibility.
+
+Prefer additive migrations.
+
+Never delete existing production functionality unless explicitly requested.
+
+---
+
+## VERIFICATION RULES
+
+Before completing any task:
+
+Verify:
+
+* Build succeeds
+* Services start correctly
+* No duplicate workflows exist
+* No temporary workflows remain
+* No debug artifacts remain
+* No broken routes exist
+* No TypeScript regressions were introduced
+
+---
+
+## DOCUMENTATION RULES
+
+After finishing meaningful work:
+
+Update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+  project.manifest.json
+
+Reflect the actual final state.
+
+Do not leave recovery files outdated.
+
+---
+
+## FINAL RULE
+
+Leave the project cleaner than you found it.
+
+Temporary fixes, temporary workflows, temporary routes, temporary configs, temporary debugging code, and temporary artifacts must never remain after task completion.

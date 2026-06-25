@@ -1,0 +1,319 @@
+CONTEXT & GROUND RULES
+──────────────────────
+You are working on SYANO (سوق سوريا), a live production-grade multi-vendor 
+marketplace. Before writing a single line of code:
+1. Read CURRENT_STATE.md fully
+2. Read PROJECT_STATUS.md fully  
+3. Read RECOVERY_GUIDE.md fully
+4. Verify all 3 services are running (backend :8080, frontend Vite, mobile Expo)
+5. Run `npx tsc --noEmit` — confirm 0 errors before you start
+
+NEVER: redesign existing UI, introduce new components/colors/patterns, 
+create new DB tables, modify existing API endpoints, hardcode visible strings,
+use fake/mock data, skip TypeScript checking.
+ALWAYS: follow existing file patterns exactly, reuse existing components,
+support RTL Arabic + LTR English, support light + dark theme.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK: Search Analytics Admin Panel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GOAL
+────
+Build an admin-only Search Analytics page that gives the SYANO admin 
+full visibility into search behavior — top queries, failed searches, 
+click-through rates, and volume trends — all sourced from the existing 
+query_logs and search_queries tables. Zero new DB tables.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — DISCOVERY (read before writing anything)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before writing any code, read and understand:
+
+1. `lib/db/schema.ts` — find the exact column names for:
+   - query_logs (id, query, lang, result_count, clicked, created_at — verify each)
+   - search_queries (id, query, user_id, results_count, created_at — verify each)
+
+2. Open any existing admin route file (e.g. the orders or users admin route) 
+   — copy its exact pattern for: auth middleware, Zod validation, 
+   error handling, Promise.all usage, and response shape.
+
+3. Open any existing admin frontend page component — copy its exact pattern 
+   for: page layout, sidebar integration, card components, table components,
+   chart usage, i18n string registration, and dark mode classes.
+
+4. Find what charting library is already installed 
+   (`package.json` in artifacts/marketplace) — use ONLY that library, 
+   install nothing new.
+
+5. Find the i18n string files for Arabic and English 
+   — note their exact location and format before adding any strings.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — BACKEND (artifacts/api-server)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create file: `artifacts/api-server/src/routes/admin/searchAnalytics.ts`
+
+Register it in the main admin router exactly as other admin sub-routes 
+are registered — do not modify the main app.ts or server entry point 
+unless that is the established pattern.
+
+── ENDPOINT 1: Overview ──────────────────────────────────
+GET /api/admin/search-analytics/overview
+Query params: none
+Auth: admin role only (use existing admin auth middleware)
+
+Response shape:
+{
+  period7: {
+    totalSearches: number,
+    zeroResultCount: number,
+    zeroResultRate: number,      // percentage, 2 decimal places
+    clickThroughRate: number,    // (clicked=true / total) * 100, 2 decimal places
+    avgResultsCount: number      // 2 decimal places
+  },
+  period30: { ...same shape... },
+  languageBreakdown: {
+    arabic: number,              // count where lang = 'ar', last 30 days
+    english: number,             // count where lang = 'en', last 30 days
+    arabicPct: number,
+    englishPct: number
+  },
+  processingTimeMs: number
+}
+
+DB logic:
+- Use Drizzle ORM — no raw SQL strings unless Drizzle cannot express it
+- Run all independent queries in parallel via Promise.all()
+- Filter by created_at >= NOW() - INTERVAL '7 days' and '30 days'
+- Zero result: result_count = 0 (verify actual column name in schema first)
+
+── ENDPOINT 2: Top Queries ───────────────────────────────
+GET /api/admin/search-analytics/top-queries
+Query params (Zod-validated):
+  - days: number, default 7, max 90
+  - limit: number, default 20, max 100
+
+Response shape:
+{
+  queries: Array<{
+    query: string,
+    count: number,
+    zeroResults: boolean,        // true if avg result_count = 0
+    avgResultsCount: number,
+    clickThroughRate: number,    // percentage
+    lang: string
+  }>,
+  processingTimeMs: number
+}
+
+DB logic:
+- Group by query text, count occurrences
+- Calculate avg result_count per query
+- Calculate CTR per query (sum of clicked=true / total count)
+- Order by count DESC
+- Filter to last `days` days
+
+── ENDPOINT 3: Zero-Result Queries ──────────────────────
+GET /api/admin/search-analytics/zero-results
+Query params (Zod-validated):
+  - days: number, default 7, max 90
+  - limit: number, default 20, max 100
+
+Response shape:
+{
+  queries: Array<{
+    query: string,
+    count: number,
+    lastSearched: string,        // ISO date of most recent occurrence
+    lang: string
+  }>,
+  processingTimeMs: number
+}
+
+DB logic:
+- Filter where result_count = 0
+- Group by query, count
+- Order by count DESC
+- These represent inventory gaps — most searched = most urgent gap
+
+── ENDPOINT 4: Daily Trends ──────────────────────────────
+GET /api/admin/search-analytics/trends
+Query params (Zod-validated):
+  - days: number, default 30, max 90
+
+Response shape:
+{
+  trends: Array<{
+    date: string,                // 'YYYY-MM-DD'
+    totalSearches: number,
+    zeroResults: number,
+    uniqueQueries: number
+  }>,
+  processingTimeMs: number
+}
+
+DB logic:
+- Group by DATE(created_at)
+- Count total, count where result_count = 0, count distinct query values
+- Order by date ASC
+- Last `days` days only
+
+── ERROR HANDLING (all endpoints) ────────────────────────
+try {
+  // Zod parse → DB queries → response
+} catch (error) {
+  if (error instanceof ZodError) 
+    return res.status(400).json({ error: error.errors });
+  console.error('[search-analytics]', error);
+  return res.status(500).json({ error: 'Internal server error' });
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — FRONTEND (artifacts/marketplace)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create file: 
+`artifacts/marketplace/src/pages/admin/SearchAnalytics.tsx`
+
+── Route ─────────────────────────────────────────────────
+Add route `/admin/search-analytics` in the same place other admin 
+routes are registered. Protected by admin auth — same guard as 
+other admin pages.
+
+── Sidebar / Nav link ────────────────────────────────────
+Add a link to the admin sidebar exactly where other admin nav items 
+are defined. Use the same icon library already in use. 
+Icon suggestion: search/chart icon. 
+Label key: `admin.nav.searchAnalytics` (add to both i18n files).
+
+── TanStack Query hooks ──────────────────────────────────
+Create hooks in `lib/api-client-react` following the exact pattern 
+of existing admin hooks:
+- useSearchAnalyticsOverview(days: 7 | 30)
+- useTopQueries(days: 7 | 30)  
+- useZeroResultQueries(days: 7 | 30)
+- useSearchTrends(days: 30)
+
+Each hook uses AbortController signal via queryFn({ signal }).
+Query keys must be namespaced: ['admin', 'search-analytics', endpoint, params]
+
+── Page Layout ───────────────────────────────────────────
+Match the layout of existing admin pages exactly. Structure:
+
+[Page title + subtitle]                    [7 days | 30 days toggle]
+
+[Total Searches]  [Zero-Result Rate]  [Click-Through Rate]  [Top Language]
+   metric card        metric card           metric card         metric card
+
+[Daily Volume Chart — full width line chart]
+
+[Top Queries table]              [Zero-Result Queries table]
+   left half                          right half
+
+── Period Toggle ─────────────────────────────────────────
+Two buttons: "٧ أيام" / "٣٠ يوم" (i18n keys)
+Switching refetches overview + top-queries + zero-results with new days param.
+Trends always shows 30 days.
+Default: 7 days selected.
+
+── Metric Cards ──────────────────────────────────────────
+Reuse the existing metric card component. If no shared component exists,
+copy the pattern from the closest existing admin card.
+
+Card 1 — إجمالي البحث: totalSearches value, subtitle "آخر X يوم"
+Card 2 — بحث بلا نتائج: zeroResultRate% — color red if > 20%, yellow if > 10%
+Card 3 — معدل النقر: clickThroughRate% — color green if > 30%
+Card 4 — اللغة الأكثر: show "عربي X%" or "إنجليزي X%" based on which is higher
+
+── Chart ─────────────────────────────────────────────────
+Use the charting library already installed. Line chart showing:
+- X axis: dates (formatted as DD/MM)
+- Y axis: count
+- Two lines: total searches (primary color) + zero results (red/danger color)
+- Legend below chart
+- RTL-compatible
+- Responsive, full width
+- Loading skeleton while fetching
+
+── Top Queries Table ─────────────────────────────────────
+Columns: الترتيب | الاستعلام | عدد البحث | معدل النقر | اللغة
+- Sort by count DESC (already sorted from API)
+- If zeroResults=true: show small red badge "بلا نتائج" next to query text
+- CTR shown as percentage with color coding (green > 30%, yellow 10-30%, red < 10%)
+- Pagination or show top 20, with "عرض المزيد" if needed
+- Empty state: "لا توجد بيانات كافية بعد" with subtle icon
+
+── Zero-Result Queries Table ─────────────────────────────
+Columns: الاستعلام | عدد مرات البحث | آخر بحث | اللغة
+- These are inventory gap signals — add subtitle under table title:
+  "هذه الكلمات يبحث عنها المستخدمون ولا تجد نتائج — فرص لإضافة منتجات"
+- lastSearched formatted as relative time (e.g. "منذ ٣ أيام")
+- Empty state: "ممتاز! لا توجد بحوثات بدون نتائج" with green checkmark
+
+── i18n strings to add ───────────────────────────────────
+Add ALL of the following to both Arabic and English translation files.
+Do not hardcode any visible text anywhere in the component.
+
+Arabic keys to add:
+admin.nav.searchAnalytics = "تحليلات البحث"
+admin.searchAnalytics.title = "تحليلات البحث"
+admin.searchAnalytics.subtitle = "سلوك البحث وأداء الاكتشاف"
+admin.searchAnalytics.period7 = "٧ أيام"
+admin.searchAnalytics.period30 = "٣٠ يوم"
+admin.searchAnalytics.totalSearches = "إجمالي البحث"
+admin.searchAnalytics.zeroResultRate = "بحث بلا نتائج"
+admin.searchAnalytics.ctr = "معدل النقر"
+admin.searchAnalytics.topLanguage = "اللغة الأكثر"
+admin.searchAnalytics.last7days = "آخر ٧ أيام"
+admin.searchAnalytics.last30days = "آخر ٣٠ يوم"
+admin.searchAnalytics.topQueries = "أكثر الاستعلامات بحثاً"
+admin.searchAnalytics.zeroResultQueries = "بحوثات بدون نتائج"
+admin.searchAnalytics.zeroResultHint = "هذه الكلمات يبحث عنها المستخدمون ولا تجد نتائج — فرص لإضافة منتجات"
+admin.searchAnalytics.zeroResultsBadge = "بلا نتائج"
+admin.searchAnalytics.noData = "لا توجد بيانات كافية بعد"
+admin.searchAnalytics.noZeroResults = "ممتاز! لا توجد بحوثات بدون نتائج"
+admin.searchAnalytics.colRank = "الترتيب"
+admin.searchAnalytics.colQuery = "الاستعلام"
+admin.searchAnalytics.colCount = "عدد البحث"
+admin.searchAnalytics.colCtr = "معدل النقر"
+admin.searchAnalytics.colLang = "اللغة"
+admin.searchAnalytics.colLastSearched = "آخر بحث"
+admin.searchAnalytics.arabic = "عربي"
+admin.searchAnalytics.english = "إنجليزي"
+admin.searchAnalytics.chartTitle = "حجم البحث اليومي"
+admin.searchAnalytics.chartTotal = "إجمالي البحث"
+admin.searchAnalytics.chartZero = "بلا نتائج"
+
+Add equivalent English values for every key above.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After building, verify ALL of the following before marking done:
+
+□ npx tsc --noEmit → 0 errors across all packages
+□ GET /api/admin/search-analytics/overview returns valid JSON
+□ GET /api/admin/search-analytics/top-queries?days=7 returns valid JSON
+□ GET /api/admin/search-analytics/zero-results?days=7 returns valid JSON
+□ GET /api/admin/search-analytics/trends?days=30 returns valid JSON
+□ All 4 endpoints return 401 when called without admin auth
+□ Page loads at /admin/search-analytics without console errors
+□ All 4 metric cards show real numbers (not 0 or undefined)
+□ Chart renders with real data
+□ Both tables render with data or correct empty states
+□ 7-day / 30-day toggle switches data correctly
+□ Page looks correct in Arabic RTL
+□ Page looks correct in English LTR  
+□ Page looks correct in dark mode
+□ Page looks correct in light mode
+□ Sidebar nav link appears and navigates correctly
+□ No hardcoded Arabic or English strings in the component
+□ No new npm packages installed
+□ No existing files modified except: admin router (to register new route),
+  sidebar nav (to add link), i18n files (to add strings),
+  and api-client-react (to add hooks)

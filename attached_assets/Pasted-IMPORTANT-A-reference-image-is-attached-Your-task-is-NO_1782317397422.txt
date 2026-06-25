@@ -1,0 +1,279 @@
+IMPORTANT
+
+A reference image is attached.
+
+Your task is NOT to redesign it.
+Your task is NOT to reinterpret it.
+Your task is NOT to create your own version.
+
+Your task is to analyze the attached image and reproduce it as closely as possible inside the existing HomeHeroV2 component.
+
+Target similarity:
+90–95%
+
+==================================================
+PROJECT CONTEXT
+==================================================
+
+Project: SYANO Marketplace
+
+Stack:
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS v4
+
+Work ONLY inside:
+
+HomeHeroV2
+
+Do not modify:
+
+- Backend
+- Database
+- Authentication
+- Search
+- API routes
+- Other homepage sections
+
+==================================================
+REFERENCE IMAGE ANALYSIS
+==================================================
+
+Before making changes:
+
+Analyze the attached image and extract:
+
+- exact visual hierarchy
+- card proportions
+- spacing
+- margins
+- padding
+- card heights
+- card widths
+- typography hierarchy
+- text placement
+- image crop positioning
+- overlay opacity
+- shadows
+- blur values
+- border radius
+- decorative background elements
+- RTL behavior
+
+Then implement those findings.
+
+Do not guess.
+
+Use the reference image as the source of truth.
+
+==================================================
+MISSION
+==================================================
+
+Recreate the hero section from the reference image as accurately as possible.
+
+Match:
+
+- overall composition
+- visual weight
+- atmosphere
+- premium feeling
+- spacing rhythm
+- information hierarchy
+
+The final result should immediately remind the viewer of the attached reference.
+
+==================================================
+LAYOUT REQUIREMENTS
+==================================================
+
+Featured card:
+
+- Large dominant card on the LEFT
+- Occupies most visual attention
+- Around 75–80% of hero width
+
+Right side:
+
+- Two stacked category cards
+- Around 20–25% of hero width
+
+Maintain reference proportions.
+
+Do not invent new dimensions.
+
+==================================================
+BACKGROUND SYSTEM
+==================================================
+
+The hero should NOT sit on a plain white page.
+
+Recreate the environment visible in the reference:
+
+- deep luxury green atmosphere
+- curved line artwork
+- soft glows
+- leaf silhouettes
+- layered depth
+
+Everything should feel integrated.
+
+The background is part of the design.
+
+==================================================
+HERO IMAGE
+==================================================
+
+Use the attached reference as guidance.
+
+The hero image must communicate:
+
+- premium marketplace
+- curated lifestyle
+- modern gourmet kitchen
+- premium appliances
+
+The image crop must match the reference composition.
+
+Avoid:
+
+- real estate feeling
+- architecture showcase feeling
+- empty visual space
+
+==================================================
+TEXT PLACEMENT
+==================================================
+
+Position text exactly according to the reference.
+
+Do not center content if the reference does not.
+
+Do not improvise.
+
+Match:
+
+- title position
+- subtitle position
+- badge position
+- CTA position
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Recreate the hierarchy visible in the reference.
+
+Arabic and English must coexist elegantly.
+
+Arabic should not feel secondary.
+
+Use:
+
+- strong headline hierarchy
+- premium spacing
+- refined weight distribution
+
+==================================================
+FLOATING GLASS ELEMENTS
+==================================================
+
+Recreate all visible floating UI elements from the reference.
+
+Including:
+
+- floating information card
+- glass panels
+- badges
+- supporting modules
+
+Match:
+
+- size
+- opacity
+- blur
+- position
+
+==================================================
+CATEGORY CARDS
+==================================================
+
+The Electronics card and Fashion card should visually match the reference.
+
+Replicate:
+
+- image positioning
+- overlay intensity
+- text hierarchy
+- information density
+
+Do not simplify.
+
+==================================================
+VISUAL QUALITY
+==================================================
+
+Target:
+
+Luxury Marketplace
+Premium Retail
+Editorial Commerce
+
+Avoid:
+
+- startup landing page look
+- SaaS dashboard look
+- real estate website look
+- generic ecommerce hero look
+
+==================================================
+IMPLEMENTATION RULES
+==================================================
+
+DO NOT:
+
+- redesign
+- simplify
+- create alternatives
+- add new sections
+- add sliders
+- add carousels
+- connect APIs
+- fetch products
+
+DO:
+
+- faithfully reproduce the reference
+- preserve responsiveness
+- preserve accessibility
+- preserve performance
+
+==================================================
+DELIVERABLES
+==================================================
+
+1. Updated HomeHeroV2
+2. List of all visual changes
+3. Explanation of what was adjusted to match the reference
+4. Confirmation of TypeScript safety
+
+==================================================
+SUCCESS CRITERIA
+==================================================
+
+When comparing:
+
+A) Attached reference image
+B) Implemented HomeHeroV2
+
+A designer should immediately recognize that:
+
+- the same composition is being used
+- the same visual language is being used
+- the same premium marketplace identity is being communicated
+
+without becoming a literal copy.
+
+Target:
+90–95% visual similarity.

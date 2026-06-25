@@ -1,0 +1,252 @@
+# SYANO — FULL RECOVERY + PROJECT STARTUP FROM RECOVERY FILES
+
+Recover and start the SYANO project using the recovery documentation.
+
+Do NOT create a new project.
+
+Do NOT reset the database.
+
+Do NOT overwrite existing work.
+
+Restore the project exactly to the latest documented state.
+
+---
+
+# STEP 1 — READ RECOVERY FILES
+
+Read completely:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+
+Treat them as the source of truth.
+
+Do not make assumptions.
+
+---
+
+# STEP 2 — IDENTIFY CURRENT STATE
+
+Report:
+
+* Current roadmap phase
+* Last completed milestone
+* Completed phases
+* Active systems
+* Pending phases
+* Known issues
+* Recovery notes
+
+Before making any changes.
+
+---
+
+# STEP 3 — DATABASE VERIFICATION
+
+Verify:
+
+* PostgreSQL connection
+* All migrations applied
+* All tables exist
+* All enums exist
+* Seed data exists
+
+Check:
+
+* Products
+* Categories
+* Stores
+* Users
+* Orders
+* Messages
+* Notifications
+* Delivery Zones
+* Trust System
+* Search System
+
+Do NOT modify data unless required.
+
+---
+
+# STEP 4 — START ALL SERVICES
+
+Start:
+
+## API
+
+Verify:
+
+* Server boots
+* No startup errors
+
+Health check:
+
+```text
+/api/healthz
+```
+
+Must return healthy status.
+
+---
+
+## Marketplace
+
+Start:
+
+* Vite frontend
+
+Verify:
+
+* Homepage loads
+* Navbar loads
+* Search loads
+* Routing works
+
+No runtime errors.
+
+---
+
+## Mobile
+
+Start:
+
+* Expo
+
+Verify:
+
+* Metro starts
+* No build failures
+
+---
+
+# STEP 5 — VERIFY SEARCH & DISCOVERY SYSTEM
+
+Verify Phase 8 state.
+
+Check:
+
+```text
+/api/search
+/api/search/suggestions
+/api/search/trending
+```
+
+Verify:
+
+* Suggestions endpoint works
+* Trending endpoint works
+* Search results page works
+* Shop page works
+
+---
+
+# STEP 6 — VERIFY AUTH
+
+Verify bootstrap accounts:
+
+### Admin
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+### Seller
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+### Courier
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Confirm authentication works.
+
+Do not reset credentials.
+
+---
+
+# STEP 7 — APPLICATION HEALTH CHECK
+
+Verify:
+
+* Homepage
+* Shop
+* Stores
+* Product pages
+* Messaging
+* Notifications
+* Cart
+* Wishlist
+* Theme system
+* Language system
+* Currency system
+
+No console errors.
+
+No API failures.
+
+---
+
+# STEP 8 — TYPESCRIPT VALIDATION
+
+Run full TypeScript check.
+
+Target:
+
+0 errors.
+
+Fix only recovery-related issues.
+
+Do not refactor unrelated code.
+
+---
+
+# STEP 9 — REPORT
+
+Provide:
+
+## Recovery Status
+
+Success / Failure
+
+## Services
+
+* API
+* Marketplace
+* Mobile
+
+## Database
+
+Healthy / Issues
+
+## Search System
+
+Healthy / Issues
+
+## Bootstrap Accounts
+
+Verified / Missing
+
+## Current Roadmap
+
+List:
+
+Completed phases
+
+Remaining phases
+
+---
+
+# IMPORTANT
+
+Do NOT implement new features.
+
+Do NOT redesign UI.
+
+Do NOT modify roadmap.
+
+Do NOT start Phase 9.
+
+Goal:
+
+Recover, verify, and start the project exactly as documented.
+
+At the end provide a complete recovery report and confirm the project is ready for continued development.

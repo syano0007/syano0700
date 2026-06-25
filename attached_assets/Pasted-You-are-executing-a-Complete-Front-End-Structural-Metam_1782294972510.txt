@@ -1,0 +1,85 @@
+You are executing a Complete Front-End Structural Metamorphosis of the Homepage. Replace the old slider carousel and the 4 rigid white blocks entirely with a Premium, Cinematic Asymmetric Layout Grid based on the provided design reference.
+
+The entire section must be 100% dynamic and content-driven via a centralized data object configuration array, allowing future developer updates to images, text, and categories within seconds without touching the layout architecture.
+
+==================================================
+1. OBJECT DATA CONFIGURATION (DYNAMIC ARCHITECTURE)
+==================================================
+At the top of the component file, declare the structured data array to feed the showcase section:
+```typescript
+const heroShowcaseData = {
+  mainFeature: {
+    title: "منظومة المطبخ الحديثة",
+    subtitle: "The Modern Gourmet Kitchen",
+    badgeTags: ["أجهزة ذكية", "طهي محترف"],
+    image: "[https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1200](https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1200)", // Dynamic placeholder
+    link: "/category/kitchen"
+  },
+  subFeatures: [
+    {
+      title: "التخفيضات الذكية",
+      subtitle: "Precision Electronics",
+      caption: "Smartphones & Audio",
+      image: "[https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600](https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600)",
+      link: "/category/electronics"
+    },
+    {
+      title: "أزياء منسقة",
+      subtitle: "Curated Style",
+      caption: "Men's and Women's apparel",
+      image: "[https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600](https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600)",
+      link: "/category/fashion"
+    }
+  ]
+};
+==================================================
+2. ASYMMETRIC GRID INTERACTIVE CONTAINER
+Master Parent Wrapper: Wrap the whole fold in an adaptive section container that handles ambient color and dynamic dark mode scaling:
+className="relative w-full bg-gradient-to-b from-[#f4f7f6] via-[#fcfdfe] to-[#f8f9fa] dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 transition-colors duration-300 py-8 px-4 md:px-6 overflow-hidden"
+
+The Layout Grid System: Implement a responsive grid constraint wrapping the dataset columns:
+className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 w-full relative z-10"
+
+==================================================
+3. LEFT COLUMN: HERO MAIN FEATURE (SPANS 2 COLUMNS ON DESKTOP)
+Container Configuration:
+className="lg:col-span-2 relative overflow-hidden rounded-[2rem] h-[320px] md:h-[480px] lg:h-[580px] shadow-2xl group cursor-pointer border border-white/10 transition-all duration-500 hover:shadow-emerald-950/5 dark:hover:shadow-black/40"
+
+Image Component: Absolute fill layer featuring progressive smooth hover zoom scaling:
+className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-103"
+
+Vignette Overlay Mask: A deep cinematic linear gradient backdrop mask to lock dynamic contrast protection for white text layers:
+className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5 dark:from-black/90 dark:via-black/40"
+
+Typography & Interaction Nodes:
+
+Top-Left/Right Floating Glass Pill Badges: Render badgeTags using frosted glass flex beds: className="absolute top-5 right-5 flex gap-2 z-20" -> className="bg-white/10 dark:bg-black/30 backdrop-blur-md border border-white/20 text-white text-xs px-3 py-1.5 rounded-full"
+
+Bottom Overlay Typography Panel: Anchored using className="absolute bottom-6 left-6 right-6 text-left z-20 flex flex-col gap-1" containing both the Arabic Title (text-xl md:text-2xl lg:text-3xl font-bold text-white text-right) and the English Subtitle styled natively.
+
+==================================================
+4. RIGHT COLUMN: STACKED SUB-FEATURES (SPANS 1 COLUMN ON DESKTOP)
+Column Container: Standard responsive vertical stack flexing tightly on wide configurations:
+className="flex flex-col gap-6 h-auto lg:h-[580px] w-full"
+
+Stacked Cards (Render 2 items from subFeatures):
+
+Card Shell: className="flex-1 relative overflow-hidden rounded-[2rem] h-[240px] lg:h-full shadow-xl group cursor-pointer border border-white/10 transition-all duration-500"
+
+Image Backdrop: Apply the identical absolute scale tracking as the main feature: className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-103"
+
+Gradient Scrim: className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"
+
+Content Text Layering: Clean absolute typography blocks pinned to corners exactly matching the alignment hierarchy found in the design specification screenshot.
+
+==================================================
+5. AMBIENT BACKGROUND ACCENTS (PREMIUM FINISH)
+Behind the grid (-z-10), overlay an abstract fluid SVG wave path vector to break the box grid grid lines and echo the organic luxury flow seen in the reference card deck:
+className="absolute inset-0 -z-10 opacity-30 dark:opacity-10 pointer-events-none mix-blend-multiply dark:mix-blend-screen scale-105 select-none animate-pulse [animation-duration:8s]"
+
+==================================================
+VALIDATION AND SAFETY CHECKLIST
+✓ Wipe out any traces of the old Swiper/Slick slider packages and flat 4 white card items from this specific zone.
+✓ The asymmetric responsive split grid triggers flawlessly: 1 giant tile + 2 stacked tiles.
+✓ Ensure bilingual text layouts flow beautifully without intersecting or overlapping images.
+✓ Frontend TypeScript compilation resolves with absolute 0 system build errors.

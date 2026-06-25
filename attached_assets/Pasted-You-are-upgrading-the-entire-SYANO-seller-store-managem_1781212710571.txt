@@ -1,0 +1,624 @@
+You are upgrading the entire SYANO seller store management experience.
+
+# PROJECT
+
+SYANO (سوق سوريا)
+
+Current roadmap status:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+✅ Seller Order Management V2
+
+✅ Seller Analytics Dashboard V2
+
+✅ Trust System V1
+
+✅ Seller Store Pages V2
+
+NOW START:
+
+# Store Settings V2
+
+---
+
+# CRITICAL RULES
+
+This is NOT a cosmetic redesign.
+
+This is a full operational audit + repair + upgrade.
+
+You must:
+
+1. Audit first.
+2. Identify broken functionality.
+3. Fix all regressions.
+4. Improve UX.
+5. Improve mobile.
+6. Improve RTL.
+7. Improve seller workflow.
+8. Integrate Recovery Check.
+
+Do NOT:
+
+* Break existing stores
+* Break store URLs
+* Break seller pages
+* Remove APIs
+* Remove DB fields
+
+Use additive changes only.
+
+TypeScript must finish with:
+
+✅ 0 errors
+
+---
+
+# MOST IMPORTANT RULE
+
+Before building ANYTHING:
+
+Perform a complete Store Settings Audit.
+
+Test every feature.
+
+Do not assume anything works.
+
+Use real APIs.
+
+Use real requests.
+
+Use real responses.
+
+If something is broken:
+
+Fix it first.
+
+Then continue.
+
+---
+
+# PHASE 1 — STORE SETTINGS AUDIT
+
+Audit the entire seller store settings system.
+
+Check:
+
+* all pages
+* all tabs
+* all forms
+* all save buttons
+* all image uploads
+* all API routes
+* all translations
+* all mobile layouts
+* all RTL layouts
+
+Verify:
+
+* data persists
+* data reloads correctly
+* previews update correctly
+* validation works
+
+Create internal audit report.
+
+Fix every issue discovered.
+
+Only after fixes continue.
+
+---
+
+# PHASE 2 — REBUILD STORE SETTINGS UX
+
+Current experience feels basic.
+
+Replace it with a premium marketplace-grade experience.
+
+Target quality:
+
+* Shopify
+* Etsy
+* Amazon Brand Store
+* Trendyol
+* Noon
+
+---
+
+# SECTION 1 — SETTINGS NAVIGATION
+
+Convert settings into structured tabs.
+
+Tabs:
+
+General
+
+Branding
+
+Contact
+
+Policies
+
+Trust & Verification
+
+SEO
+
+Store Health
+
+Advanced
+
+---
+
+Use sticky navigation.
+
+Desktop + mobile.
+
+RTL compatible.
+
+---
+
+# SECTION 2 — GENERAL TAB
+
+Manage:
+
+* Store Name
+* Store Description
+* Store Slug
+* Store Category
+* Business Type
+
+Validation:
+
+* slug uniqueness
+* character limits
+* duplicate prevention
+
+Display store URL preview:
+
+https://syano.online/store/store-slug
+
+Live updating.
+
+---
+
+# SECTION 3 — BRANDING TAB
+
+Store Logo
+
+Store Cover
+
+Mobile Cover
+
+Store Theme Preview
+
+Requirements:
+
+* drag & drop
+* upload progress
+* preview
+* crop support if available
+* image validation
+
+Display preview instantly.
+
+No page refresh.
+
+---
+
+# SECTION 4 — CONTACT TAB
+
+Manage:
+
+* Phone
+* WhatsApp
+* Telegram
+* Facebook
+* Instagram
+* Website
+
+Validation required.
+
+Show missing fields.
+
+---
+
+# SECTION 5 — POLICIES TAB
+
+Manage:
+
+* Shipping Policy
+* Return Policy
+* Warranty Policy
+* Privacy Policy
+
+Use rich editor if available.
+
+Store safely.
+
+Display completion indicators.
+
+---
+
+# SECTION 6 — TRUST & VERIFICATION TAB
+
+Integrate Trust System V1.
+
+Display:
+
+Trust Score
+
+Trust Level
+
+Verification Status
+
+Verification History
+
+Trust Breakdown
+
+Example:
+
+Trust Score: 92
+
+Excellent Seller
+
+Verified Seller
+
+Trust Factors:
+
+Orders
+
+Reviews
+
+Delivery Success
+
+Account Age
+
+Followers
+
+Cancellation Rate
+
+Do NOT recalculate locally.
+
+Use trust APIs.
+
+---
+
+# SECTION 7 — SEO TAB
+
+Manage:
+
+Meta Title
+
+Meta Description
+
+Social Share Image
+
+OpenGraph Preview
+
+Search Preview
+
+Preview updates live.
+
+---
+
+# SECTION 8 — STORE HEALTH TAB
+
+Create complete Store Health system.
+
+Example:
+
+Store Health
+
+87 / 100
+
+✓ Store Name
+
+✓ Description
+
+✓ Logo
+
+✓ Cover
+
+✓ Contact
+
+✗ Policies
+
+✗ SEO
+
+✓ Trust
+
+Health score updates live.
+
+---
+
+# SECTION 9 — UNSAVED CHANGES PROTECTION
+
+If seller attempts to leave:
+
+Show warning.
+
+Example:
+
+You have unsaved changes.
+
+Save before leaving?
+
+---
+
+# SECTION 10 — AUTO SAVE
+
+Where safe:
+
+Auto-save settings.
+
+Show:
+
+Saving...
+
+Saved
+
+Failed
+
+Use optimistic UI.
+
+---
+
+# SECTION 11 — MOBILE AUDIT
+
+Audit every screen.
+
+Fix:
+
+* overflow
+* spacing
+* edge touching
+* broken cards
+* bad RTL
+* tiny buttons
+
+No text should touch screen edges.
+
+No horizontal scrolling.
+
+No clipped content.
+
+---
+
+# SECTION 12 — RTL AUDIT
+
+Audit:
+
+* alignments
+* icons
+* dropdowns
+* previews
+* tabs
+
+Replace:
+
+left/right
+
+with:
+
+start/end
+
+where appropriate.
+
+---
+
+# SECTION 13 — TRANSLATION AUDIT
+
+Audit:
+
+EN
+
+AR
+
+Find:
+
+* missing keys
+* untranslated text
+* duplicated keys
+* inconsistent wording
+
+Fix all.
+
+Translation parity required.
+
+---
+
+# SECTION 14 — API AUDIT
+
+Audit all settings endpoints.
+
+Validate:
+
+GET
+
+POST
+
+PATCH
+
+DELETE
+
+Uploads
+
+Preview endpoints
+
+Fix:
+
+* broken saves
+* stale data
+* missing fields
+* invalid responses
+
+---
+
+# SECTION 15 — QA ENDPOINTS
+
+Every major feature must be testable.
+
+Create:
+
+GET /admin/store-settings-health/:sellerId
+
+Admin only.
+
+Return:
+
+{
+settingsLoaded,
+brandingConfigured,
+contactConfigured,
+policiesConfigured,
+seoConfigured,
+trustIntegrated,
+uploadsWorking,
+translationsValid,
+mobileCompatible,
+score
+}
+
+Score:
+
+0-100
+
+---
+
+# SECTION 16 — RECOVERY CHECK INTEGRATION
+
+IMPORTANT
+
+Every new feature in SYANO must be integrated into:
+
+GET /api/admin/recovery-check
+
+Add new module:
+
+storeSettings
+
+Example:
+
+{
+module: "storeSettings",
+score: 100,
+passed: true
+}
+
+Recovery Check must verify:
+
+* settings page loads
+* branding works
+* uploads work
+* contact info saves
+* policies save
+* trust integration works
+* SEO fields work
+* health score works
+* translations exist
+* mobile compatibility passes
+
+No feature is considered complete until Recovery Check validates it.
+
+---
+
+# SECTION 17 — E2E TESTING
+
+Use actual accounts:
+
+Admin
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Create customer if missing.
+
+Perform real testing:
+
+* open settings
+* update name
+* update description
+* update logo
+* update banner
+* update policies
+* update SEO
+* verify trust data
+* verify health score
+* reload page
+* verify persistence
+* verify mobile
+* verify RTL
+
+Use actual API responses.
+
+Do not assume success.
+
+Fix every failure discovered.
+
+Repeat until stable.
+
+---
+
+# SECTION 18 — DOCUMENTATION
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+Document:
+
+* Store Settings V2
+* Health endpoint
+* Recovery Check integration
+* Audit findings
+* Fixes applied
+
+---
+
+# FINAL VALIDATION
+
+Before completion:
+
+Run full verification.
+
+Requirements:
+
+✅ TypeScript = 0 errors
+
+✅ Store Settings Health endpoint passes
+
+✅ Recovery Check passes
+
+✅ storeSettings module passes
+
+✅ Mobile passes
+
+✅ RTL passes
+
+✅ Arabic passes
+
+✅ English passes
+
+✅ No broken saves
+
+✅ No regressions
+
+Only finish after all validations succeed and provide a complete audit report with every issue found and fixed.

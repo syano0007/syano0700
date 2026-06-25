@@ -1,0 +1,1148 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/*
+ * Self-hosted Inter variable font — Latin subset only (48 KB gzipped ~20 KB).
+ * All weights 100–900 are served from a single WOFF2 file (variable font).
+ * Preloaded in index.html to eliminate render-blocking and the Google Fonts
+ * third-party round-trip. font-display:swap avoids FOIT on slow connections.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── SYANO brand color: #276221 (forest green) — full emerald scale override ─ */
+@theme {
+  --color-emerald-50:  #ebf7ea;
+  --color-emerald-100: #cde8cb;
+  --color-emerald-200: #9bd097;
+  --color-emerald-300: #64b45e;
+  --color-emerald-400: #3d9338;
+  --color-emerald-500: #276221;
+  --color-emerald-600: #1f4f1a;
+  --color-emerald-700: #173c13;
+  --color-emerald-800: #0f290d;
+  --color-emerald-900: #091808;
+  --color-emerald-950: #050f04;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-primary-border: var(--sidebar-primary-border);
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-accent-border: var(--sidebar-accent-border);
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ── Navbar height — single source of truth ─────────────────────────
+   Mobile navbar is h-[60px], desktop (md+) is h-[64px].
+   All layout consumers (Layout <main>, scroll-padding) must use these vars.
+─────────────────────────────────────────────────────────────────────── */
+/* Navbar height in rem so it scales with the fluid root font-size.
+   3.75rem = 60px at 16px root, ≈ 54px at 14.4px (1280px viewport).
+   4rem    = 64px at 16px root, ≈ 57.6px at 14.4px (1280px viewport). */
+:root { --navbar-height: 3.75rem; }
+@media (min-width: 768px) { :root { --navbar-height: 4rem; } }
+
+/* ── Fluid small-label font sizes ────────────────────────────────────
+   These clamp values ensure small badge/label text scales with the
+   root font at desktop sizes while staying readable at mobile floor.
+   Use var(--font-2xs/xs/xs-up) in inline styles instead of px literals.
+   ─────────────────────────────────────────────────────────────────── */
+:root {
+  --font-2xs:   clamp(9px, 0.5625rem, 10px);  /* was 9-10px tiny labels  */
+  --font-xs:    clamp(10px, 0.6875rem, 12px); /* was 10-11px small labels */
+  --font-xs-up: clamp(11px, 0.75rem, 14px);  /* was 11-12px sub-labels   */
+}
+
+:root {
+  --button-outline: rgba(0,0,0, .10);
+  --badge-outline: rgba(0,0,0, .05);
+  --opaque-button-border-intensity: -8;
+  --elevate-1: rgba(0,0,0, .03);
+  --elevate-2: rgba(0,0,0, .08);
+
+  /* Light mode:
+  Background: #F9FAFB → HSL: 210 20% 98%
+  Surfaces/Cards: #FFFFFF → HSL: 0 0% 100%
+  Primary green: #1f5019 → HSL: 161 94% 30%
+  Hover green: #1f5019 → HSL: 161 94% 24%
+  Text primary: #111827 → HSL: 221 39% 11%
+  Text secondary: #4B5563 → HSL: 220 9% 35%
+  Borders: #E5E7EB → HSL: 220 13% 91%
+  */
+
+  --background: 210 20% 98%;
+  --foreground: 221 39% 11%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 221 39% 11%;
+  --card-border: 220 13% 84%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 221 39% 11%;
+  --popover-border: 220 13% 84%;
+
+  --primary: 114 50% 26%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 220 16% 94%;
+  --secondary-foreground: 221 39% 11%;
+
+  /* muted surface is slightly lighter than border so cards lift off the page */
+  --muted: 220 18% 96%;
+  /* muted-foreground darkened for WCAG AA compliance on white (#3d4554 ≈ 7:1) */
+  --muted-foreground: 220 13% 32%;
+
+  --accent: 220 16% 94%;
+  --accent-foreground: 221 39% 11%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* border is noticeably more visible — was 91% (very faint), now 84% */
+  --border: 220 13% 84%;
+  --input: 220 13% 84%;
+  --ring: 114 50% 26%;
+
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 221 39% 11%;
+  --sidebar-border: 220 13% 84%;
+  --sidebar-primary: 114 50% 26%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 16% 94%;
+  --sidebar-accent-foreground: 221 39% 11%;
+  --sidebar-ring: 114 50% 26%;
+
+  --chart-1: 114 50% 26%;
+  --chart-2: 221 39% 11%;
+  --chart-3: 220 13% 32%;
+  --chart-4: 220 13% 84%;
+  --chart-5: 0 0% 0%;
+
+  --app-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --app-font-serif: Georgia, serif;
+  --app-font-mono: Menlo, monospace;
+  --radius: .5rem;
+
+  /* ── Light Theme: image brightness — near-full brightness, image-first ── */
+  --img-dim-hero:     0.97;
+  --img-dim-category: 0.97;
+  --img-dim-product:  1.0;
+  --img-dim-store:    0.95;
+  --img-dim-arrival:  0.95;
+
+  /* ── Light Theme: card elevation ───────────────────────────────────── */
+  --shadow-card:       0 1px 3px 0 rgba(0,0,0,0.07), 0 1px 2px -1px rgba(0,0,0,0.05);
+  --shadow-card-hover: 0 8px 24px -4px rgba(0,0,0,0.12), 0 4px 8px -4px rgba(0,0,0,0.07);
+  --shadow-card-lg:    0 20px 48px -10px rgba(0,0,0,0.14), 0 8px 16px -8px rgba(0,0,0,0.08);
+
+  /* ── Alt section background ─────────────────────────────────────────── */
+  --section-alt: 220 22% 96%;
+}
+
+.dark {
+  --button-outline: rgba(255,255,255, .10);
+  --badge-outline: rgba(255,255,255, .05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255,255,255, .04);
+  --elevate-2: rgba(255,255,255, .09);
+
+  /* Dark mode — MUTED DARK GRAY (Claude.ai match):
+  Main Background: #1A1A1A → HSL: 0 0% 10%
+  Elevated surfaces/Cards: #242424 → HSL: 0 0% 14%
+  Borders: #333333 → HSL: 0 0% 20%
+  Primary Green: #276221 → HSL: 160 84% 39%
+  Hover Green: #1f5019 → HSL: 161 94% 30%
+  Text: #F8FAFC → HSL: 210 40% 98%
+  Secondary text: #CBD5E1 → HSL: 215 25% 84%
+  */
+
+  --background: 0 0% 10%;
+  --foreground: 210 40% 98%;
+
+  --card: 0 0% 14%;
+  --card-foreground: 210 40% 98%;
+  --card-border: 0 0% 20%;
+
+  --popover: 0 0% 14%;
+  --popover-foreground: 210 40% 98%;
+  --popover-border: 0 0% 20%;
+
+  --primary: 114 50% 26%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 0 0% 20%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 0 0% 20%;
+  --muted-foreground: 215 25% 84%;
+
+  --accent: 0 0% 20%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 114 50% 26%;
+
+  --sidebar: 0 0% 14%;
+  --sidebar-foreground: 210 40% 98%;
+  --sidebar-border: 0 0% 20%;
+  --sidebar-primary: 114 50% 26%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 20%;
+  --sidebar-accent-foreground: 210 40% 98%;
+  --sidebar-ring: 114 50% 26%;
+
+  --chart-1: 114 50% 26%;
+  --chart-2: 210 40% 98%;
+  --chart-3: 215 25% 84%;
+  --chart-4: 0 0% 20%;
+  --chart-5: 0 0% 100%;
+
+  /* ── Dark Theme: image brightness (heavier overlays for drama) ───── */
+  --img-dim-hero:     0.60;
+  --img-dim-category: 0.72;
+  --img-dim-product:  0.88;
+  --img-dim-store:    0.50;
+  --img-dim-arrival:  0.55;
+
+  /* ── Dark Theme: card elevation (depth from bg contrast, no shadow) ── */
+  --shadow-card:       none;
+  --shadow-card-hover: 0 20px 60px -12px rgba(0,0,0,0.50);
+  --shadow-card-lg:    0 30px 80px -20px rgba(0,0,0,0.60);
+
+  /* ── Alt section background ──────────────────────────────────────── */
+  --section-alt: 0 0% 12%;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  width: 100%;
+  max-width: 80rem;
+
+  @media (min-width: 640px) {
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline: 2rem;
+  }
+}
+
+@layer base {
+  html {
+    /* ── Fluid root font-size — VIEWPORT SCALE ARCHITECTURE V1 ──────────
+       Every rem unit (Tailwind spacing, heights, text, gaps, radii) scales
+       proportionally with this single rule. The interface behaves like a
+       Figma canvas: identical composition at every viewport, only scale
+       changes. Layout reflow and column reduction are last resorts.
+
+       AGGRESSIVE SCALING: 1920px is clearly larger than 1280px (24% diff).
+       Formula: clamp(10px, 4px + 0.75vw, 18px)
+         ≤800 px → 10 px floor         (mobile — minimum readable)
+         1024 px → 4 + 7.68  = 11.68px (small laptop — scaled down)
+         1280 px → 4 + 9.6   = 13.6 px (common laptop)
+         1440 px → 4 + 10.8  = 14.8 px (wide laptop)
+         1600 px → 4 + 12    = 16.0 px (desktop reference)
+         1920 px → 4 + 14.4  = 18.0 px (large desktop — cap, clearly bigger)
+         2560 px → 18 px cap           (ultrawide — stays at cap)
+
+       1920px vs 1280px difference: 18px vs 13.6px = 24% — clearly visible.
+       ─────────────────────────────────────────────────────────────────── */
+    font-size: clamp(10px, calc(4px + 0.75vw), 18px);
+    scrollbar-gutter: stable both-edges;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  * {
+    @apply border-border;
+    /* Eliminate the 300ms tap delay on iOS without breaking native scrolling */
+    touch-action: manipulation;
+    /* Remove the blue/grey tap highlight rectangle on Android/iOS.
+       Active-state feedback is handled via scale/opacity transitions instead. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent accidental text selection on tap-hold for interactive elements */
+  button, [role="button"], [role="link"], a {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Restore natural scroll gestures on scrollable containers */
+  /* Vertical-only scrollers */
+  [data-scroll-container],
+  .overflow-auto,
+  .overflow-y-auto,
+  .overflow-y-scroll {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Horizontal-only scrollers — pan-y blocks swipe, must use pan-x */
+  .overflow-x-auto,
+  .overflow-x-scroll {
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  /* Bidirectional scrollers */
+  .overflow-scroll {
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    line-height: 1.6;
+    /* Prevent scroll chaining / rubber-band jank on overscroll */
+    overscroll-behavior-y: contain;
+  }
+
+  /* ── Cinematic dark mode: let page wrappers be transparent so the
+     body's layered background shows through. Cards (bg-card) and
+     popovers (bg-popover) are unaffected — they use different tokens. ── */
+  html.dark .min-h-screen.bg-background {
+    background-color: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+}
+
+/* ─── Accessibility: respect reduced-motion preference ───────────────────────
+   Users who set "Reduce Motion" in their OS/browser get no animations at all.
+   This improves accessibility without removing transitions for everyone else.
+   ─────────────────────────────────────────────────────────────────────────── */
+/* ─── Keyboard focus indicator ───────────────────────────────────────────────
+   Show a clear focus ring for keyboard users; suppress it for mouse users.
+   The outline-offset keeps the ring outside the element border box.
+   ─────────────────────────────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .page-transition {
+    animation: none !important;
+  }
+}
+
+/* ─── Page transition ────────────────────────────────────────────────────────
+   Uses only GPU-composited properties (opacity + transform) so it runs
+   entirely off the main thread. Duration is tuned to 120 ms — about 1.5 frames
+   at 120 Hz — just enough to feel smooth without introducing perceptible lag.
+   ─────────────────────────────────────────────────────────────────────────── */
+/* ─── Hero Banner keyframes ─────────────────────────────────────────────────── */
+
+@keyframes hero-kenburns {
+  0%   { transform: scale(1.0) translate(0%, 0%); }
+  100% { transform: scale(1.08) translate(-0.8%, -0.6%); }
+}
+
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.hero-kenburns {
+  animation: hero-kenburns 8s ease-in-out forwards;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+@keyframes page-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.page-transition {
+  /* Opacity-only fade — no transform so no stacking-context side-effects.
+     will-change: opacity tells the browser to promote this element to its
+     own compositor layer immediately so the fade is fully GPU-composited. */
+  animation: page-enter 0.15s ease-out both;
+  will-change: opacity;
+}
+
+/* ─── Mobile touch active feedback ──────────────────────────────────────────
+   On touchscreens (hover:none + pointer:coarse) we apply an instant opacity
+   flash on tap so the UI feels reactive. Scale is intentionally left out here
+   to avoid compositor thrash on elements with stacking contexts — ProductCard
+   already has active:scale-[0.98] via Tailwind for cards specifically.
+   The transition is intentionally short (60ms) so it feels snappy, not slow. */
+@media (hover: none) and (pointer: coarse) {
+  button:not(:disabled):active,
+  [role="button"]:active {
+    opacity: 0.72;
+    transition: opacity 60ms ease;
+  }
+}
+
+/* ─── Product grid layout containment ────────────────────────────────────────
+   `contain: layout style` tells the browser the grid's layout and CSS cascade
+   are self-contained so it can skip layout recalculations AND style resolution
+   outside this element when children change (e.g. skeleton → real product
+   cards). Adding `style` on top of `layout` gives an extra tier of isolation:
+   CSS custom-property changes inside the grid don't invalidate styles outside
+   it, reducing repaint scope during scroll. We intentionally leave `paint` out
+   because product cards use absolutely-positioned badges that must bleed past
+   the grid's bounds without being clipped. */
+.product-grid {
+  contain: layout style;
+}
+
+/* ─── Content-visibility for below-fold page sections ───────────────────────
+   `content-visibility: auto` lets the browser skip rendering work for sections
+   that are fully out of the viewport. The `contain-intrinsic-block-size` hint
+   tells the browser a plausible height so the scrollbar remains accurate before
+   the section is rendered. Applied only to full-width sections that are
+   guaranteed below the fold (hero is excluded). This gives the biggest scroll
+   performance gain on the home page where 5 sections stack up to ~3000px. */
+.cv-section {
+  content-visibility: auto;
+  contain-intrinsic-block-size: 600px;
+}
+
+/* ─── Product card GPU promotion ─────────────────────────────────────────────
+   Hint the browser on hover that this element will change transform so it can
+   promote the card to its own compositor layer before the animation fires —
+   eliminating paint jank on the translateY hover. Only active during hover to
+   avoid wasting GPU memory when cards are at rest. */
+.group:hover {
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SYANO RESPONSIVE DESIGN SYSTEM v1.0
+   ───────────────────────────────────────────────────────────────────
+   Centralized tokens covering:
+     § Typography scale  (--ds-text-*)
+     § Icon scale        (--ds-icon-*)
+     § Spacing scale     (--ds-space-*)
+     § Border radii      (--ds-radius-*)
+     § Touch targets     (--ds-touch)
+   Plus CSS utility classes for safe-area insets, fluid headings,
+   and minimum-touch-target enforcement.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Typography Scale ──────────────────────────────────────────── */
+  --ds-text-xs:    0.75rem;    /* 12px — minimum label / caption     */
+  --ds-text-sm:    0.875rem;   /* 14px — secondary body              */
+  --ds-text-base:  1rem;       /* 16px — primary body                */
+  --ds-text-lg:    1.125rem;   /* 18px — large body / card title     */
+  --ds-text-xl:    1.25rem;    /* 20px — subheading                  */
+  --ds-text-2xl:   1.5rem;     /* 24px — section heading (mobile)    */
+  --ds-text-3xl:   1.875rem;   /* 30px — page heading (mobile)       */
+
+  /* ── Icon Scale ────────────────────────────────────────────────── */
+  --ds-icon-xs:   0.875rem;    /* 14px — badge / chip                */
+  --ds-icon-sm:   1rem;        /* 16px — inline / supporting         */
+  --ds-icon-md:   1.125rem;    /* 18px — nav / action                */
+  --ds-icon-lg:   1.25rem;     /* 20px — primary CTA icons           */
+  --ds-icon-xl:   1.5rem;      /* 24px — hero / feature icons        */
+
+  /* ── Spacing Scale ─────────────────────────────────────────────── */
+  --ds-space-1:   0.25rem;     /*  4px */
+  --ds-space-2:   0.5rem;      /*  8px */
+  --ds-space-3:   0.75rem;     /* 12px */
+  --ds-space-4:   1rem;        /* 16px */
+  --ds-space-5:   1.25rem;     /* 20px */
+  --ds-space-6:   1.5rem;      /* 24px */
+  --ds-space-8:   2rem;        /* 32px */
+  --ds-space-10:  2.5rem;      /* 40px */
+  --ds-space-12:  3rem;        /* 48px */
+
+  /* ── Border Radius Scale ───────────────────────────────────────── */
+  --ds-radius-sm: 0.375rem;    /*  6px — chips, badges              */
+  --ds-radius-md: 0.75rem;     /* 12px — inputs, small cards        */
+  --ds-radius-lg: 1rem;        /* 16px — cards                      */
+  --ds-radius-xl: 1.5rem;      /* 24px — modals, large cards        */
+
+  /* ── Touch Target (WCAG 2.5.5) ─────────────────────────────────── */
+  --ds-touch:     2.75rem;     /* 44px — minimum interactive target  */
+}
+
+/* ─── Safe-area Inset Utilities ─────────────────────────────────────
+   Avoid iPhone notch, Dynamic Island, Android punch-hole camera, and
+   the home-indicator bar by using these on sticky / fixed / bottom
+   elements. Falls back to 0px on devices without insets.
+   ──────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .pt-safe  { padding-top:    env(safe-area-inset-top,    0px); }
+  .pb-safe  { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .ps-safe  { padding-left:   env(safe-area-inset-left,   0px); }
+  .pe-safe  { padding-right:  env(safe-area-inset-right,  0px); }
+  .mt-safe  { margin-top:     env(safe-area-inset-top,    0px); }
+  .mb-safe  { margin-bottom:  env(safe-area-inset-bottom, 0px); }
+
+  /* Dynamic top — adds safe-area on top of an existing padding */
+  .pb-safe-4 {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+  .pb-safe-5 {
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  }
+  .pb-safe-6 {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ─── Touch-Target Enforcement ───────────────────────────────────────
+   Apply `.touch-min` to interactive elements whose visual size is
+   below 44px. A transparent pseudo-element expands the hit area
+   without changing layout or visuals.
+   ──────────────────────────────────────────────────────────────── */
+.touch-min {
+  position: relative;
+}
+.touch-min::after {
+  content: "";
+  position: absolute;
+  inset: 50% 50%;
+  transform: translate(-50%, -50%);
+  min-width:  var(--ds-touch);
+  min-height: var(--ds-touch);
+}
+
+/* ─── Fluid Heading Utilities ────────────────────────────────────────
+   Responsive font sizes using clamp() so headings scale gracefully
+   from iPhone SE (320px) through ultrawide (2560px) without needing
+   Tailwind breakpoint overrides on every heading element.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Hero headline — e.g. "Syria's First Comprehensive Online Marketplace"
+   320px → 26px  |  390px → 28px  |  768px → 36px  |  1280px → 50px  */
+.heading-hero {
+  font-size:      clamp(1.625rem, 1.25rem + 2.5vw, 3.25rem);
+  font-weight:    800;
+  line-height:    1.15;
+  letter-spacing: -0.03em;
+}
+
+/* Section heading — e.g. "Hot Deals", "Featured Products"
+   320px → 15px  |  390px → 16px  |  768px → 18px  |  1280px → 20px  */
+.heading-section {
+  font-size:      clamp(0.9375rem, 0.875rem + 0.5vw, 1.25rem);
+  font-weight:    700;
+  line-height:    1.25;
+  letter-spacing: -0.01em;
+}
+
+/* Card heading — product names, category tiles
+   320px → 14px  |  390px → 15px  |  768px → 16px  |  1280px → 18px  */
+.heading-card {
+  font-size:      clamp(0.875rem, 0.8rem + 0.5vw, 1.125rem);
+  font-weight:    600;
+  line-height:    1.35;
+}
+
+/* ─── Responsive Grid Helpers ────────────────────────────────────────
+   DENSITY-FIRST strategy: cards scale down before columns are removed.
+   Column reduction is a last resort — cards should shrink to their
+   minimum usable size (~140px) before a column is dropped.
+
+   Product grid column schedule:
+     < 480px  → 2 cols  (~175px cards at 360px)
+     480–639px → 3 cols  (~148px cards at 480px)   ← density gain
+     640–767px → 3 cols  (~200px cards at 640px)
+     768–1023px → 4 cols (~178px cards at 768px)
+     1024–1279px → 5 cols (~192px cards at 1024px)
+     1280–1535px → 6 cols (~192px cards at 1280px)  ← density gain
+     1536px+  → 6 cols  (~232px cards at 1536px)
+   ──────────────────────────────────────────────────────────────── */
+
+.product-grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  width: 100%;
+}
+@media (min-width: 480px)  { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; } }
+@media (min-width: 640px)  { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 0.625rem; } }
+@media (min-width: 768px)  { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 0.625rem; } }
+@media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(5, 1fr); gap: 0.75rem; } }
+@media (min-width: 1280px) { .product-grid { grid-template-columns: repeat(6, 1fr); gap: 0.75rem; } }
+@media (min-width: 1536px) { .product-grid { grid-template-columns: repeat(6, 1fr); gap: 0.875rem; } }
+
+/* ── Compact card internals — tiered by card width ────────────────────
+   Each tier tightens text/spacing proportionally to the card's actual
+   rendered width so content remains readable and aligned at all sizes.
+   Tiers track the grid column schedule above.
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Base tier: < 640px (2-col ~175px OR 3-col ~148px cards) — tightest */
+.product-grid .pc-body        { padding: 0.5rem !important; }
+.product-grid .pc-cat-row     { margin-bottom: 0.2rem !important; }
+.product-grid .pc-title       { font-size: 10px !important; line-height: 1.4 !important; min-height: 2.4em !important; margin-bottom: 0.3rem !important; }
+.product-grid .pc-rating-row  { margin-bottom: 0.3rem !important; min-height: 13px !important; gap: 0.2rem !important; }
+.product-grid .pc-stars svg   { width: 0.5rem !important; height: 0.5rem !important; }
+.product-grid .pc-rating-text { font-size: 9px !important; }
+.product-grid .pc-price-row   { gap: 0.3rem !important; }
+.product-grid .pc-price-main  { font-size: 12px !important; letter-spacing: -0.01em !important; }
+.product-grid .pc-price-orig  { font-size: 9px !important; }
+.product-grid .pc-cart-btn    { font-size: 9px !important; padding: 0.25rem 0.4375rem !important; gap: 0.2rem !important; border-radius: 0.5rem !important; }
+.product-grid .pc-cart-btn svg { width: 0.5625rem !important; height: 0.5625rem !important; }
+
+/* 640px tier: 3-col ~200px cards — moderate
+   Font sizes converted to rem so they scale with root font (Viewport Scale V1).
+   Absolute px values remain only for supplementary tiny text (strike-through, etc.) */
+@media (min-width: 640px) {
+  .product-grid .pc-body        { padding: 0.625rem !important; }
+  .product-grid .pc-cat-row     { margin-bottom: 0.25rem !important; }
+  .product-grid .pc-title       { font-size: 0.75rem !important; min-height: 2.5em !important; margin-bottom: 0.375rem !important; }
+  .product-grid .pc-rating-row  { margin-bottom: 0.375rem !important; min-height: 14px !important; gap: 0.25rem !important; }
+  .product-grid .pc-stars svg   { width: 0.5625rem !important; height: 0.5625rem !important; }
+  .product-grid .pc-rating-text { font-size: 0.625rem !important; }
+  .product-grid .pc-price-row   { gap: 0.375rem !important; }
+  .product-grid .pc-price-main  { font-size: 0.875rem !important; }
+  .product-grid .pc-price-orig  { font-size: 9px !important; }
+  .product-grid .pc-cart-btn    { font-size: 0.625rem !important; padding: 0.3125rem 0.5625rem !important; gap: 0.25rem !important; }
+  .product-grid .pc-cart-btn svg { width: 0.625rem !important; height: 0.625rem !important; }
+}
+
+/* 1024px tier: 5-col ~192px cards — comfortable
+   Rem units scale with root: at 1280px root≈13.6px → title=11px, price=12.75px */
+@media (min-width: 1024px) {
+  .product-grid .pc-body        { padding: 0.75rem !important; }
+  .product-grid .pc-cat-row     { margin-bottom: 0.3rem !important; }
+  .product-grid .pc-title       { font-size: 0.8125rem !important; min-height: 2.6em !important; margin-bottom: 0.4rem !important; }
+  .product-grid .pc-rating-row  { margin-bottom: 0.4rem !important; min-height: 15px !important; gap: 0.25rem !important; }
+  .product-grid .pc-stars svg   { width: 0.625rem !important; height: 0.625rem !important; }
+  .product-grid .pc-rating-text { font-size: 0.6875rem !important; }
+  .product-grid .pc-price-row   { gap: 0.4rem !important; }
+  .product-grid .pc-price-main  { font-size: 0.9375rem !important; }
+  .product-grid .pc-price-orig  { font-size: 10px !important; }
+  .product-grid .pc-cart-btn    { font-size: 0.6875rem !important; padding: 0.375rem 0.625rem !important; gap: 0.25rem !important; }
+  .product-grid .pc-cart-btn svg { width: 0.6875rem !important; height: 0.6875rem !important; }
+}
+
+/* 1536px tier: 6-col ~232px cards — near-natural sizing
+   At 1920px root=18px → title=15.75px, price=18px (full natural size) */
+@media (min-width: 1536px) {
+  .product-grid .pc-body        { padding: 0.875rem !important; }
+  .product-grid .pc-title       { font-size: 0.875rem !important; min-height: 2.8em !important; margin-bottom: 0.5rem !important; }
+  .product-grid .pc-rating-row  { margin-bottom: 0.5rem !important; min-height: 16px !important; }
+  .product-grid .pc-stars svg   { width: 0.6875rem !important; height: 0.6875rem !important; }
+  .product-grid .pc-rating-text { font-size: 0.75rem !important; }
+  .product-grid .pc-price-main  { font-size: 1rem !important; }
+  .product-grid .pc-price-orig  { font-size: 10px !important; }
+  .product-grid .pc-cart-btn    { font-size: 0.75rem !important; padding: 0.4375rem 0.75rem !important; gap: 0.3rem !important; }
+  .product-grid .pc-cart-btn svg { width: 0.75rem !important; height: 0.75rem !important; }
+}
+
+/* ── Store / catalog grid — same column density as product-grid but
+   without the pc-* card overrides (used by store pages, wishlist, etc.)
+   ─────────────────────────────────────────────────────────────────── */
+.store-grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  width: 100%;
+}
+@media (min-width: 480px)  { .store-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; } }
+@media (min-width: 640px)  { .store-grid { grid-template-columns: repeat(3, 1fr); gap: 0.625rem; } }
+@media (min-width: 768px)  { .store-grid { grid-template-columns: repeat(4, 1fr); gap: 0.625rem; } }
+@media (min-width: 1024px) { .store-grid { grid-template-columns: repeat(5, 1fr); gap: 0.75rem; } }
+@media (min-width: 1280px) { .store-grid { grid-template-columns: repeat(5, 1fr); gap: 0.875rem; } }
+
+/* Category photo-card grid — 2 cols mobile → 3 at 480px → 4 at md → 5 at lg → 6 at xl */
+.category-grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  width: 100%;
+  contain: layout style;
+}
+@media (min-width: 480px)  { .category-grid { grid-template-columns: repeat(3, 1fr); gap: 0.625rem; } }
+@media (min-width: 768px)  { .category-grid { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; } }
+@media (min-width: 1024px) { .category-grid { grid-template-columns: repeat(5, 1fr); gap: 1rem; } }
+@media (min-width: 1280px) { .category-grid { grid-template-columns: repeat(6, 1fr); gap: 1.25rem; } }
+
+/* ─── Scroll Container Helpers ───────────────────────────────────── */
+.scroll-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scroll-hidden::-webkit-scrollbar { display: none; }
+
+/* ─── RTL / Arabic Typography Adjustments ───────────────────────────
+   Arabic script has a higher optical x-height than Latin, uses
+   different ascender/descender metrics, and does not benefit from
+   negative letter-spacing (it actually harms readability). These
+   overrides correct the visual balance when dir="rtl" is active.
+   ──────────────────────────────────────────────────────────────── */
+[dir="rtl"] .heading-hero {
+  font-size:      clamp(1.75rem, 1.375rem + 2.5vw, 3.5rem);
+  letter-spacing: 0;
+  line-height:    1.3;
+}
+[dir="rtl"] .heading-section {
+  font-size:      clamp(1rem, 0.9375rem + 0.5vw, 1.375rem);
+  letter-spacing: 0;
+  line-height:    1.4;
+}
+[dir="rtl"] .heading-card {
+  font-size:      clamp(0.9375rem, 0.85rem + 0.5vw, 1.2rem);
+  letter-spacing: 0;
+  line-height:    1.6;
+}
+
+/* ─── Semantic Typography Utilities ─────────────────────────────────
+   Fluid, overflow-safe classes for stats, prices, and titles.
+   All use clamp() — scale gracefully 320px → 2560px.
+   tabular-nums prevents layout jank when digits change.
+   word-break + overflow-wrap guard long currency strings like
+   "1,250,000 ل.س" on narrow screens.
+   RTL overrides reset letter-spacing to 0 (Arabic doesn't kern).
+   ──────────────────────────────────────────────────────────────── */
+
+/* Seller / Admin KPI card number
+   320px→20px  390px→22px  768px→26px  1280px→30px */
+.text-stat-number {
+  font-size:      clamp(1.25rem, 1rem + 1.4vw, 1.875rem);
+  font-weight:    800;
+  line-height:    1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  word-break:     break-word;
+  overflow-wrap:  break-word;
+}
+[dir="rtl"] .text-stat-number {
+  letter-spacing: 0;
+  line-height:    1.3;
+}
+
+/* Featured / hero KPI (larger emphasis)
+   320px→22px  390px→25px  768px→30px  1280px→36px */
+.text-dashboard-kpi {
+  font-size:      clamp(1.375rem, 1.1rem + 1.8vw, 2.25rem);
+  font-weight:    900;
+  line-height:    1.05;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  word-break:     break-word;
+  overflow-wrap:  break-word;
+}
+[dir="rtl"] .text-dashboard-kpi {
+  letter-spacing: 0;
+  line-height:    1.25;
+}
+
+/* Product detail page price
+   320px→22px  390px→25px  768px→30px  1280px→36px */
+.text-product-price {
+  font-size:      clamp(1.375rem, 1.1rem + 1.8vw, 2.25rem);
+  font-weight:    900;
+  line-height:    1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  word-break:     break-word;
+  overflow-wrap:  break-word;
+}
+[dir="rtl"] .text-product-price {
+  letter-spacing: 0;
+  line-height:    1.3;
+}
+
+/* Compact dashboard card value
+   320px→18px  390px→20px  768px→22px  1280px→24px */
+.text-card-metric {
+  font-size:      clamp(1.125rem, 0.95rem + 1vw, 1.5rem);
+  font-weight:    700;
+  line-height:    1.1;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+  word-break:     break-word;
+  overflow-wrap:  break-word;
+}
+[dir="rtl"] .text-card-metric {
+  letter-spacing: 0;
+  line-height:    1.3;
+}
+
+/* Review aggregate score (e.g. "4.8")
+   320px→30px  390px→34px  768px→40px  1280px→48px */
+.text-review-score {
+  font-size:      clamp(1.875rem, 1.5rem + 2.5vw, 3rem);
+  font-weight:    900;
+  line-height:    1.0;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+[dir="rtl"] .text-review-score {
+  letter-spacing: 0;
+  line-height:    1.15;
+}
+
+/* Store page follower / review / product counts
+   320px→20px  390px→22px  768px→26px  1280px→30px */
+.text-store-stat {
+  font-size:      clamp(1.25rem, 1rem + 1.4vw, 1.875rem);
+  font-weight:    900;
+  line-height:    1.0;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+[dir="rtl"] .text-store-stat {
+  letter-spacing: 0;
+  line-height:    1.2;
+}
+
+/* Responsive page / section h1
+   320px→20px  390px→22px  768px→26px  1280px→30px */
+.text-page-title {
+  font-size:      clamp(1.25rem, 1rem + 1.4vw, 1.875rem);
+  font-weight:    700;
+  line-height:    1.2;
+  letter-spacing: -0.02em;
+}
+[dir="rtl"] .text-page-title {
+  letter-spacing: 0;
+  line-height:    1.4;
+}
+
+/* ─── Product Card Section Utilities ─────────────────────────────────
+   These classes enforce consistent section heights inside product cards
+   so that cards with different title lengths — in either Arabic or
+   English — remain visually identical within the same grid row.
+   Works together with the flex-col + mb-auto layout in ProductCard.tsx.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Category chip — always 1 line, fixed minimum height */
+.pc-category {
+  min-height:    1.25rem;
+  overflow:      hidden;
+  white-space:   nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Product title — always reserves exactly 2 lines of height.
+   Uses -webkit-line-clamp for the text cut; min-height ensures
+   1-line titles still occupy the same vertical space as 2-line ones. */
+.pc-title {
+  display:            -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow:           hidden;
+  min-height:         calc(1.35em * 2);   /* line-height 1.35 × 2 lines */
+}
+[dir="rtl"] .pc-title {
+  min-height: calc(1.6em * 2);            /* Arabic line-height 1.6 × 2 lines */
+}
+
+/* Seller name row — always 1 line, fixed height, truncates with ellipsis */
+.pc-meta {
+  min-height: 1.25rem;
+  overflow:   hidden;
+}
+@media (min-width: 640px) {
+  .pc-meta { min-height: 1.375rem; }
+}
+
+/* Rating row — always 1 line, fixed height.
+   StarRating icons are fixed-width (h-3.5 w-3.5) and never wrap.
+   min-height ensures no-review cards match rated-card height exactly. */
+.pc-rating {
+  min-height: 1.25rem;
+  overflow:   hidden;
+}
+@media (min-width: 640px) {
+  .pc-rating { min-height: 1.375rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SYANO LIGHT THEME UTILITIES
+   Theme-aware card elevation, image overlays, and section surfaces.
+   All values are CSS-var-driven — light vs dark handled in :root/.dark
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Card elevation ──────────────────────────────────────────────── */
+/* Gives cards visible depth in light mode; stays flat in dark (AMOLED). */
+.sy-card-elevated {
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.sy-card-elevated:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+.sy-card-elevated-lg {
+  box-shadow: var(--shadow-card-lg);
+}
+
+/* ── Theme-aware image overlay gradients ──────────────────────────
+   Each variant matches how dark the overlay must be in light vs dark.
+   Light mode uses softer overlays so photo detail is preserved.
+   Dark mode uses heavier overlays for dramatic contrast. */
+
+/* Category photo-cards — readable labels, light-theme-first */
+.sy-overlay-category {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.50) 0%,
+    rgba(0,0,0,0.14) 48%,
+    transparent 78%);
+}
+.dark .sy-overlay-category {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.68) 0%,
+    rgba(0,0,0,0.18) 55%,
+    transparent 100%);
+}
+
+/* Store/arrival hero-size images — soft label gradient */
+.sy-overlay-heavy {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.40) 0%,
+    rgba(0,0,0,0.08) 50%,
+    transparent 100%);
+}
+.dark .sy-overlay-heavy {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.30) 55%,
+    transparent 100%);
+}
+
+/* Deal/product card bottom-fade — very light in light mode */
+.sy-overlay-medium {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.18) 0%,
+    transparent 55%);
+}
+.dark .sy-overlay-medium {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.68) 0%,
+    rgba(0,0,0,0.12) 50%,
+    transparent 100%);
+}
+
+/* Trending product cards — barely-there in light mode */
+.sy-overlay-light {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.08) 0%,
+    transparent 35%);
+}
+.dark .sy-overlay-light {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.54) 0%,
+    transparent 40%);
+}
+
+/* Hero section vignette — very subtle in light, deeper in dark */
+.sy-hero-overlay {
+  background: linear-gradient(to top right, hsl(var(--background) / 0.15), transparent);
+}
+.dark .sy-hero-overlay {
+  background: linear-gradient(to top right, hsl(var(--background) / 0.65), transparent);
+}
+
+/* ── Alt section background ───────────────────────────────────────
+   Subtly different page bg so adjacent sections don't merge visually. */
+.sy-section-alt {
+  background-color: hsl(var(--section-alt));
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM V2 — GLOBAL UTILITIES
+   Adds ambient glow, premium empty states, and auth-page atmosphere
+   to match the Homepage V7 visual language across all pages.
+══════════════════════════════════════════════════════════════════════ */
+
+/* ── Auth pages: ambient emerald radial glow ──────────────────────────
+   Wraps login / register pages for homepage-quality atmosphere.
+─────────────────────────────────────────────────────────────────────── */
+.sy-auth-bg {
+  position: relative;
+  overflow: hidden;
+}
+.sy-auth-bg::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(800px, 150vw);
+  height: min(600px, 100vw);
+  background: radial-gradient(ellipse, rgba(5,150,105,.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.sy-auth-bg::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  right: -5%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(ellipse, rgba(5,150,105,.05) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Premium empty state ──────────────────────────────────────────────
+   Replaces bare dashed-border empty states.
+─────────────────────────────────────────────────────────────────────── */
+.sy-empty-state {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   CINEMATIC DARK BACKGROUND SYSTEM
+   Layered atmospheric background for dark mode — premium marketplace feel.
+   Inspired by: Apple Keynotes · Linear · Stripe · Luxury E-commerce
+   Four-layer stack: base gradient → depth → ambient green glow → vignette → noise
+   All effects dark-mode only. Light theme is completely unaffected.
+══════════════════════════════════════════════════════════════════════ */
+
+html.dark body {
+  background-color: #030303;
+  background-image:
+    /* [1] TOP — Micro noise: eliminates flatness, adds perceived surface quality */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.042'/%3E%3C/svg%3E"),
+    /* [2] Vignette — edges recede into darkness, center feels illuminated */
+    radial-gradient(ellipse 130% 130% at 50% 45%, transparent 28%, rgba(0,0,0,0.62) 100%),
+    /* [3] SYANO green ambient glow — upper-left origin, atmospheric, nearly invisible */
+    radial-gradient(ellipse 95% 75% at 10% 18%, rgba(39,98,33,0.038) 0%, transparent 65%),
+    /* [4] SYANO green ambient glow — lower-right echo, even more diffuse */
+    radial-gradient(ellipse 75% 60% at 90% 82%, rgba(39,98,33,0.020) 0%, transparent 62%),
+    /* [5] Depth crown — top region fractionally lighter, creates vertical dimension */
+    radial-gradient(ellipse 120% 70% at 50% -8%, #0f0f0f 0%, #080808 32%, transparent 68%),
+    /* [6] BOTTOM — Base cinematic gradient: non-uniform darkness, no flat zones */
+    linear-gradient(172deg, #0a0a0a 0%, #060606 30%, #030303 58%, #050505 80%, #080808 100%);
+  background-size:
+    180px 180px,   /* noise — tiles across viewport */
+    cover,          /* vignette */
+    cover,          /* green glow 1 */
+    cover,          /* green glow 2 */
+    cover,          /* depth crown */
+    cover;          /* base gradient */
+  background-repeat:
+    repeat,         /* noise tiles */
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  /* Fixed attachment on desktop: background stays anchored as content scrolls,
+     creating a cinematic parallax depth effect (like Linear / Apple product pages) */
+  background-attachment:
+    fixed,
+    fixed,
+    fixed,
+    fixed,
+    fixed,
+    fixed;
+}
+
+/* Disable fixed attachment on mobile — background-attachment:fixed disables
+   GPU compositing on iOS Safari and causes repaint jank on scroll */
+@media (max-width: 767px) {
+  html.dark body {
+    background-attachment: scroll;
+  }
+}

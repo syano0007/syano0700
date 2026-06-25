@@ -1,0 +1,67 @@
+CRITICAL HIGH-PRIORITY ARCHITECTURAL BUG - SELLER ONBOARDING WORKFLOW
+
+There is still a remaining critical bug in the seller registration system.
+
+**Exact Problem:**
+If a user (as a customer) enters the seller application page (/seller/apply) and then leaves without saving as draft or submitting — even if they didn't fill any field — the system incorrectly marks or creates a state that prevents this same user from submitting a new seller application later on the same account.
+
+This is a serious design flaw.
+
+══════════════════════════════════════
+CORRECT BUSINESS RULES (Must be strictly enforced)
+══════════════════════════════════════
+
+1. Visiting the seller application page must have **ZERO side effects**:
+   - No record creation in seller_applications table
+   - No change to user role
+   - No change to any seller-related flags
+   - No locking mechanism
+
+2. A seller application record should ONLY be created when the user explicitly:
+   - Clicks "Save as Draft", OR
+   - Clicks "Submit Application"
+
+3. Any Customer Account must ALWAYS be able to:
+   - Access the seller application page
+   - Submit a new application (even if they visited and left before)
+   - Continue a saved draft
+   - Re-apply after a rejected application
+
+══════════════════════════════════════
+REQUIRED STATES
+══════════════════════════════════════
+
+- NO_APPLICATION (default)
+- DRAFT
+- PENDING_REVIEW
+- APPROVED
+- REJECTED
+
+Only APPROVED should convert the account to Seller.
+
+══════════════════════════════════════
+TASK - FULL FIX
+══════════════════════════════════════
+
+Audit and fix the entire flow so that:
+
+- Simply navigating to /seller/apply does nothing (pure read operation).
+- No accidental or implicit record creation happens on page visit.
+- Users are never blocked from applying due to previous incomplete visits.
+- Drafts are created only on explicit "Save as Draft".
+- The system supports multiple application attempts per user.
+
+Please:
+1. Identify the exact root cause (which file/route/middleware is creating the unwanted state).
+2. Fix all related backend and frontend logic.
+3. Ensure clean separation between Customer and Seller states.
+4. Test all edge cases:
+   - Visit page → leave immediately
+   - Visit page → leave → return later and submit
+   - Have rejected application → try again
+   - Have draft → submit
+
+After completion, confirm clearly:
+"The bug is fixed. Any customer account can now freely start and submit a seller application at any time, even after previously visiting and leaving the page."
+
+This is a high-priority business logic fix. Execute thoroughly.

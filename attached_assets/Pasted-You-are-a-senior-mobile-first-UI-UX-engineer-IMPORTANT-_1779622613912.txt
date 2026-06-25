@@ -1,0 +1,90 @@
+You are a senior mobile-first UI/UX engineer.
+
+IMPORTANT:
+The navbar branding is STILL incorrectly positioned on iPhone Dynamic Island devices.
+
+Analyze the current mobile layout carefully.
+
+The issue:
+
+* The logo/brand is currently placed in the CENTER area of the screen.
+* On Dynamic Island iPhones, the center area is physically blocked by the camera/notch.
+* As a result, the logo and “Syano” text are hidden/clipped.
+
+You MUST redesign the mobile navbar layout according to the physical screen zones.
+
+KEY REQUIREMENT:
+Treat the top mobile screen as 3 horizontal sections:
+
+* LEFT SAFE COLUMN
+* CENTER CAMERA/DYNAMIC ISLAND ZONE
+* RIGHT SAFE COLUMN
+
+The BRANDING MUST NOT occupy the CENTER zone.
+
+NEW REQUIRED LAYOUT:
+
+* Keep the center/top camera area completely empty.
+* Move the branding/logo entirely into the RIGHT SAFE COLUMN.
+* The logo should appear clearly and fully visible on the top-right side.
+* “SYANO” text should appear UNDER the logo vertically.
+* Use a stacked vertical layout:
+  [LOGO]
+  [SYANO]
+
+NOT side-by-side.
+
+IMPORTANT:
+
+* The branding should feel intentionally positioned, not randomly shifted.
+* It must look visually premium and balanced.
+* The logo should be larger and more visible.
+* Keep proper spacing from screen edges.
+* Respect iOS safe-area insets dynamically.
+
+HEADER STRUCTURE REQUIREMENTS:
+
+LEFT COLUMN:
+
+* search icon or navigation actions
+
+CENTER COLUMN:
+
+* EMPTY SAFE AREA reserved for Dynamic Island / notch
+
+RIGHT COLUMN:
+
+* Syano branding stack (logo above, text below)
+
+MOBILE-FIRST VALIDATION:
+Test specifically on:
+
+* iPhone Dynamic Island devices
+* iPhone notch devices
+* Android punch-hole devices
+
+Ensure:
+
+* no overlap
+* no clipping
+* no hidden branding
+* no collision with status bar/camera
+* touch-friendly spacing
+
+VISUAL STYLE:
+Maintain:
+
+* futuristic premium branding
+* emerald glow
+* metallic silver identity
+* clean luxury ecommerce look
+
+IMPLEMENTATION:
+
+* Use proper responsive grid/flex layout.
+* Avoid hardcoded random offsets.
+* Use safe-area-aware spacing.
+* Keep reusable architecture.
+
+FINAL RESULT:
+The navbar should feel like a professionally designed native premium mobile application optimized specifically for modern phone hardware layouts.

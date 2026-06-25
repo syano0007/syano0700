@@ -1,0 +1,175 @@
+SYANO — FULL RECOVERY, STARTUP & LAST-CHANGE VERIFICATION
+
+Read all recovery files first.
+
+Required files:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Do not start new development.
+
+Do not continue Seller Analytics V2.
+
+Do not modify code yet.
+
+Goal:
+Restore the project and verify the exact state after the interrupted Seller Analytics V2 session.
+
+---
+
+## PHASE 1 — RECOVERY
+
+Execute recovery exactly:
+
+1. Install dependencies
+
+pnpm install --force
+
+2. Verify environment variables
+
+DATABASE_URL
+SESSION_SECRET
+SITE_URL
+CORS_ORIGIN
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_SUBJECT
+
+3. Verify database
+
+Confirm:
+
+* all tables exist
+* all enums exist
+* notification_type = 31 values
+
+4. Start services
+
+* API Server
+* Marketplace
+* Mobile
+
+5. Verify health
+
+/api/healthz
+
+must return:
+
+{"status":"ok"}
+
+---
+
+## PHASE 2 — TYPESCRIPT VALIDATION
+
+Run full validation.
+
+Check:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+artifacts/api-server
+artifacts/marketplace
+artifacts/mobile
+
+Report:
+
+* error count
+* warning count
+
+---
+
+## PHASE 3 — SELLER ANALYTICS V2 AUDIT
+
+The previous Seller Analytics V2 implementation was interrupted.
+
+DO NOT CONTINUE DEVELOPMENT.
+
+Audit only.
+
+Determine:
+
+1. Which Seller Analytics files were modified
+2. Which changes were completed
+3. Which changes are partial
+4. Which files are unfinished
+5. Whether any routes were added
+6. Whether any APIs were added
+7. Whether any i18n keys were added
+8. Whether navigation links were added
+9. Whether mobile analytics work started
+10. Whether charts were added
+
+Return exact file list.
+
+---
+
+## PHASE 4 — BUILD SAFETY AUDIT
+
+Verify:
+
+* API starts
+* Vite compiles
+* Mobile compiles
+
+Check for:
+
+* missing imports
+* broken routes
+* missing translation keys
+* incomplete components
+* dead code
+* TypeScript mismatches
+
+---
+
+## PHASE 5 — PLATFORM VERIFICATION
+
+Verify all completed roadmap systems still work:
+
+Product Wizard
+Variant System
+Delivery Zones
+Order Fulfillment Workflow V1
+Courier Operations Dashboard V2
+Seller Orders V2
+Recently Viewed Products
+Order Tracking
+Notifications
+Authentication
+
+Report regressions if found.
+
+---
+
+## PHASE 6 — FINAL REPORT
+
+Return:
+
+1. Recovery Status
+2. Services Status
+3. Database Status
+4. TypeScript Status
+5. Seller Analytics V2 Status
+6. Modified Files
+7. Completed Analytics Work
+8. Incomplete Analytics Work
+9. Build Status
+10. Regressions
+11. Safe Next Step
+
+IMPORTANT:
+
+Do not continue Seller Analytics development.
+
+Do not modify files.
+
+Do not write code.
+
+Audit only.
+
+The goal is to determine the exact state of the interrupted Seller Analytics V2 implementation before any further work begins.

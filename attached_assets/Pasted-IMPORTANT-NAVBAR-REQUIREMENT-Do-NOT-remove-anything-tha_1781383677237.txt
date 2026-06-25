@@ -1,0 +1,173 @@
+IMPORTANT NAVBAR REQUIREMENT
+
+Do NOT remove anything that currently exists in the navbar.
+
+Do NOT remove:
+
+* الرئيسية
+* المنتجات
+* المتاجر
+* العروض
+
+Do NOT remove:
+
+* Search Bar
+
+Do NOT remove:
+
+* Logo
+
+Do NOT remove:
+
+* تسجيل الدخول
+* إنشاء حساب
+
+All current navbar items must remain exactly as they are.
+
+────────────────────────
+
+NEW REQUIREMENT
+
+Add a new Settings button ONLY.
+
+Do not replace existing buttons.
+
+Do not move existing buttons.
+
+Do not restructure the navbar.
+
+Do not change spacing of existing navigation links.
+
+────────────────────────
+
+PLACEMENT
+
+Place the new Settings button on the authentication side.
+
+Final order should become:
+
+[ Settings ]
+[ تسجيل الدخول ]
+[ إنشاء حساب ]
+
+or
+
+[ ⚙ ]
+[ تسجيل الدخول ]
+[ إنشاء حساب ]
+
+depending on which version looks better.
+
+The Settings button must appear immediately beside the login/register area.
+
+────────────────────────
+
+SETTINGS DROPDOWN
+
+When clicking Settings:
+
+Open a premium dropdown menu.
+
+Contents:
+
+Theme
+
+* Light
+* Dark
+* System
+
+Language
+
+* العربية
+* English
+
+Currency
+
+* SYP
+* USD
+
+────────────────────────
+
+DESIGN
+
+The Settings button must visually match:
+
+* Login button
+* Register button
+* Current navbar design
+
+Use:
+
+* same height
+* same alignment
+* same spacing system
+* same hover animation
+* same border radius language
+
+Do NOT make it look like an admin panel control.
+
+Do NOT use browser default dropdowns.
+
+Use the SYANO design system.
+
+────────────────────────
+
+FUNCTIONALITY
+
+Theme switching must work.
+
+Language switching must work.
+
+Currency switching must work.
+
+Persist settings after refresh.
+
+────────────────────────
+
+DO NOT TOUCH
+
+* Hero section
+* Homepage layout
+* Search functionality
+* Existing navbar links
+* Cart
+* Wishlist
+* Authentication system
+
+Only add the Settings button and dropdown.
+
+────────────────────────
+
+VALIDATION
+
+Verify:
+
+✅ Existing navbar remains unchanged
+
+✅ الرئيسية still exists
+
+✅ المنتجات still exists
+
+✅ المتاجر still exists
+
+✅ العروض still exists
+
+✅ Search bar still exists
+
+✅ Login button still exists
+
+✅ Register button still exists
+
+✅ New Settings button added
+
+✅ Theme works
+
+✅ Language works
+
+✅ Currency works
+
+✅ Mobile works
+
+✅ RTL works
+
+Update CURRENT_STATE.md and RECOVERY_GUIDE.md after implementation.

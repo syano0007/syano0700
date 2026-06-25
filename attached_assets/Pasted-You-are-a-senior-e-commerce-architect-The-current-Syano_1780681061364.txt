@@ -1,0 +1,286 @@
+You are a senior e-commerce architect.
+
+The current Syano variant system is basic and not suitable for a serious marketplace.
+
+Your task is to redesign and implement a WORLD-CLASS product variant architecture comparable to Amazon, Shopify, Trendyol, Etsy, Noon, and AliExpress.
+
+IMPORTANT:
+
+Do not patch the current implementation.
+
+Design a scalable long-term architecture that can support millions of products and thousands of sellers without requiring future rewrites.
+
+====================================================
+GOAL
+====
+
+Transform product variants from a simple option system into a complete catalog architecture.
+
+The result must support:
+
+* fashion
+* electronics
+* cosmetics
+* furniture
+* automotive
+* accessories
+* digital products (future)
+* any product category
+
+====================================================
+REQUIRED ARCHITECTURE
+=====================
+
+Separate:
+
+1. Product
+2. Product Attributes
+3. Attribute Values
+4. Product Variants
+5. Variant Inventory
+6. Variant Pricing
+7. Variant Images
+8. Variant SKU System
+
+The product itself should be the parent.
+
+Each variant should be an independent purchasable item.
+
+====================================================
+EXAMPLES
+========
+
+Example:
+
+iPhone 16
+
+Attributes:
+
+* Color
+* Storage
+
+Values:
+
+* Black
+* White
+* Blue
+
+Storage:
+
+* 128GB
+* 256GB
+* 512GB
+
+Generated Variants:
+
+Black + 128GB
+Black + 256GB
+Black + 512GB
+
+White + 128GB
+White + 256GB
+White + 512GB
+
+Blue + 128GB
+Blue + 256GB
+Blue + 512GB
+
+Each variant must have:
+
+* unique SKU
+* stock quantity
+* price
+* compare-at price
+* barcode
+* weight
+* dimensions
+* status
+* images
+
+====================================================
+VARIANT IMAGES
+==============
+
+Support image groups per variant.
+
+Example:
+
+Color = Red
+
+Images:
+
+* red-front.webp
+* red-side.webp
+* red-back.webp
+
+Color = Blue
+
+Images:
+
+* blue-front.webp
+* blue-side.webp
+* blue-back.webp
+
+When user selects Blue:
+
+Gallery switches automatically.
+
+When user selects Red:
+
+Gallery switches automatically.
+
+Exactly like Amazon and Shopify.
+
+====================================================
+INVENTORY
+=========
+
+Inventory must exist at variant level.
+
+Not product level.
+
+Example:
+
+Red / M = 5 units
+
+Red / L = 0 units
+
+Blue / M = 20 units
+
+Blue / L = 13 units
+
+Customer cannot purchase unavailable variants.
+
+====================================================
+PRICING
+=======
+
+Pricing must exist at variant level.
+
+Example:
+
+128GB = $999
+
+256GB = $1099
+
+512GB = $1299
+
+Each variant can have:
+
+* price
+* compareAtPrice
+* discount
+* flash sale support
+
+====================================================
+SEO
+===
+
+Support canonical product URL:
+
+/products/iphone-16
+
+Variants must not create duplicate pages.
+
+Selected variant must update:
+
+* URL parameters
+* metadata
+* structured data
+
+without harming SEO.
+
+====================================================
+SELLER EXPERIENCE
+=================
+
+Seller creates:
+
+Product
+→ Attributes
+→ Values
+
+System automatically generates variants.
+
+Seller can:
+
+* bulk edit stock
+* bulk edit pricing
+* bulk edit status
+* bulk upload images
+
+Seller must not manually create hundreds of variants one by one.
+
+====================================================
+CUSTOMER EXPERIENCE
+===================
+
+Customer sees:
+
+* color selector
+* size selector
+* storage selector
+
+Selecting options instantly updates:
+
+* images
+* stock
+* price
+* discount
+* SKU
+* availability
+
+with no page reload.
+
+Mobile-first.
+
+====================================================
+PERFORMANCE
+===========
+
+This is critical.
+
+The new architecture must:
+
+* avoid N+1 queries
+* use indexed lookups
+* use batched queries
+* support caching
+* remain fast with:
+
+  * 100k products
+  * 1M variants
+  * 10k sellers
+
+====================================================
+MIGRATION
+=========
+
+Design and execute a safe migration path.
+
+Existing products must remain functional.
+
+No data loss.
+
+No downtime.
+
+====================================================
+DELIVERABLES
+============
+
+Provide:
+
+1. New database architecture
+2. ERD explanation
+3. Migration strategy
+4. API changes
+5. Seller dashboard changes
+6. Product page changes
+7. Mobile UX changes
+8. Performance strategy
+9. SEO strategy
+10. Final implementation report
+
+Do not implement a temporary solution.
+
+Build the definitive long-term variant architecture for Syano.

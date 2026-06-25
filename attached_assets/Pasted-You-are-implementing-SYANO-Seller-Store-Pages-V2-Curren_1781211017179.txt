@@ -1,0 +1,609 @@
+You are implementing:
+
+# SYANO — Seller Store Pages V2
+
+Current roadmap position:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+✅ Seller Order Management V2
+
+✅ Seller Analytics Dashboard V2
+
+✅ Trust System V1
+
+NOW START:
+
+# Seller Store Pages V2
+
+---
+
+# CRITICAL RULES
+
+Do NOT break existing store pages.
+
+Do NOT remove existing routes.
+
+Do NOT remove existing APIs.
+
+Use additive changes only.
+
+Preserve:
+
+* RTL
+* Arabic
+* English
+* Existing theme
+* Existing colors
+* Existing shadows
+* Existing spacing
+* Existing seller URLs
+
+TypeScript must finish with:
+
+✅ 0 errors
+
+Mobile must remain functional.
+
+Recovery Check must remain functional.
+
+Trust System V1 must remain functional.
+
+---
+
+# PRIMARY GOAL
+
+Transform seller stores into premium storefronts.
+
+Target quality:
+
+* Amazon Store
+* Shopify Storefront
+* Trendyol Store
+* Noon Store
+
+The store must feel like a real destination.
+
+Not a simple seller profile.
+
+---
+
+# PHASE 1 — STORE AUDIT
+
+Before writing code:
+
+Audit current:
+
+* store routes
+* store APIs
+* store pages
+* trust integration
+* follow system
+* reviews
+* product listing
+* SEO metadata
+
+Identify:
+
+* weak UX
+* missing conversion elements
+* missing trust signals
+* missing seller branding
+* mobile issues
+* RTL issues
+
+Then improve.
+
+---
+
+# SECTION 1 — PREMIUM HERO HEADER
+
+Create premium storefront header.
+
+Display:
+
+* Store Logo
+* Cover Banner
+* Store Name
+* Store Description
+* Trust Badge
+* Verification Badge
+* Store Rating
+* Followers Count
+* Products Count
+* Completed Orders
+* Member Since
+* Follow Button
+* Message Button
+
+Example:
+
+Store Name
+
+★★★★★ 4.8
+
+Verified Seller
+
+12,450 Followers
+
+328 Products
+
+5,422 Completed Orders
+
+Member Since 2024
+
+[ Follow ]
+
+[ Message ]
+
+---
+
+# SECTION 2 — TRUST SYSTEM INTEGRATION
+
+Use Trust System V1.
+
+Display:
+
+* Trust Score
+* Trust Level
+* Verification Status
+* Trust Breakdown
+
+Example:
+
+95 / 100
+
+Excellent Seller
+
+Verified
+
+Trust badge must update live from Trust APIs.
+
+Do NOT duplicate calculations.
+
+Use centralized trust endpoints.
+
+---
+
+# SECTION 3 — STORE KPI CARDS
+
+Display:
+
+* Followers
+* Reviews
+* Products
+* Orders Completed
+* Average Rating
+* Delivery Success
+
+Premium responsive cards.
+
+Desktop + Mobile.
+
+RTL compatible.
+
+---
+
+# SECTION 4 — STORE PRODUCT DISCOVERY
+
+Add:
+
+Search within store
+
+Sorting:
+
+* Newest
+* Best Selling
+* Highest Rated
+* Price Low → High
+* Price High → Low
+
+Filtering:
+
+* Categories
+* Price Range
+* Rating
+
+All filters must work together.
+
+No page refresh.
+
+---
+
+# SECTION 5 — STORE CATEGORIES
+
+Show seller categories.
+
+Example:
+
+Electronics
+
+Accessories
+
+Home
+
+Gaming
+
+Fashion
+
+Clicking category instantly filters products.
+
+---
+
+# SECTION 6 — FEATURED PRODUCTS
+
+Add:
+
+* Featured Products
+* Best Sellers
+* Recently Added
+
+Premium carousel.
+
+Responsive.
+
+---
+
+# SECTION 7 — SELLER REVIEWS
+
+Create dedicated review section.
+
+Display:
+
+* Average Rating
+* Rating Distribution
+* Review Count
+* Verified Purchases
+* Recent Reviews
+
+Trust-focused design.
+
+---
+
+# SECTION 8 — FOLLOW SYSTEM EXPANSION
+
+Current follow system already exists.
+
+Expand:
+
+* Follower count
+* Follow growth
+* Follow state
+* Optimistic UI updates
+
+No refresh required.
+
+---
+
+# SECTION 9 — ABOUT STORE TAB
+
+Display:
+
+* Seller Story
+* Store Description
+* Policies
+* Shipping Information
+* Response Time
+* Member Since
+* Trust Information
+
+---
+
+# SECTION 10 — STORE NAVIGATION
+
+Create sticky tabs:
+
+* Products
+* Featured
+* Reviews
+* About
+* Policies
+
+Must work on:
+
+* Desktop
+* Tablet
+* Mobile
+
+---
+
+# SECTION 11 — PERFORMANCE
+
+Support:
+
+* pagination
+* large catalogs
+* lazy loading
+* efficient queries
+
+Avoid overfetching.
+
+---
+
+# SECTION 12 — MOBILE EXPERIENCE
+
+Audit:
+
+* spacing
+* overflow
+* product grid
+* touch targets
+* RTL layout
+
+Fix every issue discovered.
+
+No text touching screen edges.
+
+No broken cards.
+
+No overflow.
+
+---
+
+# SECTION 13 — SEO
+
+Improve:
+
+* Store Title
+* Meta Description
+* OpenGraph
+* Structured Data
+* Canonical URLs
+
+---
+
+# SECTION 14 — ADMIN VISIBILITY
+
+Admin can inspect:
+
+* Trust Score
+* Reviews
+* Followers
+* Performance Metrics
+
+Without affecting seller UI.
+
+---
+
+# SECTION 15 — TESTING ENDPOINTS & QA APIs
+
+For every major storefront feature:
+
+Create proper API support.
+
+Goal:
+
+Allow future recovery audits.
+
+Allow automated verification.
+
+Allow admin diagnostics.
+
+---
+
+## Store Summary Endpoint
+
+GET /sellers/store/:slug
+
+Return:
+
+* store data
+* trust data
+* stats
+* featured data
+
+---
+
+## Store Metrics Endpoint
+
+GET /sellers/store/:slug/metrics
+
+Return:
+
+* productsCount
+* reviewsCount
+* followersCount
+* averageRating
+* completedOrders
+* trustScore
+
+---
+
+## Store Reviews Endpoint
+
+GET /sellers/store/:slug/reviews
+
+Return:
+
+* reviews
+* distribution
+* verifiedPurchase flag
+
+---
+
+## Store Categories Endpoint
+
+GET /sellers/store/:slug/categories
+
+Return:
+
+* categories
+* product counts
+
+---
+
+## Store Featured Endpoint
+
+GET /sellers/store/:slug/featured
+
+Return:
+
+* featured products
+* best sellers
+* newest products
+
+---
+
+## Store Health Endpoint
+
+Create:
+
+GET /admin/store-health/:sellerId
+
+Admin-only.
+
+Return:
+
+{
+storeExists,
+trustConfigured,
+reviewsConfigured,
+featuredProductsConfigured,
+followersEnabled,
+productsVisible,
+translationsValid,
+mobileCompatible,
+score
+}
+
+Score:
+
+0–100
+
+---
+
+# SECTION 16 — RECOVERY CHECK INTEGRATION
+
+Extend:
+
+GET /api/admin/recovery-check
+
+Add new module:
+
+storePages
+
+Example:
+
+{
+module: "storePages",
+score: 100,
+passed: true
+}
+
+Recovery Check must validate:
+
+* Store page loads
+* Tabs work
+* Reviews work
+* Featured products work
+* Follow system works
+* Trust integration works
+* Search works
+* Category filtering works
+* EN translations exist
+* AR translations exist
+* Mobile compatibility
+
+Recovery score must reflect failures.
+
+---
+
+# SECTION 17 — E2E VALIDATION
+
+Use actual accounts:
+
+Admin
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Customer
+
+Create if missing.
+
+Perform actual testing:
+
+* Store page
+* Trust badge
+* Reviews
+* Follow system
+* Search
+* Filters
+* Mobile layouts
+* Recovery Check integration
+* Store Health endpoint
+
+Do NOT assume success.
+
+Use actual API responses.
+
+Fix every failure discovered.
+
+Repeat testing until stable.
+
+---
+
+# SECTION 18 — DOCUMENTATION
+
+Update:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Document:
+
+* Store Pages V2
+* New APIs
+* Recovery Check integration
+* Store Health endpoint
+* Follow system changes
+* Trust integration
+
+---
+
+# FINAL RULE
+
+Do NOT stop after implementation.
+
+Perform:
+
+* Full audit
+* Full validation
+* Full recovery-check validation
+* Full TypeScript validation
+
+Requirements before completion:
+
+✅ TypeScript = 0 errors
+
+✅ Recovery Check passes
+
+✅ storePages module passes
+
+✅ Store Health endpoint passes
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ RTL works
+
+✅ Arabic works
+
+✅ English works
+
+✅ No regressions
+
+Only deliver the final report after Seller Store Pages V2 is production-ready.

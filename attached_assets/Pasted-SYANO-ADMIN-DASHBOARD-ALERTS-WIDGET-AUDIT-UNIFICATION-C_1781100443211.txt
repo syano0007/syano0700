@@ -1,0 +1,130 @@
+SYANO — ADMIN DASHBOARD ALERTS WIDGET AUDIT + UNIFICATION
+
+CRITICAL RULES
+
+Do not assume architecture.
+Do not create a second notification system.
+Do not duplicate notification queries.
+Do not rewrite the dashboard.
+Do not break NotificationCenter.
+
+Preserve:
+
+* Existing notification infrastructure
+* Existing admin dashboard layout
+* Existing notification creation logic
+* Existing TypeScript zero-error state
+* Existing SPA navigation
+
+CURRENT ISSUE
+
+The previous implementation successfully expanded admin notifications.
+
+Notifications now appear inside NotificationCenter.
+
+However:
+
+The "Alerts & Notifications" section on the Admin Dashboard is NOT showing the same notifications.
+
+Observed behavior:
+
+NotificationCenter shows:
+
+* new orders
+* new users
+* courier applications
+* seller applications
+  etc.
+
+But the dashboard Alerts & Notifications widget still only displays the old limited dataset.
+
+This creates two inconsistent admin notification experiences.
+
+INVESTIGATION PHASE
+
+Before making changes:
+
+1. Inspect Admin Dashboard notification widget.
+2. Inspect NotificationCenter.
+3. Compare data sources.
+4. Compare query hooks.
+5. Compare API endpoints.
+6. Compare notification mapping logic.
+
+Determine:
+
+* Why NotificationCenter and Dashboard widget are using different data.
+* Whether the dashboard widget is reading:
+
+  * seller applications only
+  * health alerts only
+  * a legacy notification source
+  * a separate query
+
+Identify the exact root cause.
+
+ARCHITECTURE GOAL
+
+Admin notifications must have a single source of truth.
+
+The dashboard widget should display notifications from the same notification infrastructure used by NotificationCenter.
+
+Avoid duplicate implementations.
+
+Avoid duplicated API calls.
+
+Avoid duplicated mapping logic.
+
+IMPLEMENTATION REQUIREMENTS
+
+1. Reuse the existing NotificationCenter notification source.
+2. Make dashboard alerts display real admin notifications.
+3. Preserve existing dashboard styling.
+4. Preserve existing navigation behavior.
+5. Preserve notification counts.
+6. Preserve unread indicators if present.
+
+If dashboard-specific filtering exists:
+
+Document it clearly before changing it.
+
+VALIDATION
+
+Verify:
+
+New seller application
+→ appears in dashboard widget
+→ appears in NotificationCenter
+
+New order
+→ appears in dashboard widget
+→ appears in NotificationCenter
+
+New user registration
+→ appears in dashboard widget
+→ appears in NotificationCenter
+
+Courier application
+→ appears in dashboard widget
+→ appears in NotificationCenter
+
+Clicking any dashboard notification:
+
+→ SPA navigation only
+→ no full reload
+→ correct destination page
+
+FINAL OUTPUT
+
+Provide:
+
+1. Root cause
+2. Files inspected
+3. Whether two notification systems existed
+4. Files changed
+5. How dashboard notifications are now sourced
+6. Validation results
+
+Do not create another notification system.
+
+Unify the existing systems around a single source of truth.

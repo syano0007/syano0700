@@ -1,0 +1,149 @@
+SYANO — FINAL WORKFLOW ELIMINATION AUDIT
+
+Goal:
+
+After a completely fresh GitHub Import into a brand-new Replit workspace:
+
+ONLY these workflows may exist:
+
+1. API Server
+2. Marketplace
+3. Mobile App
+4. Embedding Service
+
+Nothing else.
+
+Specifically eliminate:
+
+* Start application
+* Duplicate Marketplace
+* Duplicate API Server
+* Component Preview Server
+* Any auto-generated artifact workflow
+* Any extra Preview target
+
+Rules:
+
+Do NOT update documentation.
+
+Do NOT update AGENT_BOOTSTRAP.
+
+Do NOT update recovery files.
+
+Do NOT implement features.
+
+Instead:
+
+PHASE 1
+
+Perform root-cause analysis of Replit workflow generation.
+
+Identify exactly why Replit is creating:
+
+* Start application
+* Marketplace duplicates
+* API Server duplicates
+* Preview artifacts
+
+PHASE 2
+
+Inspect:
+
+* .replit
+* package.json
+* workspace package.json files
+* artifacts/*
+* tools/*
+* build commands
+* run commands
+* preview commands
+
+Find every trigger that causes workflow auto-generation.
+
+PHASE 3
+
+Remove workflow-generation triggers from the codebase itself.
+
+The solution must be structural.
+
+Not documentation.
+
+Not instructions.
+
+Not recovery guides.
+
+PHASE 4
+
+Simulate a completely fresh GitHub Import.
+
+Pretend you are a brand-new Replit Agent.
+
+Verify exactly what workflows would appear.
+
+PHASE 5
+
+If any workflow other than:
+
+* API Server
+* Marketplace
+* Mobile App
+* Embedding Service
+
+would still appear,
+
+the audit FAILS.
+
+Continue fixing until only the 4 official workflows remain.
+
+PHASE 6
+
+Verify Mobile App.
+
+Requirements:
+
+* Mobile App must start successfully on first import.
+* No manual restart.
+* No reinstall.
+* No workflow reset.
+* No pnpm repair.
+
+The Mobile workflow must succeed from a fresh import.
+
+PHASE 7
+
+Verify Marketplace.
+
+Requirements:
+
+* Only one Marketplace workflow exists.
+* No Start application workflow.
+* No duplicate web workflow.
+
+PHASE 8
+
+Produce a final report:
+
+WORKFLOW_CERTIFICATION.md
+
+Include:
+
+* workflows before
+* workflows after
+* exact root causes
+* exact fixes
+* fresh import simulation result
+
+Success criteria:
+
+Fresh GitHub Import
+→ Install
+→ Boot
+
+Results:
+
+API Server ✅
+Marketplace ✅
+Mobile App ✅
+Embedding Service ✅
+
+Nothing else exists.

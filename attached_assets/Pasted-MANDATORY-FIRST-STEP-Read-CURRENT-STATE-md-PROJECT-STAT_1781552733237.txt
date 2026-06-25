@@ -1,0 +1,253 @@
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md in full before touching any file.
+
+─────────────────────────────────────────────
+CONTEXT
+─────────────────────────────────────────────
+A ZIP file named starting with "e5-model" has been uploaded to this Replit project.
+It contains all files for the sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 model
+EXCEPT pytorch_model.bin (which must be downloaded separately).
+
+Your job is to:
+1. Locate and extract the ZIP
+2. Download pytorch_model.bin from HuggingFace into the same folder
+3. Update the embedding service to load the model from local disk
+4. Verify everything works end to end
+
+─────────────────────────────────────────────
+STEP 1 — LOCATE AND EXTRACT THE ZIP
+─────────────────────────────────────────────
+Run this to find the uploaded ZIP:
+  find . -name "e5-model*.zip" 2>/dev/null
+
+Extract it to the correct location:
+  mkdir -p artifacts/embedding-service/model
+  unzip -o  -d artifacts/embedding-service/model/
+
+After extraction, verify these files exist inside artifacts/embedding-service/model/:
+  - config.json
+  - modules.json
+  - tokenizer.json
+  - tokenizer_config.json
+  - sentencepiece.bpe.model
+  - special_tokens_map.json
+  - sentence_bert_config.json
+  - unigram.json
+  - 1_Pooling/config.json
+
+If any file is missing: STOP and report which files are missing. Do not continue.
+
+─────────────────────────────────────────────
+STEP 2 — DOWNLOAD pytorch_model.bin
+─────────────────────────────────────────────
+Download the model weights directly into the model folder:
+
+  wget -c --retry-connrefused --tries=10 --timeout=60 \
+    -O artifacts/embedding-service/model/pytorch_model.bin \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/pytorch_model.bin"
+
+Flags explanation:
+  -c = resume if interrupted
+  --tries=10 = retry up to 10 times on failure
+  --timeout=60 = 60s per connection attempt
+
+If wget fails or is not available, try curl:
+  curl -L --retry 10 --retry-delay 5 --continue-at - \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/pytorch_model.bin" \
+    -o artifacts/embedding-service/model/pytorch_model.bin
+
+After download, verify the file size is approximately 460MB:
+  ls -lh artifacts/embedding-service/model/pytorch_model.bin
+
+If the file is smaller than 400MB: it downloaded incompletely. Delete it and retry.
+If download keeps failing after 3 attempts: STOP and report the exact error. Do NOT proceed with a broken model file.
+
+─────────────────────────────────────────────
+STEP 3 — UPDATE embedding-service/main.py
+─────────────────────────────────────────────
+Open artifacts/embedding-service/main.py and make these changes:
+
+REMOVE any code that downloads a model from HuggingFace at runtime.
+REMOVE any TF-IDF or LSA fallback implementation.
+REPLACE the model loading section with this exact code:
+
+  import os
+  from sentence_transformers import SentenceTransformer
+
+  MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
+  MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+
+  print(f"[embeddings] Loading model from local path: {MODEL_DIR}")
+  start = time.time()
+  model = SentenceTransformer(MODEL_DIR)
+  load_ms = int((time.time() - start) * 1000)
+  print(f"[embeddings] Model loaded in {load_ms}ms")
+
+The /health endpoint must return:
+  {
+    "status": "ok",
+    "model": "paraphrase-multilingual-MiniLM-L12-v2",
+    "vector_dimensions": 384,
+    "backend": "sentence-transformers",
+    "load_ms": 
+  }
+
+Keep all existing endpoints exactly as they are:
+  GET  /health
+  POST /embed/query
+  POST /embed/batch
+
+Do NOT change their request/response shapes.
+Do NOT add new endpoints.
+Do NOT change the port (8001).
+
+─────────────────────────────────────────────
+STEP 4 — INSTALL DEPENDENCIES
+─────────────────────────────────────────────
+Verify sentence-transformers and torch are installed:
+  pip show sentence-transformers torch
+
+If either is missing, install:
+  pip install --no-cache-dir sentence-transformers torch --index-url https://download.pytorch.org/whl/cpu
+
+─────────────────────────────────────────────
+STEP 5 — START AND VERIFY THE SERVICE
+─────────────────────────────────────────────
+Restart the embedding service workflow so it picks up the new main.py.
+
+Wait 30 seconds for the model to load, then verify:
+
+Test 1 — Health check:
+  curl http://localhost:8001/health
+  Expected: { "status": "ok", "backend": "sentence-transformers" }
+
+Test 2 — Arabic embedding:
+  curl -s -X POST http://localhost:8001/embed/query \
+    -H "Content-Type: application/json" \
+    -d '{"text":"هاتف ذكي سامسونج"}' | python3 -c "
+  import sys, json
+  d = json.load(sys.stdin)
+  emb = d.get('embedding', [])
+  print(f'dimensions: {len(emb)}')
+  print(f'first 5 values: {emb[:5]}')
+  print(f'processing_ms: {d.get(\"processing_ms\")}')
+  "
+  Expected: dimensions = 384, values are real floats (not all zeros)
+
+Test 3 — English embedding:
+  curl -s -X POST http://localhost:8001/embed/query \
+    -H "Content-Type: application/json" \
+    -d '{"text":"samsung smartphone"}' | python3 -c "
+  import sys, json
+  d = json.load(sys.stdin)
+  emb = d.get('embedding', [])
+  print(f'dimensions: {len(emb)}')
+  print(f'first 5 values: {emb[:5]}')
+  "
+  Expected: 384 dimensions, values different from Arabic test but semantically similar
+
+Test 4 — Batch embedding:
+  curl -s -X POST http://localhost:8001/embed/batch \
+    -H "Content-Type: application/json" \
+    -d '{"texts":["هاتف","لابتوب","فستان"],"type":"passage"}' | python3 -c "
+  import sys, json
+  d = json.load(sys.stdin)
+  embs = d.get('embeddings', [])
+  print(f'count: {len(embs)}')
+  print(f'each dimensions: {[len(e) for e in embs]}')
+  "
+  Expected: count=3, each embedding has 384 dimensions
+
+If ANY test fails: fix it before continuing. Do not proceed with a broken embedding service.
+
+─────────────────────────────────────────────
+STEP 6 — RE-RUN PRODUCT EMBEDDING BACKFILL
+─────────────────────────────────────────────
+The previous embeddings were generated with TF-IDF (fake). They must be replaced with real transformer embeddings.
+
+Reset all existing embeddings:
+  UPDATE products SET embedding = NULL, embedded_at = NULL, embedding_model = NULL;
+
+Then run the backfill script:
+  cd artifacts/api-server && npx tsx src/scripts/generateEmbeddings.ts
+
+Monitor and report:
+  - Total products processed
+  - Total succeeded
+  - Total failed (list IDs if any)
+  - Total time
+  - Average ms per product
+
+After backfill, verify:
+  SELECT COUNT(*) FROM products WHERE embedding IS NULL;
+  Expected: 0
+
+─────────────────────────────────────────────
+STEP 7 — VERIFY SEMANTIC SEARCH QUALITY
+─────────────────────────────────────────────
+Restart the API server so it picks up the new embeddings.
+
+Run these searches and report searchMode + first 3 product names for each:
+
+Search 1: GET /api/search?q=بدي شي لأمي
+  Expected: searchMode = "hybrid"
+  This proves real semantic understanding — no product has "لأمي" in its title
+
+Search 2: GET /api/search?q=شي يناسب الشتاء
+  Expected: searchMode = "hybrid", winter items appear (coats, heaters, warm clothing)
+
+Search 3: GET /api/search?q=شي للطبخ بيوفر وقت
+  Expected: searchMode = "hybrid", kitchen appliances appear
+
+Search 4: GET /api/search?q=هاتف (single short word)
+  Expected: searchMode = "fts_only" (correct — short single words use FTS only)
+
+─────────────────────────────────────────────
+STEP 8 — TYPESCRIPT VERIFICATION
+─────────────────────────────────────────────
+Run across ALL packages:
+  npx tsc --noEmit
+
+Must return 0 errors. Fix every error before reporting done.
+
+─────────────────────────────────────────────
+PERMANENT CONSTRAINTS — never violate these
+─────────────────────────────────────────────
+- Never use TF-IDF, LSA, or any statistical fallback — real transformer model only
+- Never call external AI APIs at query time (OpenAI, Cohere, etc.)
+- Never block the main Node.js event loop
+- Never change existing API response shapes — only add optional fields
+- Never drop or modify existing DB columns
+- The embedding service must start in under 60 seconds
+- If the model file is corrupted or missing: log a clear error, set embeddingServiceAvailable=false, fall back to FTS-only search gracefully — never crash the API server
+
+─────────────────────────────────────────────
+FINAL REPORT — output this exact structure
+─────────────────────────────────────────────
+MODEL:
+  File location: artifacts/embedding-service/model/
+  pytorch_model.bin size: X MB
+  All config files present: yes/no
+  Model load time: Xms
+  Backend confirmed: sentence-transformers (not TF-IDF)
+
+SERVICE:
+  Health check: passed/failed
+  Arabic embedding (384 dims): passed/failed
+  English embedding (384 dims): passed/failed
+  Batch embedding (3x384): passed/failed
+
+BACKFILL:
+  Products re-embedded: X / Y total
+  Failed: X
+  Duration: Xs
+  Products with NULL embedding after: 0
+
+SEMANTIC QUALITY:
+  "بدي شي لأمي" → searchMode: hybrid? [yes/no] — first 3 results: [list]
+  "شي يناسب الشتاء" → first 3 results: [list]
+  "شي للطبخ بيوفر وقت" → first 3 results: [list]
+
+TYPESCRIPT: 0 errors confirmed ✓
+
+READY FOR PRODUCTION: yes / no
+  [If no: list exactly what needs fixing]

@@ -1,0 +1,217 @@
+# SYANO — BOOT CERTIFICATION BEFORE DOCUMENTATION UPDATE
+
+STOP.
+
+Do NOT update:
+
+* replit.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* RECOVERY_REPORT.md
+
+until the platform is actually boot-certified.
+
+---
+
+# CRITICAL FINDING
+
+Mobile app currently crashes.
+
+Error:
+
+```text
+useSettings must be used within SettingsProvider
+```
+
+This proves:
+
+```text
+Mobile App = NOT WORKING
+```
+
+Any recovery report claiming:
+
+```text
+Mobile App Running
+Recovery Complete
+All Systems Operational
+```
+
+is currently invalid.
+
+---
+
+# NEW MISSION
+
+Perform FULL BOOT CERTIFICATION.
+
+Not static code review.
+
+Not file existence checks.
+
+Real runtime verification.
+
+---
+
+# STEP 1
+
+Fix:
+
+```text
+useSettings
+
+SettingsProvider
+
+useColors
+```
+
+integration.
+
+Find root cause.
+
+Fix properly.
+
+---
+
+# STEP 2
+
+Start mobile app.
+
+Verify:
+
+```text
+No red screen
+
+No runtime exceptions
+
+No provider crashes
+
+No navigation crashes
+```
+
+---
+
+# STEP 3
+
+Navigate manually through:
+
+```text
+Login
+
+Register
+
+Home
+
+Shop
+
+Product
+
+Store
+
+Cart
+
+Profile
+```
+
+Verify every screen opens.
+
+---
+
+# STEP 4
+
+Verify:
+
+```text
+Authentication works
+
+Session restore works
+
+Settings context works
+
+Theme system works
+
+Translations work
+```
+
+---
+
+# STEP 5
+
+Search entire mobile project for:
+
+```text
+useSettings()
+
+useColors()
+
+useTheme()
+```
+
+Verify every usage is inside the correct provider tree.
+
+---
+
+# STEP 6
+
+Run runtime audit.
+
+Find:
+
+```text
+Provider errors
+
+Context errors
+
+Hook errors
+
+Navigation errors
+
+Missing routes
+
+Duplicate routes
+```
+
+Fix all.
+
+---
+
+# STEP 7
+
+Only AFTER:
+
+```text
+Mobile App boots successfully
+
+Mobile navigation works
+
+No runtime crashes
+```
+
+then update:
+
+```text
+replit.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+RECOVERY_REPORT.md
+```
+
+---
+
+# IMPORTANT
+
+Do NOT mark anything as complete unless it was verified at runtime.
+
+A screen existing in code ≠ working.
+
+A route existing ≠ working.
+
+A service running ≠ feature working.
+
+Require actual runtime verification.

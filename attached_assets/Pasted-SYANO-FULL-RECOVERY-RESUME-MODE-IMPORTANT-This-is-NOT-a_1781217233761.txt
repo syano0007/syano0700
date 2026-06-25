@@ -1,0 +1,357 @@
+SYANO — FULL RECOVERY + RESUME MODE
+
+IMPORTANT:
+
+This is NOT a fresh project.
+
+This is an existing SYANO marketplace that was migrated to a new Replit account.
+
+Your first task is recovery and verification.
+
+DO NOT build new features.
+
+DO NOT refactor.
+
+DO NOT change architecture.
+
+DO NOT start roadmap work.
+
+Recover the platform exactly to its last verified state first.
+
+==================================================
+PHASE 1 — ENVIRONMENT VALIDATION
+================================
+
+Verify:
+
+DATABASE_URL
+SESSION_SECRET
+SITE_URL
+CORS_ORIGIN
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_EMAIL
+
+Report missing variables.
+
+Do not continue until all required variables exist.
+
+==================================================
+PHASE 2 — INSTALLATION
+======================
+
+Run:
+
+pnpm install --force
+
+Verify:
+
+* workspace packages resolve
+* lockfile valid
+* no missing dependencies
+
+==================================================
+PHASE 3 — DATABASE RECOVERY
+===========================
+
+Restore schema if needed.
+
+Verify:
+
+Tables:
+
+27/27
+
+notification_type:
+
+31/31 values
+
+order_status:
+
+15/15 values
+
+delivery_zones:
+
+40/40
+
+Verify existence of:
+
+seller_verification_log
+
+users.verified_by
+
+Store Settings V2 columns:
+
+shipping_policy
+return_policy
+warranty_policy
+privacy_policy
+
+meta_title
+meta_description
+seo_image_url
+
+whatsapp
+telegram
+facebook
+instagram
+
+If missing:
+
+repair automatically using run-migrations.ts
+
+Do not require manual SQL.
+
+==================================================
+PHASE 4 — BUILD VALIDATION
+==========================
+
+Build:
+
+lib/db
+lib/api-zod
+lib/api-client-react
+
+Then verify:
+
+artifacts/api-server
+artifacts/marketplace
+artifacts/mobile
+
+TypeScript result:
+
+0 errors
+
+==================================================
+PHASE 5 — BOOTSTRAP ACCOUNTS
+============================
+
+Verify permanent accounts:
+
+Admin:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Verify:
+
+seller application exists
+
+store slug:
+
+syano-test-store
+
+courier profile active
+
+repair automatically if missing
+
+==================================================
+PHASE 6 — START SERVICES
+========================
+
+Start:
+
+API
+Marketplace
+Mobile
+
+Verify:
+
+GET /api/healthz
+
+returns:
+
+{"status":"ok"}
+
+==================================================
+PHASE 7 — RECOVERY CHECK
+========================
+
+Run:
+
+GET /api/admin/recovery-check
+
+Target:
+
+confidenceScore = 100
+
+All modules passing:
+
+corePlatform
+
+bootstrapAccounts
+
+security
+
+marketplace
+
+orderSystem
+
+trustSystem
+
+notifications
+
+translations
+
+sellerSystem
+
+courierSystem
+
+storePages
+
+storeSettings
+
+analytics
+
+recovery
+
+mobile
+
+responsive
+
+Expected:
+
+16/16 PASS
+
+100/100
+
+==================================================
+PHASE 8 — VERIFY LAST COMPLETED WORK
+====================================
+
+Verify Store Settings V3 exists:
+
+Desktop:
+
+large card navigation
+
+Mobile:
+
+responsive card navigation
+
+Trust consistency audit
+
+Store completion banner
+
+Contact tab
+
+Policies tab
+
+Health tab
+
+Advanced tab
+
+SEO tab
+
+Branding tab
+
+Trust tab
+
+Verify public store page contains:
+
+Products
+
+Featured
+
+Reviews
+
+About
+
+Contact
+
+Policies
+
+==================================================
+PHASE 9 — DOCUMENTATION
+=======================
+
+Read:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+Understand project state before continuing.
+
+==================================================
+PHASE 10 — FINAL REPORT
+=======================
+
+Output:
+
+Recovery Score
+
+Recovery Check Result
+
+Service Status
+
+TypeScript Status
+
+Database Status
+
+Bootstrap Account Status
+
+Detected Issues
+
+Fixed Issues
+
+Remaining Issues
+
+Then STOP.
+
+DO NOT start any new feature.
+
+DO NOT modify UI.
+
+DO NOT touch roadmap.
+
+Wait for my next instruction.
+
+==================================================
+CURRENT ROADMAP POSITION
+========================
+
+Completed:
+
+✅ Order Fulfillment Workflow V1
+
+✅ Courier Operations Dashboard V2
+
+✅ Seller Orders V2
+
+✅ Seller Analytics Dashboard V2
+
+✅ Trust System V1
+
+✅ Recovery Integrity Audit
+
+✅ Recovery Endpoint V2
+
+✅ Seller Store Pages V2
+
+✅ Store Settings V2
+
+✅ Store Settings V3 + Trust Consistency Audit
+
+Platform currently verified at:
+
+Recovery Score = 100/100
+
+16/16 modules passing
+
+Goal:
+
+Restore project to exact state before continuing development.

@@ -1,0 +1,301 @@
+Task: Surgical Layout Fix — Search Results Page (3 Confirmed Visual Bugs)
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching a single file. Then read the
+entire current source of artifacts/marketplace/src/pages/search/index.tsx
+before writing any fix.
+
+PERMANENT REJECTIONS — never propose or implement any of these, in any
+form, for the rest of this project's lifetime:
+  - "Save Search"
+  - "Recently Searched" / "Recent Searches" (already exists in Navbar
+    autocomplete — do not duplicate)
+  - "Jump to top" floating button
+  - Any feature not explicitly requested in this task
+If you are about to suggest one of these, stop and continue with the
+task only.
+
+════════════════════════════════════════════════════════════════════
+CRITICAL CONTEXT — WHY THESE BUGS EXIST (read before diagnosing)
+════════════════════════════════════════════════════════════════════
+
+The search results page (/shop) has a sticky header composed of two
+layers stacked vertically:
+
+  Layer 1 (always present):
+    The main site Navbar — height controlled by CSS var --navbar-height.
+
+  Layer 2 (always present, sticky below Layer 1):
+    The search bar div — contains:
+      • Search input row (always visible)
+      • "نتائج البحث عن ..." line (ONLY visible when debouncedQuery is
+        truthy — this is the variable that controls the WITH-query state)
+      • Tabs row: "المنتجات / المتاجر / الفئات"
+
+Because Layer 2 contains a CONDITIONAL element (the results line), its
+rendered height is VARIABLE:
+  • WITHOUT query: shorter (input + tabs only)
+  • WITH query:    taller  (input + results line + tabs)
+
+Somewhere in the current code, the spacing below Layer 2 is set with a
+STATIC value (a hardcoded rem or calc() using a fixed offset like 9rem or
+9.5rem). This static value was accidentally calibrated to the WITH-query
+height. Result:
+  • WITH query:    static offset ≈ real header height → content starts
+                  correctly below header ✓
+  • WITHOUT query: static offset > real header height → content starts
+                  too far down, BUT the sticky header is shorter, so
+                  the top of the content is actually ABOVE where the
+                  header ends → header covers the first product row ✗
+
+This same mismatch causes the mobile filter panel top to be cut off
+(Bug 2a) because the same static offset logic applies there.
+
+Do NOT attempt another static value fix. The only correct solution is
+dynamic measurement as specified in Bug 1 below.
+
+════════════════════════════════════════════════════════════════════
+BUG 1 — Desktop 1280px: first product row hidden under sticky header
+         (no-query state only — /shop with no ?q= param)
+════════════════════════════════════════════════════════════════════
+
+Exact symptom confirmed in screenshot:
+  At /shop (no query), the sticky tabs bar ("24 المنتجات / المتاجر /
+  الفئات") overlaps and hides the top ~60-80px of the first product
+  card row. Cards are present in the DOM but visually covered.
+  At /shop?q=رخيص (with query) this does NOT occur — content is
+  correctly positioned.
+
+Step 1 — Locate the exact elements:
+  In search/index.tsx, find:
+    A) The sticky Layer 2 div — the one with `sticky` class and
+       `style={{ top: "var(--navbar-height)" }}`. This is the element
+       whose height changes between query/no-query states.
+    B) The main content wrapper below it — the div that contains BOTH
+       the desktop sidebar AND the product grid side by side. This is
+       the element that currently has a static top offset (padding-top,
+       margin-top, or a pt-* / mt-* Tailwind class) that needs to
+       become dynamic.
+    C) Any scroll-padding-top rule in index.css or inline style that
+       uses a static calc() offset for this page.
+
+Step 2 — Implement dynamic header height measurement:
+  a) Add a React ref to element A (the sticky Layer 2 div):
+       const searchHeaderRef = useRef<HTMLDivElement>(null);
+       const [searchHeaderHeight, setSearchHeaderHeight] = useState(144);
+       // 144px ≈ current static offset as initial fallback to avoid
+       // layout flash before first measurement
+
+  b) Add a useLayoutEffect that attaches a ResizeObserver to
+     searchHeaderRef. On every resize callback, call:
+       setSearchHeaderHeight(entry.contentRect.height);
+     The observer must fire on:
+       • Initial mount
+       • Every time debouncedQuery changes (header grows/shrinks) —
+         the ResizeObserver handles this automatically since it watches
+         the element's actual size; no additional dependency needed
+       • Window resize (ResizeObserver handles this too)
+     Clean up the observer in the useLayoutEffect return function.
+
+  c) Apply searchHeaderHeight dynamically to element B:
+     Replace whatever static top-spacing currently exists on element B
+     with:
+       style={{ paddingTop: `${searchHeaderHeight}px` }}
+     If element B currently uses a Tailwind pt-* class for this spacing,
+     REMOVE that class and use the inline style instead — Tailwind static
+     classes cannot be dynamic.
+
+  d) Update scroll-padding-top (element C):
+     If it is in index.css as a static rule, move it to an inline style
+     on the <html> element or the page root div via useLayoutEffect:
+       document.documentElement.style.scrollPaddingTop =
+         `${searchHeaderHeight + 8}px`;
+         // +8px = 0.5rem breathing room, same intent as current +0.5rem
+     Clean this up on unmount. If it is already an inline style
+     somewhere, replace the static calc() with the same formula.
+
+  e) Attach the ref: add ref={searchHeaderRef} to element A's JSX.
+
+Step 3 — Verify the fix logic:
+  The fix is correct when:
+    • On mount (no query): ResizeObserver fires, measures the short
+      header height (e.g. ~88px), sets paddingTop = 88px on element B.
+      First product row is fully visible.
+    • After typing a query: header grows (e.g. to ~128px), ResizeObserver
+      fires again, paddingTop updates to 128px. Content shifts down
+      slightly. First product row remains fully visible.
+    • On window resize: ResizeObserver fires, recalculates. Layout
+      stays correct.
+
+════════════════════════════════════════════════════════════════════
+BUG 2 — Mobile 375px: filter panel top cut off + controls cramped
+         (no-query state — /shop with no ?q= param)
+════════════════════════════════════════════════════════════════════
+
+Exact symptoms confirmed in screenshot:
+  2a. At 375px no-query, the inline mobile filter panel is the first
+      element in the content area. Its top (the "الفئة" label and
+      "السعر ($)" label) is partially hidden — same root cause as Bug 1.
+  2b. All filter controls (category dropdown, price inputs min/max,
+      rating star buttons, "عروض فقط" and "متوفر فقط" checkboxes) are
+      visually cramped with no breathing room between sections.
+
+Fix 2a:
+  The mobile content container (the wrapper div that on small screens
+  contains the inline filter panel above the product grid — this is
+  the lg:hidden or the non-lg branch of the layout) must also receive
+  the same dynamic paddingTop from searchHeaderHeight. It is likely
+  a sibling or child of element B from Bug 1. Apply the same
+  style={{ paddingTop: `${searchHeaderHeight}px` }} to the correct
+  mobile container. Do NOT add a separate ResizeObserver — reuse the
+  same searchHeaderHeight state variable already created for Bug 1.
+
+Fix 2b:
+  Open the JSX that renders the mobile filter panel controls. For each
+  logical filter section (category, price range, rating, checkboxes),
+  wrap it in a div with consistent vertical spacing. Check how the
+  desktop sidebar renders the same sections — it likely already has
+  space-y-4 or gap-4 or mb-4 between sections. Apply the IDENTICAL
+  spacing pattern to the mobile version. Do not invent new spacing
+  values. If the desktop sidebar uses `space-y-4` between sections,
+  the mobile panel must use `space-y-4` as well. If each section has
+  a label with `text-sm font-medium mb-2`, the mobile version must
+  match exactly.
+
+════════════════════════════════════════════════════════════════════
+BUG 3 — Mobile 375px: intent/NLP chip hidden behind Filters button
+         (with-query state — /shop?q=رخيص)
+════════════════════════════════════════════════════════════════════
+
+Exact symptom confirmed in screenshot:
+  At /shop?q=رخيص on 375px, there is an amber intent chip (showing
+  "رخيص" with an intent badge) that appears in the NLP banner area.
+  This chip is partially or fully hidden behind the "الفلاتر" button
+  row — only a sliver of it is visible, making it unreadable and
+  untappable.
+
+Step 1 — Locate the elements:
+  In search/index.tsx, find on the mobile layout:
+    X) The NLP/intent banner + chip row — the element that renders
+       the amber chip when intentSort or intentLabel is set. This is
+       likely conditionally rendered: {debouncedQuery && intentLabel && ...}
+    Y) The mobile Sort dropdown + "الفلاتر" button row — the lg:hidden
+       row with the sort Select and the Sheet trigger button.
+  Identify their exact position in the JSX relative to each other and
+  relative to the sticky header.
+
+Step 2 — Diagnose the overlap:
+  Check whether X and Y are:
+    Option A: siblings in a flex-col container but X has negative
+              margin, wrong z-index, or absolute positioning causing
+              it to slide under Y.
+    Option B: X is rendered AFTER Y in JSX order but should be BEFORE
+              it (wrong DOM order in RTL/mobile context).
+    Option C: X is inside the sticky header (Layer 2) and its bottom
+              edge collides with Y which is in the content area.
+  Report which option applies before writing the fix.
+
+Step 3 — Fix the overlap:
+  The correct vertical stacking order on mobile from top to bottom is:
+    1. Sticky header (Layer 2): search input + results line + tabs
+    2. Content area starts here (with paddingTop = searchHeaderHeight):
+       a. NLP/intent banner + chip row (only when query + intent active)
+       b. Sort dropdown + Filters button row
+       c. Product count + active filter badges row (if exists)
+       d. Product grid
+  Ensure X (intent chip row) is a non-overlapping flex-col child that
+  appears BEFORE Y (sort/filter row) in both JSX order and visual
+  stacking. Use flex-col with gap-2 or gap-3 between a, b, c, d.
+  Do NOT use z-index manipulation, absolute positioning, or negative
+  margins to fix this — restructure the flex-col order only.
+  If X is currently inside the sticky header div (Layer 2), move it
+  OUT of Layer 2 and into the content area as item 2a above.
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS (non-negotiable)
+════════════════════════════════════════════════════════════════════
+
+- Touch ONLY search/index.tsx and index.css (or wherever the static
+  scroll-padding-top lives). No other files unless a shared layout
+  component genuinely needs to change for Bug 2b spacing only.
+- Use ONLY Tailwind utility classes already present elsewhere in this
+  codebase. No new CSS files. No new colors. No new spacing tokens.
+- Use ONLY existing RTL conditional patterns (rtl:, dir="rtl", etc.)
+  already used in search/index.tsx or adjacent files.
+- The ResizeObserver solution is MANDATORY for Bugs 1 and 2a. No
+  alternative approaches (setTimeout, arbitrary rem values, hardcoded
+  px, window.innerHeight hacks) are acceptable.
+- Do NOT restructure the overall page layout beyond the minimum required
+  to fix these 3 bugs. The sidebar + grid layout on desktop, the Sheet-
+  based filter drawer on mobile, and all existing filter logic must
+  remain exactly as-is.
+- Do NOT add new npm dependencies.
+- After any change, ensure all filter URL params (category, minPrice,
+  maxPrice, minRating, storeId, onSale, inStock, sort, q) still update
+  correctly and trigger refetch.
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION MATRIX — test every cell before submitting report
+════════════════════════════════════════════════════════════════════
+
+For EACH cell below, take a full-page screenshot showing the top
+section of the page (from page top to below first product row):
+
+                    | No query (/shop) | With query (/shop?q=رخيص)
+--------------------+------------------+--------------------------
+1280px Arabic dark  |   Bug 1 fixed?   |   No regression?
+1280px Arabic light |   No regression? |   No regression?
+1280px English dark |   No regression? |   No regression?
+375px  Arabic dark  |   Bugs 2a+2b?    |   Bug 3 fixed?
+375px  Arabic light |   No regression? |   No regression?
+375px  English dark |   No regression? |   No regression?
+
+That is 12 screenshots minimum. Label each screenshot clearly with:
+  [breakpoint] [language] [theme] [query state]
+  e.g. "1280px Arabic dark NO-QUERY — Bug 1 fixed"
+
+Additional required screenshots:
+  - Mobile 375px Arabic dark: filter panel OPEN (Sheet or inline),
+    showing all controls with proper spacing (Bug 2b fix)
+  - Mobile 375px Arabic dark WITH query: intent chip fully visible
+    above the Filters button (Bug 3 fix)
+
+After ALL fixes and screenshots, run:
+  npx tsc --noEmit
+across ALL packages (lib/db, lib/api-zod, lib/api-client-react,
+artifacts/api-server, artifacts/marketplace, artifacts/mobile).
+ALL must return 0 errors.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE (must follow exactly)
+════════════════════════════════════════════════════════════════════
+
+BUG 1 REPORT:
+  - Element A identified: [file, line, current classes/style]
+  - Element B identified: [file, line, current static offset removed]
+  - Element C identified: [file/location, current static value removed]
+  - ResizeObserver implementation: [exact code added, line numbers]
+  - Before screenshot: 1280px Arabic dark NO-QUERY (cards cut off)
+  - After screenshot:  1280px Arabic dark NO-QUERY (cards fully visible)
+
+BUG 2 REPORT:
+  - 2a: Mobile container identified: [file, line, fix applied]
+  - 2b: Filter sections spacing: [what desktop uses, what was applied
+        to mobile, file + lines changed]
+  - Before screenshot: 375px Arabic dark NO-QUERY (cramped + cut off)
+  - After screenshot:  375px Arabic dark NO-QUERY (spaced + visible)
+
+BUG 3 REPORT:
+  - Overlap type confirmed: [Option A / B / C from diagnosis step]
+  - X element location: [file, line]
+  - Y element location: [file, line]
+  - Fix applied: [exact JSX restructuring done]
+  - Before screenshot: 375px Arabic dark WITH-QUERY (chip hidden)
+  - After screenshot:  375px Arabic dark WITH-QUERY (chip visible)
+
+TYPESCRIPT: "npx tsc --noEmit passed with 0 errors across all 6 packages"
+
+FEATURE REJECTIONS CONFIRMED:
+  "Save Search — not implemented, not proposed"
+  "Recently Searched — not implemented, not proposed"
+  "Jump to top — not implemented, not proposed"

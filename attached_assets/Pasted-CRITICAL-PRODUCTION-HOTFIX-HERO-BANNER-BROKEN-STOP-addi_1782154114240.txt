@@ -1,0 +1,264 @@
+CRITICAL PRODUCTION HOTFIX — HERO BANNER BROKEN
+
+STOP adding features.
+
+STOP creating new banners.
+
+STOP modifying design.
+
+The Hero Banner is currently broken and must be repaired first.
+
+Use a forensic debugging approach.
+
+Do not assume anything.
+
+Do not claim fixes without verification.
+
+====================================================
+PHASE 1 — ROOT CAUSE ANALYSIS
+=============================
+
+The current Hero Banner has two critical production bugs:
+
+BUG #1
+Banner images are not displaying.
+
+Observed behavior:
+
+* Black screen
+* Empty slides
+* Missing banner content
+
+BUG #2
+RTL carousel behavior is still incorrect.
+
+Observed behavior:
+
+* Arabic mode navigation feels reversed.
+* Drag/swipe direction is wrong.
+* Slide transition direction is inconsistent.
+
+Before changing code:
+
+Identify the EXACT root cause for BOTH issues.
+
+Audit:
+
+* HeroBanner component
+* Carousel component
+* Banner data source
+* Hero banner API
+* Image URLs
+* Image loading logic
+* Lazy loading logic
+* Framer Motion logic
+* Swiper logic
+* RTL handling
+* i18n handling
+* Language detection
+* Touch handlers
+* Drag handlers
+* Transition handlers
+
+Do not implement assumptions.
+
+Find the actual cause.
+
+====================================================
+PHASE 2 — FIX BLACK BANNER ISSUE
+================================
+
+Verify every banner record.
+
+For every slide confirm:
+
+* Banner exists
+* Image URL exists
+* URL is valid
+* URL loads successfully
+* URL returns HTTP 200
+* URL is not blocked
+* URL is not empty
+* URL is not undefined
+* URL is not null
+
+Audit rendering logic.
+
+Check:
+
+* object-fit
+* z-index
+* opacity
+* visibility
+* display
+* overflow
+* background layers
+* overlays
+* image wrappers
+* dark overlays
+
+Requirements:
+
+Images must display correctly.
+
+No black screens.
+
+No hidden layers.
+
+No broken URLs.
+
+No transparent overlays hiding images.
+
+====================================================
+PHASE 3 — FIX RTL SWIPE COMPLETELY
+==================================
+
+Current Arabic behavior is still wrong.
+
+Required behavior:
+
+Arabic (RTL)
+
+Swipe LEFT
+→ Next banner
+
+Swipe RIGHT
+→ Previous banner
+
+English (LTR)
+
+Swipe LEFT
+→ Next banner
+
+Swipe RIGHT
+→ Previous banner
+
+The USER EXPERIENCE must feel natural.
+
+Audit:
+
+* Swipe thresholds
+* Drag offsets
+* Motion direction
+* Index calculations
+* Previous/Next logic
+* Animation variants
+* Framer Motion direction values
+* RTL transforms
+
+Fix the ROOT CAUSE.
+
+Do not apply hacks.
+
+Do not add conditional inversions that break future behavior.
+
+Implement proper carousel direction handling.
+
+====================================================
+PHASE 4 — VERIFY MOTION
+=======================
+
+Banner must behave like a premium marketplace.
+
+Requirements:
+
+* Follow finger while dragging.
+* Follow mouse while dragging.
+* Smooth release animation.
+* Smooth momentum.
+* No stuttering.
+* No lag.
+* No jump.
+* No snap before release.
+* No reverse animation.
+
+Must feel similar to:
+
+Amazon mobile
+Noon mobile
+Modern marketplace carousels
+
+====================================================
+PHASE 5 — VERIFY BANNER DATA
+============================
+
+Audit all banner records.
+
+For every banner:
+
+Verify:
+
+* title
+* image
+* image URL
+* status
+* ordering
+* visibility
+
+Remove:
+
+* broken banners
+* empty banners
+* duplicate banners
+
+If banner data is missing:
+
+Create valid marketplace banners with WORKING images.
+
+Do not leave placeholders.
+
+====================================================
+PHASE 6 — FINAL VALIDATION
+==========================
+
+Test:
+
+Arabic desktop
+Arabic mobile
+English desktop
+English mobile
+
+Verify:
+
+✓ Images visible
+
+✓ No black screens
+
+✓ All banners load
+
+✓ Swipe works
+
+✓ RTL correct
+
+✓ LTR correct
+
+✓ Full-width hero
+
+✓ No console errors
+
+✓ No React warnings
+
+✓ No TypeScript errors
+
+✓ No broken network requests
+
+====================================================
+MANDATORY REPORT
+================
+
+Do NOT say "fixed" without proof.
+
+Provide:
+
+1. Root cause of black banner issue.
+2. Root cause of RTL issue.
+3. Files modified.
+4. Exact code changes.
+5. Number of banners verified.
+6. Number of banners repaired.
+7. Screenshot verification.
+8. Console verification.
+9. TypeScript verification.
+10. Final production status.
+
+Only finish after both issues are actually resolved and verified.

@@ -1,0 +1,59 @@
+You are executing a Full System UI Re-Architecture and Infrastructure Upgrade for SYANO (سوق سوريا). 
+
+This prompt simultaneously implements the premium Amazon-style multi-item category grid layout (referenced from "Screenshot (457).jpg") and fixes the map tile rendering lag/gray voids completely by swapping to an enterprise-grade CDN map server (referenced from "Screenshot (458).jpg").
+
+Do NOT break any existing backend APIs, product query filters, driver session tokens, or i18n translation setups.
+
+==================================================
+PART 1 — MAP INFRASTRUCTURE UPGRADE (FIXING TILE LAG PERMANENTLY)
+==================================================
+Apply this technical core fix to BOTH `LocationMapModal.tsx` and the Driver map file (e.g., `TrackingMap.tsx`) to resolve the tile drops seen in "Screenshot (458).jpg":
+
+1. CDN Tile Provider Migration:
+   - Locate the `<TileLayer />` component inside both client and driver map environments.
+   - Completely replace the legacy OpenStreetMap server URL with the ultra-fast, high-concurrency CartoDB Voyager CDN engine:
+     * New URL: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`
+     * New Attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+
+2. High-Performance Caching Layer:
+   - Enforce these strict rendering attributes inside the `<TileLayer />` to lock client-side caching:
+     `keepBuffer={16}` (Pre-caches 16 adjacent rows/columns of hidden tiles)
+     `updateWhenIdle={false}` (Loads assets immediately during continuous movement)
+     `updateWhenZooming={false}` (Stretches cached textures during scaling instead of flashing gray spaces)
+     `maxZoom={19}`
+     `minZoom={5}`
+
+3. Loading Loop Override:
+   - Ensure the map's initial loading spinner (`isLoading` state) force-kills itself within a strict maximum of 800ms upon layout mounting to guarantee immediate user interface access.
+
+==================================================
+PART 2 — HOMEPAGE RE-ARCHITECTURE (AMAZON $2 \times 2$ GRID CARDS SYSTEM)
+==================================================
+Re-engineer the homepage landing fold to match the exact look and structure of Amazon seen in "Screenshot (457).jpg":
+
+1. Full-Width Cinematic Banner:
+   - Expand the primary hero promotion slider component to fill 100% viewport width (`w-full`). Eliminate any surrounding sidebar column frames.
+   - Set a clean responsive height ratio (e.g., `h-[240px] sm:h-[320px] md:h-[380px] lg:h-[420px]`).
+   - Style text overlays using an elegant bottom shadow gradient (`bg-gradient-to-t from-black/55 via-transparent to-transparent`) and configure "تسوق الآن" pills as pristine round blur elements (`bg-white/95 text-neutral-900 px-5 py-2 rounded-full font-bold shadow-sm`).
+
+2. Multi-Item Master Grid Box Row:
+   - Completely refactor the category layout wrapper (`CategoryCarousel.tsx` or replace it with a clean layout layout) into a static non-sliding structural layout:
+     * Outer Grid Wrapper: Create a 4-column responsive grid container that beautifully overlaps the baseline of the main banner: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 md:px-8 -mt-8 relative z-10`.
+
+3. Internal 4master-Card Shell Blueprint ($2 \times 2$ Matrix):
+   Each of the 4 main white box cards must be constructed exactly as follows:
+   - Card Shell: Crisp white solid background (`bg-white`), square edges or minimal rounding (`rounded-md`), flat premium outer depth (`shadow-sm p-4 flex flex-col justify-between h-[420px]`).
+   - Section Title: Bold Arabic header positioned at the top (`font-bold text-base md:text-lg text-neutral-900 mb-3 text-right`).
+   - Inner $2 \times 2$ Quadrant: Embed a nested grid holding exactly 4 sub-category spaces:
+     * Class config: `grid grid-cols-2 gap-2 w-full flex-grow`.
+     * Inside each quadrant: A soft neutral block (`bg-neutral-50`) carrying the asset image scaled to maximum fill (`object-cover w-full h-full`). 
+     * Beneath each quadrant image: Place a micro-text descriptive Arabic layout label (`text-[11px] text-neutral-600 mt-1 text-center font-medium`).
+   - Bottom Action Link: Align a clean text baseline link at the absolute bottom row (`text-xs text-teal-600 hover:text-teal-700 font-semibold mt-3 text-right cursor-pointer`) that reads "تسوق الآن" or "شاهد جميع العروض".
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Map tiles render instantly without any lag, flickering, or gray voids during deep zoom-out cycles.
+✓ The client homepage perfectly displays the full-width cinematic banner followed by the 4 white master grid containers.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend marketplace and driver repositories.

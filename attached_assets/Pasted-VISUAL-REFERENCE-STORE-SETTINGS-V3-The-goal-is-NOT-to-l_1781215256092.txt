@@ -1,0 +1,245 @@
+VISUAL REFERENCE — STORE SETTINGS V3
+
+The goal is NOT to look like an admin form.
+
+The goal is to feel like:
+
+* Shopify Store Settings
+* Stripe Dashboard
+* Linear
+* Notion
+* Vercel
+
+Clean.
+Premium.
+Modern.
+Fast.
+
+---
+
+DESKTOP LAYOUT
+
+┌───────────────────────────────────────────────┐
+│ Store Settings                                │
+│ Manage and optimize your store                │
+└───────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────┐
+│ Store Completion                              │
+│                                               │
+│ 82% Complete                                  │
+│ ████████████████████░░░░                      │
+│                                               │
+│ Missing:                                      │
+│ □ Banner                                      │
+│ □ Return Policy                               │
+│ □ WhatsApp                                    │
+│ □ Meta Description                            │
+│                                               │
+│ [Complete Now]                                │
+└───────────────────────────────────────────────┘
+
+---
+
+SETTINGS NAVIGATION
+
+NOT small tabs.
+
+Use large cards.
+
+Example:
+
+┌─────────────┐
+│ 🏪          │
+│ General     │
+└─────────────┘
+
+┌─────────────┐
+│ 🎨          │
+│ Branding    │
+└─────────────┘
+
+┌─────────────┐
+│ 📞          │
+│ Contact     │
+└─────────────┘
+
+┌─────────────┐
+│ 📜          │
+│ Policies    │
+└─────────────┘
+
+┌─────────────┐
+│ 🔍          │
+│ SEO         │
+└─────────────┘
+
+┌─────────────┐
+│ 🛡️          │
+│ Trust       │
+└─────────────┘
+
+┌─────────────┐
+│ ❤️          │
+│ Store Health│
+└─────────────┘
+
+┌─────────────┐
+│ ⚙️          │
+│ Advanced    │
+└─────────────┘
+
+Cards must:
+
+* rounded-xl
+* hover animation
+* active state
+* icon + title
+* large click area
+
+---
+
+TRUST TAB
+
+Single trust card.
+
+Example:
+
+┌───────────────────────────────────────────────┐
+│ Trust Score                                   │
+│                                               │
+│                  84                           │
+│                Trusted Seller                 │
+│                                               │
+│ Completed Orders      20/20                   │
+│ Store Rating          18/20                   │
+│ Delivery Success      16/20                   │
+│ Reviews               12/20                   │
+│ Account Age           8/10                    │
+│ Verification          10/10                   │
+└───────────────────────────────────────────────┘
+
+Must be identical to:
+
+* Trust Page
+* Public Store
+* Seller Dashboard
+
+No different numbers.
+
+No different calculations.
+
+One source of truth.
+
+---
+
+STORE HEALTH
+
+Current:
+
+Health = 78
+
+Should become:
+
+┌───────────────────────────────────────────────┐
+│ Store Health                                  │
+│                                               │
+│ Score: 78                                     │
+│                                               │
+│ Improve your score:                           │
+│                                               │
+│ +5 Add banner                                 │
+│ +4 Complete SEO                               │
+│ +3 Add WhatsApp                               │
+│ +8 Get Verified                               │
+│                                               │
+│ [Fix Now]                                     │
+└───────────────────────────────────────────────┘
+
+Every item clickable.
+
+Jump directly to relevant section.
+
+---
+
+PUBLIC STORE PAGE
+
+Must show:
+
+TABS
+
+Products
+Featured
+Reviews
+About
+Contact
+Policies
+
+CONTACT
+
+Phone
+Email
+Website
+WhatsApp
+Telegram
+Facebook
+Instagram
+
+POLICIES
+
+Shipping Policy
+Return Policy
+Warranty Policy
+Privacy Policy
+
+Hide empty sections gracefully.
+
+No empty cards.
+
+---
+
+MOBILE DESIGN
+
+Navigation becomes:
+
+[General]
+[Branding]
+[Contact]
+[Policies]
+[SEO]
+[Trust]
+[Health]
+[Advanced]
+
+Horizontal scroll chips.
+
+Large touch targets.
+
+Minimum height:
+
+44px
+
+Must work perfectly on:
+
+320px
+375px
+390px
+414px
+
+No clipping.
+No overflow.
+No horizontal page scroll.
+
+---
+
+FINAL UX TARGET
+
+The seller should immediately understand:
+
+1. How complete their store is
+2. What is missing
+3. How to improve trust
+4. How to improve health score
+5. What customers see publicly
+
+The page should feel premium, modern, and significantly better than the current implementation.

@@ -1,0 +1,336 @@
+SYANO — CRITICAL LOGIC & TRUST SYSTEM AUDIT + FIX
+
+IMPORTANT:
+
+Before changing anything:
+
+1. Run recovery check.
+2. Verify confidence score remains 100/100.
+3. Audit all related code paths.
+4. Find ROOT CAUSE, not symptoms.
+5. Fix logic correctly.
+6. Add every new validation to Recovery Check endpoint.
+7. No fake data.
+8. No hardcoded values.
+9. No temporary patches.
+10. TypeScript must remain 0 errors.
+
+==================================================
+ISSUE #1
+Courier earnings dashboard does not update after delivery
+==================================================
+
+Problem:
+
+When courier marks an order as delivered:
+
+Order status updates correctly.
+
+BUT:
+
+Courier earnings dashboard numbers do not update immediately.
+
+Expected:
+
+After successful delivery:
+
+- earnings totals update
+- completed deliveries count updates
+- daily stats update
+- weekly stats update
+- monthly stats update
+- courier analytics update
+
+Audit:
+
+- order completion flow
+- courier earnings calculations
+- courier analytics queries
+- dashboard aggregation logic
+- cache invalidation
+- polling/revalidation logic
+
+Fix root cause.
+
+Add recovery validation:
+
+checkCourierEarningsIntegrity()
+
+Must verify:
+
+- delivered order count
+- earnings totals
+- dashboard aggregates
+
+==================================================
+ISSUE #2
+Recently Viewed products show missing images
+==================================================
+
+Problem:
+
+Recently viewed section displays products.
+
+Some products render without images.
+
+Expected:
+
+Priority:
+
+1. product primary image
+2. variant image
+3. first gallery image
+4. marketplace fallback image
+
+Never render broken image.
+
+Audit:
+
+- recently viewed storage
+- product query
+- image mapping
+- card component
+
+Fix root cause.
+
+Add recovery validation:
+
+checkRecentlyViewedImages()
+
+==================================================
+ISSUE #3
+Seller Assignment Form is primitive
+==================================================
+
+Current form feels:
+
+- admin panel
+- outdated
+- inefficient
+
+Redesign assignment workflow.
+
+Target:
+
+Trendyol
+Amazon
+Noon
+
+Requirements:
+
+- searchable seller picker
+- searchable courier picker
+- order summary card
+- trust indicators
+- current workload indicators
+- estimated delivery info
+- confirmation dialog
+
+Must be mobile friendly.
+
+No ugly select controls.
+
+==================================================
+ISSUE #4
+Trust System counts 1 delivery as 20 deliveries
+==================================================
+
+CRITICAL
+
+Problem:
+
+After one successful delivery:
+
+Trust page behaves as if many deliveries exist.
+
+Expected:
+
+Trust score must be based on REAL COUNTS ONLY.
+
+Audit:
+
+- trust calculation service
+- trust aggregation queries
+- scoring formulas
+- order completion counters
+- analytics counters
+- seller stats
+
+Verify:
+
+1 delivery = 1 delivery
+
+No multiplier.
+
+No hidden weighting pretending deliveries exist.
+
+Show exact values.
+
+Add recovery validation:
+
+checkTrustDeliveryAccuracy()
+
+Must compare:
+
+actual delivered orders
+vs
+trust calculation inputs
+
+==================================================
+ISSUE #5
+Store rating system is fundamentally wrong
+==================================================
+
+CRITICAL
+
+Current behavior:
+
+Product reviews appear to affect:
+
+- product rating
+- store rating
+
+at the same time.
+
+This is incorrect.
+
+Store ratings and Product ratings must be separated.
+
+Expected architecture:
+
+PRODUCT REVIEW
+
+belongs to:
+
+productId
+
+affects:
+
+- product stars
+- product review count
+
+only
+
+STORE REVIEW
+
+belongs to:
+
+sellerId
+
+affects:
+
+- seller rating
+- seller review count
+- trust system
+
+only
+
+Audit:
+
+- review schema
+- review services
+- review queries
+- seller store page
+- product page
+- trust system
+
+If store reviews do not exist:
+
+Implement complete Store Reviews system.
+
+Required:
+
+StoreReview table
+
+Fields:
+
+- id
+- sellerId
+- userId
+- orderId
+- rating
+- comment
+- createdAt
+
+Rules:
+
+Customer can review seller only after completed order.
+
+Product reviews remain separate.
+
+Store rating calculations:
+
+average seller rating
+
+Product rating calculations:
+
+average product rating
+
+Never mix them.
+
+==================================================
+UI REQUIREMENTS
+==================================================
+
+Preserve:
+
+- existing theme
+- RTL
+- EN/AR
+- spacing
+- typography
+- mobile compatibility
+
+No regressions.
+
+==================================================
+RECOVERY CHECK EXPANSION
+==================================================
+
+Add:
+
+checkCourierEarningsIntegrity()
+checkRecentlyViewedImages()
+checkTrustDeliveryAccuracy()
+checkStoreReviewSeparation()
+
+Recovery endpoint must fail if:
+
+- courier earnings mismatch
+- trust delivery count mismatch
+- missing recently viewed images
+- product/store reviews mixed together
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+Verify:
+
+✓ Courier earnings update instantly after delivery
+
+✓ Recently viewed always displays valid image
+
+✓ Seller assignment workflow redesigned
+
+✓ Trust system uses real delivery counts
+
+✓ 1 delivery = 1 delivery
+
+✓ Store reviews separated from product reviews
+
+✓ Product reviews affect products only
+
+✓ Store reviews affect stores only
+
+✓ Recovery Check remains 100/100
+
+✓ TypeScript = 0 errors
+
+Provide:
+
+1. Root cause for each issue
+2. Files modified
+3. Recovery checks added
+4. Before/after behavior
+5. Final confidence score

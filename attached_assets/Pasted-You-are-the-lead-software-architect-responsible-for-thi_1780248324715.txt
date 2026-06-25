@@ -1,0 +1,260 @@
+You are the lead software architect responsible for this marketplace.
+
+CRITICAL INSTRUCTION:
+
+DO NOT start coding immediately.
+
+DO NOT assume implementation details.
+
+DO NOT create quick fixes.
+
+DO NOT modify existing functionality until you fully understand how it works.
+
+The goal is to implement the requirements below WITHOUT introducing regressions, broken routes, authentication issues, database inconsistencies, UI issues, or permission bugs.
+
+══════════════════════════════════════
+PHASE 1 — FULL SYSTEM ANALYSIS (MANDATORY)
+══════════════════════════════════════
+
+Before making ANY change:
+
+Analyze and document:
+
+1. Authentication system
+2. Registration flows
+3. Login flows
+4. User roles
+5. Seller roles
+6. Permissions system
+7. Route protection
+8. Middleware
+9. Database schema
+10. User tables
+11. Seller tables
+12. Verification system
+13. Session management
+14. Remember-me functionality
+15. Existing redirects
+16. Navigation logic
+17. Frontend authentication state
+18. Backend authentication logic
+
+Identify:
+
+* Existing architecture
+* Existing dependencies
+* Existing role relationships
+* Existing security mechanisms
+
+DO NOT IMPLEMENT ANYTHING YET.
+
+══════════════════════════════════════
+PHASE 2 — IMPACT ANALYSIS (MANDATORY)
+══════════════════════════════════════
+
+For every requirement below:
+
+Determine:
+
+* Files affected
+* Database tables affected
+* API endpoints affected
+* UI components affected
+* Security implications
+* Migration requirements
+* Backward compatibility risks
+
+If a requirement could break existing functionality:
+
+Implement the safest solution.
+
+══════════════════════════════════════
+PHASE 3 — IMPLEMENTATION REQUIREMENTS
+══════════════════════════════════════
+
+Implement ALL requirements exactly as written.
+
+DO NOT change their meaning.
+
+1. Separate customer role from seller role.
+
+Each role must have dedicated pages for:
+
+* Login
+* Registration
+
+Customer authentication pages must be separate from seller authentication pages.
+
+Seller authentication pages must be separate from customer authentication pages.
+
+──────────────────────────────
+
+2. No user should be able to access seller login or seller registration except through the dedicated seller buttons and seller entry points.
+
+If someone attempts to access seller authentication through customer authentication flows or unintended routes:
+
+* Automatically redirect them to the customer login page or customer registration page.
+
+──────────────────────────────
+
+3. Login and registration verification must support:
+
+* Phone number
+* Email address
+
+For:
+
+* Customers
+* Sellers
+
+──────────────────────────────
+
+4. Only one account may exist per:
+
+* Phone number
+* Email address
+
+Enforce uniqueness at:
+
+* Database level
+* Backend validation level
+* Frontend validation level
+
+Prevent race conditions.
+
+──────────────────────────────
+
+5. On login and registration pages:
+
+Hide:
+
+* Search button
+* Categories button
+
+Authentication pages must remain focused on authentication.
+
+──────────────────────────────
+
+6. When a user submits an application to become a seller:
+
+Immediately:
+
+* Redirect to homepage.
+* Show notification that:
+
+  * Application is under review.
+  * Account remains a customer account until approval.
+
+If application is rejected:
+
+* Account remains a customer account.
+* No seller permissions are granted.
+
+──────────────────────────────
+
+7. On the Become a Seller page:
+
+Allow selection of multiple primary store categories.
+
+Update:
+
+* Database schema
+* API validation
+* Storage logic
+* Retrieval logic
+* UI display logic
+
+──────────────────────────────
+
+8. Add a functional Remember Me option.
+
+Requirements:
+
+* Works for customers.
+* Works for sellers.
+* Persists login securely.
+* Survives browser restart when enabled.
+* Uses standard session behavior when disabled.
+
+══════════════════════════════════════
+PHASE 4 — REGRESSION PREVENTION
+══════════════════════════════════════
+
+After implementation:
+
+Run validation for:
+
+Customer registration
+Customer login
+Seller registration
+Seller login
+Seller application
+Seller approval
+Seller rejection
+Email authentication
+Phone authentication
+Session handling
+Remember Me
+Role permissions
+Protected routes
+Redirects
+Homepage
+Navbar
+Search
+Categories
+
+Verify that no existing functionality has been broken.
+
+══════════════════════════════════════
+PHASE 5 — DATABASE SAFETY
+══════════════════════════════════════
+
+Before applying database changes:
+
+* Inspect current schema.
+* Create safe migrations.
+* Preserve existing data.
+* Avoid destructive operations.
+* Avoid data loss.
+
+Never drop production data unless absolutely required.
+
+══════════════════════════════════════
+PHASE 6 — FINAL QA
+══════════════════════════════════════
+
+Before marking complete:
+
+Verify:
+
+* Desktop
+* Mobile
+* Arabic
+* English
+
+Check:
+
+* Permissions
+* Authentication
+* Redirects
+* Validation
+* UI consistency
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Root architecture discovered.
+2. Files modified.
+3. Database changes.
+4. API changes.
+5. Authentication changes.
+6. Role separation changes.
+7. Seller workflow changes.
+8. Validation tests performed.
+9. Risks discovered.
+10. Confirmation that no existing functionality was broken.
+
+Do not consider the task complete until every requirement is implemented, tested, and validated.

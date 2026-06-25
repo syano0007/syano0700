@@ -1,0 +1,97 @@
+The header/navbar scrolling issue is NOT resolved.
+
+I can still reproduce the problem on both desktop and mobile.
+
+Important:
+Do not assume the previous fix worked.
+Do not rely only on source code inspection.
+I want a full runtime investigation.
+
+Requirements:
+
+1. Inspect the ACTUAL rendered DOM while the page is running.
+
+2. Identify the exact element that remains pinned/fixed/sticky during scrolling.
+
+3. Provide:
+
+   * Component name
+   * File path
+   * Element type
+   * Parent container chain
+   * Computed CSS position
+   * Computed top value
+   * Computed z-index
+
+4. Search the ENTIRE codebase for:
+
+   * position: fixed
+   * position: sticky
+   * sticky
+   * top-0
+   * top-[...]
+   * inset-0
+   * z-50
+   * z-[...]
+   * any wrapper around Navbar/Header/Layout
+
+5. Verify there is no:
+
+   * Navbar duplication
+   * MobileHeader
+   * DesktopHeader
+   * TopBar
+   * SafeArea wrapper
+   * Layout wrapper
+   * Parent sticky container
+   * Nested header component
+
+6. Inspect all layouts and route wrappers:
+
+   * Layout.tsx
+   * Navbar.tsx
+   * App.tsx
+   * Mobile navigation components
+   * Any shell/layout containers
+
+7. Take screenshots:
+
+   * Before scrolling
+   * During scrolling
+   * After scrolling
+
+8. Confirm which exact element stays visible when it should have scrolled away.
+
+9. If the issue still exists:
+
+   * Find the real root cause.
+   * Apply the smallest possible fix.
+   * Do NOT redesign the navbar.
+   * Do NOT change spacing.
+   * Do NOT change notch handling.
+   * Do NOT change safe-area handling.
+   * Do NOT change alignment.
+   * Only remove the behavior causing the header to remain pinned.
+
+10. After the fix:
+
+* Verify on desktop.
+* Verify on 320px.
+* Verify on 360px.
+* Verify on 375px.
+* Verify on 390px.
+* Verify on 414px.
+* Verify on 430px.
+
+Success criteria:
+
+* Header scrolls naturally with page content.
+* Header disappears upward when scrolling down.
+* No sticky behavior.
+* No fixed behavior.
+* No overlap with camera/notch.
+* No layout regressions.
+* No RTL regressions.
+* No desktop regressions.
+
+Do not mark the task complete until the issue is visually verified on the running application.

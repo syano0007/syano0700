@@ -1,0 +1,64 @@
+You are upgrading the SYANO (سوق سوريا) Interactive Map Modal UX.
+
+This is a production digital marketplace.
+
+Do NOT break existing backend APIs, delivery zone datasets (40 zones), or user session layers.
+Do NOT modify core database schemas or existing Leaflet routing setups.
+
+Preserve:
+- Full RTL (Arabic native) compliance and modern typography.
+- Responsive design variables (Vite 7 + React 19 + Tailwind v4 + react-leaflet).
+- Zero TypeScript errors across the `artifacts/marketplace` workspace.
+
+==================================================
+GOAL
+==================================================
+Enhance the existing Map Modal shown in "Screenshot (447).jpg" by adding:
+1. Automatic user geolocation on load.
+2. Dynamic auto-matching of the delivery zone selection based on the pinpointed coordinates.
+3. Enlarged map workspace dimensions inside the card modal container.
+4. Integrated text search functionality within the map component.
+
+==================================================
+PART 1 — MAP CANVAS EXPANSION (UI RESIZING)
+==================================================
+- Increase the structural dimensions of the Leaflet Map container element inside the modal.
+- Desktop/Tablet: The map viewport should occupy maximum vertical real estate within the modal panel (e.g., expand height to `h-[450px]` or `h-[500px]`), forcing the lower delivery options into a compact, streamlined bottom actions bar.
+- Maintain `rounded-xl` or `rounded-2xl` masking on the map viewport corners with crisp contrast borders.
+
+==================================================
+PART 2 — AUTOMATIC USER GEOLOCATION ON LOAD
+==================================================
+- Mechanics:
+  * When the Map Modal component mounts/opens, immediately trigger the browser's native Geolocation API (`navigator.geolocation.getCurrentPosition`).
+  * If the user grants permission: Extract `latitude` and `longitude` immediately.
+  * Fly/Pan the map view instantly to those precise coordinates using Leaflet's `map.flyTo()` or `map.setView()` with a smooth animation preset.
+  * Update the interactive marker pin to snap directly onto the user's automated coordinate layout.
+  * If permission is denied or fails, gracefully fallback to the pre-set Aleppo center coordinates.
+
+==================================================
+PART 3 — DYNAMIC AUTO-ZONE MATCHING & CORRELATION
+==================================================
+- Requirement:
+  * Whenever the marker coordinates change (either via automatic geolocation or when the user drags/pans the map manually), invoke an immediate proximity check or lookup calculation.
+  * Compare the active coordinates against the project's 40 authenticated `delivery_zones` polygons/bounds or geographical center markers.
+  * Automatically select/hydrate the matching region row inside the "منطقة التوصيل" dropdown select element.
+  * If the marker lands exactly within a zone (e.g., الجميلية or الموكامبو), that zone must become the active selected value in the dropdown automatically without manual user click intervention.
+
+==================================================
+PART 4 — INTEGRATED ADDRESS SEARCH INPUT (MAP SEARCH)
+==================================================
+- Requirement:
+  * Embed a responsive text search input field absolutely positioned directly inside or over the top layer of the map container (e.g., `absolute top-4 start-4 z-[1000]`).
+  * Design: Sleek input strip, clean background (`bg-white`), soft shadow wrapper, magnifying glass icon (Lucide `Search`), and clear placeholder text ("ابحث عن موقعك أو حيك...").
+  * Logic: When the user types an address/neighborhood name and hits enter or selects a suggestion, perform a client-side address lookup or filter matching locations, extracting coordinates, and moving the map marker directly to the found zone.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Opening the modal triggers a geolocation prompt and automatically pans the map view to the active spot.
+✓ The dropdown selector dynamically updates to match the corresponding zone automatically upon panning or loading.
+✓ The map height is expanded significantly relative to the static elements in "Screenshot (447).jpg".
+✓ The internal search input mounts correctly over the map canvas layer and executes spatial shifts upon input.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend directory stack.

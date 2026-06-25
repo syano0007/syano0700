@@ -1,0 +1,412 @@
+# SYANO — FULL RECOVERY + STARTUP FROM RECOVERY FILES
+
+STOP.
+
+This is NOT a new project.
+
+This is an existing production-scale marketplace.
+
+Do NOT create new architecture.
+
+Do NOT redesign anything.
+
+Do NOT implement features.
+
+Your first and only task is:
+
+Recover → Start → Verify → Report.
+
+---
+
+# STEP 1 — READ ALL RECOVERY FILES
+
+Before touching code:
+
+Read and analyze ALL recovery artifacts.
+
+Priority:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_COMPLETE.md
+* PROJECT_STATUS.md
+* CHANGELOG.md
+* docs/*
+* recovery/*
+* architecture/*
+* memory/*
+* endpoint documentation
+
+Build a complete understanding of:
+
+* current roadmap status
+* homepage version
+* navbar version
+* theme system
+* language system
+* currency system
+* admin system
+* seller system
+* courier system
+* trust system
+* variant system
+* recovery procedures
+
+Do NOT skip this step.
+
+---
+
+# STEP 2 — VERIFY PROJECT STRUCTURE
+
+Verify:
+
+* api-server
+* marketplace
+* mobile
+* shared packages
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+Ensure project structure is intact.
+
+Report missing files.
+
+---
+
+# STEP 3 — INSTALL DEPENDENCIES
+
+Recover dependencies.
+
+Run equivalent of:
+
+pnpm install
+
+or workspace recovery process.
+
+Verify:
+
+* lockfiles
+* workspaces
+* package resolution
+
+No dependency failures allowed.
+
+---
+
+# STEP 4 — DATABASE RECOVERY
+
+Verify database connectivity.
+
+Check:
+
+Tables
+
+Enums
+
+Indexes
+
+Seed data
+
+Expected:
+
+* 29 tables
+* notification_type enum
+* order_status enum
+* wishlists
+* hero_banners
+* seller_verification_log
+* delivery zones
+
+If required:
+
+Apply schema.sql
+
+Then run startup migrations.
+
+---
+
+# STEP 5 — START API SERVER
+
+Start API.
+
+Expected:
+
+Port 8080
+
+Verify:
+
+GET /api/healthz
+
+returns:
+
+{"status":"ok"}
+
+---
+
+# STEP 6 — VERIFY BOOTSTRAP ACCOUNTS
+
+Verify:
+
+Admin
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller
+
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier
+
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Repair automatically if needed.
+
+Verify:
+
+* roles
+* permissions
+* seller approval
+* courier activation
+
+---
+
+# STEP 7 — VERIFY DEMO MARKETPLACE DATA
+
+Verify:
+
+Products
+
+Stores
+
+Categories
+
+Images
+
+Homepage content
+
+Expected:
+
+42+ products
+
+Multiple stores
+
+Homepage populated
+
+Respect idempotent seed logic.
+
+Do NOT duplicate records.
+
+---
+
+# STEP 8 — START MARKETPLACE
+
+Start Vite Marketplace.
+
+Verify:
+
+Homepage loads.
+
+No crashes.
+
+No hydration issues.
+
+No router issues.
+
+No missing assets.
+
+---
+
+# STEP 9 — START MOBILE
+
+Start Expo app.
+
+Verify:
+
+No startup failures.
+
+No TypeScript errors.
+
+---
+
+# STEP 10 — TYPESCRIPT VALIDATION
+
+Verify:
+
+* api-server
+* marketplace
+* mobile
+* shared packages
+
+Expected:
+
+0 TypeScript errors.
+
+---
+
+# STEP 11 — PLATFORM HEALTH CHECK
+
+Verify:
+
+Homepage
+
+Navbar
+
+Theme system
+
+Language system
+
+Currency system
+
+Wishlist
+
+Cart
+
+Store pages
+
+Product pages
+
+Admin dashboard
+
+Seller dashboard
+
+Courier dashboard
+
+Trust system
+
+Variant system
+
+Notification system
+
+Recovery system
+
+---
+
+# STEP 12 — VERIFY ROADMAP STATUS
+
+Expected completed phases:
+
+✅ 1. Order Fulfillment Workflow Completion V1
+
+✅ 2. Courier Operations Dashboard V2
+
+✅ 3. Seller Order Management V2
+
+✅ 4. Seller Analytics Dashboard V2
+
+✅ 5. Trust System V1
+
+✅ 6. Seller Store Pages V2
+
+Pending phases:
+
+⏳ 7. Messaging V2
+
+⏳ 8. Search & Discovery V2
+
+⏳ 9. Follow System Expansion
+
+⏳ 10. Waitlist / Lead Capture System
+
+⏳ 11. Launch Preparation Layer
+
+⏳ 12. Performance & Scalability Program V1
+
+Verify recovery files match this state.
+
+---
+
+# STEP 13 — RECOVERY SCORE
+
+Run recovery validation.
+
+Expected:
+
+95/100+
+
+Known acceptable exception:
+
+heroBannerSystem false negative due to HeroV4 implementation.
+
+Do NOT treat that as a real issue.
+
+---
+
+# STEP 14 — UPDATE RECOVERY FILES
+
+After successful recovery:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+
+with:
+
+* current timestamp
+* recovery status
+* service status
+* database status
+* roadmap status
+
+Ensure future recoveries start from the latest state.
+
+---
+
+# STEP 15 — REPORT
+
+Provide:
+
+Service status
+
+Database status
+
+Marketplace status
+
+Mobile status
+
+Bootstrap account status
+
+TypeScript status
+
+Recovery score
+
+Known issues
+
+Current roadmap phase
+
+Current homepage version
+
+Current navbar version
+
+Current theme status
+
+Current language status
+
+Current currency status
+
+---
+
+# IMPORTANT
+
+After recovery:
+
+DO NOT implement features.
+
+DO NOT redesign UI.
+
+DO NOT modify business logic.
+
+Wait for my next instructions.
+
+Your mission:
+
+Recover.
+
+Start.
+
+Verify.
+
+Update recovery files.
+
+Report.

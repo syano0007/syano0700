@@ -1,0 +1,101 @@
+The issue is still not fixed.
+
+You are modifying the wrong component.
+
+This task is NOT about the Cart page.
+
+This task is NOT about Product Cards on the homepage.
+
+══════════════════════════════════════
+ACTUAL REQUIREMENT
+══════════════════════════════════════
+
+The missing section is on the Product Details Page.
+
+I need the Customer Reviews section to appear on the Product Details Page.
+
+Specifically:
+
+Place the reviews section between:
+
+* Product content section
+* "You May Also Like" section
+
+The reviews section must NOT be placed inside:
+
+* Cart page
+* Checkout page
+* Product cards
+* Homepage cards
+
+══════════════════════════════════════
+REQUIRED PRODUCT PAGE ORDER
+══════════════════════════════════════
+
+Product Details Page should follow:
+
+1. Product gallery
+2. Product information
+3. Price section
+4. Seller information
+5. Customer Reviews section
+6. You May Also Like section
+
+The reviews section must appear BEFORE "You May Also Like".
+
+══════════════════════════════════════
+CUSTOMER REVIEWS SECTION
+══════════════════════════════════════
+
+Display:
+
+* Average rating
+* Rating stars
+* Total review count
+* Customer reviews list
+
+If real reviews exist:
+Show real reviews.
+
+If no reviews exist:
+Show an empty state professionally.
+
+Do NOT inject fake reviews.
+
+══════════════════════════════════════
+MOBILE FIRST
+══════════════════════════════════════
+
+Focus heavily on mobile layouts.
+
+Verify:
+
+* No overflow
+* No broken spacing
+* No overlapping content
+* Arabic layout works
+* English layout works
+
+Test:
+
+320px
+360px
+375px
+390px
+414px
+430px
+
+══════════════════════════════════════
+VALIDATION
+══════════════════════════════════════
+
+Provide screenshots showing:
+
+1. Product page before.
+2. Product page after.
+3. Reviews section visible.
+4. Reviews section located before "You May Also Like".
+5. Arabic mobile.
+6. English mobile.
+
+Do not mark complete until the reviews section is visible on the Product Details Page in the correct position.

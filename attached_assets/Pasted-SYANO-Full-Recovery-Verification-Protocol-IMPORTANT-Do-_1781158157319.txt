@@ -1,0 +1,466 @@
+SYANO (سوق سوريا) — Full Recovery & Verification Protocol
+
+IMPORTANT:
+
+Do NOT start implementing any new feature.
+
+Do NOT modify any file.
+
+Do NOT refactor anything.
+
+Do NOT assume anything.
+
+First restore the entire project and verify the latest baseline exactly.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 1 — READ RECOVERY FILES
+━━━━━━━━━━━━━━━━━━━━━━
+
+Read ALL recovery / memory documentation first:
+
+* MEMORY.md
+* RECOVERY.md
+* PROJECT_STATUS.md
+* HANDOFF.md
+* Any recovery, audit, roadmap, implementation logs
+
+Build a complete picture before touching the environment.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 2 — ENVIRONMENT RESTORATION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Restore the project exactly:
+
+1. Install dependencies
+
+pnpm install
+
+2. Restore database schema
+
+drizzle-kit push
+
+(or equivalent project command)
+
+3. Build shared libraries
+
+lib/db
+lib/api-zod
+lib/api-client-react
+
+4. Start all services
+
+API Server
+Marketplace (Web)
+Mobile (Expo)
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 3 — DATABASE VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Verify all schema exists.
+
+Especially:
+
+users
+
+products
+product_variants
+product_variant_groups
+product_variant_options
+product_variant_values
+variant_images
+
+orders
+order_items
+order_status_history
+
+delivery_zones
+
+couriers
+courier_assignments
+courier_wallet_transactions
+
+seller_applications
+seller_reviews
+reviews
+
+messages
+conversations
+
+notifications
+
+store_follows
+
+platform_settings
+
+admin_audit_log
+verification_audit_log
+
+Verify migrations applied successfully.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 4 — FEATURE VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━
+
+Verify the latest baseline exists.
+
+====================
+PRODUCT WIZARD
+==============
+
+Confirm:
+
+✅ 5-step wizard
+
+Basic
+Pricing
+Variants
+Specifications
+Publish
+
+Confirm:
+
+✅ Edit mode
+
+All steps clickable immediately.
+
+completedSteps preloaded.
+
+No need to click Next repeatedly.
+
+Confirm:
+
+✅ Wider desktop layout
+
+Variants step:
+
+max-w-5xl / max-w-6xl
+
+Other steps:
+
+max-w-4xl / max-w-5xl
+
+====================
+VARIANT SYSTEM
+==============
+
+Confirm:
+
+✅ Card-based VariantBuilder
+
+NOT old table layout.
+
+Confirm:
+
+✅ CombinationCard architecture
+
+✅ Bulk actions
+
+✅ Generate combinations
+
+✅ Variant images
+
+✅ Card grid
+
+Confirm:
+
+✅ Product creation fix
+
+price and stock sent as numbers
+
+NOT strings.
+
+====================
+CATEGORY DROPDOWNS
+==================
+
+Confirm:
+
+✅ Edit Product page loads category/subcategory correctly.
+
+Confirm:
+
+✅ Category dropdown opens downward.
+
+NOT upward.
+
+====================
+CHECKOUT DELIVERY ZONES
+=======================
+
+Confirm:
+
+Web Checkout:
+
+✅ Zone picker exists
+
+✅ Delivery fee updates totals
+
+✅ zoneId sent to API
+
+API:
+
+✅ Zone validated server-side
+
+✅ Client fee not trusted
+
+Orders:
+
+✅ zoneNameEn
+✅ zoneNameAr
+✅ deliveryFee
+
+stored and returned.
+
+Mobile:
+
+✅ Zone picker modal exists
+
+✅ Delivery fee updates total
+
+====================
+ORDER FULFILLMENT
+=================
+
+Verify workflow:
+
+Pending
+Confirmed
+Preparing
+ReadyForPickup
+CourierAssigned
+PickedUp
+OutForDelivery
+Delivered
+
+Additional:
+
+Cancelled
+DeliveryFailed
+Returned
+Refunded
+
+Confirm seller workflow exists.
+
+Confirm courier workflow exists.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 5 — COURIER OPERATIONS AUDIT
+━━━━━━━━━━━━━━━━━━━━━━
+
+THIS IS CRITICAL.
+
+Verify the most recent courier work.
+
+====================
+ADMIN DELIVERY PAGE
+===================
+
+Confirm:
+
+Rich assignment UI.
+
+Customer info.
+
+Seller info.
+
+Store info.
+
+Products list.
+
+Courier capacity indicators.
+
+Active delivery view.
+
+====================
+COURIER DASHBOARD
+=================
+
+Confirm:
+
+Pickup information.
+
+Seller information.
+
+Store information.
+
+Customer information.
+
+Products.
+
+Delivery address.
+
+Delivery notes.
+
+====================
+VERY IMPORTANT
+==============
+
+Audit and explicitly verify:
+
+1. Does Mark Delivered exist?
+
+2. Does OutForDelivery → Delivered work?
+
+3. Does customer see Delivered?
+
+4. Does Delivered create courier wallet transactions?
+
+5. Does Delivered update courier earnings?
+
+6. Does Delivered update courier statistics?
+
+7. Does Delivered increase completed deliveries?
+
+8. Does everything work on web?
+
+9. Does everything work on mobile?
+
+DO NOT ASSUME.
+
+VERIFY.
+
+If any of the above fail:
+
+Report them clearly.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 6 — TYPESCRIPT
+━━━━━━━━━━━━━━━━━━━━━━
+
+Run full validation.
+
+Marketplace:
+
+0 errors required.
+
+API Server:
+
+0 errors required.
+
+Shared libs:
+
+0 errors required.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 7 — CURRENT OPEN ISSUES
+━━━━━━━━━━━━━━━━━━━━━━
+
+Verify status of these pending issues:
+
+1.
+
+Seller Application page on mobile.
+
+Category labels currently cut/truncated.
+
+Check if fixed.
+
+2.
+
+Admin dashboard notification navigation.
+
+Currently requires refresh before navigation works.
+
+Check if fixed.
+
+3.
+
+Suggested Specifications section.
+
+Should be removed from Product Creation.
+
+Should live inside Specifications page.
+
+Check if fixed.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 8 — ROADMAP REFERENCE
+━━━━━━━━━━━━━━━━━━━━━━
+
+Current official roadmap:
+
+1.
+
+Order Fulfillment Workflow Completion V1
+
+2.
+
+Courier Operations Dashboard V2
+
+3.
+
+Seller Order Management V2
+
+4.
+
+Seller Analytics Dashboard V2
+
+5.
+
+Trust System V1
+
+6.
+
+Seller Store Pages V2
+
+7.
+
+Messaging V2
+
+8.
+
+Search & Discovery V2
+
+9.
+
+Follow System Expansion
+
+10.
+
+Waitlist / Lead Capture System
+
+11.
+
+Launch Preparation Layer
+
+12.
+
+Performance & Scalability Program V1
+
+Performance project must remain near launch.
+
+Do NOT reorder roadmap.
+
+━━━━━━━━━━━━━━━━━━━━━━
+PHASE 9 — REQUIRED REPORT
+━━━━━━━━━━━━━━━━━━━━━━
+
+After everything:
+
+Return a complete report.
+
+Include:
+
+Environment status.
+
+Database status.
+
+Service status.
+
+Feature verification.
+
+Courier audit.
+
+TypeScript status.
+
+Open issues.
+
+Regression findings.
+
+Missing functionality.
+
+Do NOT implement anything yet.
+
+Only restore, verify, audit, and report.

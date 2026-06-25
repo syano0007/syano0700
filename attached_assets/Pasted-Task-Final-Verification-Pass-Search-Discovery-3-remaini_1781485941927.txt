@@ -1,0 +1,59 @@
+Task: Final Verification Pass — Search Discovery (3 remaining checks only)
+
+Context: Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md first.
+
+The previous QA pass for Faceted Filters + Browse Mode + Related Searches
+fixed 7 bugs and passed all 9 sections. This task ONLY verifies 3 specific
+items that need stronger confirmation. DO NOT build, implement, or propose
+ANY new feature in this task.
+
+CRITICAL — DO NOT IMPLEMENT "SAVE SEARCH" OR "RECENTLY SEARCHED": Both were
+proposed in previous passes and are REJECTED, final, not aligned with
+roadmap. The Navbar already has a "Recent searches (localStorage)" section
+in its autocomplete dropdown (see section 4g of project docs) — a new
+"Recently Searched" dropdown would duplicate/conflict with this existing
+feature. Do not propose either of these again in this task or any future
+task on this project. This decision is final.
+
+Perform ONLY these 3 checks:
+
+1. Mobile 375px — actual search results screenshots
+- Navigate to the search results page (not just login/home) at 375px
+  viewport, in Arabic AND in English
+- Screenshot: the full search results page showing sort chips, filter
+  chips, AND the Related Searches footer section at the bottom of the list
+- Verify chips wrap or scroll horizontally without overflow, text is not
+  truncated/cut off, and Related Searches chips are visible and tappable
+- If anything is broken, fix it using existing mobile components/styles
+  only — no new patterns
+
+2. Role-based check — actual login as seller and admin
+- Log in as seller (delewatiamer8@gmail.com) and as admin
+  (delewatiamer7@gmail.com)
+- For each role, navigate to the search results page with at least one
+  filter applied (e.g. a category + price range), and to /categories
+- Screenshot both roles' search results page
+- Confirm: no broken layout, no role-specific UI conflicts, filters and
+  Related Searches render normally for both roles
+- If a conflict is found, fix it using existing patterns only
+
+3. "Recently Searched" — explicit non-action confirmation
+- Do NOT implement this feature
+- In the final report, explicitly state that this was rejected because the
+  Navbar autocomplete already has a "Recent searches (localStorage)"
+  section, and that no code changes were made related to this
+
+After any fixes in checks 1 or 2, run npx tsc --noEmit across all packages
+and confirm 0 errors.
+
+Final report must include:
+- Pass/fail for each of the 3 checks above
+- Screenshots for checks 1 and 2 (search results page specifically, not
+  login/home screens)
+- Any bugs found and fixed in checks 1-2, with description
+- Confirmation of 0 TypeScript errors (only if any fix was made)
+- Explicit confirmation per check 3
+
+Do not: change existing design, introduce new colors/components, modify
+unrelated pages, or implement any feature beyond fixing issues found during
+checks 1-2.

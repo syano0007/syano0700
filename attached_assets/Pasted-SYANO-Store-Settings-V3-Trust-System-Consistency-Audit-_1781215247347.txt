@@ -1,0 +1,352 @@
+SYANO — Store Settings V3 + Trust System Consistency Audit
+
+CRITICAL:
+
+Before writing ANY code:
+
+1. Read CURRENT_STATE.md
+2. Read CHANGELOG.md
+3. Read RECOVERY_GUIDE.md
+4. Read MEMORY.md
+5. Run GET /api/admin/recovery-check
+6. Confirm score remains 100/100
+7. Preserve all existing functionality
+8. Preserve all recovery-check modules
+9. Add every new validation to recovery-check
+
+This is NOT a feature addition.
+
+This is a UX, consistency, trust, and store-management refinement pass.
+
+---
+
+PART 1 — STORE SETTINGS NAVIGATION REDESIGN
+
+Current issue:
+
+Tabs are too small.
+Difficult to scan.
+Poor mobile usability.
+
+Redesign navigation completely.
+
+Target quality:
+
+Shopify Seller Dashboard
+Amazon Seller Central
+Etsy Shop Manager
+
+Requirements:
+
+Desktop:
+
+Large icon cards.
+
+Example:
+
+┌───────────┐
+│ 🏪        │
+│ General   │
+└───────────┘
+
+┌───────────┐
+│ 🎨        │
+│ Branding  │
+└───────────┘
+
+Grid layout.
+
+Not tiny tabs.
+
+Mobile:
+
+Horizontal scroll chips.
+
+Large touch targets.
+
+Minimum:
+
+44px touch height.
+
+---
+
+PART 2 — STORE COMPLETION SYSTEM
+
+Current settings page does not guide sellers.
+
+Build:
+
+Store Completion Engine
+
+Score:
+
+0–100%
+
+Sections:
+
+Store identity
+Logo
+Banner
+Description
+Contact
+Policies
+Social links
+SEO
+Verification
+Products
+
+Example:
+
+82% Complete
+
+Missing:
+
+□ Banner
+□ Return Policy
+□ WhatsApp
+□ Meta Description
+
+Every item clickable.
+
+Jump directly to missing section.
+
+Must be visible:
+
+Store Settings
+Seller Dashboard
+Store Health
+
+---
+
+PART 3 — TRUST SYSTEM CONSISTENCY FIX
+
+Current issue:
+
+Trust appears differently in multiple places.
+
+This must be unified.
+
+Single source of truth:
+
+trustScore.ts
+
+Every screen must consume the same values.
+
+Audit:
+
+Seller Trust page
+Store Settings Trust tab
+Public Store page
+Verified badge
+Admin verification screens
+
+All must show:
+
+Trust Score
+Trust Level
+Verification Status
+Breakdown
+
+No duplicated calculations.
+
+No hardcoded values.
+
+---
+
+PART 4 — FIX INCORRECT TRUST METRICS
+
+Critical issue:
+
+Store shows delivery points despite never having deliveries.
+
+Audit trust calculation.
+
+Verify every component:
+
+Completed Orders
+Store Rating
+Delivery Success
+Reviews
+Account Age
+Followers
+Verification
+
+If seller has:
+
+0 deliveries
+
+Then:
+
+Delivery Success MUST contribute 0.
+
+No fake percentages.
+
+No inferred values.
+
+No placeholder values.
+
+Trust score must be mathematically accurate.
+
+Add validation tests.
+
+---
+
+PART 5 — PUBLIC STORE INFORMATION
+
+Current issue:
+
+Policies and contact info exist only inside settings.
+
+Customers need access.
+
+Public Store must include:
+
+Contact tab
+
+Phone
+Email
+Website
+WhatsApp
+Telegram
+Facebook
+Instagram
+
+Policies tab
+
+Shipping Policy
+Return Policy
+Warranty Policy
+Privacy Policy
+
+If field empty:
+
+Hide gracefully.
+
+No blank cards.
+
+---
+
+PART 6 — STORE HEALTH IMPROVEMENTS
+
+Current health score is useful but passive.
+
+Make it actionable.
+
+Example:
+
+Health Score: 78
+
+Improve your score:
+
++5 Add banner
++3 Add WhatsApp
++4 Complete SEO
++8 Get verified
+
+Show potential gains.
+
+Clickable.
+
+Jump directly to section.
+
+---
+
+PART 7 — MOBILE AUDIT
+
+Audit entire Store Settings page.
+
+Check:
+
+320px
+375px
+390px
+414px
+768px
+
+Verify:
+
+No overflow
+No clipped text
+No horizontal scrolling
+No cut buttons
+No cramped cards
+
+Fix all findings.
+
+---
+
+PART 8 — RECOVERY CHECK INTEGRATION
+
+Expand recovery-check.
+
+Add:
+
+storeSettingsConsistency
+trustConsistency
+storeCompletion
+publicStorePolicies
+publicStoreContact
+
+Recovery score MUST remain 100.
+
+If any section fails:
+
+Recovery check must fail.
+
+---
+
+PART 9 — SCREENSHOT VALIDATION
+
+Use permanent accounts:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Take screenshots of:
+
+Store Settings
+Trust Page
+Public Store
+Store Health
+
+Verify visually.
+
+Do not rely on code inspection only.
+
+---
+
+PART 10 — FINAL VALIDATION
+
+Verify:
+
+✅ Trust score identical everywhere
+
+✅ No fake delivery metrics
+
+✅ Policies visible publicly
+
+✅ Contact info visible publicly
+
+✅ Store completion works
+
+✅ Health score actionable
+
+✅ Desktop UX improved
+
+✅ Mobile UX improved
+
+✅ Recovery check expanded
+
+✅ Recovery score remains 100/100
+
+✅ TypeScript = 0 errors
+
+Do not stop after implementation.
+
+Continue until everything is visually verified and recovery-check passes.

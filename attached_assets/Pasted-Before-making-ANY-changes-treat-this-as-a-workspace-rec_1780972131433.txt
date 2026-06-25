@@ -1,0 +1,190 @@
+Before making ANY changes, treat this as a workspace recovery task.
+
+## Phase 1 — Read Recovery Memory
+
+Read ALL files inside `project-memory/` completely, especially:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* PROJECT_STATE.md
+* CURRENT_TASK.md
+* DATABASE_STATE.md
+* KNOWN_ISSUES.md
+* CHANGELOG.md
+* API_STATE.md
+* AUTH_STATE.md
+* PERFORMANCE_STATE.md
+* VARIANT_SYSTEM_STATE.md
+
+These files are the authoritative source of truth.
+
+Do NOT assume anything before reading them.
+
+---
+
+## Phase 2 — Restore Workspace
+
+Restore the project exactly to the latest documented checkpoint.
+
+Verify:
+
+### Environment
+
+* pnpm dependencies installed
+* lib declarations built
+* all workflows running
+* environment variables loaded
+
+### Database
+
+Confirm:
+
+* exactly 22 tables exist
+* variant_images exists
+* reset_otp_* columns exist
+* all additive migrations exist
+* Root Owner account is healthy
+* platform settings restored
+
+Do NOT recreate existing structures unnecessarily.
+
+---
+
+## Phase 3 — Verify Assets
+
+Confirm all branding assets exist and load correctly:
+
+* src/assets/syano-logo.png
+* public/syano-logo.png
+* favicon-16x16.png
+* favicon-32x32.png
+* favicon-48x48.png
+* apple-touch-icon.png
+* android-chrome-192x192.png
+* android-chrome-512x512.png
+* fonts/inter-latin.woff2
+* mobile/assets/images/icon.png
+
+Browser console must have zero 404 asset errors.
+
+---
+
+## Phase 4 — Verify Latest Variant System Changes
+
+Very important:
+
+Do NOT rely only on documentation.
+
+Inspect the actual codebase and confirm that the latest Variant Builder improvements are still present.
+
+Verify specifically:
+
+### Localization
+
+* all variants.* i18n keys exist
+* no broken Arabic/English fallback strings
+* new.tsx and edit.tsx fully localized
+
+### Toggle Polish
+
+* improved variant toggle
+* enabled/disabled status label
+* primary glow state
+* focus ring
+* smooth transitions
+
+### Primary Theme Colors
+
+* no old blue (sky-*) styling remains
+* variant chips use theme primary color
+
+### Mobile Improvements
+
+* larger touch targets
+* improved bulk toolbar stacking
+* improved mobile variant rows
+* improved image button sizing
+* improved StepHeader wrapping
+
+### RTL Improvements
+
+* logical CSS properties used
+* no broken LTR-only layouts
+* chips and pills align correctly
+
+---
+
+## Phase 5 — Verify The VERY LAST Pending Fixes
+
+The latest development session ended with two partially unresolved issues.
+
+Inspect the actual UI code and confirm whether these fixes are already present:
+
+### A)
+
+Arabic RTL buttons and controls should visually align correctly.
+
+No buttons should appear pulled toward the wrong side in Arabic mode.
+
+Verify:
+
+* variant group controls
+* add value controls
+* quick add chips
+* manage combinations actions
+* bulk action buttons
+
+### B)
+
+Mobile layout consistency.
+
+Verify that:
+
+* no buttons are clipped
+* no cards overflow
+* no controls are cut in half
+* variant controls fit on 320px width
+* Manage Combinations section behaves correctly
+* group headers wrap naturally
+* custom input rows never overflow
+
+If any of these latest fixes were lost during migration,
+restore them exactly as intended.
+
+---
+
+## Phase 6 — Full Health Check
+
+Verify:
+
+* API running
+* Marketplace running
+* Mobile running
+* Browser console clean
+* TypeScript structural errors = 0
+* Recovery documentation matches actual code
+* Database matches documentation
+* Assets match documentation
+
+---
+
+## Important Rules
+
+* Do NOT redesign anything.
+* Do NOT introduce new features.
+* Do NOT refactor working code.
+* Do NOT overwrite newer work with older recovery files.
+
+Recovery files are the baseline.
+Actual code is the source of truth for the latest edits.
+
+If documentation and code differ, preserve the newer implementation and update the recovery docs to match.
+
+Finally, produce a detailed report containing:
+
+1. What was restored.
+2. What already matched.
+3. What was repaired.
+4. Whether the latest Variant Builder RTL/mobile fixes are present.
+5. Whether the workspace now exactly matches the latest checkpoint.
+6. Whether it is safe to continue development.

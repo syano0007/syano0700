@@ -1,0 +1,561 @@
+IMPORTANT:
+Before making ANY modifications, deeply analyze the ENTIRE existing Syano marketplace architecture including:
+
+- authentication system
+- role management
+- seller system
+- customer system
+- dashboard architecture
+- database schema
+- product creation flow
+- order system
+- admin capabilities
+- routing structure
+- API/backend structure
+- state management
+- notification system
+- file upload/image handling
+- security architecture
+- responsive behavior
+- multilingual system
+- theme system
+- performance bottlenecks
+
+DO NOT rebuild the project.
+DO NOT regenerate unrelated pages/components.
+DO NOT replace existing architecture unnecessarily.
+
+Modify ONLY what is necessary while preserving all current marketplace functionality.
+
+The implementation must remain:
+- production-ready
+- scalable
+- secure
+- marketplace-grade
+- responsive
+- optimized for weak internet
+- fully compatible with the current architecture
+
+==================================================
+SECTION 1 — PROFESSIONAL SELLER VERIFICATION SYSTEM
+==================================================
+
+Implement a COMPLETE professional seller verification & approval system inspired by large-scale ecommerce marketplaces.
+
+The goal is:
+- prevent fake sellers
+- prevent spam stores
+- increase marketplace trust
+- improve product quality
+- create a premium marketplace ecosystem
+
+IMPORTANT:
+Users must NOT become sellers instantly.
+
+Every seller MUST pass through:
+- seller application
+- verification review
+- approval workflow
+
+before gaining seller access.
+
+==================================================
+SECTION 2 — ROLE & ACCESS ARCHITECTURE
+==================================================
+
+Implement a clean layered seller access system.
+
+IMPORTANT:
+DO NOT use simple:
+User → Seller
+
+Instead implement:
+
+User
+→ Seller Application
+→ Verification Review
+→ Approved Seller
+
+==================================================
+REQUIRED ROLE STATES
+==================================================
+
+Implement the following seller states:
+
+1. Regular User
+- normal marketplace customer
+- no seller permissions
+
+2. Seller Applicant
+- submitted seller application
+- waiting for review
+
+3. Under Verification
+- application under admin review
+
+4. Approved Seller
+- full seller access enabled
+
+5. Rejected Seller
+- seller application rejected
+
+6. Suspended Seller
+- seller temporarily/permanently restricted
+
+==================================================
+SECTION 3 — SELLER APPLICATION FLOW
+==================================================
+
+Replace the old instant seller registration flow completely.
+
+Instead:
+Users must submit a professional seller application.
+
+==================================================
+SELLER APPLICATION FORM
+==================================================
+
+The application form must include:
+
+==================================================
+BASIC INFORMATION
+==================================================
+
+- Full name
+- Store name
+- Phone number
+- City
+- Address
+- Product category/type
+- Store description/about section
+
+==================================================
+OPTIONAL TRUST INFORMATION
+==================================================
+
+- Social media links
+- Website link
+- Business registration info
+- Physical store information
+
+==================================================
+IDENTITY VERIFICATION
+==================================================
+
+Support secure upload for:
+- ID card/passport image
+- optional selfie verification
+- optional store image/logo
+
+IMPORTANT:
+Implement secure file upload handling.
+
+==================================================
+SECTION 4 — APPLICATION STATUS SYSTEM
+==================================================
+
+Implement a complete seller application status system.
+
+==================================================
+STATUS TYPES
+==================================================
+
+Pending Review
+- application submitted
+- waiting queue
+
+Under Verification
+- admin currently reviewing
+
+Approved
+- seller fully activated
+
+Rejected
+- rejected with optional reason
+
+Suspended
+- seller restricted
+
+==================================================
+STATUS REQUIREMENTS
+==================================================
+
+Each status must support:
+- timestamps
+- admin notes
+- rejection reason
+- audit tracking
+- status history
+
+==================================================
+SECTION 5 — STRICT SELLER ACCESS CONTROL
+==================================================
+
+IMPORTANT:
+Applicants MUST NOT access seller functionality until approved.
+
+Before approval:
+Users MUST NOT:
+- add products
+- publish listings
+- access seller dashboard
+- manage inventory
+- receive orders
+- appear publicly as sellers
+
+Only Approved Sellers can:
+- access seller dashboard
+- create products
+- manage products
+- receive orders
+- operate stores
+
+==================================================
+SECTION 6 — ADMIN SELLER REVIEW DASHBOARD
+==================================================
+
+Implement a professional admin review dashboard for seller verification management.
+
+==================================================
+ADMIN REVIEW FEATURES
+==================================================
+
+Admins must be able to:
+- view seller applications
+- review uploaded files
+- inspect store information
+- approve sellers
+- reject sellers
+- suspend sellers
+- add internal notes
+- view application history
+
+==================================================
+APPLICATION REVIEW CARDS
+==================================================
+
+Each application should display:
+- full name
+- store name
+- city
+- phone number
+- category
+- uploaded verification files
+- registration date
+- application status
+
+==================================================
+ADMIN ACTIONS
+==================================================
+
+Implement:
+- Approve
+- Reject
+- Suspend
+- Request additional information
+
+==================================================
+SECTION 7 — SELLER TRUST LEVEL SYSTEM
+==================================================
+
+Implement a scalable seller trust/ranking system.
+
+==================================================
+TRUST LEVELS
+==================================================
+
+New Seller
+Verified Seller
+Premium Seller
+Top Rated Seller
+
+==================================================
+TRUST BADGES
+==================================================
+
+Display trust badges on:
+- seller profiles
+- store pages
+- product pages
+- search results
+
+Examples:
+- ✔ Verified Seller
+- ⭐ Top Rated
+
+==================================================
+TRUST SCORE FACTORS
+==================================================
+
+Future-ready architecture should support:
+- successful orders
+- customer ratings
+- refund rates
+- response speed
+- account age
+- delivery reliability
+
+==================================================
+SECTION 8 — FIRST PRODUCT REVIEW SYSTEM
+==================================================
+
+Implement a moderation layer for new sellers.
+
+IMPORTANT:
+The first 3–5 products from new sellers should require manual approval before becoming public.
+
+Purpose:
+- prevent spam
+- prevent fake products
+- maintain marketplace quality
+- improve trust
+
+==================================================
+PRODUCT REVIEW FLOW
+==================================================
+
+New seller uploads product
+→ Product enters moderation queue
+→ Admin reviews
+→ Approve / Reject
+
+==================================================
+SECTION 9 — SELLER STRIKE & VIOLATION SYSTEM
+==================================================
+
+Implement a seller violation/strike system.
+
+==================================================
+VIOLATION EXAMPLES
+==================================================
+
+- fake products
+- spam
+- abusive behavior
+- misleading listings
+- excessive cancellations
+- scam behavior
+- policy violations
+
+==================================================
+STRIKE SYSTEM
+==================================================
+
+Requirements:
+- strike tracking
+- timestamps
+- admin notes
+- automatic suspension thresholds
+- violation history
+
+==================================================
+AUTOMATIC ACTIONS
+==================================================
+
+Examples:
+- warning after first violations
+- temporary suspension
+- permanent ban
+
+==================================================
+SECTION 10 — SELLER RATING SYSTEM
+==================================================
+
+Allow customers to rate sellers separately from products.
+
+==================================================
+SELLER REVIEW FACTORS
+==================================================
+
+Customers can rate:
+- communication
+- delivery speed
+- product quality
+- professionalism
+- overall experience
+
+==================================================
+SECTION 11 — NOTIFICATION INTEGRATION
+==================================================
+
+Integrate seller verification into the notification system.
+
+==================================================
+SELLER NOTIFICATIONS
+==================================================
+
+Notify users when:
+- application submitted
+- under review
+- approved
+- rejected
+- suspended
+- additional info requested
+
+==================================================
+ADMIN NOTIFICATIONS
+==================================================
+
+Admins receive notifications for:
+- new seller applications
+- pending reviews
+- flagged sellers
+- moderation queues
+
+==================================================
+SECTION 12 — SECURITY & ANTI-SPAM SYSTEM
+==================================================
+
+Implement strong anti-abuse protections.
+
+==================================================
+REQUIRED PROTECTIONS
+==================================================
+
+- prevent duplicate seller applications
+- rate limiting
+- secure uploads
+- validation/sanitization
+- role validation
+- backend authorization checks
+- anti-spam protections
+- duplicate phone/email prevention
+
+==================================================
+OPTIONAL FUTURE-READY SUPPORT
+==================================================
+
+Prepare architecture for:
+- OTP verification
+- SMS verification
+- email verification
+- AI fraud detection
+
+WITHOUT requiring major rewrites.
+
+==================================================
+SECTION 13 — FILE UPLOAD & STORAGE
+==================================================
+
+Implement secure verification file handling.
+
+Requirements:
+- image validation
+- size limits
+- optimized uploads
+- secure storage
+- responsive previews
+- upload progress states
+- loading/error handling
+
+==================================================
+SECTION 14 — PREMIUM UI/UX EXPERIENCE
+==================================================
+
+The seller verification system must feel:
+- modern
+- premium
+- trustworthy
+- professional
+- smooth
+- marketplace-grade
+
+==================================================
+UI REQUIREMENTS
+==================================================
+
+Implement:
+- modern forms
+- clean spacing
+- responsive layouts
+- progress indicators
+- status badges
+- professional empty states
+- smooth transitions
+- accessible UI
+
+==================================================
+SECTION 15 — MOBILE-FIRST OPTIMIZATION
+==================================================
+
+Ensure the ENTIRE seller verification experience is premium on:
+- desktop
+- tablet
+- mobile
+
+Fix:
+- broken forms
+- poor upload UX
+- cramped layouts
+- touch interaction issues
+- overflow problems
+
+Ensure:
+- smooth mobile forms
+- responsive file uploads
+- optimized performance
+- premium mobile experience
+
+==================================================
+SECTION 16 — PERFORMANCE OPTIMIZATION
+==================================================
+
+Optimize the system for:
+- weak internet
+- Syria/slow networks
+- low-end devices
+
+Implement:
+- lightweight rendering
+- optimized uploads
+- minimized rerenders
+- efficient state handling
+- lazy loading where appropriate
+- optimized admin tables/lists
+
+==================================================
+SECTION 17 — FUTURE-READY ARCHITECTURE
+==================================================
+
+Build the system so it can later support:
+- full admin panel
+- automated approvals
+- AI moderation
+- advanced seller analytics
+- payout systems
+- commission systems
+- KYC integrations
+- external verification APIs
+
+WITHOUT requiring major rewrites.
+
+==================================================
+SECTION 18 — FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+- test seller application flow
+- test role restrictions
+- test seller approval flow
+- test seller rejection flow
+- test seller suspension
+- test admin review system
+- test product moderation flow
+- test notification integration
+- test mobile responsiveness
+- test desktop responsiveness
+- test upload validation
+- test anti-spam protections
+- test weak internet performance
+- verify no unauthorized seller access
+- verify backend security validation
+- automatically detect and fix discovered issues
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium modern ecommerce marketplace
+- highly secure and trustworthy
+- professionally moderated
+- scalable and production-ready
+- optimized for both desktop and mobile
+- comparable to large-scale marketplace platforms

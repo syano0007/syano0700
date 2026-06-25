@@ -1,0 +1,244 @@
+You are continuing the SYANO (سوق سوريا) project from the latest recovered state.
+
+Current confirmed state:
+
+* Recovery Score = 95/100
+* API running
+* Marketplace running
+* Mobile running
+* Premium Homepage V5 active
+* Hero V4 active
+* Hero Banner System exists
+* HeroV4 conditionally activates BannerCarousel
+* No TypeScript errors
+* Bootstrap accounts exist:
+
+  * Admin: delewatiamer7
+  * Seller: delewatiamer8
+  * Courier: delewatiamer9
+
+IMPORTANT:
+
+Do NOT rebuild the homepage.
+Do NOT redesign from scratch.
+Do NOT replace existing architecture.
+Do NOT assume anything.
+
+First perform a complete audit and validation before changing code.
+
+---
+
+## PHASE 1 — FULL HOMEPAGE AUDIT
+
+Inspect:
+
+* HeroV4
+* Hero Banner System
+* Homepage sections
+* Dark mode
+* Light mode
+* Mobile
+* Tablet
+* Desktop
+
+Verify:
+
+* Hero autoplay
+* Banner transitions
+* Ken Burns animation
+* Floating cards
+* RTL behavior
+* Responsive behavior
+
+Produce findings before modifying.
+
+---
+
+## PHASE 2 — HERO BANNER IMPROVEMENT
+
+Current homepage feels repetitive because banners are not varied enough.
+
+Tasks:
+
+1. Verify banner system works.
+
+2. Seed multiple professional banners.
+
+Create at least:
+
+* Electronics campaign
+* Fashion campaign
+* Home & Kitchen campaign
+* Mobile phones campaign
+* Summer offers campaign
+
+Requirements:
+
+* Different background image per banner
+* Different CTA
+* Different headline
+* Different color accent
+
+Banner transitions must feel premium:
+
+* Smooth crossfade
+* Ken Burns motion
+* No stuttering
+* No flashing
+* No abrupt changes
+
+Target:
+
+* Noon
+* Amazon
+* Trendyol
+
+---
+
+## PHASE 3 — REPLACE DEMO PRODUCTS
+
+Audit all homepage product sections.
+
+Identify:
+
+* Deals
+* Trending
+* New Arrivals
+* Featured Products
+* Any seeded products
+
+Remove ugly demo-looking content.
+
+Create a realistic showcase dataset.
+
+Use:
+
+Electronics:
+
+* iPhone
+* Samsung
+* Headphones
+* Smart watches
+
+Fashion:
+
+* Shoes
+* Jackets
+* Bags
+
+Home:
+
+* Coffee machines
+* Kitchen appliances
+
+Requirements:
+
+* Realistic names
+* Realistic pricing
+* Realistic images
+* Good category distribution
+
+Homepage must look like a real marketplace.
+
+---
+
+## PHASE 4 — LIGHT MODE AUDIT
+
+Audit EVERY homepage section in Light Mode.
+
+Verify:
+
+* Hero
+* Cards
+* Footer
+* Buttons
+* Inputs
+* Category cards
+* Store cards
+* Product cards
+
+Fix:
+
+* bad contrast
+* unreadable text
+* dark leftovers
+* broken shadows
+* washed colors
+
+Requirements:
+
+Light mode must feel first-class.
+
+No section may look like it was designed only for dark mode.
+
+---
+
+## PHASE 5 — REAL USER TESTING
+
+Do NOT stop at code inspection.
+
+Use actual project accounts.
+
+Login as:
+
+Admin
+Seller
+Courier
+
+Navigate through:
+
+* Homepage
+* Product pages
+* Store pages
+* Cart
+* Seller pages
+* Courier pages
+
+Verify:
+
+* No redirect loops
+* No auth issues
+* No broken buttons
+* No missing API responses
+* No hidden runtime errors
+
+If a page redirects to login unexpectedly:
+
+Investigate and fix.
+
+Do NOT stop testing.
+
+---
+
+## PHASE 6 — CONSOLE + NETWORK AUDIT
+
+Check:
+
+* Browser console
+* Network requests
+* API failures
+* Image failures
+* 404s
+* Hydration issues
+* React warnings
+
+Fix all homepage-related issues.
+
+---
+
+## PHASE 7 — FINAL REPORT
+
+Provide:
+
+1. Audit findings
+2. Problems discovered
+3. Fixes applied
+4. Screens verified
+5. Light mode status
+6. Dark mode status
+7. Banner system status
+8. Product dataset status
+9. Runtime status
+10. Final confidence score
+
+Do not claim anything unless it was actually tested and verified.

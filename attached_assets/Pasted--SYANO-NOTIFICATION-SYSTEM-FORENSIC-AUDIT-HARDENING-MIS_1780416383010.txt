@@ -1,0 +1,506 @@
+# SYANO NOTIFICATION SYSTEM FORENSIC AUDIT & HARDENING MISSION
+
+You are a Senior Staff Engineer specializing in:
+
+* Real-time systems
+* Server-Sent Events (SSE)
+* Authentication
+* Session isolation
+* React
+* TanStack Query
+* Express
+* PostgreSQL
+* Security auditing
+* Production marketplace platforms
+
+You are taking over the Syano notification infrastructure.
+
+IMPORTANT:
+
+This is NOT a feature implementation task.
+
+This is a production-grade forensic audit and hardening mission.
+
+The goal is to guarantee:
+
+* Correct notifications
+* Correct user targeting
+* No notification leakage
+* No cross-account visibility
+* No delayed delivery
+* No stale sessions
+* No duplicate events
+* No orphaned connections
+
+---
+
+## CRITICAL PROBLEM REPORT
+
+Users are reporting:
+
+* Notifications appearing under wrong accounts
+* Notifications from one account appearing in another account
+* Delayed notifications
+* Duplicate notifications
+* Notifications persisting after logout/login switches
+* Inconsistent unread counts
+* SSE instability
+
+Assume there may be deep architectural flaws.
+
+Do not assume any implementation is correct.
+
+Audit everything.
+
+---
+
+PHASE 1
+FULL NOTIFICATION FLOW AUDIT
+----------------------------
+
+Audit the complete notification lifecycle.
+
+From:
+
+Trigger Event
+
+↓
+
+Notification Creation
+
+↓
+
+Database Insert
+
+↓
+
+Fanout
+
+↓
+
+SSE Delivery
+
+↓
+
+Frontend Reception
+
+↓
+
+State Update
+
+↓
+
+UI Rendering
+
+↓
+
+Read Status Update
+
+Audit every step.
+
+Create a complete flow map.
+
+---
+
+PHASE 2
+AUTHENTICATION ISOLATION AUDIT
+------------------------------
+
+Highest priority.
+
+Verify:
+
+* JWT validation
+* req.user population
+* userId propagation
+* SSE authentication
+* notification ownership validation
+
+Ensure:
+
+A notification can ONLY ever be delivered to:
+
+notification.user_id
+
+and nobody else.
+
+Verify:
+
+* every query
+* every join
+* every filter
+* every stream
+
+No assumptions.
+
+---
+
+PHASE 3
+SSE CONNECTION AUDIT
+--------------------
+
+Audit:
+
+GET /api/notifications/stream
+
+Audit:
+
+* connection lifecycle
+* authentication checks
+* reconnect behavior
+* cleanup behavior
+* logout handling
+* token refresh handling
+
+Verify:
+
+connections are destroyed when:
+
+* logout occurs
+* token changes
+* account switches
+* tab closes
+* browser closes
+
+No stale connections allowed.
+
+---
+
+PHASE 4
+FANOUT AUDIT
+------------
+
+Audit:
+
+lib/fanout.ts
+
+Verify:
+
+* connection registry
+* user mapping
+* connection cleanup
+* event broadcasting
+
+Ensure:
+
+A fanout operation for user 17 can NEVER reach:
+
+* user 18
+* admin
+* seller
+* customer
+* anonymous client
+
+Verify all edge cases.
+
+---
+
+PHASE 5
+MULTI-TAB TESTING
+-----------------
+
+Test:
+
+same account
+multiple tabs
+
+Verify:
+
+* no duplicate notifications
+* no duplicate unread counts
+* no duplicated SSE events
+
+Test:
+
+multiple accounts
+multiple tabs
+
+Verify:
+
+strict isolation
+
+---
+
+PHASE 6
+LOGOUT / LOGIN HARDENING
+------------------------
+
+Audit:
+
+AuthContext
+
+NotificationProvider
+
+SSE initialization
+
+Logout logic
+
+Login logic
+
+Verify:
+
+On logout:
+
+* SSE closed
+* notification cache cleared
+* unread counts cleared
+* notification state reset
+* event listeners removed
+
+On login:
+
+* fresh connection
+* fresh notification state
+* fresh unread counts
+
+No data may survive account switching.
+
+---
+
+PHASE 7
+TANSTACK QUERY AUDIT
+--------------------
+
+Audit:
+
+notification hooks
+
+Verify:
+
+* cache keys
+* query keys
+* invalidations
+* optimistic updates
+
+Ensure:
+
+Notification caches are scoped per user.
+
+Prevent:
+
+cache contamination between accounts.
+
+---
+
+PHASE 8
+DATABASE AUDIT
+--------------
+
+Audit:
+
+notifications table
+
+Verify:
+
+* ownership integrity
+* query efficiency
+* indexes
+* unread lookups
+* ordering
+
+Ensure:
+
+notification retrieval always filters by authenticated user.
+
+No exceptions.
+
+---
+
+PHASE 9
+REAL-TIME DELIVERY LATENCY
+--------------------------
+
+Measure:
+
+Trigger
+
+↓
+
+Database Insert
+
+↓
+
+Fanout
+
+↓
+
+Browser Receive
+
+↓
+
+UI Display
+
+Identify latency sources.
+
+Reduce delivery time safely.
+
+Target:
+
+near-instant delivery.
+
+---
+
+PHASE 10
+DUPLICATE EVENT DETECTION
+-------------------------
+
+Investigate:
+
+* duplicate inserts
+* duplicate fanouts
+* duplicate SSE events
+* duplicate state updates
+* duplicate renders
+
+Eliminate root causes.
+
+---
+
+PHASE 11
+RACE CONDITION AUDIT
+--------------------
+
+Audit for:
+
+* rapid login/logout
+* account switching
+* reconnect storms
+* multiple tabs
+* lost connections
+* stale closures
+* stale auth state
+
+Harden all identified weaknesses.
+
+---
+
+PHASE 12
+SECURITY AUDIT
+--------------
+
+Assume hostile users.
+
+Verify:
+
+* notification endpoint security
+* stream security
+* ownership checks
+* authorization checks
+* user isolation
+
+Goal:
+
+Zero cross-account visibility.
+
+Zero data leakage.
+
+---
+
+PHASE 13
+OBSERVABILITY
+-------------
+
+Add safe production-grade logging where needed.
+
+Track:
+
+* connection open
+* connection close
+* authenticated user
+* reconnect
+* fanout delivery
+* failures
+
+Make debugging possible.
+
+Avoid log spam.
+
+---
+
+PHASE 14
+PERFORMANCE AUDIT
+-----------------
+
+Ensure notification system scales efficiently.
+
+Audit:
+
+* memory leaks
+* dangling SSE connections
+* connection growth
+* listener growth
+* stale subscriptions
+
+Prevent long-term degradation.
+
+---
+
+PHASE 15
+REGRESSION TESTING
+------------------
+
+Test all scenarios:
+
+Customer
+
+Seller
+
+Admin
+
+Desktop
+
+Mobile
+
+Tablet
+
+Single tab
+
+Multiple tabs
+
+Multiple browsers
+
+Multiple accounts
+
+Rapid login/logout
+
+Role changes
+
+Notification creation
+
+Notification reading
+
+Notification deletion
+
+Unread counters
+
+Real-time updates
+
+Everything must behave correctly.
+
+---
+
+## FINAL DELIVERABLE
+
+Provide:
+
+1. Complete architecture audit.
+2. Root causes discovered.
+3. Security vulnerabilities discovered.
+4. Cross-account leakage risks.
+5. Performance bottlenecks.
+6. Files modified.
+7. Exact fixes implemented.
+8. Risk assessment.
+9. Validation report.
+10. Final proof that notifications are fully isolated per authenticated user.
+
+FINAL PRIORITIES:
+
+1. Security
+2. Account isolation
+3. Correctness
+4. Real-time delivery
+5. Stability
+6. Performance
+
+The notification system must become production-grade, fully isolated, real-time, secure, and resistant to account switching, multiple tabs, reconnects, and stale sessions.

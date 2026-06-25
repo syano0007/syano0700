@@ -1,0 +1,495 @@
+# SYANO — FULL PRODUCTION PERFORMANCE & SMOOTHNESS ENGINEERING PASS
+
+You are NOT doing a visual redesign or adding random animations.
+
+You are performing a complete senior-level Performance Engineering, Runtime Optimization, and UX Fluidity audit on this production codebase.
+
+The objective is to make the website feel as close as possible to a native application:
+
+- Instant first load.
+- Extremely smooth scrolling.
+- Near-instant page navigation.
+- Stable 60 FPS minimum on normal devices.
+- 90–120 FPS on devices that support high refresh rates.
+- Zero visible stuttering.
+- Zero unnecessary rendering.
+- Zero unnecessary network activity.
+- Zero memory leaks.
+- Zero long tasks blocking the main thread.
+
+Do NOT implement superficial changes.
+Do NOT assume existing optimizations are sufficient.
+Verify everything with actual analysis.
+
+------------------------------------------------------------
+CRITICAL RULES
+------------------------------------------------------------
+
+You MUST work in phases.
+
+Before moving to the next phase you MUST:
+
+1. Audit the current implementation.
+2. Identify every issue.
+3. Fix all discovered issues.
+4. Run TypeScript checks.
+5. Run the production build.
+6. Verify runtime behavior.
+7. Verify no regressions were introduced.
+8. Only then continue.
+
+If you discover a new issue during a later phase:
+
+- Pause the current phase.
+- Fix the issue.
+- Re-run all validations.
+- Then continue.
+
+Never skip validation.
+
+Never mark a phase complete until it has been fully verified.
+
+------------------------------------------------------------
+DO NOT
+------------------------------------------------------------
+
+- Do not break existing functionality.
+- Do not remove features.
+- Do not change business logic.
+- Do not remove translations.
+- Do not perform large unnecessary refactors.
+- Do not add fake optimizations just to satisfy the request.
+- Do not stop after implementing only part of the work.
+
+------------------------------------------------------------
+PHASE 1
+FIRST LOAD PERFORMANCE
+(TTI / FCP / LCP)
+------------------------------------------------------------
+
+Perform a complete audit of the initial loading experience.
+
+Analyze:
+
+- Largest Contentful Paint
+- First Contentful Paint
+- Time To Interactive
+- Hydration delays
+- Render-blocking CSS
+- Render-blocking JavaScript
+- Critical rendering path
+- Hero image loading
+- Font loading
+- Lazy loading strategy
+- Resource priorities
+
+Optimize where appropriate:
+
+- preload
+- preconnect
+- dns-prefetch
+- fetchpriority
+- image decoding
+- route warmup
+- critical CSS
+- resource scheduling
+
+Do not assume current implementations are optimal.
+Verify actual behavior.
+
+------------------------------------------------------------
+PHASE 2
+BUNDLE SLIMMING
+------------------------------------------------------------
+
+Perform a complete bundle analysis.
+
+Identify:
+
+- oversized chunks
+- duplicated libraries
+- duplicated code
+- duplicated translations
+- dead code
+- unused imports
+- unnecessary polyfills
+- oversized dependencies
+
+Minimize the actual bytes downloaded by the user.
+
+Do not simply rely on Vite code splitting.
+
+------------------------------------------------------------
+PHASE 3
+REAL CPU PROFILING
+------------------------------------------------------------
+
+Perform a complete CPU usage audit.
+
+Identify:
+
+- expensive renders
+- expensive calculations
+- repeated sorting
+- repeated filtering
+- repeated mapping
+- repeated formatting
+- synchronous loops
+- blocking operations
+- repeated object creation
+
+Remove all unnecessary CPU work.
+
+------------------------------------------------------------
+PHASE 4
+COMPLETE REACT RE-RENDER PROFILING
+------------------------------------------------------------
+
+Audit every Provider and major Component.
+
+Look for:
+
+- unnecessary rerenders
+- unstable callbacks
+- unstable arrays
+- unstable objects
+- missing useMemo
+- missing useCallback
+- missing React.memo
+
+Pay special attention to:
+
+AuthProvider
+
+CurrencyProvider
+
+GuestCartProvider
+
+NotificationProvider
+
+Navbar
+
+ProductCard
+
+ProductGrid
+
+Cart
+
+Checkout
+
+Dialogs
+
+Sheets
+
+Drawers
+
+Sidebar
+
+Home sections
+
+Products page
+
+Seller Dashboard
+
+Admin Dashboard
+
+Any component that rerenders unnecessarily must be fixed.
+
+------------------------------------------------------------
+PHASE 5
+SCROLL OPTIMIZATION
+------------------------------------------------------------
+
+Eliminate all scroll jank.
+
+Audit:
+
+- scroll listeners
+- wheel listeners
+- touch listeners
+- resize listeners
+
+Use passive listeners whenever possible.
+
+Identify and eliminate:
+
+- forced reflows
+- forced layouts
+- layout thrashing
+- unnecessary paints
+
+Use when appropriate:
+
+- requestAnimationFrame
+- IntersectionObserver
+- content-visibility: auto
+- contain
+- will-change
+
+Only where they provide real benefit.
+
+------------------------------------------------------------
+PHASE 6
+FRAME PACING
+------------------------------------------------------------
+
+Target:
+
+- Stable 60 FPS minimum.
+- Stable 90–120 FPS on supported devices.
+
+Every animation, transition, hover, ripple, skeleton, toast, dialog, sheet, modal, and page transition should use GPU-friendly properties.
+
+Prefer:
+
+- transform
+- opacity
+
+Avoid animating:
+
+- width
+- height
+- left
+- top
+- margin
+- padding
+- layout-related properties
+
+Unless absolutely necessary.
+
+------------------------------------------------------------
+PHASE 7
+LONG TASK ELIMINATION
+------------------------------------------------------------
+
+Identify any main-thread task exceeding approximately 50ms.
+
+Split or defer heavy work using:
+
+- requestIdleCallback
+- queueMicrotask
+- batching
+- scheduler APIs
+- dynamic imports
+- background execution
+
+The UI thread should remain responsive.
+
+------------------------------------------------------------
+PHASE 8
+MEMORY OPTIMIZATION
+------------------------------------------------------------
+
+Perform a complete memory audit.
+
+Look for:
+
+- memory leaks
+- orphaned listeners
+- forgotten intervals
+- forgotten timeouts
+- abandoned subscriptions
+- observer leaks
+- modal leaks
+- dialog leaks
+- React Query cache leaks
+- improper cleanup
+
+Fix every issue discovered.
+
+------------------------------------------------------------
+PHASE 9
+VIRTUALIZATION
+------------------------------------------------------------
+
+Audit all potentially large lists.
+
+Examples:
+
+- Products
+- Notifications
+- Orders
+- Messages
+- Admin tables
+- Seller tables
+- Users
+- Audit logs
+- Reviews
+
+Implement virtualization/windowing where it provides a measurable benefit.
+
+Do not add virtualization where it would harm UX.
+
+------------------------------------------------------------
+PHASE 10
+IMAGE PIPELINE
+------------------------------------------------------------
+
+Verify and optimize:
+
+- lazy loading
+- responsive srcset
+- sizes
+- modern formats
+- decoding="async"
+- fetchpriority
+- aspect ratios
+- CLS prevention
+- shimmer placeholders
+- browser caching
+
+------------------------------------------------------------
+PHASE 11
+API PERFORMANCE
+------------------------------------------------------------
+
+Audit:
+
+React Query
+
+- staleTime
+- cacheTime
+- prefetching
+- deduplication
+- parallel requests
+- waterfall requests
+
+HTTP layer:
+
+- Cache-Control
+- ETags
+- compression
+- stale-while-revalidate
+- browser caching
+
+Eliminate unnecessary requests.
+
+------------------------------------------------------------
+PHASE 12
+MOBILE OPTIMIZATION
+------------------------------------------------------------
+
+Treat mobile performance as a top priority.
+
+Audit:
+
+- touch latency
+- scroll latency
+- bottom sheets
+- dialogs
+- drawers
+- keyboard opening
+- keyboard closing
+- input focus
+- soft keyboard resize
+- momentum scrolling
+- horizontal scrolling
+- nested scrolling
+- overscroll behavior
+
+Fix every issue affecting mobile fluidity.
+
+------------------------------------------------------------
+PHASE 13
+ANIMATION SYSTEM AUDIT
+------------------------------------------------------------
+
+Review every:
+
+- hover effect
+- press effect
+- ripple
+- fade
+- toast
+- dialog
+- modal
+- sheet
+- page transition
+- loading skeleton
+
+Verify they are:
+
+- GPU accelerated
+- compositor-thread friendly
+- free of layout recalculations
+- free of unnecessary paints
+
+------------------------------------------------------------
+PHASE 14
+FINAL PRODUCTION AUDIT
+------------------------------------------------------------
+
+After completing all previous phases:
+
+Perform a completely new audit from scratch.
+
+If any bottleneck is discovered:
+
+- Fix it.
+- Re-test.
+- Repeat until no meaningful improvements remain.
+
+Do not stop after one pass.
+
+------------------------------------------------------------
+MANDATORY FINAL VALIDATION
+------------------------------------------------------------
+
+The task is NOT complete until all of the following are verified:
+
+✅ TypeScript: 0 errors
+
+✅ Production build succeeds
+
+✅ Runtime validation passes
+
+✅ Browser console: 0 errors
+
+✅ No unnecessary network requests
+
+✅ No memory leaks
+
+✅ No long tasks
+
+✅ No unnecessary rerenders
+
+✅ No scroll jank
+
+✅ No visible frame drops
+
+✅ No layout shifts
+
+✅ No animation stuttering
+
+✅ Mobile experience feels native
+
+✅ Desktop navigation feels instant
+
+------------------------------------------------------------
+FINAL REPORT (MANDATORY)
+------------------------------------------------------------
+
+Do NOT simply say "done".
+
+Provide a detailed report containing:
+
+1. Every issue you discovered.
+
+2. Why it was causing performance problems.
+
+3. Exactly what you changed.
+
+4. The practical real-world benefit for the user.
+
+5. What was already optimal and therefore left unchanged.
+
+6. What tests you performed.
+
+7. How you verified there were no regressions.
+
+8. Any remaining limitations and why they cannot or should not be optimized further.
+
+Most importantly:
+
+DO NOT proceed to the next phase until you are completely certain that the current phase has been fully completed, fully tested, and fully validated.
+If additional passes are required, continue auditing and improving until the project reaches the highest practical level of smoothness and performance.

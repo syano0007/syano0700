@@ -1,0 +1,335 @@
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and RECOVERY_GUIDE.md in full before touching any file. These files are the source of truth for this project.
+
+─────────────────────────────────────────────
+CONTEXT — FRESH ENVIRONMENT SETUP
+─────────────────────────────────────────────
+This is a fresh Replit environment imported from GitHub.
+The codebase is complete and intact.
+What is MISSING and must be set up:
+  1. Node.js dependencies (node_modules not in git)
+  2. Python dependencies (sentence-transformers, torch, fastapi, uvicorn)
+  3. The embedding model files (model.safetensors + config files)
+  4. Environment variables (DATABASE_URL and others)
+  5. Database migrations must be run
+  6. Product embeddings must be generated
+
+Do NOT rewrite any existing code.
+Do NOT redesign anything.
+Only set up the environment and restore what was lost.
+
+─────────────────────────────────────────────
+STEP 1 — READ THE PROJECT STRUCTURE
+─────────────────────────────────────────────
+Before anything else, run:
+  ls -la
+  cat CURRENT_STATE.md
+  cat RECOVERY_GUIDE.md
+  cat .replit
+
+Then report:
+  - What workflows are defined in .replit
+  - What packages are in artifacts/api-server/package.json
+  - What packages are in artifacts/marketplace/package.json
+  - Whether artifacts/embedding-service/main.py exists
+  - Whether artifacts/embedding-service/model/ exists
+
+─────────────────────────────────────────────
+STEP 2 — INSTALL NODE.JS DEPENDENCIES
+─────────────────────────────────────────────
+Install all Node.js dependencies for all packages:
+  cd artifacts && pnpm install
+
+If pnpm is not available:
+  npm install -g pnpm
+  cd artifacts && pnpm install
+
+After install, verify:
+  ls artifacts/api-server/node_modules | head -5
+  Expected: node_modules folder exists with packages
+
+─────────────────────────────────────────────
+STEP 3 — INSTALL PYTHON DEPENDENCIES
+─────────────────────────────────────────────
+Install Python packages needed for the embedding service.
+Use this exact sequence (do not change the order):
+
+First install torch CPU-only (smaller, faster):
+  pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+Then install sentence-transformers and fastapi:
+  pip install --no-cache-dir sentence-transformers fastapi uvicorn numpy
+
+Verify both installed correctly:
+  python3 -c "import torch; print('torch:', torch.__version__)"
+  python3 -c "from sentence_transformers import SentenceTransformer; print('sentence-transformers: OK')"
+
+If torch gives a bus error or crash: try torch==2.4.0:
+  pip install --no-cache-dir torch==2.4.0 --index-url https://download.pytorch.org/whl/cpu
+
+Report exact versions installed.
+
+─────────────────────────────────────────────
+STEP 4 — DOWNLOAD THE EMBEDDING MODEL
+─────────────────────────────────────────────
+Create the model directory:
+  mkdir -p artifacts/embedding-service/model/1_Pooling
+
+Download all model files from HuggingFace.
+The model is: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+
+Download config files first (small, fast):
+  cd artifacts/embedding-service/model
+
+  curl -L -o config.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/config.json"
+
+  curl -L -o tokenizer_config.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/tokenizer_config.json"
+
+  curl -L -o tokenizer.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/tokenizer.json"
+
+  curl -L -o special_tokens_map.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/special_tokens_map.json"
+
+  curl -L -o modules.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/modules.json"
+
+  curl -L -o sentence_bert_config.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/sentence_bert_config.json"
+
+  curl -L -o sentencepiece.bpe.model \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/sentencepiece.bpe.model"
+
+  curl -L -o unigram.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/unigram.json"
+
+  curl -L -o 1_Pooling/config.json \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/1_Pooling/config.json"
+
+Now download the model weights (449MB — the most important file):
+  curl -L --retry 10 --retry-delay 5 \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/model.safetensors" \
+    -o model.safetensors
+
+After download, verify:
+  ls -lh artifacts/embedding-service/model/
+  Expected: model.safetensors ~449MB, all config files present
+
+If model.safetensors download fails after 3 retries:
+  Try pytorch_model.bin instead:
+  curl -L --retry 10 --retry-delay 5 \
+    "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/pytorch_model.bin" \
+    -o pytorch_model.bin
+
+─────────────────────────────────────────────
+STEP 5 — VERIFY EMBEDDING SERVICE CODE
+─────────────────────────────────────────────
+Open artifacts/embedding-service/main.py and verify:
+  - It loads the model from local path: SentenceTransformer('./model') or similar
+  - It does NOT contain TF-IDF or LSA code
+  - GET /health returns backend: "sentence-transformers"
+  - POST /embed/query and POST /embed/batch exist
+
+If main.py still has TF-IDF fallback code: remove it completely.
+The model must load from local disk only — never download at runtime.
+
+─────────────────────────────────────────────
+STEP 6 — SET UP ENVIRONMENT VARIABLES
+─────────────────────────────────────────────
+Check what environment variables are needed:
+  cat artifacts/api-server/src/db/index.ts | grep -i "process.env"
+  grep -r "process.env" artifacts/api-server/src/ | grep -v node_modules | head -20
+
+Set the embedding service URL:
+  EMBEDDING_SERVICE_URL=http://localhost:8001
+
+For DATABASE_URL and other secrets: check if they already exist in Replit Secrets.
+If DATABASE_URL is missing: report it clearly — do NOT hardcode credentials.
+
+─────────────────────────────────────────────
+STEP 7 — RUN DATABASE MIGRATIONS
+─────────────────────────────────────────────
+Run migrations to ensure the schema is up to date:
+  cd artifacts/api-server && npm run db:migrate
+
+Or if that script doesn't exist:
+  cd artifacts/api-server && npx tsx src/db/run-migrations.ts
+
+Verify the embedding column exists on products:
+  Run this SQL: SELECT column_name FROM information_schema.columns WHERE table_name='products' AND column_name='embedding';
+  Expected: embedding column exists
+
+If it does not exist: the migration was not applied. Re-run migrations and check for errors.
+
+─────────────────────────────────────────────
+STEP 8 — START ALL SERVICES
+─────────────────────────────────────────────
+Start the embedding service first:
+  cd artifacts/embedding-service && uvicorn main:app --host 0.0.0.0 --port 8001
+
+Wait 30 seconds for the model to load, then verify:
+  curl http://localhost:8001/health
+  Expected: { "status": "ok", "backend": "sentence-transformers", "vector_dimensions": 384 }
+
+If backend is "tfidf-lsa": the model did not load correctly. Check model.safetensors exists and re-read main.py.
+
+Then start the API server (use the existing workflow or):
+  cd artifacts/api-server && npm run dev
+
+Verify API server is running:
+  curl http://localhost:8080/api/health
+  Expected: 200 OK
+
+─────────────────────────────────────────────
+STEP 9 — SEED 25,000 PRODUCTS
+─────────────────────────────────────────────
+First check how many products are currently in the database:
+  Run SQL: SELECT COUNT(*) FROM products;
+
+If count is less than 1,000: run the seeder.
+
+Read the full products table schema from schema.ts first.
+Then read any existing seeder to understand the exact data shape.
+
+Create seed script at artifacts/api-server/src/scripts/seedProducts.ts
+
+Generate exactly 25,000 products across these 13 categories (~1,900 per category):
+  Electronics, Mobile Phones, Laptops & Computers, Audio & Headphones,
+  Cameras, Men's Clothing, Women's Clothing, Shoes & Footwear,
+  Watches & Jewelry, Home & Kitchen, Furniture, Beauty & Skincare,
+  Sports & Fitness
+
+For each product:
+  - name: realistic English name (e.g. "Samsung Galaxy S24 Ultra 256GB")
+  - name_ar: realistic Arabic name (e.g. "سامسونج جالاكسي S24 الترا 256 جيجا")
+  - description: 2-3 sentence Arabic description
+  - price: realistic USD price per category
+      phones: $200–$1200, laptops: $400–$2000, clothing: $15–$200,
+      furniture: $50–$800, beauty: $10–$150, sports: $20–$500
+  - stock: random 0–200
+  - category: one of the 13 categories
+  - seller_id: query real sellers: SELECT id FROM users WHERE role='seller' LIMIT 5
+    Distribute randomly across available sellers
+  - image_url: https://picsum.photos/seed//400/400
+
+Insert in batches of 500 with try/catch per batch.
+Log progress every 2,500: "Seeded 2500/25000 (10%)"
+
+Add to package.json: "seed:products": "npx tsx src/scripts/seedProducts.ts"
+
+Run it: cd artifacts/api-server && npm run seed:products
+
+Report final count: SELECT COUNT(*) FROM products;
+
+─────────────────────────────────────────────
+STEP 10 — GENERATE EMBEDDINGS FOR ALL PRODUCTS
+─────────────────────────────────────────────
+Reset any fake TF-IDF embeddings from before:
+  Run SQL: UPDATE products SET embedding = NULL, embedded_at = NULL, embedding_model = NULL;
+
+Then run the backfill:
+  cd artifacts/api-server && npm run embed:generate
+
+Monitor and report:
+  - Total processed
+  - Total succeeded
+  - Total failed
+  - Duration
+  - Average ms per product
+
+Verify after:
+  SELECT COUNT(*) FROM products WHERE embedding IS NULL;
+  Expected: 0
+
+─────────────────────────────────────────────
+STEP 11 — VERIFY SEMANTIC SEARCH QUALITY
+─────────────────────────────────────────────
+Run ALL of these searches and report searchMode + first 5 product names:
+
+Q1: GET /api/search?q=بدي شي لأمي
+  Expected: searchMode=hybrid — gift-appropriate products appear
+  PASS if: jewelry, perfume, skincare, or similar appear
+  This is the KEY test — proves real semantic understanding
+
+Q2: GET /api/search?q=شي يناسب الشتاء
+  Expected: searchMode=hybrid — winter items appear
+  PASS if: coats, heaters, warm clothing, blankets appear
+
+Q3: GET /api/search?q=شي للطبخ بيوفر وقت
+  Expected: searchMode=hybrid — kitchen appliances appear
+  PASS if: blenders, air fryers, food processors appear
+
+Q4: GET /api/search?q=هدية للعريس
+  Expected: searchMode=hybrid — men's gift items appear
+  PASS if: watches, men's clothing, accessories appear
+
+Q5: GET /api/search?q=رياضة وصحة
+  Expected: searchMode=hybrid — sports/fitness products appear
+
+Q6: GET /api/search?q=هاتف
+  Expected: searchMode=fts_only (single short word — correct behavior)
+
+Q7: GET /api/search?q=samsung galaxy
+  Expected: Samsung phones appear
+
+Mark each: PASS or FAIL with reason.
+
+─────────────────────────────────────────────
+STEP 12 — TYPESCRIPT VERIFICATION
+─────────────────────────────────────────────
+  npx tsc --noEmit
+
+Must return 0 errors across ALL packages. Fix every error before reporting done.
+
+─────────────────────────────────────────────
+PERMANENT CONSTRAINTS
+─────────────────────────────────────────────
+- Never rewrite existing working code
+- Never use TF-IDF or any statistical fallback — real transformer only
+- Never hardcode DATABASE_URL or any credentials
+- Never change existing API response shapes
+- Never drop or modify existing DB columns
+- Seed data must be realistic — no "Product 1" or lorem ipsum
+- If any step fails: stop and report the exact error before continuing
+
+─────────────────────────────────────────────
+FINAL REPORT — output this exact structure
+─────────────────────────────────────────────
+ENVIRONMENT:
+  Node.js dependencies installed: yes/no
+  Python dependencies installed: yes/no
+  torch version: X
+  sentence-transformers version: X
+
+MODEL:
+  model.safetensors size: X MB
+  All config files present: yes/no
+  Model loads correctly: yes/no
+  Load time: Xms
+  Backend: sentence-transformers (not tfidf)
+
+SERVICES:
+  Embedding service health: passed/failed
+  API server running: yes/no
+  Database connected: yes/no
+
+DATABASE:
+  Migrations applied: yes/no
+  embedding column exists: yes/no
+  Total products: X
+  Products with embeddings: X / X
+
+SEMANTIC QUALITY:
+  Q1 "بدي شي لأمي" → mode: X — first 5: [list] — PASS/FAIL
+  Q2 "شي يناسب الشتاء" → mode: X — first 5: [list] — PASS/FAIL
+  Q3 "شي للطبخ بيوفر وقت" → mode: X — first 5: [list] — PASS/FAIL
+  Q4 "هدية للعريس" → mode: X — first 5: [list] — PASS/FAIL
+  Q5 "رياضة وصحة" → mode: X — first 5: [list] — PASS/FAIL
+  Q6 "هاتف" → mode: fts_only — PASS/FAIL
+  Q7 "samsung galaxy" → first 5: [list] — PASS/FAIL
+
+TYPESCRIPT: 0 errors confirmed ✓
+
+READY FOR PRODUCTION: yes / no
+  [If no: list exactly what needs fixing]

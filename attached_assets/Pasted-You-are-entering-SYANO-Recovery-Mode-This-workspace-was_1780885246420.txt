@@ -1,0 +1,320 @@
+You are entering **SYANO (سوق سوريا) Recovery Mode**.
+
+This workspace was moved from another Replit account.
+
+The previous workspace was already fully working and highly optimized.
+
+Your job is to restore the project to the exact state it had before migration.
+
+This is a **recovery operation only**, NOT a refactor, rewrite, optimization pass, or redesign.
+
+---
+
+# ABSOLUTE RULES
+
+* DO NOT redesign any feature.
+* DO NOT refactor architecture.
+* DO NOT regenerate code unless it is actually missing.
+* DO NOT rewrite OpenAPI unless required.
+* DO NOT remove existing database columns.
+* DO NOT replace existing business logic.
+* DO NOT change UI.
+* DO NOT upgrade dependencies.
+* DO NOT downgrade dependencies.
+* DO NOT add new optimizations.
+* DO NOT "improve" code that already works.
+* DO NOT fix unrelated TypeScript issues by changing functionality.
+* Preserve everything exactly as it existed.
+
+Assume the previous workspace was the source of truth.
+
+---
+
+# CURRENT PROJECT STATE
+
+The previous workspace already contained:
+
+## Core Systems
+
+* Marketplace (Web)
+* Mobile App (Expo)
+* API Server
+* Admin Dashboard
+* Seller Dashboard
+* Customer Dashboard
+
+---
+
+## Authentication
+
+Already implemented and working:
+
+* Login
+* Register
+* Forgot Password
+* OTP Verification
+* Password Reset
+* JWT Authentication
+* Guest Cart
+* Account Status / Suspension System
+
+DO NOT recreate auth.
+
+DO NOT redesign auth.
+
+Only restore it if something is actually missing.
+
+---
+
+## Database
+
+The database already contains the complete production schema.
+
+Use additive recovery only.
+
+Never redesign the schema.
+
+Never drop tables.
+
+Never remove columns.
+
+If the database is empty:
+
+* push the EXISTING schema only
+* run existing additive migrations only
+
+Current schema includes all major systems:
+
+* users
+* products
+* product_variants
+* product_variant_groups
+* product_variant_options
+* product_variant_values
+* variant_images
+* orders
+* order_items
+* order_status_history
+* cart_items
+* conversations
+* messages
+* notifications
+* reviews
+* seller_reviews
+* seller_applications
+* push_subscriptions
+* store_follows
+* platform_settings
+* admin_audit_log
+* verification_audit_log
+
+and existing reset_otp_* fields.
+
+---
+
+# GENERATED LIBRARIES
+
+Verify only.
+
+If already present:
+
+DO NOT regenerate.
+
+Only rebuild declaration files if TypeScript project references require them.
+
+Libraries:
+
+* lib/db
+* lib/api-zod
+* lib/api-client-react
+
+---
+
+# OPENAPI
+
+Very important:
+
+The previous workspace already had many manual schema extensions.
+
+DO NOT overwrite them.
+
+DO NOT regenerate OpenAPI unless it is actually missing.
+
+DO NOT replace manually added fields.
+
+Preserve existing variant schemas and custom additions.
+
+---
+
+# FEATURES THAT MUST REMAIN IDENTICAL
+
+Preserve exactly:
+
+* Guest Cart
+* Seller Applications
+* Seller Dashboard
+* Admin Dashboard
+* Messaging
+* Notifications
+* Push Notifications
+* Product Reviews
+* Seller Reviews
+* Store Follow
+* Product Variants
+* Variant Images
+* Flash Sale support
+* Localization
+* Arabic RTL
+* English
+* Google Translate protection
+* Mobile compatibility
+
+---
+
+# PERFORMANCE WORK ALREADY COMPLETED
+
+These optimizations already exist.
+
+Do NOT undo them.
+
+Do NOT reimplement them.
+
+Simply preserve them.
+
+## Rendering
+
+* React.memo optimizations
+* Stable callbacks
+* FlatList optimizations
+* Notification memoization
+
+## Virtualization
+
+* Product grid virtualization
+* Reviews incremental rendering
+* Seller orders pagination
+
+## Bundle Splitting
+
+* manualChunks fixes
+* vendor-react split
+* framer-motion deferred
+* recharts deferred
+* lazy NotificationToasts
+* lazy PushPermissionPrompt
+
+## Frame Pacing
+
+* CSS NavigationProgress animation
+* page-transition will-change removal
+
+## Long Task Optimization
+
+* CSV export ISO date formatting
+
+These are already complete.
+
+---
+
+# CURRENT DEVELOPMENT STATUS
+
+The ONLY remaining major feature currently being developed is:
+
+## Modern Product Variant System
+
+A complete marketplace-grade variant system similar to:
+
+* Shopify
+* Amazon
+* Trendyol
+* Noon
+
+At the moment of migration this work had NOT been implemented yet.
+
+Only the planning prompt exists.
+
+DO NOT attempt to build it during recovery.
+
+Simply preserve the existing variant implementation exactly as it currently exists.
+
+---
+
+# RECOVERY PROCEDURE
+
+1. Run pnpm install.
+
+2. Verify all environment variables.
+
+Report missing variables before making assumptions.
+
+3. Verify node_modules.
+
+4. Verify database.
+
+If empty:
+
+* push existing schema
+* run existing additive migrations
+
+5. Verify generated libraries.
+
+Build declarations only if required.
+
+6. Verify API client.
+
+Do not regenerate unless missing.
+
+7. Start services:
+
+* API
+* Marketplace
+* Mobile
+
+8. Verify:
+
+* TypeScript
+* API routes
+* Marketplace
+* Mobile
+
+9. Verify existing authentication:
+
+* login
+* register
+* forgot password
+* reset password
+
+10. Verify existing feature systems still exist.
+
+Do not rewrite them.
+
+---
+
+# VERY IMPORTANT
+
+If TypeScript errors appear because generated files are older than source files:
+
+Prefer rebuilding existing generated artifacts.
+
+Do NOT redesign schemas or APIs to silence errors.
+
+---
+
+# FINAL REPORT
+
+Provide only:
+
+* Dependencies status
+* Environment status
+* Database status
+* Generated libraries status
+* API client status
+* Services status
+* TypeScript status
+* Authentication status
+* Features preserved
+* Files modified during recovery
+
+The desired final result is:
+
+"Workspace restored successfully with zero functional changes. The project matches the previous Replit workspace state, with the only pending future task being the planned Product Variant System upgrade."

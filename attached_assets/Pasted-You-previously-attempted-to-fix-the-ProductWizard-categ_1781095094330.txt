@@ -1,0 +1,137 @@
+You previously attempted to fix the ProductWizard category selectors, but two critical issues still exist.
+
+Do NOT make assumptions.
+
+Investigate the real root causes and fix them properly.
+
+---
+
+ISSUE 1
+EDIT PRODUCT PAGE DOES NOT LOAD CATEGORY VALUES
+-----------------------------------------------
+
+Path:
+
+Seller Product Edit Wizard
+
+Problem:
+
+When editing an existing product:
+
+* Product name loads
+* Prices load
+* Images load
+* Variants load
+
+BUT:
+
+* Main Category is empty
+* Subcategory is empty
+
+The seller must not reselect categories.
+
+Expected behavior:
+
+When the edit page loads:
+
+1. Fetch the product.
+2. Read:
+
+* categoryId
+* subcategoryId
+
+3. Populate the form correctly.
+
+The category selectors must immediately display:
+
+* current main category
+* current subcategory
+
+without any user interaction.
+
+Investigate:
+
+* ProductWizard initialData mapping
+* useForm defaultValues
+* form.reset(...)
+* setValue(...)
+* async category loading timing
+
+Find the exact root cause.
+
+Do NOT patch blindly.
+
+Verify that category values remain visible after refresh.
+
+---
+
+ISSUE 2
+CATEGORY DROPDOWNS STILL OPEN UPWARD
+------------------------------------
+
+Previous fix was not successful.
+
+Current behavior:
+
+Sometimes:
+
+* Main category dropdown opens upward
+* Subcategory dropdown opens upward
+
+This is unacceptable.
+
+Required behavior:
+
+ALWAYS open downward.
+
+Even if:
+
+* viewport is small
+* dropdown becomes scrollable
+
+The dropdown must:
+
+* stay attached below the trigger
+* never flip upward
+* never appear above the field
+
+Requirements:
+
+* Use Radix correctly
+* Disable automatic flipping if necessary
+* Keep collision handling
+* Allow internal scrolling
+* Mobile friendly
+* Desktop friendly
+
+---
+
+## VALIDATION
+
+Verify:
+
+✅ Edit page loads current category automatically
+
+✅ Edit page loads current subcategory automatically
+
+✅ Refresh preserves selected values
+
+✅ Main category dropdown always opens downward
+
+✅ Subcategory dropdown always opens downward
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ RTL works
+
+✅ TypeScript = 0 errors
+
+Before finishing, explain:
+
+1. Exact root cause of the category loading bug
+2. Exact root cause of the dropdown direction bug
+3. Files changed
+4. Lines changed
+5. Validation results

@@ -1,0 +1,63 @@
+You are executing the Advanced Geocoding Resolver Integration and Premium Noon-Style Map Modal UI Re-Architecture for SYANO (سوق سوريا).
+
+This is a production-grade multi-vendor digital marketplace.
+
+Do NOT break existing backend APIs, database models (44 tables), or order insertion mutations.
+Do NOT break user authentication tokens or general global navigation flows.
+
+Preserve:
+- Full RTL (Arabic native) translation and layout structures.
+- Idempotent database migrations configured in run-migrations.ts (15 Syrian governorates baseline).
+- Zero TypeScript errors across both api-server and frontend application workspaces.
+
+==================================================
+GOAL
+==================================================
+1. Implement a smart backend/frontend geocoding resolver that automatically parses latitude/longitude coordinates into the corresponding Syrian Governorate (delivery_zones table match).
+2. Fully re-architect the interactive map modal UI to mirror the premium, borderless floating design layout of Noon as seen in "Screenshot (450).jpg".
+
+==================================================
+PART 1 — BACKEND/FRONTEND SMART SYRIAN GEOCODING RESOLVER
+==================================================
+- Mechanics:
+  * When the user drops or drags a location pin marker on the map canvas, extract the active `latitude` and `longitude`.
+  * Integrate an asynchronous reverse-geocoding lookup handler (using OpenStreetMap Nominatim or a custom lightweight bounding-box helper tracking primary Syrian Governorate coordinates).
+  * Parse the geocoded address metadata object (specifically checking keys like `state`, `province`, `governorate`, or `city` fields).
+  * Automatically cross-reference this parsed result text against the newly seeded 15 Governorate rows inside the database (e.g., if the text contains "حلب" or "Aleppo", automatically map it to the Aleppo record; if it contains "دمشق", map it to Damascus).
+  * Resolve this dynamic match and update the global `zoneId` field context automatically. If the pin is dropped in an unrecognized or rural territory within the country, gracefully fall back to the dynamic general catch-all record (`id: 999` - "كافة المحافظات والمناطق السورية") instead of erroring out.
+
+==================================================
+PART 2 — NOON-STYLE FLOATING MODAL UI RE-ARCHITECTURE
+==================================================
+Ditch the standard bordered dialog framework and completely re-engineer the view container according to "Screenshot (450).jpg":
+1. Immersive Canvas Container:
+   - Scale up the dialog/modal layout panel size to an expansive dashboard format (`max-w-4xl` or `max-w-5xl` on desktop).
+   - The map layout container (`<MapContainer>`) must fill the absolute canvas viewport edge-to-edge from the top border down to the lower footer divider. No inner margins or grey card frames around the map.
+2. Floating Top Control Row Overlay:
+   - Position a high z-index layout block absolutely over the top area of the map canvas (`absolute top-4 start-4 end-4 z-[1000] flex gap-3 items-center`).
+   - "Use Current Location" Button ("استخدم موقعك الحالي"): Pure white background wrapper, distinct blue text link, sleek border design, embedding a geolocation target radar icon. Triggers rapid `navigator.geolocation` on click.
+   - Address Lookup Search Input Field: Expanded full-width layout, solid white surface (`bg-white`), pristine rounding edges (`rounded-xl`), smooth drop shadow, embedding a magnifying glass icon and placeholder: "ابحث عن موقعك، الحي، أو المبنى...".
+3. Custom Center Map Pin & Micro-Tooltip:
+   - Anchor a highly distinct custom map pin marker exactly dead-center over the map view canvas.
+   - Position an absolute floating dark capsule banner (`bg-neutral-950` or `bg-black`) directly above the marker pin tip reading exactly: **"مكان توصيل طلبك هنا"**.
+
+==================================================
+PART 3 — STICKY FOOTER DATA PRESENTATION LAYER
+==================================================
+Build a locked white bottom informational footer wrapper running full horizontal span at the base of the modal panel:
+- Split this footer row into two clean structural flex zones (RTL Layout Compliant):
+  1. Right Side - Address Reading Feedback:
+     - Render a modern location icon alongside stacked typographical layout rows displaying live mapped variables: Bold title layer reading "الموقع الحالي" followed by the dynamic text line resolving the active resolved street/neighborhood text context.
+  2. Left Side - Execution Action Button:
+     - Embed the primary confirmation button labeled **"تأكيد الموقع"** (Confirm Location).
+     - Styling: Solid premium blue background fill, high horizontal padding weights, bold font contrast, perfectly aligned to the outer left boundary block.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Dropping a pin anywhere in Syria automatically resolves coordinates and matches them to the correct governorate ID.
+✓ Modal structure perfectly matches the floating layout architecture of "Screenshot (450).jpg".
+✓ Top control inputs (Search & Geolocation tracking) float cleanly with ideal index depths over map tile structures.
+✓ Bottom footer handles address display on the right side and the solid blue confirmation button on the left side cleanly.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend and backend workspace directory structures.

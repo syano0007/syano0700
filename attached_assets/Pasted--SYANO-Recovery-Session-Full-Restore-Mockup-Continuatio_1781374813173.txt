@@ -1,0 +1,193 @@
+# SYANO Recovery Session — Full Restore + Mockup Continuation
+
+You are continuing an existing SYANO (سوق سوريا) project that was moved to a new Replit account.
+
+Your first task is NOT development.
+
+Your first task is COMPLETE RECOVERY.
+
+---
+
+# PHASE 1 — PROJECT ANALYSIS
+
+Read and analyze ALL recovery files:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_SESSION files
+* PROJECT_STATUS files
+* any bootstrap files
+* any seed files
+* any architecture files
+
+Build a complete understanding of:
+
+* current project state
+* completed work
+* pending work
+* database structure
+* current homepage implementation
+* current HeroV4 implementation
+* current mockup state
+
+Do NOT modify anything yet.
+
+---
+
+# PHASE 2 — START EVERYTHING
+
+Restore and verify:
+
+## API
+
+Must run successfully.
+
+Verify:
+
+* server boots
+* routes work
+* no runtime errors
+
+---
+
+## Marketplace
+
+Must run successfully.
+
+Verify:
+
+* homepage loads
+* products load
+* categories load
+* hero loads
+
+---
+
+## Mobile
+
+Must run successfully.
+
+Verify Expo starts.
+
+---
+
+## Database
+
+Run:
+
+* schema
+* migrations
+* bootstrap scripts
+
+Verify:
+
+* all tables exist
+* enums exist
+* seeded products exist
+* seeded sellers exist
+* seeded orders exist
+
+Expected state:
+
+* 42 demo products
+* 4 sellers
+* reviews
+* wishlists
+* follows
+* orders
+
+If data already exists:
+
+DO NOT duplicate.
+
+---
+
+# PHASE 3 — RESTORE MOCKUP WORK
+
+CRITICAL
+
+Before any coding:
+
+Locate and restore ALL design mockups.
+
+Search for:
+
+* Canvas files
+* Design files
+* Hero mockups
+* Homepage mockups
+
+Especially:
+
+HeroV4 mockup work.
+
+I need to continue refining the Hero mockup.
+
+The mockup must remain editable.
+
+The mockup must be visible in Canvas.
+
+The mockup must NOT be lost.
+
+The mockup is currently the active work item.
+
+---
+
+# PHASE 4 — VERIFY CURRENT MOCKUP
+
+After restoring:
+
+Show me:
+
+1. Current Hero mockup
+2. Current similarity estimate
+3. Remaining differences
+4. Current geometry state
+5. Current typography state
+
+DO NOT modify it yet.
+
+Wait for approval.
+
+---
+
+# PHASE 5 — IMPLEMENTATION LOCK
+
+Until I explicitly approve:
+
+DO NOT:
+
+* modify HeroV4
+* modify homepage
+* modify production code
+* commit visual changes
+
+Work only inside Canvas mockups.
+
+---
+
+# EXPECTED RESULT
+
+After recovery I should have:
+
+✅ API running
+
+✅ Marketplace running
+
+✅ Mobile running
+
+✅ Database restored
+
+✅ Demo products restored
+
+✅ Demo sellers restored
+
+✅ Hero mockup restored
+
+✅ Canvas editable
+
+✅ Ready to continue homepage matching work
+
+Only after all recovery steps succeed should development continue.
+
+Report recovery status before making any changes.

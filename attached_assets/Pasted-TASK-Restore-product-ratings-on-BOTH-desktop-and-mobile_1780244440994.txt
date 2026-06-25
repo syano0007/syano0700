@@ -1,0 +1,74 @@
+TASK: Restore product ratings on BOTH desktop and mobile without breaking any existing responsive layouts, card heights, typography, spacing, alignment, or translations.
+
+CRITICAL RULES:
+- DO NOT redesign ProductCard.
+- DO NOT change card width, height, grid layout, image sizing, spacing system, or typography scale.
+- DO NOT modify seller name positioning.
+- DO NOT modify discount badges.
+- DO NOT modify pricing section.
+- DO NOT modify add-to-cart button.
+- DO NOT modify responsive breakpoints.
+- DO NOT introduce layout shifts.
+- DO NOT reduce image size.
+- DO NOT create overflow on mobile.
+- DO NOT create inconsistent card heights.
+- DO NOT touch unrelated components.
+
+OBJECTIVE:
+The product rating section was accidentally removed. Restore it exactly and professionally on all devices.
+
+REQUIREMENTS:
+
+1. DESKTOP
+- Display star rating row beneath seller information.
+- Show filled/empty stars correctly.
+- Show rating count when available.
+- Maintain current desktop card proportions.
+- No change to existing alignment.
+
+2. MOBILE (HIGHEST PRIORITY)
+- Rating must be visible on every product card.
+- Rating row must never wrap into multiple lines.
+- Rating must never overlap seller text.
+- Rating must never push price section downward.
+- Rating must never increase card height unexpectedly.
+- Rating must remain readable on screens as small as 320px width.
+- Stars should scale appropriately for mobile.
+- Rating row should remain horizontally centered/aligned with card content.
+- No clipping or truncation.
+
+3. CARD CONSISTENCY
+- All cards must keep identical heights regardless of:
+  - product title length
+  - seller name length
+  - language (Arabic or English)
+  - rating existence
+- Products without ratings must preserve the same spacing as products with ratings.
+
+4. RTL / LTR SUPPORT
+- Verify Arabic layout.
+- Verify English layout.
+- Verify mixed-language products.
+- Verify RTL and LTR alignment independently.
+
+5. RESPONSIVE VALIDATION
+Test and verify:
+- 320px
+- 360px
+- 375px
+- 390px
+- 414px
+- 768px
+- Desktop
+
+6. FINAL AUDIT
+After implementation:
+- Scan all ProductCard related files.
+- Check for overflow.
+- Check for text collision.
+- Check for broken flex/grid layouts.
+- Check for inconsistent heights.
+- Check for mobile rendering issues.
+- Check both Arabic and English stores.
+
+Only finish when ratings are fully restored and the mobile experience remains pixel-perfect.

@@ -1,0 +1,110 @@
+Before we continue with any new features, I want a complete end-to-end validation of everything that was implemented in the Seller Ecosystem Upgrade.
+
+Do not just check for build success or TypeScript errors.
+
+I want you to actually test every workflow and verify that it works correctly in real usage.
+
+Test and verify all of the following:
+
+1. Store Pages
+
+* Create/open a seller store page
+* Verify store slug generation
+* Verify logo, banner, store information, trust stats, products, and navigation
+* Verify mobile responsiveness
+
+2. Store Following
+
+* Follow a store
+* Unfollow a store
+* Verify follower counts update correctly
+* Verify database records are created/removed correctly
+* Verify duplicate follows are impossible
+
+3. Seller Reviews
+
+* Verify only eligible customers can review sellers
+* Verify review submission
+* Verify aggregated seller score calculations
+* Verify review display on store pages
+* Verify duplicate reviews are blocked
+
+4. Messaging System
+
+* Customer starts conversation
+* Seller receives conversation
+* Customer sends messages
+* Seller replies
+* Verify conversation persistence
+* Verify unread/read behavior
+* Verify notifications are generated correctly
+* Verify mobile usability
+
+5. Notifications
+
+* Follow notifications
+* New message notifications
+* Seller review notifications
+* Store new product notifications
+* Verify SSE delivery
+* Verify notification center integration
+
+6. Seller Analytics
+
+* Verify revenue calculations
+* Verify top products calculations
+* Verify follower metrics
+* Verify charts render correctly
+* Verify analytics data matches database values
+
+7. Product View Tracking
+
+* Open product pages
+* Verify view counts increase correctly
+* Verify no duplicate or runaway increments
+* Verify performance impact is negligible
+
+8. Permissions & Security
+
+* Verify customers cannot access seller-only routes
+* Verify unauthorized actions are blocked
+* Verify all new endpoints enforce authentication correctly
+
+9. Mobile Audit
+   Test every new feature at:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+Verify:
+
+* No overflow
+* No clipped content
+* No broken layouts
+* No unusable buttons
+
+10. Performance Audit
+    Measure:
+
+* Store page load time
+* Messaging page load time
+* Seller dashboard load time
+* Analytics page load time
+
+Identify any slow queries, N+1 patterns, unnecessary re-renders, or performance regressions.
+
+After testing, provide a detailed validation report containing:
+
+* Passed tests
+* Failed tests
+* Warnings
+* Performance findings
+* Mobile findings
+* Security findings
+* Recommended fixes
+
+Do not implement new features until this validation report is complete.

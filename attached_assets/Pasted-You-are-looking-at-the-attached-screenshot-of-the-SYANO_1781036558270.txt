@@ -1,0 +1,323 @@
+You are looking at the attached screenshot of the SYANO (سوق سوريا) product page.
+
+Analyze the screenshot carefully and implement the following changes on the REAL product details page.
+
+IMPORTANT:
+
+* Modify the existing product page.
+* Do NOT create a new page.
+* Do NOT create a demo page.
+* Do NOT create a mockup.
+* Do NOT break existing functionality.
+* Preserve RTL and Arabic support.
+* Preserve English support.
+* Preserve the current SYANO design language.
+* Keep mobile compatibility.
+* Keep TypeScript error-free.
+
+---
+
+# ISSUE 1 — Variant Selection Is Broken
+
+Current behavior:
+
+* Variant options are displayed.
+* Clicking options does not properly select them.
+* No option is selected by default.
+* User cannot clearly see what combination is active.
+* Add To Cart remains in an invalid state.
+
+This is a UX bug.
+
+Required behavior:
+
+When product variants exist:
+
+1. Automatically select the first valid combination on page load.
+
+Example:
+
+Storage:
+256GB
+512GB
+
+RAM:
+8GB
+12GB
+
+Default selection:
+
+256GB + 8GB
+
+if available.
+
+---
+
+Variant buttons must behave like real selectors.
+
+Selected state:
+
+* Primary theme color border
+* Primary theme background glow
+* Visible checkmark or strong active styling
+* Clear selected appearance
+
+Unselected state:
+
+* Neutral styling
+
+Disabled state:
+
+* Faded
+* Non-clickable
+* Out of stock indication
+
+---
+
+When user clicks any variant:
+
+Immediately update:
+
+* Selected combination
+* Price
+* Sale price
+* SKU
+* Stock
+* Image
+* Add To Cart availability
+
+No refresh.
+
+No delay.
+
+---
+
+# ISSUE 2 — Product Layout Order
+
+Current layout is not optimal.
+
+Reorganize the product information area.
+
+The order must become:
+
+1. Variant Selection
+2. Product Specifications
+3. About This Product
+4. Purchase Actions
+
+---
+
+# SECTION 1 — Variant Selection
+
+Place directly below pricing.
+
+Example:
+
+Storage
+
+[128GB]
+[256GB]
+[512GB]
+
+RAM
+
+[8GB]
+[12GB]
+
+Color
+
+[Orange]
+[Black]
+[Blue]
+
+This section must feel similar to:
+
+* Amazon
+* Noon
+* Trendyol
+* Shopify product pages
+
+---
+
+# SECTION 2 — Product Specifications
+
+Add a dedicated specifications card.
+
+Title:
+
+Arabic:
+المواصفات
+
+English:
+Specifications
+
+Example layout:
+
+Screen:
+6.9" OLED
+
+Processor:
+Apple A19 Pro
+
+RAM:
+12GB
+
+Storage:
+256GB
+
+Rear Camera:
+48MP
+
+Front Camera:
+12MP
+
+Operating System:
+iOS 18
+
+SIM:
+eSIM
+
+Use a professional table/list layout.
+
+Do NOT use raw JSON.
+
+Do NOT dump data.
+
+Use proper rows and spacing.
+
+---
+
+# SECTION 3 — About This Product
+
+Below specifications.
+
+Title:
+
+Arabic:
+عن هذا المنتج
+
+English:
+About This Product
+
+Display:
+
+* Product description
+* Rich text
+* Bullet points if available
+* Proper typography
+
+Use readable spacing.
+
+Not a giant text block.
+
+---
+
+# SECTION 4 — Purchase Actions
+
+Move purchase controls BELOW specifications and description.
+
+This section contains:
+
+* Quantity selector
+* Add To Cart
+* Buy Now
+
+The purchase area should appear after the customer has reviewed:
+
+* Variants
+* Specifications
+* Description
+
+---
+
+# DESKTOP LAYOUT
+
+Use the attached screenshot as visual guidance.
+
+Desired order:
+
+LEFT COLUMN (RTL):
+
+Variants
+↓
+Specifications
+↓
+About Product
+
+RIGHT COLUMN:
+
+Image Gallery
+↓
+Purchase Card
+
+OR an equivalent layout that preserves usability.
+
+---
+
+# MOBILE LAYOUT
+
+Stack sections in this order:
+
+Images
+
+Price
+
+Variants
+
+Specifications
+
+About Product
+
+Quantity
+
+Add To Cart
+
+Buy Now
+
+---
+
+# DATA SOURCE
+
+Use existing product data.
+
+Do NOT hardcode specifications.
+
+Map specifications from existing product fields.
+
+If missing:
+
+show only available fields.
+
+---
+
+# VALIDATION
+
+After implementation verify:
+
+✅ Variant buttons actually select
+
+✅ First valid combination auto-selected
+
+✅ Price updates correctly
+
+✅ SKU updates correctly
+
+✅ Image updates correctly
+
+✅ Add To Cart works
+
+✅ Specifications section visible
+
+✅ About Product section visible
+
+✅ Purchase section below content
+
+✅ Arabic RTL preserved
+
+✅ English preserved
+
+✅ Mobile responsive
+
+✅ TypeScript 0 errors
+
+Implement production-quality UX comparable to Shopify, Amazon, Noon, and Trendyol.

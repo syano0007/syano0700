@@ -1,0 +1,367 @@
+# SYANO MOBILE FRONTEND PARITY — PHASE A
+
+## OBJECTIVE
+
+Do NOT redesign.
+
+Do NOT improve.
+
+Do NOT optimize.
+
+Do NOT adapt.
+
+Do NOT reinterpret.
+
+The goal is:
+
+**Create a 1:1 visual clone of the SYANO Web Homepage inside the Mobile App.**
+
+The mobile homepage must look like the web homepage as if the web design was directly ported to React Native.
+
+---
+
+# CRITICAL RULE
+
+Whenever there is a difference between:
+
+Web
+
+and
+
+Mobile
+
+The WEB version is always correct.
+
+The MOBILE version is always wrong.
+
+Web is the source of truth.
+
+---
+
+# NO MOBILE DESIGN DECISIONS
+
+Forbidden:
+
+* Mobile-first redesign
+* Native redesign
+* UX improvements
+* Layout improvements
+* Simplification
+* Reordering sections
+* Alternative spacing
+* Alternative typography
+* Alternative colors
+* Alternative cards
+* Alternative navigation
+
+Do NOT say:
+
+"This looks better on mobile."
+
+Do NOT say:
+
+"This is more mobile friendly."
+
+Do NOT say:
+
+"I optimized for small screens."
+
+Do NOT do any of that.
+
+---
+
+# PHASE A SCOPE
+
+Homepage ONLY.
+
+Nothing else.
+
+Do not touch:
+
+* Search
+* Product page
+* Store page
+* Cart
+* Checkout
+* Seller
+* Courier
+* Admin
+
+Homepage only.
+
+---
+
+# STEP 1 — FULL PARITY AUDIT
+
+Compare:
+
+artifacts/marketplace
+
+against
+
+artifacts/mobile
+
+Homepage only.
+
+Create a parity matrix.
+
+For every homepage component:
+
+* Exists?
+* Missing?
+* Different?
+* Extra?
+
+Identify every difference.
+
+---
+
+# STEP 2 — REMOVE MOBILE-ONLY ELEMENTS
+
+If something exists on mobile but NOT on web:
+
+DELETE IT.
+
+Examples:
+
+* Extra buttons
+* Extra chips
+* Extra actions
+* Extra labels
+* Extra banners
+* Extra shortcuts
+* Extra cards
+
+If web doesn't have it:
+
+Remove it.
+
+---
+
+# STEP 3 — HEADER PARITY
+
+Match web exactly:
+
+* logo
+* spacing
+* margins
+* paddings
+* typography
+* icon size
+* icon positioning
+* cart badge
+* notification icon
+* search appearance
+
+Pixel-match.
+
+---
+
+# STEP 4 — HERO PARITY
+
+Match web exactly:
+
+* background
+* gradients
+* colors
+* shadows
+* border radius
+* height
+* typography
+* button appearance
+* spacing
+
+No interpretation.
+
+---
+
+# STEP 5 — CATEGORY SECTION PARITY
+
+Match web exactly:
+
+* images
+* overlays
+* colors
+* spacing
+* radius
+* text styling
+* section title styling
+
+No redesign.
+
+---
+
+# STEP 6 — DEALS SECTION PARITY
+
+Match web exactly:
+
+* cards
+* countdown
+* badges
+* spacing
+* colors
+* shadows
+* typography
+
+No redesign.
+
+---
+
+# STEP 7 — STORES SECTION PARITY
+
+Match web exactly:
+
+* card appearance
+* logo placement
+* ratings
+* typography
+* spacing
+* colors
+
+No redesign.
+
+---
+
+# STEP 8 — PRODUCT SECTION PARITY
+
+Match web exactly:
+
+* product cards
+* image ratio
+* card radius
+* typography
+* badges
+* pricing layout
+* spacing
+
+No redesign.
+
+---
+
+# STEP 9 — THEME PARITY
+
+The mobile app must use the EXACT web theme.
+
+Match:
+
+Dark Mode:
+
+* backgrounds
+* surfaces
+* borders
+* shadows
+* accent colors
+
+Light Mode:
+
+* backgrounds
+* surfaces
+* borders
+* shadows
+* accent colors
+
+Do NOT approximate.
+
+Use the same values.
+
+---
+
+# STEP 10 — SPACING PARITY
+
+Audit:
+
+* section spacing
+* card spacing
+* margins
+* paddings
+* gaps
+
+The current mobile spacing is NOT acceptable.
+
+Match web spacing exactly.
+
+---
+
+# STEP 11 — TYPOGRAPHY PARITY
+
+Match:
+
+* font sizes
+* font weights
+* line heights
+* hierarchy
+
+Current mobile typography differs from web.
+
+Use web values.
+
+---
+
+# STEP 12 — NAVIGATION PARITY
+
+Match visual appearance of:
+
+* bottom navigation
+* active state
+* inactive state
+* icon sizing
+* labels
+* spacing
+
+No redesign.
+
+---
+
+# STEP 13 — VISUAL COMPARISON
+
+After implementation:
+
+Compare screenshots:
+
+Web Homepage
+
+vs
+
+Mobile Homepage
+
+Section by section.
+
+Continue adjusting until:
+
+Visual parity ≥ 95%.
+
+---
+
+# SUCCESS CRITERIA
+
+PASS ONLY IF:
+
+✅ No extra mobile elements
+
+✅ Same sections as web
+
+✅ Same order as web
+
+✅ Same colors
+
+✅ Same spacing
+
+✅ Same typography
+
+✅ Same cards
+
+✅ Same shadows
+
+✅ Same gradients
+
+✅ Same theme
+
+✅ Same navigation styling
+
+✅ Homepage visually matches web
+
+Do not move to another page.
+
+Do not start Phase B.
+
+Homepage only.

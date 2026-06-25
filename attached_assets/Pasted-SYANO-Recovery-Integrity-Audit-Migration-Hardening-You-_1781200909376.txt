@@ -1,0 +1,410 @@
+SYANO (سوق سوريا) — Recovery Integrity Audit & Migration Hardening
+
+You are NOT building new features.
+
+Your mission is to make the entire SYANO project recovery-safe, migration-safe, and checkpoint-safe.
+
+This is now a platform integrity and continuity audit.
+
+---
+
+PRIMARY OBJECTIVE
+
+A future recovery should work like this:
+
+1. Project moved to a new Replit account
+2. Recovery prompt executed
+3. Platform returns EXACTLY to the last completed state
+4. No hidden bugs
+5. No missing accounts
+6. No missing enums
+7. No missing migrations
+8. No missing translations
+9. No broken dashboards
+10. No manual intervention required
+
+The recovery process must be deterministic.
+
+---
+
+PHASE 1 — FULL PLATFORM AUDIT
+
+Test EVERYTHING.
+
+Create and use all platform roles:
+
+Admin:
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Customer:
+create test customer
+
+Guest:
+unauthenticated
+
+For each role:
+
+* login
+* navigation
+* dashboard
+* profile
+* notifications
+* messages
+* orders
+* settings
+* mobile layouts
+* desktop layouts
+
+Verify every route.
+
+Verify every page.
+
+Verify every major user journey.
+
+Do not assume anything works.
+
+Actually test.
+
+---
+
+PHASE 2 — RECOVERY SAFETY AUDIT
+
+Verify:
+
+Database schema
+
+Enums
+
+Indexes
+
+Constraints
+
+Bootstrap logic
+
+Seed logic
+
+Test accounts
+
+Root owner recovery
+
+Trust system recovery
+
+Delivery zones recovery
+
+Platform settings recovery
+
+Notification recovery
+
+Seller verification recovery
+
+Courier recovery
+
+Wishlist tables (if present)
+
+Every system must survive:
+
+* fresh DB
+* schema restore
+* migration replay
+* startup bootstrap
+
+without breaking.
+
+---
+
+PHASE 3 — MIGRATION AUDIT
+
+Search entire codebase for:
+
+ALTER TYPE
+
+ADD COLUMN
+
+CREATE TABLE
+
+CREATE INDEX
+
+ENUM changes
+
+Run-migrations logic
+
+Schema.sql
+
+Bootstrap functions
+
+Drizzle migrations
+
+Find anything that can be lost after migration.
+
+Fix it.
+
+All required structures must be recreated automatically.
+
+No manual SQL should be required after recovery.
+
+---
+
+PHASE 4 — TRANSLATION AUDIT
+
+Audit entire codebase.
+
+Find:
+
+t("...")
+
+translation keys
+
+hardcoded strings
+
+missing keys
+
+mismatched keys
+
+unused keys
+
+Verify:
+
+EN count = AR count
+
+No missing translations
+
+No broken labels
+
+No raw keys rendered in UI
+
+No English leaks inside Arabic pages
+
+No Arabic leaks inside English pages
+
+Update translation files.
+
+---
+
+PHASE 5 — RESPONSIVE AUDIT
+
+Audit every page.
+
+Screen widths:
+
+320
+375
+390
+414
+768
+1024
+1280
+1440
+
+Check:
+
+padding
+margin
+overflow
+tables
+cards
+drawers
+dialogs
+charts
+forms
+navigation
+
+Fix:
+
+text touching edges
+
+horizontal scrolling
+
+cropped content
+
+broken grids
+
+misaligned RTL layouts
+
+overflow-hidden mistakes
+
+Every page must feel production quality.
+
+---
+
+PHASE 6 — DASHBOARD AUDIT
+
+Admin Dashboard
+
+Seller Dashboard
+
+Courier Dashboard
+
+Customer Dashboard
+
+Verify:
+
+stats
+
+charts
+
+KPIs
+
+counts
+
+cards
+
+filters
+
+actions
+
+empty states
+
+loading states
+
+error states
+
+All data must match reality.
+
+No fake calculations.
+
+No broken metrics.
+
+---
+
+PHASE 7 — SECURITY AUDIT
+
+Verify:
+
+Admin routes
+
+Seller routes
+
+Courier routes
+
+Customer routes
+
+Guest routes
+
+Check:
+
+401
+
+403
+
+role isolation
+
+ownership validation
+
+cross-account access
+
+order access
+
+message access
+
+store access
+
+No data leakage allowed.
+
+---
+
+PHASE 8 — DOCUMENTATION HARDENING
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+KNOWN_ISSUES.md
+
+MEMORY.md
+
+The recovery docs must represent the REAL state after all fixes.
+
+No stale information.
+
+No outdated roadmap entries.
+
+No completed items listed as pending.
+
+---
+
+PHASE 9 — RECOVERY DRY RUN
+
+Pretend the project is being migrated tomorrow.
+
+Verify that:
+
+Recovery Guide is sufficient.
+
+Schema restores correctly.
+
+Bootstraps run correctly.
+
+Test accounts are recreated.
+
+Trust system survives.
+
+Enums survive.
+
+All services start.
+
+All dashboards load.
+
+No manual fixes required.
+
+If anything would fail during migration:
+
+Fix it.
+
+---
+
+FINAL REQUIREMENTS
+
+Do NOT build new features.
+
+Do NOT change roadmap priorities.
+
+Do NOT start Wishlist.
+
+Do NOT start Buyer Trust.
+
+Do NOT start Messaging V2.
+
+Do NOT start Search V2.
+
+Only platform integrity.
+
+Only recovery reliability.
+
+Only migration safety.
+
+Only bug fixing.
+
+Only validation.
+
+---
+
+FINAL REPORT
+
+Produce:
+
+1. Bugs Found
+2. Bugs Fixed
+3. Recovery Risks Found
+4. Recovery Risks Fixed
+5. Translation Issues Fixed
+6. Responsive Issues Fixed
+7. Security Issues Fixed
+8. Documentation Updates
+9. Recovery Confidence Score (0-100)
+10. Exact platform state after audit
+
+The goal is that future project transfers require nothing more than:
+
+"Run recovery procedure"
+
+and the platform returns exactly to the last verified checkpoint.

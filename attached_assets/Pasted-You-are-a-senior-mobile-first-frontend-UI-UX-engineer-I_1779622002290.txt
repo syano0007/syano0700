@@ -1,0 +1,106 @@
+You are a senior mobile-first frontend UI/UX engineer.
+
+IMPORTANT:
+The previous navbar/logo implementation is STILL BROKEN on mobile and did NOT correctly solve the notch / Dynamic Island issue.
+
+Analyze the attached screenshot carefully and FIX the layout properly.
+
+CURRENT PROBLEMS VISIBLE IN THE SCREENSHOT:
+
+* The logo is partially hidden behind the Dynamic Island/notch area.
+* The “Syano” text is cut off.
+* The logo is still too small and visually weak.
+* The navbar spacing is broken on mobile.
+* The branding does not feel premium or centered.
+* The current implementation ignored safe-area spacing.
+
+Your task is to FULLY REDESIGN the mobile navbar branding section correctly.
+
+REQUIREMENTS:
+
+1. FIX SAFE-AREA / DYNAMIC ISLAND ISSUES
+
+* Respect iPhone safe-area insets.
+* Ensure NO element overlaps:
+
+  * notch
+  * Dynamic Island
+  * front camera cutouts
+  * status bar
+* Add proper top padding dynamically using safe-area utilities/environment variables.
+
+2. MAKE THE LOGO MUCH CLEARER
+
+* Increase logo visibility and visual importance.
+* The logo should feel premium and recognizable instantly.
+* Scale intelligently:
+
+  * larger on mobile
+  * balanced on desktop
+* Keep it crisp and sharp on retina displays.
+
+3. NEW MOBILE BRAND LAYOUT
+   On mobile:
+
+* Place LARGE logo centered at the top.
+* Place “SYANO” text BELOW the logo.
+* Use vertical stacked layout.
+* Ensure balanced spacing.
+
+NOT side-by-side anymore.
+
+4. NAVBAR RESTRUCTURE
+   Rebuild the mobile navbar layout professionally:
+
+* clean spacing
+* centered branding
+* balanced icons
+* touch-friendly
+* modern premium ecommerce feel
+
+Ensure:
+
+* search icon
+* menu icon
+* cart/profile icons
+  all remain usable and aligned.
+
+5. RESPONSIVE BEHAVIOR
+   Test on:
+
+* iPhone Dynamic Island
+* iPhone notch devices
+* Android punch-hole devices
+* tablets
+
+Verify:
+
+* no clipping
+* no overlap
+* no hidden branding
+* no layout shifts
+
+6. VISUAL DESIGN
+   Maintain premium futuristic branding:
+
+* emerald glow
+* metallic silver aesthetic
+* dark luxury UI
+* clean modern ecommerce style
+
+7. IMPLEMENTATION QUALITY
+
+* Use reusable centralized navbar component.
+* Avoid hacks or hardcoded offsets.
+* Use production-grade responsive layout logic.
+
+8. FINAL RESULT
+   The final navbar should feel like a world-class premium mobile application:
+
+* strong brand visibility
+* visually centered
+* elegant
+* modern
+* safe-area aware
+* perfectly responsive
+* premium and polished

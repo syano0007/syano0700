@@ -1,0 +1,264 @@
+You are a senior mobile UX engineer, design systems architect, and frontend performance specialist.
+
+Your task is to perform a COMPLETE mobile UI audit and permanently fix all typography, spacing, sizing, icon, navigation, and responsive consistency issues across the entire marketplace.
+
+IMPORTANT:
+Do NOT apply quick fixes.
+Do NOT hardcode random font sizes.
+Do NOT fix individual pages only.
+
+Build a scalable, production-grade responsive design system.
+
+==================================================
+PHASE 1 — FULL MOBILE UI AUDIT
+==============================
+
+Analyze the ENTIRE application on:
+
+* iPhone SE
+* iPhone 12/13/14/15
+* iPhone Pro Max
+* Android small screens
+* Android medium screens
+* Android large screens
+* Tablets
+
+Inspect every page and component.
+
+Identify:
+
+* inconsistent font sizes
+* oversized text
+* tiny text
+* inconsistent icon sizes
+* broken spacing
+* inconsistent button heights
+* misaligned elements
+* overflowing text
+* clipping issues
+* mobile header issues
+* navbar inconsistencies
+* menu sizing issues
+* card sizing inconsistencies
+* modal sizing issues
+* product page inconsistencies
+* category page issues
+* checkout issues
+* seller dashboard issues
+* admin dashboard issues
+
+==================================================
+PHASE 2 — BUILD A RESPONSIVE DESIGN SYSTEM
+==========================================
+
+Create a centralized design system.
+
+Implement:
+
+Typography scale:
+
+* xs
+* sm
+* md
+* lg
+* xl
+* 2xl
+* 3xl
+
+Spacing scale:
+
+* 4
+* 8
+* 12
+* 16
+* 20
+* 24
+* 32
+* 40
+
+Border radius scale:
+
+* small
+* medium
+* large
+
+Icon scale:
+
+* mobile
+* tablet
+* desktop
+
+Button scale:
+
+* mobile
+* desktop
+
+Replace scattered values with reusable design tokens.
+
+==================================================
+PHASE 3 — MOBILE TYPOGRAPHY FIX
+===============================
+
+Ensure:
+
+* all text remains readable
+* no text is oversized
+* no text is too small
+* consistent visual hierarchy
+
+Headings:
+
+* scale proportionally
+
+Descriptions:
+
+* readable on small devices
+
+Product cards:
+
+* consistent sizing
+
+Buttons:
+
+* text always centered
+
+Arabic text:
+
+* properly balanced
+
+English text:
+
+* properly balanced
+
+Mixed language:
+
+* properly aligned
+
+==================================================
+PHASE 4 — ICON SYSTEM FIX
+=========================
+
+Audit ALL icons.
+
+Ensure:
+
+* consistent sizing
+* consistent alignment
+* consistent stroke width
+* consistent spacing
+
+Fix:
+
+* navbar icons
+* product icons
+* category icons
+* menu icons
+* action icons
+* footer icons
+* dashboard icons
+
+==================================================
+PHASE 5 — MOBILE HEADER & NAVBAR
+================================
+
+Fix completely:
+
+* logo sizing
+* logo alignment
+* camera island safe area
+* notch safe area
+* dynamic island overlap
+* search bar sizing
+* category selector sizing
+* menu button alignment
+
+Ensure perfect behavior on all mobile devices.
+
+==================================================
+PHASE 6 — MOBILE MENU
+=====================
+
+Audit mobile menu.
+
+Ensure:
+
+* proper spacing
+* proper typography
+* touch-friendly targets
+* no overcrowding
+* consistent icon sizes
+* proper scrolling
+
+Minimum touch target:
+44px
+
+==================================================
+PHASE 7 — PRODUCT CARD CONSISTENCY
+==================================
+
+Ensure every product card has:
+
+* identical structure
+* identical spacing
+* identical image ratios
+* identical typography scale
+* identical button sizing
+
+Prevent layout shifts.
+
+==================================================
+PHASE 8 — RESPONSIVE SYSTEM
+===========================
+
+Replace arbitrary breakpoints with a clean system.
+
+Create consistent responsive behavior for:
+
+* mobile
+* tablet
+* laptop
+* desktop
+* ultrawide
+
+==================================================
+PHASE 9 — SAFE AREA SUPPORT
+===========================
+
+Implement support for:
+
+* iPhone notch
+* Dynamic Island
+* Android punch-hole cameras
+* Safe area insets
+
+Nothing should ever overlap system UI.
+
+==================================================
+PHASE 10 — VISUAL POLISH
+========================
+
+Make the entire mobile experience feel:
+
+* premium
+* modern
+* polished
+* consistent
+* professional
+
+Comparable to leading ecommerce applications.
+
+==================================================
+PHASE 11 — FINAL VALIDATION
+===========================
+
+Test every page and component.
+
+Generate a report including:
+
+* issues found
+* issues fixed
+* remaining risks
+* responsive score
+* mobile UX score
+
+The final result should feel like a professionally designed ecommerce app rather than a collection of individually styled pages.

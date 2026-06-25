@@ -1,0 +1,238 @@
+WEB ONLY — Courier Workspace Polish
+
+IMPORTANT:
+
+Apply these changes ONLY to the WEB courier experience.
+
+Target:
+
+* /courier
+* /courier/profile
+* Web marketplace implementation
+
+DO NOT modify:
+
+* Expo mobile app
+* React Native screens
+* mobile/app/*
+* mobile navigation
+* mobile settings
+
+This task is WEB ONLY.
+
+---
+
+# CHANGE 1 — Fix Courier Label
+
+Current issue:
+
+The floating card on the map contains:
+
+Courier
+
+or
+
+المندوب
+
+positioned above the call button.
+
+This looks visually broken.
+
+## Required
+
+Move the courier label into the card header.
+
+Example:
+
+🚚 المندوب
+
+GPS نشط
+
+[اتصال]
+
+or
+
+🚚 Courier
+
+GPS Active
+
+[Call]
+
+Requirements:
+
+* Use i18n.
+* No hardcoded text.
+* Preserve EN/AR.
+* Preserve RTL.
+* Keep current card styling.
+* Do not allow text overlap.
+
+---
+
+# CHANGE 2 — Add Preferences Section To Existing Web Profile Page
+
+Target:
+
+/courier/profile
+
+Use the EXISTING profile page.
+
+Do NOT create:
+
+* new route
+* modal
+* popup
+* separate settings page
+
+Add a section:
+
+━━━━━━━━━━━━
+
+التفضيلات
+
+المظهر
+
+اللغة
+
+العملة
+
+━━━━━━━━━━━━
+
+العودة للصفحة الرئيسية
+
+━━━━━━━━━━━━
+
+تسجيل الخروج
+
+---
+
+# CHANGE 3 — Theme Preference
+
+Inside Preferences:
+
+Theme
+
+Options:
+
+* System
+* Light
+* Dark
+
+Requirements:
+
+* Integrate with existing marketplace theme system.
+* Persist selection.
+* Apply instantly.
+* No page refresh.
+
+---
+
+# CHANGE 4 — Language Preference
+
+Inside Preferences:
+
+Language
+
+Options:
+
+* العربية
+* English
+
+Requirements:
+
+* Use existing marketplace i18n.
+* Apply instantly.
+* Persist selection.
+* No reload.
+
+---
+
+# CHANGE 5 — Currency Preference
+
+Inside Preferences:
+
+Currency
+
+Options ONLY:
+
+* SYP
+* USD
+
+Requirements:
+
+* Persist selection.
+* Use existing marketplace currency system if available.
+* No EUR.
+* No extra currencies.
+
+---
+
+# CHANGE 6 — Home Button
+
+Add:
+
+🏠 العودة للصفحة الرئيسية
+
+Position:
+
+Directly above Logout.
+
+Behavior:
+
+Navigate to:
+
+/
+
+Requirements:
+
+* Do NOT logout.
+* Do NOT reset session.
+* Preserve courier authentication.
+* Use existing router.
+
+---
+
+# DESIGN REQUIREMENTS
+
+Preserve:
+
+* Current courier workspace
+* Current map
+* Current bottom navigation
+* Current colors
+* Current spacing
+* Current shadows
+* Current typography
+* Current RTL support
+
+This is a polish task.
+
+Not a redesign.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Courier label fixed
+
+✅ Preferences visible on /courier/profile
+
+✅ Theme switch works
+
+✅ Language switch works
+
+✅ Currency switch works
+
+✅ Home button works
+
+✅ Logout still works
+
+✅ RTL preserved
+
+✅ EN preserved
+
+✅ No mobile files modified
+
+✅ TypeScript = 0 new errors

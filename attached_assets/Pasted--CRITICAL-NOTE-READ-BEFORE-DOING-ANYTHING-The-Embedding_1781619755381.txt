@@ -1,0 +1,485 @@
+⚠️ CRITICAL NOTE — READ BEFORE DOING ANYTHING:
+The Embedding Service is intentionally running on TF-IDF fallback mode.
+Do NOT install sentence-transformers. Do NOT install torch. Do NOT download any model files.
+Do NOT run any pip install command related to ML/AI libraries.
+Treat the Embedding Service as FROZEN — do not touch it.
+
+TARGET: Lighthouse Performance score ≥ 90 on every major page.
+This is Phase 11 — Prompt 10: Performance Baseline.
+Execute every step completely and in order. Do not skip any step. Do not summarize. Show full output for every step.
+
+═══════════════════════════════════════
+PART 0 — READ EVERYTHING FIRST
+═══════════════════════════════════════
+
+STEP 0.1 — Read all recovery files before writing a single line:
+Read in full:
+  - CURRENT_STATE.md
+  - RECOVERY_GUIDE.md
+  - PROJECT_STATUS.md
+
+STEP 0.2 — Read all files you will touch before touching them:
+Read in full:
+  - artifacts/marketplace/vite.config.ts
+  - artifacts/marketplace/index.html
+  - artifacts/marketplace/src/main.tsx
+  - artifacts/marketplace/src/App.tsx
+  - artifacts/marketplace/tailwind.config.js (or .ts)
+  - artifacts/marketplace/src/index.css (or globals.css)
+  - artifacts/marketplace/package.json
+  - artifacts/api-server/src/index.ts (or app.ts — main entry point)
+  - artifacts/api-server/package.json
+
+Do not write a single line of code until all files above are read.
+
+═══════════════════════════════════════
+PART 1 — VITE BUILD OPTIMIZATION
+═══════════════════════════════════════
+
+STEP 1.1 — Configure Vite for production:
+In artifacts/marketplace/vite.config.ts, add or update the build config:
+
+  build: {
+    target: "es2020",
+    minify: "esbuild",
+    cssMinify: true,
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-query": ["@tanstack/react-query"],
+          "vendor-i18n": ["i18next", "react-i18next"],
+          "vendor-ui": ["react-helmet-async"],
+        },
+      },
+    },
+  },
+
+Do not change anything else in vite.config.ts.
+Do not add new dependencies.
+
+STEP 1.2 — Enable gzip/brotli compression in API server:
+In artifacts/api-server/src/index.ts (or app.ts):
+  - Check if compression middleware is already installed
+  - If not: run pnpm add compression @types/compression from artifacts/api-server/
+  - Import: import compression from "compression"
+  - Add before all routes: app.use(compression())
+  - Do not change any existing route or middleware order
+
+STEP 1.3 — Add cache headers for static assets:
+In artifacts/api-server/src/index.ts (or wherever static files are served):
+  If Express serves static files with express.static():
+    Replace with:
+      app.use(express.static(path.join(__dirname, "../../marketplace/dist"), {
+        maxAge: "1y",
+        etag: true,
+        lastModified: true,
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith(".html")) {
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+          }
+        },
+      }))
+  If static files are served differently → apply equivalent cache headers without breaking existing behavior.
+  HTML files must always be no-cache. JS/CSS/images get 1-year cache.
+
+═══════════════════════════════════════
+PART 2 — IMAGE OPTIMIZATION
+═══════════════════════════════════════
+
+STEP 2.1 — Read all image usage:
+Find every <img> tag and every Image component in:
+  - artifacts/marketplace/src/components/
+  - artifacts/marketplace/src/pages/
+List every instance. Note which ones load external URLs and which load local assets.
+
+STEP 2.2 — Create LazyImage component:
+Create file: artifacts/marketplace/src/components/LazyImage.tsx
+
+Requirements:
+  - Props: src (string), alt (string), className? (string), width? (number), height? (number), priority? (boolean)
+  - Uses native loading="lazy" for non-priority images
+  - Uses loading="eager" for priority=true images (above-the-fold)
+  - Uses decoding="async" always
+  - Adds fetchpriority="high" for priority=true images
+  - Shows a skeleton placeholder (bg-muted animate-pulse) while loading
+  - On error: shows a neutral fallback div with same dimensions (bg-muted) — no broken image icon
+  - Uses onLoad to remove skeleton once image loads
+  - Supports className passthrough
+  - No `any` TypeScript type
+  - Export as default
+
+STEP 2.3 — Replace img tags with LazyImage:
+Replace every <img> tag in product cards, store cards, and category cards with <LazyImage>.
+For hero images and above-the-fold images → set priority={true}.
+For all other images → priority={false} (default).
+Do not change any layout, styling, or alt text — only replace the tag.
+
+STEP 2.4 — Add width and height to all images:
+For every <img> or <LazyImage>:
+  - Add explicit width and height attributes to prevent layout shift (CLS)
+  - Product card images: width={400} height={400}
+  - Store logos: width={80} height={80}
+  - Category images: width={200} height={200}
+  - Hero/banner images: width={1200} height={400}
+  If actual dimensions differ → use the closest standard dimensions that match the CSS display size.
+
+═══════════════════════════════════════
+PART 3 — CODE SPLITTING AND LAZY LOADING
+═══════════════════════════════════════
+
+STEP 3.1 — Read App.tsx router structure:
+Read artifacts/marketplace/src/App.tsx in full.
+List every route and its current component import (eager or lazy).
+
+STEP 3.2 — Lazy load all non-critical routes:
+In App.tsx, convert every page import to React.lazy() + Suspense EXCEPT:
+  - Home page (must be eager — it is the landing page)
+  - Any component used above the fold on first load
+
+Pattern to use:
+  const ShopPage = React.lazy(() => import("./pages/ShopPage"));
+  const ProductDetailPage = React.lazy(() => import("./pages/ProductDetailPage"));
+  // etc. for every non-home page
+
+Wrap the router outlet or page renders with:
+  <Suspense fallback={<PageLoadingSpinner />}>
+    {/* routes */}
+  </Suspense>
+
+STEP 3.3 — Create PageLoadingSpinner component:
+Create file: artifacts/marketplace/src/components/PageLoadingSpinner.tsx
+
+Requirements:
+  - Full-page centered spinner
+  - Uses existing spinner/loading styles already in the project (do not introduce new CSS)
+  - Accessible: role="status" aria-label={t("a11y.loading")}
+  - No `any` TypeScript type
+  - Export as default
+
+STEP 3.4 — Lazy load heavy third-party components:
+Identify any heavy components (charts, maps, rich text editors, date pickers) used in:
+  - Seller dashboard pages
+  - Admin pages
+  - Analytics pages
+Convert their imports to dynamic imports where not already done.
+
+═══════════════════════════════════════
+PART 4 — FONT OPTIMIZATION
+═══════════════════════════════════════
+
+STEP 4.1 — Read font loading in index.html:
+Read artifacts/marketplace/index.html in full.
+Identify how fonts are loaded (Google Fonts link, local @font-face, or system fonts).
+
+STEP 4.2 — Optimize font loading:
+  a) If Google Fonts is used via <link>:
+     - Add rel="preconnect" href="https://fonts.googleapis.com" before the font link
+     - Add rel="preconnect" href="https://fonts.gstatic.com" crossorigin before the font link
+     - Change the font <link> rel from "stylesheet" to use font-display=swap:
+       Add &display=swap to the Google Fonts URL if not already present
+  b) If @font-face is used in CSS:
+     - Add font-display: swap to every @font-face declaration
+  c) If system fonts are used → no change needed, skip this step
+
+STEP 4.3 — Preload critical fonts:
+If a specific font file is loaded (woff2):
+  Add to <head> of index.html:
+    <link rel="preload" as="font" type="font/woff2" href="/path/to/font.woff2" crossorigin>
+  Only preload the font used for body text — not every font variant.
+
+═══════════════════════════════════════
+PART 5 — API RESPONSE OPTIMIZATION
+═══════════════════════════════════════
+
+STEP 5.1 — Read TanStack Query config:
+Find where QueryClient is configured (likely in main.tsx or a providers file).
+Read the current staleTime and gcTime (cacheTime) settings.
+
+STEP 5.2 — Optimize query cache settings:
+Update QueryClient config:
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5,        // 5 minutes — data is fresh for 5 min
+        gcTime: 1000 * 60 * 30,          // 30 minutes — keep in memory
+        retry: 2,
+        refetchOnWindowFocus: false,      // do not refetch on tab switch
+        refetchOnReconnect: true,
+      },
+    },
+  })
+Do not change individual query staleTime overrides that already exist — only change the default.
+
+STEP 5.3 — Add HTTP response caching headers on API:
+In artifacts/api-server/src/routes/ — for the following endpoints, add Cache-Control headers:
+  - GET /api/products (list): Cache-Control: public, max-age=60, stale-while-revalidate=300
+  - GET /api/products/:id: Cache-Control: public, max-age=300, stale-while-revalidate=600
+  - GET /api/categories: Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  - GET /api/stores (list): Cache-Control: public, max-age=120, stale-while-revalidate=600
+  - GET /api/stores/:id: Cache-Control: public, max-age=300, stale-while-revalidate=600
+
+Read each route file before editing. Add headers using res.set() or res.setHeader().
+Do not change any existing logic, query, or response shape.
+Do not add headers to POST, PUT, PATCH, DELETE endpoints.
+Do not add headers to authenticated/private endpoints.
+
+STEP 5.4 — Add ETag support:
+In artifacts/api-server/src/index.ts:
+  - Add: app.set("etag", "strong")
+  This enables automatic ETag generation for all GET responses.
+  Confirm this line does not already exist before adding.
+
+═══════════════════════════════════════
+PART 6 — CRITICAL CSS AND RENDER BLOCKING
+═══════════════════════════════════════
+
+STEP 6.1 — Remove render-blocking resources:
+In artifacts/marketplace/index.html:
+  - Any <script> tags in <head> that are not async or defer → add defer attribute
+  - Any <link rel="stylesheet"> for non-critical CSS → add media="print" onload trick or convert to preload
+  - Do not touch Vite's injected scripts — only manually added scripts
+
+STEP 6.2 — Add resource hints:
+In artifacts/marketplace/index.html <head>, add:
+  - <link rel="dns-prefetch" href="//api.syanomarket.online"> (or whatever the API domain is)
+  - <link rel="preconnect" href="https://res.cloudinary.com"> (if Cloudinary is used for images)
+  - Only add preconnect for domains that are actually used — read the codebase to confirm
+  - Do not add fake or unused preconnect hints
+
+STEP 6.3 — Add meta viewport if missing:
+Confirm <meta name="viewport" content="width=device-width, initial-scale=1.0"> exists in index.html.
+If missing → add it. If present → do not touch it.
+
+═══════════════════════════════════════
+PART 7 — PERFORMANCE MEASUREMENT
+═══════════════════════════════════════
+
+STEP 7.1 — Add Web Vitals tracking:
+Install web-vitals package if not already installed:
+  cd artifacts/marketplace && pnpm add web-vitals
+
+In artifacts/marketplace/src/main.tsx, add after the app renders:
+  import { onCLS, onFCP, onLCP, onTTFB, onINP } from "web-vitals";
+
+  function reportWebVitals(metric: { name: string; value: number; rating: string }) {
+    if (import.meta.env.DEV) {
+      console.log(`[Web Vitals] ${metric.name}: ${Math.round(metric.value)}ms (${metric.rating})`);
+    }
+  }
+
+  onCLS(reportWebVitals);
+  onFCP(reportWebVitals);
+  onLCP(reportWebVitals);
+  onTTFB(reportWebVitals);
+  onINP(reportWebVitals);
+
+This only logs in development. No data is sent anywhere. No `any` type.
+
+STEP 7.2 — Run production build and measure bundle size:
+cd artifacts/marketplace && pnpm build
+Show the full build output including:
+  - Total bundle size
+  - Each chunk size
+  - Gzip sizes (if shown)
+Target: no single chunk > 500KB uncompressed.
+If any chunk exceeds 500KB → identify what's in it and split it further.
+
+STEP 7.3 — Measure API response times:
+Using curl or fetch, measure response time for:
+  - GET http://localhost:8080/api/products (first request — cold)
+  - GET http://localhost:8080/api/products (second request — should be faster with cache)
+  - GET http://localhost:8080/api/categories
+  - GET http://localhost:8080/api/healthz
+Show response time for each in milliseconds.
+Target: all endpoints under 200ms cold, under 50ms with cache.
+
+═══════════════════════════════════════
+PART 8 — TYPESCRIPT CHECK
+═══════════════════════════════════════
+
+STEP 8.1 — Zero errors required:
+Run: cd artifacts/api-server && npx tsc --noEmit
+Run: cd artifacts/marketplace && npx tsc --noEmit
+If any errors exist → fix every single one before continuing.
+Show full output of both commands.
+
+STEP 8.2 — Confirm all 3 workflows running:
+GET http://localhost:8080/api/healthz → expect { "status": "ok" }
+GET http://localhost:5000 → expect HTTP 200
+GET http://localhost:8001/health → expect { "status": "ok" }
+
+═══════════════════════════════════════
+PART 9 — UPDATE RECOVERY FILES
+═══════════════════════════════════════
+
+STEP 9.1 — Overwrite CURRENT_STATE.md with exactly this content:
+
+# SYANO — Current State
+Last updated: June 16, 2026
+
+## Project Identity
+- Name: SYANO — سوق سوريا
+- Type: Multi-vendor marketplace
+- Domain: syanomarket.online
+- GitHub: https://github.com/syano0007/syano07007
+- Status: Pre-launch — Phase 11 COMPLETE ✅
+
+## Phase 11 — Launch Preparation — COMPLETE ✅
+All 10 prompts finished:
+- Prompt 1  — Launch Readiness Audit     ✅
+- Prompt 2  — Critical & High Fixes      ✅
+- Prompt 3  — Error Handling Layer       ✅
+- Prompt 4  — Data Quality               ✅
+- Prompt 5  — Mobile Readiness           ✅
+- Prompt 6  — Security Review            ✅
+- Prompt 7  — Email OTP Verification     ✅
+- Prompt 8  — SEO Layer                  ✅
+- Prompt 9  — Accessibility (≥96)        ✅
+- Prompt 10 — Performance Baseline       ✅
+
+## Next Phase
+Phase 12 — Performance & Scalability
+Phase 13 — AI Agent (Customer Service)
+
+## Last Session Work — June 16, 2026
+### Phase 11 — Prompt 10 — Performance Baseline ✅
+
+1. Vite build optimization:
+   - manualChunks: vendor-react, vendor-query, vendor-i18n, vendor-ui
+   - target: es2020, minify: esbuild, cssMinify: true
+
+2. Gzip compression: compression middleware added to API server
+
+3. Cache headers:
+   - Static assets: Cache-Control max-age=1y
+   - HTML: no-cache always
+   - API endpoints: public cache with stale-while-revalidate
+
+4. LazyImage component: artifacts/marketplace/src/components/LazyImage.tsx
+   - loading="lazy", decoding="async", skeleton placeholder, error fallback
+   - priority prop for above-the-fold images (loading="eager", fetchpriority="high")
+
+5. Code splitting: all non-home pages converted to React.lazy() + Suspense
+   - PageLoadingSpinner: artifacts/marketplace/src/components/PageLoadingSpinner.tsx
+
+6. Font optimization: preconnect + font-display swap
+
+7. TanStack Query: staleTime=5min, gcTime=30min, refetchOnWindowFocus=false
+
+8. Web Vitals tracking: CLS, FCP, LCP, TTFB, INP — dev console only
+
+9. ETag support enabled on API server
+
+10. Resource hints: dns-prefetch, preconnect added to index.html
+
+## Required Replit Secrets — ALL must be set:
+   SESSION_SECRET
+   RESEND_API_KEY
+   EMAIL_FROM              = noreply@syanomarket.online
+   CORS_ORIGIN             = https://syanomarket.online
+   SITE_URL                = https://syanomarket.online
+   ROOT_ADMIN_PASSWORD
+   VAPID_EMAIL             = mailto:admin@syanomarket.online
+   VAPID_PRIVATE_KEY
+   VAPID_PUBLIC_KEY
+   VITE_SUPPORT_PHONE
+   EMBEDDING_SERVICE_URL   = http://localhost:8001
+   ENABLE_EMAIL_VERIFICATION = true
+
+## Embedding Service
+- Status: TF-IDF fallback — INTENTIONAL — do not install sentence-transformers
+- Full model installed only once before final production launch
+
+## Database State
+- 33 tables, fully migrated
+- 42 products with vector embeddings
+- pgvector enabled — vector(384) on products table
+
+## Test Accounts
+- Admin:   delewatiamer7@gmail.com
+- Seller:  delewatiamer8@gmail.com
+- Courier: delewatiamer9@gmail.com
+
+STEP 9.2 — Update PROJECT_STATUS.md:
+Prepend exactly this block at the very top:
+
+# SYANO — Project Status
+Last updated: June 16, 2026
+
+## Phase 11 — Launch Preparation — COMPLETE ✅
+- Prompt 1  — Launch Readiness Audit     ✅ Complete
+- Prompt 2  — Critical & High Fixes      ✅ Complete
+- Prompt 3  — Error Handling Layer       ✅ Complete
+- Prompt 4  — Data Quality               ✅ Complete
+- Prompt 5  — Mobile Readiness           ✅ Complete
+- Prompt 6  — Security Review            ✅ Complete
+- Prompt 7  — Email OTP Verification     ✅ Complete
+- Prompt 8  — SEO Layer                  ✅ Complete
+- Prompt 9  — Accessibility              ✅ Complete
+- Prompt 10 — Performance Baseline       ✅ Complete
+
+## Next
+Phase 12 — Performance & Scalability
+Phase 13 — AI Agent (Customer Service)
+
+---
+
+STEP 9.3 — Update RECOVERY_GUIDE.md:
+Find the section "## EMBEDDING SERVICE" and confirm this line is still present:
+  "Do NOT install sentence-transformers or torch during any development session"
+If missing → add it back. Do not change anything else.
+
+STEP 9.4 — Update replit.md (or README.md — whichever exists at root):
+Prepend exactly this block at the very top:
+
+# SYANO — syanomarket.online
+Last verified working: June 16, 2026
+Phase 11 — Launch Preparation: COMPLETE ✅ (all 10 prompts done)
+Workflows: API Server ✅ | Marketplace ✅ | Embedding Service ✅ (TF-IDF mode)
+Secrets: All 12 loaded ✅
+Next: Phase 12 — Performance & Scalability
+
+---
+
+═══════════════════════════════════════
+PART 10 — FINAL SUMMARY TABLE
+═══════════════════════════════════════
+
+STEP 10.1 — Print final summary table:
+
+| Check | Expected | Actual | Status |
+|---|---|---|---|
+| Vite manualChunks configured | 4 chunks | ? | ✅/❌ |
+| No chunk > 500KB | ✅ | ? | ✅/❌ |
+| compression middleware added | ✅ | ? | ✅/❌ |
+| Static assets cache 1y | ✅ | ? | ✅/❌ |
+| HTML cache no-cache | ✅ | ? | ✅/❌ |
+| LazyImage component created | ✅ | ? | ✅/❌ |
+| Product cards use LazyImage | ✅ | ? | ✅/❌ |
+| Hero images priority=true | ✅ | ? | ✅/❌ |
+| All non-home pages lazy loaded | ✅ | ? | ✅/❌ |
+| PageLoadingSpinner created | ✅ | ? | ✅/❌ |
+| Font preconnect added | ✅ | ? | ✅/❌ |
+| font-display swap | ✅ | ? | ✅/❌ |
+| QueryClient staleTime 5min | ✅ | ? | ✅/❌ |
+| refetchOnWindowFocus false | ✅ | ? | ✅/❌ |
+| API cache headers on GET routes | ✅ | ? | ✅/❌ |
+| ETag enabled | ✅ | ? | ✅/❌ |
+| Web Vitals tracking added | ✅ | ? | ✅/❌ |
+| Resource hints in index.html | ✅ | ? | ✅/❌ |
+| /api/products cold < 200ms | ✅ | ? | ✅/❌ |
+| /api/categories cold < 200ms | ✅ | ? | ✅/❌ |
+| API Server TypeScript | 0 errors | ? | ✅/❌ |
+| Marketplace TypeScript | 0 errors | ? | ✅/❌ |
+| API Server health | 200 OK | ? | ✅/❌ |
+| Marketplace health | 200 OK | ? | ✅/❌ |
+| Embedding Service health | 200 OK | ? | ✅/❌ |
+| CURRENT_STATE.md updated | ✅ | ? | ✅/❌ |
+| PROJECT_STATUS.md updated | ✅ | ? | ✅/❌ |
+| RECOVERY_GUIDE.md verified | ✅ | ? | ✅/❌ |
+| replit.md updated | ✅ | ? | ✅/❌ |
+
+If any row shows ❌ → fix it immediately. Do not finish until every row is ✅.

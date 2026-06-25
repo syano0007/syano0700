@@ -1,0 +1,92 @@
+Important clarification before continuing the Email & Phone Verification implementation.
+
+Current situation:
+
+I do NOT currently have a production domain connected.
+
+I previously had a domain but it is not available right now and I will reconnect or purchase the final domain later.
+
+Because of this:
+
+DO NOT block implementation waiting for Resend setup.
+
+DO NOT require a verified production domain right now.
+
+DO NOT stop the project because email delivery cannot be completed yet.
+
+Instead:
+
+Implement the entire verification architecture now in a production-ready way, but use development mode for email delivery until the final domain is available.
+
+Requirements:
+
+1. Build the complete Email Verification system:
+
+   * verification tokens
+   * verification database tables
+   * email verification flow
+   * resend integration layer
+   * password reset flow
+   * resend service abstraction
+
+2. Since no production domain currently exists:
+
+   * run email verification in DEV/LOG MODE
+   * print verification links and verification codes to server logs
+   * provide a visible admin/developer way to inspect generated verification codes during testing
+   * make switching to real Resend delivery later require only:
+
+     * adding RESEND_API_KEY
+     * setting FROM_EMAIL
+     * no code rewrites
+
+3. Build the complete Phone Verification architecture as well:
+
+   * OTP generation
+   * OTP validation
+   * rate limiting
+   * expiration handling
+   * verification status tracking
+
+4. If Twilio is not configured yet:
+
+   * run SMS in DEV/LOG MODE too
+   * print OTP codes to logs
+   * keep the implementation production-ready for future Twilio activation
+
+5. Security requirements:
+
+   * rate limit verification requests
+   * rate limit OTP attempts
+   * secure token storage
+   * expiration handling
+   * prevent brute force attempts
+   * prevent account enumeration
+
+6. Mobile-first:
+
+   * verification pages must work perfectly on mobile
+   * Arabic and English supported
+   * responsive layouts
+
+7. Future activation:
+   When I later provide:
+
+   * RESEND_API_KEY
+   * FROM_EMAIL
+   * TWILIO credentials
+
+   The system should immediately switch from DEV mode to REAL delivery mode without requiring architecture changes.
+
+Before implementation:
+Provide the planned architecture.
+
+After implementation:
+Provide:
+
+* database changes
+* routes added
+* security measures added
+* how to activate real Resend later
+* how to activate real Twilio later
+* complete testing report

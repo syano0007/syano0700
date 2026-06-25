@@ -1,0 +1,163 @@
+Perform a complete redesign and normalization of all product cards on the homepage for both Arabic and English languages.
+
+Current issues:
+
+* Product image is too small compared to text content.
+* Seller name and rating section become crowded, wrap incorrectly, or break layout.
+* Arabic and English versions render differently.
+* Card heights become inconsistent when product titles vary in length.
+* Typography hierarchy is weak and image does not receive enough visual priority.
+
+Requirements:
+
+1. PRODUCT IMAGE PRIORITY
+
+* Increase product image area significantly.
+* Image must occupy approximately 55-65% of card height.
+* Maintain consistent aspect ratio across all products.
+* Use object-fit properly to avoid distortion.
+* Image should be the visual focus of the card.
+
+2. FIXED CARD STRUCTURE
+   Every product card must use identical internal sections:
+
+Section A:
+Product image
+
+Section B:
+Category label
+
+Section C:
+Product title
+
+Section D:
+Seller information
+
+Section E:
+Rating information
+
+Section F:
+Price area
+
+Section G:
+Action buttons
+
+Each section must have a fixed height so cards remain perfectly aligned regardless of language or content length.
+
+3. PRODUCT TITLE
+
+* Maximum 2 lines.
+* Use line-clamp.
+* If text exceeds limit, show ellipsis.
+* Arabic and English must occupy identical visual space.
+* Never allow title to push other sections downward.
+
+4. SELLER INFORMATION
+   Current seller section is visually broken.
+
+Requirements:
+
+* Seller name must always remain on one line.
+* Use truncation with ellipsis if needed.
+* Seller text must never wrap.
+* Align consistently in both RTL and LTR modes.
+* Seller section must have fixed height.
+
+5. RATING SECTION
+   Current rating text becomes crowded and inconsistent.
+
+Requirements:
+
+* Create dedicated fixed-height rating area.
+* Stars and rating text must align properly.
+* Text must not wrap.
+* If no reviews exist, show a short compact message.
+* Arabic and English versions must occupy equal space.
+
+6. TYPOGRAPHY SYSTEM
+   Create a strict typography scale:
+
+Category:
+smallest text
+
+Seller:
+small text
+
+Rating:
+small text
+
+Product title:
+medium weight
+
+Price:
+largest text
+
+Discount:
+second largest text
+
+All cards must use the same typography scale.
+
+7. ARABIC-LANGUAGE OPTIMIZATION
+   Specifically audit Arabic rendering.
+
+Fix:
+
+* clipping
+* text overlap
+* broken line wrapping
+* inconsistent spacing
+* font-size inflation
+
+Arabic must look as polished as English.
+
+8. ENGLISH-LANGUAGE OPTIMIZATION
+   Fix:
+
+* long titles
+* long seller names
+* rating overflow
+* spacing inconsistencies
+
+9. RESPONSIVE MOBILE DESIGN
+   Audit all common widths:
+
+320px
+360px
+375px
+390px
+412px
+430px
+
+Cards must remain visually identical across all breakpoints.
+
+10. VISUAL CONSISTENCY
+    After implementation:
+
+* Every product card must have identical height.
+* Every image must align horizontally.
+* Every title must start at the same vertical position.
+* Every seller section must align.
+* Every rating section must align.
+* Every price section must align.
+* No card should appear taller or shorter than another.
+
+11. FINAL VALIDATION
+    Do not stop after coding.
+
+Run a complete visual audit on:
+
+* Homepage Arabic
+* Homepage English
+* Desktop
+* Tablet
+* Mobile
+
+Find and fix every remaining inconsistency until product cards look production-ready and equivalent to major marketplaces such as Amazon, Noon, Trendyol, and Etsy.
+
+Return a detailed report listing:
+
+* Files modified.
+* Components modified.
+* CSS classes changed.
+* Before/after improvements.
+* Remaining issues if any.

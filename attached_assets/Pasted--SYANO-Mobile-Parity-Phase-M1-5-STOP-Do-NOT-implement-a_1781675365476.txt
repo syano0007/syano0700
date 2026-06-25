@@ -1,0 +1,607 @@
+# SYANO Mobile Parity Phase M1.5
+
+## STOP
+
+Do NOT implement any new features.
+
+Do NOT implement language switchers.
+
+Do NOT implement currency switchers.
+
+Do NOT implement rewards.
+
+Do NOT implement wallets.
+
+Do NOT implement seller expansion.
+
+Do NOT implement courier expansion.
+
+Do NOT implement Phase M2.
+
+Do NOT implement anything new.
+
+Your ONLY mission is Mobile ↔ Web Parity Verification & Correction.
+
+---
+
+# CRITICAL GOAL
+
+The SYANO mobile application must become a true mobile version of the existing web marketplace.
+
+The objective is:
+
+A user should not be able to say:
+
+"This feature exists on web but not mobile."
+
+or
+
+"This screen looks different from web."
+
+or
+
+"This workflow behaves differently."
+
+Mobile must mirror web behavior, structure, visual hierarchy, business logic, translations, permissions, and data flow.
+
+---
+
+# IMPORTANT
+
+Previous audits are NOT trusted.
+
+Do not assume previous parity reports are correct.
+
+Do not assume M0, M0.5, M1 reports are complete.
+
+Do not trust documentation.
+
+Trust only actual code.
+
+Audit again from source code.
+
+---
+
+# REQUIRED AUDIT
+
+Perform a FULL comparison between:
+
+WEB
+
+and
+
+MOBILE
+
+for every route, screen, component, workflow and role.
+
+---
+
+# STEP 1
+
+Generate a fresh parity inventory.
+
+Audit:
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+Guest
+
+Support
+
+Search
+
+Notifications
+
+Messaging
+
+Reviews
+
+Wishlist
+
+Orders
+
+Product pages
+
+Store pages
+
+Auth
+
+Checkout
+
+Profile
+
+Settings
+
+Delivery
+
+Trust system
+
+AI support
+
+Everything.
+
+---
+
+# STEP 2
+
+For EVERY web route:
+
+Verify:
+
+Exists on mobile?
+
+Partially exists?
+
+Missing?
+
+Broken?
+
+Outdated?
+
+Visually different?
+
+Logic different?
+
+API different?
+
+Permission different?
+
+Translation different?
+
+State management different?
+
+---
+
+# STEP 3
+
+Detect old mobile screens.
+
+Some mobile screens were created months ago and no longer match web.
+
+Find them.
+
+Replace them.
+
+Do not preserve old UI.
+
+Current web is source of truth.
+
+---
+
+# STEP 4
+
+Auth Parity Validation
+
+Re-audit:
+
+Login
+
+Register
+
+Forgot Password
+
+Reset Password
+
+Account State Handling
+
+Rate Limiting
+
+Error Messages
+
+Suspended Accounts
+
+Phone/Email Login
+
+Everything.
+
+Verify mobile matches web exactly.
+
+---
+
+# STEP 5
+
+Homepage Parity Validation
+
+Compare:
+
+Hero
+
+Categories
+
+Featured Products
+
+Latest Products
+
+Recommendations
+
+Search Entry
+
+Store Discovery
+
+Layout
+
+Spacing
+
+Cards
+
+Badges
+
+Actions
+
+Everything.
+
+---
+
+# STEP 6
+
+Product Detail Parity Validation
+
+Compare:
+
+Gallery
+
+Images
+
+Variants
+
+Reviews
+
+Ratings
+
+Related Products
+
+Wishlist
+
+Seller Card
+
+Store Link
+
+Stock
+
+Prices
+
+Discounts
+
+Actions
+
+Everything.
+
+---
+
+# STEP 7
+
+Store Page Parity Validation
+
+Compare:
+
+Store Header
+
+Store Stats
+
+Follow Button
+
+Products
+
+Reviews
+
+Badges
+
+Store Information
+
+Everything.
+
+---
+
+# STEP 8
+
+Wishlist Validation
+
+Verify:
+
+Guest Wishlist
+
+Logged-In Wishlist
+
+Sync
+
+Persistence
+
+Counts
+
+Badges
+
+Removal
+
+Add To Cart
+
+Everything.
+
+---
+
+# STEP 9
+
+Messaging Validation
+
+Messaging V2 already exists.
+
+Verify:
+
+Conversation List
+
+Unread Counts
+
+Read Receipts
+
+Typing Indicators
+
+Attachments
+
+Mute
+
+Archive
+
+Notifications
+
+Everything.
+
+---
+
+# STEP 10
+
+Seller Validation
+
+Compare web seller experience against mobile.
+
+Audit:
+
+Dashboard
+
+Orders
+
+Products
+
+Analytics
+
+Store
+
+Reviews
+
+Everything.
+
+List every missing screen.
+
+List every incomplete screen.
+
+---
+
+# STEP 11
+
+Courier Validation
+
+Compare web courier experience against mobile.
+
+Audit:
+
+Dashboard
+
+Availability
+
+Mission Offers
+
+Assigned Missions
+
+Mission History
+
+Profile
+
+Everything.
+
+List every missing screen.
+
+---
+
+# STEP 12
+
+Admin Validation
+
+Compare web admin system against mobile.
+
+If admin is intentionally unsupported on mobile:
+
+Document it.
+
+If partial admin exists:
+
+Audit it.
+
+---
+
+# STEP 13
+
+Design Validation
+
+Verify:
+
+Colors
+
+Typography
+
+Spacing
+
+Radius
+
+Borders
+
+Cards
+
+Buttons
+
+Shadows
+
+Animations
+
+Loading States
+
+Empty States
+
+Error States
+
+Dark Theme
+
+Everything.
+
+Mobile must use current SYANO design system.
+
+No legacy styling allowed.
+
+---
+
+# STEP 14
+
+API Validation
+
+Compare all API usage.
+
+Find:
+
+Missing API calls
+
+Wrong endpoints
+
+Old endpoints
+
+Missing fields
+
+Missing mutations
+
+Missing caching
+
+Everything.
+
+---
+
+# STEP 15
+
+Build Fixes
+
+After audit:
+
+Fix ALL parity issues discovered.
+
+Do not stop after first batch.
+
+Continue until parity is maximized.
+
+---
+
+# REQUIRED OUTPUT
+
+Before coding:
+
+Create:
+
+MOBILE_PARITY_REAUDIT.md
+
+Include:
+
+Complete findings
+
+Missing screens
+
+Outdated screens
+
+Broken logic
+
+Parity percentage
+
+Role-by-role breakdown
+
+Priority order
+
+---
+
+# AFTER FIXES
+
+Create:
+
+MOBILE_PARITY_FINAL_REPORT.md
+
+Include:
+
+Before %
+
+After %
+
+Fixed screens
+
+Remaining gaps
+
+Known limitations
+
+Next recommended phase
+
+---
+
+# DOCUMENTATION UPDATE
+
+After ALL work finishes:
+
+Update ALL recovery files.
+
+Required:
+
+replit.md
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+RECOVERY_GUIDE.md
+
+MOBILE_PARITY_STATUS.md
+
+ROUTE_PARITY_REPORT.md
+
+Any other recovery/state files.
+
+Do not leave documentation outdated.
+
+---
+
+# VALIDATION
+
+Before declaring completion verify:
+
+✅ Mobile builds
+
+✅ No TypeScript errors
+
+✅ No broken imports
+
+✅ No missing translations
+
+✅ No outdated auth screens
+
+✅ Homepage matches web
+
+✅ Product page matches web
+
+✅ Store page matches web
+
+✅ Wishlist matches web
+
+✅ Messaging matches web
+
+✅ Seller parity audited
+
+✅ Courier parity audited
+
+✅ Documentation updated
+
+Only then mark phase complete.

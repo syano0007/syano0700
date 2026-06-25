@@ -1,0 +1,163 @@
+CRITICAL MOBILE HEADER RESTRUCTURE
+
+The issue is still NOT fully solved.
+
+Previous fixes moved some elements, but the mobile header layout remains structurally incorrect.
+
+Current problems:
+
+* The logo appears behind or too close to the front camera / punch-hole area.
+* Header elements are still competing for the center space.
+* The search button should be moved to the right-side action area.
+* The layout must be rebuilt properly instead of applying additional CSS patches.
+
+══════════════════════════════════════
+REQUIRED MOBILE HEADER STRUCTURE
+══════════════════════════════════════
+
+LEFT SECTION
+
+* Syano logo
+* Syano text
+
+CENTER SECTION
+
+* Flexible spacing area
+* Properly responsive
+* Must not force elements underneath camera areas
+
+RIGHT SECTION
+
+* Search button
+* Notification icon
+* Cart icon
+* User menu
+
+All action buttons must be grouped together on the right side.
+
+══════════════════════════════════════
+IMPORTANT
+══════════════════════════════════════
+
+DO NOT:
+
+* Add random margins
+* Add random padding
+* Use translateX hacks
+* Use device-specific hacks
+* Apply temporary CSS fixes
+
+Instead:
+
+Audit the actual header structure and rebuild it correctly.
+
+══════════════════════════════════════
+LOGO REQUIREMENTS
+══════════════════════════════════════
+
+The logo must:
+
+* Be fully visible
+* Never appear behind the camera area
+* Never overlap a notch
+* Never overlap Dynamic Island
+* Remain aligned inside the left section
+
+══════════════════════════════════════
+SEARCH BUTTON
+══════════════════════════════════════
+
+Move the search button into the right-side actions area.
+
+Group together:
+
+* Search
+* Notifications
+* Cart
+* User actions
+
+The header should feel balanced and professional.
+
+══════════════════════════════════════
+ROOT CAUSE ANALYSIS
+══════════════════════════════════════
+
+Before making changes:
+
+Audit:
+
+* Navbar component
+* Mobile Navbar
+* Mobile Header
+* Responsive breakpoints
+* Flex/Grid layout
+* Safe-area handling
+* Logo container
+* Action buttons container
+
+Identify the actual root cause.
+
+Do not guess.
+
+══════════════════════════════════════
+VALIDATION
+══════════════════════════════════════
+
+Test on:
+
+* iPhone notch devices
+* iPhone Dynamic Island devices
+* Samsung punch-hole devices
+* Xiaomi punch-hole devices
+* Pixel devices
+
+Test widths:
+
+* 320px
+* 360px
+* 375px
+* 390px
+* 414px
+* 430px
+
+Verify:
+
+* Logo fully visible
+* Search button on the right
+* Notifications visible
+* Cart visible
+* No overlap with camera area
+* No clipping
+* No horizontal scrolling
+
+══════════════════════════════════════
+MANDATORY VISUAL PROOF
+══════════════════════════════════════
+
+After implementation:
+
+Provide screenshots from the mobile preview/emulator showing:
+
+1. Mobile header before the fix.
+2. Mobile header after the fix.
+3. At least one screenshot at 375px width.
+4. At least one screenshot at 390px width.
+5. At least one screenshot showing the logo.
+6. At least one screenshot showing the right-side action buttons.
+
+Do NOT mark the task complete until screenshots are provided and visually confirm the fix.
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Root cause found.
+2. Files modified.
+3. Components modified.
+4. Previous layout structure.
+5. New layout structure.
+6. Devices tested.
+7. Screenshots.
+8. Confirmation that the logo, search, notifications, and cart are no longer affected by camera/punch-hole areas.

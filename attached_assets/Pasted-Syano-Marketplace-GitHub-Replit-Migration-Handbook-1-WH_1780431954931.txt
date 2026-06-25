@@ -1,0 +1,255 @@
+Syano Marketplace — GitHub → Replit Migration Handbook
+1. WHAT WILL TRANSFER AUTOMATICALLY
+Everything in the Git repository transfers intact when you import to a new Replit account from GitHub.
+
+Asset	Transfers	Notes
+All source code (artifacts/, lib/, scripts/)	✅	Complete
+pnpm-workspace.yaml + all package.json files	✅	Exact versions locked in pnpm-lock.yaml
+pnpm-lock.yaml	✅	Ensures reproducible installs
+TypeScript configs (tsconfig.json files)	✅	All project references
+Vite configs (vite.config.ts)	✅	
+Drizzle config (lib/db/drizzle.config.ts)	✅	Points to DATABASE_URL
+Database schema code (lib/db/src/schema/)	✅	Schema is code, not data
+OpenAPI spec (lib/api-spec/src/)	✅	
+Generated API client (lib/api-client-react/)	✅	Already committed
+i18n translation files (artifacts/marketplace/src/i18n/{en,ar}.json)	✅	
+Public assets (artifacts/marketplace/public/)	✅	Logo, favicon, OG image, SW, manifest, sitemap
+.replit config file	✅	Includes port mappings, NixOS channel, deployment settings, and VAPID keys in [userenv.shared]
+scripts/post-merge.sh	✅	Runs pnpm install + pnpm --filter db push after merges
+.gitignore	✅	
+replit.nix / Nix channel config	✅	NixOS stable-25_05
+What the .replit file already carries: The [userenv.shared] block in .replit contains VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, and VAPID_EMAIL. If .replit is committed to GitHub, these three variables transfer automatically.
+
+2. WHAT WILL NOT TRANSFER
+These must be manually recreated in the new Replit account.
+
+Item	Why It Doesn't Transfer	Action Required
+Replit Secrets (DATABASE_URL, SESSION_SECRET, etc.)	Stored in Replit's encrypted secret store, never in git	Re-enter all secrets manually (see Section 3)
+PostgreSQL database	Replit provisions a separate DB per account	Provision new DB or migrate data (see Section 4)
+All user data, orders, products, etc.	Lives in the database instance	Export → import (see Section 4)
+Node.js runtime	Installed by Nix on first run	Auto-installs from stable-25_05 channel on first boot
+node_modules	Gitignored	pnpm install --frozen-lockfile on first run
+artifacts/api-server/dist/	Gitignored build output	Rebuilt by pnpm --filter @workspace/api-server run dev
+Deployment settings	Tied to the original Replit deployment	Re-configure Autoscale deployment in new account
+Custom domain	DNS record points to original Replit URL	Update DNS to new .replit.app domain after re-deploying
+Replit-managed integrations	OAuth connections, connectors tied to current account	Re-authorize any integrations in the new account
+3. REQUIRED REPLIT SECRETS
+Set these in Secrets (Tools → Secrets) in the new Replit, before starting any workflow.
+
+Critical — App will crash without these
+Secret Name	Purpose	Required	Used In
+DATABASE_URL	PostgreSQL connection string	REQUIRED — fatal	lib/db/src/index.ts, lib/db/drizzle.config.ts — the entire API server crashes on startup without this
+SESSION_SECRET	JWT signing key for all auth tokens	REQUIRED — auth broken	artifacts/api-server/src/middlewares/auth.ts, src/routes/notifications.ts — falls back to "dev-secret-change-in-prod" in development only; must be set in production
+Optional — Graceful degradation if missing
+Secret Name	Purpose	Required	Behavior When Missing	Used In
+RESEND_API_KEY	Transactional email (OTP verification codes)	Optional	OTP printed to server console logs (dev mode)	artifacts/api-server/src/services/verification.ts
+FROM_EMAIL	Sender address for verification emails	Optional	Defaults to fallback	artifacts/api-server/src/services/verification.ts
+TWILIO_ACCOUNT_SID	SMS OTP via Twilio	Optional	SMS silently skipped	artifacts/api-server/src/services/verification.ts
+TWILIO_AUTH_TOKEN	Twilio authentication	Optional	SMS silently skipped	artifacts/api-server/src/services/verification.ts
+TWILIO_FROM_PHONE	Twilio sender number	Optional	SMS silently skipped	artifacts/api-server/src/services/verification.ts
+TWILIO_VERIFY_SERVICE_SID	Twilio Verify service ID	Optional	SMS silently skipped	artifacts/api-server/src/services/verification.ts
+VAPID_PUBLIC_KEY	Web push notification encryption	Optional (may transfer via .replit)	Push notifications disabled	artifacts/api-server/src/lib/notif.ts, src/routes/push-subscriptions.ts
+VAPID_PRIVATE_KEY	Web push signing	Optional (may transfer via .replit)	Push notifications disabled	artifacts/api-server/src/lib/notif.ts
+VAPID_EMAIL	VAPID contact for push providers	Optional (may transfer via .replit)	Push notifications disabled	artifacts/api-server/src/lib/notif.ts
+Auto-injected by Replit — do NOT set manually
+Variable	Source
+PORT	Replit assigns per-artifact; server reads this to bind
+REPL_ID	Injected by Replit
+REPLIT_DEV_DOMAIN	Injected by Replit — used by Expo mobile dev server
+REPLIT_INTERNAL_APP_DOMAIN	Injected by Replit
+NODE_ENV	Set by workflow scripts (export NODE_ENV=development)
+CORS_ORIGIN	Set by the routing layer
+BASE_PATH / BASE_URL	Injected by Vite plugin
+EXPO_PUBLIC_DOMAIN	Set inline in the mobile dev script from $REPLIT_DEV_DOMAIN
+EXPO_PUBLIC_REPL_ID	Set inline in the mobile dev script from $REPL_ID
+4. DATABASE MIGRATION
+Provider: Replit's built-in PostgreSQL 16 (provisioned per-account)
+Connection: Standard pg connection pool via DATABASE_URL env var
+ORM: Drizzle ORM (drizzle-orm/node-postgres)
+Schema location: lib/db/src/schema/ (TypeScript source)
+Migrations: No SQL migration files — Drizzle uses push (schema-diff and apply directly)
+Schema applied: Automatically on every deployment via scripts/post-merge.sh → pnpm --filter db push
+
+Can the existing database be reused?
+A) Reuse existing database — YES, if you have the connection string.
+The database is not stored in the GitHub repo, but its connection string is in the Replit secret DATABASE_URL. If you have that connection string, paste it as a secret in the new account and all existing data (users, products, orders) is immediately available.
+
+B) New database (fresh start):
+
+In the new Replit account, open Tools → Database
+Click Create Database — Replit provisions PostgreSQL 16 and auto-populates DATABASE_URL as a secret
+Start the API server workflow — runMigrations() in artifacts/api-server/src/index.ts applies the schema automatically on first boot
+Verify in the Replit Database panel that tables were created
+C) Full data migration (existing data → new database):
+
+# On source machine with old DATABASE_URL:
+pg_dump "$OLD_DATABASE_URL" --no-owner --no-acl -F c -f syano_backup.dump
+# On new machine with new DATABASE_URL:
+pg_restore "$NEW_DATABASE_URL" --no-owner --no-acl -d syano_backup.dump
+
+Then set DATABASE_URL to the new connection string in Replit Secrets.
+
+5. POST-IMPORT CHECKLIST
+Perform these steps in order after importing from GitHub:
+
+Setup Steps
+□ 1. Import repo from GitHub into new Replit account
+□ 2. Replit installs Nix packages (Node 24, Python 3.11, PostgreSQL 16) — wait for completion
+□ 3. Add DATABASE_URL secret (provision new DB or paste existing connection string)
+□ 4. Add SESSION_SECRET secret (generate: openssl rand -hex 32)
+□ 5. Add optional secrets (RESEND, TWILIO, VAPID) if needed
+□ 6. Run workflow: "artifacts/api-server: API Server" — watch logs for "Server listening"
+□ 7. Run workflow: "artifacts/marketplace: web" — wait for Vite ready message
+□ 8. Run workflow: "artifacts/mobile: expo" — optional, for mobile testing
+
+Functional Verification
+□ Registration — create a new account, verify OTP email/console log
+□ Login — authenticate, confirm JWT token issued
+□ Admin panel — /admin — confirm dashboard KPIs load
+□ Seller dashboard — apply as seller, approve in admin, access /seller/dashboard
+□ Product browsing — /products — confirm products grid loads
+□ Search — type in search bar, confirm pg_trgm suggestions appear
+□ Cart — add item, verify cart count badge
+□ Checkout — complete a test order
+□ Orders — /orders — confirm order history
+□ Messaging — seller ↔ customer conversation
+□ Notifications — confirm push permission prompt appears
+□ Store pages — /store/[slug] — confirm seller store page loads
+□ Reviews — submit a product review
+□ Admin analytics — /admin/analytics — confirm charts render
+□ Mobile layout — open in 375px viewport, test RTL/LTR toggle
+□ Arabic mode — switch language, confirm right-to-left layout
+
+6. GENERATED FILES
+These files are generated from source and must be regenerated if the API spec changes.
+
+File / Directory	Generator	Command
+lib/api-client-react/src/	Orval — generates React Query hooks from OpenAPI spec	pnpm --filter @workspace/api-spec run codegen
+artifacts/marketplace/public/sitemap.xml	Custom sitemap script	pnpm --filter @workspace/scripts run sitemap:generate (auto-runs as prebuild)
+artifacts/api-server/dist/	esbuild (via build.mjs)	pnpm --filter @workspace/api-server run build
+lib/db/dist/	tsc	Built as part of pnpm run typecheck:libs
+Note: The generated API client (lib/api-client-react/) is committed to the repository, so it does not need to be regenerated on import unless the OpenAPI spec has changed. Re-run codegen only after modifying lib/api-spec/src/.
+
+7. DEPENDENCIES
+Item	Version / Details
+Node.js	v24.13.0 (NixOS nodejs-24)
+pnpm	v10.26.1
+Python	3.11 (NixOS, used by some native build tools)
+PostgreSQL	16 (NixOS, server-side)
+NixOS channel	stable-25_05
+TypeScript	~5.9.3
+Package Manager
+# IMPORTANT: Only pnpm is supported. npm and yarn are blocked by preinstall hook.
+pnpm install --frozen-lockfile    # Install all workspace packages
+
+Build Commands
+# Full typecheck
+pnpm run typecheck
+# API server (build + start in dev mode)
+pnpm --filter @workspace/api-server run dev
+# Marketplace (Vite dev server)
+pnpm --filter @workspace/marketplace run dev
+# Mobile (Expo dev server)
+pnpm --filter @workspace/mobile run dev
+# Regenerate API client after spec change
+pnpm --filter @workspace/api-spec run codegen
+# Apply DB schema changes
+pnpm --filter db push
+# Production build
+pnpm run build
+
+Workspace Structure
+/
+├── artifacts/
+│   ├── api-server/       # Express 5 API — port from $PORT
+│   ├── marketplace/      # React 19 + Vite 7 web app
+│   ├── mobile/           # Expo React Native app
+│   └── mockup-sandbox/   # Design component preview server
+├── lib/
+│   ├── db/               # Drizzle ORM schema + DB connection
+│   ├── api-spec/         # OpenAPI spec + Orval codegen config
+│   ├── api-client-react/ # Generated React Query hooks (from api-spec)
+│   └── api-zod/          # Zod validation schemas
+└── scripts/              # Sitemap generator, post-merge.sh
+
+8. CURRENT PROJECT STATUS
+Completed Systems ✅
+Authentication — JWT, registration, login, OTP verification (email + SMS), session management
+Product catalog — Full Amazon/Shopify-grade variant system (size, color, material, etc.), inventory per-variant, images
+Search — pg_trgm fuzzy search, Arabic↔English multilingual bridging, recent searches
+Shopping cart — Persistent, variant-aware, real-time count badge
+Checkout — Multi-step, address, order creation
+Order management — Full status timeline, customer + seller + admin views
+Seller ecosystem — Store pages, seller applications, follow system, seller-to-customer messaging, analytics dashboard, inventory management
+Admin panel — Users, sellers, products, orders, analytics, logs, settings, health score KPI
+Reviews & ratings — Per-product, per-seller, aggregate scores
+Push notifications — Web Push (VAPID), service worker, permission prompt
+i18n — Arabic (RTL) and English (LTR), full translation coverage
+Mobile app — Expo React Native, skeleton screens, IntersectionObserver prefetch
+SEO — Sitemap, robots.txt, OpenGraph image, canonical URLs
+Performance — Code splitting, image optimization, TanStack Query caching, N+1 fixes
+Security — Helmet, CORS, rate limiting, supply-chain minimumReleaseAge defense, bcrypt passwords
+Typography — 7 semantic CSS fluid utility classes (clamp-based, RTL-aware)
+Mobile sidebar layout — Grid-based preference rows (no truncation, no clipping at any width)
+Known Issues / Recent Fixes
+Mobile preference row clipping — FIXED (CSS grid auto 1fr auto layout in Navbar + AdminLayout)
+Arabic label truncation in drawers — FIXED (removed truncate/min-w-0 from preference labels)
+Typography inconsistency — FIXED (semantic utility classes applied across all KPI/price/score elements)
+9. DEVELOPMENT CONTINUATION GUIDE
+For the next developer picking this up:
+
+Architecture to Know First
+API contract: All routes defined in lib/api-spec/src/ as OpenAPI. Any new endpoint requires updating the spec, then running codegen. Do not write fetch calls directly — use the generated hooks from lib/api-client-react/.
+DB changes: Never use drizzle-kit push with a TTY prompt interactively. Use executeSql (the code_execution sandbox) for additive changes (ADD COLUMN IF NOT EXISTS). Schema lives in lib/db/src/schema/.
+i18n: Translation keys live in artifacts/marketplace/src/i18n/{en,ar}.json. Never hardcode display strings. Never do lang === "ar" ? "Arabic text" : "English text" inline.
+Styling: Tailwind v4. Design tokens in artifacts/marketplace/src/index.css. No tailwind.config.js. Responsive tokens use clamp() CSS custom properties.
+Priority Areas for Continued Work
+Mobile (medium priority)
+
+Expo mobile app (artifacts/mobile/) has feature parity gaps vs the web app — messaging, reviews, and seller store pages are not yet in the mobile app
+Mobile RTL layout needs continued validation on physical devices
+Image picker for product photos in mobile seller tools not yet implemented
+Currency / Payments (high priority)
+
+SYP ↔ USD conversion uses a static rate — needs a live FX API integration
+Payment gateway not integrated — checkout creates orders but does not process payment
+Push Notifications (low priority)
+
+Web push works; mobile push (Expo expo-notifications) is not yet wired up
+Notification preferences (per-user opt-in/opt-out per category) are UI-only, not persisted
+SEO (low priority)
+
+Sitemap is statically generated at build time — should be server-rendered or incrementally updated as products are added
+No structured data (JSON-LD) on product pages yet
+Security (ongoing)
+
+File uploads (product images) validate type client-side only — server-side MIME validation should be added
+Rate limiting on auth endpoints (/api/auth/login, /api/auth/register) exists but thresholds may need tuning for production traffic
+Performance (low priority)
+
+Admin analytics page loads all data on mount — could benefit from date-range pagination
+seller/messages page does polling — could be upgraded to WebSocket or SSE
+10. FINAL MIGRATION RISK REPORT
+Risk	Probability	Impact	Fix
+DATABASE_URL secret not set	High	Fatal — API crashes on boot	Always the first secret to add; Replit Database panel auto-sets it
+SESSION_SECRET not set	High	All users get "dev-secret-change-in-prod" as signing key — insecure, tokens cross-compatible	Add a strong random value: openssl rand -hex 32
+Empty database — no schema tables	High if new DB	All API calls 500 with "relation does not exist"	Start API server once — runMigrations() applies schema automatically on boot
+VAPID keys change	Medium	All existing push subscriptions invalid, users stop receiving notifications	Re-subscribe all users (they'll be prompted on next visit); or port original VAPID keys from .replit
+node_modules cache mismatch	Low	Native binaries compiled for wrong platform	pnpm install --frozen-lockfile (Nix ensures linux-x64 target is consistent)
+.replit port mappings	Low	Preview pane shows wrong artifact	Replit re-discovers ports; artifact artifact.toml files define preview paths
+Orval-generated client out of sync	Low	TypeScript errors if spec was hand-edited without regenerating	Run pnpm --filter @workspace/api-spec run codegen once after import
+Email/SMS OTP not configured	Medium	Registration OTP only appears in server logs (dev fallback)	Add RESEND_API_KEY and Twilio secrets; or accept console-log OTP for dev
+Custom domain DNS	Low	Old domain still resolves to old Replit account	Update DNS A/CNAME to new .replit.app deployment URL
+Expo mobile packager domain	Medium	Mobile app can't connect to API in new repl	EXPO_PUBLIC_DOMAIN and REPLIT_DEV_DOMAIN are auto-injected — no action needed
+pnpm-lock.yaml frozen mismatch	Very Low	Install fails if lock file doesn't match manifest	pnpm install (without --frozen-lockfile) to regenerate, then commit
+Supply-chain minimumReleaseAge	Very Low	New packages blocked for 24h after publish	Use minimumReleaseAgeExclude in pnpm-workspace.yaml for trusted packages only
+Summary: Minimum steps for a working import
+
+1. Import from GitHub
+2. Add DATABASE_URL secret   ← provision new DB or paste existing
+3. Add SESSION_SECRET secret  ← openssl rand -hex 32
+4. Start "API Server" workflow
+5. Start "marketplace: web" workflow
+6. Open preview — app is live
+
+Everything else (VAPID, Twilio, Resend) is optional and degrades gracefully. The app is fully functional for browsing, auth, cart, checkout, and orders with only those two secrets set.

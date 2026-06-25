@@ -1,0 +1,178 @@
+Project: SYANO Marketplace
+
+Current State
+
+HomeHeroV2 is now live.
+
+The structure is correct.
+
+The next goal is to transform the hero composition so it visually matches the provided premium marketplace reference.
+
+Do NOT connect to product API.
+
+Do NOT fetch marketplace products.
+
+Do NOT use database content.
+
+This is marketing hero artwork, not product listings.
+
+OBJECTIVE
+
+Build the complete visual composition architecture.
+
+LAYOUT CORRECTIONS
+
+1. For RTL layouts:
+
+Featured card MUST appear on the LEFT side visually.
+
+The two smaller category cards MUST appear on the RIGHT side visually.
+
+Verify RTL rendering carefully.
+
+MAIN HERO CARD
+
+Inside the featured card create 4 layers:
+
+Layer 1:
+Hero Image Layer
+
+Layer 2:
+Dark Overlay Layer
+
+Layer 3:
+Decorative Effects
+
+Layer 4:
+Content Layer
+
+IMAGE REQUIREMENTS
+
+Use a temporary high-quality luxury kitchen image.
+
+Requirements:
+
+* cover entire card
+* object-fit: cover
+* subtle zoom feeling
+* premium modern kitchen
+* dark green tones preferred
+
+OVERLAY
+
+Add:
+
+linear-gradient(
+rgba(0,0,0,.15),
+rgba(0,0,0,.45)
+)
+
+CONTENT POSITIONING
+
+Move content to the upper-right area of the hero card.
+
+Spacing:
+
+Top: ~60px
+Right: ~60px
+
+Reference behavior:
+
+Title near top-right.
+Not bottom aligned.
+
+FLOATING BADGE
+
+Add a floating glass badge.
+
+Position:
+
+Upper-left area inside hero.
+
+Style:
+
+* glassmorphism
+* rounded pill
+* backdrop blur
+* premium appearance
+
+CTA BUTTON
+
+Move CTA below content.
+
+Premium pill style.
+
+RIGHT CARDS
+
+Card A:
+
+Premium electronics lifestyle image.
+
+Card B:
+
+Premium fashion lifestyle image.
+
+Requirements:
+
+* full image coverage
+* dark overlay
+* readable typography
+
+TYPOGRAPHY
+
+Featured title:
+
+Large
+Luxury
+Bold
+
+Subtitle:
+
+Smaller
+Refined
+
+DEPTH
+
+Must feel layered:
+
+Image
+↓
+Overlay
+↓
+Decorative effects
+↓
+Glass elements
+↓
+Text
+
+QUALITY
+
+No placeholders visible.
+
+No lorem ipsum.
+
+No broken image links.
+
+No API integration.
+
+No database dependency.
+
+Deliverables
+
+1. Updated HomeHeroV2
+2. Image layer system
+3. Overlay system
+4. Floating badge
+5. Correct RTL visual composition
+
+Acceptance Criteria
+
+✓ Immediately resembles the reference hero
+
+✓ Featured card dominates visual attention
+
+✓ Category cards feel secondary
+
+✓ Luxury marketplace aesthetic
+
+✓ Production-ready visual quality

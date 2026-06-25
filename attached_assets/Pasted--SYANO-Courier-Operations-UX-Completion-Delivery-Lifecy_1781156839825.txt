@@ -1,0 +1,416 @@
+# SYANO — Courier Operations UX Completion & Delivery Lifecycle Audit
+
+## Context
+
+The courier workflow has already been implemented and is partially working.
+
+Current order lifecycle:
+
+Pending
+→ Confirmed
+→ Preparing
+→ ReadyForPickup
+→ CourierAssigned
+→ PickedUp
+→ OutForDelivery
+→ Delivered
+
+Additional statuses may already exist:
+
+* DeliveryFailed
+* Returned
+* Cancelled
+* Refunded
+
+Before making changes, perform a complete audit of:
+
+* Admin courier assignment flow
+* Courier dashboard
+* Courier assignments pages
+* Courier wallet system
+* Courier statistics system
+* Order status transitions
+* Delivery completion workflow
+* Notifications
+* Mobile compatibility
+
+Do not assume anything works.
+
+Verify actual behavior first.
+
+---
+
+# ISSUE 1 — Admin Courier Assignment Page Is Too Basic
+
+Current page is not sufficient for operational use.
+
+Redesign the courier assignment experience.
+
+For each order, display:
+
+## Order Information
+
+* Order ID
+* Order date
+* Order status
+
+## Customer Information
+
+* Customer name
+* Customer phone
+* Delivery zone
+* Full delivery address
+
+## Seller Information
+
+* Seller name
+* Store name
+* Seller phone (if available)
+
+## Order Summary
+
+* Product count
+* Product thumbnails
+* Product names
+* Total order value
+* Delivery fee
+
+## Courier Information
+
+When selecting a courier display:
+
+* Courier name
+* Active assignments count
+* Completed deliveries count
+* Current status
+* Capacity indicator
+
+Example:
+
+Ahmed
+
+4 Active Deliveries
+
+127 Completed
+
+Available
+
+Avoid assigning overloaded couriers.
+
+Use modern cards.
+
+No admin-looking tables.
+
+Must match current SYANO design language.
+
+---
+
+# ISSUE 2 — Courier Dashboard Missing Critical Information
+
+Current courier view only shows destination information.
+
+This is insufficient.
+
+For every assigned order display:
+
+## Pickup Information
+
+* Store name
+* Seller name
+* Seller phone
+* Pickup address
+
+## Customer Information
+
+* Customer name
+* Customer phone
+* Delivery zone
+* Full delivery address
+
+## Order Information
+
+* Order ID
+* Order date
+* Products
+* Quantities
+* Total order value
+* Delivery fee
+* Payment method
+
+## Status Information
+
+Current order status
+
+## Actions
+
+Depending on stage:
+
+* Pick Up Order
+* Start Delivery
+* Mark Delivered
+* Report Delivery Failure
+
+The courier should have everything needed without opening additional pages.
+
+---
+
+# ISSUE 3 — Delivery Lifecycle Is Incomplete
+
+Audit the entire workflow.
+
+Verify the following transitions actually work:
+
+ReadyForPickup
+→ CourierAssigned
+
+CourierAssigned
+→ PickedUp
+
+PickedUp
+→ OutForDelivery
+
+OutForDelivery
+→ Delivered
+
+OutForDelivery
+→ DeliveryFailed
+
+Currently there appears to be no completion stage after "Start Delivery".
+
+Implement:
+
+## Delivered
+
+Button:
+
+Mark Delivered
+
+Transition:
+
+OutForDelivery
+→ Delivered
+
+Required effects:
+
+* Order status updated
+* Customer notified
+* Seller notified
+* Admin notified
+* Courier earnings recorded
+* Courier statistics updated
+
+## Delivery Failed
+
+Button:
+
+Report Delivery Failure
+
+Transition:
+
+OutForDelivery
+→ DeliveryFailed
+
+Allow failure reason selection:
+
+* Customer unavailable
+* Wrong address
+* Customer rejected order
+* Unable to reach customer
+* Other
+
+Store reason in database.
+
+Notify seller and admin.
+
+---
+
+# ISSUE 4 — Courier Earnings & Statistics
+
+Audit why courier statistics are not updating.
+
+Verify:
+
+* completed deliveries
+* earnings
+* wallet transactions
+* delivery counters
+
+Most likely they depend on:
+
+status = Delivered
+
+Confirm this assumption.
+
+When order becomes Delivered:
+
+Create courier wallet transaction.
+
+Update:
+
+* completed deliveries count
+* total earnings
+* dashboard metrics
+* analytics
+
+Verify persistence in database.
+
+Verify dashboard reflects new values immediately.
+
+No page refresh dependency.
+
+---
+
+# NOTIFICATIONS
+
+Verify notifications exist for:
+
+Courier Assigned
+
+Picked Up
+
+Out For Delivery
+
+Delivered
+
+Delivery Failed
+
+Customer
+Seller
+Courier
+Admin
+
+should all receive appropriate notifications.
+
+---
+
+# MOBILE
+
+Verify all courier pages work correctly on mobile.
+
+No overflow.
+
+No broken cards.
+
+No hidden actions.
+
+Touch-friendly buttons.
+
+---
+
+# RECOVERY FILES (MANDATORY)
+
+After implementation is complete, update ALL project recovery documentation so any future agent can restore the project to this exact state without losing context.
+
+Update:
+
+* .local/RECOVERY.md
+* .agents/memory/MEMORY.md
+* Any courier-related memory files
+* Any delivery workflow memory files
+* Any restoration documentation used during project recovery
+
+Document:
+
+## What Was Built
+
+* Admin courier assignment redesign
+* Courier dashboard redesign
+* Delivered workflow
+* DeliveryFailed workflow
+* Courier earnings synchronization
+* Courier statistics synchronization
+* Notification coverage
+* Mobile compatibility updates
+
+## Database Changes
+
+List every:
+
+* table change
+* migration
+* new column
+* enum update
+* relation update
+
+## API Changes
+
+List every:
+
+* endpoint modified
+* endpoint added
+* response shape changed
+
+## Frontend Changes
+
+List every:
+
+* page modified
+* component modified
+* dashboard modified
+
+## Recovery Instructions
+
+Provide exact restoration sequence:
+
+1. pnpm install
+2. schema restore
+3. migrations
+4. lib build
+5. workflow startup
+6. verification steps
+
+Include:
+
+* required workflows
+* required commands
+* expected results
+
+## Verification Results
+
+Document:
+
+✅ what was verified
+
+✅ what was tested
+
+✅ known limitations
+
+---
+
+# FINAL VALIDATION
+
+Provide evidence for each item:
+
+✅ Admin assignment improved
+
+✅ Courier dashboard improved
+
+✅ Pickup information visible
+
+✅ Customer information visible
+
+✅ Delivered transition works
+
+✅ DeliveryFailed transition works
+
+✅ Earnings recorded
+
+✅ Statistics updated
+
+✅ Wallet updated
+
+✅ Notifications sent
+
+✅ Mobile verified
+
+✅ Recovery files updated
+
+✅ New environment restoration documented
+
+✅ TypeScript 0 errors
+
+Do not claim completion without verifying actual behavior.
+
+Audit first, then implement only verified improvements.
+
+A future agent must be able to clone/import the project into a completely new environment, read the recovery files only, and restore the project exactly to the state reached at the end of this task.

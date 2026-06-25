@@ -1,0 +1,323 @@
+# SYANO — COMPLETE PROJECT RECOVERY & MIGRATION EXECUTION
+
+You are acting as a Principal Full-Stack Engineer, DevOps Engineer, Replit Infrastructure Engineer, Database Engineer, and Production Release Manager.
+
+This is NOT a code review.
+
+This is NOT a feature implementation task.
+
+Your sole objective is to make this migrated project behave EXACTLY like it did on the previous Replit account.
+
+Assume the previous environment was fully functional and production-ready.
+
+Your mission is to restore that state automatically.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRIMARY GOAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The project must:
+
+* Build successfully.
+* Typecheck with zero errors.
+* Start all required workflows.
+* Connect to the database.
+* Load all pages.
+* Preserve all existing data.
+* Preserve all authentication.
+* Preserve all translations.
+* Preserve all notifications.
+* Preserve all seller/admin functionality.
+* Behave identically to the original deployment.
+
+Do not stop after fixing one issue.
+
+Fix.
+Restart.
+Retest.
+Repeat.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 1 — REPOSITORY VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verify:
+
+* pnpm-workspace.yaml
+* package.json files
+* lockfile integrity
+* workspace package names
+* tsconfig references
+* generated packages
+* OpenAPI generated files
+* api-client-react
+* api-zod
+* db package
+
+Repair any broken references.
+
+Regenerate generated artifacts if necessary.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 2 — ENVIRONMENT VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Inspect the entire codebase and build a list of every environment variable actually used.
+
+Compare that list against the current Replit Secrets.
+
+Detect:
+
+* missing variables
+* renamed variables
+* obsolete variables
+* empty values
+* invalid values
+
+For every missing variable:
+
+* determine whether it is mandatory
+* explain its purpose
+* identify the safest fallback if one exists
+
+Never silently ignore missing secrets.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 3 — DATABASE RECOVERY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Connect to the configured PostgreSQL database.
+
+Verify:
+
+* all tables exist
+* all columns exist
+* all indexes exist
+* all foreign keys exist
+* all startup migrations execute correctly
+
+Compare runtime expectations against the actual schema.
+
+Automatically apply additive migrations when safe.
+
+Detect missing backup fields.
+
+Ensure old production data remains compatible.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 4 — AUTHENTICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Test:
+
+* register
+* login
+* logout
+* admin login
+* seller login
+* customer login
+* JWT creation
+* JWT verification
+* session persistence
+* suspended accounts
+* role protection
+
+Ensure existing accounts continue working.
+
+No existing user should lose access because of migration.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 5 — API VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Test every API group.
+
+Health.
+Auth.
+Products.
+Cart.
+Orders.
+Search.
+Seller.
+Admin.
+Dashboard.
+Notifications.
+Conversations.
+Push subscriptions.
+
+Detect:
+
+* 404
+* 500
+* validation failures
+* serialization issues
+* schema mismatches
+
+Fix automatically.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 6 — FRONTEND VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Launch the Marketplace.
+
+Verify:
+
+* homepage
+* product pages
+* seller pages
+* cart
+* checkout
+* notifications
+* dashboards
+* admin
+* search
+* category pages
+
+Check:
+
+* RTL
+* English
+* Arabic
+* responsive layouts
+* lazy loading
+* route loading
+* Google Translate compatibility
+
+Fix any rendering issue discovered.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 7 — MOBILE VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Launch the mobile app.
+
+Verify:
+
+* API connectivity
+* authentication
+* translations
+* navigation
+* product loading
+* profile
+* orders
+
+Repair broken API endpoints or environment configuration.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 8 — REPLIT INFRASTRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verify:
+
+* workflows
+* PORT injection
+* BASE_PATH
+* REPLIT_DEV_DOMAIN
+* REPLIT_EXPO_DEV_DOMAIN
+* REPL_ID
+
+Ensure every workflow starts successfully.
+
+Ignore development-only mockup services if they are not required for production.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 9 — PRODUCTION PARITY TEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Simulate a real user.
+
+Visitor:
+
+* browse
+* search
+
+Customer:
+
+* register
+* login
+* add to cart
+* create order
+
+Seller:
+
+* login
+* create product
+* edit variants
+* receive notification
+
+Admin:
+
+* login
+* manage products
+* manage users
+* manage seller applications
+
+Verify that behavior matches the original deployment.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 10 — SELF HEALING LOOP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After every repair:
+
+* rebuild
+* rerun typecheck
+* restart services
+* retest runtime behavior
+
+If new issues appear:
+
+fix them automatically.
+
+Continue until:
+
+* zero TypeScript errors
+* zero runtime errors
+* zero startup errors
+* zero migration failures
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Produce a detailed report containing:
+
+## Repository Status
+
+## Environment Variables Found
+
+* Existing
+* Missing
+* Optional
+
+## Database Status
+
+* Tables
+* Columns
+* Migrations applied
+
+## Authentication Status
+
+## API Status
+
+## Marketplace Status
+
+## Mobile Status
+
+## Replit Workflow Status
+
+## Fixes Applied
+
+(list every automatic repair)
+
+## Remaining Manual Tasks
+
+Only include things impossible to automate, such as:
+
+* external API keys
+* domain ownership
+* DNS configuration
+* third-party accounts
+
+The task is complete ONLY when the migrated project behaves the same as the original Replit deployment and is fully operational without hidden migration issues.

@@ -1,0 +1,610 @@
+SYANO (سوق سوريا)
+
+RESPONSIVE FOUNDATION PROGRAM V1
+
+CRITICAL PROJECT-WIDE TASK
+
+This is a production marketplace.
+
+This is NOT a prototype.
+
+This is NOT a visual redesign.
+
+This is NOT a page-specific fix.
+
+The current issue is architectural:
+
+The UI looks correct on large desktop screens but does not scale proportionally as viewport size decreases.
+
+Elements remain visually oversized and lose balance across screen sizes.
+
+This must be solved systematically across the entire platform.
+
+---
+
+PRIMARY OBJECTIVE
+
+Build a true responsive design foundation for SYANO.
+
+The marketplace should maintain the same visual identity, hierarchy, proportions, and premium appearance across all screen sizes.
+
+The goal is NOT merely responsive layouts.
+
+The goal is RESPONSIVE VISUAL SCALING.
+
+Users should feel that the design was intentionally crafted for every viewport.
+
+---
+
+PROJECT CONTEXT
+
+Brand:
+
+SYANO
+سوق سوريا
+
+Preserve:
+
+* Homepage V7
+* HeroV4
+* RTL Support
+* Dark Theme
+* Light Theme
+* Language System
+* Currency System
+* API Compatibility
+* Database Compatibility
+
+Do NOT redesign approved UI.
+
+---
+
+PHASE 1
+
+FULL RESPONSIVE AUDIT
+
+Audit every page and component.
+
+Required:
+
+Homepage
+
+Products Page
+
+Product Details
+
+Navigation
+
+Footer
+
+Categories
+
+Trending Products
+
+New Arrivals
+
+Store Cards
+
+Store Pages
+
+Seller Components
+
+Authentication
+
+Settings
+
+Filters
+
+Forms
+
+Buttons
+
+Modals
+
+Drawers
+
+Dropdowns
+
+Tables
+
+Mobile Navigation
+
+---
+
+PHASE 2
+
+IDENTIFY ALL RESPONSIVENESS VIOLATIONS
+
+Find every instance of:
+
+Fixed Widths
+
+Fixed Heights
+
+Static Font Sizes
+
+Static Margins
+
+Static Padding
+
+Static Gaps
+
+Hardcoded Pixel Layouts
+
+Overflow Risks
+
+Text Wrapping Issues
+
+Broken Grids
+
+Misaligned Cards
+
+Viewport-dependent Visual Imbalance
+
+---
+
+PHASE 3
+
+TYPOGRAPHY SYSTEM REBUILD
+
+Create a scalable typography system.
+
+Replace rigid typography where appropriate.
+
+Audit:
+
+Hero Titles
+
+Section Titles
+
+Card Titles
+
+Body Text
+
+Navigation Labels
+
+Buttons
+
+Inputs
+
+Dropdowns
+
+Filters
+
+Pricing
+
+Ratings
+
+Metadata
+
+Use fluid typography.
+
+Prefer:
+
+clamp()
+
+for all major text scales.
+
+Goal:
+
+Typography should scale smoothly from:
+
+1920px
+
+1600px
+
+1440px
+
+1280px
+
+1024px
+
+768px
+
+640px
+
+480px
+
+360px
+
+without sudden jumps.
+
+---
+
+PHASE 4
+
+RESPONSIVE SPACING SYSTEM
+
+Create a fluid spacing system.
+
+Audit:
+
+Padding
+
+Margins
+
+Gaps
+
+Section Spacing
+
+Container Spacing
+
+Card Spacing
+
+Internal Component Spacing
+
+Replace rigid spacing with proportional scaling.
+
+Spacing should gradually reduce as viewport shrinks.
+
+Maintain visual rhythm.
+
+Maintain premium appearance.
+
+---
+
+PHASE 5
+
+PRODUCT CARD SYSTEM
+
+This is critical.
+
+Product cards must scale proportionally.
+
+Audit:
+
+Image Area
+
+Badges
+
+Titles
+
+Ratings
+
+Prices
+
+CTA Buttons
+
+Spacing
+
+Hover Effects
+
+Cards should preserve visual hierarchy at all breakpoints.
+
+The card should feel identical across screen sizes.
+
+Not compressed.
+
+Not crowded.
+
+Not oversized.
+
+---
+
+PHASE 6
+
+GRID SYSTEM REBUILD
+
+Audit all grids.
+
+Desktop XL:
+4–6 columns
+
+Desktop:
+4 columns
+
+Laptop:
+3 columns
+
+Tablet:
+2 columns
+
+Mobile:
+1–2 columns
+
+Use:
+
+auto-fit
+
+auto-fill
+
+minmax()
+
+responsive grid patterns
+
+Avoid rigid column systems.
+
+Transitions must feel smooth.
+
+---
+
+PHASE 7
+
+NAVBAR RESPONSIVENESS
+
+Audit:
+
+Logo
+
+Search
+
+Navigation Links
+
+Language Switcher
+
+Currency Switcher
+
+Theme Switcher
+
+Settings Menu
+
+Action Buttons
+
+Prevent crowding.
+
+Prevent overflow.
+
+Maintain usability from desktop to mobile.
+
+---
+
+PHASE 8
+
+IMAGE RESPONSIVENESS
+
+All images must:
+
+Preserve aspect ratio
+
+Avoid stretching
+
+Avoid layout shifts
+
+Avoid inconsistent heights
+
+Scale naturally across viewports
+
+---
+
+PHASE 9
+
+BUTTON SYSTEM
+
+Audit all buttons.
+
+Buttons must:
+
+Scale proportionally
+
+Maintain tap targets
+
+Reduce visual weight on smaller screens
+
+Remain visually balanced
+
+---
+
+PHASE 10
+
+SECTION SCALING
+
+Audit:
+
+Hero
+
+Categories
+
+Featured Deals
+
+Trusted Stores
+
+Trending Products
+
+New Arrivals
+
+Seller CTA
+
+Courier CTA
+
+Footer
+
+All sections should maintain proportional spacing and hierarchy.
+
+---
+
+PHASE 11
+
+RTL VALIDATION
+
+Verify responsiveness under:
+
+Arabic
+
+RTL
+
+English
+
+LTR
+
+Ensure no layout breaks.
+
+Ensure no alignment regressions.
+
+---
+
+PHASE 12
+
+LANGUAGE STRESS TEST
+
+Test:
+
+Arabic long strings
+
+English long strings
+
+Mixed content
+
+Prevent:
+
+Overflow
+
+Wrapping issues
+
+Broken layouts
+
+---
+
+PHASE 13
+
+CURRENCY STRESS TEST
+
+Verify:
+
+USD
+
+SYP
+
+Large prices
+
+Small prices
+
+Discounted prices
+
+Ensure pricing never breaks card layouts.
+
+---
+
+PHASE 14
+
+BREAKPOINT VALIDATION
+
+Manually validate:
+
+2560px
+
+1920px
+
+1600px
+
+1440px
+
+1366px
+
+1280px
+
+1024px
+
+900px
+
+768px
+
+640px
+
+480px
+
+390px
+
+360px
+
+320px
+
+Every viewport should feel intentionally designed.
+
+---
+
+PHASE 15
+
+PERFORMANCE REVIEW
+
+Avoid:
+
+Duplicated CSS
+
+Duplicated Components
+
+Unnecessary Media Queries
+
+Unmaintainable Responsive Hacks
+
+Prefer:
+
+Reusable responsive utilities
+
+Design tokens
+
+Fluid scaling systems
+
+---
+
+DELIVERABLES
+
+Create:
+
+RESPONSIVE_AUDIT.md
+
+Include:
+
+1. Components audited
+2. Issues found
+3. Fixes applied
+4. Breakpoints validated
+5. Remaining risks
+6. Recommendations
+
+---
+
+STRICT RULES
+
+Do NOT redesign.
+
+Do NOT replace approved UI.
+
+Do NOT remove features.
+
+Do NOT alter branding.
+
+Do NOT break APIs.
+
+Do NOT break database compatibility.
+
+Do NOT break translations.
+
+Do NOT break currency switching.
+
+---
+
+SUCCESS CRITERIA
+
+✓ Same premium appearance on all screen sizes
+
+✓ Typography scales fluidly
+
+✓ Spacing scales fluidly
+
+✓ Product cards remain balanced
+
+✓ Grids remain balanced
+
+✓ No oversized elements
+
+✓ No crowded elements
+
+✓ No horizontal scrolling
+
+✓ No overflow issues
+
+✓ RTL remains intact
+
+✓ Language system remains intact
+
+✓ Currency system remains intact
+
+✓ Shopify-quality responsiveness
+
+✓ Apple-quality scaling
+
+✓ Production-ready responsive foundation
+
+FINAL GOAL
+
+Transform SYANO from a desktop-first responsive implementation into a fully fluid, production-grade marketplace whose visual proportions, hierarchy, spacing, typography, and component behavior remain consistent and premium across every viewport size and device category.

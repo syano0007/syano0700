@@ -1,0 +1,178 @@
+CRITICAL BUG FIX — STORES DIRECTORY PAGE BROKEN
+
+Current issue:
+
+The Stores page is completely broken.
+
+Route:
+
+/sellers/directory
+
+returns:
+
+404 — الصفحة غير موجودة
+
+This is a critical marketplace feature because customers must be able to browse stores.
+
+IMPORTANT:
+
+Do NOT create a fake page.
+Do NOT create placeholder data.
+Do NOT hardcode store cards.
+Do NOT hide the error.
+
+I want a full root-cause investigation and repair.
+
+========================================
+PHASE 1 — ROUTING AUDIT
+========================================
+
+Inspect:
+
+- App.tsx
+- router configuration
+- route definitions
+- lazy loaded routes
+- pages directory
+
+Verify:
+
+- Which route should handle stores browsing?
+- /sellers/directory
+- /stores
+- /stores/directory
+- any redirect logic
+
+Find why the route resolves to 404.
+
+========================================
+PHASE 2 — PAGE EXISTENCE AUDIT
+========================================
+
+Search entire project for:
+
+StoreDirectory
+StoresDirectory
+SellerDirectory
+StoreListing
+StoresPage
+SellerStoresPage
+
+Determine:
+
+- Does the page still exist?
+- Was it renamed?
+- Was it moved?
+- Was the import broken?
+- Was the route removed accidentally?
+
+========================================
+PHASE 3 — API AUDIT
+========================================
+
+Verify seller/store endpoints:
+
+GET /api/sellers
+GET /api/stores
+GET /api/sellers/store/:slug
+
+Identify which endpoint should power the stores page.
+
+Verify endpoint responses using real runtime data.
+
+Database currently contains:
+
+- 5 approved sellers
+- 5 stores
+
+The page must use real database data.
+
+========================================
+PHASE 4 — REPAIR
+========================================
+
+Restore a working Stores Directory page.
+
+Requirements:
+
+- Real stores from database
+- Store cards
+- Store logo/avatar
+- Store name
+- Verification badge
+- Store rating if available
+- Products count
+- Followers count if available
+- Search stores
+- RTL support
+- Dark mode
+- Light mode
+
+Must preserve:
+
+- Theme system
+- Language system
+- Currency system
+- Existing API compatibility
+
+========================================
+PHASE 5 — LINK VALIDATION
+========================================
+
+Verify all navigation links pointing to stores:
+
+Navbar
+Homepage CTAs
+Hero buttons
+Footer links
+Store links inside products
+
+Every store-related link must resolve correctly.
+
+No broken routes allowed.
+
+========================================
+PHASE 6 — FULL ROUTE SCAN
+========================================
+
+Scan entire marketplace for broken routes.
+
+Automatically test:
+
+- Homepage
+- Products
+- Product details
+- Stores
+- Deals
+- Cart
+- Wishlist
+- Login
+- Register
+- Seller dashboard
+- Courier dashboard
+- Admin dashboard
+
+Report:
+
+- All 404 routes
+- All broken imports
+- All route mismatches
+- All navigation errors
+
+Fix everything discovered during the audit.
+
+Do not stop after fixing Stores.
+
+========================================
+FINAL REPORT
+========================================
+
+Provide:
+
+1. Root cause of the Stores page failure
+2. Files modified
+3. Routes repaired
+4. Additional broken routes discovered
+5. Additional bugs fixed
+6. Final route validation results
+7. Confirmation that all major marketplace pages load successfully without 404 errors

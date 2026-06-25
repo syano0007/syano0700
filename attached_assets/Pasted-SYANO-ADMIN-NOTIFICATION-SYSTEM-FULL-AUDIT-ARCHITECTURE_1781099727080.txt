@@ -1,0 +1,270 @@
+SYANO — ADMIN NOTIFICATION SYSTEM
+FULL AUDIT + ARCHITECTURE EXPANSION + SPA NAVIGATION FIX
+
+CRITICAL PROJECT CONTEXT
+
+SYANO is a production-scale multi-vendor marketplace.
+
+The system already contains a notifications table.
+
+Do NOT assume the notification architecture.
+Do NOT create a new notification system unless absolutely necessary.
+Do NOT duplicate notification logic.
+Do NOT rewrite admin dashboard architecture.
+Do NOT rewrite routing architecture.
+Do NOT introduce regressions.
+
+Preserve:
+
+* Existing notification infrastructure
+* Existing database schema whenever possible
+* Existing admin dashboard
+* Existing React Router architecture
+* Existing TanStack Query architecture
+* Existing mobile compatibility
+* Existing web compatibility
+* Existing TypeScript zero-error state
+
+==================================================
+PROBLEM A
+ADMIN NOTIFICATIONS ARE TOO LIMITED
+===================================
+
+Current observed behavior:
+
+Admin dashboard notifications appear to only show seller applications awaiting review.
+
+Example:
+
+"طلبات بائعين بانتظار المراجعة"
+
+This is not sufficient for marketplace administration.
+
+The admin should have visibility into major platform activity.
+
+==================================================
+PROBLEM B
+NOTIFICATION NAVIGATION CAUSES FULL APP RELOAD
+==============================================
+
+Current behavior:
+
+When clicking:
+
+"عرض"
+
+inside an admin notification,
+
+the application appears to restart and reload before opening the destination page.
+
+This creates a poor user experience.
+
+Expected behavior:
+
+Instant SPA navigation.
+
+No application restart.
+No full page reload.
+No browser refresh.
+
+==================================================
+MANDATORY INVESTIGATION PHASE
+=============================
+
+Before writing any code:
+
+1. Read recovery documentation.
+2. Read memory/project documentation.
+3. Inspect the existing notification architecture.
+4. Inspect notification database schema.
+5. Inspect notification creation flows.
+6. Inspect admin notification widget.
+7. Inspect notification click handlers.
+8. Inspect React Router navigation.
+9. Inspect TanStack Query usage.
+10. Inspect cache invalidation logic.
+
+Trace the complete lifecycle:
+
+EVENT
+↓
+Notification Creation
+↓
+Database Storage
+↓
+Admin Retrieval
+↓
+Admin Display
+↓
+Notification Click
+↓
+Navigation
+↓
+Destination Page Data Loading
+
+Do not implement anything until this lifecycle is fully understood.
+
+==================================================
+ROOT CAUSE ANALYSIS
+===================
+
+Identify:
+
+1. Why only seller application notifications appear.
+2. Which marketplace events currently generate notifications.
+3. Which events do NOT generate notifications.
+4. Why notification navigation causes application reload.
+5. Whether:
+
+   * window.location
+   * location.assign
+   * location.href
+   * page refresh
+   * forced reload
+   * incorrect routing
+
+are being used.
+
+Identify the exact files responsible.
+
+==================================================
+REQUIRED NOTIFICATION COVERAGE
+==============================
+
+Investigate support for notifications related to:
+
+Seller Applications
+
+New Orders
+
+Order Status Changes
+
+Order Cancellations
+
+Refund Events
+
+New Seller Registrations
+
+New User Registrations
+
+Reported Products
+
+Reported Reviews
+
+Courier Requests
+
+Delivery Zone Management Events
+
+Critical System Events
+
+Any additional important marketplace events already supported by existing backend workflows.
+
+IMPORTANT:
+
+Reuse existing notification infrastructure wherever possible.
+
+Do not create parallel systems.
+
+==================================================
+IMPLEMENTATION REQUIREMENTS
+===========================
+
+After investigation:
+
+1. Expand admin notifications using existing architecture.
+2. Ensure all major marketplace events can generate admin notifications.
+3. Preserve backward compatibility.
+4. Avoid duplicate notifications.
+5. Avoid notification spam.
+6. Keep notification creation centralized and maintainable.
+
+==================================================
+SPA NAVIGATION REQUIREMENTS
+===========================
+
+Notification clicks must:
+
+* Use React Router navigation.
+* Avoid full page reloads.
+* Avoid application restarts.
+* Preserve SPA behavior.
+* Open destination instantly.
+
+==================================================
+DATA FRESHNESS REQUIREMENTS
+===========================
+
+After notification navigation:
+
+Destination pages must display current data immediately.
+
+Investigate:
+
+* query keys
+* stale cache
+* invalidateQueries
+* refetch behavior
+* route transitions
+
+Ensure manual browser refresh is never required.
+
+==================================================
+VALIDATION PHASE
+================
+
+Validate:
+
+Scenario 1:
+
+New seller application
+→ notification appears
+→ click notification
+→ instant navigation
+→ latest data visible
+
+Scenario 2:
+
+New order
+→ notification appears
+→ click notification
+→ instant navigation
+→ latest order data visible
+
+Scenario 3:
+
+Order status update
+→ notification appears
+→ click notification
+→ latest state visible
+
+Scenario 4:
+
+Multiple notifications
+→ no duplicates
+→ correct destinations
+→ correct data
+
+==================================================
+FINAL OUTPUT
+============
+
+Provide:
+
+1. Current notification architecture
+2. Files inspected
+3. Root causes discovered
+4. Events currently supported
+5. Events added
+6. Files changed
+7. Exact implementation summary
+8. Navigation fix explanation
+9. Cache/data refresh fix explanation
+10. Validation results
+11. Potential risks
+
+Do not guess.
+
+Audit first.
+Understand second.
+Implement third.
+Validate fourth.

@@ -1,0 +1,112 @@
+import React from 'react';
+
+const showcaseData = {
+  mainFeature: {
+    titleAr: "المطبخ العصري الفاخر",
+    titleEn: "The Modern Gourmet Kitchen",
+    image: "https://images.unsplash.com/photo-1556910103-1c02745a872e?q=80&w=1200&auto=format&fit=crop", 
+    hotspots: [
+      { text: "أدوات ذكية", top: "35%", right: "75%" },
+      { text: "تصميم عصري", top: "45%", right: "25%" }
+    ],
+    link: "/category/kitchen"
+  },
+  subFeatures: [
+    {
+      titleAr: "إلكترونيات دقيقة",
+      titleEn: "Precision Electronics",
+      category: "High-end audio & smart tech",
+      image: "https://images.unsplash.com/photo-1520560389389-983b6323bc06?q=80&w=600&auto=format&fit=crop",
+      link: "/category/electronics"
+    },
+    {
+      titleAr: "أزياء منتقاة",
+      titleEn: "Curated Style",
+      category: "Men's & Women's apparel",
+      image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600&auto=format&fit=crop",
+      link: "/category/fashion"
+    }
+  ]
+};
+
+export const HeroShowcase: React.FC = () => {
+  return (
+    // السر الأول: تدرج الخلفية من الأخضر الزيتي الغامق إلى الأبيض الفاتح النظيف
+    <section className="relative w-full bg-gradient-to-b from-[#253e2d] via-[#3d5a45] to-[#f4f7f5] py-12 px-4 md:px-8 lg:px-12 overflow-hidden min-h-[720px] flex items-center">
+      
+      {/* السر الثاني: خطوط انسيابية مضيئة ورفيعة */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+        <svg className="w-full h-full opacity-60" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-100,200 C300,100 500,400 1000,100 C1300,-50 1500,200 1600,150" stroke="#c2d6c6" strokeWidth="1" style={{filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.4))'}} fill="none" />
+          <path d="M-50,250 C350,150 550,450 1050,150 C1350,0 1550,250 1650,200" stroke="#ffffff" strokeWidth="0.5" fill="none" />
+          <path d="M0,300 C400,200 600,500 1100,200 C1400,50 1600,300 1700,250" stroke="#8da893" strokeWidth="0.8" fill="none" />
+        </svg>
+      </div>
+
+      {/* السر الثالث: أوراق شجر واقعية مدمجة بحواف الشاشة بدلاً من الأشكال الهندسية */}
+      <div className="absolute -top-10 -right-10 w-64 md:w-[400px] h-[400px] pointer-events-none opacity-40 z-10 mix-blend-multiply" 
+           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600100397608-f010f4198f86?q=80&w=600&auto=format&fit=crop')", backgroundSize: 'cover', maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)' }}></div>
+      <div className="absolute -bottom-10 -left-10 w-64 md:w-[400px] h-[400px] pointer-events-none opacity-30 z-10 mix-blend-multiply transform scale-x-[-1]" 
+           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600100397608-f010f4198f86?q=80&w=600&auto=format&fit=crop')", backgroundSize: 'cover', maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)' }}></div>
+
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 w-full relative z-20" dir="ltr">
+        
+        {/* الكرت الرئيسي الكبير (تصميم المطبخ المشرق) */}
+        <div className="w-full lg:w-2/3 relative overflow-hidden rounded-[2rem] h-[400px] md:h-[500px] lg:h-[580px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] group cursor-pointer border-2 border-white/20">
+          <img 
+            src={showcaseData.mainFeature.image} 
+            alt={showcaseData.mainFeature.titleEn}
+            className="absolute inset-0 object-cover w-full h-full transition-transform duration-[1500ms] group-hover:scale-105"
+          />
+          {/* ظلال خفيفة جداً من الأعلى فقط لضمان قراءة النص، بدون تسويد الصورة */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
+
+          {/* نصوص ممركزة في الأعلى مطابقة للذكاء الاصطناعي */}
+          <div className="absolute top-8 left-0 right-0 text-center z-20 flex flex-col gap-1 px-4">
+            <h2 className="text-lg md:text-xl font-bold text-white tracking-widest drop-shadow-md">
+              {showcaseData.mainFeature.titleAr}
+            </h2>
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white drop-shadow-md">
+              {showcaseData.mainFeature.titleEn}
+            </h3>
+          </div>
+
+          {/* الكبسولات العائمة بألوان راقية */}
+          {showcaseData.mainFeature.hotspots.map((spot, idx) => (
+            <div key={idx} style={{ top: spot.top, [window.innerWidth > 768 ? 'right' : 'left']: spot.right }} className="absolute z-20 hidden md:block" dir="rtl">
+              <span className="bg-[#2a4331]/80 backdrop-blur-md border border-white/30 text-white text-[12px] px-5 py-2.5 rounded-full shadow-lg">
+                • {spot.text}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* العمود الجانبي المكدس */}
+        <div className="w-full lg:w-1/3 flex flex-col gap-6 h-auto lg:h-[580px]">
+          {showcaseData.subFeatures.map((item, index) => (
+            <div key={index} className="flex-1 relative overflow-hidden rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.15)] group cursor-pointer border-2 border-white/20 bg-gray-100">
+              <img 
+                src={item.image} 
+                alt={item.titleEn}
+                className="absolute inset-0 object-cover w-full h-full transition-transform duration-[1500ms] group-hover:scale-105 opacity-90"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
+
+              {/* توزيع النصوص: عربي في الأعلى يمين، وإنجليزي أسفل يسار كالصورة تماماً */}
+              <div className="absolute inset-0 p-6 flex flex-col justify-between z-20">
+                <div className="text-right">
+                   <h3 className="text-lg md:text-xl font-bold text-white drop-shadow-md">{item.titleAr}</h3>
+                   <p className="text-[11px] text-gray-200 mt-1 drop-shadow-md uppercase tracking-wider">{item.category}</p>
+                </div>
+                <div className="text-left">
+                   <h4 className="text-xl md:text-2xl font-bold text-white drop-shadow-md">{item.titleEn}</h4>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+};

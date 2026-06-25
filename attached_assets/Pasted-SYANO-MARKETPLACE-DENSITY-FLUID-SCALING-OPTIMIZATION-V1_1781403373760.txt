@@ -1,0 +1,339 @@
+SYANO (سوق سوريا)
+
+MARKETPLACE DENSITY & FLUID SCALING OPTIMIZATION V1
+
+IMPORTANT
+
+The current responsive system still behaves too much like a traditional breakpoint-based layout.
+
+As viewport width decreases:
+
+The platform reduces column counts too early.
+
+This causes:
+
+* fewer visible products
+* excessive scrolling
+* wasted screen space
+* reduced catalog density
+
+The goal is NOT to force a fixed number of columns.
+
+The goal is to preserve marketplace density intelligently.
+
+================================================
+
+PRIMARY OBJECTIVE
+
+Prioritize:
+
+1. Content Scaling
+2. Density Preservation
+3. Efficient Space Usage
+4. Column Reduction Only When Necessary
+
+The system should attempt to keep more products visible before reducing grid columns.
+
+================================================
+
+DO NOT
+
+* redesign components
+* remove content
+* hide information
+* simplify product cards
+* remove ratings
+* remove pricing
+* remove buttons
+
+Everything must remain visible.
+
+================================================
+
+PRODUCT CARD PRIORITY
+
+Highest Priority.
+
+Audit every product card implementation.
+
+Products Page
+
+Trending Products
+
+Featured Products
+
+Store Products
+
+Search Results
+
+Wishlist
+
+Category Listings
+
+---
+
+REQUIREMENT
+
+As viewport width decreases:
+
+Product image scales
+
+Product title scales
+
+Rating scales
+
+Review count scales
+
+Current price scales
+
+Old price scales
+
+Badges scale
+
+Add button scales
+
+Spacing scales
+
+Internal layout scales
+
+Everything scales proportionally.
+
+---
+
+The card should remain visually identical.
+
+Only smaller.
+
+================================================
+
+GRID DENSITY STRATEGY
+
+Current behavior:
+
+Reduce columns too early.
+
+New behavior:
+
+Scale cards first.
+
+Reduce columns later.
+
+Preserve catalog density.
+
+Use available horizontal space more efficiently.
+
+================================================
+
+COLUMN PRESERVATION RULE
+
+Do not aggressively switch:
+
+4 → 3 → 2 → 1
+
+at large breakpoints.
+
+Maintain desktop density as long as usability remains acceptable.
+
+Column reduction should be a last resort.
+
+================================================
+
+PRODUCT PAGE TARGET
+
+The Products Page should display significantly more products within the same viewport.
+
+Users should see more products before scrolling.
+
+Avoid oversized cards.
+
+Avoid oversized spacing.
+
+Avoid oversized typography.
+
+================================================
+
+TYPOGRAPHY
+
+Implement fluid scaling.
+
+Audit:
+
+Titles
+
+Prices
+
+Ratings
+
+Buttons
+
+Badges
+
+Metadata
+
+Labels
+
+Navigation
+
+Typography should shrink gradually with viewport width.
+
+No abrupt jumps.
+
+================================================
+
+SPACING
+
+Audit:
+
+Margins
+
+Padding
+
+Gap
+
+Section spacing
+
+Container spacing
+
+Card spacing
+
+Reduce wasted space.
+
+Maintain premium appearance.
+
+================================================
+
+IMAGE SCALING
+
+Images must:
+
+Maintain aspect ratio
+
+Scale proportionally
+
+Avoid clipping
+
+Avoid distortion
+
+Avoid excessive empty space
+
+================================================
+
+NAVBAR
+
+Scale:
+
+Search
+
+Logo
+
+Buttons
+
+Settings
+
+Language Switcher
+
+Currency Switcher
+
+Theme Switcher
+
+Maintain functionality while reducing footprint.
+
+================================================
+
+VALIDATION
+
+Manually test:
+
+1920px
+
+1600px
+
+1440px
+
+1366px
+
+1280px
+
+1024px
+
+900px
+
+768px
+
+640px
+
+480px
+
+390px
+
+360px
+
+---
+
+For each viewport report:
+
+Column count
+
+Card width
+
+Card height
+
+Title size
+
+Price size
+
+Button size
+
+Density improvement
+
+================================================
+
+REPORTS
+
+Generate:
+
+DENSITY_AUDIT.md
+
+DENSITY_FIXES.md
+
+DENSITY_VALIDATION.md
+
+================================================
+
+SUCCESS CRITERIA
+
+✓ Product cards scale proportionally
+
+✓ Typography scales proportionally
+
+✓ Images scale proportionally
+
+✓ Buttons scale proportionally
+
+✓ More products visible
+
+✓ Less wasted space
+
+✓ Columns preserved longer
+
+✓ Column reduction delayed intelligently
+
+✓ No clipping
+
+✓ No overflow
+
+✓ No horizontal scrolling
+
+✓ No RTL regressions
+
+✓ No currency regressions
+
+✓ No language regressions
+
+✓ Premium marketplace appearance maintained
+
+================================================
+
+FINAL GOAL
+
+Transform SYANO into a high-density professional marketplace where product cards, typography, spacing, images, and controls scale fluidly and proportionally, allowing significantly more products to remain visible while preserving usability, readability, responsiveness, and premium marketplace quality.

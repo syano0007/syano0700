@@ -1,0 +1,385 @@
+You are performing a **Production Service Activation & Infrastructure Verification Pass** for the SYANO (سوق سوريا) project after it has been migrated to a new account/environment.
+
+## IMPORTANT
+
+DO NOT create demo data.
+
+DO NOT create fake orders.
+
+DO NOT create fake missions.
+
+DO NOT modify business logic.
+
+DO NOT run destructive operations.
+
+DO NOT rewrite features.
+
+DO NOT change marketplace behavior.
+
+The goal is ONLY:
+
+* verify
+* restore
+* reconnect
+* start
+* validate
+
+all infrastructure and runtime services.
+
+---
+
+# PHASE 1 — Environment Audit
+
+First create a report:
+
+Infrastructure Status Report
+
+Check:
+
+* API server
+* Marketplace web app
+* Mobile Expo app
+* Embedding service
+* Database connection
+* Storage system
+* OSRM routing access
+* Leaflet dependencies
+* pgvector
+* Queue systems
+* Background jobs
+* Scheduled jobs
+
+Identify:
+
+* missing environment variables
+* missing secrets
+* broken imports
+* missing packages
+* disconnected services
+
+Do not change anything yet.
+
+---
+
+# PHASE 2 — Dependency Verification
+
+Verify all required packages exist.
+
+Especially:
+
+Backend
+
+* drizzle
+* postgres
+* pg
+* pgvector
+* zod
+
+Marketplace
+
+* leaflet
+* react-leaflet
+* react-router
+* tanstack-query
+
+Mobile
+
+* expo
+* expo-router
+* expo-location
+* react-native-maps
+* react-native-webview
+
+Embedding Service
+
+* sentence-transformers
+* numpy
+* sklearn
+* fastapi
+* uvicorn
+
+Install only missing packages.
+
+Never downgrade versions.
+
+---
+
+# PHASE 3 — Database Verification
+
+Verify:
+
+* all migrations applied
+* all tables exist
+
+Especially:
+
+products
+
+orders
+
+delivery_missions
+
+courier_wallets
+
+courier_wallet_transactions
+
+courier_payout_requests
+
+courier_ratings
+
+tracking_events
+
+users
+
+stores
+
+categories
+
+Verify:
+
+* foreign keys
+* indexes
+* unique constraints
+
+Verify pgvector extension exists.
+
+Verify vector columns exist.
+
+Do not modify production data.
+
+---
+
+# PHASE 4 — Embedding System Activation
+
+This is critical.
+
+Verify:
+
+Embedding Service starts successfully.
+
+Verify:
+
+* product embeddings table
+* vector indexes
+* search endpoints
+* semantic search endpoints
+
+Verify:
+
+all products are indexed.
+
+If products are missing embeddings:
+
+rebuild embeddings safely.
+
+Use the strongest embedding model already configured by the project.
+
+Do NOT downgrade to weaker models.
+
+Do NOT replace architecture.
+
+Goal:
+
+100% embedding coverage.
+
+Provide:
+
+Products indexed:
+X / Y
+
+after completion.
+
+---
+
+# PHASE 5 — Routing System Activation
+
+Verify:
+
+OSRM connectivity.
+
+Verify:
+
+* route generation
+* ETA generation
+* geometry generation
+
+Verify:
+
+* customer tracking routes
+* courier workspace routes
+* admin routing diagnostics
+
+Fix only runtime issues.
+
+No feature changes.
+
+---
+
+# PHASE 6 — Map System Activation
+
+Verify:
+
+Leaflet loads correctly.
+
+Verify:
+
+TrackingMap.tsx
+
+Verify:
+
+* courier marker
+* pickup marker
+* customer marker
+* route polyline
+* auto fit bounds
+
+Verify:
+
+all map pages compile.
+
+Fix only missing dependencies/imports.
+
+---
+
+# PHASE 7 — API Verification
+
+Verify every major API group responds.
+
+Categories:
+
+* auth
+* products
+* orders
+* cart
+* wishlist
+* stores
+* seller
+* courier
+* admin
+* tracking
+* payouts
+* wallet
+* ratings
+* notifications
+* search
+
+Check only health/status.
+
+Do NOT generate fake records.
+
+---
+
+# PHASE 8 — Frontend Route Verification
+
+Verify all registered routes compile.
+
+Check:
+
+Public routes
+
+Customer routes
+
+Seller routes
+
+Courier routes
+
+Admin routes
+
+Report broken routes.
+
+Fix only compilation/runtime issues.
+
+---
+
+# PHASE 9 — Mobile Activation
+
+Verify Expo app boots.
+
+Verify:
+
+* navigation
+* workspace
+* wallet
+* tracking
+* profile
+
+Do not redesign mobile.
+
+Do not add features.
+
+Only ensure it runs.
+
+---
+
+# PHASE 10 — Runtime Verification
+
+Start all services.
+
+Ensure:
+
+API
+
+Marketplace
+
+Mobile
+
+Embedding Service
+
+are running simultaneously.
+
+Verify:
+
+* no crash loops
+* no startup failures
+* no missing imports
+* no fatal runtime exceptions
+
+---
+
+# FINAL REPORT
+
+Output:
+
+Infrastructure Activation Report
+
+Include:
+
+Environment:
+PASS / FAIL
+
+Database:
+PASS / FAIL
+
+Embeddings:
+PASS / FAIL
+
+Maps:
+PASS / FAIL
+
+Routing:
+PASS / FAIL
+
+API:
+PASS / FAIL
+
+Marketplace:
+PASS / FAIL
+
+Mobile:
+PASS / FAIL
+
+Services Running:
+PASS / FAIL
+
+Also include:
+
+* products indexed count
+* embedding model name
+* total tables detected
+* active services
+* unresolved issues (if any)
+
+Only perform safe activation and verification work.
+Do not generate test data.
+Do not modify business workflows.
+Do not change existing features.

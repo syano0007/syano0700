@@ -1,0 +1,227 @@
+SYANO — FINAL CONSISTENCY & UI STABILIZATION AUDIT
+
+Current implementation is NOT finished.
+
+Three critical issues remain.
+
+Do not build new features.
+
+Do not touch roadmap.
+
+Do not add functionality.
+
+Only fix the remaining inconsistencies.
+
+==================================================
+ISSUE 1 — BRAND COLOR CONSISTENCY
+=================================
+
+Perform a full audit of seller branding.
+
+Current problem:
+
+Store accent color is not applied consistently.
+
+Requirements:
+
+Single branding system.
+
+Single source of truth.
+
+Store accent color must automatically propagate to:
+
+* Store Header
+* Store Hero
+* Verified Badge
+* Trust Components
+* Progress Bars
+* Completion Banner
+* Store Health
+* Active Tabs
+* Active Navigation
+* Buttons
+* Links
+* Contact Tab
+* Policies Tab
+* Store Cards
+* Store Page
+* Product Cards owned by that store
+
+No hardcoded colors.
+
+No mixed branding.
+
+No fallback green unless no store color exists.
+
+==================================================
+ISSUE 2 — VERIFICATION STATUS CONSISTENCY
+=========================================
+
+Current problem:
+
+Different pages display different verification states.
+
+Examples:
+
+Verified
+
+Unverified
+
+Trusted
+
+Not Trusted
+
+Mismatch between pages.
+
+This is unacceptable.
+
+Requirements:
+
+Single Source Of Truth.
+
+Every page must use the same verification data source.
+
+Audit:
+
+Store Header
+
+Store Page
+
+Trust Page
+
+Store Settings
+
+Seller Dashboard
+
+Product Page
+
+Store Cards
+
+Recovery Check
+
+Admin Verification Views
+
+---
+
+Verification status must be identical everywhere.
+
+Same label.
+
+Same icon.
+
+Same badge.
+
+Same color.
+
+Same state.
+
+==================================================
+ISSUE 3 — ANALYTICS DATE DROPDOWN
+=================================
+
+Current fix is incomplete.
+
+The dropdown still:
+
+* overflows
+* clips
+* renders outside viewport
+* hides content
+
+Requirements:
+
+Fix permanently.
+
+Must work on:
+
+Desktop
+
+Tablet
+
+Mobile
+
+RTL
+
+Arabic
+
+English
+
+---
+
+Audit ALL:
+
+Dropdowns
+
+Selects
+
+Popovers
+
+Date Pickers
+
+Comboboxes
+
+Command Menus
+
+Across:
+
+Seller
+
+Admin
+
+Courier
+
+Store Settings
+
+Analytics
+
+==================================================
+VALIDATION
+==========
+
+After implementation:
+
+Verify:
+
+* accent color consistency
+* verification consistency
+* dropdown visibility
+* mobile
+* tablet
+* desktop
+* RTL
+* English
+
+==================================================
+RECOVERY CHECK
+==============
+
+Add all three validations to:
+
+GET /api/admin/recovery-check
+
+Recovery must fail if:
+
+* verification state mismatch exists
+* brand color inconsistency exists
+* dropdown overflow exists
+
+==================================================
+FINAL REPORT
+============
+
+Provide:
+
+1. Files changed
+2. Root causes found
+3. Root causes fixed
+4. Screenshots
+5. Recovery Check result
+6. TypeScript result
+
+Required:
+
+Recovery = 100/100
+
+TypeScript = 0 errors
+
+No regressions

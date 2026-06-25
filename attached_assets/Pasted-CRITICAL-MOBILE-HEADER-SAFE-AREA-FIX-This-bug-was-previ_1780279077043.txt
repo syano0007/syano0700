@@ -1,0 +1,142 @@
+CRITICAL MOBILE HEADER SAFE-AREA FIX
+
+This bug was previously fixed but has reappeared.
+
+The cart icon and notification icon are rendering inside the device camera/notch area on mobile devices.
+
+This is NOT acceptable.
+
+I do NOT want a temporary CSS adjustment.
+
+I want a permanent, production-grade solution.
+
+══════════════════════════════════════
+PROBLEM
+══════════════════════════════════════
+
+On mobile devices:
+
+* Cart icon overlaps camera area.
+* Notification icon overlaps camera area.
+* Header content enters the notch / safe-area region.
+* Layout becomes inconsistent across devices.
+
+The issue may affect:
+
+* iPhone notch devices
+* Dynamic Island devices
+* Android punch-hole cameras
+* Android notched devices
+
+══════════════════════════════════════
+ROOT CAUSE ANALYSIS
+══════════════════════════════════════
+
+Before changing anything:
+
+Audit:
+
+* Navbar component
+* Mobile header component
+* Top navigation layout
+* Flex containers
+* Safe-area handling
+* Positioning rules
+* Fixed headers
+* Sticky headers
+* Responsive breakpoints
+
+Identify exactly why the previous fix stopped working.
+
+Do not guess.
+
+══════════════════════════════════════
+REQUIRED SOLUTION
+══════════════════════════════════════
+
+Implement proper safe-area support.
+
+Use modern safe-area handling.
+
+The layout must respect:
+
+env(safe-area-inset-top)
+
+and any equivalent cross-browser solution.
+
+Do not rely on hardcoded pixel values.
+
+Do not rely on device-specific hacks.
+
+══════════════════════════════════════
+HEADER LAYOUT REQUIREMENTS
+══════════════════════════════════════
+
+On mobile:
+
+The entire header must stay below:
+
+* Camera cutout
+* Notch
+* Dynamic Island
+* Status bar
+
+Icons must never overlap these regions.
+
+══════════════════════════════════════
+RESPONSIVE VALIDATION
+══════════════════════════════════════
+
+Test:
+
+320px width
+
+360px width
+
+375px width
+
+390px width
+
+414px width
+
+430px width
+
+Tablet sizes
+
+Verify:
+
+* Cart icon visible
+* Notification icon visible
+* Logo visible
+* Search visible
+* No overlap
+* No clipping
+* No horizontal scrolling
+
+══════════════════════════════════════
+REGRESSION PROTECTION
+══════════════════════════════════════
+
+Verify that the fix does NOT break:
+
+* Desktop navbar
+* Tablet navbar
+* Mobile drawer
+* Search bar
+* Notifications
+* Cart
+* Seller dashboard navbar
+* Customer navbar
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Root cause found.
+2. Exact file responsible.
+3. Exact CSS/layout issue.
+4. Fix implemented.
+5. Mobile devices tested.
+6. Confirmation that all header elements remain outside the camera/notch area permanently.

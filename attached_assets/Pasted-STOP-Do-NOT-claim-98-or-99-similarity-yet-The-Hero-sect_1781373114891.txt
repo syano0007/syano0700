@@ -1,0 +1,271 @@
+STOP.
+
+Do NOT claim 98% or 99% similarity yet.
+
+The Hero section is still visibly different from the approved reference.
+
+The remaining differences are NOT minor.
+
+Before any production implementation, fix ALL issues below.
+
+Use the attached reference screenshot as the ONLY source of truth.
+
+No assumptions.
+
+No redesign.
+
+No interpretation.
+
+No creativity.
+
+Only visual matching.
+
+---
+
+# CRITICAL ISSUES STILL NOT MATCHING
+
+## 1. TYPOGRAPHY SCALE
+
+Headline is still different.
+
+The reference headline feels:
+
+* larger
+* heavier
+* more dominant
+* tighter vertically
+
+Match EXACTLY:
+
+* font size
+* font weight
+* line height
+* line spacing
+* line breaks
+
+Current version still looks smaller and lighter.
+
+---
+
+## 2. STATISTICS TYPOGRAPHY
+
+The numbers:
+
+12,000+
+25,000+
+500+
+
+are NOT matching.
+
+Reference numbers are:
+
+* larger
+* heavier
+* brighter
+* more dominant
+
+Match exactly:
+
+* size
+* weight
+* spacing
+* alignment
+
+Current version still feels weaker.
+
+---
+
+## 3. CTA BUTTON
+
+The button:
+
+"تسوق الآن"
+
+is wrong.
+
+The text color MUST be:
+
+BLACK
+
+Exactly like the reference.
+
+Current version still differs.
+
+Match:
+
+* text color
+* icon color
+* padding
+* height
+* radius
+* shadow
+
+exactly.
+
+---
+
+## 4. HERO IMAGE WIDTH
+
+This is still one of the biggest mismatches.
+
+The image panel in the reference is:
+
+WIDER.
+
+Current image area is still compressed.
+
+Increase width until it visually matches the screenshot.
+
+Do not guess.
+
+Compare side-by-side.
+
+The image should dominate more.
+
+---
+
+## 5. NAVBAR COLORS
+
+Navbar still does not match.
+
+Match exactly:
+
+* background color
+* opacity
+* blur
+* border
+* hover states
+* active item
+
+The reference navbar is darker and cleaner.
+
+---
+
+## 6. GRID BACKGROUND
+
+Current grid is still wrong.
+
+Match EXACTLY:
+
+* line color
+* opacity
+* spacing
+* glow strength
+
+Reference grid is more subtle.
+
+Current grid is too visible.
+
+---
+
+## 7. BACKGROUND COLOR
+
+The overall page background is not identical.
+
+Match the exact dark tone from the screenshot.
+
+Current version feels slightly different.
+
+Use visual comparison.
+
+---
+
+## 8. FLOATING CARD SCALE
+
+Cards still feel slightly oversized.
+
+Match:
+
+* width
+* height
+* padding
+* spacing
+* shadow intensity
+
+exactly.
+
+---
+
+## 9. HERO BALANCE
+
+Reference:
+
+Image side feels stronger.
+
+Current:
+
+Text side still dominates.
+
+Rebalance until both sides visually match the screenshot.
+
+---
+
+# VALIDATION METHOD
+
+Open:
+
+Reference screenshot
+
+and
+
+Mockup
+
+side-by-side.
+
+Zoom both to 100%.
+
+Compare ONLY:
+
+* geometry
+* spacing
+* proportions
+* colors
+* typography
+
+Do not estimate.
+
+Do not say "close enough".
+
+Keep refining until differences become difficult to notice.
+
+---
+
+# IMPLEMENTATION LOCK
+
+Canvas only.
+
+NO production code.
+
+NO HeroV4 changes.
+
+NO live implementation.
+
+Only improve the mockup.
+
+---
+
+# SUCCESS CRITERIA
+
+✅ Headline identical
+
+✅ Statistics identical
+
+✅ CTA button identical
+
+✅ Text color inside CTA = black
+
+✅ Hero image wider
+
+✅ Navbar identical
+
+✅ Grid identical
+
+✅ Background identical
+
+✅ Floating cards identical
+
+✅ Overall silhouette identical
+
+Target:
+
+98%+ visual similarity to the reference screenshot before implementation approval.

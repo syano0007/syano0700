@@ -1,0 +1,90 @@
+SYANO — Recovery & Audit Report
+Date: June 12, 2026
+
+✅ Phase 1 — Environment Variables
+Variable	Status
+DATABASE_URL	✅ Set
+SESSION_SECRET	✅ Set
+SITE_URL	✅ Set (https://syano.online)
+CORS_ORIGIN	✅ Set (https://syano.online)
+VAPID_PUBLIC_KEY	✅ Set
+VAPID_PRIVATE_KEY	✅ Set
+VAPID_SUBJECT / VAPID_EMAIL	✅ Set (mailto:admin@syano.online)
+✅ Phase 2 — Installation
+pnpm install --force — 1,131 packages resolved, no failures
+shamefully-hoist=true confirmed active
+All workspace packages present
+✅ Phase 3 — Database
+Check	Result
+Table count	✅ 27/27
+notification_type enum	✅ 31 values
+order_status enum	✅ 15 values
+role enum	✅ 4 values (incl. courier)
+delivery_zones rows	✅ 40
+seller_verification_log	✅ Exists
+users.verified_by	✅ Present
+Store Settings V3 columns	✅ All 7 present (shipping_policy, return_policy, whatsapp, telegram, facebook, instagram, meta_title)
+Trust system columns	✅ verification_level, trust_score, account_status all present
+✅ Phase 4 — Bootstrap Accounts
+Account	Role	Account Status	Seller App	Courier Profile	Store Slug
+delewatiamer7	admin	active	—	—	—
+delewatiamer8	seller	active	✅ approved	—	syano-test-store
+delewatiamer9	courier	active	—	✅ approved, active=true	—
+All three logins issue tokens successfully.
+
+✅ Phase 5 — Services
+Service	Status
+API Server	✅ Running — {"status":"ok"}
+Marketplace	✅ Running
+Mobile (Expo)	✅ Running
+✅ Phase 6 — TypeScript
+Target	Errors
+lib/db	✅ 0
+lib/api-zod	✅ 0
+lib/api-client-react	✅ 0
+api-server	✅ 0
+marketplace	✅ 0
+mobile	✅ 0
+✅ Phase 7 — Recovery Check
+confidenceScore: 100 / 100
+confidenceOk: true
+failures: NONE
+
+All 19 modules passing: corePlatform, bootstrapAccounts, security, marketplace, sellerSystem, courierSystem, orderSystem, trustSystem, notifications, translations, responsive, mobile, analytics, recovery, storePages, storeSettings, storeSettingsV4, uiConsistency, auditFixes
+
+✅ Phases 8 & 9 — Roadmap State
+All previously completed features are confirmed healthy (recovery check passes all modules).
+
+📋 Phase 10 — Seller Review System Audit
+Q: Can customers create store reviews?
+✅ Yes. POST /api/sellers/:id/reviews accepts communicationRating, shippingRating, professionalismRating, and optional comment. Requires customer role + active account.
+
+Q: Only after delivery?
+✅ Yes — enforced server-side. The route checks for an existing order with status = 'delivered' between the customer and that seller before allowing submission.
+
+Q: Is there a submission UI?
+⚠️ Partial. The store page (/store/[slug].tsx) has a ReviewsTab that displays reviews and a summary. However, there is no customer-facing form to actually submit a review. The usePostSellerReview hook exists in the API client but is not wired to any visible UI component.
+
+Q: Is store rating separate from product rating?
+✅ Yes. Completely separate tables and endpoints:
+
+Store: seller_reviews table → GET /api/sellers/:id/reviews
+Product: reviews table → separate reviews.ts route
+Q: Does trust score use sellerReviewsTable?
+✅ Yes — accounts for 35 points out of 100:
+
+Store Rating: up to 25 pts (weighted avg of communication 40%, shipping 30%, professionalism 30%)
+Review Count: up to 10 pts (log-scale based on number of reviews)
+Summary
+Category	Score
+Environment	✅ 7/7
+Installation	✅ Clean
+Database	✅ 27 tables, all enums correct
+Bootstrap Accounts	✅ All 3 verified
+Services	✅ All 3 running
+TypeScript	✅ 0 errors across all 6 targets
+Recovery Check	✅ 100/100
+Seller Review Audit	⚠️ No submit UI exists
+The project is fully recovered and healthy. The one actionable gap found is: the seller review submission form has no frontend UI. The backend is complete (route, validation, delivery gate, unique constraint), the API client hook exists, but customers have no way to actually submit a store review from the marketplace.
+
+Awaiting your instructions before implementing anything.

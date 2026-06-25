@@ -1,0 +1,256 @@
+This task is ONLY about list virtualization and rendering scalability.
+
+Do NOT work on:
+
+* Bundle size
+* TTI/LCP
+* Scroll optimization
+* CPU profiling
+* Memory optimization
+* Animations
+* Frame pacing
+* Long task elimination
+* Any unrelated optimization
+
+Your ONLY objective is to ensure the platform can smoothly handle very large datasets (1000+ items) without unnecessary DOM growth or rendering overhead.
+
+IMPORTANT RULES:
+
+* Audit first.
+* Measure first.
+* Never assume virtualization is needed.
+* Only virtualize where it provides a real benefit.
+* Verify every change before moving to the next one.
+* Do NOT perform cosmetic refactors.
+* Do NOT rewrite working components unnecessarily.
+
+==================================================
+PHASE 1 — COMPLETE RENDERING AUDIT
+==================================
+
+Audit the entire platform:
+
+• Marketplace (web)
+• Admin dashboard
+• Seller dashboard
+• Customer dashboard
+• Mobile app (Expo)
+
+Inspect every large rendering surface:
+
+* Product grid
+* Search results
+* Category pages
+* Seller products
+* Admin product management
+* Admin users list
+* Orders lists
+* Notifications
+* Conversations
+* Chat messages
+* Reviews
+* Seller reviews
+* Audit logs
+* Tables
+* Dropdowns with many options
+* Mobile FlatLists
+* Mobile ScrollViews
+
+For every list determine:
+
+* Maximum possible dataset size
+* Current rendering strategy
+* Number of DOM nodes created
+* Whether all items render immediately
+* Whether pagination already limits rendering
+* Whether lazy loading already solves the problem
+* Whether virtualization would actually improve performance
+
+Do NOT implement anything until the audit is complete.
+
+==================================================
+PHASE 2 — FIND REAL BOTTLENECKS
+===============================
+
+Identify ONLY proven rendering bottlenecks.
+
+Look for:
+
+* Hundreds of DOM nodes mounted simultaneously
+* Hidden items still rendering
+* Massive React trees
+* Long reconciliation times
+* Unnecessary nested wrappers
+* Expensive per-item components
+* Lists that rerender completely after one item changes
+* FlatLists rendering too many cells
+* Missing keyExtractor stability
+* Missing getItemLayout opportunities
+
+Produce a clear list of actual bottlenecks.
+
+If something is already efficient, leave it untouched.
+
+==================================================
+PHASE 3 — WEB VIRTUALIZATION
+============================
+
+Audit every web list.
+
+If a list can realistically grow very large:
+
+Evaluate whether virtualization is appropriate.
+
+Possible approaches:
+
+* react-window
+* @tanstack/react-virtual
+* Existing pagination
+* Existing infinite scrolling
+
+Prefer minimal architectural change.
+
+Do NOT virtualize:
+
+* Small lists
+* Short carousels
+* Home page sections
+* Navigation menus
+* Variant selectors
+* Lists that rarely exceed 20–30 items
+
+Virtualize ONLY where measurable benefit exists.
+
+Preserve:
+
+* RTL behavior
+* Keyboard navigation
+* Accessibility
+* SEO where applicable
+* Existing animations
+* Existing lazy loading
+
+==================================================
+PHASE 4 — MOBILE VIRTUALIZATION
+===============================
+
+Audit every FlatList.
+
+Verify:
+
+removeClippedSubviews
+windowSize
+initialNumToRender
+maxToRenderPerBatch
+updateCellsBatchingPeriod
+
+Check whether getItemLayout can safely be implemented.
+
+Implement getItemLayout ONLY if item heights are truly fixed.
+
+Do NOT fake estimated heights.
+
+Verify:
+
+* No blank spaces
+* No jumping during fast scroll
+* No broken sticky headers
+* No broken pull-to-refresh
+
+==================================================
+PHASE 5 — REACT RENDER SCALING
+==============================
+
+Profile large lists.
+
+Find cases where updating one item rerenders the entire list.
+
+Audit:
+
+* ProductCard
+* Order rows
+* Chat messages
+* Notifications
+* Seller products
+* Admin tables
+
+Apply ONLY where justified:
+
+React.memo
+useMemo
+useCallback
+
+Avoid over-memoization.
+
+List updates should affect only changed rows.
+
+==================================================
+PHASE 6 — DOM SIZE CONTROL
+==========================
+
+Audit DOM growth during navigation.
+
+Verify that old pages properly unmount.
+
+Ensure:
+
+* Closed dialogs unmount
+* Hidden drawers unmount
+* Old lists unmount
+* Temporary overlays clean themselves up
+
+Prevent unnecessary DOM accumulation.
+
+==================================================
+PHASE 7 — LARGE DATASET SIMULATION
+==================================
+
+Simulate realistic heavy scenarios:
+
+* 1000 products
+* 500 orders
+* 500 notifications
+* 1000 chat messages
+* Large admin tables
+* Large seller inventories
+
+Measure:
+
+* Initial render cost
+* Scroll responsiveness
+* React commit time
+* DOM node count
+
+Verify that performance remains stable.
+
+==================================================
+PHASE 8 — VERIFICATION
+======================
+
+Do NOT finish until you verify:
+
+✓ No TypeScript errors.
+✓ No console errors.
+✓ No HMR issues.
+✓ No broken layouts.
+✓ No broken RTL behavior.
+✓ No broken pagination.
+✓ No broken infinite scrolling.
+✓ No broken search.
+✓ No broken filtering.
+✓ No broken sorting.
+✓ No broken mobile lists.
+
+Take before/after measurements.
+
+Report exactly:
+
+* What was audited.
+* What was actually changed.
+* Why each change was necessary.
+* Which lists were intentionally NOT virtualized.
+* What measurable improvement was achieved.
+
+Do NOT add virtualization simply to say virtualization was added.
+
+Only implement changes that produce real, measurable rendering improvements.

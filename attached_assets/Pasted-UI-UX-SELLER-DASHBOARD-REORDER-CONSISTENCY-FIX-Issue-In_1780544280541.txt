@@ -1,0 +1,98 @@
+UI/UX SELLER DASHBOARD REORDER + CONSISTENCY FIX
+
+Issue:
+
+In the seller dashboard, the buttons:
+
+- View Store (عرض المتجر)
+- Store Settings (إعدادات المتجر)
+
+currently appear above the main action cards and use a completely different visual style.
+
+Meanwhile the cards:
+
+- Add Product
+- View Orders
+- Inventory Management
+- Customer Messages
+
+have the correct dashboard-card style and hierarchy.
+
+Required Changes:
+
+1. Move "View Store" and "Store Settings" into the main dashboard action grid.
+
+2. Make them visually identical to:
+   - Add Product
+   - View Orders
+   - Inventory Management
+   - Customer Messages
+
+3. Use the exact same:
+   - Card size
+   - Border radius
+   - Hover effects
+   - Shadows
+   - Padding
+   - Typography
+   - Icon placement
+   - RTL behavior
+   - Mobile responsiveness
+
+4. New order of action cards MUST be:
+
+   Row 1:
+   - View Store
+   - Store Settings
+
+   Row 2:
+   - Add Product
+   - View Orders
+
+   Row 3:
+   - Inventory Management
+   - Customer Messages
+
+5. Remove the old standalone buttons completely.
+
+6. There must not be duplicate navigation paths.
+
+7. Verify both actions still navigate correctly:
+   - View Store → seller public store page
+   - Store Settings → seller store settings page
+
+8. Preserve all permissions and existing functionality.
+
+9. Preserve translations (Arabic + English).
+
+10. Preserve RTL and LTR layouts.
+
+Verification Required:
+
+After implementation:
+
+- Test Desktop Arabic
+- Test Desktop English
+- Test Mobile Arabic
+- Test Mobile English
+
+Confirm:
+
+✓ Cards render in correct order
+✓ Cards use identical styling
+✓ Navigation works
+✓ No duplicated buttons remain
+✓ No layout shifts
+✓ No console errors
+✓ No TypeScript errors
+✓ No regressions in seller dashboard
+
+IMPORTANT:
+
+Before modifying anything:
+- Read the dashboard layout file completely.
+- Locate where the action cards are rendered.
+- Locate where View Store and Store Settings are currently rendered.
+- Reuse existing dashboard card components instead of creating new UI patterns.
+- Do not change any unrelated code.
+- Produce the smallest safe implementation possible.

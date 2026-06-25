@@ -1,0 +1,499 @@
+SYANO (سوق سوريا)
+
+MASTER RECOVERY & PROJECT RESTORATION PROCEDURE
+
+CRITICAL TASK
+
+This project has been migrated to a different Replit account.
+
+DO NOT assume the current project state is valid.
+
+DO NOT begin implementing features.
+
+DO NOT begin refactoring.
+
+DO NOT begin redesigning.
+
+First recover and verify the entire project.
+
+================================================
+
+PROJECT CONTEXT
+
+Project:
+
+SYANO
+سوق سوريا
+
+This is an existing production marketplace.
+
+The project already contains:
+
+* Frontend
+* Backend API
+* Database
+* Seller Systems
+* Courier Systems
+* Admin Systems
+* Mobile Infrastructure
+* Language System
+* Currency System
+* Theme System
+
+Recovery must preserve everything.
+
+================================================
+
+PHASE 1
+
+RECOVERY FILE DISCOVERY
+
+Locate and inspect all recovery-related files.
+
+Search for:
+
+CURRENT_STATE.md
+
+PROJECT_STATUS.md
+
+CHANGELOG.md
+
+RECOVERY_GUIDE.md
+
+RECOVERY_COMPLETE.md
+
+README.md
+
+docs/*
+
+recovery/*
+
+memory/*
+
+.agents/memory/*
+
+Any architecture documentation
+
+Any deployment documentation
+
+Any migration documentation
+
+================================================
+
+PHASE 2
+
+PROJECT STATE RECONSTRUCTION
+
+Determine and document:
+
+Current Homepage Version
+
+Current Hero Version
+
+Current Navbar Version
+
+Current Theme Status
+
+Current Language Status
+
+Current Currency Status
+
+Current API Status
+
+Current Database Status
+
+Current Seller System Status
+
+Current Courier System Status
+
+Current Admin System Status
+
+Current Mobile Status
+
+================================================
+
+PHASE 3
+
+DEPENDENCY VALIDATION
+
+Verify:
+
+package.json
+
+package-lock.json
+
+npm dependencies
+
+build configuration
+
+vite configuration
+
+tailwind configuration
+
+typescript configuration
+
+environment configuration
+
+================================================
+
+PHASE 4
+
+ENVIRONMENT VALIDATION
+
+Verify:
+
+.env
+
+.env.example
+
+environment variables
+
+database connection strings
+
+API URLs
+
+storage configuration
+
+authentication configuration
+
+================================================
+
+PHASE 5
+
+DATABASE VALIDATION
+
+Verify:
+
+Database connection
+
+Schema integrity
+
+Tables
+
+Indexes
+
+Relationships
+
+Migrations
+
+Seed data
+
+Recovery accounts
+
+================================================
+
+Required checks:
+
+Products
+
+Sellers
+
+Stores
+
+Users
+
+Delivery Zones
+
+Orders
+
+Categories
+
+Variants (if present)
+
+================================================
+
+PHASE 6
+
+API VALIDATION
+
+Start API.
+
+Verify:
+
+Health endpoint
+
+/api/healthz
+
+returns OK.
+
+Check:
+
+Products API
+
+Stores API
+
+Categories API
+
+Orders API
+
+Authentication API
+
+Settings API
+
+================================================
+
+PHASE 7
+
+FRONTEND VALIDATION
+
+Start frontend.
+
+Verify:
+
+Homepage loads
+
+Products Page loads
+
+Store Pages load
+
+Navigation works
+
+Theme switching works
+
+Language switching works
+
+Currency switching works
+
+Authentication works
+
+================================================
+
+PHASE 8
+
+THEME VALIDATION
+
+Verify:
+
+Dark Theme
+
+Light Theme
+
+Known requirement:
+
+Dark Theme remains visual reference.
+
+Light Theme remains functional.
+
+================================================
+
+PHASE 9
+
+LANGUAGE VALIDATION
+
+Verify:
+
+Arabic
+
+English
+
+Translations
+
+RTL
+
+LTR
+
+Homepage translations
+
+Navigation translations
+
+Settings translations
+
+================================================
+
+PHASE 10
+
+CURRENCY VALIDATION
+
+Verify:
+
+SYP
+
+USD
+
+Prices actually change.
+
+Formatting actually changes.
+
+No fake currency switching.
+
+================================================
+
+PHASE 11
+
+DATA VALIDATION
+
+Verify homepage uses real data.
+
+Products from API.
+
+Stores from sellers.
+
+Categories from database.
+
+No placeholder content.
+
+No fake cards.
+
+================================================
+
+PHASE 12
+
+SYSTEM HEALTH CHECK
+
+Verify:
+
+Frontend
+
+Backend
+
+Database
+
+Authentication
+
+Storage
+
+API
+
+Theme
+
+Language
+
+Currency
+
+================================================
+
+PHASE 13
+
+STARTUP VERIFICATION
+
+Launch complete project.
+
+Verify:
+
+No startup errors.
+
+No build errors.
+
+No runtime errors.
+
+No missing dependencies.
+
+No missing environment variables.
+
+================================================
+
+PHASE 14
+
+GENERATE RECOVERY REPORT
+
+Create:
+
+RECOVERY_REPORT.md
+
+Include:
+
+Project status
+
+Recovered systems
+
+Working systems
+
+Broken systems
+
+Missing files
+
+Missing dependencies
+
+Environment issues
+
+Database issues
+
+API issues
+
+Recommended actions
+
+================================================
+
+PHASE 15
+
+GENERATE CURRENT STATE REPORT
+
+Create:
+
+CURRENT_PROJECT_STATE.md
+
+Include:
+
+Homepage Version
+
+Hero Version
+
+Navbar Version
+
+Theme Status
+
+Language Status
+
+Currency Status
+
+API Status
+
+Database Status
+
+Feature Status
+
+Pending Work
+
+Roadmap Position
+
+================================================
+
+SUCCESS CRITERIA
+
+✓ Recovery files located
+
+✓ Project state reconstructed
+
+✓ Dependencies verified
+
+✓ Environment verified
+
+✓ Database connected
+
+✓ API healthy
+
+✓ Frontend running
+
+✓ Homepage working
+
+✓ Products Page working
+
+✓ Language system verified
+
+✓ Currency system verified
+
+✓ Theme system verified
+
+✓ Real data verified
+
+✓ Recovery report generated
+
+✓ Current state report generated
+
+================================================
+
+IMPORTANT
+
+DO NOT implement any new features.
+
+DO NOT modify UI.
+
+DO NOT refactor code.
+
+DO NOT optimize anything.
+
+DO NOT continue roadmap work.
+
+Recovery and verification ONLY.
+
+After recovery is complete, provide a summary of the exact current state of the project and confirm whether the project is safe to continue development.

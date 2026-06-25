@@ -1,0 +1,115 @@
+This SYANO workspace was moved to a new Replit account.
+
+Do NOT treat this as a new project.
+
+## First Task
+
+Read and use all existing project memory and recovery files before doing anything.
+
+In particular, inspect any files similar to:
+
+* CURRENT_TASK.md
+* PROJECT_MEMORY.md
+* RECOVERY.md
+* RESTORE.md
+* NOTES.md
+* Any workspace memory or checkpoint files
+* Any internal recovery documentation already present in the repository
+
+Use those files as the authoritative source of the current project state.
+
+---
+
+## Goal
+
+Restore the workspace to the latest verified checkpoint.
+
+Recover:
+
+* dependencies
+* environment variables
+* database connection
+* API server
+* marketplace frontend
+* mobile workspace
+* TypeScript builds
+
+Do NOT redesign anything.
+
+Do NOT refactor.
+
+Do NOT create placeholder implementations.
+
+---
+
+## Current Verified State
+
+Assume the following work has already been completed and should already exist in the codebase:
+
+### Notifications
+
+* Multilingual notification system.
+* Arabic/English notification rendering.
+* Notification localization helpers.
+
+### Seller Applications
+
+* Rejecting a seller revokes seller permissions correctly.
+* SSE/auth refresh for role changes.
+
+### Product Editor
+
+* Leading zero issue in price inputs fixed.
+
+### Variant Builder
+
+* Modern Variant Builder UI implemented.
+* Preset attribute groups.
+* Tag input.
+* Suggestion chips.
+* Live preview.
+* Bulk actions.
+* Responsive layout.
+* RTL support.
+* TypeScript clean.
+
+These features should already exist.
+Verify them but DO NOT rebuild them unless something is actually broken.
+
+---
+
+## IMPORTANT
+
+There is ONE known pending issue that has NOT been fixed yet:
+
+The `/products` page has a layout regression where product cards overflow and overlap the footer.
+
+Do NOT attempt to fix this issue during recovery.
+
+Simply restore the workspace exactly as it was and leave this layout bug untouched.
+
+---
+
+## Final Report
+
+After recovery, provide a report confirming:
+
+✅ Dependencies installed
+
+✅ Environment restored
+
+✅ Database connected
+
+✅ API running
+
+✅ Marketplace running
+
+✅ Mobile workspace healthy
+
+✅ TypeScript status
+
+✅ Existing features detected
+
+✅ Workspace matches the latest verified checkpoint
+
+❌ Products page footer overlap remains pending (expected)

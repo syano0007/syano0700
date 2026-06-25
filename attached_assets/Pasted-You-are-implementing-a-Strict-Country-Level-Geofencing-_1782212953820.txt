@@ -1,0 +1,47 @@
+You are implementing a Strict Country-Level Geofencing Rule for SYANO (سوق سوريا).
+
+Current Requirement: 
+While any coordinate inside Syria must be accepted and automatically resolved to its governorate, ANY coordinate dropped outside the official international borders of Syria must be strictly rejected, blocking the confirmation flow.
+
+Do NOT break existing backend APIs, database models (15 Syrian governorates), or checkout invoice subtotals.
+Do NOT modify core tile layer caching attributes.
+
+==================================================
+GOAL
+==================================================
+Implement a reliable bounding box or reverse-geocoding validation check. If a user pans the map or drops a pin outside of Syria, instantly trigger a strict error layout block, toggle the confirmation button to a disabled state, and display a localized rejection warning.
+
+==================================================
+PART 1 — GEOGRAPHIC BOUNDS PROTECTION LAYOUT (BOUNDING BOX / COUNTRY CHECK)
+==================================================
+- Mechanics:
+  * Inside the map coordinates change handler (`onMoveEnd`, map drag listeners, or the reverse-geocoding result resolver):
+  * Check the geocoded address metadata or execute a strict latitude/longitude bounding-box validation tracking Syrian border boundaries:
+    - Target Bounding Box roughly: Latitude `[32.3, 37.4]`, Longitude `[35.6, 42.4]`.
+  * Alternatively, parse the reverse-geocoding response object fields. If the `country_code` is NOT equal to `"sy"` or the country name text does NOT resolve to "سوريا" / "Syria":
+    1. Set a validation error state variable (e.g., `isOutsideSyria = true`).
+    2. Instantly change the bottom footer status box background to a clear alert state.
+    3. Display a strict warning banner in place of the address text: **"عذراً، التوصيل مدعوم فقط داخل الأراضي السورية حالياً"**.
+
+==================================================
+PART 2 — LOCKING THE CONFIRMATION BUTTON
+==================================================
+- Hook the `isOutsideSyria` boolean expression directly into the bottom primary blue action button ("تأكيد الموقع").
+- If `isOutsideSyria` resolves to `true`:
+  * Force the confirmation button to become absolutely `disabled`.
+  * Shift its background styling matrix smoothly to a disabled state palette (`bg-neutral-300` or `bg-gray-200` with `cursor-not-allowed` logic properties) so that accidental form dispatches are 100% prevented.
+
+==================================================
+PART 3 — TAILWIND V4 & LOGICAL COMPLIANCE RULES
+==================================================
+- Write clean, precise Tailwind v4 markup.
+- Absolutely FORBID hardcoded left/right layout utility values (`ml-`, `mr-`, `pl-`, `pr-`, `left-`, `right-`).
+- Mandate logical properties globally to secure simultaneous Arabic (RTL) and English (LTR) interface accuracy (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`).
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Dropping a pin anywhere inside Syria allows instant confirmation and matches the governorate.
+✓ Dragging the pin outside Syria (e.g., across nearby borders) instantly disables the confirmation button and shows the localized country restriction warning banner.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend directory stack.

@@ -1,0 +1,414 @@
+IMPORTANT:
+Before making ANY modifications, deeply analyze the ENTIRE existing "Discover Products" page architecture AND the overall marketplace frontend system including:
+
+- homepage architecture
+- discover/products page
+- search system
+- filtering system
+- category system
+- product listing structure
+- responsive layouts
+- desktop/mobile layouts
+- navigation flow
+- navbar/search UI
+- typography hierarchy
+- spacing system
+- product grid rendering
+- theme system
+- state management
+- API/backend filtering logic
+- multilingual support
+- rendering bottlenecks
+- animation/transitions
+- performance bottlenecks
+- mobile UX issues
+- layout inconsistencies
+
+DO NOT rebuild the project from scratch.
+DO NOT regenerate unrelated pages/components.
+DO NOT break the current marketplace structure or existing functionality.
+
+Modify ONLY what is necessary while preserving the current architecture and marketplace logic.
+
+The implementation must remain:
+- production-ready
+- scalable
+- ultra responsive
+- marketplace-quality
+- optimized for weak internet
+- fully compatible with the current system
+
+==================================================
+SECTION 1 — PROFESSIONAL CATEGORY FILTER SYSTEM
+==================================================
+
+Implement a premium ecommerce category browsing/filtering experience on the "Discover Products" page.
+
+The experience should feel inspired by:
+- Amazon
+- Noon
+- Trendyol
+- modern premium ecommerce marketplaces
+
+IMPORTANT:
+Customers must be able to quickly browse and filter products by category directly from the discover/search page.
+
+==================================================
+SECTION 2 — CATEGORY SELECTOR BESIDE SEARCH BAR
+==================================================
+
+Add a professional category selector beside the main search bar.
+
+Requirements:
+- category dropdown/select menu
+- responsive design
+- mobile-friendly behavior
+- clean premium styling
+- fast interactions
+- clear category labels
+- smooth dropdown animations
+- optimized rendering
+
+The category selector should allow users to:
+- choose main categories
+- refine into subcategories
+- filter products instantly
+
+==================================================
+DESKTOP BEHAVIOR
+==================================================
+
+On desktop:
+- place category selector beside the search input
+- maintain balanced spacing
+- preserve premium ecommerce layout
+- ensure clean visual hierarchy
+
+The layout should feel:
+- organized
+- modern
+- professional
+- visually balanced
+
+==================================================
+MOBILE BEHAVIOR
+==================================================
+
+On mobile:
+- ensure responsive stacking/layout
+- prevent cramped UI
+- maintain touch-friendly controls
+- optimize spacing and dropdown behavior
+
+The experience must feel:
+- lightweight
+- smooth
+- premium
+- easy to use
+
+==================================================
+SECTION 3 — CATEGORY FILTER FUNCTIONALITY
+==================================================
+
+Implement real category-based product filtering.
+
+Requirements:
+- instant category filtering
+- subcategory filtering support
+- fast product updates
+- optimized API/filtering behavior
+- proper loading states
+- clean empty states
+
+IMPORTANT:
+Filtering must integrate with:
+- search queries
+- existing filters
+- sorting systems
+- pagination
+
+==================================================
+SECTION 4 — SEARCH + CATEGORY INTEGRATION
+==================================================
+
+The search experience must support combined filtering.
+
+Examples:
+- Search: "iPhone"
+  + Category: Electronics
+
+- Search: "Shoes"
+  + Category: Fashion
+
+Combine:
+- text search
+- category filtering
+- subcategory filtering
+
+for accurate product discovery.
+
+==================================================
+SECTION 5 — CATEGORY UI/UX REFINEMENT
+==================================================
+
+The category selector must feel premium and modern.
+
+Improve:
+- dropdown styling
+- spacing
+- typography
+- hover/focus states
+- selected states
+- accessibility
+- responsive scaling
+
+Ensure:
+- clean hierarchy
+- readable labels
+- modern ecommerce appearance
+- uncluttered UI
+
+==================================================
+SECTION 6 — CATEGORY DISPLAY ENHANCEMENTS
+==================================================
+
+Show categories clearly and professionally.
+
+Requirements:
+- readable category names
+- optional category icons/images
+- visual separation
+- strong contrast in dark/light mode
+- premium dropdown/card appearance
+
+IMPORTANT:
+Avoid:
+- poor contrast
+- overlapping colors
+- cramped dropdowns
+- visually confusing layouts
+
+==================================================
+SECTION 7 — SUBCATEGORY SUPPORT
+==================================================
+
+If a category contains subcategories:
+
+Allow:
+- nested filtering
+OR
+- secondary subcategory dropdown
+
+Example:
+Electronics
+→ Smartphones
+→ Laptops
+→ Gaming
+
+Fashion
+→ Men's Clothing
+→ Shoes
+→ Accessories
+
+==================================================
+SECTION 8 — HOMEPAGE TEXT REPLACEMENT
+==================================================
+
+Replace the current homepage hero text completely.
+
+REMOVE:
+"بضائع مختارة للحياة العصرية.
+اكتشف منتجات فريدة وعالية الجودة من بائعين موثوقين في حلب. توصيل سريع، دفع آمن، أفضل الأسعار."
+
+REPLACE WITH:
+
+Main Title:
+"أول سوق سوري إلكتروني شامل"
+
+Subtitle:
+"اطلب ما تشاء إلى باب بيتك بخمس ضغطات"
+
+==================================================
+HERO TEXT REQUIREMENTS
+==================================================
+
+The new hero section text must feel:
+- premium
+- modern
+- trustworthy
+- minimal
+- highly readable
+- ecommerce-focused
+
+Improve:
+- typography hierarchy
+- responsive scaling
+- spacing
+- text alignment
+- readability in both dark/light mode
+
+Ensure:
+- excellent mobile appearance
+- balanced desktop layout
+- premium marketplace feel
+
+==================================================
+SECTION 9 — EXTREME PERFORMANCE & SPEED OPTIMIZATION
+==================================================
+
+Apply MAXIMUM possible optimization for:
+- website speed
+- navigation smoothness
+- rendering performance
+- mobile responsiveness
+- weak internet performance
+
+The entire marketplace should feel:
+- ultra fast
+- lightweight
+- smooth
+- responsive
+- premium
+
+==================================================
+PERFORMANCE REQUIREMENTS
+==================================================
+
+Implement:
+- aggressive lazy loading
+- optimized image loading
+- responsive image sizing
+- code splitting
+- route splitting
+- minimized bundle sizes
+- optimized API calls
+- efficient caching
+- minimized rerenders
+- optimized state updates
+- skeleton loading states
+- lightweight transitions
+- GPU-efficient animations
+- optimized scrolling performance
+- reduced layout shifts
+- optimized hydration
+- efficient font loading
+
+==================================================
+LOW-END DEVICE OPTIMIZATION
+==================================================
+
+Ensure excellent performance on:
+- weak internet
+- Syria/slow networks
+- low-end Android devices
+- older phones
+- weak CPUs
+
+Avoid:
+- heavy animations
+- unnecessary renders
+- oversized assets
+- bloated components
+- expensive DOM operations
+
+==================================================
+SECTION 10 — ULTRA RESPONSIVE DESIGN REFINEMENT
+==================================================
+
+Refine the ENTIRE frontend experience for:
+- desktop
+- laptop
+- tablet
+- mobile
+- small mobile screens
+
+Fix ALL:
+- overflow issues
+- cramped spacing
+- broken responsive grids
+- inconsistent paddings
+- broken alignments
+- oversized elements
+- touch interaction issues
+
+Ensure:
+- premium responsive layouts
+- modern spacing system
+- smooth scaling
+- professional visual hierarchy
+- perfect usability on all screen sizes
+
+==================================================
+SECTION 11 — SMOOTH NAVIGATION & UX IMPROVEMENTS
+==================================================
+
+Improve overall navigation smoothness across the marketplace.
+
+Requirements:
+- smooth page transitions
+- responsive UI interactions
+- optimized hover states
+- smooth scrolling
+- instant-feeling navigation
+- modern ecommerce UX
+
+Ensure:
+- no UI lag
+- no flickering
+- no layout jumping
+- no hydration issues
+- no broken transitions
+
+==================================================
+SECTION 12 — VISUAL CONSISTENCY & POLISH
+==================================================
+
+Ensure visual consistency across:
+- homepage
+- discover page
+- search/filter systems
+- dropdowns
+- product cards
+- mobile layouts
+- desktop layouts
+
+Fix:
+- inconsistent typography
+- spacing inconsistencies
+- color clashes
+- weak hierarchy
+- overlapping UI
+- unreadable sections
+
+==================================================
+SECTION 13 — FINAL VALIDATION & STABILITY
+==================================================
+
+Before finishing:
+
+- test category filtering thoroughly
+- test search integration
+- test subcategory behavior
+- test homepage hero text
+- test desktop responsiveness
+- test mobile responsiveness
+- test AMOLED dark mode
+- test light mode
+- test navigation smoothness
+- test weak internet performance
+- test low-end devices
+- test rendering performance
+- test loading behavior
+- verify no console errors
+- verify no broken layouts
+- verify no hydration issues
+- verify no performance regressions
+- automatically detect and fix discovered issues
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium modern ecommerce marketplace
+- inspired by Amazon/Noon quality
+- ultra smooth and lightweight
+- highly optimized for Syria/weak internet
+- premium on both desktop and mobile
+- visually polished and production-ready

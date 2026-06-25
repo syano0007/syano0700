@@ -1,0 +1,214 @@
+You are finalizing the SYANO Courier Workspace UX.
+
+This is a SMALL POLISH TASK, not a redesign.
+
+Read the existing implementation first, then apply ONLY the following changes.
+
+---
+
+# CHANGE 1 — Fix Courier Label Position
+
+Current issue:
+
+The text:
+
+* Courier
+* المندوب
+
+appears in an awkward position above the call button inside the floating status card.
+
+This looks unfinished.
+
+## Required Fix
+
+Move the courier label into the card header.
+
+Example:
+
+🚚 المندوب
+
+GPS نشط
+
+[اتصال]
+
+or
+
+🚚 Courier
+
+GPS Active
+
+[Call]
+
+Requirements:
+
+* Use existing i18n system.
+* No hardcoded text.
+* Preserve RTL.
+* Preserve EN/AR support.
+* Do not leave Courier floating above buttons.
+* Maintain current card size and style.
+
+---
+
+# CHANGE 2 — Add Preferences Section To Existing Account Page
+
+DO NOT create a new page.
+
+DO NOT create a modal.
+
+DO NOT create a separate route.
+
+Add a new section inside the EXISTING courier account page.
+
+Location:
+
+Above "Logout".
+
+Structure:
+
+━━━━━━━━━━━━
+
+التفضيلات
+
+المظهر
+
+اللغة
+
+العملة
+
+━━━━━━━━━━━━
+
+العودة للصفحة الرئيسية
+
+━━━━━━━━━━━━
+
+تسجيل الخروج
+
+---
+
+# CHANGE 3 — Theme Preference
+
+Inside Preferences add:
+
+Theme
+
+Options:
+
+* System
+* Light
+* Dark
+
+Requirements:
+
+* Use existing theme infrastructure.
+* Persist selection.
+* Apply immediately.
+* No page reload.
+
+---
+
+# CHANGE 4 — Language Preference
+
+Inside Preferences add:
+
+Language
+
+Options:
+
+* العربية
+* English
+
+Requirements:
+
+* Use existing i18n system.
+* Apply instantly.
+* Persist selection.
+* No reload.
+
+---
+
+# CHANGE 5 — Currency Preference
+
+Inside Preferences add:
+
+Currency
+
+Options ONLY:
+
+* SYP
+* USD
+
+Requirements:
+
+* Persist selection.
+* Use existing currency system if available.
+* If currency context/store exists, integrate with it.
+* Do not introduce EUR.
+
+---
+
+# CHANGE 6 — Home Button
+
+Add a button:
+
+🏠 العودة للصفحة الرئيسية
+
+Position:
+
+Above Logout.
+
+Requirements:
+
+* Navigate to marketplace homepage.
+* Must NOT logout.
+* Must preserve courier session.
+* Use existing router/navigation.
+* Fully functional.
+
+---
+
+# DESIGN REQUIREMENTS
+
+* Native to current SYANO design language.
+* Preserve spacing.
+* Preserve colors.
+* Preserve RTL.
+* Preserve typography.
+* Preserve shadows.
+* Preserve border radius.
+
+No redesign.
+
+No layout shifts.
+
+No breaking changes.
+
+No new routes except if absolutely required internally.
+
+---
+
+# VALIDATION
+
+Verify:
+
+✅ Courier label no longer overlaps call button
+
+✅ Preferences section visible
+
+✅ Theme switch works
+
+✅ Language switch works
+
+✅ Currency switch works
+
+✅ Home button works
+
+✅ Logout still works
+
+✅ RTL preserved
+
+✅ EN preserved
+
+✅ TypeScript = 0 new errors
+
+Apply only these changes.

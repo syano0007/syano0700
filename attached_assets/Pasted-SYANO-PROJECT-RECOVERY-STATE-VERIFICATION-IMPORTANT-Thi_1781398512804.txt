@@ -1,0 +1,306 @@
+SYANO (سوق سوريا)
+
+PROJECT RECOVERY & STATE VERIFICATION
+
+IMPORTANT:
+
+This is an existing production marketplace project.
+
+This is NOT a new project.
+
+This is NOT a prototype.
+
+This is NOT a redesign.
+
+The project has been migrated to a new Replit account.
+
+Your first task is to fully recover, verify, and validate the project state before making any modifications.
+
+---
+
+PHASE 1 — RECOVERY AUDIT
+
+Locate and read all recovery and project status files.
+
+Required:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_COMPLETE.md
+* PROJECT_STATUS.md
+* CHANGELOG.md
+* docs/*
+* recovery/*
+* memory/*
+* .agents/memory/*
+
+Build a complete understanding of the latest project state.
+
+Do not assume anything.
+
+Do not generate placeholder conclusions.
+
+---
+
+PHASE 2 — SYSTEM VERIFICATION
+
+Verify all major systems.
+
+Frontend:
+
+* Homepage
+* Products Page
+* Navigation
+* Theme System
+* Language System
+* Currency System
+
+Backend:
+
+* API
+* Health endpoints
+* Authentication
+* Product endpoints
+* Store endpoints
+
+Database:
+
+* Products
+* Sellers
+* Stores
+* Delivery Zones
+* Users
+
+Confirm data integrity.
+
+---
+
+PHASE 3 — BRAND VALIDATION
+
+Confirm branding remains:
+
+SYANO
+سوق سوريا
+
+Reject any:
+
+* city-specific branding
+* old branding remnants
+* temporary recovery branding
+
+---
+
+PHASE 4 — HOMEPAGE STATUS
+
+Verify current Homepage version.
+
+Expected:
+
+Homepage V7
+
+Hero:
+
+HeroV4
+
+Homepage sections:
+
+1. Hero
+2. Categories
+3. Featured Deals
+4. Trusted Stores
+5. Trending Products
+6. New Arrivals
+7. Seller CTA
+8. Courier CTA
+9. Footer
+
+Report any mismatch.
+
+---
+
+PHASE 5 — NAVBAR STATUS
+
+Verify latest navbar implementation.
+
+Expected:
+
+* RTL support
+* Theme switcher
+* Language switcher
+* Currency switcher
+* Settings dropdown
+
+Settings should contain:
+
+* Theme
+* Language
+* Currency
+
+---
+
+PHASE 6 — THEME VALIDATION
+
+Dark Theme is the reference implementation.
+
+Verify:
+
+* dark backgrounds
+* premium dark palette
+* consistent surface colors
+* card styling
+* navbar styling
+
+Verify Light Theme remains functional.
+
+Do not remove theme support.
+
+---
+
+PHASE 7 — LANGUAGE VALIDATION
+
+Verify:
+
+Arabic
+English
+
+Check:
+
+* Homepage translations
+* Navigation translations
+* Products page translations
+* Settings translations
+
+Identify any untranslated content.
+
+---
+
+PHASE 8 — CURRENCY VALIDATION
+
+Verify:
+
+SYP
+USD
+
+Confirm:
+
+* actual conversion
+* actual formatting
+* homepage updates
+* product page updates
+
+No fake currency switching.
+
+---
+
+PHASE 9 — PRODUCTS PAGE STATUS
+
+Verify latest Products Page implementation.
+
+Specifically check:
+
+* Product card component
+* Rating display
+* Price hierarchy
+* CTA button
+* Pagination
+* Filters
+* Category chips
+* Search
+
+Confirm whether Products Page cards now use the same implementation as Homepage Trending Products cards.
+
+Report exact status.
+
+---
+
+PHASE 10 — API HEALTH
+
+Verify:
+
+/api/healthz
+
+Returns healthy status.
+
+Verify API compatibility remains intact.
+
+Do not break existing integrations.
+
+---
+
+PHASE 11 — DATABASE HEALTH
+
+Verify:
+
+* product records
+* seller records
+* store records
+* delivery zones
+* user records
+
+Confirm recovery success.
+
+Identify any migration issues.
+
+---
+
+PHASE 12 — LAST KNOWN STATE REPORT
+
+Generate a recovery summary containing:
+
+1. Current Homepage Version
+2. Current Navbar Version
+3. Theme Status
+4. Language Status
+5. Currency Status
+6. Products Page Status
+7. API Status
+8. Database Status
+9. Recovery Status
+10. Critical Issues (if any)
+
+---
+
+IMPORTANT RULES
+
+Do NOT:
+
+* redesign UI
+* rewrite components
+* replace systems
+* remove compatibility
+
+Do NOT make changes yet.
+
+First recover.
+
+Then verify.
+
+Then produce a complete project state report.
+
+Only after the report is approved should implementation continue.
+
+SUCCESS CRITERIA
+
+✓ Project recovered successfully
+
+✓ Recovery files validated
+
+✓ Frontend verified
+
+✓ Backend verified
+
+✓ Database verified
+
+✓ API verified
+
+✓ Theme verified
+
+✓ Language verified
+
+✓ Currency verified
+
+✓ Products Page verified
+
+✓ Latest known project state documented
+
+✓ Ready for continued development

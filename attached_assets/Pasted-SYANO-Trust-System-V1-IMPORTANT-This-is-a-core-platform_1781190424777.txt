@@ -1,0 +1,474 @@
+SYANO — Trust System V1
+
+IMPORTANT
+
+This is a core platform trust feature.
+
+Do NOT build a simple badge system.
+
+Do NOT build fake trust metrics.
+
+Do NOT hardcode any values.
+
+Everything must be calculated from real marketplace data.
+
+Target quality:
+
+* Amazon
+* Noon
+* Trendyol
+* Etsy
+* Shopify marketplace apps
+
+The system must feel trustworthy, transparent, and data-driven.
+
+---
+
+## GOAL
+
+Create a complete Trust System V1 for sellers and stores.
+
+The system must increase buyer confidence and improve conversion rates.
+
+---
+
+## PHASE 1 — AUDIT FIRST
+
+Before writing code:
+
+Audit existing:
+
+* users
+* sellers
+* seller_applications
+* reviews
+* seller_reviews
+* orders
+* courier_assignments
+* store_follows
+* notifications
+
+Return:
+
+* available trust signals
+* missing trust signals
+* existing review logic
+* existing seller data
+
+Do NOT modify anything until audit is complete.
+
+---
+
+## PHASE 2 — VERIFIED SELLER SYSTEM
+
+Add seller verification layer.
+
+Support:
+
+Basic
+Verified
+Business
+
+Rules:
+
+Basic:
+
+* approved seller account
+
+Verified:
+
+* approved seller
+* verified phone
+* approved by admin
+
+Business:
+
+* approved seller
+* approved business verification
+* approved by admin
+
+Database should support:
+
+verificationLevel
+verifiedAt
+verifiedBy
+
+No breaking changes.
+
+Additive migrations only.
+
+---
+
+## PHASE 3 — TRUST SCORE ENGINE
+
+Create a real trust score.
+
+Range:
+
+0 → 100
+
+Score must be generated from real platform data.
+
+Use factors such as:
+
+Orders Completed
+
+Delivery Success Rate
+
+Store Rating
+
+Review Count
+
+Account Age
+
+Follower Count
+
+Response Performance
+
+Cancellation Rate
+
+Confirmed Violations
+
+Reports
+
+Never use fake numbers.
+
+Never hardcode.
+
+Store:
+
+trustScore
+
+or calculate dynamically.
+
+Document the chosen approach.
+
+---
+
+## PHASE 4 — STORE REPUTATION METRICS
+
+Expose:
+
+Store Rating
+
+Review Count
+
+Orders Completed
+
+Followers
+
+Delivery Success Rate
+
+Member Since
+
+Trust Score
+
+Verification Level
+
+All values must be real.
+
+---
+
+## PHASE 5 — REVIEW INTEGRITY
+
+Reviews must only count if:
+
+Order belongs to customer
+
+AND
+
+Order status is:
+
+delivered
+
+Prevent:
+
+fake reviews
+
+duplicate reviews
+
+self reviews
+
+unauthorized reviews
+
+Audit all review routes.
+
+Fix any weaknesses found.
+
+---
+
+## PHASE 6 — PRODUCT PAGE TRUST BLOCK
+
+Add a premium trust section.
+
+Example:
+
+Verified Seller
+
+Trust Score 92
+
+★★★★★ 4.8
+
+500 Orders Completed
+
+95% Delivery Success
+
+Member Since 2026
+
+Design must match current SYANO design language.
+
+No admin-looking UI.
+
+---
+
+## PHASE 7 — STORE PAGE TRUST BLOCK
+
+Add a dedicated trust section.
+
+Display:
+
+Verification Badge
+
+Trust Score
+
+Rating
+
+Orders Completed
+
+Followers
+
+Delivery Success Rate
+
+Member Since
+
+Reviews Count
+
+Should feel comparable to large marketplaces.
+
+---
+
+## PHASE 8 — SELLER DASHBOARD
+
+Create a seller trust panel.
+
+Seller sees:
+
+Trust Score
+
+Score Breakdown
+
+What improves trust
+
+What reduces trust
+
+Recent trust events
+
+Examples:
+
+* Completed order
+
+* New positive review
+
+* New follower
+
+- Cancelled order
+
+- Delivery failure
+
+Make it educational.
+
+---
+
+## PHASE 9 — ADMIN TOOLS
+
+Admin must be able to:
+
+Approve verification
+
+Reject verification
+
+Promote level
+
+Demote level
+
+View trust details
+
+View score breakdown
+
+Audit seller trust history
+
+Everything logged.
+
+---
+
+## PHASE 10 — API LAYER
+
+Expose trust information through APIs.
+
+Store APIs:
+
+verificationLevel
+
+trustScore
+
+rating
+
+ordersCompleted
+
+followers
+
+deliverySuccessRate
+
+memberSince
+
+reviewCount
+
+Keep backward compatibility.
+
+---
+
+## PHASE 11 — MOBILE SUPPORT
+
+Trust indicators must appear in Expo app.
+
+At minimum:
+
+Product page
+
+Store page
+
+Seller profile
+
+No degraded mobile experience.
+
+---
+
+## PHASE 12 — SECURITY AUDIT
+
+After implementation:
+
+Create:
+
+Admin
+Seller
+Customer
+Courier
+Guest
+
+Test all trust functionality.
+
+Verify:
+
+Review integrity
+
+Verification permissions
+
+Trust score accuracy
+
+Role protection
+
+No privilege escalation
+
+No fake review paths
+
+---
+
+## PHASE 13 — PLATFORM-WIDE QA
+
+After completion:
+
+Run full audit.
+
+Check:
+
+API
+
+Marketplace
+
+Mobile
+
+Orders
+
+Reviews
+
+Stores
+
+Products
+
+Notifications
+
+Seller Dashboard
+
+Admin Dashboard
+
+Trust APIs
+
+TypeScript
+
+Fix every issue found.
+
+Do NOT stop at reporting.
+
+Fix all discovered issues.
+
+---
+
+## PHASE 14 — DOCUMENTATION
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+KNOWN_ISSUES.md
+
+RECOVERY_GUIDE.md
+
+MEMORY.md
+
+Document:
+
+Trust architecture
+
+Trust score formula
+
+Verification workflow
+
+Admin workflow
+
+Security protections
+
+Future roadmap
+
+---
+
+## FINAL SUCCESS CRITERIA
+
+✅ TypeScript = 0 errors
+
+✅ Verified Seller system works
+
+✅ Trust Score works
+
+✅ Store reputation metrics work
+
+✅ Product page trust block works
+
+✅ Store page trust block works
+
+✅ Seller dashboard trust panel works
+
+✅ Admin verification tools work
+
+✅ Mobile support works
+
+✅ Security audit passes
+
+✅ Full platform QA passes
+
+✅ Recovery docs updated
+
+Build a production-quality marketplace trust system.
+
+Do not simplify features.

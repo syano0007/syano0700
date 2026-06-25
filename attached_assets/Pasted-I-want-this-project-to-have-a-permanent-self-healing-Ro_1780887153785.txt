@@ -1,0 +1,140 @@
+I want this project to have a permanent, self-healing Root Administrator account that survives every workspace migration, database reset, recovery, and fresh installation.
+
+Do NOT hardcode the password inside project-memory files.
+
+Instead, implement a proper permanent admin bootstrap system.
+
+## Permanent Root Admin
+
+Email:
+[delewaitamer7@gmail.com](mailto:delewaitamer7@gmail.com)
+
+Default Password:
+00Amer00
+
+---
+
+## Rules
+
+1. On every startup or recovery:
+
+* Check whether the root admin account exists.
+* If it does not exist:
+
+  * Create it.
+* If it exists:
+
+  * Ensure role = admin.
+  * Ensure account_status = active.
+  * Ensure is_verified = true.
+  * Ensure password hash matches the configured root password.
+
+2. Never create duplicate accounts.
+
+Always use the email as the unique identifier.
+
+3. The password itself must NOT be stored inside:
+
+* PROJECT_STATE.md
+* AUTH_STATE.md
+* RECOVERY_GUIDE.md
+* CHANGELOG.md
+* Any project-memory file
+
+Instead:
+
+* Store only the email and the recovery rules.
+* Use an environment variable:
+
+ROOT_ADMIN_PASSWORD
+
+If the variable is missing, fall back to:
+
+00Amer00
+
+---
+
+## Recovery System
+
+Update project-memory/AUTH_STATE.md:
+
+### Permanent Root Administrator
+
+Email:
+[delewaitamer7@gmail.com](mailto:delewaitamer7@gmail.com)
+
+Rules:
+
+* Must always exist.
+* Must always have role=admin.
+* Must always have account_status=active.
+* Must always have is_verified=true.
+* Recovery process must automatically recreate or repair it.
+
+Do NOT store the actual password in this file.
+
+---
+
+Update project-memory/RECOVERY_GUIDE.md.
+
+During every recovery perform this sequence:
+
+1. pnpm install
+2. Verify environment variables
+3. Verify DATABASE_URL
+4. Push schema only if database is empty
+5. Run additive migrations
+6. Verify permanent root admin
+7. Recreate or repair it if needed
+8. Perform a REAL login test
+9. Verify JWT generation
+10. Start all services
+
+---
+
+## Startup Bootstrap
+
+Create a dedicated bootstrap function that runs automatically during server startup.
+
+Pseudo behavior:
+
+verifyRootAdmin()
+
+* find user by email
+* if missing -> create
+* if role incorrect -> fix
+* if inactive -> activate
+* if unverified -> verify
+* if password hash missing -> regenerate
+* if password differs from configured root password -> update hash
+
+This process must be idempotent and safe to run on every startup.
+
+---
+
+## Verification
+
+After implementation:
+
+Actually query the database and report:
+
+Root admin exists: YES / NO
+
+Role:
+Account status:
+Verified:
+Password hash present:
+Login successful:
+JWT generated:
+
+Do not simply print "seeded".
+
+A successful implementation requires proving that a real login works.
+
+---
+
+## Future Requirement
+
+No future migration, workspace transfer, database recreation, or recovery process should ever leave the project without a working administrator account.
+
+The Root Administrator system becomes part of the permanent project infrastructure.

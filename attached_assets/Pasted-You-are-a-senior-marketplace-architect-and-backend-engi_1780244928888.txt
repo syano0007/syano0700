@@ -1,0 +1,226 @@
+You are a senior marketplace architect and backend engineer.
+
+CRITICAL BUG:
+
+The "Best Deals" countdown timer is behaving incorrectly.
+
+Currently, the countdown resets or changes when users:
+
+* log in
+* log out
+* switch accounts
+* refresh sessions
+
+This is a severe architectural issue.
+
+A promotional countdown must NEVER depend on the current user session.
+
+==================================================
+EXPECTED BUSINESS LOGIC
+=======================
+
+The countdown timer must be controlled ONLY by:
+
+1. Marketplace administrators
+2. Product sellers (if permissions allow)
+
+Regular users must NEVER have any ability to:
+
+* create countdowns
+* modify countdowns
+* reset countdowns
+* affect countdown state
+* change countdown duration
+
+==================================================
+ROOT CAUSE ANALYSIS
+===================
+
+Before implementing fixes:
+
+Investigate:
+
+* frontend state management
+* localStorage usage
+* sessionStorage usage
+* user context
+* auth context
+* Redux/Zustand/store state
+* database schema
+* timer calculation logic
+* API responses
+* React lifecycle effects
+* hydration behavior
+
+Identify exactly why the timer changes after authentication events.
+
+==================================================
+CORRECT ARCHITECTURE
+====================
+
+The timer must be based on:
+
+startDate
+endDate
+
+stored in the database.
+
+Example:
+
+Deal:
+
+* starts: 2025-09-01 00:00 UTC
+* ends: 2025-09-07 23:59 UTC
+
+The timer should always calculate:
+
+remainingTime = endDate - currentServerTime
+
+NOT:
+
+remainingTime = loginTime
+remainingTime = userSessionTime
+remainingTime = browserStorageTime
+
+==================================================
+DATABASE VALIDATION
+===================
+
+Verify:
+
+* Deal tables
+* Product promotions
+* Featured products
+* Best deals system
+
+Ensure:
+
+Every active deal has:
+
+* start timestamp
+* end timestamp
+* active status
+
+stored permanently in the database.
+
+==================================================
+ADMIN CONTROL
+=============
+
+Marketplace admins must be able to:
+
+* create countdowns
+* edit countdowns
+* extend countdowns
+* disable countdowns
+
+Only admins can control global homepage deals.
+
+==================================================
+SELLER CONTROL
+==============
+
+If seller promotions exist:
+
+Sellers may control ONLY their own deal periods.
+
+Never allow sellers to affect other sellers.
+
+==================================================
+USER RESTRICTIONS
+=================
+
+Normal users must have ZERO control.
+
+Logging in must not:
+
+* restart countdown
+* extend countdown
+* shorten countdown
+* regenerate countdown
+
+Logging out must not:
+
+* restart countdown
+* change countdown
+
+Creating a new account must not:
+
+* affect countdown
+
+==================================================
+TIME SOURCE
+===========
+
+Use a reliable source:
+
+Preferred:
+
+* server time
+
+Fallback:
+
+* UTC-based synchronized time
+
+Do NOT use:
+
+* client login timestamp
+* local storage timer origin
+* browser-generated timer state
+
+==================================================
+MULTI-USER TESTING
+==================
+
+Test:
+
+User A logged out
+User B logged in
+Admin logged in
+Seller logged in
+Guest user
+
+The countdown must remain identical for all of them.
+
+==================================================
+MULTI-DEVICE TESTING
+====================
+
+Verify:
+
+Desktop
+Mobile
+Tablet
+
+The same deal should display the same remaining time.
+
+==================================================
+REFRESH TESTING
+===============
+
+Verify:
+
+* page refresh
+* browser restart
+* login
+* logout
+* account switching
+
+The timer must continue from the same database-defined end date.
+
+==================================================
+FINAL VALIDATION
+================
+
+Provide a report including:
+
+1. Root cause found.
+2. Files modified.
+3. Database fields used.
+4. Admin permissions verified.
+5. Seller permissions verified.
+6. User restrictions verified.
+7. Multi-user testing results.
+8. Multi-device testing results.
+
+The final system must behave like Amazon, Noon, and other professional marketplaces where promotional countdowns are controlled only by administrators/sellers and never by customer sessions.

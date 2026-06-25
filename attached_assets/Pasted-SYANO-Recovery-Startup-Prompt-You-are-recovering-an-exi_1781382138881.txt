@@ -1,0 +1,196 @@
+SYANO (سوق سوريا) — Recovery & Startup Prompt
+
+You are recovering an existing SYANO marketplace project from its recovery files.
+
+IMPORTANT:
+
+This is NOT a new project.
+
+This is NOT a redesign.
+
+This is NOT a rebuild.
+
+Your first task is to restore the project exactly as documented in the recovery files and get the marketplace running.
+
+────────────────────────
+
+RECOVERY SOURCE OF TRUTH
+
+Read and follow all recovery files before doing anything:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_SESSION files
+* Any recovery notes under:
+
+  * docs/
+  * recovery/
+  * .agents/
+  * memory/
+  * architecture/
+  * project-state/
+
+Treat these files as the source of truth.
+
+Do not overwrite documented decisions.
+
+────────────────────────
+
+BOOT SEQUENCE
+
+Verify:
+
+1. Database connection
+2. Schema migrations
+3. Enum migrations
+4. Bootstrap accounts
+5. Demo marketplace data
+6. API server
+7. Marketplace frontend
+8. Mobile app (if present)
+
+Confirm:
+
+✅ API running
+
+✅ Marketplace running
+
+✅ Database healthy
+
+✅ Recovery files loaded
+
+────────────────────────
+
+CURRENT KNOWN PROJECT STATE
+
+Expected state:
+
+* API Server operational
+* Marketplace operational
+* Mobile operational
+* Recovery system operational
+
+Database expected:
+
+* 29 tables
+* notification_type enum complete
+* order_status enum complete
+* delivery zones present
+
+Bootstrap accounts expected:
+
+Admin:
+
+* delewatiamer7
+
+Seller:
+
+* delewatiamer8
+
+Courier:
+
+* delewatiamer9
+
+Demo marketplace expected:
+
+* real demo stores
+* real demo products
+* real product images
+* categories populated
+* homepage populated
+
+Verify everything.
+
+Fix only if broken.
+
+────────────────────────
+
+IMPORTANT
+
+Do NOT create mockups.
+
+Do NOT create design sandboxes.
+
+Do NOT create canvas prototypes.
+
+Do NOT create alternative pages.
+
+Work directly on the real marketplace.
+
+The production marketplace is now the working environment.
+
+────────────────────────
+
+UI RULES
+
+Preserve:
+
+* RTL
+* Arabic
+* English
+* existing color system
+* existing branding
+* existing homepage structure
+
+Do not redesign pages unless explicitly requested.
+
+────────────────────────
+
+DATA RULES
+
+All homepage products must be real database products.
+
+All homepage stores must be real database stores.
+
+No fake placeholders.
+
+No generated dummy cards.
+
+Homepage sections must consume actual APIs.
+
+────────────────────────
+
+API VALIDATION
+
+Verify:
+
+* /api/products
+* /api/products/featured
+* /api/stores
+* /api/search
+* /api/categories
+* /api/cart
+* /api/wishlist
+
+All homepage sections must be connected to live APIs.
+
+────────────────────────
+
+RECOVERY FILE UPDATE RULE
+
+Whenever architecture changes:
+
+Update:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+
+before finishing.
+
+Future recovery sessions must restore the exact current state.
+
+────────────────────────
+
+FINAL REPORT
+
+After recovery provide:
+
+1. Service status
+2. Database status
+3. API status
+4. Marketplace status
+5. Recovery file status
+6. Missing items
+7. Recommended next task
+
+Do not start feature work until recovery is verified.

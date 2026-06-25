@@ -1,0 +1,320 @@
+STOP.
+
+The Homepage is NOT production ready.
+
+Do NOT add features.
+
+Do NOT redesign.
+
+Do NOT create new UI.
+
+Your task is to audit and fix the existing Homepage V7 implementation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CRITICAL ISSUES
+
+The Settings system appears connected visually but is not functioning correctly.
+
+Current problems:
+
+1. English language does not work correctly.
+
+2. Light theme does not work correctly.
+
+3. Currency changes but product prices do not update.
+
+4. Some Homepage components ignore global settings.
+
+The system must be fully functional before any new development.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 1 — FULL DIAGNOSTIC
+
+Before changing code:
+
+Trace the entire settings flow.
+
+Audit:
+
+* Theme system
+* Language system
+* Currency system
+
+Identify:
+
+* missing providers
+* missing state subscriptions
+* broken API calls
+* stale caches
+* hardcoded values
+* components bypassing settings
+
+Produce findings.
+
+Then fix them.
+
+Do NOT guess.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 2 — LANGUAGE SYSTEM
+
+Verify English mode.
+
+Current issue:
+
+Switching to English does not correctly translate the homepage.
+
+Requirements:
+
+When English is selected:
+
+✅ Homepage becomes English
+
+✅ Navbar becomes English
+
+✅ Hero becomes English
+
+✅ Categories become English
+
+✅ Products become English
+
+✅ Footer becomes English
+
+✅ Buttons become English
+
+✅ Validation messages become English
+
+✅ Layout switches correctly to LTR
+
+Verify all Homepage V7 sections.
+
+No Arabic text should remain.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 3 — LIGHT THEME
+
+Current issue:
+
+Light theme does not actually work.
+
+Requirements:
+
+When Light mode is selected:
+
+Entire website updates.
+
+Including:
+
+* navbar
+* hero
+* cards
+* footer
+* dropdowns
+* modals
+* forms
+
+Verify:
+
+No dark-only classes remain.
+
+No forced dark backgrounds remain.
+
+No hardcoded black surfaces remain.
+
+Light theme must feel fully designed.
+
+Not inverted.
+
+Not broken.
+
+Not partially implemented.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 4 — CURRENCY SYSTEM
+
+Current issue:
+
+Currency selector changes state.
+
+Product prices do not update.
+
+This is unacceptable.
+
+Requirements:
+
+Switching currency must immediately update:
+
+Homepage:
+
+* Hero products
+* Featured products
+* Trending products
+* Deals
+* Store products
+
+Marketplace:
+
+* Product cards
+* Product details
+
+Commerce:
+
+* Cart
+* Checkout
+* Orders
+
+Seller:
+
+* Dashboard prices
+* Analytics
+
+All prices must come from the same currency source.
+
+No hardcoded SYP values.
+
+No hardcoded USD values.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 5 — HOMEPAGE AUDIT
+
+Audit every Homepage V7 section.
+
+Verify each component subscribes to:
+
+* theme
+* language
+* currency
+
+Find any component using:
+
+hardcoded text
+
+hardcoded prices
+
+hardcoded theme colors
+
+Replace with global settings.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 6 — GLOBAL SETTINGS
+
+Verify single source of truth.
+
+Only one settings store allowed.
+
+All components must read from:
+
+theme
+
+language
+
+currency
+
+through the same provider/store.
+
+No duplicate settings state.
+
+No shadow state.
+
+No local overrides.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 7 — BACKEND
+
+Verify APIs:
+
+GET /api/user/settings
+
+PATCH /api/user/settings
+
+Requirements:
+
+Authenticated users:
+
+save settings in database.
+
+Guests:
+
+save settings locally.
+
+Login:
+
+merge correctly.
+
+Refresh:
+
+restore correctly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 8 — VALIDATION
+
+Test all scenarios:
+
+Guest:
+
+* change theme
+* refresh
+
+Guest:
+
+* change language
+* refresh
+
+Guest:
+
+* change currency
+* refresh
+
+User:
+
+* login
+* change settings
+* logout
+* login again
+
+Verify persistence.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SUCCESS CRITERIA
+
+✅ English fully works
+
+✅ Arabic fully works
+
+✅ RTL works
+
+✅ LTR works
+
+✅ Light theme works
+
+✅ Dark theme works
+
+✅ System theme works
+
+✅ Currency updates product prices
+
+✅ Homepage V7 fully respects settings
+
+✅ No hardcoded text
+
+✅ No hardcoded prices
+
+✅ No console errors
+
+✅ No API errors
+
+✅ No TypeScript errors
+
+✅ Recovery files updated
+
+Do not stop until all failures are resolved.

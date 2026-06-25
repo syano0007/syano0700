@@ -1,0 +1,328 @@
+Implement the Product Variant Builder exactly like the provided design mockup.
+
+This is a UI/UX upgrade only.
+Do NOT rewrite the backend architecture.
+Do NOT break existing APIs, database schema, cart logic, checkout logic, or variant generation engine.
+
+The current implementation is too primitive.
+I want a modern Shopify / Amazon / Trendyol level experience that fits perfectly inside the existing Syano design system.
+
+━━━━━━━━━━━━━━━━━━━━━━
+DESIGN REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━
+
+Use the current Syano theme:
+
+* Existing colors
+* Existing typography
+* Existing border radius
+* Existing spacing system
+* Existing shadows
+* Existing buttons
+* Existing dark/light mode support
+* Existing RTL behavior
+
+The new component should look like it was always part of the website.
+
+The attached mockup should be treated as the visual reference.
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+1. VARIANT TOGGLE
+   ━━━━━━━━━━━━━━━━━━━━━━
+
+At the top of the section:
+
+[ Toggle ] This product has multiple options
+
+When OFF:
+Hide the entire variant system.
+
+When ON:
+Expand the complete variant builder with a smooth animation.
+
+━━━━━━━━━━━━━━━━━━━━━━
+2. ATTRIBUTE PICKER
+━━━━━━━━━━━━━━━━━━━━━━
+
+Replace the old text input with a modern preset selector.
+
+Display beautiful clickable cards/chips:
+
+🎨 Color
+📏 Size
+💾 Storage
+🧠 RAM
+🧵 Material
+✨ Style
+📦 Model
+🏷️ Edition
+✏️ Custom
+
+Each preset contains:
+
+* icon
+* title
+* subtle hover animation
+
+Clicking one instantly creates that attribute group.
+
+Custom opens a small inline input.
+
+Example:
+
+Custom Attribute:
+[____________]
+
+Examples:
+Language
+Warranty
+Length
+Weight
+Capacity
+Package
+
+The system must NOT assume that products always have Color + Size + Storage.
+
+The seller can create ANY combination.
+
+Examples:
+
+Phone:
+Color + Storage + RAM
+
+Clothes:
+Color + Size
+
+Perfume:
+Volume
+
+Book:
+Language + Cover Type
+
+Chair:
+Color
+
+Cable:
+No variants at all
+
+━━━━━━━━━━━━━━━━━━━━━━
+3. ATTRIBUTE GROUP CARDS
+━━━━━━━━━━━━━━━━━━━━━━
+
+Each added attribute becomes a clean card.
+
+Example:
+
+────────────────────────
+🎨 Color
+
+⚫ Black
+⚪ White
+🔵 Blue
+🔴 Red
+
+[ + Add Color ]
+
+☑ Enabled
+
+🗑 Delete
+☰ Drag
+────────────────────────
+
+Groups should support:
+
+* drag & drop ordering
+* collapse / expand
+* enable / disable
+* delete
+
+━━━━━━━━━━━━━━━━━━━━━━
+4. SMART VALUE SUGGESTIONS
+━━━━━━━━━━━━━━━━━━━━━━
+
+Known presets automatically suggest common values.
+
+Color:
+Black White Gray Silver Gold Blue Red Green Yellow Orange Pink Purple Brown
+
+Size:
+XS S M L XL XXL XXXL
+
+Storage:
+32GB 64GB 128GB 256GB 512GB 1TB
+
+RAM:
+4GB 6GB 8GB 12GB 16GB 24GB
+
+Material:
+Cotton Leather Plastic Wood Glass Metal
+
+Style:
+Classic Modern Sport Casual Premium
+
+Suggested values appear as clickable chips.
+
+Seller can also type custom values.
+
+━━━━━━━━━━━━━━━━━━━━━━
+5. COLOR SWATCH MODE
+━━━━━━━━━━━━━━━━━━━━━━
+
+If attribute name matches:
+
+Color
+Colours
+Colour
+اللون
+الألوان
+
+Render values as real color circles.
+
+⚫ ⚪ 🔵 🔴 🟢 🟡 🟣
+
+Selected colors:
+
+* outer ring
+* checkmark
+* hover animation
+
+Unknown colors fallback to normal chips.
+
+Support both Arabic and English names.
+
+━━━━━━━━━━━━━━━━━━━━━━
+6. LIVE VARIANT PREVIEW
+━━━━━━━━━━━━━━━━━━━━━━
+
+Right sidebar should update instantly.
+
+Title:
+
+Generated Variants (12)
+
+Display:
+
+Black / S / 128GB
+Black / S / 256GB
+Black / M / 128GB
+White / S / 128GB
+
+Show first few rows only.
+
+Footer:
+
+View all 12 variants
+
+Also display:
+
+Total combinations
+Complete variants
+Incomplete variants
+
+Update live while editing.
+
+━━━━━━━━━━━━━━━━━━━━━━
+7. VARIANT TABLE
+━━━━━━━━━━━━━━━━━━━━━━
+
+After generation show a professional editable table.
+
+Columns:
+
+Image
+Variant
+Price
+Compare Price
+Stock
+SKU
+Status
+
+Example:
+
+📷 | Black / S / 128GB | 199 | 249 | 15 | SKU001 | Active
+
+Each row supports:
+
+* upload image
+* individual price
+* compare-at price
+* stock quantity
+* SKU
+* enable/disable
+
+━━━━━━━━━━━━━━━━━━━━━━
+8. BULK ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━
+
+Top of table:
+
+☑ Select All
+
+Bulk actions:
+
+Set Price
+Set Compare Price
+Set Stock
+Enable
+Disable
+Delete
+
+Changes apply to all selected variants.
+
+━━━━━━━━━━━━━━━━━━━━━━
+9. UX DETAILS
+━━━━━━━━━━━━━━━━━━━━━━
+
+Add:
+
+✓ smooth expand/collapse
+✓ hover animations
+✓ drag animations
+✓ subtle shadows
+✓ loading skeletons if needed
+✓ responsive layout
+✓ mobile compatibility
+✓ perfect RTL support
+
+The UI should feel premium and effortless.
+
+━━━━━━━━━━━━━━━━━━━━━━
+10. KEEP BACKWARD COMPATIBILITY
+━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT break:
+
+* existing database tables
+* product creation
+* product editing
+* variant APIs
+* existing products
+* cart
+* checkout
+* order history
+* mobile app
+
+Reuse existing backend logic.
+
+Only improve the management experience.
+
+━━━━━━━━━━━━━━━━━━━━━━
+FINAL VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━
+
+After implementation verify:
+
+✅ Existing products still work.
+✅ Product creation works.
+✅ Product editing works.
+✅ Variant generation still works.
+✅ Cart receives correct variantId.
+✅ Mobile app still works.
+✅ RTL still works.
+✅ No TypeScript errors.
+✅ No console errors.
+✅ No broken APIs.
+✅ Update all project-memory files to reflect the new Variant Builder UI.
+
+The final result should closely match the attached mockup and feel like a first-class ecommerce platform rather than a basic dynamic form.

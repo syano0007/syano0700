@@ -1,0 +1,180 @@
+I have imported the SYANO marketplace project from GitHub into a new environment.
+
+Your first responsibility is to restore the project using the project's existing recovery files and memory documentation before making any changes.
+
+PHASE 0 — RECOVERY RESTORATION
+
+Before doing anything else:
+
+1. Locate and read all recovery documentation in the project.
+
+Required locations include (if present):
+
+* .local/RECOVERY.md
+* .agents/memory/
+* .agents/memory/MEMORY.md
+* Any restoration, recovery, migration, handoff, checkpoint, or memory files
+* Any project-specific recovery documentation
+
+Read everything completely.
+
+Treat those files as the source of truth for the latest known project state.
+
+Reconstruct the project state from those files before making any modifications.
+
+PHASE 1 — ENVIRONMENT RESTORATION
+
+1. Install all dependencies
+2. Verify package versions
+3. Restore workspace references
+4. Build required shared libraries
+5. Run all required setup commands
+6. Restore database connectivity
+7. Apply schema/migrations if required
+8. Start backend services
+9. Start frontend services
+10. Verify everything runs successfully
+
+PHASE 2 — RESTORE AND VERIFY LATEST IMPLEMENTED FEATURES
+
+Using the recovery files as reference, verify that all previously implemented functionality still exists.
+
+PRODUCT PAGE
+
+Verify:
+
+* Shared pricing utility
+* Unified discount calculation
+* Consistent discount badges
+* Mobile sticky purchase bar
+* Desktop purchase card
+* Variant selector
+* Variant stock handling
+* Variant image switching
+* Related products
+
+SELLER CONTACT
+
+Verify:
+
+* Contact Seller button exists
+* Contact Seller button uses sellerId
+* Messaging system still works
+* Customer visibility rules still work
+
+SELLER PRODUCT FORMS
+
+Verify:
+
+* ProductWizard exists
+* 5-step architecture exists
+
+Steps:
+
+1. Basic Information
+2. Pricing
+3. Variants
+4. Specifications & Description
+5. Review & Publish
+
+Verify:
+
+* New Product page works
+* Edit Product page works
+* VariantBuilder works
+* Specification builder works
+* Description toolbar works
+* Wizard navigation works
+* Sticky action buttons work
+
+MOBILE
+
+Verify:
+
+* Product creation wizard
+* Product edit wizard
+* Variant step
+* Specification step
+* No broken layouts
+* No overflow
+* No missing actions
+
+DESKTOP
+
+Verify:
+
+* Wizard works correctly
+* Layout loads correctly
+* No regressions
+
+PHASE 3 — TYPESCRIPT VALIDATION
+
+Run full TypeScript validation.
+
+Requirements:
+
+* 0 TypeScript errors
+* 0 build errors
+* 0 missing imports
+* 0 broken references
+
+PHASE 4 — VISUAL AUDIT
+
+Inspect:
+
+* Home page
+* Product page
+* Store page
+* Seller dashboard
+* Product creation page
+* Product edit page
+
+Document:
+
+* Mobile issues
+* Desktop issues
+* RTL issues
+* Layout issues
+* Overflow issues
+* Regression issues
+
+PHASE 5 — COMPARE AGAINST RECOVERY FILES
+
+Compare the current implementation against:
+
+* RECOVERY.md
+* Memory files
+* Previous restoration notes
+
+Confirm:
+
+* What matches
+* What is missing
+* What regressed
+* What changed
+
+PHASE 6 — REPORT
+
+Produce a complete report:
+
+1. Environment Status
+2. Database Status
+3. Frontend Status
+4. Backend Status
+5. TypeScript Status
+6. Recovery Verification
+7. Feature Verification
+8. Missing Features
+9. Regressions
+10. Recommended Fix Order
+
+IMPORTANT
+
+* Do NOT redesign anything.
+* Do NOT implement new features.
+* Do NOT modify UI.
+* Do NOT refactor code.
+* Do NOT change behavior.
+* Do NOT fix issues yet.
+
+First restore the project using the recovery files, verify that the imported GitHub version matches the latest recovered state, and provide a complete restoration report before any further work begins.

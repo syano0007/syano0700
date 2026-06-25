@@ -1,0 +1,564 @@
+# SYANO — PHASE 7: MESSAGING V2
+
+STOP.
+
+This is Roadmap Phase 7.
+
+Do NOT build a simple chat.
+
+Do NOT build an MVP.
+
+Do NOT build a demo messenger.
+
+Build a production-grade marketplace messaging system.
+
+Quality target:
+
+* Amazon Buyer Messages
+* Shopify Inbox
+* Trendyol Messaging
+* Noon Messaging
+
+This is an enhancement of the existing marketplace.
+
+NOT a rewrite.
+
+---
+
+# PROJECT RULES
+
+Preserve:
+
+* Existing APIs
+* Existing authentication
+* Existing theme system
+* Existing language system
+* Existing currency system
+* Existing design language
+* Existing mobile compatibility
+
+Use additive migrations.
+
+Do not break existing functionality.
+
+---
+
+# GOAL
+
+Create a complete messaging ecosystem connecting:
+
+Customer
+
+Seller
+
+Admin
+
+Courier (future-ready)
+
+inside the marketplace.
+
+---
+
+# PART 1 — CONVERSATION MODEL
+
+Create a robust conversation system.
+
+Entities:
+
+Conversation
+
+Participant
+
+Message
+
+MessageAttachment
+
+MessageRead
+
+ConversationMute
+
+ConversationArchive
+
+---
+
+# CONVERSATION TYPES
+
+Support:
+
+### Customer ↔ Seller
+
+Product questions
+
+Order questions
+
+Store communication
+
+---
+
+### Customer ↔ Admin
+
+Support
+
+Disputes
+
+Platform issues
+
+---
+
+### Seller ↔ Admin
+
+Verification
+
+Moderation
+
+Store support
+
+---
+
+### Courier ↔ Admin
+
+Future-ready structure.
+
+No need for full UI yet.
+
+Database support required.
+
+---
+
+# PART 2 — DATABASE
+
+Create additive migrations.
+
+Support:
+
+Conversation
+
+* id
+* type
+* createdAt
+* updatedAt
+* archived
+
+Participant
+
+* conversationId
+* userId
+* role
+
+Message
+
+* id
+* conversationId
+* senderId
+* text
+* createdAt
+* editedAt
+* deleted
+
+Attachment
+
+* image
+* file
+* mimeType
+* size
+
+Read receipts
+
+* messageId
+* userId
+* readAt
+
+---
+
+# PART 3 — INBOX UI
+
+Create a premium inbox.
+
+Desktop:
+
+Two-panel layout.
+
+Left:
+
+Conversation list
+
+Right:
+
+Conversation view
+
+---
+
+Conversation list includes:
+
+* avatar
+* name
+* last message
+* timestamp
+* unread badge
+
+---
+
+Conversation view includes:
+
+* messages
+* attachments
+* read state
+* typing state
+
+---
+
+# PART 4 — MESSAGE COMPOSER
+
+Support:
+
+Text
+
+Images
+
+Files
+
+Paste image
+
+Drag & drop
+
+Mobile upload
+
+---
+
+Limit:
+
+Configurable.
+
+Validate:
+
+File type
+
+Size
+
+Security
+
+---
+
+# PART 5 — REAL-TIME UPDATES
+
+No page refresh.
+
+Use existing architecture.
+
+Support:
+
+New messages
+
+Read updates
+
+Conversation updates
+
+Typing indicators
+
+Unread count updates
+
+Instant UI changes.
+
+---
+
+# PART 6 — TYPING INDICATORS
+
+Show:
+
+Seller is typing...
+
+Customer is typing...
+
+Admin is typing...
+
+Localized.
+
+Arabic + English.
+
+---
+
+# PART 7 — READ RECEIPTS
+
+Support:
+
+Sent
+
+Delivered
+
+Read
+
+Marketplace-style indicators.
+
+No WhatsApp clone.
+
+Maintain professional design.
+
+---
+
+# PART 8 — UNREAD SYSTEM
+
+Global unread count.
+
+Navbar badge.
+
+Inbox badge.
+
+Conversation badge.
+
+Instant updates.
+
+---
+
+# PART 9 — SEARCH
+
+Search conversations.
+
+Search users.
+
+Search stores.
+
+Search message content.
+
+Localized.
+
+Fast.
+
+---
+
+# PART 10 — ARCHIVE / MUTE
+
+Support:
+
+Archive conversation
+
+Mute conversation
+
+Unarchive
+
+Restore
+
+---
+
+# PART 11 — PRODUCT CONTEXT
+
+Allow conversation to originate from:
+
+Product page
+
+Store page
+
+Order page
+
+Example:
+
+Customer clicks:
+
+"اسأل البائع"
+
+Conversation opens automatically.
+
+Store product context.
+
+---
+
+# PART 12 — ORDER CONTEXT
+
+Messages can be linked to orders.
+
+Example:
+
+Order #1234
+
+Conversation shows:
+
+Related order
+
+Order status
+
+Relevant metadata
+
+---
+
+# PART 13 — NOTIFICATIONS
+
+Integrate with notification system.
+
+Trigger:
+
+New message
+
+Unread message
+
+Admin response
+
+Seller response
+
+Support:
+
+Web notifications
+
+Existing notification center
+
+Future push notifications
+
+---
+
+# PART 14 — MOBILE EXPERIENCE
+
+Expo app must support:
+
+Conversation list
+
+Messaging
+
+Attachments
+
+Unread counts
+
+Read receipts
+
+Typing indicators
+
+No degraded implementation.
+
+---
+
+# PART 15 — SECURITY
+
+Prevent:
+
+Spam
+
+Unauthorized access
+
+Cross-conversation access
+
+File abuse
+
+Large uploads
+
+Invalid MIME types
+
+---
+
+# PART 16 — ADMIN TOOLS
+
+Admin can:
+
+View support conversations
+
+Respond
+
+Moderate
+
+Archive
+
+Search
+
+Audit
+
+Without accessing private seller/customer conversations unless permission rules allow it.
+
+---
+
+# PART 17 — DESIGN QUALITY
+
+Must feel native to SYANO.
+
+Not dashboard-looking.
+
+Not Bootstrap-looking.
+
+Premium marketplace quality.
+
+Use:
+
+* modern cards
+* proper spacing
+* RTL support
+* subtle animations
+* responsive design
+
+---
+
+# PART 18 — ENDPOINTS
+
+Expose:
+
+Conversations
+
+Messages
+
+Unread counts
+
+Attachments
+
+Read state
+
+Search
+
+Archive
+
+Mute
+
+Maintain API consistency.
+
+---
+
+# PART 19 — DOCUMENTATION
+
+Update:
+
+CURRENT_STATE.md
+
+RECOVERY_GUIDE.md
+
+Endpoint documentation
+
+Architecture documentation
+
+Messaging V2 documentation
+
+Recovery files
+
+Document everything.
+
+---
+
+# FINAL VALIDATION
+
+Verify:
+
+✅ Customer ↔ Seller works
+
+✅ Customer ↔ Admin works
+
+✅ Seller ↔ Admin works
+
+✅ Attachments work
+
+✅ Search works
+
+✅ Read receipts work
+
+✅ Typing indicators work
+
+✅ Unread counts work
+
+✅ Notifications work
+
+✅ Mobile works
+
+✅ Desktop works
+
+✅ Arabic works
+
+✅ English works
+
+✅ RTL works
+
+✅ TypeScript = 0 errors
+
+✅ Recovery docs updated
+
+Only finish when Messaging V2 is production-ready.

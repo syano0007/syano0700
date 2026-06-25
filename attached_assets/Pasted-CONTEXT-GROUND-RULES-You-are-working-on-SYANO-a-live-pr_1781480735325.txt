@@ -1,0 +1,233 @@
+CONTEXT & GROUND RULES
+──────────────────────
+You are working on SYANO (سوق سوريا), a live production-grade multi-vendor
+marketplace. Before writing a single line of code:
+1. Read CURRENT_STATE.md fully
+2. Read PROJECT_STATUS.md fully
+3. Read RECOVERY_GUIDE.md fully
+4. Verify all 3 services are running (backend :8080, frontend Vite, mobile Expo)
+5. Run `npx tsc --noEmit` — confirm 0 errors before you start
+
+NEVER: redesign existing UI, introduce new components/colors/patterns,
+create new DB tables, modify existing API endpoints behavior, hardcode
+visible strings, use fake/mock data, skip TypeScript checking.
+ALWAYS: follow existing file patterns exactly, reuse existing components,
+support RTL Arabic + LTR English, support light + dark theme.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK: Click-Through Rate (CTR) Logging
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GOAL
+────
+Right now the `clicked` column in `query_logs` is never written as `true`,
+so the CTR metric in the Search Analytics Panel always shows 0%.
+This task makes CTR real: when a user clicks a search result, the system
+writes `clicked = true` to the correct `query_logs` row.
+No new DB tables. No schema changes. Only the existing `clicked` boolean
+column in `query_logs` gets used.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — DISCOVERY (read before writing anything)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before writing any code, read and understand:
+
+1. `lib/db/schema.ts` — confirm exact column names for query_logs:
+   id, query, lang, result_count, clicked, created_at — note actual types.
+
+2. Open the existing search route file (the one handling
+   GET /api/search and GET /api/search/suggestions) — understand:
+   - How it currently inserts into query_logs (fire-and-forget pattern)
+   - What data it saves per search (especially: does it return the log id
+     to the frontend? if not, we need to add it)
+   - How auth/session is handled (guest vs logged-in user)
+
+3. Open the existing search results page/component on the frontend
+   (artifacts/marketplace) — find:
+   - Where product cards are rendered from search results
+   - What onClick handlers exist on result items
+   - How the current query string and search log id are available
+     (or need to be made available) at click time
+
+4. Open `lib/api-client-react` — find the existing search hooks:
+   - useSearch or equivalent
+   - Check what the current API response shape is (does it include a
+     log id or not)
+
+5. Check if there is an existing pattern for fire-and-forget POST/PATCH
+   calls in the frontend (non-blocking, no loading state needed).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — BACKEND
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── Change 1: Return log ID from search endpoint ──────────
+In the existing GET /api/search handler, the fire-and-forget insert into
+query_logs already happens. Modify it so that:
+- The inserted row's `id` is captured (use Drizzle's `.returning({ id })`)
+- The `id` is included in the search API response as `searchLogId: number | null`
+- If the insert fails silently (fire-and-forget), searchLogId = null
+- This must NOT slow down the search response — keep it non-blocking.
+  Use this pattern:
+
+  let searchLogId: number | null = null;
+  db.insert(queryLogs)
+    .values({ ... })
+    .returning({ id: queryLogs.id })
+    .then(([row]) => { searchLogId = row?.id ?? null; })
+    .catch(() => {});
+
+  Since fire-and-forget is async, the cleanest approach is to await the
+  insert but with a timeout guard so it never blocks more than 50ms:
+  
+  const insertPromise = db.insert(queryLogs).values({...}).returning({id: queryLogs.id});
+  const timeoutPromise = new Promise<null>(res => setTimeout(() => res(null), 50));
+  const result = await Promise.race([insertPromise, timeoutPromise]);
+  const searchLogId = Array.isArray(result) ? (result[0]?.id ?? null) : null;
+
+  Then include searchLogId in the final JSON response alongside results.
+
+── Change 2: New endpoint — record a click ───────────────
+Add to the existing search router (same file as GET /api/search):
+
+POST /api/search/click
+Auth: optional (works for both guests and logged-in users)
+Body (Zod-validated):
+  {
+    searchLogId: number   // the query_logs row to mark as clicked
+  }
+
+Logic:
+- Validate searchLogId is a positive integer
+- Update query_logs SET clicked = true WHERE id = searchLogId
+- Only update if clicked is currently false (do not double-count)
+- Return: { success: true } or { success: false } — nothing else
+- This endpoint must respond in < 10ms — single indexed PK lookup
+- If searchLogId does not exist: return { success: false }, not a 404
+- No auth required — guests can also generate CTR signals
+
+Error handling:
+try {
+  const { searchLogId } = ClickSchema.parse(req.body);
+  await db.update(queryLogs)
+    .set({ clicked: true })
+    .where(and(
+      eq(queryLogs.id, searchLogId),
+      eq(queryLogs.clicked, false)
+    ));
+  res.json({ success: true });
+} catch (error) {
+  if (error instanceof ZodError)
+    return res.status(400).json({ error: error.errors });
+  console.error('[search-click]', error);
+  res.status(500).json({ success: false });
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — API CLIENT (lib/api-client-react)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── Update search response type ───────────────────────────
+In the shared Zod schema or TypeScript type for the search response
+(lib/api-zod or lib/api-client-react), add:
+  searchLogId: z.number().nullable().optional()
+
+Make sure this flows through to the frontend type so it's available
+in the component without casting.
+
+── Add recordSearchClick function ────────────────────────
+In the search-related api client file, add a plain async function
+(NOT a TanStack Query hook — this is fire-and-forget, not a query):
+
+export async function recordSearchClick(searchLogId: number): Promise<void> {
+  if (!searchLogId) return;
+  try {
+    await fetch('/api/search/click', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ searchLogId }),
+    });
+  } catch {
+    // silent — CTR logging must never affect UX
+  }
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — FRONTEND (artifacts/marketplace)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── Where to add the click tracking ──────────────────────
+Find the component that renders search result product cards
+(likely the Shop/Search results page). Identify the onClick handler
+that navigates to a product detail page when a result is clicked.
+
+Wrap that navigation with a fire-and-forget CTR call:
+
+const handleResultClick = (productId: number) => {
+  // Fire-and-forget — never await, never block navigation
+  if (searchLogId) {
+    recordSearchClick(searchLogId);
+  }
+  // Immediately navigate — do not wait for the above
+  navigate(`/products/${productId}`);
+};
+
+Rules:
+- NEVER await recordSearchClick — it must never delay navigation
+- NEVER show loading state for this call
+- NEVER show error state if it fails
+- The searchLogId must come from the search API response
+  (added in Step 2) stored in component state or from the
+  TanStack Query result data
+- Only call recordSearchClick once per result click
+  (not on hover, not on mount)
+- Works for both guest and logged-in users
+
+── Navbar autocomplete click tracking ───────────────────
+In Navbar.tsx, find where autocomplete suggestions navigate on click
+or Enter keypress. If the suggestion triggers a search and the result
+page will load fresh data, CTR will be captured there automatically.
+No change needed in Navbar.tsx unless suggestions directly navigate
+to a product page (bypassing the search results page) — in that case,
+apply the same recordSearchClick pattern.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — MOBILE (artifacts/mobile)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Apply the same CTR logging to the mobile search results screen:
+- Find the equivalent search results component in artifacts/mobile
+- Find where product cards are pressed/tapped in search results
+- Add the same recordSearchClick call (fire-and-forget, never awaited)
+- The mobile API client must use the same /api/search/click endpoint
+- Test that it compiles without TypeScript errors
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 6 — VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After building, verify ALL of the following:
+
+□ npx tsc --noEmit → 0 errors across all packages
+□ GET /api/search?q=موبايل returns searchLogId as a number in response
+□ GET /api/search?q=test returns searchLogId as a number in response
+□ POST /api/search/click with valid searchLogId returns { success: true }
+□ POST /api/search/click with invalid body returns 400
+□ POST /api/search/click with non-existent id returns { success: false }
+  not a 500 error
+□ After clicking a result: query that row in query_logs directly in DB
+  and confirm clicked = true
+□ Clicking same result twice does NOT increment any counter
+  (idempotent — clicked stays true, no duplicate writes)
+□ Navigation to product page is instant — no delay from CTR call
+□ Search Analytics Panel at /admin/search-analytics now shows
+  non-zero CTR after performing searches and clicking results
+□ Guest users (not logged in) can also generate CTR signals
+□ No console errors in browser after clicking a result
+□ No existing search functionality broken (autocomplete, intent
+  detection, filters all still work)
+□ No new npm packages installed
+□ No existing DB schema modified
+□ Mobile search result clicks also fire CTR logging

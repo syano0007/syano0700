@@ -1,0 +1,139 @@
+You are working on the SYANO (سوق سوريا) production marketplace.
+
+Implement the following changes with production-quality standards.
+
+IMPORTANT:
+- Do not break any existing functionality.
+- Do not modify the homepage layout.
+- Do not modify the navbar.
+- Do not modify the global color system.
+- Preserve RTL support.
+- Preserve responsive behavior.
+- Keep TypeScript at 0 errors.
+- Reuse existing components whenever possible.
+- Do not create duplicate implementations.
+
+==================================================
+1. SMART SUPPORT (DESKTOP ONLY)
+==================================================
+
+Redesign the Smart Support button on desktop.
+
+Current issue:
+The button is too large and visually heavy.
+
+Required:
+
+- Convert it into a compact floating circular support button.
+- Keep all existing support functionality intact.
+- Do not remove any API integrations.
+- Do not remove any events or logic.
+- Keep it fixed to the bottom corner.
+- Modern marketplace-style appearance.
+- Size similar to Intercom / Crisp / Shopify support widgets.
+- Circular shape.
+- Clean shadow.
+- Subtle hover animation.
+- Proper focus state.
+- Must not occupy excessive screen space.
+
+Mobile behavior should remain unchanged.
+
+==================================================
+2. FOOTER UNIFICATION
+==================================================
+
+The homepage footer is the official footer.
+
+Use it everywhere.
+
+Do NOT create a new footer.
+
+Find all pages using different footer implementations and replace them with the exact homepage footer component.
+
+Apply to:
+
+- Product pages
+- Store pages
+- Category pages
+- Search pages
+- Account pages
+- Settings pages
+- Login page
+- Registration page
+- Any other page using a different footer
+
+Requirements:
+
+- Same design
+- Same sections
+- Same spacing
+- Same colors
+- Same typography
+- Same links
+- Same responsiveness
+
+The footer must be visually identical across the entire platform.
+
+==================================================
+3. REPLACE OLD "S" BRAND MARK WITH OFFICIAL LOGO
+==================================================
+
+The old S icon is still being used in some places.
+
+Replace every old S brand mark with the official SYANO logo currently used in the navbar.
+
+Required locations:
+
+A) Footer
+
+- Replace old S icon
+- Use official SYANO logo
+- Maintain visual balance
+- Preserve alignment
+
+B) Login Page
+
+- Replace old S icon
+- Use official SYANO logo
+- Maintain responsive layout
+- Keep premium appearance
+
+C) Registration Page
+
+- Replace old S icon
+- Use official SYANO logo
+- Maintain existing layout
+
+D) Global Audit
+
+Search the entire codebase for:
+
+- Old S logo
+- Legacy brand marks
+- Placeholder logos
+- Brand icon components
+
+Replace all of them with the official SYANO logo asset.
+
+==================================================
+VALIDATION
+==================================================
+
+Before completion verify:
+
+✓ Smart Support is now a compact floating circular desktop widget
+✓ Support functionality still works
+✓ Homepage remains unchanged
+✓ Navbar remains unchanged
+✓ Homepage footer is reused everywhere
+✓ No page uses an old footer implementation
+✓ Login page uses official logo
+✓ Registration page uses official logo
+✓ Old S icon is fully removed from the platform
+✓ RTL preserved
+✓ Responsive design preserved
+✓ TypeScript = 0 errors
+✓ No regressions introduced
+
+Only ship verified changes.

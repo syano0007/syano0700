@@ -1,0 +1,47 @@
+CRITICAL REMAINING BUG - SELLER APPLICATION WORKFLOW
+
+Even after removing auto-save, the core issue persists:
+
+If a user simply VISITS the seller application page (/seller/apply) and then leaves immediately (without typing anything, without clicking Save Draft, without submitting), the system still creates a record or changes the account state in a way that prevents this user from submitting a seller application later.
+
+This is the root cause we need to fix.
+
+══════════════════════════════════════
+STRICT REQUIREMENT
+══════════════════════════════════════
+
+Visiting the /seller/apply page must be a **completely passive read-only action**. It must NOT:
+
+- Create any record in seller_applications table
+- Update any user field
+- Change sellerStatus
+- Create any draft implicitly
+- Have any side effects whatsoever
+
+A seller application record should ONLY be created when the user **explicitly** clicks "Save as Draft" or "Submit Application".
+
+══════════════════════════════════════
+TASK
+══════════════════════════════════════
+
+Find and remove any code that triggers on page load / component mount / route entry that creates or modifies seller application data.
+
+Specifically audit:
+- apply.tsx (useEffect, onMount, initial load logic)
+- Any API call that happens automatically when entering the page
+- Middleware or route guards
+- GET /seller-applications/my logic
+
+Fix it so that:
+- Pure navigation to the page does nothing to the database or user state.
+- Only explicit user actions (Save Draft / Submit) create records.
+
+After fixing, test this exact scenario multiple times:
+1. User logs in as customer
+2. Goes to /seller/apply
+3. Immediately leaves or goes back
+4. Returns later and tries to submit a new application → MUST WORK
+
+Confirm clearly in your response: "Visiting the seller application page now has zero side effects. Any customer can start an application at any time."
+
+This is the final critical piece of the seller onboarding bug.

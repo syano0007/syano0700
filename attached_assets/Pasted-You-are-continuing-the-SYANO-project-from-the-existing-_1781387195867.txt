@@ -1,0 +1,143 @@
+You are continuing the SYANO (سوق سوريا) project from the existing recovery files.
+
+## Phase 1 — Full Recovery
+
+Read and restore project state from ALL recovery and memory files before making any changes.
+
+Priority files:
+
+* CURRENT_STATE.md
+* RECOVERY_GUIDE.md
+* RECOVERY_COMPLETE.md
+* RECOVERY_STATUS.md
+* PROJECT_STATUS.md
+* CHANGELOG.md
+* docs/**
+* recovery/**
+* .agents/memory/**
+* memory/**
+* artifacts/**
+* any project state, architecture, roadmap, implementation, migration, API, UI, or recovery documentation
+
+Build a complete understanding of:
+
+* current architecture
+* completed features
+* pending features
+* homepage implementation
+* navbar implementation
+* theme system
+* currency system
+* language system
+* API structure
+* database schema
+* recovery status
+
+Do NOT assume anything before reading recovery files.
+
+---
+
+## Phase 2 — Environment Validation
+
+Verify:
+
+### Backend
+
+* API server starts correctly
+* health endpoint returns success
+* database connection works
+* migrations are applied
+* enums are valid
+* products exist
+* sellers exist
+* stores exist
+
+### Frontend
+
+* Vite starts successfully
+* Homepage loads
+* No console errors
+* No build errors
+* No TypeScript errors
+
+### Mobile
+
+* Expo starts correctly
+
+---
+
+## Phase 3 — Start Everything
+
+Automatically start all required services:
+
+### API
+
+Run backend server
+
+Verify:
+
+/api/healthz
+
+returns healthy response
+
+### Marketplace
+
+Run Vite frontend
+
+Verify homepage loads
+
+### Mobile
+
+Run Expo app
+
+Verify startup succeeds
+
+---
+
+## Phase 4 — Recovery Report
+
+After startup provide a report:
+
+### Services
+
+* API status
+* Frontend status
+* Mobile status
+
+### Database
+
+* tables count
+* products count
+* sellers count
+* stores count
+
+### Recovery
+
+* recovery files loaded
+* project version identified
+* homepage version identified
+
+### Validation
+
+* TypeScript status
+* console status
+* API status
+
+---
+
+## Critical Rules
+
+* Do NOT modify code yet
+* Do NOT redesign anything yet
+* Do NOT upgrade dependencies yet
+* Do NOT refactor yet
+
+First recover.
+
+Then start services.
+
+Then validate.
+
+Then provide the recovery report.
+
+Only after recovery is confirmed should implementation work continue.

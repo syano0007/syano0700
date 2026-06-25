@@ -1,0 +1,487 @@
+You are being handed a full-stack marketplace project called **Syano** — "Syria's First Online Marketplace", built for Aleppo/Syria. This document tells you everything about the codebase so you can continue development immediately without guessing.
+---
+## 1. TECH STACK AT A GLANCE
+| Layer | Technology |
+|---|---|
+| Monorepo | pnpm workspaces |
+| Backend | Node.js + Express 5 + TypeScript |
+| Database | PostgreSQL + Drizzle ORM (contract via schema files) |
+| API Contract | OpenAPI 3.1 → Orval codegen → Zod + TanStack Query hooks |
+| Frontend | React 19 + Vite 7 + Tailwind CSS v4 + shadcn/ui + wouter |
+| Mobile | Expo (React Native) + expo-router |
+| Auth | JWT Bearer tokens (7-day expiry), bcryptjs password hashing |
+| i18n | i18next — English + Arabic (RTL support built-in) |
+| Push Notifications | Web Push (VAPID) via service worker |
+| Realtime | Server-Sent Events (SSE) for notifications stream |
+---
+## 2. MONOREPO STRUCTURE
+
+/ (root)
+├── artifacts/
+│ ├── api-server/ — Express backend (PORT env var driven)
+│ ├── marketplace/ — React/Vite web frontend (PORT + BASE_PATH env driven)
+│ ├── mobile/ — Expo app (EXPO_PUBLIC_DOMAIN env driven)
+│ └── mockup-sandbox/ — UI prototyping only, not production
+├── lib/
+│ ├── db/ — Drizzle schema + pg client (@workspace/db)
+│ ├── api-spec/ — OpenAPI 3.1 YAML source of truth + Orval config
+│ ├── api-zod/ — Generated Zod schemas (DO NOT EDIT MANUALLY)
+│ └── api-client-react/ — Generated TanStack Query hooks (DO NOT EDIT MANUALLY)
+└── scripts/
+├── seed-admin.ts — Creates the first admin user
+└── generate-sitemap.ts
+
+**Package names** (used in pnpm --filter commands):
+- `@workspace/api-server`, `@workspace/marketplace`, `@workspace/mobile`
+- `@workspace/db`, `@workspace/api-spec`, `@workspace/api-zod`, `@workspace/api-client-react`
+- `@workspace/scripts`
+---
+## 3. ENVIRONMENT VARIABLES REQUIRED
+### API Server (`artifacts/api-server`)
+
+DATABASE_URL=postgresql://user:pass@host:5432/dbname # REQUIRED — Postgres connection string
+SESSION_SECRET=<random-64-char-string> # REQUIRED — JWT signing secret
+PORT=<number> # REQUIRED — server listen port
+NODE_ENV=development|production
+LOG_LEVEL=info # optional, default info
+VAPID_PUBLIC_KEY=<base64> # optional — Web Push
+VAPID_PRIVATE_KEY=<base64> # optional — Web Push
+VAPID_EMAIL=mailto:admin@syano.online # optional — Web Push
+
+### Marketplace Web (`artifacts/marketplace`)
+
+PORT=<number> # REQUIRED — Vite dev server port
+BASE_PATH=/ # REQUIRED — URL base path (e.g. "/" or "/marketplace")
+
+The frontend proxies API calls — no VITE_API_URL needed. The Vite dev config proxies `/api` to the API server automatically.
+### Mobile (`artifacts/mobile`)
+
+EXPO_PUBLIC_DOMAIN=<replit-dev-domain-or-prod-domain> # e.g. "abc123.janeway.replit.dev"
+
+The mobile app constructs the API base URL as `https://${EXPO_PUBLIC_DOMAIN}`.
+---
+## 4. HOW TO RUN (from repo root)
+```bash
+# 1. Install all dependencies
+pnpm install
+# 2. Push the database schema (creates/updates all tables)
+pnpm --filter @workspace/db run push
+# 3. Seed the first admin user (run once)
+pnpm --filter @workspace/scripts run seed:admin
+# 4. Start all services (each in a separate terminal)
+pnpm --filter @workspace/api-server run dev     # Express API
+pnpm --filter @workspace/marketplace run dev    # React web app
+pnpm --filter @workspace/mobile run dev         # Expo mobile
+# Optional: regenerate API client after changing openapi.yaml
+pnpm --filter @workspace/api-spec run codegen
+
+Database schema changes workflow:
+
+Edit lib/db/src/schema/<table>.ts
+Export from lib/db/src/schema/index.ts
+Run pnpm --filter @workspace/db run push to apply to Postgres
+If you added/changed API shapes, update lib/api-spec/openapi.yaml then run codegen
+5. DATABASE SCHEMA (PostgreSQL via Drizzle ORM)
+All tables are in lib/db/src/schema/. The client is exported from @workspace/db.
+
+users
+Column	Type	Notes
+id	serial PK	
+email	text UNIQUE	nullable (phone-only users allowed)
+phone	text UNIQUE	nullable
+password_hash	text NOT NULL	bcryptjs
+name	text NOT NULL	
+role	enum	customer | seller | admin
+seller_status	text	pending | approved | rejected (set when role=seller)
+trust_level	text	computed trust badge text
+verified_at	timestamp	null = unverified
+created_at	timestamp	defaultNow()
+products
+Column	Type	Notes
+id	serial PK	
+seller_id	int FK→users	
+name	text NOT NULL	English name
+name_ar	text	Arabic name
+description	text NOT NULL	
+price	numeric(10,2)	base price
+discount_percent	numeric(5,2)	applied discount
+category	text	matches CATEGORIES constant in frontend
+subcategory	text	
+stock	int	default 0
+image_url	text	primary image
+image_urls	text[]	all images
+featured	boolean	default false
+view_count	int	incremented on product detail view
+search_tokens	text	pre-computed for pg_trgm search
+created_at	timestamp	
+Indexes: category, seller_id, featured, created_at, stock
+
+product_variant_groups / product_variant_options / product_variants / product_variant_values
+Four-table variant system: a product has variant groups (e.g. "Color"), each group has options (e.g. "Red", "Blue"), combined into specific variants with their own price/stock.
+
+cart_items
+Column	Type
+id	serial PK
+user_id	int FK→users
+product_id	int FK→products
+variant_id	int FK→product_variants nullable
+quantity	int
+orders
+Column	Type	Notes
+id	serial PK	
+customer_id	int FK→users	
+total	numeric(10,2)	
+status	enum	pending→processing→shipped→delivered|cancelled|refunded
+shipping_address	text	full address string
+customer_phone	text	
+city	text	
+delivery_notes	text	
+tracking_number	text	
+shipping_company	text	
+shipped_at	timestamp	
+created_at / updated_at	timestamp	
+Important business rule: Stock is only decremented when order status reaches delivered (stock-on-delivery pattern), not at order creation.
+
+order_items
+Column	Type
+id	serial PK
+order_id	int FK→orders
+product_id	int (no FK — intentional, product may be deleted)
+product_name	text (snapshot at order time)
+quantity	int
+unit_price	numeric(10,2) (snapshot at order time)
+seller_id	int
+variant_id	int nullable
+variant_details	text (snapshot)
+order_status_history
+Tracks every status transition with who changed it (changedBy, changedByRole) and optional notes.
+
+reviews
+Product reviews: id, product_id, user_id, rating (1-5), comment, created_at.
+One review per user per product enforced at API level.
+
+seller_reviews
+Seller-specific ratings: communication_rating, shipping_rating, professionalism_rating (all 1-5), comment.
+Unique per (seller_id, customer_id) pair.
+
+seller_applications
+Full onboarding form: store_name, phone, city, address, category, categories[], description, social_links, website, id_image_url, store_logo, store_banner, store_slug, status (pending|approved|rejected), admin_notes, rejection_reason, reviewed_at, reviewed_by_id.
+
+conversations + messages
+Buyer↔Seller messaging:
+
+conversations: customer_id, seller_id, product_id (optional context), status (active|archived), last_message_at
+messages: conversation_id, sender_id, body, read_at, flagged (boolean for moderation)
+store_follows
+Many-to-many: follower_id → seller_id. Unique per pair.
+
+notifications
+System notifications: user_id, type, title, body, data (JSON), read_at, created_at.
+
+push_subscriptions
+Web Push: user_id, endpoint, p256dh, auth (VAPID keys per subscription).
+
+platform_settings
+Key-value store for admin-controlled site settings (e.g. maintenance mode, featured category).
+
+audit_log
+Admin action log: admin_id, action, target_type, target_id, details (JSON), created_at.
+
+6. API STRUCTURE
+Base URL: all routes are under /api/
+Auth: Authorization: Bearer <jwt_token> header
+JWT payload: { userId: number, role: "customer"|"seller"|"admin", email: string|null }
+
+Route Modules
+Module	File	Key Endpoints
+Health	health.ts	GET /health
+Auth	auth.ts	POST /auth/register, POST /auth/login, POST /auth/logout, GET /auth/me
+Products	products.ts	GET /products, GET /products/best-sellers, GET /products/:id, POST /products (seller), PATCH /products/:id (seller/admin), DELETE /products/:id
+Variants	variants.ts	GET /products/:id/variants, POST/PATCH/DELETE /products/:id/variants
+Search	search.ts	GET /search?q=... (pg_trgm trigram search, Arabic+English)
+Reviews	reviews.ts	GET /products/:id/reviews, POST /products/:id/reviews (customer)
+Cart	cart.ts	GET /cart, POST /cart/items, PATCH /cart/items/:productId, DELETE /cart/items/:productId, DELETE /cart
+Orders	orders.ts	GET /orders (customer), POST /orders, GET /orders/:id, PATCH /orders/:id/status (seller/admin)
+Notifications	notifications.ts	GET /notifications, GET /notifications/stream (SSE), PATCH /notifications/:id/read, DELETE /notifications/:id
+Push	push-subscriptions.ts	POST /push/subscribe, DELETE /push/unsubscribe
+Dashboard	dashboard.ts	GET /dashboard/stats (seller: revenue, orders, top products)
+Admin	admin.ts	GET /admin/stats, GET/PATCH /admin/users/:id, GET /admin/logs, GET/PATCH /admin/settings
+Seller Applications	seller-applications.ts	POST /seller-applications, GET /seller-applications/me, GET /seller-applications (admin), PATCH /seller-applications/:id (admin approve/reject)
+Sellers	sellers.ts	GET /sellers, GET /sellers/:id (store page by id or slug), GET /sellers/:id/products, POST/DELETE /sellers/:id/follow
+Messaging	messaging.ts	GET /messaging/conversations, POST /messaging/conversations, GET /messaging/conversations/:id/messages, POST /messaging/conversations/:id/messages
+Auth Middleware (in src/middlewares/auth.ts)
+requireAuth       // validates JWT — attaches req.user = { userId, role, email }
+requireRole(role) // checks req.user.role === role, returns 403 otherwise
+
+7. FRONTEND (WEB) ARCHITECTURE
+File: artifacts/marketplace/src/
+
+Routing (wouter)
+All routes in src/App.tsx, lazy-loaded with React.lazy:
+
+Route	Access	Component
+/	Public	Home
+/products	Public	Products list
+/products/:id	Public	Product detail
+/store/:slug	Public	Seller store page
+/login, /register	Public	Auth pages
+/cart, /checkout	Customer	Cart/Checkout
+/orders, /orders/:id	Customer	Order history
+/customer/dashboard	Customer	Dashboard
+/messages	Customer	Buyer messaging
+/seller/dashboard	Seller	Seller dashboard
+/seller/products	Seller	Product management
+/seller/orders	Seller	Order management
+/seller/inventory	Seller	Stock management
+/seller/messages	Seller	Seller messaging
+/seller/apply	Customer	Become a seller form
+/admin/*	Admin	Full admin panel
+/about, /contact, /help, etc.	Public	Info pages
+Key Patterns
+API calls: Use hooks from @workspace/api-client-react (generated by Orval). Never write raw fetch/axios — use the generated hooks.
+Protected routes: <ProtectedRoute allowedRoles={["customer"]}> wraps role-gated pages
+Auth state: useAuth() hook from src/contexts/AuthContext.tsx — provides user, isAuthenticated, isCustomer, isSeller, isAdmin, logout
+Currency: useCurrency() — USD/SYP with conversion
+Theme: next-themes — light/dark/system with Tailwind v4 CSS variables
+i18n: useTranslation() — always use t("key") for user-facing strings; lang === "ar" for RTL-specific logic
+Notifications: NotificationProvider → SSE stream to /api/notifications/stream → NotificationToasts component
+Page transitions: opacity-fade animation on route change (.page-transition class via PageTransition.tsx)
+Design System
+Tailwind CSS v4 with CSS custom properties — all design tokens in src/index.css :root
+Colors: Emerald green primary (--primary), AMOLED-optimized dark mode
+Fonts: Inter (via Google Fonts preload)
+Components: shadcn/ui (in src/components/ui/) — DO NOT modify these directly, extend via wrapper components
+8. MOBILE APP ARCHITECTURE
+File: artifacts/mobile/
+
+Structure (expo-router file-based routing)
+app/
+├── _layout.tsx          — Root layout: sets API base URL, injects auth token
+├── index.tsx            — Redirect to tabs or auth
+├── (auth)/
+│   ├── login.tsx
+│   └── register.tsx
+├── (tabs)/
+│   ├── index.tsx        — Home feed
+│   ├── cart.tsx
+│   ├── orders.tsx
+│   └── profile.tsx
+├── product/[id].tsx     — Product detail
+├── checkout.tsx
+└── order-success.tsx
+
+API Connection
+The root _layout.tsx calls:
+
+setBaseUrl(`https://${process.env.EXPO_PUBLIC_DOMAIN}`);
+
+This configures the same @workspace/api-client-react hooks used by the web app — identical data fetching logic across both platforms.
+
+Auth Token Injection
+JWT token is stored in-memory/AsyncStorage and injected into all API requests via the generated client's request interceptor configured in _layout.tsx.
+
+9. CONTRACT-FIRST WORKFLOW
+The OpenAPI spec is the single source of truth.
+
+lib/api-spec/openapi.yaml
+         │
+         ▼ (pnpm --filter @workspace/api-spec run codegen)
+         │
+         ├──► lib/api-zod/src/     — Zod request/response validators
+         └──► lib/api-client-react/src/  — TanStack Query hooks + types
+
+When adding a new API endpoint:
+
+Add the endpoint to lib/api-spec/openapi.yaml
+Run pnpm --filter @workspace/api-spec run codegen
+Implement the route in artifacts/api-server/src/routes/<module>.ts
+The frontend can immediately use the generated hook: useGetNewEndpoint(), usePostNewEndpoint()
+NEVER write raw fetch calls in the frontend. Always use the generated hooks.
+
+10. KEY BUSINESS LOGIC & DECISIONS
+User Roles & Flow
+Register → role: "customer" (default)
+    └─► Apply to become seller (POST /seller-applications)
+        └─► Admin approves → role flips to "seller"
+            └─► Seller can create products, manage orders, view dashboard
+
+Order Lifecycle
+pending → processing → shipped → delivered
+                              ↘ cancelled
+                              ↘ refunded
+
+Stock decrements only at delivered, not at order creation (stock-on-delivery pattern)
+Every transition is logged in order_status_history
+Seller sees orders containing their seller_id in order_items
+Search System
+products.search_tokens column stores pre-computed trigram-friendly text (name + name_ar + category + description)
+Backend uses pg_trgm extension for fuzzy matching
+lib/search-startup.ts ensures the extension is enabled on first boot
+Frontend multilingual: Arabic query → also searches English equivalents via synonym expansion
+Notifications (SSE Fan-out)
+Route: GET /api/notifications/stream — long-lived SSE connection per authenticated client
+Fan-out function in lib/fanout.ts — pushes to all open SSE connections for a user
+Triggers: new order (seller notified), order status change (customer notified), stock low (seller notified)
+Designed to be replaced with a proper queue (Bull/Redis) by swapping fanout.ts
+Seller Store Pages
+URL pattern: /store/:slug — slug comes from seller_applications.store_slug
+Store page shows: seller info + trust badges + products + follower count + seller reviews
+Trust level (users.trust_level) is computed from: verified email + order completion rate + account age
+Push Notifications (Web)
+Service worker at public/sw.js handles Web Push events
+VAPID keys required (VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_EMAIL env vars)
+In development/preview: service worker is intentionally NOT registered (prevents stale cache). Only active in production builds.
+11. WHAT IS NOT YET BUILT (open TODOs)
+Payment gateway integration (checkout currently records orders without payment processing)
+Admin seller analytics deep-dive
+Product image upload (currently accepts URLs only — no file upload/CDN)
+Email notifications (only in-app + push exist)
+Order tracking map
+12. COMMON PITFALLS
+Never edit lib/api-zod/ or lib/api-client-react/ directly — they are 100% generated. Edit openapi.yaml and run codegen.
+DATABASE_URL must be set before running the API server or any db command — it throws a hard error otherwise.
+SESSION_SECRET should be a strong random string in production. Default "dev-secret-change-in-prod" is only for local dev.
+pnpm only — the root package.json has a preinstall script that blocks npm/yarn.
+EXPO_PUBLIC_DOMAIN must be set for mobile to reach the API — it's the publicly accessible domain (not localhost).
+Schema changes require both a db push AND potentially a codegen run if you changed API shapes.
+Tailwind v4 uses @import "tailwindcss" in index.css — there is NO tailwind.config.js. All customization is via CSS custom properties in :root.
+---
+هذا البرومت يغطي كل شيء — البنية، الداتا بيس، الـ API، الفرونت اند، الموبايل، طريقة التشغيل، القرارات المعمارية، والأخطاء الشائعة. أي شخص يقرأه يقدر يكمل الشغل مباشرة بدون أسئلة.
+
+
+Worked for 3 minutes
+
+Pasted-Let-me-restart-all-the-workflows-to-get-everything-up-a_1780343862615.txt
+شوف شو عم يعمل
+
+1 hour ago
+
+4 actions
+كل شيء تمام عندنا — الـ 4 workflows شغّالة. اللي شفتو في الملف المرفق هو وكيل ثاني حاول يشغّل المشروع بيئة جديدة وواجه مشاكل لأن قاعدة البيانات كانت فارغة. المشكلة الرئيسية هناك: الـ migrations تحاول ALTER TABLE على جداول مش موجودة أصلاً — سألحقها بعدين.
+
+هلق خليني أشوف وين وقف مخطط الـ Seller Ecosystem ونكمل من T001:
+
+
+5 actions
+الـ API كاملة ومشغّالة. خليني أشوف الـ frontend شو وصل:
+
+
+4 actions
+المشروع عندنا بخير. هلق أشوف الوضع الكامل — خذ screenshot للصفحات الجديدة وأتحقق من موبايل:
+
+
+8 actions
+الوضع واضح الآن. T001–T010 كلها منجزة. المتبقي:
+
+T011 — Mobile Audit: ثلاث مشاكل:
+
+صفحة المنتج تعرض البائع كنص فقط — لا كارت متجر، لا زر "رسالة البائع"
+صفحة البروفايل ليس فيها قسم "المتاجر المتابَعة"
+لا تاب للرسائل في الموبايل
+مشكلة إضافية: الـ migrations تعمل ALTER TABLE على جداول قد لا تكون موجودة في بيئة جديدة — وهذا سبب مشكلة البيئة الثانية في الملف المرفق.
+
+بكمل الاثنين معاً الآن:
+
+
+4 actions
+الهوكس موجودة. بنيّ الثلاث ميزات معاً الآن:
+
+
+4 actions
+الآن أبني كل شيء معاً:
+
+
+3 actions
+الآن أعدّل بقية الملفات كلها معاً:
+
+
+4 actions
+الآن أكمل الـ ClassicTabLayout وأضيف المتاجر المتابَعة في البروفايل:
+
+
+8 actions
+كل الأنواع موجودة. أتحقق من الـ StorePreview type والـ useStartConversation signature:
+
+
+2 actions
+يوجد مشكلة في الـ mutate signatures. خليني أتحقق:
+
+
+2 actions
+الـ useSendMessage تاخذ convId كـ argument للهوك نفسه، مش في الـ mutate. أصلح الملفين:
+
+
+2 actions
+الآن أصلح messages.tsx — الـ useSendMessage تحتاج convId مباشرة في الهوك:
+
+
+5 actions
+الـ ConversationListItem ما فيها sellerName/customerName/productName — الصح هو partnerName. أصلح:
+
+
+2 actions
+الآن أصلح الـ ConvItem ليستخدم partnerName و lastMessage:
+
+
+2 actions
+أصلح الـ FlatList render call لأني حذفت userId من ConvItem:
+
+
+3 actions
+الآن أتحقق أن الـ product type يحتوي على sellerId و finalPrice:
+
+
+5 actions
+كل الأنواع موجودة وصحيحة. أتحقق من صحة الكود:
+
+
+2 actions
+الأخطاء دي كلها كانت موجودة قبل تغييراتي (TS6305 هي مشكلة dist مش موجودة — المشكلة الموجودة من قبل). أتحقق من ملفاتي الجديدة فقط:
+
+
+3 actions
+مشكلتان فقط من كودي الجديد: date-fns مش مثبّت في المشروع، والـ store type في البروفايل. أصلح كليهما:
+
+
+2 actions
+date-fns مش في الموبايل. أستخدم دالة بسيطة بدلها وأصلح الـ type error في نفس الوقت:
+
+
+9 actions
+صفر أخطاء جديدة. الموبايل شغّال. خليني أتحقق من لوج الـ API بعد تعديل الـ migrations:
+
+
+4 actions
+كل شيء شغّال. هيك ملخص ما تم:
+
+T011 — Mobile Audit: مكتملة ✅
+ما أضفته في الموبايل:
+١. تاب "Messages" جديد
+
+صفحة (tabs)/messages.tsx — قائمة المحادثات مع chat view مدمج
+Unread badge على كل محادثة
+رسائل بفقاعات (الخاصة على اليمين، المستلمة على اليسار)
+Auto-scroll لآخر رسالة
+Polling كل 8 ثانية (من الـ generated hook)
+٢. صفحة تفاصيل المنتج — كارت البائع
+
+اسم المتجر + شعاره
+Trust badge (مثبَّت / موثَّق / جديد) بلون مختلف لكل مستوى
+تقييم البائع من مراجعات العملاء
+زر "Message Seller" → ينشئ المحادثة ويفتح تاب Messages
+زر "View Store" (للبائعين اللي عندهم slug)
+٣. صفحة البروفايل
+
+قسم "Following Stores" للعملاء — بيعرض المتاجر المتابَعة مع الشعار والـ trust badge
+مينيو item جديد "Messages" يوصل لتاب الرسائل
+٤. إصلاح مشكلة البيئة الجديدة
+
+run-migrations.ts: لفّينا ALTER TABLE orders/cart_items/order_items داخل DO $$ IF EXISTS — يعني لو حد شغّل السيرفر على DB فارغة بدون drizzle-kit push أول، الـ migrations ما رح تكسر السيرفر
+T012 — الحالة النهائية للمشروع
+الميزة	API	Web	Mobile
+صفحة المتجر	✅	✅ 456 سطر	✅ كارت في المنتج
+متابعة المتاجر	✅	✅	✅ بروفايل
+مراجعات البائع	✅	✅	✅ كارت المنتج
+المراسلة	✅ SSE	✅ 284 سطر	✅ تاب جديد
+الـ Trust badges	✅	✅	✅
+داشبورد البائع	✅	✅ 466 سطر	✅ بروفايل

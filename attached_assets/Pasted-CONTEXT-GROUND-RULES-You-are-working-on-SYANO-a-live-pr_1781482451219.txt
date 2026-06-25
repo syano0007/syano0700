@@ -1,0 +1,560 @@
+CONTEXT & GROUND RULES
+──────────────────────
+You are working on SYANO (سوق سوريا), a live production-grade multi-vendor
+marketplace. Before writing a single line of code:
+1. Read CURRENT_STATE.md fully
+2. Read PROJECT_STATUS.md fully
+3. Read RECOVERY_GUIDE.md fully
+4. Verify all 3 services are running (backend :8080, frontend Vite, mobile Expo)
+5. Run `npx tsc --noEmit` — confirm 0 errors before you start
+
+NEVER: redesign existing UI, introduce new components/colors/patterns,
+create new DB tables, modify existing API endpoints behavior, hardcode
+visible strings, use fake/mock data, skip TypeScript checking, install
+new npm packages without explicit instruction.
+ALWAYS: follow existing file patterns exactly, reuse existing components,
+support RTL Arabic + LTR English, support light + dark theme.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK: Search Discovery — Faceted Filters + Browse Mode + Related Searches
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GOAL
+────
+The current search system returns results but gives the user zero control
+over refining them. This task adds the full Discovery layer:
+1. Faceted Filters — price range, rating, category, store, in-stock only
+2. Sort Controls — above results, visible and functional
+3. Related Searches — below results, drives further exploration
+4. Category Browse Page — visual grid to explore without typing
+
+All filter state lives in the URL (query params) so results are
+shareable and the back button works correctly.
+All data comes from real DB queries — no hardcoded filter options.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — DISCOVERY (read before writing anything)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before writing any code, read and understand:
+
+1. `lib/db/schema.ts` — find exact column names for:
+   - products (id, name, price, rating, stock_quantity or similar,
+     category_id, store_id — verify each)
+   - categories (id, name, name_ar, name_en, parent_id, slug, image_url
+     — verify each)
+   - stores (id, name, name_ar, name_en, slug — verify each)
+   - Find the min/max price range across all products (for slider bounds)
+
+2. Open the existing GET /api/search/results route — understand:
+   - Current query params it accepts (q, lang, sort, page, limit)
+   - Current response shape (products array, total, pagination)
+   - How it builds the Drizzle query (WHERE clauses, ORDER BY)
+   - Whether it already has any filter logic or not
+
+3. Open the existing search results page component (artifacts/marketplace)
+   — understand:
+   - Current layout (how results are displayed, grid/list)
+   - Where the search bar, results count, and product cards are
+   - What URL params it already reads
+   - How pagination works currently
+
+4. Open the existing category-related pages/components — check:
+   - Does a category browse page already exist? If yes, extend it.
+     If no, find the closest existing page layout to copy from.
+   - How categories are currently fetched (existing hook/endpoint)
+   - Whether category images/icons exist in the DB
+
+5. Check `lib/api-client-react` — find:
+   - Existing useSearch or useSearchResults hook
+   - Existing useCategories hook
+   - Pattern for hooks that accept filter params and refetch on change
+
+6. Check the existing query_logs table — find the most common
+   zero-result queries (these inform which filters matter most).
+   Read the last 20 entries to understand real search patterns.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — BACKEND: Extend Search Endpoint with Filters
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Extend the EXISTING GET /api/search/results endpoint.
+Do NOT create a new endpoint — extend the current one.
+
+── New query params (all optional, Zod-validated) ────────
+
+Current params (already exist — do not break them):
+  q: string
+  lang: 'ar' | 'en'
+  sort: string
+  page: number
+  limit: number
+
+New params to add:
+  minPrice: number (optional, min 0)
+  maxPrice: number (optional, max 999999)
+  minRating: number (optional, 0–5, step 0.5)
+  categoryId: number (optional)
+  storeId: number (optional)
+  inStock: boolean (optional, default false)
+
+Zod schema addition:
+  minPrice: z.coerce.number().min(0).optional(),
+  maxPrice: z.coerce.number().max(999999).optional(),
+  minRating: z.coerce.number().min(0).max(5).optional(),
+  categoryId: z.coerce.number().positive().optional(),
+  storeId: z.coerce.number().positive().optional(),
+  inStock: z.coerce.boolean().optional(),
+
+── Filter logic to add to the Drizzle query ──────────────
+
+Add each filter as a conditional WHERE clause.
+Only apply a filter if the param is present and valid.
+All filters are additive (AND logic — never OR between filters).
+
+Price filter:
+  if (minPrice !== undefined) where.push(gte(products.price, minPrice))
+  if (maxPrice !== undefined) where.push(lte(products.price, maxPrice))
+
+Rating filter:
+  if (minRating !== undefined) where.push(gte(products.rating, minRating))
+
+Category filter:
+  if (categoryId !== undefined) where.push(eq(products.categoryId, categoryId))
+  Also include products whose category's parent_id = categoryId
+  (so filtering by "إلكترونيات" includes all sub-categories)
+
+Store filter:
+  if (storeId !== undefined) where.push(eq(products.storeId, storeId))
+
+In-stock filter:
+  if (inStock === true) where.push(gt(products.stockQuantity, 0))
+  (verify actual column name in schema first)
+
+── New fields in search response ─────────────────────────
+
+Add to the existing response object (do not change existing fields):
+
+  filterMeta: {
+    priceRange: { min: number, max: number },  // actual min/max from
+                                                // ALL products matching
+                                                // the text query (before
+                                                // price filter applied)
+    totalUnfiltered: number,   // count before filters, after text search
+    appliedFilters: {          // echo back what filters are active
+      minPrice: number | null,
+      maxPrice: number | null,
+      minRating: number | null,
+      categoryId: number | null,
+      storeId: number | null,
+      inStock: boolean
+    }
+  }
+
+The priceRange must reflect the actual data range for the current
+text query — this drives the price slider bounds on the frontend.
+Run this as a parallel query alongside the main results query.
+
+── New endpoint: GET /api/search/filter-options ──────────
+Add this new endpoint to the search router.
+No auth required. Cached-friendly (results rarely change).
+
+Query params (Zod-validated):
+  q: string (optional — if provided, scope options to matching products)
+  categoryId: number (optional)
+
+Response shape:
+{
+  categories: Array<{
+    id: number,
+    nameAr: string,
+    nameEn: string,
+    slug: string,
+    productCount: number    // count of products in this category
+                            // matching current q if provided
+  }>,
+  stores: Array<{
+    id: number,
+    nameAr: string,
+    nameEn: string,
+    slug: string,
+    productCount: number
+  }>,
+  priceRange: {
+    min: number,
+    max: number
+  },
+  processingTimeMs: number
+}
+
+Logic:
+- Only return categories/stores that have at least 1 matching product
+- If q is provided, scope counts to products matching that text query
+- Run all sub-queries in parallel via Promise.all()
+- Order categories by productCount DESC
+- Order stores by productCount DESC
+- This powers the filter sidebar so only relevant options show
+
+── New endpoint: GET /api/search/related ─────────────────
+Add this new endpoint to the search router.
+No auth required.
+
+Query params (Zod-validated):
+  q: string (required)
+  lang: 'ar' | 'en' (default 'ar')
+  limit: number (default 6, max 10)
+
+Response shape:
+{
+  related: Array<{
+    query: string,
+    count: number     // how many times this was searched
+  }>,
+  processingTimeMs: number
+}
+
+Logic:
+- Source: query_logs table
+- Find queries that share at least one normalized word with q
+- Exclude q itself
+- Order by count DESC
+- If query_logs has < 10 entries total, fall back to returning
+  top searched queries from the same category as current results
+- Never return empty array — always try to return something useful
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — API CLIENT (lib/api-client-react)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── Update SearchParams type ──────────────────────────────
+Add all new filter params to the existing SearchParams type/interface:
+  minPrice?: number
+  maxPrice?: number
+  minRating?: number
+  categoryId?: number
+  storeId?: number
+  inStock?: boolean
+
+── Update existing useSearchResults hook ─────────────────
+The hook already accepts params — extend it to pass the new filter
+params to the API. The query key must include all filter params so
+TanStack Query refetches when any filter changes:
+  queryKey: ['search', 'results', q, lang, sort, page,
+             minPrice, maxPrice, minRating, categoryId, storeId, inStock]
+
+── Add useFilterOptions hook ─────────────────────────────
+export function useFilterOptions(q?: string, categoryId?: number) {
+  return useQuery({
+    queryKey: ['search', 'filter-options', q, categoryId],
+    queryFn: ({ signal }) => fetchFilterOptions({ q, categoryId }, signal),
+    staleTime: 60 * 1000,   // filter options change rarely
+    enabled: true,           // always fetch, even without q
+  });
+}
+
+── Add useRelatedSearches hook ───────────────────────────
+export function useRelatedSearches(q: string, lang: string) {
+  return useQuery({
+    queryKey: ['search', 'related', q, lang],
+    queryFn: ({ signal }) => fetchRelatedSearches({ q, lang }, signal),
+    enabled: !!q && q.length >= 2,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — FRONTEND: Search Results Page
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── URL-based filter state ────────────────────────────────
+All filter values must live in the URL as query params.
+Use React Router's useSearchParams for reading and writing filter state.
+Never store filter values in useState only — they must be in the URL.
+
+Reading filters from URL:
+  const [searchParams, setSearchParams] = useSearchParams();
+  const minPrice = Number(searchParams.get('minPrice')) || undefined;
+  const maxPrice = Number(searchParams.get('maxPrice')) || undefined;
+  const minRating = Number(searchParams.get('minRating')) || undefined;
+  const categoryId = Number(searchParams.get('categoryId')) || undefined;
+  const storeId = Number(searchParams.get('storeId')) || undefined;
+  const inStock = searchParams.get('inStock') === 'true';
+
+Updating a filter (example):
+  const updateFilter = (key: string, value: string | null) => {
+    const next = new URLSearchParams(searchParams);
+    if (value === null || value === '') next.delete(key);
+    else next.set(key, value);
+    next.set('page', '1');   // reset to page 1 on filter change
+    setSearchParams(next);
+  };
+
+── Page layout ───────────────────────────────────────────
+New layout with filter sidebar. Match the width and spacing of
+existing pages — do not change global layout or container widths.
+
+Desktop (≥ 768px):
+┌─────────────────────────────────────────────────────┐
+│  [Sort controls row]          [Results count + view] │
+├──────────────┬──────────────────────────────────────┤
+│              │                                       │
+│   Filters    │        Product results grid           │
+│   Sidebar    │                                       │
+│   (280px)    │        [Related searches section]     │
+│              │                                       │
+└──────────────┴──────────────────────────────────────┘
+
+Mobile (< 768px):
+- Filters hidden by default
+- "الفلاتر" button above results opens filters as a bottom sheet
+  or full-width collapsible panel
+- Sort controls visible above results at all times
+
+── Filter Sidebar component ──────────────────────────────
+Create: `artifacts/marketplace/src/components/search/FilterSidebar.tsx`
+
+Props:
+  filterOptions: FilterOptions   // from useFilterOptions
+  currentFilters: ActiveFilters  // current URL state
+  onFilterChange: (key, value) => void
+  onClearAll: () => void
+  isLoading: boolean
+
+Sections (in this order):
+
+1. Active filters summary + "مسح الكل" button
+   - Only show if at least one filter is active
+   - Show each active filter as a removable chip/tag
+   - "مسح الكل" clears all filters at once
+
+2. Price range section — "السعر"
+   - Two number inputs: من (min) / إلى (max)
+   - OR a dual-handle range slider if one exists in the project
+   - Bounds come from filterMeta.priceRange in search response
+   - Show currency symbol (use whatever currency format exists in project)
+   - Apply on blur/Enter, not on every keystroke
+
+3. Rating filter — "التقييم"
+   - 5 options: ⭐ فأكثر for ratings 1, 2, 3, 4, 5
+   - Show as clickable rows, not a dropdown
+   - Selected rating highlighted
+   - Only one rating active at a time
+
+4. Category filter — "الفئة"
+   - List from filterOptions.categories
+   - Show nameAr or nameEn based on current language
+   - Show productCount next to each category name (muted color)
+   - Only show categories with productCount > 0
+   - Selected category highlighted
+   - Single select
+
+5. Store filter — "المتجر"
+   - List from filterOptions.stores
+   - Show nameAr or nameEn based on current language
+   - Show productCount next to each store name
+   - Only show stores with productCount > 0
+   - Selected store highlighted
+   - Single select
+
+6. In-stock toggle — "متوفر فقط"
+   - Simple toggle switch
+   - Default: off
+   - When on: only products with stock > 0
+
+── Sort controls row ─────────────────────────────────────
+Above the results grid, add a row with:
+
+Left side (RTL: right side): results count
+  "٤٢ نتيجة للبحث عن: {query}" (i18n key)
+
+Right side (RTL: left side): sort dropdown or button group
+  Options:
+  - الأكثر صلة (default — existing relevance sort)
+  - السعر: من الأقل (price_asc)
+  - السعر: من الأعلى (price_desc)
+  - الأعلى تقييماً (rating)
+  - الأحدث (newest)
+
+  Use the existing sort param that's already in the URL.
+  Changing sort updates URL param `sort=` and resets to page 1.
+
+── Related searches section ──────────────────────────────
+Below the product results grid, before pagination:
+
+Title: "عمليات بحث مشابهة" (i18n key)
+Display: horizontal scrollable row of clickable chips
+Each chip: clicking navigates to /search?q={relatedQuery}
+Only show if useRelatedSearches returns results
+Loading state: 4 skeleton chips
+Empty state: hide section entirely (do not show empty section)
+
+── Active filters indicator ──────────────────────────────
+When any filter is active, show a count badge on the mobile
+"الفلاتر" button: "الفلاتر (٣)" where 3 = number of active filters.
+On desktop, the sidebar always shows so no badge needed.
+
+── Loading states ────────────────────────────────────────
+- Filter sidebar: skeleton for each section while filterOptions loads
+- Results: existing skeleton/loading state (do not change it)
+- Related searches: 4 skeleton chips while loading
+- When filters change: show existing loading state on results only,
+  keep sidebar visible and interactive
+
+── Empty state with filters active ──────────────────────
+If results = 0 AND filters are active:
+  "لا توجد نتائج بهذه الفلاتر"
+  + "جرّب تخفيف الفلاتر" button that clears all filters
+  + keep showing the search query so user knows what they searched
+
+If results = 0 AND no filters active:
+  Existing empty state (do not change it)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — FRONTEND: Category Browse Page
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Check first: does a category browse/listing page already exist?
+- If YES: extend it with product counts and improve its visual grid.
+- If NO: create it at `/categories` route.
+
+Page: `artifacts/marketplace/src/pages/Categories.tsx`
+Route: `/categories`
+
+Add link to this page in the main navigation (same level as other
+main nav items — check existing nav structure and match it exactly).
+
+── Layout ────────────────────────────────────────────────
+Page title: "تصفح الفئات" (i18n key)
+Subtitle: "اكتشف منتجاتنا حسب الفئة" (i18n key)
+
+Grid of category cards:
+- Responsive: 2 cols mobile, 3 cols tablet, 4 cols desktop
+- Use CSS grid with auto-fit, not hardcoded breakpoints
+- Match existing card border-radius, shadow, and spacing
+
+Each category card shows:
+- Category name (Arabic or English based on lang)
+- Product count: "٢٤ منتج" (i18n key with count)
+- If category has image_url in DB: show it (contained, not cropped oddly)
+- If no image: show a colored placeholder using category id to pick
+  a consistent color from the existing design system palette
+- Clicking a card navigates to:
+  /search?categoryId={id}&lang={currentLang}
+  (this uses the new filter system — no separate category results page)
+
+Loading state: skeleton grid matching the card layout
+Empty state: "لا توجد فئات متاحة حالياً" (i18n key)
+
+Only show categories that have at least 1 product.
+Order by product count DESC.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 6 — MOBILE (artifacts/mobile)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Apply filter support to the mobile search screen:
+
+1. Add a horizontal scrollable filter chips row below the search bar:
+   - Chips for: السعر | التقييم | الفئة | متوفر فقط
+   - Active chip: filled/highlighted style
+   - Tapping a chip opens a bottom sheet with that filter's options
+   - Match existing mobile UI patterns exactly
+
+2. Sort bottom sheet:
+   - Triggered by a sort button in the results header
+   - Options matching the web sort controls
+   - Selected option highlighted
+   - Closes on selection
+
+3. Apply filters by passing them as query params to the existing
+   mobile search API call — same params as web.
+
+4. Active filter count badge on filter button when filters are active.
+
+5. Related searches: horizontal ScrollView of chips below results,
+   same data from GET /api/search/related.
+
+Do not rebuild the mobile search screen — only add to it.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 7 — i18n STRINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add ALL of the following to both Arabic and English translation files.
+Zero hardcoded visible strings anywhere in any new component.
+
+Arabic keys:
+search.filters.title = "الفلاتر"
+search.filters.clearAll = "مسح الكل"
+search.filters.price = "السعر"
+search.filters.priceFrom = "من"
+search.filters.priceTo = "إلى"
+search.filters.rating = "التقييم"
+search.filters.ratingAndAbove = "فأكثر"
+search.filters.category = "الفئة"
+search.filters.store = "المتجر"
+search.filters.inStock = "متوفر فقط"
+search.filters.activeCount = "الفلاتر ({{count}})"
+search.sort.relevance = "الأكثر صلة"
+search.sort.priceLow = "السعر: من الأقل"
+search.sort.priceHigh = "السعر: من الأعلى"
+search.sort.rating = "الأعلى تقييماً"
+search.sort.newest = "الأحدث"
+search.results.count = "{{count}} نتيجة للبحث عن: {{query}}"
+search.results.noResultsWithFilters = "لا توجد نتائج بهذه الفلاتر"
+search.results.tryReducingFilters = "جرّب تخفيف الفلاتر"
+search.related.title = "عمليات بحث مشابهة"
+categories.title = "تصفح الفئات"
+categories.subtitle = "اكتشف منتجاتنا حسب الفئة"
+categories.productCount = "{{count}} منتج"
+categories.empty = "لا توجد فئات متاحة حالياً"
+
+Add equivalent English values for every key above.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 8 — VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After building, verify ALL of the following before marking done:
+
+□ npx tsc --noEmit → 0 errors across all packages
+□ GET /api/search/results?q=موبايل returns filterMeta in response
+□ GET /api/search/results?q=موبايل&minPrice=100&maxPrice=500
+  returns only products in that price range
+□ GET /api/search/results?q=موبايل&minRating=4
+  returns only products with rating ≥ 4
+□ GET /api/search/results?q=موبايل&categoryId=1
+  returns only products in that category (including sub-categories)
+□ GET /api/search/results?q=موبايل&inStock=true
+  returns only products with stock > 0
+□ GET /api/search/results?q=موبايل&storeId=1
+  returns only products from that store
+□ GET /api/search/filter-options?q=موبايل returns categories + stores
+  with accurate productCount values
+□ GET /api/search/related?q=موبايل returns related queries array
+□ All new endpoints return 400 on invalid params
+□ Filter sidebar renders correctly on /search?q=موبايل
+□ Changing price filter updates URL and refetches results
+□ Changing category filter updates URL and refetches results
+□ Clearing all filters returns to unfiltered results
+□ Active filters show as removable chips in sidebar
+□ Sort dropdown changes sort and resets to page 1
+□ Results count shows correct number
+□ Related searches section appears below results
+□ Clicking related search navigates to new search
+□ /categories page loads with real category grid
+□ Clicking a category card navigates to filtered search results
+□ Mobile filter chips row appears and is functional
+□ Mobile sort bottom sheet works correctly
+□ Empty state with active filters shows correct message + clear button
+□ All text is from i18n — zero hardcoded strings
+□ Page works correctly in Arabic RTL
+□ Page works correctly in English LTR
+□ Page works correctly in dark mode
+□ Page works correctly in light mode
+□ Back button restores previous filter state (URL-based)
+□ Sharing a filtered URL loads the same results
+□ No existing search functionality broken
+□ No new npm packages installed
+□ No existing DB schema modified

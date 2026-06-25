@@ -1,0 +1,281 @@
+You have just imported the SYANO (سوق سوريا) project into a fresh Replit environment.
+
+Before doing ANY development work, you must validate that the imported environment is clean, compliant, and matches the official project architecture.
+
+This is NOT a feature task.
+
+This is an environment certification task.
+
+Your goal is to prove that the imported project is in the exact expected state and that no temporary migration artifacts remain.
+
+---
+
+# CONTEXT
+
+Previous agents sometimes:
+
+* Created temporary workflows
+* Created duplicate workflows
+* Created preview workflows
+* Created copied workflows
+* Modified runtime configuration
+* Forced ports
+* Left debugging artifacts behind
+
+Some of these actions were later cleaned up.
+
+You must independently verify everything.
+
+Assume nothing.
+
+Trust nothing.
+
+Verify everything.
+
+---
+
+# REQUIRED READING
+
+Read ALL of these files first:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* project.manifest.json
+* replit.md
+
+Do not skip.
+
+Do not summarize.
+
+Read completely.
+
+---
+
+# OFFICIAL ARCHITECTURE
+
+The only valid services are:
+
+1. artifacts/api-server: API Server
+
+Port:
+8080
+
+2. artifacts/marketplace: web
+
+Port:
+Managed by artifact
+
+3. artifacts/mobile: expo
+
+Expo artifact only
+
+4. Embedding Service
+
+Port:
+8000
+
+No other permanent services are allowed.
+
+---
+
+# WORKFLOW AUDIT
+
+Inspect all workflows.
+
+Verify:
+
+* Existing workflows
+* Hidden workflows
+* Preview workflows
+* Copied workflows
+* Temporary workflows
+
+Expected final state:
+
+Only:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+Nothing else.
+
+If any extra workflow exists:
+
+* Document it
+* Remove it
+* Verify removal
+
+---
+
+# PORT AUDIT
+
+Verify:
+
+API Server:
+8080
+
+Embedding Service:
+8000
+
+Marketplace:
+No hardcoded forced port
+
+Mobile:
+Expo artifact
+
+Inspect:
+
+* vite.config.ts
+* package.json
+* workflow definitions
+* runtime configuration
+
+Ensure no leftover forced port hacks remain.
+
+---
+
+# CONFIGURATION AUDIT
+
+Verify:
+
+* .replit
+* replit.md
+* workflow configuration
+* build configuration
+* startup configuration
+
+Check for:
+
+* temporary debug commands
+* migration commands left in workflows
+* manual overrides
+* duplicated runtime definitions
+
+---
+
+# DATABASE AUDIT
+
+Verify:
+
+* Database connection works
+* Migrations are applied
+* Schema is healthy
+* No pending migration failures
+
+Do NOT run destructive migrations.
+
+Do NOT modify production data.
+
+Audit only.
+
+---
+
+# SERVICE HEALTH CHECK
+
+Verify:
+
+API Server:
+Healthy
+
+Marketplace:
+Healthy
+
+Embedding Service:
+Healthy
+
+Mobile:
+Artifact configured correctly
+
+Check logs.
+
+Check startup status.
+
+Check runtime status.
+
+---
+
+# TEMPORARY WORKFLOW POLICY
+
+The project allows temporary workflows ONLY during recovery.
+
+However:
+
+A task is NOT complete until cleanup is finished.
+
+Verify that:
+
+* no temporary workflows remain
+* no duplicate workflows remain
+* no preview workflows remain
+* no copied workflows remain
+
+---
+
+# OUTPUT FILE
+
+Generate:
+
+RECOVERY_COMPLIANCE_REPORT.md
+
+Include:
+
+## Files Read
+
+## Workflow Audit
+
+## Port Audit
+
+## Configuration Audit
+
+## Database Audit
+
+## Service Health Audit
+
+## Problems Found
+
+## Problems Fixed
+
+## Remaining Risks
+
+## Final Certification
+
+---
+
+# FINAL CERTIFICATION
+
+At the end output ONLY one of:
+
+CERTIFIED
+
+or
+
+NOT CERTIFIED
+
+Use CERTIFIED only if:
+
+* workflows are clean
+* ports are correct
+* services are healthy
+* configuration is compliant
+* no duplicates remain
+* no temporary artifacts remain
+
+---
+
+# IMPORTANT
+
+Do NOT build features.
+
+Do NOT modify marketplace functionality.
+
+Do NOT create new workflows.
+
+Do NOT create previews.
+
+Do NOT start feature development.
+
+This task is a full environment certification and cleanup pass only.

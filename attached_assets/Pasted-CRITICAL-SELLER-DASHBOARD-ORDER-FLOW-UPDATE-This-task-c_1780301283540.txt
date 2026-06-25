@@ -1,0 +1,208 @@
+CRITICAL SELLER DASHBOARD & ORDER FLOW UPDATE
+
+This task contains three separate requirements.
+
+Implement them exactly as specified.
+
+Do not change unrelated functionality.
+
+══════════════════════════════════════
+
+1. PRODUCT CREATION PAGE TRANSLATION FIX
+   ══════════════════════════════════════
+
+In the Seller Product Creation page there are still untranslated English texts.
+
+Example:
+
+"Feature this product"
+
+"Featured products appear prominently in the Featured Products section on the homepage"
+
+Requirements:
+
+* Audit the entire Seller Product Creation page.
+* Find ALL untranslated strings.
+* Add proper Arabic translations.
+* Ensure translations work correctly in both Arabic and English.
+* No hardcoded English text should appear when Arabic is selected.
+
+Also verify:
+
+* Labels
+* Tooltips
+* Validation messages
+* Switch descriptions
+* Placeholder text
+* Buttons
+
+══════════════════════════════════════
+2. FEATURED PRODUCT TOGGLE RTL/LTR FIX
+══════════════════════════════════════
+
+The "Featured Product" toggle/switch has direction and alignment issues.
+
+Requirements:
+
+Arabic (RTL):
+
+* Label aligned correctly.
+* Description aligned correctly.
+* Toggle positioned correctly.
+* No visual overlap.
+
+English (LTR):
+
+* Proper LTR layout.
+* Proper spacing.
+* Consistent alignment.
+
+Audit all toggle/switch components on seller pages and ensure consistent behavior.
+
+══════════════════════════════════════
+3. ORDER STATUS FLOW REDESIGN
+══════════════════════════════════════
+
+Current order status handling must be redesigned.
+
+Required status flow:
+
+Pending
+↓
+Processing
+↓
+Shipped
+↓
+Delivered
+
+Arabic:
+
+قيد الانتظار
+↓
+قيد المعالجة
+↓
+تم الشحن
+↓
+تم التسليم
+
+══════════════════════════════════════
+STRICT FORWARD-ONLY FLOW
+══════════════════════════════════════
+
+Order statuses must move ONLY forward.
+
+Allowed:
+
+Pending → Processing
+
+Processing → Shipped
+
+Shipped → Delivered
+
+Not allowed:
+
+Processing → Pending
+
+Shipped → Processing
+
+Delivered → Shipped
+
+Delivered → Pending
+
+Or any other backward transition.
+
+Once a status is changed, it cannot be reversed.
+
+══════════════════════════════════════
+ESTIMATED DELIVERY DATE
+══════════════════════════════════════
+
+When the seller changes an order status to:
+
+"Shipped" / "تم الشحن"
+
+The system must require the seller to provide:
+
+Estimated Delivery Time
+
+Examples:
+
+* 2 days
+* 3 days
+* 5 days
+* 7 days
+* Custom date
+
+Store this information with the order.
+
+Display it to the customer.
+
+The estimated delivery information must only be set when moving to "Shipped".
+
+══════════════════════════════════════
+CUSTOMER CANCELLATION RULE
+══════════════════════════════════════
+
+Exception:
+
+The customer may cancel the order ONLY before shipment.
+
+If the customer cancels:
+
+* Order becomes Cancelled.
+* Seller loses permission to modify that order.
+* Seller can no longer change status.
+* Seller can no longer continue the workflow.
+
+Cancelled orders become read-only for the seller.
+
+══════════════════════════════════════
+PERMISSIONS VALIDATION
+══════════════════════════════════════
+
+Verify:
+
+Customer:
+
+* Can view status.
+* Can cancel only before shipment.
+
+Seller:
+
+* Can move statuses forward only.
+* Cannot move backward.
+* Cannot modify cancelled orders.
+
+Admin:
+
+* Can view all orders.
+* Existing admin permissions must remain intact.
+
+══════════════════════════════════════
+TESTING
+══════════════════════════════════════
+
+Test:
+
+1. Pending → Processing
+2. Processing → Shipped
+3. Shipped → Delivered
+4. Customer cancellation before shipment
+5. Customer cancellation after shipment
+6. Seller attempting backward transitions
+7. Seller attempting to edit cancelled orders
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Files modified.
+2. Translation issues fixed.
+3. Toggle RTL/LTR fixes.
+4. Order workflow implementation.
+5. Permission rules implemented.
+6. Validation logic added.
+7. Test results.
+8. Screenshots of seller order management and estimated delivery input.

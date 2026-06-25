@@ -1,0 +1,127 @@
+You have been moved to a fresh Replit workspace containing the latest SYANO project.
+
+Before doing ANYTHING else:
+
+## STEP 1 — Read Recovery Documentation
+
+Read and understand ALL files inside the `project-memory/` directory.
+
+At minimum, read completely:
+
+* RECOVERY_GUIDE.md
+* CURRENT_STATE.md
+* PROJECT_STATE.md
+* CURRENT_TASK.md
+* DATABASE_STATE.md
+* KNOWN_ISSUES.md
+* CHANGELOG.md
+* API_STATE.md
+* AUTH_STATE.md
+* PERFORMANCE_STATE.md
+* VARIANT_SYSTEM_STATE.md
+
+Treat these files as the authoritative source of truth.
+
+Do NOT assume anything that contradicts them.
+
+---
+
+## STEP 2 — Workspace Verification
+
+Verify that the current workspace matches the documented checkpoint.
+
+Check:
+
+### Dependencies
+
+* pnpm install status
+* workspace packages
+
+### Database
+
+* 22 tables exist
+* variant_images table exists
+* reset_otp_* columns exist
+* platform_settings exist
+* Root Owner bootstrap works
+
+### Assets
+
+Verify all branding assets exist:
+
+* src/assets/syano-logo.png
+* public/syano-logo.png
+* favicon-16x16.png
+* favicon-32x32.png
+* favicon-48x48.png
+* apple-touch-icon.png
+* android-chrome-192x192.png
+* android-chrome-512x512.png
+* fonts/inter-latin.woff2
+* mobile/assets/images/icon.png
+
+### Services
+
+Verify:
+
+* API starts
+* Marketplace starts
+* Mobile workspace healthy
+
+### Frontend
+
+Verify:
+
+* Products page footer regression is still fixed.
+* VariantBuilder redesign is present.
+* Browser console contains no missing asset errors.
+* Logo displays correctly.
+* No broken imports.
+
+### TypeScript
+
+Verify:
+
+* No new structural TypeScript errors.
+* Existing documented warnings remain unchanged.
+
+---
+
+## STEP 3 — Recovery
+
+If ANY item differs from the documented state:
+
+* Restore it exactly according to RECOVERY_GUIDE.md.
+* Do NOT invent new implementations.
+* Do NOT redesign.
+* Do NOT refactor unrelated code.
+* Do NOT add new features.
+* Do NOT remove existing functionality.
+
+Only perform the minimum restoration required.
+
+---
+
+## STEP 4 — Final Report
+
+After finishing, provide a short report:
+
+✅ Recovery docs loaded
+
+✅ Workspace matches documented checkpoint
+
+✅ Database verified
+
+✅ Assets verified
+
+✅ API verified
+
+✅ Marketplace verified
+
+✅ Mobile verified
+
+✅ TypeScript verified
+
+✅ Ready for new development tasks
+
+Do NOT start implementing new features until this verification process completes successfully.

@@ -1,0 +1,382 @@
+COURIER V3.3 — PHASE A8 RECOVERY + COMPLETION
+
+IMPORTANT
+
+DO NOT START CODING IMMEDIATELY.
+
+A previous implementation of Phase A8 was interrupted after a Code Review identified missing items.
+
+Your job is:
+
+1. Audit everything already implemented.
+2. Verify what actually exists.
+3. Verify what is missing.
+4. Fix only the missing parts.
+5. Perform full end-to-end validation.
+6. Update recovery documentation.
+
+Do NOT rebuild A8 from scratch.
+
+Do NOT duplicate existing work.
+
+---
+
+# REQUIRED READING
+
+Before touching code read:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+* project.manifest.json
+
+Then inspect:
+
+* courier-ops.ts
+* delivery_missions schema
+* courier_ratings schema
+* dispatch_alerts schema
+* courier workspace
+* courier performance page
+* dispatch center page
+
+---
+
+# FIRST TASK — A8 AUDIT
+
+Create:
+
+A8_AUDIT.md
+
+Document:
+
+## Database
+
+Verify existence of:
+
+* courier_ratings
+* dispatch_alerts
+
+Verify all A8 columns exist on delivery_missions.
+
+---
+
+## APIs
+
+Verify:
+
+courier-ops routes exist
+
+List every route.
+
+---
+
+## UI
+
+Verify:
+
+* Dispatch Center page
+* Courier Performance page
+* Courier Workspace integrations
+
+---
+
+## Validation
+
+Mark:
+
+EXISTS
+PARTIAL
+MISSING
+
+for every A8 feature.
+
+DO NOT continue until audit is complete.
+
+---
+
+# CODE REVIEW ISSUES TO FIX
+
+The previous implementation stopped after identifying 6 real gaps.
+
+You MUST verify whether each one is already fixed.
+
+Only fix if missing.
+
+---
+
+## ISSUE 1 — Proof Gate
+
+Requirement:
+
+A courier MUST NOT be able to complete a mission unless one of the following exists:
+
+* proof_image_url
+  OR
+* confirmed_by_courier
+
+Verify:
+
+Attempt delivery completion.
+
+Expected:
+
+Without proof:
+
+409
+
+With proof:
+
+Success.
+
+Fix if missing.
+
+---
+
+## ISSUE 2 — Safety Incident → Dispatch Alert
+
+Requirement:
+
+When a courier submits a safety event:
+
+Create dispatch_alert automatically.
+
+Verify end-to-end.
+
+Fix if missing.
+
+---
+
+## ISSUE 3 — Performance Metrics
+
+Courier performance page must show:
+
+* Acceptance Rate
+* Cancellation Rate
+* Average ETA
+* Success Rate
+* Total Deliveries
+* Earnings
+
+Verify calculations.
+
+Fix if missing.
+
+---
+
+## ISSUE 4 — Dispatch Center GPS Freshness
+
+Dispatch Center must display:
+
+* Fresh
+* Warning
+* Stale
+
+based on courier GPS freshness.
+
+Verify live.
+
+Fix if missing.
+
+---
+
+## ISSUE 5 — Workspace Operational Controls
+
+Workspace must contain:
+
+### Active Mission
+
+* Report Safety Issue
+* Request Reschedule
+
+Verify functionality.
+
+Fix if missing.
+
+---
+
+## ISSUE 6 — i18n
+
+Verify:
+
+Arabic
+English
+
+No missing translation keys.
+
+No raw key names visible.
+
+Fix if missing.
+
+---
+
+# FULL VALIDATION
+
+After fixes:
+
+Perform REAL tests.
+
+Do NOT fake validation.
+
+Use actual accounts.
+
+---
+
+## Test 1
+
+Create mission.
+
+Verify mission appears.
+
+---
+
+## Test 2
+
+Accept mission.
+
+Verify tracking session starts.
+
+---
+
+## Test 3
+
+Update GPS.
+
+Verify tracking positions recorded.
+
+---
+
+## Test 4
+
+Report safety issue.
+
+Verify dispatch_alert created.
+
+---
+
+## Test 5
+
+Request reschedule.
+
+Verify stored correctly.
+
+---
+
+## Test 6
+
+Attempt delivery without proof.
+
+Must fail.
+
+---
+
+## Test 7
+
+Upload proof.
+
+Complete delivery.
+
+Must succeed.
+
+---
+
+## Test 8
+
+Verify ratings table.
+
+Create rating.
+
+Verify persistence.
+
+---
+
+## Test 9
+
+Verify dispatch center.
+
+Freshness badges visible.
+
+---
+
+## Test 10
+
+Verify performance metrics.
+
+Values update correctly.
+
+---
+
+# TYPESCRIPT
+
+Requirement:
+
+0 NEW TypeScript errors.
+
+Pre-existing unrelated errors may remain.
+
+Do not introduce any new ones.
+
+---
+
+# WORKFLOW RULES
+
+Never create:
+
+* Start Application
+* Marketplace Copy
+* API Copy
+* Preview Workflow
+* Temporary Workflow
+
+Use only official workflows.
+
+---
+
+# DOCUMENTATION
+
+After completion update:
+
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Add:
+
+## Phase A8 Final State
+
+Include:
+
+Implemented features
+Validation results
+Known limitations
+
+---
+
+# SUCCESS CRITERIA
+
+Only mark A8 complete when:
+
+✅ Audit finished
+
+✅ Proof gate works
+
+✅ Safety → Dispatch Alert works
+
+✅ Performance metrics work
+
+✅ GPS freshness visible
+
+✅ Workspace controls work
+
+✅ i18n complete
+
+✅ Real validation completed
+
+✅ Documentation updated
+
+✅ No new TypeScript errors
+
+Do not claim completion until every item is verified.

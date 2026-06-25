@@ -1,0 +1,139 @@
+SYANO — Phase 11 — Prompt 2: Critical & High Issues Fix
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Fix exactly the issues listed below. Do not refactor anything else. Do not redesign anything. Do not touch any file not mentioned.
+
+FIX 1 — Admin Search Routes Missing Auth
+File: artifacts/api-server/src/routes/search.ts
+Add requireRole("admin") middleware to these four routes:
+
+POST /admin/search/reindex
+GET /admin/search/cache
+DELETE /admin/search/cache
+GET /admin/search/health
+
+The middleware requireRole already exists in the codebase — find it and import it. Do not create a new one.
+Pattern to follow (same as other admin routes in the codebase):
+typescriptrouter.post('/admin/search/reindex', requireAuth, requireRole('admin'), handler)
+
+FIX 2 — Admin Delivery Zone Routes Missing Auth
+File: artifacts/api-server/src/routes/delivery-zones.ts
+Add requireAuth and requireRole("admin") to these four routes:
+
+GET /admin/delivery-zones
+POST /admin/delivery-zones
+PATCH /admin/delivery-zones/:id
+DELETE /admin/delivery-zones/:id
+
+Same pattern as Fix 1.
+
+FIX 3 — Seller Verification Method Mismatch
+File 1: artifacts/marketplace/src/pages/admin/verification.tsx
+
+File 2: artifacts/api-server/src/routes/admin.ts
+The frontend calls PATCH /api/admin/sellers/:id/verification but the backend defines POST.
+Fix by changing the backend route from POST to PATCH to match the frontend call.
+
+Do not change the frontend. Do not change the handler logic. Only change the HTTP method on the route definition.
+
+FIX 4 — Cache-Stats Endpoint Name Mismatch
+File: artifacts/api-server/src/routes/search.ts
+Add an alias route so both URLs work:
+typescriptrouter.get('/admin/search/cache-stats', requireAuth, requireRole('admin'), cacheStatsHandler)
+Keep the existing /admin/search/cache route as-is. Just add the alias pointing to the same handler.
+
+FIX 5 — File Upload Magic-Byte Validation
+File: artifacts/api-server/src/routes/messaging.ts
+
+Route: POST /conversations/:id/attachments
+After receiving the file buffer, validate the actual file signature (magic bytes) before saving.
+Add this validation:
+typescriptconst ALLOWED_SIGNATURES: Record<string, number[][]> = {
+  'image/jpeg': [[0xFF, 0xD8, 0xFF]],
+  'image/png':  [[0x89, 0x50, 0x4E, 0x47]],
+  'image/webp': [[0x52, 0x49, 0x46, 0x46]],
+  'application/pdf': [[0x25, 0x50, 0x44, 0x46]],
+}
+
+function validateMagicBytes(buffer: Buffer, declaredMime: string): boolean {
+  const signatures = ALLOWED_SIGNATURES[declaredMime]
+  if (!signatures) return false
+  return signatures.some(sig =>
+    sig.every((byte, i) => buffer[i] === byte)
+  )
+}
+Call this function after reading the file buffer. If validation fails, return 400 with message { error: 'invalid_file_type' }. Do not save the file.
+Add the i18n key messaging.error.invalid_file_type to both ar.json and en.json:
+
+Arabic: "نوع الملف غير مدعوم"
+English: "File type not supported"
+
+
+FIX 6 — Hardcoded Phone Number
+File: artifacts/marketplace/src/pages/contact.tsx line ~52
+Replace the hardcoded +963 999 999 999 with the i18n key contact.phone_placeholder.
+Add to ar.json: "contact": { "phone_placeholder": "سيتم الإعلان قريباً" }
+
+Add to en.json: "contact": { "phone_placeholder": "Coming soon" }
+
+FIX 7 — Hardcoded Gmail in Footer
+File: artifacts/marketplace/src/components/Footer.tsx line ~263
+Replace the hardcoded syano.marketplace@gmail.com with the i18n key footer.contact_email.
+Add to ar.json: "footer": { "contact_email": "support@syano.online" }
+
+Add to en.json: "footer": { "contact_email": "support@syano.online" }
+
+FIX 8 — Navbar Search Overflow on Mobile
+File: artifacts/marketplace/src/components/Navbar.tsx line ~167
+Replace:
+tsxstyle={{ minWidth: "22rem" }}
+With a Tailwind class that respects the viewport:
+tsxclassName="w-screen max-w-sm sm:min-w-[22rem]"
+Remove the inline style entirely. Use only Tailwind classes.
+
+Test that the dropdown does not overflow on 375px width.
+
+AFTER ALL FIXES
+Run these checks and confirm all pass:
+TypeScript:
+cd artifacts/api-server && npx tsc --noEmit
+cd artifacts/marketplace && npx tsc --noEmit
+Must return 0 errors.
+Manual verification:
+
+ Login as customer → try to access GET /api/admin/search/cache → must return 403
+ Login as customer → try to access POST /api/admin/search/reindex → must return 403
+ Login as customer → try to access GET /api/admin/delivery-zones → must return 403
+ Login as admin → seller verification action works without 404/405
+ Upload a .js file renamed to .jpg in messaging → must return 400
+ Footer shows support@syano.online not Gmail
+ Contact page shows "سيتم الإعلان قريباً" / "Coming soon" not fake number
+ Navbar search dropdown fits within 375px without horizontal scroll
+
+
+CONSTRAINTS
+
+Do not change any UI design or layout beyond what is specified
+Do not add new dependencies
+Do not touch any file not mentioned above
+Do not use any in TypeScript
+Do not break existing API response shapes
+RTL and LTR must both work after fixes
+Light mode and dark mode must both work after fixes
+
+
+When done, report:
+✅ Fix 1 — Admin search routes: protected
+✅ Fix 2 — Delivery zone routes: protected
+✅ Fix 3 — Seller verification: method corrected
+✅ Fix 4 — Cache-stats alias: added
+✅ Fix 5 — Magic-byte validation: added
+✅ Fix 6 — Phone number: replaced with i18n
+✅ Fix 7 — Gmail: replaced with support@syano.online
+✅ Fix 8 — Navbar overflow: fixed
+✅ TypeScript: 0 errors

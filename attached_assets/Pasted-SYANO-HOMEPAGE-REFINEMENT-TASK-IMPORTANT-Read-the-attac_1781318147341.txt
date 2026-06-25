@@ -1,0 +1,279 @@
+SYANO سوق سوريا
+
+HOMEPAGE REFINEMENT TASK
+IMPORTANT: Read the attached homepage screenshots first and implement the requested changes exactly. This is a marketplace platform, not a single-vendor store.
+
+PRIMARY GOAL
+
+Transform the homepage into a cleaner, more premium marketplace experience with stronger visual hierarchy, less clutter, and a luxury marketplace feel.
+
+Do NOT redesign unrelated systems.
+Do NOT change marketplace functionality.
+Focus only on homepage UX improvements described below.
+
+---
+
+CHANGE #1
+HERO BANNER MUST BECOME FULL-WIDTH
+----------------------------------
+
+Current issue:
+
+The left-side category tiles inside the hero area consume a large amount of visual space and reduce the impact of the banner.
+
+Required:
+
+1. Remove the category tile block completely from the left side of the hero section.
+
+2. Expand the hero banner to occupy the full available hero width.
+
+3. The hero must become a premium advertising carousel.
+
+4. Keep the existing right-side content:
+
+   * headline
+   * description
+   * CTA buttons
+   * search field (if currently present)
+
+5. Hero should feel closer to:
+
+   * premium marketplace campaigns
+   * modern ecommerce landing pages
+   * luxury retail advertising
+
+6. Hero images must be visually dominant.
+
+7. Use:
+
+   * subtle overlays
+   * smooth transitions
+   * premium gradients
+   * cinematic presentation
+
+8. Maintain RTL support.
+
+9. Maintain mobile responsiveness.
+
+10. Do NOT introduce visual clutter.
+
+11. Do NOT add category counters.
+
+12. Do NOT add slide indicators such as:
+    1/5
+    2/5
+    3/5
+
+13. If dot indicators already exist:
+    make them extremely subtle and minimal.
+
+Desired visual feeling:
+
+Premium
+Modern
+Elegant
+Expensive
+Marketplace-first
+
+NOT dashboard-like.
+
+---
+
+CHANGE #2
+REMOVE TRUST BAR BELOW HERO
+---------------------------
+
+Current issue:
+
+Below the hero there is a horizontal strip containing:
+
+* توصيل سريع
+* دفع آمن
+* بائعون موثوقون
+
+These trust points are already displayed inside the hero.
+
+Required:
+
+Remove the entire trust strip below the hero.
+
+Reason:
+
+It is redundant and creates visual repetition.
+
+Result:
+
+The section below the hero should start immediately with the next homepage content.
+
+---
+
+CHANGE #3
+STANDARDIZE SECTION TITLE SCALE
+-------------------------------
+
+Current issue:
+
+Some section titles across the homepage feel oversized.
+
+Reference section:
+
+"الفئات الأكثر شيوعاً"
+
+This section currently has the most balanced typography.
+
+Required:
+
+Use the typography scale of:
+
+الفئات الأكثر شيوعاً
+
+as the reference standard for:
+
+* section titles
+* homepage content headers
+* category section headers
+* store section headers
+* product section headers
+
+Goal:
+
+Create a more refined visual rhythm.
+
+Avoid oversized headings.
+
+Maintain readability while improving elegance.
+
+---
+
+CHANGE #4
+REMOVE DUPLICATE CATEGORY SECTION
+---------------------------------
+
+Current issue:
+
+A separate "Shop By Category" style section exists lower on the homepage.
+
+Categories are already presented near the top of the page.
+
+Required:
+
+Remove the duplicate category browsing section that appears later on the homepage.
+
+Reason:
+
+Duplicate content weakens hierarchy and increases scrolling noise.
+
+The user should discover categories once, near the top.
+
+---
+
+## DESIGN PRINCIPLES
+
+Keep:
+
+* dark premium aesthetic
+* RTL layout
+* marketplace structure
+* existing functionality
+
+Improve:
+
+* whitespace
+* visual hierarchy
+* focus
+* premium feel
+
+Avoid:
+
+* clutter
+* repeated information
+* dashboard appearance
+* excessive widgets
+* oversized titles
+* duplicated category navigation
+
+---
+
+## PROJECT RECOVERY & DEPLOYMENT REQUIREMENTS
+
+After all homepage modifications are completed:
+
+1. Update all project recovery files to reflect the new homepage structure.
+
+2. Update any recovery snapshots, recovery documentation, project state files, and restoration references used by the project.
+
+3. Verify that future recovery operations restore the newly modified homepage and not an older version.
+
+4. Verify all homepage-related routes and API integrations continue working correctly.
+
+5. Review and update any homepage-related endpoints if required.
+
+6. Ensure no broken API references remain after the homepage changes.
+
+7. Verify frontend-to-backend connections remain healthy.
+
+8. Verify homepage data loading still works correctly after deployment.
+
+9. Run a final validation pass for:
+
+   * homepage rendering
+   * API communication
+   * banner loading
+   * category loading
+   * store loading
+   * RTL rendering
+   * mobile rendering
+
+10. Ensure the project reaches a clean operational state after modifications.
+
+---
+
+## QUALITY CHECK BEFORE FINISHING
+
+Verify:
+
+✓ Hero is full width
+
+✓ Category tiles removed from hero
+
+✓ Hero feels like a premium advertising carousel
+
+✓ Right-side hero content preserved
+
+✓ Trust strip removed
+
+✓ Typography standardized
+
+✓ Duplicate category section removed
+
+✓ RTL works correctly
+
+✓ Mobile layout remains premium
+
+✓ No new visual clutter introduced
+
+✓ Recovery files updated
+
+✓ Recovery snapshots updated
+
+✓ Homepage endpoints verified
+
+✓ No broken API connections
+
+✓ Project remains fully operational
+
+After implementation provide:
+
+1. Desktop screenshot
+
+2. Tablet screenshot
+
+3. Mobile screenshot
+
+4. Summary of modified files
+
+5. Summary of updated recovery files
+
+6. Summary of endpoint/API verification
+
+7. Explanation of any design decisions made

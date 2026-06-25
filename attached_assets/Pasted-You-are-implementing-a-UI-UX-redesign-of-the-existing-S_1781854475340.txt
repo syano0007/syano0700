@@ -1,0 +1,402 @@
+You are implementing a UI/UX redesign of the existing SYANO Courier Workspace.
+
+IMPORTANT:
+This is a visual/layout refactor only.
+
+DO NOT change:
+
+* APIs
+* Business logic
+* Tracking logic
+* GPS reporting
+* Mission lifecycle
+* Polling intervals
+* State machine
+* Route calculations
+* Database
+* Permissions
+* Existing functionality
+
+Preserve all behavior exactly as it currently works.
+
+---
+
+# GOAL
+
+Transform the courier workspace into a professional map-first experience similar to:
+
+* Uber Driver
+* Bolt Driver
+* Careem Captain
+* InDrive Courier
+
+The courier should feel like they are operating from a navigation screen, not a dashboard.
+
+The map must become the primary surface.
+
+---
+
+# CURRENT PROBLEM
+
+Current layout:
+
+* Map occupies only part of screen
+* Large information panel sits below map
+* Too much vertical space wasted
+* Courier attention is pulled away from navigation
+* Does not feel like a professional driver app
+
+Current structure roughly looks like:
+
+[ MAP ]
+
+---
+
+[ STATUS PANEL ]
+[ GPS ]
+[ WAITING ]
+[ BUTTONS ]
+
+---
+
+[ TABS ]
+
+This must be redesigned.
+
+---
+
+# NEW LAYOUT
+
+Map must occupy the entire available workspace.
+
+Structure:
+
+---
+
+FULLSCREEN MAP
+
+---
+
+Floating Status Card
+
+Bottom Navigation Tabs
+
+---
+
+The map should always be visible.
+
+No giant information area under the map.
+
+No large empty dark panels.
+
+No dashboard feeling.
+
+---
+
+# PART 1 — FULLSCREEN MAP
+
+The map becomes the main background.
+
+Requirements:
+
+* height: 100%
+* width: 100%
+* fill viewport
+* responsive
+* preserve existing markers
+* preserve route polylines
+* preserve tracking updates
+* preserve auto-centering behavior
+
+Nothing about map functionality should change.
+
+Only expand it visually.
+
+---
+
+# PART 2 — FLOATING STATUS CARD
+
+Replace the large bottom information area.
+
+Create a compact floating overlay card.
+
+Position:
+
+RTL:
+
+* top-right preferred
+
+Fallback:
+
+* bottom-right
+
+Use:
+
+* glass effect
+* blurred background if already available
+* soft shadow
+* rounded-2xl
+* dark theme compatible
+* theme colors
+
+Card should float above the map.
+
+Not below it.
+
+---
+
+# PART 3 — IDLE STATE
+
+When courier is waiting for missions.
+
+Show only:
+
+Status:
+Connected
+
+GPS:
+Active
+
+Message:
+Waiting for missions
+
+Availability
+
+Nothing else.
+
+Keep it extremely compact.
+
+Target height:
+
+80–140px
+
+Not 300–500px.
+
+---
+
+# PART 4 — OFFER STATE
+
+When mission offer arrives.
+
+Expand card dynamically.
+
+Show:
+
+Store
+
+Customer
+
+Distance
+
+Estimated duration
+
+Reward
+
+Countdown
+
+Buttons:
+
+Accept
+
+Decline
+
+Card can become larger temporarily.
+
+Map must remain visible behind it.
+
+Never hide the map.
+
+---
+
+# PART 5 — PICKUP STATE
+
+Show:
+
+Mission ID
+
+Store
+
+Distance to store
+
+ETA
+
+Reward
+
+Buttons:
+
+Navigate
+
+Picked Up
+
+Card remains floating.
+
+Map remains visible.
+
+---
+
+# PART 6 — DELIVERY STATE
+
+Show:
+
+Customer
+
+Distance
+
+ETA
+
+Reward
+
+Buttons:
+
+Navigate
+
+Delivered
+
+Report Issue
+
+Card remains floating.
+
+Map remains visible.
+
+---
+
+# PART 7 — GPS STATUS
+
+Move GPS badge into floating card.
+
+Example:
+
+🟢 GPS Active
+
+or
+
+🟡 Weak Signal
+
+or
+
+🔴 GPS Lost
+
+Compact chip style.
+
+Do not dedicate an entire section to GPS.
+
+---
+
+# PART 8 — TABS
+
+Keep:
+
+* Workspace
+* History
+* Earnings
+* Account
+
+Preserve all routes.
+
+Preserve navigation.
+
+Preserve logic.
+
+Only ensure tabs stay docked at bottom.
+
+Map should remain visible above them.
+
+---
+
+# PART 9 — RESPONSIVENESS
+
+Desktop:
+
+* floating card width ~320–420px
+
+Tablet:
+
+* width ~300–380px
+
+Mobile:
+
+* width ~85–92vw
+
+Card must never cover the whole screen.
+
+---
+
+# PART 10 — ANIMATIONS
+
+Add smooth transitions.
+
+Offer arrives:
+
+* slide in
+* fade in
+
+State changes:
+
+* smooth height transitions
+
+Button actions:
+
+* subtle scale feedback
+
+No heavy animations.
+
+No lag.
+
+---
+
+# PART 11 — CLEANUP
+
+Remove:
+
+* oversized bottom panel
+* empty dark space
+* redundant containers
+* duplicated information
+
+Reduce visual clutter.
+
+Keep only information relevant to the current mission state.
+
+---
+
+# VALIDATION
+
+After implementation verify:
+
+✅ Map occupies full workspace
+
+✅ No large panel under map
+
+✅ Floating overlay card exists
+
+✅ Map visible in all states
+
+✅ Offer state works
+
+✅ Pickup state works
+
+✅ Delivery state works
+
+✅ GPS status visible
+
+✅ Tabs still work
+
+✅ Routes unchanged
+
+✅ APIs unchanged
+
+✅ Tracking unchanged
+
+✅ TypeScript 0 errors
+
+✅ Mobile preserved
+
+✅ Desktop preserved
+
+✅ Existing functionality untouched
+
+This is a UX redesign, not a feature rewrite.
+
+Behavior must remain identical.
+
+Only the visual experience should become professional and map-first.

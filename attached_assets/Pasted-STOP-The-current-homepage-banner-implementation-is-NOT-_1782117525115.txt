@@ -1,0 +1,276 @@
+STOP.
+
+The current homepage banner implementation is NOT acceptable.
+
+Do NOT tweak the existing green rectangle.
+
+Replace it completely.
+
+The result must match the premium hero design previously approved.
+
+------------------------------------------------
+GOAL
+------------------------------------------------
+
+Build a marketplace-grade homepage hero banner.
+
+Visual quality target:
+
+- Amazon
+- Noon
+- Trendyol
+- Shopify
+
+This must feel like a modern e-commerce landing section.
+
+------------------------------------------------
+REMOVE
+------------------------------------------------
+
+Remove:
+
+- current dark green rectangle
+- current simple text block
+- current empty hero area
+
+Do not reuse the existing layout.
+
+------------------------------------------------
+LAYOUT
+------------------------------------------------
+
+Single full-width hero.
+
+Width:
+100%
+
+Height:
+520px–620px desktop
+
+420px mobile
+
+Border radius:
+current SYANO radius
+
+------------------------------------------------
+BACKGROUND
+------------------------------------------------
+
+Banner image fills entire hero.
+
+Use banner image from admin banner system.
+
+Image:
+cover
+center
+
+Add dark overlay:
+
+linear-gradient(
+rgba(0,0,0,0.45),
+rgba(0,0,0,0.25)
+)
+
+------------------------------------------------
+CONTENT POSITION
+------------------------------------------------
+
+Content block aligned right in Arabic.
+
+Contains:
+
+badge
+
+title
+
+description
+
+primary button
+
+secondary button
+
+------------------------------------------------
+TITLE
+------------------------------------------------
+
+Large.
+
+Bold.
+
+White.
+
+Approximately:
+
+56px desktop
+
+32px mobile
+
+------------------------------------------------
+DESCRIPTION
+------------------------------------------------
+
+Soft white.
+
+Max width:
+
+550px
+
+------------------------------------------------
+FLOATING PRODUCT CARDS
+------------------------------------------------
+
+This is the important part.
+
+Add floating marketplace cards.
+
+Position:
+
+left side
+
+bottom corners
+
+top corner
+
+Cards show:
+
+product image
+
+price
+
+availability
+
+mini badge
+
+Use real products from database.
+
+Not placeholders.
+
+Cards:
+
+glass effect
+
+backdrop blur
+
+soft shadow
+
+rounded-xl
+
+------------------------------------------------
+ANIMATIONS
+------------------------------------------------
+
+Cards:
+
+slow floating animation
+
+translateY
+
+subtle scale
+
+3-5 second loop
+
+Banner:
+
+fade transition
+
+smooth slide transition
+
+------------------------------------------------
+CAROUSEL
+------------------------------------------------
+
+Use admin banners.
+
+Homepage hero must load banners from:
+
+Hero Banners
+
+already managed by admin.
+
+Requirements:
+
+- automatic rotation
+- previous button
+- next button
+- indicators
+- swipe support
+- keyboard support
+
+------------------------------------------------
+ADMIN INTEGRATION
+------------------------------------------------
+
+The hero must use:
+
+existing banner database
+
+existing admin banner page
+
+existing API
+
+Do NOT create a second banner system.
+
+Do NOT create mock banners.
+
+Do NOT hardcode images.
+
+------------------------------------------------
+RESPONSIVE
+------------------------------------------------
+
+Desktop:
+
+visual + floating cards visible
+
+Tablet:
+
+reduce card count
+
+Mobile:
+
+show max 1-2 floating cards
+
+preserve performance
+
+------------------------------------------------
+DESIGN RULES
+------------------------------------------------
+
+Keep:
+
+- current theme colors
+- current shadows
+- current border radius
+- current typography
+
+Must feel native to SYANO.
+
+------------------------------------------------
+FINAL VALIDATION
+------------------------------------------------
+
+Verify:
+
+✓ Hero uses admin banners
+
+✓ Carousel works
+
+✓ Previous/Next works
+
+✓ Auto rotation works
+
+✓ Banner image fills hero
+
+✓ Floating product cards visible
+
+✓ Mobile responsive
+
+✓ RTL preserved
+
+✓ EN preserved
+
+✓ No placeholders
+
+✓ TypeScript 0 errors
+
+The final result should look like a premium marketplace homepage, not a simple banner section.

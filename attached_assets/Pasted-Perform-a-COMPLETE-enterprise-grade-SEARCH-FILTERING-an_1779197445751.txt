@@ -1,0 +1,345 @@
+Perform a COMPLETE enterprise-grade SEARCH, FILTERING, and PRODUCT DISCOVERY transformation across the entire Syano marketplace platform. Treat this as a world-class ecommerce search engineering project inspired by Amazon, Noon, Alibaba, and modern AI-powered marketplaces.
+
+The goal is to create the FASTEST, SMARTEST, and MOST USER-FRIENDLY product discovery experience possible for real users in Syria using mobile devices and weak internet connections.
+
+This is NOT just a basic search bar improvement.
+This is a full marketplace discovery ecosystem overhaul.
+
+The final experience must feel:
+- instant
+- intelligent
+- ultra responsive
+- addictive to browse
+- premium
+- smooth
+- mobile-first
+- optimized for conversions
+
+==================================================
+CORE OBJECTIVES
+==================================================
+
+Transform product discovery into a premium experience where users can:
+- find products instantly
+- browse categories easily
+- filter intelligently
+- discover products naturally
+- navigate smoothly on mobile
+- search in Arabic naturally
+- search with typing mistakes
+- explore the marketplace effortlessly
+
+The platform must feel:
+- fast
+- intelligent
+- modern
+- organized
+- highly scalable
+
+==================================================
+GLOBAL SEARCH SYSTEM
+==================================================
+
+Rebuild and optimize the entire search experience professionally.
+
+Requirements:
+- instant search results
+- real-time suggestions
+- typo tolerance
+- Arabic-aware search
+- partial word matching
+- synonym support
+- smart ranking
+- fuzzy matching
+- predictive suggestions
+- recent searches
+- trending searches
+- search history
+- autocomplete
+- category-aware search
+
+The search must understand:
+- Arabic product names
+- English product names
+- mixed Arabic/English queries
+- spelling mistakes
+- incomplete queries
+
+==================================================
+MOBILE-FIRST SEARCH EXPERIENCE
+==================================================
+
+Mobile search is the HIGHEST PRIORITY.
+
+The search experience must feel like a premium native app.
+
+Requirements:
+- instant keyboard response
+- smooth opening/closing
+- optimized mobile search UI
+- fast suggestions
+- thumb-friendly interactions
+- smooth focus behavior
+- responsive results rendering
+- lightweight animations
+- fast clearing/editing
+
+Ensure:
+- no lag while typing
+- no UI freezing
+- no delayed results
+- no layout shifts
+
+==================================================
+ADVANCED FILTERING SYSTEM
+==================================================
+
+Build a complete professional filtering ecosystem.
+
+Requirements:
+- category filtering
+- price range filtering
+- seller filtering
+- city/location filtering
+- rating filtering
+- stock availability filtering
+- discount filtering
+- newest products
+- best selling
+- highest rated
+- featured products
+- verified sellers only
+- delivery options
+
+Filters must:
+- update results instantly
+- work smoothly on mobile
+- feel lightweight
+- support combinations
+- remain visually clean
+
+==================================================
+MOBILE FILTER UX
+==================================================
+
+Rebuild mobile filtering professionally.
+
+Requirements:
+- premium filter drawer/bottom sheet
+- responsive controls
+- smooth open/close animations
+- sticky filter access if beneficial
+- clear filter states
+- fast apply/reset actions
+- no clutter
+- touch-friendly controls
+
+==================================================
+CATEGORY DISCOVERY SYSTEM
+==================================================
+
+Improve category browsing massively.
+
+Requirements:
+- clear category hierarchy
+- visually distinct categories
+- responsive category cards
+- instant navigation
+- smooth transitions
+- optimized mobile browsing
+- modern ecommerce layout
+
+Categories must feel:
+- organized
+- easy to explore
+- premium
+- visually clean
+
+==================================================
+PRODUCT DISCOVERY EXPERIENCE
+==================================================
+
+Transform product browsing into a premium marketplace experience.
+
+Requirements:
+- smooth infinite scroll
+- fast product rendering
+- optimized product grids
+- proper spacing
+- responsive cards
+- clear pricing
+- visible discounts
+- seller trust visibility
+- quick add-to-cart support
+- smooth image loading
+
+Ensure:
+- no layout breaking
+- no hidden buttons
+- no inconsistent card sizes
+- no slow rendering
+
+==================================================
+SMART SORTING SYSTEM
+==================================================
+
+Implement advanced sorting.
+
+Support:
+- relevance
+- newest
+- lowest price
+- highest price
+- best selling
+- highest rated
+- biggest discount
+- most popular
+- trending products
+
+Sorting must:
+- update instantly
+- preserve performance
+- work smoothly on weak internet
+
+==================================================
+SEARCH RESULT QUALITY
+==================================================
+
+Improve result relevance aggressively.
+
+Requirements:
+- prioritize accurate matches
+- prioritize active products
+- prioritize trusted sellers
+- deprioritize spam/low-quality listings
+- improve ranking quality
+- avoid duplicate results
+
+==================================================
+PERFORMANCE OPTIMIZATION
+==================================================
+
+The entire discovery system must remain ultra-fast.
+
+Optimize:
+- search indexing
+- filtering performance
+- rendering performance
+- API payloads
+- caching
+- pagination
+- infinite scrolling
+- rerenders
+- query performance
+
+Ensure smooth experience on:
+- weak Syrian internet
+- low-end Android phones
+- slow CPUs
+- low RAM devices
+
+==================================================
+SEARCH ANALYTICS & INSIGHTS
+==================================================
+
+Implement search analytics support for admins.
+
+Track:
+- most searched keywords
+- failed searches
+- trending searches
+- popular categories
+- user discovery behavior
+- search conversion rates
+
+==================================================
+SEO & INDEXING OPTIMIZATION
+==================================================
+
+Ensure discovery pages remain SEO optimized.
+
+Requirements:
+- crawlable category pages
+- SEO-friendly URLs
+- optimized metadata
+- structured data
+- canonical URLs
+- fast indexing support
+
+==================================================
+RTL & ARABIC OPTIMIZATION
+==================================================
+
+Ensure perfect Arabic RTL discovery experience.
+
+Fix:
+- Arabic typography
+- RTL alignment
+- search field behavior
+- filter alignment
+- Arabic wrapping
+- mixed-language rendering
+
+Arabic UX must feel:
+- native
+- polished
+- professional
+
+==================================================
+LOADING STATES & PERCEIVED SPEED
+==================================================
+
+Improve perceived performance dramatically.
+
+Implement:
+- skeleton loaders
+- shimmer placeholders
+- progressive rendering
+- instant-feeling navigation
+- graceful loading states
+- lightweight transitions
+
+==================================================
+AUTOMATIC ISSUE DETECTION
+==================================================
+
+Automatically detect and fix:
+- slow searches
+- broken filters
+- mobile overflow
+- laggy rendering
+- inconsistent product cards
+- hidden buttons
+- search UI glitches
+- RTL issues
+- slow infinite scroll
+- duplicated requests
+- performance bottlenecks
+
+==================================================
+FINAL QA & VALIDATION
+==================================================
+
+Before finishing:
+- test Arabic search
+- test English search
+- test typo tolerance
+- test mobile search UX
+- test filters on mobile
+- test category browsing
+- test sorting performance
+- test infinite scrolling
+- test weak internet behavior
+- test low-end Android devices
+- test RTL rendering
+- verify smooth performance everywhere
+- verify no UI overlap
+- verify no hidden actions
+- verify no console errors
+
+FINAL RESULT MUST FEEL LIKE:
+- a world-class ecommerce discovery engine
+- ultra-fast mobile marketplace browsing
+- intelligent and addictive shopping UX
+- premium and highly scalable
+- optimized for Syrian users and weak internet

@@ -1,0 +1,62 @@
+You are executing the Core Delivery & Location Engine Optimization Pipeline for SYANO (سوق سوريا).
+
+This is a production-grade multi-vendor digital marketplace.
+
+Do NOT break existing backend APIs, checkout flows, or database models.
+Do NOT modify core auth JWT tokens or search pipelines.
+
+Preserve:
+- Full RTL (Arabic native) compliance.
+- Responsive design integrity (Vite 7 + React 19 + Tailwind v4 + react-leaflet).
+- Zero TypeScript errors across the entire workspace.
+
+==================================================
+GOAL
+==================================================
+Optimize the Interactive Map Modal, resolve performance/rendering lag, enforce strict coordinate-to-zone matching, and fix the location auth-leak upon user logout.
+
+==================================================
+PART 1 — MAP CANVAS EXPANSION & GRAY VOID RESOLUTION
+==================================================
+- Sizing Fix: Increase the Leaflet map viewport height inside the modal container to `h-[450px]` or `h-[500px]` (Desktop/Tablet) to eliminate cropped, small maps.
+- Gray Void Fix: Leaflet initializes before the modal animation completes, causing broken or gray unrendered sections. Implement a layout trigger inside the Map wrapper: once the modal opening animation finishes (e.g., 150ms timeout), invoke:
+  `map.invalidateSize();`
+- This forces Leaflet to instantly re-read parent container dimensions and render all map tiles cleanly. Set `trackResize={true}` on the `<MapContainer>`.
+
+==================================================
+PART 2 — TILE LOADING SPEED UP (PERFORMANCE & CACHING)
+==================================================
+- Ensure the TileLayer URL string leverages parallel subdomains: `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`
+- Pass the following performance attributes explicitly to the `<TileLayer />` component to maximize caching and eliminate lag during panning:
+  * `keepBuffer={8}` (Pre-loads adjacent tiles outside viewport bounds for fluid dragging).
+  * `updateWhenIdle={false}` (Forces tiles to load dynamically during movement rather than waiting for panning to stop).
+  * `updateWhenZooming={false}` (Eliminates visual flickering during scale transitions).
+- Apply a 200ms debounce to the map panning event (`onMove`, `onMoveEnd`, or `useMapEvents`) to avoid overwhelming the CPU thread with real-time positional updates.
+
+==================================================
+PART 3 — MAP SEARCH INPUT INTEGRATION
+==================================================
+- Embed an absolute-positioned text input field directly over the top canvas layer of the map container (`absolute top-4 start-4 z-[1000]`).
+- Design Specs: Clean white background (`bg-white`), soft shadow, search icon (Lucide `Search`), and explicit placeholder text ("ابحث عن موقعك أو حيك...").
+- Logic: Typing an address or neighborhood name and selecting it must execute a lookup, extract coordinates, and smoothly fly/pan the map marker directly to that geographical point.
+
+==================================================
+PART 4 — AUTOMATIC GEOLOCATION & STRICT COORD-TO-ZONE LOCKING
+==================================================
+- Automatic Geolocation: On modal mount, immediately query browser-level coordinates via `navigator.geolocation.getCurrentPosition`. If granted, use `map.flyTo()` to instantly snap the marker to the user's active pinpoint. Fallback to Aleppo center if denied.
+- Strict Business Logic Locking (CRITICAL): The "منطقة التوصيل" (Delivery Zone) dropdown selection container must be completely READ-ONLY/DISABLED from manual user clicks.
+- The ONLY way to alter the delivery zone value is by dragging or shifting the live Map Marker pinpoint.
+- As coordinates shift (debounced), auto-calculate proximity against the 40 authenticated `delivery_zones` boundaries. Instantly lock that exact zone in the form state. If coordinates fall outside the valid grid boundaries, trigger a clear validation warning ("الموقع خارج نطاق التوصيل المدعوم").
+
+==================================================
+PART 5 — AUTH-STATE LOCATION PURGE ON LOGOUT
+==================================================
+- Root Cause: Stale user location data remains cached in global context/memory even after an active logout action is completed.
+- Modification: Hook the global location state directly into the authentication state lifecycle listener.
+- Upon logging out, trigger a full reset payload to completely clear all active location parameters to `null`:
+  ```typescript
+  setLatitude(null);
+  setLongitude(null);
+  setZoneId(null);
+  setZoneName(null);
+  setFormattedAddress(null);

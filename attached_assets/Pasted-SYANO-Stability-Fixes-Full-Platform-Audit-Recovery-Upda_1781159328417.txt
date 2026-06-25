@@ -1,0 +1,425 @@
+SYANO (سوق سوريا) — Stability Fixes + Full Platform Audit + Recovery Update
+
+## CRITICAL EXECUTION RULES
+
+Before changing ANY code:
+
+1. Read all recovery files completely.
+2. Read MEMORY.md completely.
+3. Read RECOVERY.md completely.
+4. Read all project-specific recovery documents.
+5. Read current Order Workflow implementation.
+6. Read notification system.
+7. Read delivery/courier system.
+8. Read checkout zone system.
+9. Read ProductWizard implementation.
+10. Read VariantBuilder implementation.
+
+DO NOT start coding before the audit is complete.
+
+---
+
+# PHASE 1 — FIX CURRENT KNOWN PROBLEMS
+
+These issues have already been identified.
+
+## Issue 1 — Notification Enum Mismatch
+
+Audit and verify:
+
+notificationTypeEnum
+
+Current workflow introduced new notification types:
+
+* order_confirmed
+* order_preparing
+* order_ready
+* order_courier_assigned
+* order_picked_up
+* order_out_for_delivery
+* order_delivery_failed
+* order_returned
+
+Verify:
+
+* Database enum
+* Drizzle schema
+* API validation
+* Notification creation
+* Notification reading
+
+Ensure:
+
+* No runtime crashes
+* No invalid enum values
+* No notification failures
+
+---
+
+## Issue 2 — Order Status Type Mismatch
+
+Audit:
+
+OrderStatus
+
+Verify every location:
+
+Database
+Drizzle
+API
+Marketplace
+Mobile
+Admin
+Courier Dashboard
+Seller Dashboard
+
+Current workflow statuses should be:
+
+pending
+confirmed
+preparing
+ready_for_pickup
+courier_assigned
+picked_up
+out_for_delivery
+delivered
+delivery_failed
+returned
+cancelled
+refunded
+
+Remove all legacy mismatches.
+
+Fix all TypeScript errors caused by outdated status definitions.
+
+Target:
+
+0 TypeScript errors.
+
+---
+
+## Issue 3 — Workflow Verification
+
+Fully test:
+
+Pending
+↓
+Confirmed
+↓
+Preparing
+↓
+ReadyForPickup
+↓
+CourierAssigned
+↓
+PickedUp
+↓
+OutForDelivery
+↓
+Delivered
+
+Verify:
+
+* Seller actions
+* Admin actions
+* Courier actions
+* Customer view
+* Notifications
+* Wallet entries
+* Courier earnings
+* Order timeline
+* Mobile compatibility
+
+Fix anything broken.
+
+---
+
+# PHASE 2 — FULL PLATFORM AUDIT
+
+After current issues are fixed:
+
+Perform a COMPLETE audit.
+
+Do not assume anything works.
+
+Verify every major subsystem.
+
+---
+
+## Product System
+
+Verify:
+
+* Product creation
+* Product editing
+* Product deletion
+* Categories
+* Subcategories
+* Product images
+* Specifications
+* Variant system
+* Variant images
+* Stock handling
+* Pricing
+
+---
+
+## Variant System
+
+Verify:
+
+* Variant groups
+* Variant combinations
+* Variant images
+* Bulk actions
+* Edit mode
+* Product page selection
+* Cart variant handling
+* Order variant handling
+
+---
+
+## Seller Dashboard
+
+Verify:
+
+* Product management
+* Order management
+* Analytics pages
+* Store settings
+* Store pages
+* Reviews
+* Notifications
+
+---
+
+## Admin Dashboard
+
+Verify:
+
+* User management
+* Seller approvals
+* Delivery management
+* Courier assignment
+* Notifications
+* Audit logs
+
+---
+
+## Courier System
+
+Verify:
+
+* Assignment flow
+* Pickup flow
+* Delivery flow
+* Failure flow
+* Earnings
+* Wallet
+* Statistics
+
+---
+
+## Checkout
+
+Verify:
+
+* Delivery zones
+* Zone fees
+* Address handling
+* Order creation
+* Totals
+* Mobile checkout
+
+---
+
+## Orders
+
+Verify:
+
+* Creation
+* Updates
+* Timeline
+* Cancellation
+* Delivery statuses
+* Notifications
+
+---
+
+## Messaging
+
+Verify:
+
+* Conversations
+* Messages
+* Notifications
+* Unread counters
+
+---
+
+## Mobile App
+
+Verify:
+
+* Authentication
+* Products
+* Product details
+* Cart
+* Checkout
+* Orders
+* Delivery zones
+
+---
+
+# PHASE 3 — FIX EVERYTHING DISCOVERED
+
+After audit:
+
+Fix all discovered issues.
+
+Including:
+
+* Runtime errors
+* Logic bugs
+* Broken UI
+* Incorrect data
+* Missing translations
+* RTL issues
+* Mobile issues
+* TypeScript issues
+* API issues
+
+Rules:
+
+* No rewrites
+* No regressions
+* No breaking changes
+* Preserve current architecture
+* Preserve APIs whenever possible
+
+Use surgical fixes only.
+
+---
+
+# PHASE 4 — VALIDATION
+
+After all fixes:
+
+Run full validation.
+
+Verify:
+
+✅ Marketplace builds
+
+✅ API builds
+
+✅ Mobile builds
+
+✅ Database works
+
+✅ Product creation works
+
+✅ Product editing works
+
+✅ Variants work
+
+✅ Checkout works
+
+✅ Delivery zones work
+
+✅ Seller workflow works
+
+✅ Courier workflow works
+
+✅ Notifications work
+
+✅ Wallet works
+
+✅ Earnings work
+
+✅ Order timeline works
+
+✅ Mobile works
+
+✅ Arabic works
+
+✅ English works
+
+✅ RTL works
+
+✅ 0 TypeScript errors
+
+---
+
+# PHASE 5 — RECOVERY UPDATE (MANDATORY)
+
+After EVERYTHING is finished:
+
+Update all recovery files.
+
+Update:
+
+* MEMORY.md
+* RECOVERY.md
+* Any project recovery documents
+
+Document:
+
+## Current Architecture
+
+* Product System
+* Variant System
+* Checkout
+* Delivery Zones
+* Courier System
+* Order Workflow
+* Notification System
+
+## Current Status
+
+What is complete.
+What remains future work.
+
+## Database Changes
+
+All schema updates.
+
+## API Changes
+
+All endpoint updates.
+
+## Workflow Changes
+
+All status transitions.
+
+## Known Issues
+
+Only real remaining issues.
+
+## Recovery Procedure
+
+Exact steps required to restore the project on a brand-new Replit account.
+
+The next agent must be able to:
+
+1. Read recovery files.
+2. Restore environment.
+3. Start services.
+4. Continue development immediately.
+
+without needing any previous chat history.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+1. Every issue fixed.
+2. Every issue discovered.
+3. Every issue intentionally left unchanged.
+4. Validation results.
+5. Remaining risks.
+6. Recovery files updated confirmation.
+
+Do not stop until the platform is fully audited, stabilized, validated, and recovery documentation is updated.

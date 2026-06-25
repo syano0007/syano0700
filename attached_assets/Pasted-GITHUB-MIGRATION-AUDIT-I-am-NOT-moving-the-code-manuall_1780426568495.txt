@@ -1,0 +1,168 @@
+GITHUB MIGRATION AUDIT
+
+I am NOT moving the code manually.
+
+I will import this project from GitHub into a new Replit account.
+
+Your task is to generate a COMPLETE migration checklist specifically for GitHub → Replit migration.
+
+Perform a full audit and provide:
+
+==================================================
+1. WHAT WILL TRANSFER AUTOMATICALLY
+==================================================
+
+List everything that will transfer via GitHub:
+
+- Source code
+- Assets
+- Config files
+- Package files
+- Database schemas
+- Migrations
+- Generated code
+- Build configs
+
+==================================================
+2. WHAT WILL NOT TRANSFER
+==================================================
+
+Identify everything that must be recreated manually:
+
+- Replit Secrets
+- Environment variables
+- Databases
+- Storage buckets
+- External APIs
+- OAuth configs
+- Push notification configs
+- Domain settings
+- Deployment settings
+
+==================================================
+3. REQUIRED REPLIT SECRETS
+==================================================
+
+Generate a complete list of every secret currently used.
+
+For each secret provide:
+
+- Name
+- Purpose
+- Required or optional
+- Where it is used
+
+DO NOT expose secret values.
+
+==================================================
+4. DATABASE MIGRATION
+==================================================
+
+Identify:
+
+- Database provider
+- Database location
+- Connection method
+- Migration system
+- Schema files
+
+Explain exactly how to reconnect the imported project to the database.
+
+Determine:
+
+A) Can the existing database be reused?
+
+or
+
+B) Must a new database be created?
+
+Provide exact steps.
+
+==================================================
+5. POST-IMPORT CHECKLIST
+==================================================
+
+After GitHub import:
+
+Provide exact steps to verify:
+
+- Login
+- Registration
+- Admin panel
+- Seller dashboard
+- Orders
+- Messaging
+- Notifications
+- Search
+- Store pages
+- Reviews
+- Mobile layout
+
+==================================================
+6. GENERATED FILES
+==================================================
+
+Identify files that must be regenerated after import:
+
+Examples:
+- API clients
+- ORM generated files
+- Type generation
+- Build artifacts
+
+Provide commands.
+
+==================================================
+7. DEPENDENCIES
+==================================================
+
+List:
+
+- Node version
+- Package manager
+- Required installs
+- Build commands
+- Run commands
+
+==================================================
+8. CURRENT PROJECT STATUS
+==================================================
+
+Provide:
+
+- Completed systems
+- Remaining bugs
+- Known issues
+- Highest priority fixes
+
+==================================================
+9. DEVELOPMENT CONTINUATION GUIDE
+==================================================
+
+Explain exactly where the next developer should continue work.
+
+Include:
+
+- Mobile issues
+- Translation issues
+- Sidebar issues
+- SYP currency issue
+- Store page issues
+- Performance issues
+- Security issues
+
+==================================================
+10. FINAL MIGRATION RISK REPORT
+==================================================
+
+List everything that could break after GitHub import.
+
+For each risk provide:
+
+- Probability
+- Impact
+- Fix
+
+Output a complete GitHub → Replit migration handbook.
+Do not modify code.
+Only audit and document.

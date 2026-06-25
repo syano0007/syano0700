@@ -1,0 +1,276 @@
+Use the attached screenshot as the PRIMARY DESIGN REFERENCE.
+
+Do NOT simply fix CSS bugs.
+
+Do NOT make small adjustments.
+
+Do NOT keep the current layout and slightly improve it.
+
+I want the Add Product and Edit Product pages redesigned to follow the exact mobile-first design philosophy shown in the reference image.
+
+Target pages:
+
+* /seller/products/new
+* /seller/products/[id]/edit
+
+---
+
+# DESIGN GOAL
+
+The current page wastes space and feels like a desktop form squeezed into a phone.
+
+The reference image demonstrates the desired experience:
+
+* full-width sections
+* large touch targets
+* proper spacing
+* clear visual hierarchy
+* premium marketplace UX
+* no cramped inputs
+* no tiny cards
+* no narrow variant rows
+
+The final result should feel closer to:
+
+* Shopify Mobile
+* Amazon Seller App
+* Trendyol Seller
+* Noon Seller
+
+---
+
+# CRITICAL MOBILE RULE
+
+Every major section must use nearly the FULL AVAILABLE SCREEN WIDTH.
+
+Current issue:
+
+Many cards are narrow and centered with large unused space on both sides.
+
+This must be removed.
+
+Use:
+
+* width: 100%
+* minimal safe horizontal padding
+* edge-to-edge content cards
+
+The page should visually fill the mobile screen.
+
+No tiny floating cards.
+
+No compressed variant containers.
+
+No wasted horizontal space.
+
+---
+
+# PAGE STRUCTURE
+
+Rebuild the page as large section cards:
+
+1. Product Images
+2. Basic Information
+3. Category & Brand
+4. Pricing
+5. Inventory
+6. Variants
+7. Specifications
+8. Description
+9. SEO
+10. Publish
+
+Each section:
+
+* rounded-2xl
+* full width
+* comfortable spacing
+* clear title
+* clear subtitle
+
+---
+
+# PRODUCT IMAGES
+
+Follow the reference style:
+
+* large upload area
+* large previews
+* easy remove buttons
+* mobile-first image management
+
+No tiny upload controls.
+
+No cramped image rows.
+
+---
+
+# INPUTS
+
+Every input:
+
+* full width
+* minimum 48px height
+* touch friendly
+* readable labels
+
+Never place small inputs side-by-side if it hurts usability.
+
+Mobile experience is priority.
+
+---
+
+# VARIANT BUILDER
+
+This is currently the worst mobile section.
+
+The screenshot shows the problem:
+
+* fields too narrow
+* labels overlap
+* controls compressed
+* cards waste space
+
+Redesign completely.
+
+For mobile:
+
+Each variant combination must become a FULL-WIDTH CARD.
+
+Example:
+
+---
+
+128GB
+
+Sale Price
+[input]
+
+Original Price
+[input]
+
+Stock
+[input]
+
+SKU
+[input]
+
+Image
+[upload]
+
+Enabled
+[toggle]
+
+---
+
+No tiny grid layout.
+
+No compressed table behavior.
+
+No horizontal scrolling.
+
+No overlapping labels.
+
+No stacked micro-fields.
+
+Every field must have enough width to be comfortably editable on a phone.
+
+---
+
+# SPECIFICATIONS
+
+Convert specification rows into modern mobile cards.
+
+No squeezed side-by-side layout.
+
+Label above value.
+
+Large touch targets.
+
+---
+
+# DESCRIPTION
+
+Editor must use full width.
+
+Toolbar must never overflow.
+
+No horizontal scrolling.
+
+---
+
+# STICKY SAVE BAR
+
+Keep a sticky bottom action bar.
+
+Requirements:
+
+* always visible
+* safe-area aware
+* full width
+* premium design
+
+Actions:
+
+Add Product:
+
+* Save Draft
+* Create Product
+
+Edit Product:
+
+* Save Changes
+
+---
+
+# RESPONSIVE VERIFICATION
+
+Test:
+
+390px
+430px
+768px
+1024px
+
+Verify:
+
+* no clipping
+* no overflow
+* no horizontal scroll
+* no broken variant cards
+* no wasted screen width
+
+---
+
+# IMPORTANT
+
+Do NOT merely improve the current layout.
+
+Compare every section against the attached screenshot.
+
+If a section still feels narrower, more cramped, or less usable than the reference design, redesign it further.
+
+The reference image is the quality benchmark.
+
+---
+
+# RECOVERY FILES
+
+After completion:
+
+Update all recovery files.
+
+Update all memory/state files.
+
+Create a new recovery checkpoint.
+
+Treat this redesign as the new official baseline.
+
+Document:
+
+* files changed
+* mobile layout decisions
+* variant builder redesign
+* sticky action bar behavior
+
+This must become the new recovery state of the project.

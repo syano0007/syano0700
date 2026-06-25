@@ -1,0 +1,262 @@
+# SYANO — FULL RECOVERY & RESUME PROMPT
+
+You are resuming work on the SYANO (سوق سوريا) marketplace project.
+
+Before doing ANYTHING:
+
+1. Recover the project.
+2. Verify the entire system.
+3. Verify database integrity.
+4. Verify services.
+5. Verify TypeScript.
+6. Verify roadmap state.
+7. Verify latest homepage redesign state.
+8. Verify review system state.
+9. Verify trust system state.
+10. Verify hero banner system state.
+
+DO NOT implement anything before recovery is complete.
+
+---
+
+# PHASE 1 — ENVIRONMENT AUDIT
+
+Verify:
+
+* DATABASE_URL
+* SESSION_SECRET
+* SITE_URL
+* CORS_ORIGIN
+* VAPID_PUBLIC_KEY
+* VAPID_PRIVATE_KEY
+* VAPID_EMAIL
+
+Report status of each.
+
+---
+
+# PHASE 2 — DATABASE AUDIT
+
+Verify:
+
+* Tables exist
+* Enums exist
+* Delivery zones
+* Trust tables
+* Review tables
+* Hero banner tables
+
+Expected state:
+
+* 28 tables
+* notification_type = 32 values
+* order_status = 15 values
+* role = 4 values
+
+Report all results.
+
+---
+
+# PHASE 3 — BOOTSTRAP ACCOUNTS
+
+Verify:
+
+Admin:
+
+* [delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Seller:
+
+* [delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+
+Courier:
+
+* [delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+
+Verify:
+
+* account status
+* role
+* token issuance
+* seller application
+* courier profile
+
+---
+
+# PHASE 4 — SERVICES
+
+Verify:
+
+* API
+* Marketplace
+* Mobile
+
+Start anything not running.
+
+Report results.
+
+---
+
+# PHASE 5 — TYPESCRIPT
+
+Run full checks.
+
+Expected:
+
+0 TypeScript errors.
+
+Report any issues.
+
+Fix only if necessary.
+
+---
+
+# PHASE 6 — RECOVERY CHECK
+
+Run full recovery audit.
+
+Expected:
+
+100/100
+
+All modules passing.
+
+Report:
+
+* score
+* failures
+* warnings
+* module list
+
+---
+
+# PHASE 7 — REVIEW SYSTEM AUDIT
+
+Verify current state.
+
+Expected:
+
+Product Reviews:
+
+* create review
+* duplicate prevention
+* delivery gate
+* customer only
+
+Store Reviews:
+
+* create review
+* delivery gate
+* duplicate prevention
+* review status endpoint
+
+Seller Replies:
+
+* create reply
+* edit reply
+* delete reply
+* notification
+
+Trust:
+
+* seller reviews separated from product reviews
+
+Report actual state.
+
+---
+
+# PHASE 8 — HERO BANNER AUDIT
+
+Verify current implementation.
+
+Expected:
+
+Hero Banner V3 exists.
+
+Features:
+
+* autoplay
+* infinite loop
+* RTL
+* touch swipe
+* keyboard nav
+* impression tracking
+* click tracking
+* progress indicators
+* Ken Burns
+* flash sale support
+* admin page
+* analytics
+
+Verify hero_banners table.
+
+Report:
+
+* banner count
+* whether fallback hero is showing
+* whether V3 is active
+
+---
+
+# PHASE 9 — HOMEPAGE REDESIGN STATUS
+
+IMPORTANT:
+
+We are currently NOT implementing code.
+
+We are working in MOCKUP / CANVAS mode.
+
+Current task:
+
+Homepage visual parity project.
+
+Goal:
+
+Match the reference screenshots as closely as possible.
+
+Current known state:
+
+Completed:
+
+* hero redesign
+* cards redesign
+* typography refinement
+* spacing refinement
+* navbar sticky
+* scroll reveal animations
+
+Remaining concerns:
+
+* exact spacing parity
+* exact card parity
+* exact typography parity
+* premium animation refinement
+* pixel-level matching against screenshots
+
+DO NOT IMPLEMENT home.tsx YET.
+
+We are still refining the mockup.
+
+---
+
+# PHASE 10 — REPORT
+
+After recovery:
+
+Provide:
+
+1. Environment report
+2. Database report
+3. Services report
+4. TypeScript report
+5. Recovery score
+6. Review system status
+7. Hero banner status
+8. Homepage redesign status
+9. Remaining gaps
+
+Then STOP.
+
+Do NOT implement anything.
+
+Wait for instructions.

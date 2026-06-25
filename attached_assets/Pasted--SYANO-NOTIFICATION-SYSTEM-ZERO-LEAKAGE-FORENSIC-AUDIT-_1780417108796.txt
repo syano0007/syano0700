@@ -1,0 +1,405 @@
+# SYANO NOTIFICATION SYSTEM — ZERO-LEAKAGE FORENSIC AUDIT
+
+You are performing a production-grade forensic audit of the entire Syano notification architecture.
+
+The previous notification fixes have already been applied.
+
+DO NOT assume the system is now correct.
+
+Your mission is to verify, prove, stress-test, and harden the notification system against every possible failure mode.
+
+This is a SECURITY + RELIABILITY + CONSISTENCY audit.
+
+---
+
+## PRIMARY OBJECTIVE
+
+Prove that notifications can NEVER:
+
+* Leak between accounts
+* Appear in the wrong account
+* Duplicate unexpectedly
+* Be delivered twice
+* Be lost
+* Arrive significantly delayed
+* Survive logout
+* Survive account switching
+* Remain stale after role changes
+* Corrupt notification counts
+* Corrupt unread states
+
+---
+
+## FULL ARCHITECTURE AUDIT
+
+Audit the entire notification chain:
+
+Notification Creation
+↓
+Database Insert
+↓
+SSE Fanout
+↓
+SSE Transport
+↓
+Frontend Reception
+↓
+TanStack Query Cache
+↓
+Notification Center
+↓
+Unread Count
+↓
+Toast System
+↓
+Read / Delete Actions
+
+Trace every path.
+
+Document every notification producer.
+
+---
+
+PHASE 1
+NOTIFICATION OWNERSHIP VERIFICATION
+-----------------------------------
+
+Find every call to:
+
+createNotification()
+
+and every place notifications are inserted.
+
+Verify:
+
+* Correct target userId
+* Correct seller/customer/admin ownership
+* Correct recipient calculation
+* No accidental role mixups
+* No incorrect joins
+* No incorrect conversation ownership
+
+Validate:
+
+Orders
+Messaging
+Seller Applications
+Store Follow
+Reviews
+Admin Actions
+System Events
+
+Prove every notification reaches only the intended user.
+
+---
+
+PHASE 2
+MULTI-ACCOUNT ISOLATION TESTING
+-------------------------------
+
+Simulate:
+
+Account A
+Account B
+Account C
+
+Test:
+
+Login A
+Logout
+Login B
+
+Login A
+Open tab
+Login B in another tab
+
+Rapid account switching
+
+Browser refresh during switch
+
+Expired JWT during switch
+
+Verify:
+
+* No stale notifications
+* No stale counts
+* No stale toasts
+* No stale cache
+
+---
+
+PHASE 3
+MULTI-TAB STRESS TEST
+---------------------
+
+Simulate:
+
+1 tab
+2 tabs
+5 tabs
+10 tabs
+
+Same user.
+
+Verify:
+
+* One notification creates one UI update
+* Counts stay correct
+* No duplicates
+* No memory leaks
+* No orphaned SSE connections
+
+Audit:
+
+addSseClient()
+removeSseClient()
+clients Map
+
+Verify cleanup always occurs.
+
+---
+
+PHASE 4
+SSE RELIABILITY AUDIT
+---------------------
+
+Audit:
+
+NotificationProvider
+fanout.ts
+notif.ts
+notifications routes
+
+Verify:
+
+* reconnect logic
+* exponential backoff
+* heartbeat handling
+* disconnect handling
+* reconnect handling
+
+Simulate:
+
+Network drop
+Reconnect
+Server restart
+Browser sleep
+Mobile backgrounding
+
+Verify:
+
+No notification loss.
+
+---
+
+PHASE 5
+CACHE CONSISTENCY AUDIT
+-----------------------
+
+Audit all query keys.
+
+Verify:
+
+Generated keys only.
+
+No hardcoded keys.
+
+Verify:
+
+Notification list
+Unread count
+Toast state
+
+Always remain synchronized.
+
+Identify:
+
+Duplicate caches
+Dead caches
+Unused caches
+
+Remove inconsistencies.
+
+---
+
+PHASE 6
+TOAST SYSTEM AUDIT
+------------------
+
+Verify:
+
+Toast creation
+Toast removal
+Toast timeout cleanup
+
+Simulate:
+
+100 notifications
+
+Verify:
+
+No memory leaks
+No duplicate toasts
+No orphaned timers
+
+---
+
+PHASE 7
+UNREAD COUNT ACCURACY
+---------------------
+
+Verify count consistency between:
+
+Database
+API response
+Cache
+UI badge
+
+Simulate:
+
+Read
+Unread
+Delete
+Bulk updates
+
+Ensure counts never drift.
+
+---
+
+PHASE 8
+PUSH NOTIFICATION AUDIT
+-----------------------
+
+Audit:
+
+pushSubscriptions
+Web Push delivery
+VAPID integration
+
+Verify:
+
+Push notifications cannot:
+
+* leak across users
+* send duplicate payloads
+* persist after logout
+* remain subscribed after account switch
+
+---
+
+PHASE 9
+SECURITY AUDIT
+--------------
+
+Review:
+
+Authentication
+Authorization
+Ownership checks
+
+Verify every route:
+
+GET notifications
+GET count
+Read notification
+Delete notification
+SSE stream
+
+Always scopes by:
+
+req.user.userId
+
+Audit for:
+
+IDOR
+TOCTOU
+Privilege escalation
+Cross-account access
+Race conditions
+
+---
+
+PHASE 10
+OBSERVABILITY
+-------------
+
+Add production-safe logging.
+
+Track:
+
+SSE connections
+SSE disconnects
+Reconnects
+Fanout failures
+Delivery failures
+
+Do NOT log sensitive content.
+
+---
+
+PHASE 11
+PERFORMANCE AUDIT
+-----------------
+
+Measure:
+
+Notification creation
+Fanout latency
+SSE delivery latency
+Cache update latency
+UI render latency
+
+Find:
+
+Unnecessary re-renders
+Duplicate EventSources
+Duplicate invalidations
+Redundant queries
+
+Optimize safely.
+
+---
+
+PHASE 12
+PRODUCTION HARDENING
+--------------------
+
+Implement safe improvements only.
+
+Do NOT redesign architecture.
+
+Do NOT break compatibility.
+
+Do NOT change APIs unless absolutely required.
+
+Prioritize:
+
+Correctness
+Security
+Reliability
+Consistency
+
+over micro-optimizations.
+
+---
+
+## FINAL DELIVERABLE
+
+Provide:
+
+1. Complete architecture map.
+2. Every notification source discovered.
+3. Every bug found.
+4. Every vulnerability found.
+5. Every race condition found.
+6. Every cache inconsistency found.
+7. Every ownership issue found.
+8. Every performance issue found.
+9. Files modified.
+10. Exact fixes applied.
+11. Remaining risks.
+12. Proof that notifications are fully isolated per account.
+
+Do not stop at superficial checks.
+
+Assume hidden bugs exist until proven otherwise.

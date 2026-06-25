@@ -1,0 +1,215 @@
+SYANO سوق سوريا
+
+HERO BANNER REBUILD — FOLLOW REFERENCE DESIGN, NOT STATIC IMAGE
+
+IMPORTANT:
+
+Do NOT use the uploaded banner as a static final hero.
+
+The uploaded image is a visual design reference only.
+
+The final implementation must remain a fully dynamic Hero Banner system with:
+
+- autoplay
+- multiple slides
+- admin-controlled banners
+- analytics
+- click tracking
+- impression tracking
+- RTL support
+- mobile support
+- future campaign support
+
+==================================================
+OBJECTIVE
+==================================================
+
+Rebuild Hero Banner V3/V4 so it visually matches the uploaded reference as closely as possible.
+
+The final result should look almost identical to the reference image while remaining fully dynamic.
+
+==================================================
+DO NOT
+==================================================
+
+Do NOT:
+
+- place all text inside the image
+- use a flattened marketing image as the final hero
+- hardcode content
+- break autoplay
+- remove tracking
+- remove admin control
+
+==================================================
+VISUAL STYLE
+==================================================
+
+Match the reference image:
+
+- luxury marketplace feel
+- cinematic lighting
+- dark premium atmosphere
+- green Syano highlights
+- high-end product showcase
+- large typography
+- strong visual hierarchy
+- premium spacing
+- subtle gradients
+- expensive look
+
+Think:
+
+Apple campaign quality
+Premium Amazon campaign
+Luxury Noon landing banner
+
+==================================================
+LAYOUT
+==================================================
+
+LEFT SIDE (RTL visual flow)
+
+Badge
+
+Large headline
+
+Description
+
+Primary CTA
+
+Secondary CTA
+
+RIGHT SIDE
+
+Premium hero visual
+
+Products composition
+
+Luxury lifestyle marketplace scene
+
+Depth
+
+Shadows
+
+Glow effects
+
+==================================================
+TEXT
+==================================================
+
+Text must NOT be embedded in images.
+
+Text must come from banner data.
+
+Admin should be able to change:
+
+- title
+- subtitle
+- CTA
+- link
+
+without editing images.
+
+==================================================
+CTA
+==================================================
+
+Real buttons only.
+
+No fake buttons inside images.
+
+Buttons must remain:
+
+- clickable
+- keyboard accessible
+- mobile friendly
+
+==================================================
+BANNER IMAGES
+==================================================
+
+Banner images should only contain:
+
+- products
+- environment
+- lighting
+- atmosphere
+
+NO text baked into images.
+
+NO CTA baked into images.
+
+==================================================
+SLIDER
+==================================================
+
+Keep:
+
+- autoplay
+- infinite loop
+- swipe support
+- keyboard navigation
+- progress indicator
+- analytics
+- impression tracking
+- click tracking
+
+Verify everything still works.
+
+==================================================
+REMOVE DUPLICATION
+==================================================
+
+Do not repeat trust features below hero.
+
+Remove duplicated:
+
+- توصيل سريع
+- دفع آمن
+- بائعون موثوقون
+
+if they already appear in hero messaging.
+
+==================================================
+TYPOGRAPHY SCALE
+==================================================
+
+Use the "الفئات الأكثر شيوعاً" section as the sizing reference.
+
+Match:
+
+- card sizes
+- product card proportions
+- section title scale
+- spacing rhythm
+
+across the homepage.
+
+==================================================
+VALIDATION
+==================================================
+
+Before finishing:
+
+1. Verify Hero Banner remains dynamic.
+2. Verify autoplay works.
+3. Verify admin banners still work.
+4. Verify tracking still works.
+5. Verify mobile.
+6. Verify tablet.
+7. Verify desktop.
+8. Capture screenshots of all three.
+9. Confirm no hardcoded hero image was used as final implementation.
+
+==================================================
+RECOVERY
+==================================================
+
+After completion update:
+
+- CURRENT_STATE.md
+- RECOVERY_GUIDE.md
+- project-memory recovery files
+
+with the new homepage state and Hero Banner implementation details.

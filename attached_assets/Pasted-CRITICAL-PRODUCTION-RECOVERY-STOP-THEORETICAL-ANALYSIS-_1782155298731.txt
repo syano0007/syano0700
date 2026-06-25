@@ -1,0 +1,191 @@
+CRITICAL PRODUCTION RECOVERY — STOP THEORETICAL ANALYSIS
+
+The previous fixes are NOT accepted.
+
+The website is still broken in real usage.
+
+Current REAL symptoms observed by the user:
+
+1. Most banners are still black.
+2. Indicator/progress navigation still behaves incorrectly.
+3. Homepage became significantly slower.
+4. User can still reproduce the issues.
+
+Therefore:
+
+Any mathematical proof, code reasoning, transform calculations, assumptions, or theoretical explanations are now considered insufficient.
+
+==================================================
+NEW RULE
+========
+
+The issue is NOT solved until it is visually verified in a real browser.
+
+You must validate using the actual rendered page.
+
+Not source code.
+
+Not calculations.
+
+Not assumptions.
+
+Not screenshots taken only at slide 0.
+
+==================================================
+MANDATORY VISUAL DEBUGGING
+==========================
+
+Open the homepage.
+
+Wait at least 60 seconds.
+
+Observe:
+
+* Slide 1
+* Slide 2
+* Slide 3
+* Slide 4
+* Slide 5
+* Slide 6
+* Slide 7
+* Slide 8
+* Slide 9
+* Slide 10
+
+For EACH slide capture:
+
+* Visible image?
+* Black screen?
+* Partial render?
+* Loading delay?
+* Indicator position?
+* Correct active state?
+
+Create a table.
+
+Do not continue until all 10 slides are checked.
+
+==================================================
+FORCE SLIDE TESTING
+===================
+
+Programmatically move to:
+
+index 0
+index 1
+index 2
+index 3
+index 4
+index 5
+index 6
+index 7
+index 8
+index 9
+
+For each index verify:
+
+* Image visible
+* Correct banner displayed
+* Correct indicator active
+* Correct transform value
+* Correct DOM state
+
+If ANY index shows black:
+
+Stop.
+
+Inspect that exact slide.
+
+==================================================
+NETWORK INVESTIGATION
+=====================
+
+For every banner image:
+
+Collect:
+
+* URL
+* Response code
+* Content type
+* Image dimensions
+* Download size
+* Actual browser render result
+
+Do NOT trust HTTP 200 alone.
+
+A URL returning 200 is NOT proof the image renders.
+
+Verify actual display.
+
+==================================================
+PERFORMANCE INVESTIGATION
+=========================
+
+User reports homepage became much slower.
+
+Measure:
+
+* FCP
+* LCP
+* Total image bytes
+* Hero payload
+* Number of requests
+
+Compare against before the banner changes.
+
+Identify EXACTLY what caused the slowdown.
+
+==================================================
+INDICATOR INVESTIGATION
+=======================
+
+User explicitly reports:
+
+Swipe works.
+
+Indicator/progress still wrong.
+
+Therefore assume indicator bug still exists.
+
+Audit:
+
+* currentIndex
+* activeDot
+* progressBar
+* autoplay state
+* displayed slide state
+
+Record values during transitions.
+
+Find the mismatch.
+
+==================================================
+SUCCESS CRITERIA
+================
+
+Task is NOT complete until:
+
+✓ All 10 banners visually verified
+✓ No black banners
+✓ Indicator matches visible banner
+✓ Swipe works
+✓ Autoplay works
+✓ No blank slides
+✓ Homepage performance acceptable
+✓ User-observed issues reproduced and eliminated
+
+==================================================
+FINAL REPORT
+============
+
+Provide:
+
+1. Which slides were black.
+2. Why they were black.
+3. Which indicator bug remained.
+4. Why previous diagnosis was incorrect.
+5. What was changed.
+6. Visual verification for every slide.
+7. Performance before/after.
+
+If you cannot visually verify all slides, do NOT claim the issue is fixed.

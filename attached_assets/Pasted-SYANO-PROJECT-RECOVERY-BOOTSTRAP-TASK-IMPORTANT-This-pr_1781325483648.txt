@@ -1,0 +1,266 @@
+SYANO سوق سوريا
+
+PROJECT RECOVERY & BOOTSTRAP TASK
+
+IMPORTANT:
+
+This project has been migrated to a new Replit account.
+
+Your objective is to fully restore, validate, and start the project using all available recovery files, recovery snapshots, project state files, database backups, and existing configuration.
+
+This is a recovery operation.
+
+Do NOT redesign anything.
+Do NOT refactor anything.
+Do NOT add new features.
+Do NOT modify homepage logic.
+Do NOT modify business logic.
+Do NOT change database structure unless required for recovery.
+
+Restore the project exactly as it existed before migration.
+
+==================================================
+PHASE 1 — RECOVERY ANALYSIS
+==================================================
+
+Locate and analyze:
+
+- RECOVERY_GUIDE.md
+- CURRENT_STATE.md
+- project-memory recovery files
+- schema.sql
+- schema.b64
+- backup.b64
+- data.sql
+- migration files
+- package.json
+- pnpm-lock.yaml
+- environment configuration
+
+Generate a recovery analysis report before making changes.
+
+==================================================
+PHASE 2 — DEPENDENCY RESTORATION
+==================================================
+
+Verify:
+
+- node_modules
+- package dependencies
+- build dependencies
+- runtime dependencies
+
+If dependencies are missing:
+
+- install them using pnpm
+- verify vite
+- verify esbuild
+- verify tsx
+- verify expo
+
+Report:
+
+- package count
+- dependency issues
+- installation status
+
+==================================================
+PHASE 3 — ENVIRONMENT VALIDATION
+==================================================
+
+Verify all required secrets and environment variables.
+
+Inspect:
+
+- DATABASE_URL
+- SESSION_SECRET
+- SITE_URL
+- CORS_ORIGIN
+- VAPID keys
+- Replit environment variables
+
+Do not invent values.
+
+Report missing secrets if any exist.
+
+==================================================
+PHASE 4 — DATABASE RECOVERY
+==================================================
+
+Verify database connection.
+
+Check:
+
+- schema existence
+- table count
+- migrations
+- enum values
+
+If schema is missing:
+
+Apply schema.sql.
+
+If migrations are pending:
+
+Run migrations.
+
+Verify expected marketplace tables exist.
+
+Inspect:
+
+- users
+- stores
+- products
+- orders
+- reviews
+- trust system
+- courier system
+- notifications
+- hero banner system
+
+Report final table count.
+
+==================================================
+PHASE 5 — APPLICATION STARTUP
+==================================================
+
+Start:
+
+- backend API
+- marketplace frontend
+- mobile application (if configured)
+
+Verify successful startup.
+
+Resolve startup failures.
+
+Document all fixes performed.
+
+==================================================
+PHASE 6 — ENDPOINT VALIDATION
+==================================================
+
+Audit all routes.
+
+Verify:
+
+- route registration
+- API responses
+- frontend integration
+- database communication
+
+Report:
+
+- endpoint count
+- failed endpoints
+- repaired endpoints
+
+==================================================
+PHASE 7 — SYSTEM HEALTH CHECK
+==================================================
+
+Verify:
+
+✓ Authentication
+
+✓ Products
+
+✓ Categories
+
+✓ Stores
+
+✓ Orders
+
+✓ Reviews
+
+✓ Trust System
+
+✓ Courier System
+
+✓ Admin System
+
+✓ Notifications
+
+✓ Homepage
+
+✓ Hero Banner System
+
+✓ Seller Dashboard
+
+✓ Admin Dashboard
+
+✓ Database Communication
+
+==================================================
+PHASE 8 — HOMEPAGE AUDIT
+==================================================
+
+Verify homepage loads correctly.
+
+Check:
+
+- Hero Banner
+- Categories
+- Products
+- Stores
+- RTL rendering
+- Mobile rendering
+
+Do not redesign.
+
+Only verify functionality.
+
+==================================================
+PHASE 9 — RECOVERY FILE SYNCHRONIZATION
+==================================================
+
+After successful recovery:
+
+Update:
+
+- RECOVERY_GUIDE.md
+- CURRENT_STATE.md
+- project-memory recovery files
+- recovery snapshots
+- restoration references
+
+Ensure future recoveries restore the newly verified operational state.
+
+==================================================
+FINAL REPORT
+==================================================
+
+Provide:
+
+1. Recovery status
+2. Dependency status
+3. Database status
+4. Table count
+5. Endpoint count
+6. Startup status
+7. Missing secrets report
+8. System health report
+9. Modified files list
+10. Updated recovery files list
+
+Success Criteria:
+
+✓ Dependencies installed
+
+✓ Database connected
+
+✓ Schema applied
+
+✓ Migrations applied
+
+✓ API running
+
+✓ Frontend running
+
+✓ Endpoints verified
+
+✓ Homepage operational
+
+✓ Recovery files updated
+
+✓ Project restored to operational state

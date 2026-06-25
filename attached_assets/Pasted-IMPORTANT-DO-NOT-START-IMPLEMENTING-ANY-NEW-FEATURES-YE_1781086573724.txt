@@ -1,0 +1,168 @@
+IMPORTANT: DO NOT START IMPLEMENTING ANY NEW FEATURES YET.
+
+PHASE 1 — FULL PROJECT RESTORATION & VERIFICATION
+
+Restore the SYANO (سوق سوريا) project from the latest recovery files and checkpoints.
+
+After restoration, perform a complete verification pass before making any code changes.
+
+Verify that the latest completed work is actually present and working:
+
+1. Product Detail Page
+
+* Unified discount calculation system
+* Shared pricing utility
+* Consistent discount percentages across:
+
+  * Product page
+  * Product cards
+  * Store page
+* Mobile sticky purchase bar
+* Desktop purchase card
+* Variant selection behavior
+* Stock handling
+
+2. Mobile Product Layout Improvements
+
+* 2-column product grid
+* 2-column category grid
+* Square product images
+* Purchase section moved higher
+* Mobile responsiveness
+
+3. Seller Product Form Changes
+
+* New product page
+* Edit product page
+* Variant builder
+* Mobile layout updates
+* Sticky action buttons
+
+Create a verification report:
+
+✅ Present and working
+
+⚠ Present but broken
+
+❌ Missing
+
+Do not modify anything until this report is complete.
+
+---
+
+PHASE 2 — INVESTIGATE SELLER CONTACT BUTTON
+
+There is a reported issue:
+
+The "Contact Seller" button is not appearing correctly on the product details page.
+
+Investigate thoroughly.
+
+Check:
+
+* Product page rendering
+* Conditional rendering logic
+* Authentication checks
+* Seller ownership checks
+* API responses
+* Seller data availability
+* Translation keys
+* Responsive/mobile conditions
+* Hidden CSS states
+* z-index issues
+* Layout overlap issues
+
+Determine:
+
+1. Why the button is not showing.
+2. Whether the button is hidden intentionally.
+3. Whether data is missing.
+4. Whether rendering conditions are incorrect.
+5. Whether styling is making it invisible.
+
+Provide the exact root cause.
+
+Do not guess.
+
+---
+
+PHASE 3 — FULL UI AUDIT
+
+After restoration and seller-button investigation:
+
+Perform a complete visual audit of:
+
+* Home page
+* Product page
+* Product creation page
+* Product edit page
+* Seller dashboard
+* Store page
+* Mobile layouts
+
+Identify:
+
+* Broken layouts
+* Overflow issues
+* Elements outside viewport
+* Excessive padding
+* Narrow containers
+* Misaligned buttons
+* RTL problems
+* Hidden content
+* Inconsistent spacing
+* Typography problems
+* Variant UI issues
+
+Create a detailed list with screenshots when possible.
+
+---
+
+PHASE 4 — FIXES
+
+Only after:
+
+* Restoration is verified
+* Seller button root cause is identified
+* UI audit is complete
+
+Then implement fixes.
+
+Rules:
+
+* No regressions
+* No breaking existing functionality
+* No placeholder UI
+* Preserve RTL
+* Preserve Arabic and English
+* Preserve current design language
+* Mobile-first
+* TypeScript must finish with 0 errors
+
+---
+
+PHASE 5 — UPDATE RECOVERY FILES
+
+After all fixes are completed and verified:
+
+Update ALL recovery files/checkpoints.
+
+The new recovery files must become the primary project baseline.
+
+Include:
+
+* Restoration status
+* Verified completed features
+* Seller contact button fix
+* UI fixes
+* Current project state
+
+Finally provide:
+
+1. Restoration report
+2. Seller button root cause
+3. List of fixes implemented
+4. Validation checklist
+5. Confirmation that recovery files were updated successfully
+
+DO NOT SKIP ANY PHASE.

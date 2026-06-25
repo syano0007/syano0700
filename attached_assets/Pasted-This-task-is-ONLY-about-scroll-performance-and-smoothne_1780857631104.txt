@@ -1,0 +1,269 @@
+This task is ONLY about scroll performance and smoothness. Do NOT work on any other optimization category. Do NOT touch bundle size, virtualization, memory, CPU profiling, animations, or anything unrelated.
+
+Your objective is to make scrolling across the entire platform feel as close as possible to a native 120Hz mobile application.
+
+IMPORTANT:
+Do not assume anything.
+Audit first.
+Measure first.
+Fix only proven bottlenecks.
+Verify each fix before moving to the next one.
+
+==================================================
+PHASE 1 — COMPLETE SCROLL AUDIT
+==================================================
+
+Perform a full audit of every scrollable area across:
+
+• Marketplace (web)
+• Admin dashboard
+• Seller dashboard
+• Customer dashboard
+• Mobile app (Expo)
+
+Inspect:
+
+- Product grids
+- Product detail page
+- Home page
+- Category sliders
+- Horizontal carousels
+- Variant selectors
+- Notification center
+- Chat/messages
+- Orders pages
+- Tables
+- Admin lists
+- Mobile drawers
+- Bottom sheets
+- Modals
+- Dropdown menus
+
+Identify:
+
+- Forced reflows during scroll
+- Layout thrashing
+- Paint-heavy elements
+- Expensive box-shadows
+- Expensive blur filters
+- CSS causing repaint storms
+- Scroll event listeners
+- Passive vs non-passive listeners
+- Nested scrolling containers
+- Unnecessary overflow wrappers
+- Scroll-linked React state updates
+- Components rerendering while scrolling
+- IntersectionObserver misuse
+- Sticky headers causing repaints
+- Large DOM sections rendered offscreen
+- Images decoding during active scrolling
+
+Do NOT start implementing before the audit is complete.
+
+==================================================
+PHASE 2 — SCROLL EVENT OPTIMIZATION
+==================================================
+
+Audit every:
+
+window.addEventListener("scroll")
+touchmove
+wheel
+pointermove
+
+Requirements:
+
+• Every listener must be passive unless absolutely impossible.
+
+Use:
+
+{ passive: true }
+
+Throttle or requestAnimationFrame any expensive scroll logic.
+
+Remove duplicate listeners.
+
+Remove listeners that are no longer needed.
+
+Verify cleanup on unmount.
+
+==================================================
+PHASE 3 — LAYOUT STABILITY
+==================================================
+
+Ensure scrolling never triggers layout recalculation.
+
+Eliminate:
+
+offsetWidth
+offsetHeight
+getBoundingClientRect
+clientWidth
+scrollHeight
+
+inside active scroll loops unless cached.
+
+Cache dimensions where possible.
+
+Batch DOM reads separately from DOM writes.
+
+Prevent layout thrashing.
+
+==================================================
+PHASE 4 — GPU COMPOSITING
+==================================================
+
+Ensure scrolling mostly affects compositor layers only.
+
+Promote appropriate elements:
+
+transform: translateZ(0)
+will-change: transform
+
+ONLY where beneficial.
+
+Avoid overusing will-change.
+
+Remove paint-heavy properties from scrolling elements:
+
+- large shadows
+- backdrop-filter abuse
+- heavy blur
+- expensive gradients
+
+==================================================
+PHASE 5 — OFFSCREEN CONTENT
+==================================================
+
+Audit below-fold sections.
+
+Apply:
+
+content-visibility: auto;
+
+contain: layout style paint;
+
+where safe.
+
+Ensure hidden sections do not perform layout work until needed.
+
+Verify no visual regressions.
+
+==================================================
+PHASE 6 — IMAGE SCROLL PERFORMANCE
+==================================================
+
+Ensure images do not create scroll stutter.
+
+Audit:
+
+- lazy loading
+- decoding strategy
+- fetchPriority
+- image placeholders
+- shimmer effects
+
+Images entering viewport should never freeze scrolling.
+
+Prevent image decode spikes.
+
+==================================================
+PHASE 7 — HORIZONTAL SCROLL AREAS
+==================================================
+
+Audit every horizontal list.
+
+Verify:
+
+- touch-action
+- overflow-x
+- snap behavior
+- momentum scrolling
+
+Ensure mobile swipe feels native.
+
+No blocked gestures.
+
+No accidental vertical lock.
+
+No jitter during sideways movement.
+
+==================================================
+PHASE 8 — REACT SCROLL RERENDERS
+==================================================
+
+Profile React while actively scrolling.
+
+Find components rerendering unnecessarily.
+
+Audit:
+
+Navbar
+ProductCard
+ProductGrid
+CategoryStrip
+NotificationCenter
+Chat
+Orders
+Admin tables
+Seller tables
+
+Apply only where necessary:
+
+React.memo
+useMemo
+useCallback
+
+Avoid over-memoization.
+
+Scrolling should not trigger unrelated component updates.
+
+==================================================
+PHASE 9 — MOBILE SPECIFIC
+==================================================
+
+Audit FlatList and ScrollView.
+
+Tune:
+
+removeClippedSubviews
+windowSize
+initialNumToRender
+maxToRenderPerBatch
+updateCellsBatchingPeriod
+
+Verify:
+
+No dropped frames.
+
+No memory spikes.
+
+No blank areas while fast scrolling.
+
+==================================================
+PHASE 10 — VERIFY
+==================================================
+
+Do NOT finish until you verify:
+
+✓ No new TypeScript errors.
+✓ No console errors.
+✓ No HMR issues.
+✓ No broken layouts.
+✓ No broken touch gestures.
+✓ No broken RTL behavior.
+✓ No broken horizontal scrolling.
+✓ No scroll lag on mobile.
+✓ No scroll lag on desktop.
+
+Take before/after measurements.
+
+Report exactly:
+
+- what was changed,
+- why it was changed,
+- what measurable improvement was achieved.
+
+Do NOT implement cosmetic animation changes.
+
+This task is ONLY about making scrolling feel extremely smooth and responsive.

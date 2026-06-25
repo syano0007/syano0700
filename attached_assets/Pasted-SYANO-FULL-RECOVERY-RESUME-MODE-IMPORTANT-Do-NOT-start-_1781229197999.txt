@@ -1,0 +1,329 @@
+SYANO — FULL RECOVERY & RESUME MODE
+
+IMPORTANT:
+
+Do NOT start implementing any feature.
+
+Do NOT assume the environment is healthy.
+
+Do NOT trust previous session state.
+
+Your first task is a complete recovery, verification, and resume audit.
+
+The goal is to restore the project to the exact state reached in the previous session before any new work begins.
+
+---
+
+PHASE 1 — ENVIRONMENT RECOVERY
+
+Verify all required environment variables exist:
+
+DATABASE_URL
+
+SESSION_SECRET
+
+SITE_URL
+
+CORS_ORIGIN
+
+VAPID_PUBLIC_KEY
+
+VAPID_PRIVATE_KEY
+
+VAPID_SUBJECT (or VAPID_EMAIL)
+
+Report missing values.
+
+Do not continue until verified.
+
+---
+
+PHASE 2 — INSTALLATION
+
+Run full dependency recovery.
+
+Verify:
+
+pnpm install --force
+
+workspace packages
+
+shared libraries
+
+hoisting configuration
+
+Report any package failures.
+
+---
+
+PHASE 3 — DATABASE RECOVERY
+
+Verify:
+
+27/27 tables
+
+notification_type enum = 31 values
+
+order_status enum = 15 values
+
+delivery_zones = 40 rows
+
+seller_verification_log exists
+
+users.verified_by exists
+
+Store Settings V3 columns exist
+
+Trust System tables exist
+
+Seller review tables exist
+
+Run migrations if required.
+
+Report all fixes.
+
+---
+
+PHASE 4 — BOOTSTRAP ACCOUNTS
+
+Verify permanent accounts:
+
+Admin
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+00Amer00
+
+Seller
+[delewatiamer8@gmail.com](mailto:delewatiamer8@gmail.com)
+00Amer00
+
+Courier
+[delewatiamer9@gmail.com](mailto:delewatiamer9@gmail.com)
+00Amer00
+
+Verify:
+
+login works
+
+token issuance works
+
+seller application exists
+
+courier profile exists
+
+store slug exists
+
+active status exists
+
+Repair automatically if missing.
+
+---
+
+PHASE 5 — SERVICE RECOVERY
+
+Start:
+
+API
+
+Marketplace
+
+Mobile
+
+Verify:
+
+/api/healthz
+
+Marketplace build
+
+Expo build
+
+Report results.
+
+---
+
+PHASE 6 — TYPESCRIPT
+
+Verify:
+
+lib/db
+
+lib/api-zod
+
+lib/api-client-react
+
+api-server
+
+marketplace
+
+mobile
+
+Target:
+
+0 TypeScript errors
+
+Fix any regressions found.
+
+---
+
+PHASE 7 — RECOVERY CHECK
+
+Run:
+
+GET /api/admin/recovery-check
+
+Target:
+
+confidenceScore = 100
+
+All modules passing.
+
+Current expected module count:
+
+18 modules
+
+Verify:
+
+corePlatform
+
+bootstrapAccounts
+
+security
+
+marketplace
+
+orderSystem
+
+trustSystem
+
+notifications
+
+translations
+
+sellerSystem
+
+courierSystem
+
+storePages
+
+storeSettings
+
+analytics
+
+recovery
+
+mobile
+
+responsive
+
+uiConsistency
+
+auditFixes
+
+Report failures.
+
+Fix if needed.
+
+---
+
+PHASE 8 — ROADMAP STATE AUDIT
+
+Verify completed roadmap items still work:
+
+Order Fulfillment Workflow V1
+
+Courier Operations Dashboard V2
+
+Seller Orders V2
+
+Seller Analytics Dashboard V2
+
+Trust System V1
+
+Seller Store Pages V2
+
+Store Settings V3
+
+Recovery Check V2
+
+UI Consistency Audit
+
+Audit Fixes
+
+Verify no regressions.
+
+---
+
+PHASE 9 — STORE SETTINGS V3 VALIDATION
+
+Verify latest completed work:
+
+Unified navigation
+
+Store completion banner
+
+Trust section
+
+Health section
+
+Contact tab
+
+Policies tab
+
+SEO tab
+
+Branding tab
+
+Conditional store tabs
+
+Store health endpoint
+
+Verify desktop + mobile.
+
+---
+
+PHASE 10 — CURRENT TASK CONTEXT
+
+After recovery completes:
+
+Audit Seller Review system.
+
+Determine:
+
+Can customers create store reviews?
+
+Can they do it after delivery?
+
+Is there a UI?
+
+Is store rating separate from product rating?
+
+Is trust score using sellerReviewsTable?
+
+Do NOT implement yet.
+
+Only audit and report.
+
+---
+
+FINAL OUTPUT
+
+Provide:
+
+Recovery score
+
+TypeScript status
+
+Service status
+
+Database status
+
+Recovery check status
+
+Bootstrap account status
+
+Roadmap status
+
+Current task audit findings
+
+Then stop and wait for instructions.
+
+Do NOT begin implementation automatically.

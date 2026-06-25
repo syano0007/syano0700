@@ -1,0 +1,259 @@
+Task: Search Ranking — Full Audit & Improvement
+Phase: Search Improvement — Axis 4 (Ranking)
+
+MANDATORY FIRST STEP: Read CURRENT_STATE.md, PROJECT_STATUS.md, and
+RECOVERY_GUIDE.md in full before touching any file. Then read the full
+source of these files before writing a single line:
+  - artifacts/server/src/services/searchProcessor.ts (full file)
+  - artifacts/server/src/routes/search.ts (full file)
+  - artifacts/marketplace/src/pages/search/index.tsx (full file)
+  - artifacts/server/src/db/schema.ts (full file — focus on products,
+    orders, reviews, query_logs tables)
+
+════════════════════════════════════════════════════════════════════
+PHASE 1 — AUDIT CURRENT RANKING SYSTEM (no code changes yet)
+════════════════════════════════════════════════════════════════════
+
+Read searchProcessor.ts in full and report:
+
+AUDIT A — Current Ranking Formula
+  - What is the exact scoring formula? List every signal used and
+    its weight (e.g. text match: X%, popularity: Y%, recency: Z%).
+  - What DB columns feed each signal? (e.g. view_count, order_count,
+    rating, created_at, etc.)
+  - Is the ranking done in SQL (ORDER BY expression) or in JS after
+    fetch, or hybrid?
+  - Is there any personalization (user history, location, language)?
+  - Is there any category boosting or seller boosting?
+  - What is the current tiebreaker when scores are equal?
+
+AUDIT B — Signal Availability
+  Inspect the products table schema and report which of these signals
+  exist as real DB columns with real data:
+    - Average rating (avg_rating or similar)
+    - Review count (review_count or similar)
+    - Order/sales count (order_count or sales_count or similar)
+    - View count (view_count or similar)
+    - Stock level (stock or inventory_count or similar)
+    - Created date (created_at)
+    - Updated date (updated_at)
+    - Is featured / is promoted (is_featured, is_promoted or similar)
+    - Seller trust score or verification status
+    - Price (for price-relevance scoring)
+  For each: confirm column name, data type, and whether it has
+  non-zero values in the current dataset.
+
+AUDIT C — Current Weaknesses
+  Based on the formula and available signals, identify and list every
+  weakness in the current ranking — e.g.:
+    - New products with no views/orders are buried forever
+    - Cheap low-quality products rank above expensive quality ones
+    - No penalty for out-of-stock products
+    - Featured products get no boost
+    - Text match score dominates regardless of product quality
+    - No diversity (same seller's products flood top results)
+  Be exhaustive — list every weakness found.
+
+════════════════════════════════════════════════════════════════════
+PHASE 2 — IMPLEMENT IMPROVED RANKING (based on audit findings)
+════════════════════════════════════════════════════════════════════
+
+After completing Phase 1, implement a new ranking formula that fixes
+every weakness found. Follow all rules below exactly.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 1 — New Multi-Signal Ranking Formula
+──────────────────────────────────────────────────────────────────
+
+Replace the current formula with a new weighted multi-signal score.
+Use ONLY signals confirmed as available in AUDIT B.
+
+The new formula must include ALL of these signals (skip any signal
+whose column does not exist in the DB — do not create new columns):
+
+  Signal 1 — Text Relevance (weight: 40%)
+    Keep the existing FTS + trigram text match score as-is.
+    Do not change how text matching works — only its weight changes.
+
+  Signal 2 — Quality Score (weight: 25%)
+    Combine: avg_rating (normalized 0–1 by dividing by 5) and
+    review_count (log-normalized: log(1 + review_count) / log(1 + max_count))
+    Formula: quality = 0.6 * normalized_rating + 0.4 * log_review_count
+    This prevents products with 1 review at 5 stars from beating
+    products with 500 reviews at 4.8 stars.
+
+  Signal 3 — Popularity Score (weight: 20%)
+    Use order_count and/or view_count if available.
+    Log-normalize each: log(1 + value) / log(1 + max_value)
+    If both exist: popularity = 0.6 * norm_orders + 0.4 * norm_views
+    If only one exists: use it alone.
+    Log normalization prevents a product with 10,000 views from
+    completely dominating one with 1,000 views.
+
+  Signal 4 — Freshness Score (weight: 10%)
+    Based on created_at. Products newer than 30 days get full score.
+    Products older than 180 days get 0. Linear decay between.
+    Formula: freshness = max(0, 1 - (age_in_days - 30) / 150)
+    This gives new products a fighting chance without permanently
+    suppressing older good products.
+
+  Signal 5 — Availability Penalty (weight: 5%)
+    If stock column exists:
+      stock = 0     → multiply final score by 0.1 (bury out-of-stock)
+      stock = 1–5   → multiply final score by 0.8 (low stock warning)
+      stock > 5     → no penalty (multiply by 1.0)
+    If stock column does not exist: skip this signal entirely.
+
+  Signal 6 — Featured Boost (additive, not weighted)
+    If is_featured or is_promoted column exists:
+      Add 0.15 to the final normalized score (capped at 1.0).
+    This ensures featured products appear prominently without
+    completely overriding relevance.
+
+  Signal 7 — Seller Trust Boost (additive, not weighted)
+    If seller trust score or verification status column exists:
+      Verified seller → add 0.05 to final score (capped at 1.0).
+    If column does not exist: skip entirely.
+
+  Final combined score:
+    base_score = (0.40 * text) + (0.25 * quality) + (0.20 * popularity)
+                 + (0.10 * freshness)
+    after_penalty = base_score * availability_multiplier
+    final_score = min(1.0, after_penalty + featured_boost + trust_boost)
+
+  CRITICAL: The weights above (40/25/20/10/5) must sum correctly
+  across the weighted signals. Do the math before implementing.
+  If a signal is unavailable, redistribute its weight proportionally
+  across the remaining signals — document the redistribution in a
+  comment in the code.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 2 — Seller Diversity (Anti-Flood)
+──────────────────────────────────────────────────────────────────
+
+  After ranking, apply a post-processing diversity step:
+  No single seller may appear more than 3 times in the first 20
+  results. If a seller has more than 3 products in the top 20,
+  push the excess products down (after position 20) and fill their
+  slots with the next highest-scoring products from other sellers.
+  This prevents one seller from flooding the top results.
+  Implement this in JS after the DB query returns results, not in SQL.
+  Apply only when total results > 20. If results ≤ 20, no diversity
+  step needed.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 3 — New Products Discovery Boost
+──────────────────────────────────────────────────────────────────
+
+  For products created in the last 7 days with 0 orders and 0 reviews:
+  Apply a one-time "new arrival" boost: add 0.10 to their base score
+  (before availability penalty and featured boost).
+  This is separate from Signal 4 (Freshness) — it specifically helps
+  brand-new listings get initial visibility.
+  Cap: this boost only applies to the first 500 products created
+  per seller (prevent abuse by mass-listing).
+  Implement as a flag in the query result or JS post-processing —
+  whichever is cleaner given the existing architecture.
+
+──────────────────────────────────────────────────────────────────
+IMPROVEMENT 4 — Ranking Explainability (Dev Mode Only)
+──────────────────────────────────────────────────────────────────
+
+  Add a debug mode to the search API: when the query param
+  ?debug=ranking is present AND the request comes from an admin
+  session, include a rankingBreakdown object in each product result:
+  {
+    textScore: number,
+    qualityScore: number,
+    popularityScore: number,
+    freshnessScore: number,
+    availabilityMultiplier: number,
+    featuredBoost: number,
+    trustBoost: number,
+    newArrivalBoost: number,
+    finalScore: number
+  }
+  This is for development and admin use only — never expose it to
+  regular users. Validate the debug param with Zod. Strip it from
+  all non-admin responses.
+
+════════════════════════════════════════════════════════════════════
+IMPLEMENTATION CONSTRAINTS (non-negotiable)
+════════════════════════════════════════════════════════════════════
+
+- Do NOT create new DB columns or new DB tables.
+- Do NOT change the search API endpoint URL or its input params.
+- Do NOT change the frontend — ranking is purely backend.
+- Do NOT change text matching logic (FTS + trigram) — only its weight.
+- Do NOT hardcode max_count values — compute them dynamically from
+  the current result set using a single additional query or window
+  function.
+- All normalization must be safe against division by zero — always
+  use NULLIF or max(value, 1) before dividing.
+- The new ranking must be at least as fast as the current one —
+  no new N+1 queries. Compute all signals in the existing query
+  or with one additional parallel query maximum.
+- Add a comment block at the top of the ranking function explaining
+  the formula, every signal, and its weight. Future developers must
+  understand the formula without reading this prompt.
+- TypeScript: all new code must be fully typed. No `any`.
+
+════════════════════════════════════════════════════════════════════
+VERIFICATION MATRIX
+════════════════════════════════════════════════════════════════════
+
+After implementation, verify each of the following:
+
+RANKING CORRECTNESS:
+  - Search "samsung" → confirm products with higher ratings appear
+    above products with lower ratings when text relevance is equal.
+  - Search a generic term (e.g. "phone") → confirm no single seller
+    appears more than 3 times in the first 20 results.
+  - If test data has a product created in the last 7 days with 0
+    orders → confirm it appears higher than an equally-scored older
+    product.
+  - If test data has an out-of-stock product → confirm it appears
+    below in-stock products with similar scores.
+
+DEBUG MODE:
+  - Call /api/search?q=samsung&debug=ranking as admin → confirm
+    rankingBreakdown is present in each result.
+  - Call /api/search?q=samsung&debug=ranking as guest → confirm
+    rankingBreakdown is NOT present (stripped from response).
+
+PERFORMANCE:
+  - Confirm the new ranking does not add more than 1 additional DB
+    query compared to the current implementation.
+  - Run EXPLAIN ANALYZE on the new query and confirm no sequential
+    scans on large tables (indexes must be used).
+
+After all verifications, run:
+  npx tsc --noEmit
+across ALL 6 packages. Must return 0 errors.
+
+════════════════════════════════════════════════════════════════════
+FINAL REPORT STRUCTURE
+════════════════════════════════════════════════════════════════════
+
+PHASE 1 AUDIT RESULTS:
+  Audit A (Current Formula):
+    [exact formula, weights, signals, implementation location]
+  Audit B (Signal Availability):
+    [table of each signal: column name, data type, has data: yes/no]
+  Audit C (Weaknesses Found):
+    [numbered list of every weakness identified]
+
+PHASE 2 IMPLEMENTATION:
+  Improvement 1 — New Formula:
+    [final weights used after redistribution for missing signals,
+     comment block added to code, before/after ranking comparison
+     on same query]
+  Improvement 2 — Seller Diversity:
+    [confirmed working with example: seller X had N products in top
+     20, reduced to 3]
+  Improvement 3 — New Products Boost:
+    [confirmed: new product ranked higher than equivalent old product]
+  Improvement 4 — Debug Mode:
+    [sample rankingBreakdown output for one product]
+
+TYPESCRIPT: "0 errors across all 6 packages confirmed"

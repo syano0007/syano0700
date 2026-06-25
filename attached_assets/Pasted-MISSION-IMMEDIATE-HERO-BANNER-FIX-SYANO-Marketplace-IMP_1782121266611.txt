@@ -1,0 +1,200 @@
+MISSION: IMMEDIATE HERO BANNER FIX (SYANO Marketplace)
+
+IMPORTANT:
+Do NOT create prototypes.
+Do NOT create Canva designs.
+Do NOT create mockups.
+Do NOT ask for approval.
+Analyze the current implementation and apply the fixes directly in code.
+
+====================================================
+OBJECTIVE
+====================================================
+
+Fix the homepage Hero Banner immediately to behave like a modern marketplace (Amazon / Noon style).
+
+Focus ONLY on implementation.
+
+====================================================
+REQUIRED CHANGES
+====================================================
+
+1. MOVE ALL ARABIC TEXT TO THE RIGHT SIDE
+
+The website is RTL.
+
+Move:
+- Badge
+- Title
+- Subtitle
+- CTA buttons
+
+to the RIGHT side of the banner.
+
+Requirements:
+- Right aligned.
+- Proper spacing.
+- No overlap with image elements.
+- Text block width must not exceed 40% on desktop.
+- Text block width must not exceed 50% on tablet.
+- Full width stack on mobile.
+
+====================================================
+2. FIX NAVBAR OVERLAP
+
+Currently the navbar visually covers the top part of the banner.
+
+Required:
+- Add proper top spacing.
+- Ensure the banner starts completely below the navbar.
+- No clipping.
+- No overlap.
+- No hidden content.
+
+====================================================
+3. REDUCE HERO HEIGHT
+
+Current banner is too tall.
+
+Target:
+
+Desktop:
+320px–420px
+
+Tablet:
+260px–360px
+
+Mobile:
+200px–280px
+
+Goal:
+Show more marketplace content above the fold.
+
+====================================================
+4. REMOVE SLIDER ARROWS
+
+Delete completely:
+
+- Previous button
+- Next button
+- Floating navigation arrows
+
+Do not hide them with CSS.
+
+Remove unused code as well.
+
+====================================================
+5. ENABLE TOUCH / DRAG NAVIGATION
+
+Replace arrows with:
+
+Desktop:
+- Mouse drag
+
+Mobile:
+- Swipe with finger
+
+Tablet:
+- Touch drag
+
+Requirements:
+- Smooth
+- Responsive
+- RTL-compatible
+- No lag
+- No accidental triggers
+
+====================================================
+6. KEEP ONLY DOT INDICATORS
+
+Place indicators:
+
+Bottom center.
+
+Style:
+
+Inactive:
+- Neutral color
+
+Active:
+- SYANO primary color
+
+Clean and minimal.
+
+====================================================
+7. REMOVE MARKETPLACE STATS STRIP
+
+Completely remove the statistics section located directly under the hero banner.
+
+Remove all items including:
+
+- +500 متجر موثوق
+- +25,000 منتج نشط
+- +12,000 عميل راضٍ
+- Any similar counters or trust statistics beside them
+
+Delete the entire section and remove any unused code, components, imports, styles, data arrays, and API calls related to it.
+
+After removal:
+- Close the empty gap.
+- Pull the next homepage section upward naturally.
+- No blank space should remain.
+
+====================================================
+8. RESPONSIVE VERIFICATION
+
+Verify on:
+
+320px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+1920px
+
+Must have:
+
+- No overflow
+- No horizontal scroll
+- No cropped text
+- No clipped buttons
+- No layout shifts
+
+====================================================
+9. CLEANUP
+
+After implementation:
+
+- Remove dead code.
+- Remove unused imports.
+- Remove unused components.
+- Remove unused slider arrow logic.
+- Remove unused statistics section logic.
+
+Keep codebase clean.
+
+====================================================
+FINAL REPORT
+
+When finished provide:
+
+1. Files modified.
+2. Exact changes made.
+3. Before vs After summary.
+4. Mobile verification.
+5. Desktop verification.
+6. Confirmation that:
+   - Text moved right.
+   - Navbar overlap fixed.
+   - Height reduced.
+   - Arrows removed.
+   - Drag/swipe enabled.
+   - Dots working.
+   - Statistics strip removed.
+   - Empty space removed.
+   - No responsive issues found.
+
+Apply all changes directly and verify them before stopping.

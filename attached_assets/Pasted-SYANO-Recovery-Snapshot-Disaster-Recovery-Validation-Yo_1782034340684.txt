@@ -1,0 +1,282 @@
+SYANO — Recovery Snapshot + Disaster Recovery Validation
+
+You are creating a permanent recovery baseline for the SYANO production project.
+
+Goal:
+
+Future agents must be able to restore the project to a working state after migration, import, account transfer, environment recreation, or workflow loss.
+
+This task is NOT feature development.
+
+This task is infrastructure preservation and recovery validation.
+
+---
+
+# PHASE 1 — CREATE AUTHORITATIVE PROJECT SNAPSHOT
+
+Update and synchronize:
+
+* AGENT_BOOTSTRAP.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+* project.manifest.json
+
+These files must reflect the ACTUAL current state.
+
+No assumptions.
+
+No outdated information.
+
+No historical information.
+
+Only current verified state.
+
+---
+
+# PHASE 2 — RECORD ACTIVE ARCHITECTURE
+
+Document:
+
+## Official Workflows
+
+Required workflows:
+
+* artifacts/api-server: API Server
+* artifacts/marketplace: web
+* artifacts/mobile: expo
+* Embedding Service
+
+Document:
+
+* command
+* port
+* startup order
+* dependencies
+
+---
+
+## Active Services
+
+Document:
+
+API Server:
+
+* port
+* health endpoint
+
+Marketplace:
+
+* port
+
+Embedding Service:
+
+* port
+
+Database:
+
+* provider
+* extension requirements
+
+---
+
+# PHASE 3 — DOCUMENT ALL REQUIRED SECRETS
+
+IMPORTANT
+
+Never expose secret values.
+
+Never write secret values into files.
+
+Never hardcode secrets.
+
+Document ONLY:
+
+Required secret names.
+
+For each secret:
+
+* required
+* optional
+* subsystem using it
+
+Example:
+
+GOOGLE_CLIENT_ID
+Used by:
+
+* Google Login
+
+Required:
+
+* Yes
+
+Repeat for all secrets.
+
+---
+
+# PHASE 4 — DOCUMENT ALL CRITICAL DEPENDENCIES
+
+Document:
+
+## Maps
+
+Required packages:
+
+* leaflet
+* react-leaflet
+
+Verification steps.
+
+---
+
+## Embeddings
+
+Required packages:
+
+* sentence-transformers
+* torch
+* transformers
+* sentencepiece
+* safetensors
+
+Document:
+
+How to verify full transformer mode.
+
+Document fallback mode.
+
+---
+
+## Search
+
+Document:
+
+* pgvector
+* vector dimensions
+* embedding requirements
+
+---
+
+## Authentication
+
+Document:
+
+* JWT
+* Google Login
+* Turnstile
+
+---
+
+# PHASE 5 — RECOVERY TEST
+
+Perform a simulated recovery audit.
+
+Pretend the project has just been imported into a completely fresh Replit account.
+
+Verify recovery instructions are sufficient to restore:
+
+* workflows
+* database
+* embeddings
+* maps
+* authentication
+* search
+* mobile
+* admin
+* courier
+
+Identify any missing recovery step.
+
+Update documentation accordingly.
+
+Repeat until no missing steps remain.
+
+---
+
+# PHASE 6 — ENVIRONMENT RECREATION CHECKLIST
+
+Create a complete checklist:
+
+Fresh Account →
+Import Project →
+Install Dependencies →
+Configure Secrets →
+Start Workflows →
+Run Validation →
+Production Ready
+
+Document every step.
+
+---
+
+# PHASE 7 — PERMANENT MIGRATION PROTECTION
+
+Add sections:
+
+## Common Migration Failures
+
+Examples:
+
+* missing leaflet
+* missing react-leaflet
+* missing sentence-transformers
+* missing torch
+* missing secrets
+* duplicate workflows
+* missing pgvector
+
+For each:
+
+Symptoms
+Cause
+Fix
+
+---
+
+# PHASE 8 — DISASTER RECOVERY SCORE
+
+After documentation updates:
+
+Run a recovery readiness assessment.
+
+Score:
+
+0–100
+
+Evaluate:
+
+* workflow recovery
+* database recovery
+* secret recovery
+* embedding recovery
+* map recovery
+* auth recovery
+* mobile recovery
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+✅ Updated files
+
+✅ Recovery score
+
+✅ Missing risks
+
+✅ Recovery gaps fixed
+
+✅ Migration readiness status
+
+Goal:
+
+Future agents must be able to restore the project to an operational state without guessing.
+
+Never store secret values in code.
+
+Never store secret values in documentation.
+
+Only store secret names and recovery procedures.

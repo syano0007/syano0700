@@ -1,0 +1,348 @@
+IMPORTANT:
+Before making ANY modifications, deeply analyze the ENTIRE existing homepage architecture including:
+
+- homepage layout structure
+- hero section
+- category sections
+- product grid system
+- seller/store sections
+- search system
+- responsive behavior
+- spacing system
+- typography system
+- card components
+- image rendering
+- loading performance
+- mobile layouts
+- navigation flow
+- state management
+- API/product fetching logic
+
+DO NOT rebuild the entire project.
+DO NOT regenerate unrelated pages/components.
+DO NOT break the current marketplace architecture.
+
+Modify ONLY the homepage and order/customer contact flow while preserving all existing functionality.
+
+The implementation must remain:
+- production-ready
+- scalable
+- premium
+- highly responsive
+- optimized for weak internet
+- fully compatible with the current project
+
+==================================================
+SECTION 1 — PREMIUM HOMEPAGE REDESIGN
+==================================================
+
+Completely refine the homepage experience to feel inspired by premium modern ecommerce platforms such as:
+
+- Amazon
+- Noon
+- Trendyol
+
+IMPORTANT:
+DO NOT copy their design directly.
+Use them ONLY as inspiration for:
+- structure
+- hierarchy
+- product discovery flow
+- category browsing
+- marketplace experience
+
+The homepage should feel:
+- premium
+- modern
+- highly organized
+- conversion-focused
+- visually rich
+- professional
+- optimized for ecommerce
+
+==================================================
+SECTION 2 — HOMEPAGE STRUCTURE IMPROVEMENTS
+==================================================
+
+Refine the homepage layout into a professional ecommerce flow.
+
+The homepage should include:
+
+==================================================
+A. CLEAN PREMIUM HERO SECTION
+==================================================
+
+Create a modern ecommerce hero section that feels:
+
+- premium
+- minimal
+- conversion-focused
+- visually balanced
+
+Requirements:
+- cleaner typography
+- stronger spacing
+- better CTA hierarchy
+- optimized mobile layout
+- lightweight rendering
+- fast loading
+
+DO NOT use oversized empty sections.
+
+==================================================
+B. PROFESSIONAL CATEGORY SHOWCASE
+==================================================
+
+Create premium category sections similar to major ecommerce marketplaces.
+
+Requirements:
+- visually balanced category cards
+- responsive horizontal/vertical layouts
+- proper spacing
+- clean hover states
+- optimized mobile scrolling
+
+Each category should feel:
+- modern
+- clickable
+- premium
+- easy to browse
+
+==================================================
+C. FEATURED PRODUCTS SECTIONS
+==================================================
+
+Create multiple modern product sections such as:
+
+- Featured Products
+- Best Sellers
+- New Arrivals
+- Trending Products
+- Discounted Products
+
+Requirements:
+- modern responsive product grids
+- optimized card spacing
+- clean image ratios
+- lightweight rendering
+- proper loading skeletons
+- excellent mobile layout
+
+==================================================
+D. FEATURED STORES / SELLERS
+==================================================
+
+Add a professional featured stores section inspired by premium marketplaces.
+
+Requirements:
+- highlight top sellers
+- premium seller/store cards
+- store avatars/logos
+- responsive layouts
+- proper hierarchy
+- modern hover states
+
+The section should increase:
+- trust
+- marketplace credibility
+- seller visibility
+
+==================================================
+E. MODERN SEARCH EXPERIENCE
+==================================================
+
+Improve the homepage search experience.
+
+Requirements:
+- faster search UX
+- improved responsiveness
+- cleaner search styling
+- better mobile search behavior
+- optimized search interactions
+
+The search should feel:
+- modern
+- fast
+- premium ecommerce quality
+
+==================================================
+SECTION 3 — AMAZON/NOON INSPIRED UX REFINEMENT
+==================================================
+
+Refine the marketplace browsing experience inspired by major ecommerce platforms.
+
+Focus on:
+- discoverability
+- product visibility
+- category accessibility
+- trust-building
+- browsing comfort
+- mobile shopping flow
+
+Implement:
+- cleaner spacing
+- stronger visual hierarchy
+- better content grouping
+- premium section separation
+- optimized responsive grids
+
+==================================================
+SECTION 4 — PRODUCT CARD REFINEMENT
+==================================================
+
+Refine ALL product cards.
+
+Improve:
+- image quality/display
+- typography hierarchy
+- spacing
+- discount visibility
+- hover states
+- mobile responsiveness
+- button consistency
+
+Ensure:
+- modern ecommerce appearance
+- premium product presentation
+- fast rendering
+- balanced layouts
+
+==================================================
+SECTION 5 — MOBILE-FIRST OPTIMIZATION
+==================================================
+
+The homepage must feel PREMIUM on mobile devices.
+
+Fix:
+- cramped layouts
+- broken responsive grids
+- poor scrolling experience
+- oversized elements
+- bad spacing
+- weak touch interactions
+
+Ensure:
+- smooth mobile browsing
+- responsive product sliders
+- clean category layouts
+- optimized performance on weak phones
+
+==================================================
+SECTION 6 — ULTRA PERFORMANCE OPTIMIZATION
+==================================================
+
+Optimize the homepage heavily for:
+- weak internet
+- Syria/slow networks
+- low-end devices
+
+Implement:
+- lazy loading
+- optimized images
+- responsive image sizing
+- reduced bundle weight
+- optimized rendering
+- route/code splitting
+- lightweight animations
+- loading skeletons
+- minimized layout shifts
+
+Ensure:
+- very fast homepage loading
+- smooth scrolling
+- responsive interactions
+
+==================================================
+SECTION 7 — CUSTOMER PHONE NUMBER IN ORDERS
+==================================================
+
+Enhance the checkout/order system.
+
+IMPORTANT:
+When a customer places an order, include the customer's phone number in the order information visible to the seller.
+
+==================================================
+ORDER CONTACT REQUIREMENTS
+==================================================
+
+During checkout:
+
+Customers must provide:
+- full name
+- phone number
+- address/location details
+
+The seller order management view must display:
+- customer name
+- customer phone number
+- delivery address/location
+- ordered products
+- quantities
+- total price
+- order status
+
+==================================================
+PHONE NUMBER VALIDATION
+==================================================
+
+Implement:
+- proper phone validation
+- required phone field
+- clean formatting
+- responsive mobile input UX
+
+==================================================
+SELLER CONTACT EXPERIENCE
+==================================================
+
+The seller must easily access the customer's phone number for:
+- delivery coordination
+- order confirmation
+- communication
+
+Display the phone number clearly inside:
+- seller order details
+- order management cards/pages
+
+==================================================
+SECTION 8 — RESPONSIVE VALIDATION
+==================================================
+
+Thoroughly test and fix ALL homepage issues on:
+- desktop
+- tablet
+- mobile
+
+Ensure:
+- no overflow
+- no broken layouts
+- no cramped text
+- no inconsistent spacing
+- no broken sliders/grids
+
+==================================================
+SECTION 9 — FINAL QUALITY VALIDATION
+==================================================
+
+Before finishing:
+
+- test homepage responsiveness
+- test product grids
+- test category sections
+- test seller/store sections
+- test mobile layouts
+- test weak internet performance
+- test loading states
+- test search responsiveness
+- test order phone integration
+- verify seller access to customer phone numbers
+- automatically fix discovered inconsistencies
+
+FINAL RESULT MUST FEEL LIKE:
+- a premium modern ecommerce marketplace
+- inspired by Amazon/Noon quality
+- highly professional
+- optimized for weak internet
+- luxurious but lightweight
+- mobile-first
+- visually organized and trustworthy

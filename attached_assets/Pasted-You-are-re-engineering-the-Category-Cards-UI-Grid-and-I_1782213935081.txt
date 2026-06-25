@@ -1,0 +1,50 @@
+You are re-engineering the Category Cards UI Grid and Image Scale ratios in the frontend dashboard for SYANO (سوق سوريا) based on "Screenshot (452).jpg".
+
+Current Problem analyzed from Screenshot (452):
+The category cards are too small, and the inner product images are constrained by tight padding, making them look like tiny icons inside an empty box rather than full e-commerce product slots.
+
+Do NOT break any backend API category mapping controllers, database queries, or carousel scroll navigation sliders.
+
+==================================================
+GOAL
+==================================================
+Resize the entire category card component to be significantly larger and adjust the layout framework so that the category images dominate 90% to 100% of the upper card container area, just like the premium look in "Screenshot (448).jpg".
+
+==================================================
+PART 1 — CARD UP-SCALING & VERTICAL FRAME MATRIX
+==================================================
+- Target the individual Category Card component structure.
+- Increase the overall card dimensions significantly to feel premium:
+  * Force the card wrapper dimensions on desktop/tablet to a minimum width/height ratio (e.g., set outer wrapper explicitly to `w-[130px] h-[170px]` or `w-[140px] h-[180px]` or responsive flex equivalents like `min-w-[130px]`).
+- Maintain the high-quality rounded layout corner preset (`rounded-2xl` or `rounded-[20px]`).
+- Retain the clean, solid light background color (`bg-neutral-100` or `bg-gray-50`) ensuring zero border lines or frame noise.
+
+==================================================
+PART 2 — IMAGE DOMINANCE MAXIMUM FILL (90% - 100% SCALE)
+==================================================
+- Modify the container holding the image at the top of the card:
+  * Expand the image block area height to occupy around 75% to 80% of the card's entire vertical height.
+- CRITICAL PADDING REDUCTION: Completely strip out the aggressive inner padding. Drop it down to `p-1` or `p-0` at the edges.
+- Object Fitting Strategy: 
+  * Switch or combine image properties to `object-cover` or a highly optimized full-bleed `object-contain w-full h-full` scaling mode.
+  * The product graphic asset MUST expand out to touch or nearly touch the absolute left, right, and top edges of the card frame background, achieving a 90% to 100% visual area fill.
+
+==================================================
+PART 3 — COMPACT TEXT LABELS & RE-BALANCING
+==================================================
+- Allocate the remaining 20% to 25% base area of the card strictly for the text category title.
+- Ensure the text background area integrates seamlessly with the card color backdrop.
+- Typography configuration:
+  * Tighten upper margins (`mt-1`) to avoid forcing unnecessary gaps below the massive full-frame image.
+  * Align typography dead-center (`text-center`).
+  * Use bold, easily readable native Arabic scaling (`text-xs md:text-sm font-semibold text-neutral-800`).
+  * Enforce strict `truncate` or line-clamp properties so long titles never wrap awkwardly or distort the newly enlarged rectangular structural layout.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ Category card sizes are visibly larger on the live dashboard stream than seen in "Screenshot (452).jpg".
+✓ Inner images now scale beautifully to occupy 90% to 100% of the container width/height matrix with minimal edge gaps.
+✓ The text titles fit perfectly at the lower baseline row without visual clipping.
+✓ Verify TypeScript compilation = 0 errors across the entire frontend workspace layout trees.

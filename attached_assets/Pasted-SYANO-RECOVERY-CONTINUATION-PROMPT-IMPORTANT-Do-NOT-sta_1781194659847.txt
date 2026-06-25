@@ -1,0 +1,363 @@
+SYANO (سوق سوريا) — RECOVERY + CONTINUATION PROMPT
+
+IMPORTANT:
+
+Do NOT start coding immediately.
+
+First perform a full recovery audit and determine the exact state of the project.
+
+The previous agent was implementing:
+
+ROADMAP ITEM:
+Trust System V1
+
+The previous session stopped unexpectedly due quota limits while fixing remaining issues.
+
+Your job is:
+
+1. Restore the project
+2. Verify the current state
+3. Identify exactly what was completed
+4. Identify exactly what remains
+5. Continue from the last safe checkpoint
+6. Finish all remaining work
+7. Run a full platform audit
+8. Update recovery files
+
+---
+
+## PHASE 1 — RECOVERY
+
+Read completely:
+
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+* KNOWN_ISSUES.md
+* MEMORY.md
+
+Then:
+
+* pnpm install --force
+* verify env vars
+* verify DATABASE_URL
+* verify SESSION_SECRET
+* verify SITE_URL
+* verify CORS_ORIGIN
+
+Start:
+
+* API Server
+* Marketplace
+* Mobile
+
+Verify:
+
+GET /api/healthz
+
+Verify Root Owner:
+
+[delewatiamer7@gmail.com](mailto:delewatiamer7@gmail.com)
+
+Login must work.
+
+---
+
+## PHASE 2 — VERIFY LAST SESSION
+
+The previous agent stopped while fixing Trust System V1 issues.
+
+Specifically verify these items:
+
+1.
+
+trustScore.ts
+
+Verify whether it was rewritten using the intended factor model.
+
+Check if trust score is calculated using:
+
+* completed orders
+* review rating
+* review count
+* account age
+* delivery success
+* verification status
+* seller violations
+
+Determine if implementation is complete.
+
+2.
+
+run-migrations.ts
+
+Verify:
+
+* trust columns
+* verification columns
+* verification_audit_log table
+
+Determine whether migration is complete.
+
+3.
+
+Mobile routing fix
+
+Verify:
+
+router.push("/(tabs)")
+
+was replaced by:
+
+router.push(`/store/${storeSlug}`)
+
+Determine if completed.
+
+4.
+
+Admin verification audit logging
+
+Verify:
+
+admin approval/rejection actions create records in:
+
+verification_audit_log
+
+Determine if complete.
+
+5.
+
+Mobile store page routing
+
+Verify:
+
+slug route exists.
+
+Determine if complete.
+
+6.
+
+Product detail trust metrics
+
+Verify:
+
+trust indicators appear on product detail pages.
+
+Determine if complete.
+
+---
+
+## PHASE 3 — CREATE TRUST SYSTEM STATUS REPORT
+
+Before writing code:
+
+Generate a report:
+
+TRUST SYSTEM V1 AUDIT
+
+For every feature:
+
+Status:
+
+✅ Complete
+
+⚠ Partial
+
+❌ Missing
+
+Show:
+
+* file
+* implementation status
+* blockers
+* remaining work
+
+Do NOT guess.
+
+Read the code.
+
+---
+
+## PHASE 4 — COMPLETE TRUST SYSTEM V1
+
+Only after audit.
+
+Finish all remaining work.
+
+Trust System requirements:
+
+Seller Trust Score
+
+Verification Status
+
+Verification Audit Trail
+
+Trust Badges
+
+Verified Seller Badge
+
+Trusted Seller Badge
+
+Top Seller Badge
+
+Store Trust Section
+
+Product Trust Indicators
+
+Admin Verification Workflow
+
+Verification History
+
+Trust API Endpoints
+
+Trust Score Service
+
+Seller Trust Analytics
+
+Mobile Support
+
+Arabic Support
+
+English Support
+
+RTL Support
+
+---
+
+## PHASE 5 — E2E TESTING
+
+Create test accounts if missing:
+
+Customer
+Seller
+Courier
+Admin
+
+Test all trust workflows.
+
+Verify:
+
+Seller applies
+
+Admin approves
+
+Badge appears
+
+Trust score updates
+
+Store page updates
+
+Product page updates
+
+Mobile updates
+
+API responses update
+
+Audit log records created
+
+No permission leaks
+
+---
+
+## PHASE 6 — PLATFORM REGRESSION AUDIT
+
+After Trust System is complete:
+
+Run a FULL platform audit.
+
+Verify:
+
+Product Wizard
+
+Variant System
+
+Seller Orders V2
+
+Seller Analytics V2
+
+Courier Dashboard V2
+
+Order Fulfillment Workflow V1
+
+Delivery Zones
+
+Recently Viewed Products
+
+Notifications
+
+Tracking
+
+Messaging
+
+Authentication
+
+Admin Panel
+
+Mobile App
+
+Check:
+
+TypeScript
+
+API
+
+Marketplace
+
+Mobile
+
+Permissions
+
+Routes
+
+i18n
+
+---
+
+## PHASE 7 — FINAL REPORT
+
+Produce:
+
+1. Recovery Status
+
+2. Trust System V1 Status
+
+3. Files Modified
+
+4. E2E Test Results
+
+5. Regressions Found
+
+6. Remaining Issues
+
+7. Exact Roadmap Position
+
+8. Exact Next Roadmap Item
+
+---
+
+## PHASE 8 — DOCUMENTATION
+
+Update:
+
+CURRENT_STATE.md
+
+CHANGELOG.md
+
+KNOWN_ISSUES.md
+
+RECOVERY_GUIDE.md
+
+MEMORY.md
+
+Only mark Trust System V1 complete if:
+
+* implementation complete
+* tested
+* verified
+* no critical regressions
+
+Never claim completion without verification.
+
+TypeScript must finish with 0 errors.
+
+Preserve all existing SYANO functionality.

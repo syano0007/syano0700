@@ -1,0 +1,123 @@
+CRITICAL PRODUCTION CRASH
+
+We now have the actual failing bundle.
+
+Browser console:
+
+Uncaught TypeError:
+Cannot read properties of undefined (reading 'useLayoutEffect')
+
+Source:
+
+vendor-radix-BysWTU_C.js
+
+The crash originates from the Radix vendor bundle.
+
+STOP investigating AuthContext.
+
+That is not the root cause.
+
+══════════════════════════════════════
+TASK
+══════════════════════════════════════
+
+Trace the vendor-radix-BysWTU_C.js bundle back to source.
+
+Generate source maps if needed.
+
+Identify:
+
+* Exact Radix package
+* Exact component
+* Exact hook
+* Exact import
+* Exact file
+
+that triggers the crash.
+
+══════════════════════════════════════
+REACT AUDIT
+══════════════════════════════════════
+
+Verify:
+
+react version
+
+react-dom version
+
+All Radix packages
+
+Check for:
+
+* duplicate React installations
+* React version mismatches
+* ReactDOM version mismatches
+* peer dependency conflicts
+
+Run:
+
+npm ls react
+npm ls react-dom
+
+and inspect the entire dependency tree.
+
+══════════════════════════════════════
+RADIX AUDIT
+══════════════════════════════════════
+
+Audit all installed packages:
+
+@radix-ui/*
+
+Identify:
+
+* outdated packages
+* incompatible versions
+* duplicate installations
+
+Verify compatibility with the installed React version.
+
+══════════════════════════════════════
+BUNDLE TRACE
+══════════════════════════════════════
+
+Map:
+
+vendor-radix-BysWTU_C.js:1:3640
+
+back to the original source file.
+
+I want:
+
+* package name
+* file name
+* line number
+* component name
+
+══════════════════════════════════════
+FIX
+══════════════════════════════════════
+
+After root cause is found:
+
+Apply the minimal correct fix.
+
+Do not rewrite unrelated code.
+
+Do not guess.
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Exact Radix package responsible.
+2. Exact source file.
+3. Exact line.
+4. React version.
+5. ReactDOM version.
+6. Dependency tree findings.
+7. Fix applied.
+8. Production verification.
+9. Confirmation that the vendor-radix bundle no longer crashes.

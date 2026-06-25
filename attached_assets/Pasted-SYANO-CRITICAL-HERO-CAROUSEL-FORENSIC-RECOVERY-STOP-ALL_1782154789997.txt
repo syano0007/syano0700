@@ -1,0 +1,283 @@
+SYANO — CRITICAL HERO CAROUSEL FORENSIC RECOVERY
+
+STOP ALL FEATURE WORK.
+
+STOP ADDING BANNERS.
+
+STOP ADDING ANIMATIONS.
+
+STOP CHANGING DESIGN.
+
+The Hero system is currently in a degraded state.
+
+The previous fixes are considered INVALID until proven with evidence.
+
+We are now performing a FULL FORENSIC INVESTIGATION and RECOVERY.
+
+═══════════════════════════════════════════════════════
+MISSION
+═══════════════════════════════════════════════════════
+
+Determine the REAL root cause of:
+
+1. Most banners rendering black.
+2. Indicator/progress navigation moving incorrectly.
+3. Homepage becoming significantly slower after modifications.
+
+Do NOT guess.
+
+Do NOT assume.
+
+Do NOT patch blindly.
+
+Do NOT report success without evidence.
+
+═══════════════════════════════════════════════════════
+PHASE 1 — CAPTURE CURRENT STATE
+═══════════════════════════════════════════════════════
+
+Before changing any code:
+
+Collect evidence from:
+
+* Browser DevTools
+* Network tab
+* Console
+* Performance tab
+* React DevTools
+* Runtime DOM
+
+Generate a forensic report containing:
+
+* Current Hero component path
+* Current carousel implementation path
+* Current banner source
+* Current active slide logic
+* Current indicator logic
+* Current image loading strategy
+* Current animation system
+
+═══════════════════════════════════════════════════════
+PHASE 2 — INVESTIGATE BLACK BANNERS
+═══════════════════════════════════════════════════════
+
+For EVERY banner:
+
+Verify:
+
+* Banner exists
+* Banner rendered
+* Image URL present
+* Image request sent
+* Response code
+* Image dimensions
+* Image file size
+* Image visible in DOM
+* Image opacity
+* Image z-index
+* Parent z-index
+* Overlay z-index
+* Visibility
+* Display
+* Transform
+* Translate values
+
+Create a table:
+
+Banner #
+Image URL
+HTTP Status
+Loaded?
+Visible?
+Root Cause
+
+Determine EXACTLY why only one banner appears correctly.
+
+Possible causes to investigate:
+
+* Broken URLs
+* Overlay covering images
+* Invalid transforms
+* Incorrect stacking contexts
+* Width calculations
+* Translate calculations
+* Overflow clipping
+* Object-fit issues
+* Lazy-loading bugs
+* Rendering race conditions
+
+DO NOT MODIFY CODE UNTIL THE ROOT CAUSE IS PROVEN.
+
+═══════════════════════════════════════════════════════
+PHASE 3 — INVESTIGATE INDICATOR BUG
+═══════════════════════════════════════════════════════
+
+Current symptom:
+
+Swipe direction works.
+
+Indicators/progress position do NOT.
+
+This means:
+
+Carousel state and indicator state are out of sync.
+
+Audit:
+
+* currentIndex
+* displayedIndex
+* visualIndex
+* activeDot
+* progress calculations
+* RTL calculations
+* useEffect synchronization
+* autoplay synchronization
+
+For every slide transition:
+
+Log:
+
+Previous Index
+Next Index
+Rendered Indicator
+Expected Indicator
+
+Find the exact mismatch.
+
+Fix the source of truth.
+
+Do NOT add RTL hacks.
+
+Do NOT add inversions.
+
+Do NOT add special cases.
+
+═══════════════════════════════════════════════════════
+PHASE 4 — INVESTIGATE PERFORMANCE REGRESSION
+═══════════════════════════════════════════════════════
+
+Homepage became noticeably slower.
+
+Measure:
+
+* FCP
+* LCP
+* CLS
+* TBT
+* JS bundle size
+
+Identify:
+
+* New images added
+* Image dimensions
+* Image weight
+* Number of requests
+* Preloaded resources
+* Motion calculations
+* Re-renders
+
+For each banner image report:
+
+Image
+Dimensions
+File Size
+Loading Strategy
+
+If images exceed marketplace standards:
+
+Optimize them.
+
+Target:
+
+* Fast first paint
+* Fast hero load
+* No 4K assets
+* No oversized downloads
+* No blocking image decode
+
+═══════════════════════════════════════════════════════
+PHASE 5 — RECOVERY PLAN
+═══════════════════════════════════════════════════════
+
+Only after root causes are proven:
+
+Implement the MINIMUM code changes required.
+
+No redesign.
+
+No feature additions.
+
+No visual experiments.
+
+No new animation systems.
+
+No new libraries.
+
+Keep the existing UX.
+
+Fix only what is broken.
+
+═══════════════════════════════════════════════════════
+PHASE 6 — MANDATORY VERIFICATION
+═══════════════════════════════════════════════════════
+
+After fixes:
+
+Verify ALL banners.
+
+Verify ALL images.
+
+Verify indicator behavior.
+
+Verify RTL.
+
+Verify LTR.
+
+Verify autoplay.
+
+Verify drag.
+
+Verify touch gestures.
+
+Verify desktop.
+
+Verify mobile.
+
+Verify tablet.
+
+═══════════════════════════════════════════════════════
+FINAL REPORT REQUIRED
+═══════════════════════════════════════════════════════
+
+Do NOT write “fixed” without proof.
+
+Provide:
+
+1. Exact root cause of black banners.
+2. Exact root cause of indicator bug.
+3. Exact root cause of performance regression.
+4. Screenshots proving diagnosis.
+5. Files modified.
+6. Code changes applied.
+7. Before/after performance metrics.
+8. Number of banners verified.
+9. Number of banners repaired.
+10. Console verification.
+11. Network verification.
+12. TypeScript verification.
+13. Final production status.
+
+Success criteria:
+
+✓ All banners visible
+✓ No black banners
+✓ Indicators correct
+✓ RTL correct
+✓ LTR correct
+✓ Fast homepage load
+✓ No console errors
+✓ No React warnings
+✓ No TypeScript errors
+✓ No broken network requests
+
+If any item fails, continue debugging until the root cause is eliminated.

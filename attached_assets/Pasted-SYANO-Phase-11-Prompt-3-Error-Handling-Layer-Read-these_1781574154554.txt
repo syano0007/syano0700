@@ -1,0 +1,208 @@
+SYANO — Phase 11 — Prompt 3: Error Handling Layer
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Your job is to audit every page and component for missing error states, then fix all gaps. Do not redesign anything. Do not change any existing UI. Only add what is missing.
+
+STEP 1 — AUDIT FIRST
+Before writing any code, scan every file in artifacts/marketplace/src/pages/ and artifacts/marketplace/src/components/ and produce a list of every page/component that is missing any of these four states:
+
+Loading — shown while data is fetching from API
+Empty — shown when API returns success but data array is empty
+Error — shown when API call fails or returns error status
+Success — shown after user completes a mutation (create, update, delete)
+
+Report the full list before proceeding.
+
+STEP 2 — FIX ALL GAPS
+For every missing state found in Step 1, add it using these exact rules:
+
+Loading State Rule
+Use the existing Spinner or Skeleton component already in the codebase.
+
+Find it first — do not create a new one.
+Pattern:
+tsxif (isLoading) return <Spinner />
+Or for page-level loading with layout:
+tsxif (isLoading) return (
+  <div className="flex items-center justify-center min-h-[400px]">
+    <Spinner />
+  </div>
+)
+
+Empty State Rule
+Every empty state must have:
+
+An icon (use existing icon set — do not import new libraries)
+A translated title using i18n
+A translated subtitle using i18n
+A call-to-action button where relevant
+
+Pattern:
+tsxif (data.length === 0) return (
+  <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 text-center px-4">
+    <Icon className="w-16 h-16 text-muted-foreground" />
+    <h3 className="text-lg font-semibold">{t('page.empty_title')}</h3>
+    <p className="text-sm text-muted-foreground">{t('page.empty_subtitle')}</p>
+    <Button onClick={...}>{t('page.empty_action')}</Button>
+  </div>
+)
+
+Error State Rule
+Every error state must have:
+
+A translated error message using i18n
+A retry button that re-triggers the query
+
+Pattern:
+tsxif (isError) return (
+  <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 text-center px-4">
+    <AlertCircle className="w-16 h-16 text-destructive" />
+    <h3 className="text-lg font-semibold">{t('common.error_title')}</h3>
+    <p className="text-sm text-muted-foreground">{t('common.error_subtitle')}</p>
+    <Button variant="outline" onClick={() => refetch()}>{t('common.retry')}</Button>
+  </div>
+)
+
+Success State Rule
+Every mutation (form submit, delete, update) must show feedback.
+
+Use the existing toast/notification system already in the codebase.
+
+Find it first — do not create a new one.
+Pattern:
+tsxonSuccess: () => {
+  toast({ title: t('page.success_message'), variant: 'success' })
+}
+onError: () => {
+  toast({ title: t('common.error_title'), variant: 'destructive' })
+}
+
+STEP 3 — I18N KEYS
+For every new state added, add the translation keys to both ar.json and en.json.
+Common keys to add if missing:
+json"common": {
+  "error_title": "حدث خطأ",
+  "error_subtitle": "يرجى المحاولة مرة أخرى",
+  "retry": "إعادة المحاولة",
+  "no_data": "لا توجد بيانات",
+  "loading": "جاري التحميل"
+}
+json"common": {
+  "error_title": "Something went wrong",
+  "error_subtitle": "Please try again",
+  "retry": "Try again",
+  "no_data": "No data available",
+  "loading": "Loading"
+}
+For page-specific keys, use the page namespace. Example for orders page:
+json"orders": {
+  "empty_title": "لا توجد طلبات",
+  "empty_subtitle": "لم تقم بأي طلب بعد",
+  "empty_action": "تسوق الآن"
+}
+
+PAGES TO COVER — MINIMUM
+Cover every page in these roles without exception:
+Guest / Customer:
+
+Homepage
+Shop page
+Search results page
+Product detail page
+Store page
+Cart page
+Checkout page
+Orders list page
+Order detail page
+Profile page
+Wishlist page
+Contact page
+
+Seller:
+
+Dashboard
+Products list
+Add/Edit product
+Orders list
+Order detail
+Analytics
+Store management
+Messaging
+
+Courier:
+
+Dashboard
+Deliveries list
+Delivery detail
+
+Admin:
+
+Dashboard
+Users list
+Sellers verification
+Products moderation
+Reports
+Search management
+
+
+CONSTRAINTS
+
+Do not redesign any page
+Do not change colors, spacing, or typography
+Do not introduce new UI component libraries
+Do not use any in TypeScript
+Do not break existing API response shapes
+Every new string must use i18n — no hardcoded text
+RTL Arabic and LTR English must both work
+Light mode and dark mode must both work
+Mobile 375px must work for every state added
+
+
+AFTER ALL FIXES
+Run TypeScript check:
+cd artifacts/api-server && npx tsc --noEmit
+cd artifacts/marketplace && npx tsc --noEmit
+Must return 0 errors.
+
+UPDATE RECOVERY FILES
+After TypeScript returns 0 errors, update these three files:
+CURRENT_STATE.md
+
+Add at the top:
+## Session: Phase 11 — Prompt 3 (June 16, 2026)
+Status: Complete
+
+Fixed:
+- Loading states added to all pages missing them
+- Empty states added to all pages missing them
+- Error states with retry added to all pages missing them
+- Success/error toasts added to all mutations missing them
+- All new i18n keys added to ar.json and en.json
+- TypeScript: 0 errors
+
+Next: Phase 11 — Prompt 4 (Data Quality)
+PROJECT_STATUS.md
+Phase 11 — Launch Preparation
+- Prompt 1 (Audit): ✅ Complete
+- Prompt 2 (Critical & High Fixes): ✅ Complete
+- Prompt 3 (Error Handling): ✅ Complete
+- Prompt 4 (Data Quality): ⏳ Not started
+RECOVERY_GUIDE.md
+Last session: Phase 11 Prompt 3 — Error Handling Layer complete
+Next session must start with: Phase 11 — Prompt 4 (Data Quality)
+Do not re-run Prompt 3 — it is complete.
+
+When done, report:
+✅ Pages audited: [count]
+✅ Loading states added: [count]
+✅ Empty states added: [count]
+✅ Error states added: [count]
+✅ Success toasts added: [count]
+✅ i18n keys added: [count]
+✅ TypeScript: 0 errors
+✅ Recovery files updated

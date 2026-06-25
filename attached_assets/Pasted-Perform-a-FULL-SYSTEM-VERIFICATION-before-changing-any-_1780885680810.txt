@@ -1,0 +1,172 @@
+Perform a FULL SYSTEM VERIFICATION before changing any code.
+
+IMPORTANT RULES:
+
+- DO NOT regenerate OpenAPI.
+- DO NOT run orval unless you can prove it is required.
+- DO NOT rewrite authentication.
+- DO NOT recreate JWT logic.
+- DO NOT redesign any feature.
+- DO NOT modify schemas unless you prove they differ from the previous working state.
+- DO NOT make speculative fixes.
+- First AUDIT, then IDENTIFY the exact root cause, then apply the MINIMUM additive fix.
+
+The previous workspace was fully working except for the planned Variant System upgrade.
+Admin login, registration, OTP reset, dashboards, messaging, notifications, carts, reviews, seller flow, and all performance optimizations were already working.
+
+Run a complete verification of:
+
+1. Dependencies
+- node_modules
+- workspace packages
+- generated libs
+- tsconfig references
+
+2. Environment
+Verify every required variable:
+DATABASE_URL
+SESSION_SECRET
+SITE_URL
+CORS_ORIGIN
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_EMAIL
+REPLIT_DEV_DOMAIN
+REPLIT_DOMAINS
+REPL_ID
+
+3. Database
+Verify that ALL expected tables exist.
+Verify users table includes:
+- reset_otp_hash
+- reset_otp_expires_at
+- reset_otp_attempts
+- reset_otp_locked_until
+- account_status
+- role
+- is_verified
+
+Verify admin account exists:
+email: delewatiamer7@gmail.com
+role: admin
+account_status: active
+is_verified: true
+
+If missing, recreate ONLY the account.
+Never modify existing users unless necessary.
+
+4. Authentication Verification
+
+Actually TEST:
+
+POST /api/auth/login
+(correct admin credentials)
+
+POST /api/auth/login
+(wrong password)
+
+POST /api/auth/login
+(nonexistent email)
+
+POST /api/auth/register
+
+POST /api/auth/forgot-password
+
+POST /api/auth/verify-reset-otp
+
+POST /api/auth/reset-password
+
+Verify JWT issuance.
+Verify password hashing.
+Verify bcrypt comparison.
+Verify SESSION_SECRET usage.
+Verify auth middleware.
+Verify cookies/tokens.
+
+Do NOT assume routes work.
+Actually execute and verify them.
+
+5. Functional Verification
+
+Verify:
+
+- Admin dashboard
+- Seller dashboard
+- Customer dashboard
+- Guest cart
+- Messaging
+- Notifications
+- Product variants (current system)
+- Reviews
+- Seller applications
+- Store follow
+- Push notifications
+- Settings endpoint
+- Products endpoint
+
+6. TypeScript
+
+Run full validation across:
+
+api-server
+marketplace
+mobile
+lib packages
+
+Target:
+0 errors.
+
+7. Performance Preservation
+
+Verify that these previously completed optimizations still exist and were not reverted:
+
+- Bundle splitting
+- Lazy loading
+- React.memo optimizations
+- Stable callbacks
+- Virtualized product grid
+- Review pagination
+- Seller orders pagination
+- Frame pacing improvements
+- Long task optimization
+- Memory optimization
+- Google Translate protection
+- RTL support
+
+8. Differential Recovery Rule
+
+If something is broken:
+
+- Explain EXACTLY what is broken.
+- Explain WHY it broke.
+- Show which file is responsible.
+- Apply the SMALLEST possible fix.
+- Never refactor unrelated code.
+
+9. Final Report
+
+Produce a table containing:
+
+✓ Dependencies
+✓ Environment
+✓ Database
+✓ Admin account
+✓ Login
+✓ Register
+✓ Forgot password
+✓ OTP verification
+✓ Password reset
+✓ JWT
+✓ API server
+✓ Marketplace
+✓ Mobile
+✓ TypeScript
+✓ Dashboards
+✓ Messaging
+✓ Notifications
+✓ Existing Variant System
+✓ Performance optimizations
+
+The goal is NOT to redesign or regenerate the project.
+
+The goal is to restore the workspace to the exact functional state of the previous Replit workspace before beginning the new Variant System upgrade.

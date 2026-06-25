@@ -1,0 +1,899 @@
+SYANO Platform Discovery Report
+Generated: June 21, 2026
+Method: Source-code-first. Documentation was not used as a source of truth.
+Scope: Complete inventory of all systems, features, roles, pages, routes, services, database entities, and API endpoints.
+
+Table of Contents
+Repository Architecture
+Role Inventory
+Web Page Inventory
+Mobile Screen Inventory
+Feature Inventory
+API Inventory
+Database Inventory
+Service Inventory
+Search Architecture
+Courier Architecture
+Seller Architecture
+Admin Architecture
+1. Repository Architecture
+Monorepo Layout
+workspace/                          ← pnpm monorepo root
+├── artifacts/
+│   ├── api-server/                 ← Express 5 REST API (Node.js / TypeScript)
+│   ├── marketplace/                ← React 19 + Vite 7 web frontend
+│   ├── mobile/                     ← Expo 54 / React Native mobile app
+│   └── embedding-service/          ← Python FastAPI embedding microservice
+├── lib/
+│   ├── db/                         ← Drizzle ORM schema + PostgreSQL client
+│   ├── api-zod/                    ← Shared Zod validation schemas
+│   ├── api-client-react/           ← Generated React/RN API hooks
+│   ├── api-spec/                   ← OpenAPI specification
+│   └── shell-quote-shim/           ← Utility shim
+├── scripts/                        ← Sitemap generation, DB seeding, import checks
+├── tools/
+│   └── mockup-sandbox/             ← Vite preview server for UI prototyping
+├── pyproject.toml                  ← Python deps (uv / pip)
+├── pnpm-workspace.yaml             ← Workspace configuration
+├── tsconfig.base.json              ← Shared TypeScript config
+└── package.json                    ← Root scripts (typecheck, build, import:check)
+
+Per-Package Summary
+Package	Language	Framework	Port	Purpose
+artifacts/api-server	TypeScript	Express 5 + Drizzle ORM	8080	REST API, auth, business logic, DB migrations
+artifacts/marketplace	TypeScript	React 19 + Vite 7 + Tailwind v4	5000 (dev)	Customer/Seller/Admin/Courier web UI
+artifacts/mobile	TypeScript	Expo 54 + expo-router	Replit-assigned	iOS/Android app, ~95% feature parity with web
+artifacts/embedding-service	Python 3.11	FastAPI + sentence-transformers	8000	Multilingual semantic embeddings for search
+lib/db	TypeScript	Drizzle ORM + pg	—	44-table PostgreSQL schema, migrations
+lib/api-zod	TypeScript	Zod	—	Shared request/response validation schemas
+lib/api-client-react	TypeScript	TanStack Query	—	Auto-generated typed API hooks
+lib/api-spec	TypeScript	OpenAPI	—	API contract specification
+scripts	TypeScript	tsx	—	Sitemap, seeding, import certification
+tools/mockup-sandbox	TypeScript	Vite	Canvas-assigned	UI variant preview for design exploration
+Key Shared Infrastructure
+Router: wouter (web), expo-router (mobile)
+Data fetching: @tanstack/react-query
+Styling: Tailwind CSS v4 (web), custom tokens (mobile)
+i18n: i18next + react-i18next (web); custom t() function (mobile); en.json + ar.json translation files
+Auth: JWT HS256, signed with SESSION_SECRET; Google OAuth (client-side only, GOOGLE_CLIENT_ID)
+Bot protection: Cloudflare Turnstile on login, register, forgot-password
+Push notifications: Web Push (VAPID); web-push library
+Maps: Leaflet + react-leaflet + OSRM road routing (web); react-native-maps (mobile)
+Real-time: Server-Sent Events (SSE) for messaging and notifications
+2. Role Inventory
+customer
+Default role for all new registrations
+Permissions: Browse, search, cart, checkout, order placement and tracking, messaging with sellers, wishlist, AI support, submit product/seller reviews, rate couriers
+Protected routes: /checkout, /orders/*, /customer/dashboard, /messages, /support, /account
+Dashboard: /customer/dashboard — recent orders, account stats
+Key features: Order history, real-time delivery tracking, courier rating
+seller
+Acquired by applying via /seller/apply (requires admin approval)
+Permissions: Full product CRUD (own products only), variant management, inventory control, order status updates (own orders), store profile, analytics, customer messaging
+Protected routes: All /seller/* routes
+Dashboard: /seller/dashboard — revenue, follower count, active products, recent orders
+Key features: Product wizard, variant builder, store trust score, earnings analytics
+courier
+Acquired by applying via /courier/apply (requires admin approval)
+Permissions: Toggle online/offline availability, accept/decline mission offers, report pickup/delivery progress, upload delivery proof, submit safety incidents, manage wallet/payout requests
+Protected routes: All /courier/* routes (also accessible to admin)
+Dashboard: /courier/dashboard + /courier (workspace) — live mission map, offer flow, GPS tracking
+Key features: Real-time OSRM routing, wallet with payout requests, performance metrics, mission history
+admin
+Bootstrapped via ROOT_ADMIN_PASSWORD env var on first API start
+Permissions: Full platform control — all user management, order override, product moderation, content management (hero banners), platform settings, dispatch center, courier location monitoring, payout approval, AI support configuration
+Protected routes: All /admin/* routes; can also access all /courier/* routes
+Dashboard: /admin — live stats, revenue, new users, pending applications, system health alerts
+Key features: Dispatch center, real-time tracking monitor, audit logs, search analytics, seller/courier application review
+Public (Unauthenticated)
+Permissions: Browse products, categories, stores, search, view product detail, store pages, all static/legal pages; guest wishlist (localStorage)
+No login required: Home, /shop, /search, /products/*, /categories, /store/:slug, /stores, all /about/*, all /help, all legal pages
+3. Web Page Inventory
+Public Pages
+Route	Component	Purpose
+/	Home	Hero banners, featured products, category grid, trending
+/shop	SearchPage	Product search with filters, sort, semantic suggestions
+/search	SearchPage	Alias for /shop
+/products	SearchPage	Alias for /shop
+/categories	CategoriesPage	Browse all categories and subcategories
+/products/:id	ProductDetail	Full product page: images, variants, reviews, add-to-cart
+/store/:slug	StorePage	Seller store page with products and trust info
+/stores	StoresPage	Directory of all active stores
+/sellers/directory	StoresPage	Alias for /stores
+/wishlist	WishlistPage	Guest + logged-in wishlist (localStorage / API)
+/cart	Cart	Shopping cart (no auth required to view)
+/about	AboutPage	Company overview
+/about/story	StoryPage	Brand story
+/about/team	TeamPage	Team page
+/contact	ContactPage	Contact form
+/shipping	ShippingPage	Shipping information
+/shipping/nationwide	NationwidePage	Nationwide delivery info
+/payment-methods	PaymentMethodsPage	Accepted payment methods
+/syano-guarantee	SyanoGuaranteePage	Buyer protection info
+/loyalty	LoyaltyPage	Loyalty program info
+/help	HelpPage	Help center
+/privacy-policy	PrivacyPolicyPage	Privacy policy
+/terms-of-use	TermsOfUsePage	Terms of service
+/returns-policy	ReturnsPolicyPage	Returns and refunds
+/cookies	CookiesPage	Cookie policy
+/account-suspended	AccountSuspended	Shown when account is suspended
+Auth Pages
+Route	Component	Purpose
+/login	Login	Email/phone + Google login, Turnstile bot protection
+/register	Register	New account registration, Turnstile bot protection
+/verify	VerifyPage	OTP email verification
+/forgot-password	ForgotPassword	Password reset flow
+Seller Info Pages (Public)
+Route	Component	Purpose
+/seller/how-to-sell	HowToSellPage	Seller onboarding guide
+/seller/terms	SellerTermsPage	Seller terms of service
+/seller/center	SellerCenterPage	Seller resource hub
+/seller/commission	CommissionPage	Commission rates
+/seller/faq	SellerFaqPage	Seller FAQ
+Customer Pages (Protected: customer)
+Route	Component	Purpose
+/customer/dashboard	CustomerDashboard	Orders summary, account stats
+/checkout	Checkout	Multi-step checkout: address, delivery zone, COD
+/orders	OrderHistory	All past orders with status
+/orders/:id	OrderDetail	Individual order detail, status history, tracking link
+/messages	MessagesPage	Chat conversations with sellers
+/support	CustomerSupport	AI support agent + escalation to human
+/account	AccountPage	Profile settings, password change
+/tracking/:missionId	TrackingPage	Real-time Leaflet map + OSRM routing for delivery
+Seller Pages (Protected: seller)
+Route	Component	Purpose
+/seller/apply	SellerApply	Application form to become a seller
+/seller/application-status	ApplicationStatus	View seller application status
+/seller/dashboard	SellerDashboard	Revenue, followers, active products, recent orders
+/seller/products	SellerProducts	Product inventory list
+/seller/products/new	NewProduct	Product creation wizard with variant builder
+/seller/products/:id/edit	EditProduct	Edit existing product and variants
+/seller/orders	SellerOrders	Incoming orders for seller's products
+/seller/orders/:id	SellerOrderDetail	Order detail with status update actions
+/seller/inventory	Inventory	Stock level management
+/seller/messages	SellerMessages	Customer conversation management
+/seller/analytics	SellerAnalytics	Revenue charts, top products, conversion stats
+/seller/reviews	SellerReviews	Product and seller reviews management
+/seller/store-settings	SellerStoreSettings	Logo, name, description, address, social links
+/seller/trust	SellerTrustPage	Trust score breakdown and verification status
+Courier Pages (Protected: courier + admin)
+Route	Component	Purpose
+/courier/apply	CourierApply	Application form to become a courier
+/courier/application-status	CourierApplicationStatus	View courier application status
+/courier	CourierWorkspace	Live mission workspace: map, GPS, pickup/delivery actions
+/courier/dashboard	CourierDashboard	Overview: availability toggle, active mission, quick stats
+/courier/history	CourierHistory	Past completed missions
+/courier/earnings	CourierEarnings	Earnings breakdown per mission
+/courier/wallet	CourierWallet	Balance, transactions, payout request flow
+/courier/profile	CourierProfilePage	Vehicle, contact info, documents
+/courier/performance	CourierPerformance	Rating, acceptance rate, delivery metrics
+Admin Pages (Protected: admin)
+Route	Component	Purpose
+/admin	AdminDashboard	Live platform stats: revenue, users, orders, alerts
+/admin/users	AdminUsers	User list: suspend, verify, role info
+/admin/products	AdminProducts	Global product moderation
+/admin/orders	AdminOrders	All-platform order oversight
+/admin/sellers	AdminSellers	Seller application review and approval
+/admin/analytics	AdminAnalytics	Platform-wide revenue and growth analytics
+/admin/search-analytics	AdminSearchAnalytics	Zero-result queries, cache hit rates, index health
+/admin/logs	AdminLogs	Admin audit log viewer
+/admin/settings	AdminSettings	Exchange rates, commission rates, flash sale config
+/admin/support	AdminSupport	Human support escalation inbox
+/admin/courier-applications	AdminCourierApplications	Courier application list
+/admin/courier-applications/:id	AdminCourierApplicationDetail	Individual courier application review
+/admin/delivery	AdminDelivery	Delivery zones management
+/admin/delivery-missions	AdminDeliveryMissions	All delivery missions with status and override
+/admin/courier-payouts	AdminCourierPayouts	Payout request approval/rejection
+4. Mobile Screen Inventory
+Framework: Expo 54 + expo-router (file-based routing)
+Architecture: (tabs) group for bottom-nav screens, (auth) group for login flow, (courier-tabs) for courier navigation
+
+Bottom Tab Screens (app/(tabs)/)
+File	Route	Purpose	Role
+index.tsx	/	Home: shop (customer) or seller dashboard pivot	Customer / Seller
+cart.tsx	/cart	Shopping cart with quantity controls	Customer
+wishlist.tsx	/wishlist	Saved products list	Customer
+messages.tsx	/messages	Conversation list (customer ↔ seller / support)	All
+notifications.tsx	/notifications	In-app notification center	All
+orders.tsx	/orders	Order history and status	Customer
+profile.tsx	/profile	Account settings and role-based nav links	All
+Auth Screens (app/(auth)/)
+File	Route	Purpose	Role
+login.tsx	/login	Email + Google sign-in	Public
+register.tsx	/register	New account registration	Public
+forgot-password.tsx	/forgot-password	OTP-based password reset	Public
+verify.tsx	/verify	Email OTP verification	Public
+_layout.tsx	—	Auth stack navigator	—
+Customer Screens
+File	Route	Purpose	Role
+product/[id].tsx	/product/:id	Product detail: images, variants, reviews, add-to-cart	Customer
+store/[slug].tsx	/store/:slug	Store profile and seller's products	Customer
+categories.tsx	/categories	Category browser	Customer
+stores/index.tsx	/stores	All-stores directory	Customer
+checkout.tsx	/checkout	2-step checkout: delivery zone + COD	Customer
+order-success.tsx	/order-success	Post-purchase confirmation	Customer
+tracking/[missionId].tsx	/tracking/:id	Real-time delivery map with OSRM routing	Customer
+support.tsx	/support	AI support chat + escalation	Customer
+customer-dashboard.tsx	/customer-dashboard	Account overview and order summary	Customer
+Seller Screens (app/seller/)
+File	Route	Purpose	Role
+analytics.tsx	/seller/analytics	Sales charts and business insights	Seller
+orders.tsx	/seller/orders	Incoming order list	Seller
+orders/[id].tsx	/seller/orders/:id	Order detail and status update	Seller
+products.tsx	/seller/products	Product inventory list	Seller
+products/new.tsx	/seller/products/new	Create new product	Seller
+products/[id]/edit.tsx	/seller/products/:id/edit	Edit product details	Seller
+seller-apply.tsx	/seller-apply	Seller application form	Customer
+seller-application-status.tsx	/seller-application-status	Application status view	Customer
+Courier Screens (app/courier/ and (courier-tabs)/)
+File	Route	Purpose	Role
+courier/dashboard.tsx	/courier/dashboard	Availability toggle, active mission summary	Courier
+courier/workspace.tsx	/courier/workspace	Live mission map with GPS + action buttons	Courier
+courier-apply.tsx	/courier-apply	Courier application form	Customer
+courier-application-status.tsx	/courier-application-status	Application status	Customer
+Admin Screens (app/admin/)
+File	Route	Purpose	Role
+admin/index.tsx	/admin	Admin control panel	Admin
+admin/users.tsx	/admin/users	User management	Admin
+admin/sellers.tsx	/admin/sellers	Seller verification	Admin
+Utility Screens
+File	Route	Purpose
+index.tsx	/	App root with role-based redirect
+settings.tsx	/settings	App preferences (language, theme)
+about.tsx	/about	About page
+contact.tsx	/contact	Contact form
+help.tsx	/help	Help center
+terms.tsx	/terms	Terms of service
+privacy-policy.tsx	/privacy-policy	Privacy policy
+returns.tsx	/returns	Returns policy
+cookies.tsx	/cookies	Cookie policy
+account-suspended.tsx	/account-suspended	Suspension notice
++not-found.tsx	*	404 fallback
+_layout.tsx	—	Root layout with AuthContext, i18n, fonts
+5. Feature Inventory
+Authentication & Identity
+Email + password registration with OTP email verification
+Google OAuth sign-in (client-side token → server verification via google-auth-library)
+JWT HS256 tokens stored in localStorage (web) / AsyncStorage (mobile)
+Forgot password flow: email → OTP → reset
+Cloudflare Turnstile bot protection on login, register, forgot-password
+Session reissue endpoint for token refresh
+Account suspension system with bypass block
+Rate limiter: 10 attempts / 15 minutes per IP
+Product Catalog
+Product CRUD for sellers (name, description, price, images, category, stock)
+Multi-image uploads with position ordering
+Discount percentage field with automatic sale price calculation
+Product categories and subcategories
+Stock management with low-stock alerts
+Best-seller ranking by sales volume
+SEO fields: meta title, meta description, slug
+fts_vector full-text search column (auto-updated via trigger)
+384-dimensional semantic embedding vector per product
+Variant System
+Variant groups (e.g., "Color", "Size") with ordered options
+Cross-group variant combinations (e.g., Red/M, Red/L, Blue/M)
+Per-variant: SKU, price override, stock level
+Per-variant images tied to specific option values
+Dynamic price update on option selection (web + mobile)
+Variant-aware cart: stores selected variantId
+Cart & Wishlist
+Persistent server-side cart for authenticated users
+Guest wishlist via localStorage (web), syncs on login
+Server-side wishlist for authenticated users
+Add/remove/update quantity
+Real-time stock validation on add
+Cart summary: subtotal, item count, delivery fee estimate
+Checkout & Orders
+Multi-step checkout: delivery address → delivery zone selection → payment
+Cash on Delivery (COD) — primary payment method
+Delivery zone fee lookup and display
+Atomic stock locking on order placement (SELECT FOR UPDATE)
+Order split: one order can span multiple sellers
+15-order status states (see Database Inventory)
+Order status history with timestamps and actor tracking
+Delivery & Tracking
+Real-time GPS tracking via SSE + Leaflet maps (web) / react-native-maps (mobile)
+OSRM road routing: two-leg ETA (courier→pickup, pickup→customer)
+Tracking sessions with position history
+Customer can open /tracking/:missionId to watch live delivery
+Courier System (V3.3)
+Online/offline availability toggle
+Mission offer flow: receive → accept/decline within 60s
+Mission status machine: PENDING → SEARCHING → ASSIGNED → ACCEPTED → PICKED_UP → IN_TRANSIT → DELIVERED
+Delivery proof upload (photo)
+Failure reporting with structured VALID_FAILURE_TYPES
+Safety incident reporting pipeline
+Wallet: earned balance, payout request → admin approval
+Messaging (V2)
+Customer ↔ Seller conversations tied to products/orders
+Admin ↔ Customer support conversations
+SSE-based real-time message delivery
+Read receipts (read_at timestamps)
+Attachment support
+Notifications
+In-app notification list with unread-first ordering
+Web Push notifications via VAPID (30+ notification types)
+Bilingual notifications (Arabic + English)
+Notification types cover: order lifecycle, courier lifecycle, review events, admin alerts, messaging
+Search (Hybrid NLP)
+13-step NLP pipeline (Arabic + English)
+Syrian dialect expansion dictionary
+Intent modifier detection (cheap, premium, new, etc.)
+PostgreSQL FTS with weighted tsvector (name > category > description)
+Trigram fuzzy matching via pg_trgm
+Semantic vector search via pgvector + sentence-transformers
+Reciprocal Rank Fusion (RRF) hybrid reranking
+4-level fallback chain for zero results
+LRU cache (500 entries, dynamic TTL)
+Autocomplete suggestions with dialect normalization
+Stores & Sellers
+Store profile: name, slug, logo, description, address, social links
+Trust score: calculated from order fulfillment rate and reviews
+Store follow system (customers follow sellers)
+Seller verification with document review
+Seller analytics: revenue, top products, conversion
+Reviews & Ratings
+Product reviews: rating (1–5) + comment, one per customer per product
+Seller reviews: multi-dimensional (communication, shipping, overall)
+Courier ratings: post-delivery, one per mission/customer pair
+Review reply by seller
+AI Support
+Keyword-based intent classifier with FAQ responses
+Order status lookup via conversation context
+Product search integration
+Escalation to human support (creates ticket in admin inbox)
+Support agent identity bootstrapped in DB on startup
+Admin & Moderation
+User suspension/reactivation
+Manual user verification
+Seller application approval/rejection
+Courier application approval/rejection
+Hero banner management (desktop + mobile images, sort order, active toggle)
+Platform settings: exchange rates, commission rates, flash sale timers
+Audit log for all admin actions
+Dispatch center: live mission monitoring, manual courier assignment
+Courier GPS freshness monitoring (FRESH / WARNING / STALE)
+Search analytics: zero-result tracking, cache stats, reindex trigger
+Push Notifications
+Browser Web Push with VAPID key pair
+Push subscription registration endpoint
+Graceful fallback if VAPID_PRIVATE_KEY not set
+Internationalization
+Arabic (RTL) + English (LTR) throughout
+Language detector in browser
+All UI strings via t() / i18n keys
+Logical Tailwind classes (ms-, ps-, start-) for RTL/LTR
+6. API Inventory
+All routes are mounted under the API server at port 8080. The Vite dev proxy forwards /api/* from the marketplace frontend.
+
+Health & Configuration
+Method	Path	Auth	Role	Purpose
+GET	/api/healthz	Public	Any	Full system health: DB tables, embeddings, auth status
+GET	/api/auth/turnstile-config	Public	Any	Returns Turnstile site key and enabled flag
+Authentication
+Method	Path	Auth	Role	Purpose
+POST	/api/auth/register	Public	Any	Register new user (Turnstile + rate limited)
+POST	/api/auth/login	Public	Any	Authenticate, return JWT
+POST	/api/auth/logout	Public	Any	Logout (client-side token removal)
+GET	/api/auth/me	JWT	Any	Get current user profile
+PATCH	/api/auth/me	JWT	Any	Update name or phone
+POST	/api/auth/reissue	JWT	Any	Reissue a fresh JWT
+POST	/api/auth/send-otp	Public	Any	Send OTP for email verification
+POST	/api/auth/resend-otp	Public	Any	Resend OTP (rate limited)
+POST	/api/auth/verify-otp	Public	Any	Verify OTP and mark user verified
+POST	/api/auth/forgot-password	Public	Any	Initiate password reset
+POST	/api/auth/reset-password	Public	Any	Complete password reset with token
+Products
+Method	Path	Auth	Role	Purpose
+GET	/api/products	Public	Any	List products with filtering, sort, pagination
+GET	/api/products/categories	Public	Any	All category slugs
+GET	/api/products/best-sellers	Public	Any	Top products by sales
+GET	/api/products/:id	Public	Any	Full product detail with variants
+POST	/api/products	JWT	Seller	Create product (triggers embedding generation)
+PATCH	/api/products/:id	JWT	Seller	Update product
+DELETE	/api/products/:id	JWT	Seller	Delete product and variants
+POST	/api/products/:id/discount	JWT	Seller	Set discount percentage
+POST	/api/products/:id/stock	JWT	Seller	Update stock levels
+Variants
+Method	Path	Auth	Role	Purpose
+GET	/api/products/:id/variants	Public	Any	Get all variants and groups for a product
+POST	/api/products/:id/variants	JWT	Seller	Create variant configuration
+PATCH	/api/products/:id/variants/:vid	JWT	Seller	Update specific variant
+DELETE	/api/products/:id/variants/:vid	JWT	Seller	Delete variant
+Search
+Method	Path	Auth	Role	Purpose
+GET	/api/search	Public	Any	Legacy trigram/LIKE search
+GET	/api/search/v2	Optional	Any	Hybrid NLP + semantic search with RRF
+GET	/api/search/suggestions	Public	Any	Autocomplete with dialect normalization
+GET	/api/search/suggestions/popular	Public	Any	Popular/trending suggestions for empty state
+GET	/api/search/related	Public	Any	Related search terms
+Cart
+Method	Path	Auth	Role	Purpose
+GET	/api/cart	JWT	Customer	Get cart contents
+POST	/api/cart	JWT	Customer	Add item to cart
+PATCH	/api/cart/:id	JWT	Customer	Update cart item quantity
+DELETE	/api/cart/:id	JWT	Customer	Remove cart item
+DELETE	/api/cart	JWT	Customer	Clear entire cart
+Wishlist
+Method	Path	Auth	Role	Purpose
+GET	/api/wishlist	JWT	Any	Get wishlist
+POST	/api/wishlist	JWT	Any	Add product to wishlist
+DELETE	/api/wishlist/:productId	JWT	Any	Remove from wishlist
+Orders
+Method	Path	Auth	Role	Purpose
+GET	/api/orders	JWT	Any	List orders (filtered by role: customer/seller/admin)
+POST	/api/orders	JWT	Customer	Place new order with atomic stock lock
+GET	/api/orders/:id	JWT	Any	Order detail with status history
+PATCH	/api/orders/:id/status	JWT	Any	Update order status (role-gated transitions)
+Messaging
+Method	Path	Auth	Role	Purpose
+GET	/api/conversations	JWT	Any	List conversations
+POST	/api/conversations	JWT	Any	Start new conversation
+GET	/api/conversations/:id/messages	JWT	Any	Message history
+POST	/api/conversations/:id/messages	JWT	Any	Send message
+GET	/api/conversations/stream	JWT	Any	SSE stream for real-time messages
+Notifications
+Method	Path	Auth	Role	Purpose
+GET	/api/notifications	JWT	Any	List notifications (unread first)
+PATCH	/api/notifications/:id/read	JWT	Any	Mark notification read
+PATCH	/api/notifications/read-all	JWT	Any	Mark all read
+DELETE	/api/notifications/:id	JWT	Any	Delete notification
+GET	/api/notifications/stream	JWT	Any	SSE stream for real-time notifications
+Push Subscriptions
+Method	Path	Auth	Role	Purpose
+POST	/api/push-subscriptions	JWT	Any	Register push subscription
+DELETE	/api/push-subscriptions	JWT	Any	Unregister push subscription
+Reviews
+Method	Path	Auth	Role	Purpose
+GET	/api/products/:id/reviews	Public	Any	Get product reviews
+POST	/api/products/:id/reviews	JWT	Customer	Submit product review
+POST	/api/reviews/seller	JWT	Customer	Submit seller review
+GET	/api/reviews/seller/:sellerId	Public	Any	Get seller reviews
+POST	/api/courier-ratings	JWT	Customer	Rate courier after delivery
+Sellers
+Method	Path	Auth	Role	Purpose
+GET	/api/sellers	Public	Any	List all stores/sellers
+GET	/api/sellers/:slug	Public	Any	Store profile and public info
+PATCH	/api/sellers/profile	JWT	Seller	Update store profile
+GET	/api/sellers/stats	JWT	Seller	Store performance stats
+GET	/api/sellers/dashboard	JWT	Seller	Dashboard data
+GET	/api/sellers/analytics	JWT	Seller	Detailed analytics
+Seller Applications
+Method	Path	Auth	Role	Purpose
+POST	/api/seller-applications	JWT	Customer	Submit seller application
+GET	/api/seller-applications/status	JWT	Any	Check application status
+GET	/api/seller-applications	JWT	Admin	List all applications
+PATCH	/api/seller-applications/:id/status	JWT	Admin	Approve or reject
+Couriers
+Method	Path	Auth	Role	Purpose
+POST	/api/couriers/apply	JWT	Any	Submit courier application
+GET	/api/couriers/application-status	JWT	Any	Check application status
+GET	/api/courier/missions	JWT	Courier	List assigned missions
+GET	/api/courier/missions/active	JWT	Courier	Current active mission
+PATCH	/api/courier/missions/:id/status	JWT	Courier	Progress update (arrived, picked_up, delivered)
+POST	/api/courier/missions/:id/proof	JWT	Courier	Upload delivery proof photo
+POST	/api/courier/location	JWT	Courier	Report GPS location
+POST	/api/courier/safety-event	JWT	Courier	Report safety incident
+Courier Availability
+Method	Path	Auth	Role	Purpose
+GET	/api/courier/availability	JWT	Courier	Get availability status
+PATCH	/api/courier/availability	JWT	Courier	Toggle ONLINE / OFFLINE
+Mission Offers
+Method	Path	Auth	Role	Purpose
+GET	/api/mission-offers/pending	JWT	Courier	Get pending offers
+POST	/api/mission-offers/:id/accept	JWT	Courier	Accept mission offer
+POST	/api/mission-offers/:id/decline	JWT	Courier	Decline mission offer
+Courier Wallet
+Method	Path	Auth	Role	Purpose
+GET	/api/courier/wallet	JWT	Courier	Wallet balance and summary
+GET	/api/courier/wallet/transactions	JWT	Courier	Transaction history
+POST	/api/courier/wallet/payout	JWT	Courier	Request payout
+Delivery Missions (Admin/Courier)
+Method	Path	Auth	Role	Purpose
+GET	/api/delivery-missions	JWT	Admin	All missions
+GET	/api/delivery-missions/:id	JWT	Admin/Courier	Mission detail
+PATCH	/api/delivery-missions/:id	JWT	Admin	Admin mission override
+POST	/api/delivery-missions/:id/dispatch	JWT	Admin	Manually trigger dispatch
+Delivery Zones
+Method	Path	Auth	Role	Purpose
+GET	/api/delivery-zones	Public	Any	All active delivery zones with fees
+POST	/api/delivery-zones	JWT	Admin	Create delivery zone
+PATCH	/api/delivery-zones/:id	JWT	Admin	Update zone
+DELETE	/api/delivery-zones/:id	JWT	Admin	Deactivate zone
+Tracking
+Method	Path	Auth	Role	Purpose
+GET	/api/tracking/:missionId	JWT	Any	Unified tracking object (GPS + OSRM route + ETA)
+GET	/api/tracking/:missionId/stream	JWT	Any	SSE stream for real-time position updates
+Dashboard
+Method	Path	Auth	Role	Purpose
+GET	/api/dashboard	JWT	Admin/Seller	Role-based dashboard data
+AI Support
+Method	Path	Auth	Role	Purpose
+POST	/api/support/message	JWT	Any	Send message to AI support agent
+GET	/api/support/conversations	JWT	Any	Support conversation history
+Admin
+Method	Path	Auth	Role	Purpose
+GET	/api/admin/stats	JWT	Admin	Platform-wide stats
+GET	/api/admin/users	JWT	Admin	All users list
+POST	/api/admin/users/:id/suspend	JWT	Admin	Suspend user account
+POST	/api/admin/users/:id/unsuspend	JWT	Admin	Lift suspension
+POST	/api/admin/users/:id/verify	JWT	Admin	Manually verify user
+GET	/api/admin/sellers/applications	JWT	Admin	Seller application queue
+GET	/api/admin/courier-applications	JWT	Admin	Courier application queue
+PATCH	/api/admin/courier-applications/:id	JWT	Admin	Approve/reject courier
+GET	/api/admin/courier-locations	JWT	Admin	All courier GPS positions
+GET	/api/admin/courier-payouts	JWT	Admin	Pending payout requests
+PATCH	/api/admin/courier-payouts/:id	JWT	Admin	Approve or reject payout
+GET	/api/admin/dispatch-alerts	JWT	Admin	Active dispatch alerts
+PATCH	/api/admin/dispatch-alerts/:id/resolve	JWT	Admin	Resolve alert
+PATCH	/api/admin/settings	JWT	Admin	Update platform settings
+GET	/api/admin/settings	JWT	Admin	Get platform settings
+GET	/api/admin/health/alerts	JWT	Admin	System health (stuck orders, OOS products)
+GET	/api/admin/logs	JWT	Admin	Admin audit log
+Hero Banners
+Method	Path	Auth	Role	Purpose
+GET	/api/hero-banners	Public	Any	Active hero banners for homepage
+POST	/api/hero-banners	JWT	Admin	Create banner
+PATCH	/api/hero-banners/:id	JWT	Admin	Update banner
+DELETE	/api/hero-banners/:id	JWT	Admin	Delete banner
+PATCH	/api/hero-banners/reorder	JWT	Admin	Reorder banners
+Admin Search
+Method	Path	Auth	Role	Purpose
+POST	/api/admin/search/reindex	JWT	Admin	Rebuild FTS vectors for all products
+GET	/api/admin/search/health	JWT	Admin	Index health, zero-result analytics
+GET	/api/admin/search/cache	JWT	Admin	LRU cache stats
+Sitemap
+Method	Path	Auth	Role	Purpose
+GET	/sitemap.xml	Public	Any	Sitemap index
+GET	/sitemap-index.xml	Public	Any	Sitemap index alias
+GET	/sitemap-pages.xml	Public	Any	Static pages sitemap
+GET	/sitemap-categories.xml	Public	Any	Categories sitemap
+GET	/sitemap-products.xml	Public	Any	Products sitemap
+GET	/sitemap-stores.xml	Public	Any	Stores sitemap
+7. Database Inventory
+Engine: PostgreSQL 16
+ORM: Drizzle ORM
+Extensions: pgvector, pg_trgm
+Total tables: 44
+
+Enums
+Enum	Values
+role	customer, seller, admin, courier
+order_status	pending, confirmed, processing, preparing, ready_for_pickup, courier_assigned, shipped, picked_up, in_transit, out_for_delivery, delivered, cancelled, delivery_failed, returned, refunded
+delivery_mission_status	PENDING, SEARCHING, ASSIGNED, ACCEPTED, PICKED_UP, IN_TRANSIT, DELIVERED, FAILED, CANCELLED, RESCHEDULE_REQUIRED, NO_COURIER_FOUND
+delivery_size	SMALL, MEDIUM, LARGE
+mission_offer_status	OFFERED, ACCEPTED, DECLINED, EXPIRED, CANCELLED
+notification_type	30+ values: new_order, order_shipped, order_delivered, order_confirmed, order_preparing, order_ready, order_courier_assigned, order_picked_up, order_out_for_delivery, order_delivery_failed, order_returned, order_cancelled_by_customer, order_refunded, new_message, seller_approved, new_user, courier_applied, courier_approved, courier_rejected, new_seller_review, seller_review_reply, dispatch_alert, and more
+Tables by Domain
+User & Identity
+Table	Key Columns	Notable Relationships
+users	id, email, phone, role, password_hash, is_verified, is_suspended, trust_score, auth_provider	verified_by → users.id, suspended_by → users.id
+seller_applications	id, user_id, store_name, store_slug, status, reviewed_by_id	user_id → users.id
+push_subscriptions	id, user_id, endpoint, p256dh, auth	user_id → users.id
+verification_audit_log	id, user_id, event, method, ip_address	user_id → users.id
+Catalog & Inventory
+Table	Key Columns	Notable Relationships
+products	id, seller_id, name, name_ar, price, stock, category, images, fts_vector, embedding	seller_id → users.id; embedding = vector(384)
+product_variant_groups	id, product_id, name, position	product_id → products.id
+product_variant_options	id, group_id, value, position	group_id → product_variant_groups.id
+product_variants	id, product_id, sku, price, stock	product_id → products.id
+product_variant_values	variant_id, option_id	variant_id → product_variants.id, option_id → product_variant_options.id
+variant_images	id, variant_id, option_value_id, url, position	variant_id → product_variants.id, option_value_id → product_variant_options.id
+Orders & Commerce
+Table	Key Columns	Notable Relationships
+orders	id, customer_id, total, status, shipping_address, delivery_zone_id, shipping_company, tracking_number	customer_id → users.id
+order_items	id, order_id, product_id, seller_id, variant_id, quantity, unit_price, product_name	order_id → orders.id, seller_id → users.id
+order_status_history	id, order_id, from_status, to_status, changed_by, note	order_id → orders.id, changed_by → users.id
+cart_items	id, user_id, product_id, variant_id, quantity	user_id → users.id, product_id → products.id
+wishlists	id, user_id, product_id	user_id → users.id, product_id → products.id
+Delivery & Courier Logistics
+Table	Key Columns	Notable Relationships
+couriers	id, user_id, status, availability_status, is_accepting_deliveries, current_lat, current_lng, vehicle_type	user_id → users.id
+delivery_missions	id, order_id, courier_id, seller_id, customer_id, status, pickup_lat/lng, dropoff_lat/lng, delivery_fee, size	order_id → orders.id, courier_id → couriers.id
+mission_offers	id, mission_id, courier_id, status, expires_at, round	mission_id → delivery_missions.id, courier_id → couriers.id
+courier_assignments	id, order_id, courier_id, admin_id, status	order_id → orders.id, courier_id → couriers.id
+delivery_zones	id, name_en, name_ar, fee, is_active, polygon_coords	—
+dispatch_alerts	id, mission_id, type, message, resolved_by_id, resolved_at	mission_id → delivery_missions.id
+mission_safety_events	id, mission_id, courier_id, type, description	mission_id → delivery_missions.id
+Real-Time Tracking
+Table	Key Columns	Notable Relationships
+tracking_sessions	id, mission_id, courier_id, is_active, position_count	mission_id → delivery_missions.id, courier_id → couriers.id
+tracking_positions	id, session_id, lat, lng, speed, heading, accuracy, recorded_at	session_id → tracking_sessions.id
+tracking_events	id, mission_id, event_type, payload, created_at	mission_id → delivery_missions.id
+Financial (Courier Wallet)
+Table	Key Columns	Notable Relationships
+courier_wallets	id, courier_id, available_balance, pending_balance, lifetime_earnings	courier_id → couriers.id
+courier_wallet_transactions	id, courier_id, order_id, amount, type, description	courier_id → couriers.id, order_id → orders.id
+courier_payout_requests	id, courier_id, amount, status, approved_by, processed_at	courier_id → couriers.id, approved_by → users.id
+Engagement & Social
+Table	Key Columns	Notable Relationships
+conversations	id, customer_id, seller_id, product_id, type, last_message_at	customer_id → users.id, seller_id → users.id
+messages	id, conversation_id, sender_id, body, read_at, attachment_url	conversation_id → conversations.id, sender_id → users.id
+reviews	id, product_id, user_id, rating, comment, reply	product_id → products.id, user_id → users.id
+seller_reviews	id, seller_id, customer_id, order_id, overall_rating, communication_rating, shipping_rating, comment	seller_id → users.id, customer_id → users.id
+courier_ratings	id, mission_id, courier_id, customer_id, rating, comment	Unique: (mission_id, customer_id)
+store_follows	id, follower_id, seller_id	follower_id → users.id, seller_id → users.id
+Administrative & System
+Table	Key Columns	Notable Relationships
+notifications	id, user_id, type, title, body, is_read, order_id, mission_id	user_id → users.id
+admin_audit_log	id, actor_id, action, target_type, target_id, metadata	actor_id → users.id
+platform_settings	key (PK), value, updated_at	—
+hero_banners	id, desktop_image, mobile_image, title, link, sort_order, active	—
+8. Service Inventory
+API Server
+Property	Value
+Path	artifacts/api-server/
+Language	TypeScript (Node.js 20)
+Framework	Express 5
+Port	8080 (via API_PORT=8080)
+Start command	cd artifacts/api-server && pnpm run dev
+Build	node ./build.mjs (esbuild, produces dist/index.mjs)
+Dependencies	DATABASE_URL, SESSION_SECRET, ROOT_ADMIN_PASSWORD, EMBEDDING_SERVICE_URL
+Startup actions	Run migrations → validate startup → FTS startup → bootstrap root admin → bootstrap test accounts → bootstrap AI support agent → bootstrap demo data → listen
+Auto-migrations	Yes, on every boot via run-migrations.ts
+Route files	26 files in src/routes/
+Marketplace Web
+Property	Value
+Path	artifacts/marketplace/
+Language	TypeScript (React 19)
+Framework	Vite 7 + Tailwind CSS v4
+Port	5000 (Replit-assigned, $PORT)
+Start command	cd artifacts/marketplace && pnpm run dev
+API proxy	/api/* → http://localhost:8080
+Dependencies	API Server must be running
+Key plugins	@replit/vite-plugin-cartographer, @replit/vite-plugin-runtime-error-modal, @replit/vite-plugin-dev-banner
+Mobile App
+Property	Value
+Path	artifacts/mobile/
+Language	TypeScript (React Native 0.76)
+Framework	Expo 54 + expo-router
+Port	Replit-assigned (Expo Metro bundler)
+Start command	cd artifacts/mobile && npx expo start
+API base URL	https://$REPLIT_DEV_DOMAIN in dev
+Dependencies	API Server must be running; AsyncStorage for JWT
+Embedding Service
+Property	Value
+Path	artifacts/embedding-service/
+Language	Python 3.11
+Framework	FastAPI + uvicorn
+Port	8000 (via EMBEDDING_PORT=8000)
+Start command	cd artifacts/embedding-service && EMBEDDING_PORT=8000 python3 main.py
+Model	paraphrase-multilingual-MiniLM-L12-v2 (449MB, loaded from model/model.safetensors)
+Fallback	TF-IDF + Truncated SVD (LSA) if model file is missing
+Endpoints	GET /health, POST /embed/query, POST /embed/batch
+Load time	~10–18 seconds on cold start
+PostgreSQL Database
+Property	Value
+Version	PostgreSQL 16
+Provider	Replit built-in (Helium DB)
+Connection	DATABASE_URL secret (auto-provisioned)
+Extensions	pgvector (vector search), pg_trgm (trigram fuzzy match)
+Tables	44
+Schema tool	Drizzle ORM (lib/db/)
+Migrations	Auto-run on API server boot; additive only (no DROP)
+Mockup Sandbox (Canvas Preview)
+Property	Value
+Path	tools/mockup-sandbox/
+Framework	Vite
+Purpose	Isolated component preview for UI design exploration
+Access	Canvas iframe embeds via /__mockup path
+9. Search Architecture
+Overview
+A 13-step hybrid NLP search pipeline combining PostgreSQL FTS, semantic vector search, and a multi-level fallback chain. Implemented in artifacts/api-server/src/utils/searchProcessor.ts and artifacts/api-server/src/routes/search.ts.
+
+NLP Pipeline (13 Steps)
+Sanitization — strips injection fragments, control characters
+Language detection — identifies Arabic vs. English dominant script
+Arabic normalization — removes diacritics, normalizes Alef/Yaa/Hamza variants, converts Eastern digits
+English normalization — lowercasing, e-commerce stemming (e.g., "shoes" → "shoe")
+Syrian dialect mapping — colloquial → standard Arabic (e.g., "بواط" → "أحذية")
+Intent modifier detection — detects price/quality intent signals (cheap → cheap, فخم → premium)
+Stopword removal — Arabic particles and dialect fillers
+Sticky token decomposition — splits concatenated Arabic compounds ("سماعةبلوتوث" → two tokens)
+Cross-language bridge — injects transliterations/synonyms ("iphone" ↔ "ايفون")
+FTS query construction — builds weighted tsquery (OR broad + AND precision)
+Semantic embedding — encodes normalized query via embedding service (384-dim)
+Parallel execution — FTS + semantic queries run simultaneously
+RRF reranking — Reciprocal Rank Fusion merges and scores both result sets
+FTS Setup
+Column: products.fts_vector (tsvector)
+Weight tiers: A = name/name_ar, B = category/subcategory, C = brand tokens, D = description (240 char truncation)
+Index: GIN index on fts_vector
+Sync: Postgres trigger products_fts_trig rebuilds vector on any product update
+Ranking: ts_rank_cd() combined with pg_trgm trigram similarity
+Semantic Embeddings
+Model: paraphrase-multilingual-MiniLM-L12-v2, 384-dimensional
+Storage: products.embedding column (vector(384))
+Backfill: scripts/generateEmbeddings.ts
+Real-time: Auto-embedded on POST product creation; updated on PATCH via generateSingleEmbedding()
+Similarity: Cosine distance via pgvector <=> operator
+Fallback Chain (4 Levels)
+Level	Strategy	Trigger
+L1	Synonym expansion	Zero results from primary
+L2	Category-only broadening	Zero results from L1
+L3	Trigram-only fuzzy match	Zero results from L2
+L4	Global trending/popular products	Zero results from L3 (never-empty guarantee)
+Embedding Service Fallback
+If model.safetensors is missing or corrupt: TF-IDF + Truncated SVD (LSA) vectors — same API contract, lower quality
+
+Caching
+Type: Custom LRU cache (SearchCache)
+Capacity: 500 entries
+Key: MD5 hash of query parameters
+TTL: 1 min (sale items), 5 min (normal), 10 min (fallback results)
+Location: artifacts/api-server/src/services/searchCache.ts
+10. Courier Architecture
+Overview
+V3.3 Courier Dispatch System. A real-time logistics engine covering discovery, offer management, mission lifecycle, GPS tracking, and financial payouts.
+
+Mission State Machine
+PENDING → SEARCHING → ASSIGNED → ACCEPTED → PICKED_UP → IN_TRANSIT → DELIVERED
+                ↓                                               ↓
+         NO_COURIER_FOUND                               FAILED / CANCELLED
+                                                      RESCHEDULE_REQUIRED
+
+V3.3 Dispatch Engine (missionAssignmentEngine.ts)
+Parameter	Value
+Rounds per mission	3
+Offer window	60 seconds
+Couriers per round	3
+Distance algorithm	Haversine formula
+Freshness filter	GPS location must be <60 seconds old
+Eligibility filter	approved + ONLINE + isAcceptingDeliveries + no active mission
+Failure escalation	After 3 rounds → NO_COURIER_FOUND → Dispatch Alert created
+Availability States
+State	Meaning	Trigger
+ONLINE	Available for offers	Manual toggle by courier
+OFFLINE	Not accepting offers	Manual toggle by courier
+BUSY	Actively on a mission	Auto-set on mission ASSIGNED
+→ ONLINE	Restored after mission	Auto-set on DELIVERED or FAILED
+GPS & Tracking Pipeline (trackingService.ts)
+High-frequency GPS ingestion via POST /api/courier/location
+SSE stream for real-time position updates to tracking page
+OSRM road routing: two-leg route (courier→seller pickup, seller→customer dropoff)
+ETA calculation: segment-based with speed averaging
+Tracking sessions: grouped by mission, position history stored in tracking_positions
+Wallet & Payouts (courierWalletService.ts)
+Component	Detail
+Trigger	Mission status → DELIVERED
+Courier share	~80% of delivery fee
+Ledger tables	courier_wallets (materialized balance) + courier_wallet_transactions (source of truth)
+Balance types	available, pending, lifetime_earnings
+Payout flow	Courier requests → available → pending → Admin approve/reject
+Reject effect	Amount returned to available
+Safety & Incident System
+Couriers can submit mission_safety_events: ROAD_HAZARD, THEFT, ACCIDENT, etc.
+Events immediately trigger admin notifications via dispatch_alerts
+Admins view and resolve alerts from dispatch center
+Admin Dispatch Center (/admin/dispatch-center)
+Live mission monitoring (all statuses)
+GPS freshness indicator per courier: FRESH (<30s), WARNING (30–60s), STALE (>60s)
+Manual courier assignment override
+Dispatch alert inbox with resolution workflow
+Delivery zone management
+Key Files
+File	Purpose
+src/services/deliveryMissionService.ts	Mission lifecycle, status transitions
+src/services/missionAssignmentEngine.ts	V3.3 dispatch algorithm
+src/services/courierAvailabilityService.ts	Online/offline state management
+src/services/trackingService.ts	GPS ingestion, OSRM routing, ETA
+src/services/courierWalletService.ts	Financial ledger, payouts
+src/services/osrmService.ts	Road-matched routing via OSRM API
+src/routes/couriers.ts	Courier REST endpoints
+src/routes/courier-ops.ts	Mission progress, proof upload
+src/routes/mission-offers.ts	Accept/decline offer endpoints
+src/routes/delivery-missions.ts	Admin mission management
+src/routes/courier-wallet.ts	Wallet and payout endpoints
+src/routes/tracking.ts	Tracking data + SSE stream
+11. Seller Architecture
+Store Onboarding
+Customer applies via /seller/apply (submits business info, store name, slug)
+Application stored in seller_applications with status pending
+Admin reviews at /admin/sellers → approves or rejects
+On approval: user role upgraded to seller, store profile created
+Store Profile (sellers.ts)
+Fields: Store name, slug (URL identifier), logo, banner image, description, address, social links (Instagram, Facebook, WhatsApp)
+Trust score: Calculated from order fulfillment rate + review aggregate; displayed as a badge on the store page
+Verification: Admins can manually verify a seller, elevating their trust tier
+Product Management
+Product wizard (ProductWizard.tsx, VariantBuilder.tsx): step-by-step creation flow
+Images: Multi-image upload with drag-to-reorder
+Variants: Full group/option/variant matrix builder
+Discounts: Percentage-based, automatically calculates sale price
+Stock: Per-product or per-variant stock levels
+Embedding: Auto-generated on create; updated on significant edits
+Order Management
+Sellers see only orders containing their products
+Can update order status within their permitted transitions (confirm, mark preparing, ready for pickup)
+Cannot see other sellers' items in the same order
+Analytics (/seller/analytics)
+Revenue over time (daily/weekly/monthly charts)
+Top-selling products
+Follower count and growth
+Order volume and fulfillment rate
+Conversion metrics
+Store Follows
+Customers can follow stores
+Follow count displayed on store page
+Sellers see follower count in dashboard
+Key Files
+File	Purpose
+src/routes/sellers.ts	Store profile, stats, analytics endpoints
+src/routes/seller-applications.ts	Application submit and status
+src/routes/products.ts	Product CRUD
+src/routes/variants.ts	Variant group/option/variant CRUD
+src/pages/seller/dashboard.tsx	Seller dashboard UI
+src/pages/seller/products/	Product management pages
+src/pages/seller/analytics.tsx	Analytics dashboard
+src/pages/seller/store-settings.tsx	Store profile editor
+src/pages/seller/trust.tsx	Trust score page
+src/services/trustScore.ts	Trust score calculation algorithm
+12. Admin Architecture
+Dashboard (/admin)
+Live stats: total revenue, new users (24h), active orders, pending applications
+System health alerts: stuck orders (>24h in processing), out-of-stock bestsellers
+Recent activity feed
+User Management (/admin/users)
+Full user list with role, verification status, join date, trust score
+Actions: suspend, unsuspend, manually verify, view order history
+Suspension immediately blocks all protected actions
+All actions logged to admin_audit_log
+Seller Management (/admin/sellers)
+Application queue with business info, store name, status
+Approve: upgrades user role to seller, activates store
+Reject: notifies applicant, records reason
+Post-approval: can re-verify, adjust trust tier
+Courier Management
+Application queue: vehicle type, license, contact
+Approve/reject flow
+Live courier location map (/admin/courier-applications, /admin/delivery)
+GPS freshness monitoring per courier
+Order Oversight (/admin/orders)
+All-platform order view regardless of seller
+Can override order status at any stage
+Access to full order status history
+Dispatch Center (/admin/dispatch-center)
+Live map of all active missions
+Per-mission: assigned courier, GPS position, ETA, status
+Manual dispatch: assign any online courier to a pending mission
+Alert inbox: NO_COURIER_FOUND and safety events
+Alert resolution workflow
+Content Management
+Hero banners (/admin): create, edit, reorder, activate/deactivate desktop + mobile banners
+Banners support link-through URLs
+Platform Settings (/admin/settings)
+Exchange rate (for multi-currency display)
+Platform commission rate
+Flash sale timer (start/end dates, discount percentage)
+Platform-wide announcements
+Search Analytics (/admin/search-analytics)
+Zero-result query log with frequency
+LRU cache performance stats
+Manual reindex trigger
+FTS index health status
+Support Inbox (/admin/support)
+Escalated tickets from AI support agent
+Human agent response interface
+Audit Log (/admin/logs)
+All admin actions: who, what, on which target, when
+Metadata field stores before/after snapshots
+AI Support Configuration
+Support agent identity bootstrapped in DB on API startup
+Uses keyword-based intent classifier (aiProvider.ts)
+Configurable via AI_PROVIDER environment variable
+Escalation creates ticket visible in admin support inbox
+Key Files
+File	Purpose
+src/routes/admin.ts	Stats, users, settings, health alerts
+src/routes/hero-banners.ts	Banner CRUD
+src/routes/courier-ops.ts	Admin courier overrides
+src/routes/delivery-missions.ts	Admin mission management
+src/routes/courier-location.ts	GPS position endpoints
+src/services/aiProvider.ts	AI support intent classification
+src/lib/bootstrap-admin.ts	Root admin account bootstrap
+src/lib/bootstrap-test-accounts.ts	Demo account creation
+src/pages/admin/	All admin page components
+src/components/AdminLayout.tsx	Admin navigation shell
+End of SYANO Platform Discovery Report
+Source: implementation code as of June 21, 2026

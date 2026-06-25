@@ -1,0 +1,191 @@
+BEFORE WRITING A SINGLE LINE OF CODE:
+
+STOP ALL DEVELOPMENT.
+
+DO NOT MODIFY ANY FILES.
+
+DO NOT TOUCH THE EXISTING HOMEPAGE.
+
+DO NOT START IMPLEMENTATION.
+
+DO NOT CREATE REACT COMPONENTS.
+
+DO NOT CREATE TAILWIND CODE.
+
+DO NOT UPDATE THE PROJECT YET.
+
+---
+
+CURRENT PHASE: DESIGN RECREATION ONLY
+
+The attached screenshots are the TARGET DESIGN.
+
+They are NOT inspiration.
+
+They are NOT references.
+
+They are NOT examples.
+
+They are the exact design direction I want.
+
+Your goal is to recreate the screenshots as closely as possible.
+
+Think of this as rebuilding the exact same homepage design inside SYANO.
+
+---
+
+CRITICAL REQUIREMENT
+
+I want the final design to match the screenshots with the highest possible visual accuracy.
+
+Target:
+
+95%+ match minimum
+
+100% match whenever technically possible
+
+Do NOT reinterpret the design.
+
+Do NOT redesign anything.
+
+Do NOT add your own ideas.
+
+Do NOT modernize it.
+
+Do NOT improve it.
+
+Do NOT simplify it.
+
+Do NOT create alternatives.
+
+Simply recreate it.
+
+---
+
+VISUAL ACCURACY REQUIREMENTS
+
+Match as closely as possible:
+
+* Layout structure
+* Section order
+* Component placement
+* Spacing
+* Margins
+* Padding
+* Card sizes
+* Card proportions
+* Grid structure
+* Hero layout
+* Typography hierarchy
+* Font sizing
+* Visual density
+* Button placement
+* CTA positioning
+* Product card layout
+* Category card layout
+* Store card layout
+* Footer layout
+* Overall composition
+
+The homepage should feel like a direct clone of the screenshots.
+
+---
+
+SECTIONS TO RECREATE
+
+1. Header / Navigation
+
+* Same structure
+* Same spacing
+* Same search placement
+* Same visual balance
+
+2. Hero Section
+
+* Same composition
+* Same image placement
+* Same typography scale
+* Same CTA placement
+* Same statistics area
+* Same visual weight
+
+3. Popular Categories
+
+* Same card layout
+* Same proportions
+* Same spacing
+* Same image treatment
+
+4. Featured Deals
+
+* Same card structure
+* Same countdown placement
+* Same discount badges
+* Same pricing hierarchy
+
+5. Trusted Stores
+
+* Same card style
+* Same information hierarchy
+* Same button placement
+
+6. Trending Products
+
+* Same product card proportions
+* Same image sizes
+* Same rating placement
+* Same pricing structure
+
+7. New Arrivals
+
+* Same split layout
+* Same visual hierarchy
+* Same image dominance
+
+8. CTA Section
+
+* Same composition
+* Same card arrangement
+* Same spacing
+
+9. Footer
+
+* Same structure
+* Same column layout
+* Same spacing
+* Same newsletter block
+
+---
+
+DESIGN QUALITY
+
+The final mockup should visually feel like the screenshots were directly implemented.
+
+If I compare the screenshots and your design side-by-side, the structure and appearance should be nearly identical.
+
+I do NOT want:
+
+* "Inspired by"
+* "Based on"
+* "Similar to"
+* "Alternative version"
+
+I want:
+
+"Recreated from the screenshots."
+
+---
+
+DELIVERABLE
+
+Create a complete high-fidelity homepage mockup first.
+
+Show the entire homepage design.
+
+Do NOT start implementation.
+
+Do NOT modify the codebase.
+
+Wait for my approval after the mockup is finished.
+
+Only after I explicitly approve the design may you begin implementing it inside the SYANO project.

@@ -1,0 +1,45 @@
+You are executing a Database Schema and Backend API Migration for the SYANO (سوق سوريا) Location System.
+
+Current State: The system relies on a hardcoded set of 40 static records inside the `delivery_zones` table, causing mismatches when users pin locations outside Aleppo center.
+
+Do NOT break existing order insertion mutations or user authentication session tokens.
+
+==================================================
+GOAL
+==================================================
+Completely deprecate and clean out the restrictive 40 static zones. Re-engineer the database tracking and API layer to dynamically accept and save ANY province, city, or neighborhood across all of Syria directly from the geocoded map metadata.
+
+==================================================
+PART 1 — DATABASE SEED & SCHEMA ADAPTATION
+==================================================
+1. Table Mutation (`delivery_zones`):
+   - Clear/Truncate the old restrictive 40 rows from the database table or migration seeds.
+   - Insert a comprehensive, dynamic baseline catalog representing all primary Syrian Governorates/Provinces (محافظات سوريا):
+     * دمشق، ريف دمشق، حلب، حمص، حماة، اللاذقية، طرطوس، إدلب، دير الزور، الرقة، الحسكة، درعا، السويداء، القنيطرة.
+   - Add a general catch-all record to this table: `id: 999`, `name: "كافة المحافظات والمناطق السورية"`.
+
+2. User & Order Table Fallbacks:
+   - Ensure the foreign key constraints on `zone_id` inside `users` and `orders` tables have a default fallback option (`DEFAULT 1` or nullable capability) so removing the old 40 IDs does not trigger database relational integrity errors (`Foreign Key Violations`).
+
+==================================================
+PART 2 — BACKEND API & GEOCODING RE-WRITING
+==================================================
+- Locate the backend controller or router handling location updates/saves (e.g., `/api/user/profile/location` or similar mapping endpoint).
+- Modify the payload parsing logic:
+  * When the frontend sends `latitude`, `longitude`, and the text string of the address parsed by the map (e.g., "دمشق، مشروع دمر" or "طرطوس، الكورنيش"), the backend must accept and save this text directly into a raw address column (like `address` or `detailed_location`) inside the user's row.
+  * Map the profile dynamically to the corresponding primary Syrian Governorate record found in the address string instead of failing due to a missing specific old zone ID.
+
+==================================================
+PART 3 — CHECKOUT & EXPENSE INTERACTION
+==================================================
+- Path: `/api/orders` or checkout logic hooks.
+- Rewrite the shipping cost logic: If a specific granular neighborhood zone doesn't exist in the database, calculate the delivery fee using a general baseline rate assigned to that province, ensuring the checkout flow never errors out or returns `NaN` fields.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before completion, verify:
+✓ The old restrictive 40 rows are successfully scrubbed and replaced with a scalable Syrian province taxonomy.
+✓ Submitting an order from any location across Syria passes validation checks perfectly.
+✓ Running database compilation or Prisma/SQL migrations returns 100% success status.
+✓ Verify TypeScript compilation = 0 errors across the entire backend framework directory.

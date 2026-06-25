@@ -1,0 +1,221 @@
+# SYANO Mobile Final Closure Pass
+
+## STOP
+
+Do NOT build new features.
+
+Do NOT start a new roadmap phase.
+
+Do NOT implement M7.
+
+Do NOT implement anything unrelated to parity.
+
+---
+
+# FIRST TASK
+
+Re-audit the parity reports.
+
+Read:
+
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+
+Then verify every remaining item against the CURRENT WEB PLATFORM.
+
+Important:
+
+Some items may be marked missing even though they do not exist on web anymore.
+
+If a feature does not exist on web:
+
+```text
+Remove it from remaining parity gaps.
+```
+
+Do not count it.
+
+Do not implement it.
+
+---
+
+# CRITICAL PRIORITY
+
+Before anything else:
+
+## Verify Authentication
+
+Fully test:
+
+### Login
+
+* Email login
+* Phone login
+* Wrong password
+* Wrong identifier
+* Suspended account
+* Rate limiting
+
+### Registration
+
+* Customer registration
+* Existing email
+* Existing phone
+* Password validation
+
+---
+
+# AUTH TESTING
+
+Do not inspect code only.
+
+Perform real verification.
+
+Trace:
+
+```text
+Screen
+→ Hook
+→ API Call
+→ Response
+→ Auth Context
+→ Navigation
+```
+
+Verify:
+
+```text
+User can successfully login
+```
+
+Verify:
+
+```text
+User session persists
+```
+
+Verify:
+
+```text
+User remains authenticated after app restart
+```
+
+Verify:
+
+```text
+Logout works
+```
+
+Verify:
+
+```text
+Role detection works
+```
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+---
+
+# IF LOGIN FAILS
+
+Do not continue parity work.
+
+Immediately:
+
+1. Find root cause.
+2. Fix it.
+3. Retest.
+4. Verify successful login.
+
+Only then continue.
+
+---
+
+# PARITY CLOSURE PASS
+
+After authentication is verified:
+
+Continue closing remaining parity gaps.
+
+Rules:
+
+* Follow MOBILE_PARITY_GAP_REPORT.md order.
+* No skipping.
+* No reordering.
+* No future planning.
+* No new features.
+
+For every gap:
+
+1. Compare web.
+2. Compare mobile.
+3. Implement missing behavior.
+4. Verify.
+5. Mark complete.
+
+---
+
+# REQUIRED OUTPUT
+
+Provide:
+
+## Authentication Report
+
+* Login status
+* Registration status
+* Session persistence status
+* Logout status
+* Role routing status
+
+## Parity Report
+
+* Total remaining gaps before pass
+* Total remaining gaps after pass
+
+## Final Mobile Parity %
+
+Based only on verified features.
+
+No estimates.
+
+No guesses.
+
+No assumptions.
+
+---
+
+# DOCUMENTATION
+
+Update:
+
+* MOBILE_PARITY_AUDIT.md
+* MOBILE_PARITY_MATRIX.md
+* MOBILE_PARITY_GAP_REPORT.md
+* CURRENT_STATE.md
+* PROJECT_STATUS.md
+* RECOVERY_GUIDE.md
+* replit.md
+
+Only after verification is complete.
+
+---
+
+# SUCCESS CONDITION
+
+Mobile application must:
+
+```text
+Login successfully
+Register successfully
+Persist sessions correctly
+Match web functionality
+```
+
+before claiming parity completion.

@@ -1,0 +1,204 @@
+SYANO — Phase 11 — Prompt 1: Launch Readiness Audit
+Read these files in full before doing anything else:
+
+CURRENT_STATE.md
+PROJECT_STATUS.md
+RECOVERY_GUIDE.md
+replit.md
+
+Your only job in this prompt is to audit and report. Do not change any code. Do not fix anything. Do not refactor anything. Only read, analyze, and report.
+
+WHAT TO AUDIT
+Go through every single file in these directories:
+
+artifacts/marketplace/src/ — all pages, components, hooks
+artifacts/api-server/src/ — all routes, controllers, services, middleware
+artifacts/mobile/ — all screens and components
+
+
+AUDIT CHECKLIST
+1. Broken User Flows
+Test every flow end-to-end by reading the code logic:
+Guest Flow:
+
+ Can browse homepage
+ Can view Shop page
+ Can search products
+ Can view product detail
+ Can view store page
+ Can register
+ Can login
+
+Customer Flow:
+
+ Can add to cart
+ Can checkout
+ Can view orders
+ Can track order
+ Can message seller
+ Can leave review
+ Can manage profile
+
+Seller Flow:
+
+ Can manage products (create, edit, delete)
+ Can view orders
+ Can update order status
+ Can view analytics
+ Can manage store page
+ Can message customers
+
+Courier Flow:
+
+ Can view assigned deliveries
+ Can update delivery status
+ Can view delivery history
+
+Admin Flow:
+
+ Can verify sellers
+ Can moderate content
+ Can view reports
+ Can manage users
+ Can access search cache stats at GET /api/admin/search/cache-stats
+
+
+2. Missing Error States
+For every page and component, check if these states exist:
+
+Loading state — shown while data is fetching
+Empty state — shown when no data exists
+Error state — shown when API call fails
+Success state — shown after successful action
+
+Report every page that is missing any of these states.
+
+3. Untranslated Strings
+Scan every .tsx and .ts file in artifacts/marketplace/src/ for:
+
+Hardcoded Arabic text not using i18n
+Hardcoded English text not using i18n
+Any visible string that is not routed through the translation system
+
+Check ar.json and en.json for:
+
+Keys that exist in one file but not the other
+Empty string values
+
+
+4. Fake or Placeholder Data
+Scan for:
+
+Hardcoded numbers (ratings, counts, prices)
+Placeholder images (lorem picsum, placeholder.com, via.placeholder)
+Test names or emails visible in UI (delewatiamer, test@, admin@)
+Any Math.random() or hardcoded arrays used as real data
+
+
+5. Broken or Dead Routes
+Check artifacts/marketplace/src/ routing config and report:
+
+Routes defined but no component exists
+Components that exist but no route points to them
+Navigation links that point to non-existent pages
+API endpoints called by frontend that don't exist in backend
+
+
+6. TypeScript Errors
+Run in both packages:
+cd artifacts/api-server && npx tsc --noEmit
+cd artifacts/marketplace && npx tsc --noEmit
+Report every single error with file name and line number.
+
+7. Console Errors & Warnings
+Check the code for:
+
+console.error calls that indicate real runtime errors
+Missing React keys in lists
+Undefined variable access without null checks
+Unhandled promise rejections
+
+
+8. Security Issues
+Scan for:
+
+API routes missing authentication middleware
+Admin routes accessible without admin role check
+Seller routes accessible without seller role check
+File upload endpoints without file type validation
+Any endpoint that exposes sensitive data (passwords, tokens) in response
+
+
+9. Mobile Issues
+Read every page component and check:
+
+Fixed pixel widths that would break on 375px screens
+Horizontal scroll caused by overflow
+Touch targets smaller than 44px
+Modals or dropdowns that overflow on small screens
+
+
+10. RTL/LTR Issues
+Scan every component for:
+
+Hardcoded left or right CSS values instead of start or end
+Icons that don't flip in RTL
+Text alignment hardcoded instead of using RTL-aware classes
+
+
+OUTPUT FORMAT
+Produce a structured report in this exact format:
+## SYANO Launch Readiness Audit
+Date: [today]
+Auditor: Replit Agent
+
+---
+
+### CRITICAL (blocks launch)
+[List every issue that would prevent a real user from completing a core action]
+- Issue: [description]
+  File: [exact file path]
+  Line: [line number if applicable]
+  Impact: [what breaks]
+
+---
+
+### HIGH (must fix before launch)
+[List issues that damage user experience significantly]
+- Issue: [description]
+  File: [exact file path]
+  Impact: [what breaks]
+
+---
+
+### MEDIUM (fix before launch if possible)
+[List issues that are noticeable but don't break core flows]
+
+---
+
+### LOW (nice to have)
+[List minor issues]
+
+---
+
+### SUMMARY
+- Critical issues: [count]
+- High issues: [count]
+- Medium issues: [count]
+- Low issues: [count]
+- TypeScript errors: [count]
+- Untranslated strings: [count]
+- Missing error states: [count pages]
+- Estimated readiness: [X]% ready for launch
+
+CONSTRAINTS
+
+Do not fix anything
+Do not modify any file
+Do not add any code
+Do not run the seeder
+Do not restart any service unless it's needed to complete the audit
+If you find something alarming, note it in the report under CRITICAL — do not attempt to fix it
+
+
+When done, paste the full audit report and wait for instructions.

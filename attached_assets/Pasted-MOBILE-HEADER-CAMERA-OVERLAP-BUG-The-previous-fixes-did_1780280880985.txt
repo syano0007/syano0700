@@ -1,0 +1,114 @@
+MOBILE HEADER CAMERA OVERLAP BUG
+
+The previous fixes did not solve the problem.
+
+Please read carefully.
+
+══════════════════════════════════════
+ACTUAL PROBLEM
+══════════════════════════════════════
+
+On some mobile devices, the cart icon and notification icon are rendered in the area occupied by the front camera / punch-hole / Dynamic Island.
+
+The issue is NOT that I want an empty center area.
+
+The issue is that important interactive elements are being positioned underneath the camera area.
+
+══════════════════════════════════════
+REQUIRED BEHAVIOR
+══════════════════════════════════════
+
+The header should remain visually balanced.
+
+Do NOT intentionally leave the center empty.
+
+Do NOT redesign the header around an empty middle section.
+
+Instead:
+
+The layout must automatically avoid placing interactive elements inside any area that may be occupied by:
+
+* Punch-hole cameras
+* Dynamic Island
+* Front camera cutouts
+* Notches
+
+══════════════════════════════════════
+ROOT CAUSE ANALYSIS
+══════════════════════════════════════
+
+Audit:
+
+* Navbar component
+* Mobile Navbar
+* Header layout
+* Flex containers
+* Responsive breakpoints
+* Icon containers
+* Search bar positioning
+* Logo positioning
+
+Identify why cart and notification icons are ending up near the camera area.
+
+Do not guess.
+
+══════════════════════════════════════
+REQUIRED FIX
+══════════════════════════════════════
+
+Implement a responsive layout where:
+
+* Header elements remain balanced.
+* Icons stay fully visible.
+* Icons never overlap camera regions.
+* Search remains accessible.
+* Logo remains correctly positioned.
+
+The solution must work across:
+
+* iPhone devices
+* Samsung devices
+* Xiaomi devices
+* Pixel devices
+* Dynamic Island devices
+* Punch-hole camera devices
+
+══════════════════════════════════════
+DO NOT
+══════════════════════════════════════
+
+Do NOT use:
+
+* Random margins
+* Hardcoded offsets
+* Temporary CSS hacks
+* Device-specific fixes
+
+Implement a proper responsive layout.
+
+══════════════════════════════════════
+VALIDATION
+══════════════════════════════════════
+
+Test multiple mobile widths.
+
+Verify:
+
+* Cart icon visible.
+* Notification icon visible.
+* No overlap with camera area.
+* No clipping.
+* No hidden elements.
+* No horizontal scrolling.
+
+══════════════════════════════════════
+FINAL REPORT
+══════════════════════════════════════
+
+Provide:
+
+1. Root cause.
+2. Files modified.
+3. Layout changes made.
+4. Mobile devices tested.
+5. Confirmation that cart and notification icons no longer render inside the camera area.

@@ -1,0 +1,35 @@
+You are a Principal Backend Engineer and Lead Database Architect specializing in Enterprise-Grade PostgreSQL Full-Text Search, Trigram Suffix-Tree Indexing, and Drizzle ORM performance optimization.
+
+Your objective is to implement Step 2 of our Noon-like Search Infrastructure for the "SYANO" platform. You must update and refactor the backend search results endpoint inside `/src/api/search.ts` (or your dedicated product/search router file) to integrate our NLP pipeline utility with PostgreSQL's comprehensive native dictionary dictionaries and full-text vectors.
+
+### I. EXPLICIT BACKEND ARCHITECTURE & QUERY INTEGRATION
+
+1. PIPELINE INGESTION & DATA EXPANSION
+- Import the `processSearchQuery` function from `@/utils/searchProcessor`.
+- Inside the `GET /api/search/results` endpoint, extract the raw user query string `q`. Pass `q` through `processSearchQuery(q)` to retrieve the payload containing `baseTokens`, `expandedTokens`, and `primaryLanguage`.
+
+2. POSTGRESQL DICTIONARY & FULL-TEXT SEARCH COUPLING
+Using Drizzle ORM's `sql` tagged template literals, rewrite the core SQL execution block to utilize PostgreSQL's complete native dictionary capabilities:
+- Generate a dynamic Text Search Query (`tsquery`) by joining all processed and expanded tokens with the logical `&` (AND) or `|` (OR) operators based on standard relevance strategies (e.g., matching all base tokens preferred).
+- Utilize weighted search vectors (`setweight(to_tsvector(), 'A')`) across bilingual text categories:
+  * Weight A: `products.name` and `products.name_ar`
+  * Weight B: `categories.name` and `categories.name_ar` (via joins)
+  * Weight C: `products.description` and `products.description_ar`
+
+3. FUZZY MATCHING VIA TRIGRGM SIMILARITY (`pg_trgm`)
+To query terms outside our local dialect dictionary (the comprehensive global database words), apply `pg_trgm` indexing support:
+- Include a fallback similarity metric using `sql` operator: `similarity(products.name, ${rawQuery})` or `word_similarity()`.
+- Ensure that if a word is misspelled or not found in our custom dictionary, PostgreSQL's trigram dictionary automatically fetches the closest matching product words instantly.
+
+4. PRESERVING BUSINESS LOGIC & INTENT MODIFIERS
+The new unified search query must seamlessly preserve our verified business rules:
+- INTENT MODIFIERS: Apply the parsed flags (`cheap` -> `ORDER BY price ASC`, `premium` -> `ORDER BY rating DESC`, `used` -> strict `condition = 'used'` WHERE clause filter).
+- SELLER GATE: Maintain the strict `INNER JOIN` on `users` and `seller_applications` ensuring `account_status = 'active'` and `status = 'approved'`.
+- PAGINATION: Implement clean cursor or limit/offset math supported by `COUNT(*) OVER()` to return complete metadata (`total`, `page`, `totalPages`).
+
+### II. PERFORMANCE & QUALITY CONSTRAINTS
+- Strict Types: Ensure every generated Drizzle `sql` block is fully typed. Do not use generic `any` casting.
+- Response Budget: The query structure must be indexed optimized, executing database retrievals in under 50ms.
+- Fail-Safe Fallback: If `q` is absent, fall back to standard, non-vector product list fetching safely.
+
+Refactor the endpoint and output the complete, production-ready TypeScript backend logic now.

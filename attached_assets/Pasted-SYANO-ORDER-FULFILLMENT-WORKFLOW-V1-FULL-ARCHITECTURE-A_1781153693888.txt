@@ -1,0 +1,578 @@
+SYANO — ORDER FULFILLMENT WORKFLOW V1
+FULL ARCHITECTURE AUDIT → IMPLEMENTATION → VALIDATION → RECOVERY UPDATE
+
+CRITICAL RULES
+
+Read ALL recovery documentation first.
+Read ALL memory files first.
+Read ALL handoff files first.
+
+Inspect the existing implementation before changing anything.
+
+Do NOT assume the current order architecture.
+Do NOT guess database structures.
+Do NOT rewrite existing order systems unnecessarily.
+Do NOT introduce regressions.
+
+Preserve:
+
+* Existing orders
+* Existing order history
+* Existing notifications
+* Existing delivery zones
+* Existing courier system
+* Existing seller dashboard
+* Existing admin dashboard
+* Existing customer order pages
+* Existing mobile support
+* Existing APIs
+* Existing database data
+
+Prefer additive changes.
+
+Maintain full backward compatibility.
+
+==================================================
+GOAL
+====
+
+Implement the official SYANO Order Fulfillment Workflow V1.
+
+This workflow becomes the canonical order lifecycle for the platform.
+
+The implementation must be production-ready.
+
+==================================================
+PHASE 1 — FULL AUDIT
+====================
+
+Before touching code:
+
+Inspect:
+
+* Orders schema
+* Order status enum
+* Order status history
+* Order APIs
+* Customer order pages
+* Seller order pages
+* Admin order pages
+* Courier system
+* Courier assignments
+* Notification system
+* Mobile order screens
+* Inventory deductions
+* Existing status transitions
+* Existing permissions
+
+Determine:
+
+* Current order lifecycle
+* Current status values
+* Current notification behavior
+* Current seller actions
+* Current courier actions
+* Current admin actions
+
+Identify every file that will be affected.
+
+Do NOT implement yet.
+
+==================================================
+OFFICIAL SYANO ORDER LIFECYCLE
+==============================
+
+The new workflow must follow this exact lifecycle.
+
+Pending
+
+↓
+
+Confirmed
+
+↓
+
+Preparing
+
+↓
+
+ReadyForPickup
+
+↓
+
+CourierAssigned
+
+↓
+
+PickedUp
+
+↓
+
+OutForDelivery
+
+↓
+
+Delivered
+
+==================================================
+SPECIAL STATES
+==============
+
+CancelledByCustomer
+
+CancelledBySeller
+
+CancelledByAdmin
+
+DeliveryFailed
+
+Returned
+
+These states must be investigated and integrated safely.
+
+Do not remove any existing statuses until the audit is complete.
+
+==================================================
+ROLE RESPONSIBILITIES
+=====================
+
+CUSTOMER
+
+Can:
+
+* View status
+* Cancel order before courier pickup
+
+Cannot:
+
+* Change workflow statuses
+
+---
+
+SELLER
+
+Can:
+
+Pending → Confirmed
+
+Pending → CancelledBySeller
+
+Confirmed → Preparing
+
+Preparing → ReadyForPickup
+
+Cannot modify the order after courier pickup.
+
+---
+
+COURIER
+
+Can:
+
+CourierAssigned → PickedUp
+
+PickedUp → OutForDelivery
+
+OutForDelivery → Delivered
+
+OutForDelivery → DeliveryFailed
+
+---
+
+ADMIN
+
+Can:
+
+* View all orders
+* Override statuses if necessary
+* Assign couriers
+* Cancel orders
+* Resolve delivery failures
+
+==================================================
+CUSTOMER CANCELLATION POLICY
+============================
+
+This is mandatory.
+
+Customer cancellation is allowed until:
+
+ReadyForPickup
+
+Meaning:
+
+Pending
+Confirmed
+Preparing
+ReadyForPickup
+
+→ Customer may cancel.
+
+Once status becomes:
+
+PickedUp
+
+Customer can NO LONGER cancel directly.
+
+Reason:
+
+Courier has already received the package.
+
+Future cancellation-request workflows can be added later.
+
+==================================================
+CANCELLATION FLOW
+=================
+
+When customer cancels:
+
+Status:
+
+CancelledByCustomer
+
+Store:
+
+* cancellation reason
+* cancellation timestamp
+* actor
+
+Present cancellation reason options:
+
+* Changed my mind
+* Ordered by mistake
+* Found a better price
+* Want to modify order
+* Other
+
+Investigate the safest way to store this data.
+
+==================================================
+NOTIFICATION REQUIREMENTS
+=========================
+
+Every status transition must generate notifications.
+
+Customer notifications:
+
+Pending
+Confirmed
+Preparing
+ReadyForPickup
+CourierAssigned
+PickedUp
+OutForDelivery
+Delivered
+Cancelled
+DeliveryFailed
+
+Seller notifications:
+
+New order
+Customer cancellation
+Courier pickup
+Delivery completion
+
+Courier notifications:
+
+Assignment
+Cancellation after assignment
+Status updates affecting delivery
+
+Admin notifications:
+
+New order
+Cancellation
+Delivery failure
+Courier assignment events
+
+Investigate existing notification architecture.
+
+Reuse existing notification infrastructure.
+
+Do not create duplicate notification systems.
+
+==================================================
+ORDER HISTORY
+=============
+
+Every status change must be recorded.
+
+Preserve:
+
+order_status_history
+
+Investigate:
+
+* current implementation
+* audit coverage
+* missing transitions
+
+Ensure every workflow transition is logged.
+
+==================================================
+INVENTORY SAFETY
+================
+
+Investigate current stock behavior.
+
+Verify:
+
+* when stock is reserved
+* when stock is deducted
+* variant inventory behavior
+* cancellation restoration behavior
+
+Do NOT break inventory calculations.
+
+Do NOT change inventory logic until fully understood.
+
+==================================================
+UI REQUIREMENTS
+===============
+
+CUSTOMER
+
+Order details page should clearly display:
+
+Pending
+Confirmed
+Preparing
+ReadyForPickup
+CourierAssigned
+PickedUp
+OutForDelivery
+Delivered
+
+Use the existing design language.
+
+---
+
+SELLER
+
+Provide clear action buttons for valid transitions only.
+
+Do not expose invalid transitions.
+
+---
+
+COURIER
+
+Only show actions relevant to courier workflow.
+
+---
+
+ADMIN
+
+Expose complete order visibility.
+
+==================================================
+MOBILE REQUIREMENTS
+===================
+
+Audit all mobile order screens.
+
+Ensure workflow support exists on mobile.
+
+Do not implement web-only behavior.
+
+Preserve parity where appropriate.
+
+==================================================
+IMPLEMENTATION ORDER
+====================
+
+Phase 1
+
+Audit current architecture.
+
+Phase 2
+
+Identify gaps.
+
+Phase 3
+
+Map existing statuses to the new workflow.
+
+Phase 4
+
+Present root-cause analysis.
+
+Phase 5
+
+Present implementation plan.
+
+Phase 6
+
+Implement database changes if required.
+
+Phase 7
+
+Implement backend workflow.
+
+Phase 8
+
+Implement notifications.
+
+Phase 9
+
+Implement seller UI.
+
+Phase 10
+
+Implement courier UI.
+
+Phase 11
+
+Implement customer UI.
+
+Phase 12
+
+Implement admin UI.
+
+Phase 13
+
+Validate all transitions.
+
+Phase 14
+
+Update recovery documentation.
+
+Do NOT skip the audit.
+
+==================================================
+VALIDATION
+==========
+
+Scenario 1
+
+Customer places order
+
+Pending
+
+Seller confirms
+
+Confirmed
+
+Seller prepares
+
+Preparing
+
+Seller marks ready
+
+ReadyForPickup
+
+Admin assigns courier
+
+CourierAssigned
+
+Courier picks up
+
+PickedUp
+
+Courier starts delivery
+
+OutForDelivery
+
+Courier delivers
+
+Delivered
+
+Validate all notifications.
+
+---
+
+Scenario 2
+
+Customer cancels before pickup
+
+Pending
+Confirmed
+Preparing
+ReadyForPickup
+
+→ CancelledByCustomer
+
+Validate inventory behavior.
+
+Validate notifications.
+
+---
+
+Scenario 3
+
+Seller cancels
+
+Validate workflow.
+
+---
+
+Scenario 4
+
+Delivery failure
+
+Validate workflow.
+
+---
+
+Scenario 5
+
+Existing orders
+
+Validate backward compatibility.
+
+==================================================
+MANDATORY RECOVERY UPDATE
+=========================
+
+After implementation:
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CURRENT_TASK.md
+* CHANGELOG.md
+* Recovery files
+* Handoff files
+
+Document:
+
+* Official SYANO order lifecycle
+* Status definitions
+* Permissions
+* Cancellation policy
+* Notification matrix
+* Inventory behavior
+* Files changed
+* Validation results
+* Future extension points
+
+Assume the next agent will continue from this documentation.
+
+==================================================
+FINAL OUTPUT
+============
+
+Provide:
+
+1. Recovery verification
+2. Current architecture findings
+3. Root causes
+4. Status mapping
+5. Database changes
+6. Backend changes
+7. UI changes
+8. Notification changes
+9. Validation results
+10. Recovery updates
+11. Final workflow documentation
+
+Do not guess.
+
+Audit first.
+Design second.
+Implement third.
+Validate fourth.
+Document fifth.
+
+This workflow becomes the official SYANO V1 order lifecycle.

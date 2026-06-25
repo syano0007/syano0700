@@ -1,0 +1,640 @@
+SYANO — FULL END-TO-END PLATFORM AUDIT & QA PROGRAM V1
+
+IMPORTANT
+
+Do NOT implement new features.
+
+Do NOT redesign anything.
+
+Do NOT refactor code.
+
+Your ONLY goal is:
+
+Perform the most exhaustive end-to-end audit possible of the entire SYANO platform.
+
+Think like:
+
+* Customer
+* Seller
+* Courier
+* Admin
+* Guest Visitor
+
+Create test accounts if needed.
+
+Test EVERYTHING.
+
+Find bugs.
+
+Fix only verified bugs.
+
+Do not introduce regressions.
+
+After completion, update all recovery documentation.
+
+---
+
+# PHASE 1 — PREPARATION
+
+Read completely:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+
+Understand the current architecture before testing.
+
+---
+
+# PHASE 2 — CREATE TEST USERS
+
+Create or verify dedicated test accounts for:
+
+## Admin
+
+Role:
+admin
+
+## Seller
+
+Role:
+seller
+
+Approved seller application.
+
+Store created.
+
+Products available.
+
+## Courier
+
+Role:
+courier
+
+Can receive assignments.
+
+Can update delivery statuses.
+
+## Customer
+
+Role:
+customer
+
+Can place orders.
+
+Can review orders.
+
+Can track deliveries.
+
+## Guest
+
+Unauthenticated visitor.
+
+No account.
+
+Document credentials used.
+
+---
+
+# PHASE 3 — GUEST AUDIT
+
+Test:
+
+Homepage
+
+Navigation
+
+Search
+
+Categories
+
+Subcategories
+
+Product pages
+
+Seller pages
+
+Authentication redirects
+
+Protected pages
+
+404 handling
+
+Images
+
+Mobile responsiveness
+
+RTL
+
+English
+
+Arabic
+
+SEO basics
+
+Broken links
+
+Console errors
+
+Network errors
+
+Performance issues
+
+Document every issue.
+
+---
+
+# PHASE 4 — CUSTOMER AUDIT
+
+Test complete journey:
+
+Register
+
+Login
+
+Browse
+
+Search
+
+Filters
+
+Categories
+
+Product page
+
+Variants
+
+Images
+
+Add to Cart
+
+Update Cart
+
+Remove Cart items
+
+Checkout
+
+Delivery Zone selection
+
+Address entry
+
+Order placement
+
+Order tracking
+
+Notifications
+
+Order history
+
+Recently viewed products
+
+Mobile experience
+
+Desktop experience
+
+Arabic
+
+English
+
+Test every possible action.
+
+---
+
+# PHASE 5 — SELLER AUDIT
+
+Test:
+
+Seller Dashboard
+
+Product Creation
+
+Product Editing
+
+Variant Creation
+
+Variant Images
+
+Variant Pricing
+
+Variant Stock
+
+Specifications
+
+Categories
+
+Subcategories
+
+Orders
+
+Order Workflow
+
+Confirm Order
+
+Preparing
+
+Ready For Pickup
+
+Notifications
+
+Store Page
+
+Store Management
+
+Reviews
+
+Analytics
+
+Mobile responsiveness
+
+Desktop responsiveness
+
+Find all issues.
+
+---
+
+# PHASE 6 — COURIER AUDIT
+
+Test:
+
+Courier Login
+
+Courier Dashboard
+
+Assigned Orders
+
+Pickup Information
+
+Customer Information
+
+Seller Information
+
+Phone Numbers
+
+Pickup Workflow
+
+Picked Up
+
+Start Delivery
+
+Delivered
+
+Delivery Failed
+
+Failure Reasons
+
+Notifications
+
+Statistics
+
+Earnings
+
+Wallet
+
+Completed Deliveries
+
+Mobile
+
+Desktop
+
+Verify all calculations.
+
+Verify all transitions.
+
+Verify all notifications.
+
+---
+
+# PHASE 7 — ADMIN AUDIT
+
+Test:
+
+Admin Dashboard
+
+Users
+
+Sellers
+
+Couriers
+
+Products
+
+Orders
+
+Delivery Zones
+
+Courier Assignment
+
+Notifications
+
+Audit Logs
+
+Verification System
+
+Platform Settings
+
+All CRUD operations
+
+Verify permissions.
+
+Verify security.
+
+Verify role restrictions.
+
+---
+
+# PHASE 8 — ORDER FULFILLMENT AUDIT
+
+Perform complete workflow:
+
+Customer places order
+
+Seller confirms
+
+Seller prepares
+
+Seller ready for pickup
+
+Admin assigns courier
+
+Courier picks up
+
+Courier starts delivery
+
+Courier delivers
+
+Order completes
+
+Verify:
+
+Order Status
+
+Timeline
+
+Notifications
+
+Statistics
+
+Earnings
+
+Wallet Transactions
+
+Order History
+
+Customer Tracking
+
+Seller Tracking
+
+Courier Tracking
+
+Admin Tracking
+
+Test failure paths too:
+
+Cancelled Orders
+
+Failed Deliveries
+
+Reassignments
+
+Invalid transitions
+
+Unauthorized actions
+
+---
+
+# PHASE 9 — VARIANT SYSTEM AUDIT
+
+Test:
+
+Single Variant
+
+Multiple Variants
+
+Color
+
+Size
+
+Storage
+
+Custom Attributes
+
+Combination Generator
+
+Variant Images
+
+Variant Stock
+
+Variant Pricing
+
+Variant Selection
+
+Cart Integration
+
+Checkout Integration
+
+Order Integration
+
+Edit Product Flow
+
+Verify all calculations.
+
+Verify all images.
+
+Verify all inventory changes.
+
+---
+
+# PHASE 10 — NOTIFICATION AUDIT
+
+Verify ALL notifications:
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+In-App
+
+Realtime
+
+SSE
+
+Polling fallback
+
+No missing notifications.
+
+No duplicate notifications.
+
+---
+
+# PHASE 11 — MOBILE AUDIT
+
+Test:
+
+Customer flows
+
+Seller flows
+
+Courier flows
+
+Navigation
+
+Images
+
+Lists
+
+Performance
+
+Responsive layouts
+
+RTL
+
+English
+
+Arabic
+
+Find all issues.
+
+---
+
+# PHASE 12 — PERFORMANCE AUDIT
+
+Measure:
+
+Homepage
+
+Search
+
+Category pages
+
+Product pages
+
+Checkout
+
+Orders
+
+Dashboards
+
+API latency
+
+Slow queries
+
+Console warnings
+
+Memory leaks
+
+Excessive requests
+
+Duplicate requests
+
+Only document findings.
+
+Do not start the large Performance Program yet.
+
+---
+
+# PHASE 13 — BUG FIXING
+
+Fix ONLY verified issues.
+
+Rules:
+
+* No feature additions.
+* No redesigns.
+* No speculative fixes.
+* Preserve existing behavior.
+* Preserve APIs.
+* Preserve database structure whenever possible.
+* No regressions.
+
+After every fix:
+
+Retest affected flows.
+
+---
+
+# PHASE 14 — REGRESSION TESTING
+
+Run the full audit again.
+
+Verify:
+
+Guest
+
+Customer
+
+Seller
+
+Courier
+
+Admin
+
+All critical workflows.
+
+Ensure no fixes broke anything.
+
+---
+
+# PHASE 15 — FINAL REPORT
+
+Provide:
+
+## Executive Summary
+
+## Critical Bugs Found
+
+## Medium Issues Found
+
+## Minor Issues Found
+
+## Fixed Issues
+
+## Remaining Issues
+
+## Security Concerns
+
+## Performance Findings
+
+## UX Findings
+
+## Mobile Findings
+
+## Regression Results
+
+Include exact files modified.
+
+Include exact fixes applied.
+
+---
+
+# PHASE 16 — UPDATE RECOVERY FILES
+
+MANDATORY
+
+Update:
+
+* MEMORY.md
+* CURRENT_STATE.md
+* CHANGELOG.md
+* RECOVERY_GUIDE.md
+
+Document:
+
+* Audit date
+* Bugs discovered
+* Bugs fixed
+* Current platform status
+* Current roadmap position
+* Known remaining issues
+
+Ensure a future agent can restore the project and immediately understand the latest verified state.
+
+Do not skip documentation.
+
+The recovery files must represent the true final state of the project after the audit.
+
+STOP after delivering the final audit report.

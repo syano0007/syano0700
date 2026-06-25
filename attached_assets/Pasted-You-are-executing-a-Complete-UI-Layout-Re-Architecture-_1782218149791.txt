@@ -1,0 +1,37 @@
+You are executing a Complete UI Layout Re-Architecture to precisely mimic the Amazon Grid-Card style seen in "Screenshot (457).jpg" for SYANO (سوق سوريا).
+
+This replaces the old category rows with a multi-item grid block layout ($2 \times 2$ internal quadrants) housed inside premium white container boxes that sit neatly beneath the full-width promo banner.
+
+Do NOT break backend category mapping APIs, slider image dynamic arrays, or checkout flows.
+
+==================================================
+PART 1 — FULL-WIDTH HERO BILLBOARD SLIDER
+==================================================
+- Target the main promotional header slider and force it to fill 100% viewport width (`w-full`).
+- Remove any side columns or neighboring frames entirely.
+- Apply a slight bottom layout padding overlap so the category cards below feel tightly integrated and structured exactly like the layout in "Screenshot (457).jpg".
+
+==================================================
+PART 2 — AMAZON-STYLE MULTI-ITEM GRID CARDS CONTAINER
+==================================================
+- Re-architect the category section (`CategoryCarousel.tsx` or create a new dedicated container component) into a structural layout grid:
+  * Outer Wrapper: Build a responsive grid that hosts 4 clean columns on desktop viewports (`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 md:px-8 -mt-8 relative z-10`). (The negative margin creates that beautiful modern overlap look over the banner baseline).
+
+- Structure of Each of the 4 Main Box Cards:
+  1. Box Shell: Each main card must be a solid pristine white background block (`bg-white`), with sharp or slightly rounded corners (`rounded-sm` or `rounded-md`), and a subtle shadow crisp border feel (`shadow-sm p-4 flex flex-col justify-between h-[420px]`).
+  2. Main Card Title: A bold, clear native Arabic heading right at the top left/right depending on RTL (`font-bold text-base md:text-lg text-neutral-900 mb-3 text-right`). E.g., "أمازون بازار! أسعار مجنونة" or "تشكيلة جديدة".
+  3. The Internal $2 \times 2$ Quadrant Grid: Inside each main white card, render a strict 4-item nested sub-grid:
+     * Class configuration: `grid grid-cols-2 gap-2 w-full flex-grow`.
+     * Inside each of the 4 quadrants: Place a light-gray background wrapper square (`bg-neutral-50` or tinted accent layout) holding the specific category/product sub-image.
+     * The sub-image must expand to fill its quadrant frame beautifully using `object-cover` or full-bleed layouts.
+     * Directly underneath each sub-image, place a tight, micro-text descriptive Arabic label (`text-[11px] text-neutral-600 mt-1 text-center font-medium`).
+  4. Baseline Call to Action Link: At the absolute bottom baseline row of each main white box card, place a clean text link aligned right/left (`text-xs text-teal-600 hover:text-teal-700 font-semibold mt-3 text-right cursor-pointer`) reading "تسوق الآن" or "شاهد جميع العروض" exactly matching the Amazon experience.
+
+==================================================
+VALIDATION & TESTING CHECKLIST
+==================================================
+Before declaring completion, verify:
+✓ The homepage layout perfectly showcases the cinematic full-width banner followed by 4 robust white multi-item box cards.
+✓ Each master card cleanly isolates 4 mini sub-category grid tiles ($2 \times 2$ layout grid matrix) with native typography labels.
+✓ Zero horizontal carousels or sliding chevron arrows remain in this section.
+✓ Verify TypeScript compilation = 0 errors across all frontend framework packages.

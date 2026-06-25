@@ -1,0 +1,107 @@
+You are a senior production DevOps + Full Stack engineer.
+
+The project has been migrated to a new Replit account/environment.
+Your task is to perform a COMPLETE production integrity and deployment audit of the entire project and ensure everything is fully operational exactly like before.
+
+IMPORTANT:
+Do not assume anything is working.
+Verify every critical system manually and fix any issue automatically.
+
+Priority: MOBILE-FIRST marketplace stability and production readiness.
+
+Perform the following checks carefully and fix all issues found:
+
+1. DATABASE & CONNECTIONS
+
+* Verify the database is connected correctly.
+* Check all environment variables.
+* Ensure migrations/schema are applied correctly.
+* Verify all tables exist.
+* Confirm product, user, order, notification, seller, admin, cart, wishlist, and payment data structures work properly.
+* Ensure no missing columns, broken relations, or invalid constraints.
+* Verify persistent storage works after restart.
+
+2. ADMIN ACCOUNT
+
+* Verify the admin account still exists.
+* Ensure admin login works correctly.
+* Ensure admin permissions/roles are intact.
+* Confirm dashboard access works.
+* If admin account is missing, recreate it safely.
+
+3. AUTHENTICATION SYSTEM
+
+* Verify signup/login/logout.
+* Verify sessions/JWT/cookies.
+* Verify protected routes.
+* Verify seller/admin role permissions.
+* Verify mobile authentication flow.
+
+4. STORAGE & ASSETS
+
+* Ensure all uploaded images/files still work.
+* Verify image URLs.
+* Check CDN/static asset serving.
+* Fix broken product images.
+
+5. PAYMENTS & ORDERS
+
+* Verify checkout flow.
+* Verify order creation/status updates.
+* Verify seller approval/rejection system.
+* Verify notifications trigger properly.
+
+6. NOTIFICATION SYSTEM
+
+* Verify in-app notifications.
+* Verify push notifications.
+* Verify SSE/websocket/real-time systems.
+* Ensure notifications work on both desktop and mobile.
+
+7. MOBILE-FIRST AUDIT
+
+* Test ALL pages on mobile viewport sizes.
+* Verify responsive layouts.
+* Ensure buttons are clickable.
+* Ensure “Add to Cart” buttons always appear correctly.
+* Fix overflow, spacing, modal, navbar, and touch issues.
+* Verify smooth scrolling and high refresh-rate behavior.
+
+8. PERFORMANCE & PRODUCTION
+
+* Verify production build works.
+* Fix runtime errors.
+* Remove dead code/errors.
+* Verify SEO metadata.
+* Verify Core Web Vitals.
+* Optimize images and lazy loading.
+* Ensure fast loading on weak internet.
+
+9. SECURITY
+
+* Verify environment secrets.
+* Verify admin routes are protected.
+* Ensure no exposed credentials.
+* Validate API permissions and input handling.
+
+10. FINAL QA
+
+* Simulate real user flows:
+
+  * customer
+  * seller
+  * admin
+* Verify all flows complete successfully.
+* Create a final report of:
+
+  * issues found
+  * fixes applied
+  * remaining risks
+  * recommendations
+
+IMPORTANT:
+
+* Automatically fix issues whenever possible.
+* Do not stop at identifying problems.
+* Ensure the project is fully stable and production-ready.
+* Prioritize reliability, mobile UX, and deployment integrity.

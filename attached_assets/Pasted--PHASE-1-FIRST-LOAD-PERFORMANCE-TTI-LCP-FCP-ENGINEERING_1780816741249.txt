@@ -1,0 +1,377 @@
+# PHASE 1 — FIRST LOAD PERFORMANCE (TTI / LCP / FCP) ENGINEERING PASS
+
+This is **NOT** a cosmetic optimization pass and **NOT** a generic code cleanup.
+
+Your only objective is to make the website feel **instant** on the very first visit, especially on mobile devices.
+
+The target experience is similar to:
+
+* Apple Store
+* Instagram
+* Airbnb
+* Shopify
+* Linear
+
+I do NOT want superficial changes like adding useMemo everywhere or changing animation durations unless they directly improve first-load metrics.
+
+---
+
+# VERY IMPORTANT RULES
+
+1. Work in small phases.
+2. DO NOT move to the next optimization until the current one is completely finished.
+3. After every optimization:
+
+   * verify it,
+   * measure it,
+   * make sure it actually works.
+4. Never assume something is a bottleneck.
+5. Profile and measure before changing code.
+6. If an optimization gives no measurable benefit, revert it.
+7. Do NOT stop because TypeScript is clean.
+8. Do NOT stop because the app renders correctly.
+9. The goal is measurable first-load performance improvement.
+
+---
+
+# STEP 1 — REAL PERFORMANCE AUDIT
+
+Before modifying anything:
+
+Perform a complete runtime audit.
+
+Use:
+
+* Chrome Performance
+* Lighthouse
+* Network waterfall
+* Coverage tab
+* Bundle analysis
+* Performance flame chart
+
+Identify:
+
+* Largest Contentful Paint (LCP)
+* First Contentful Paint (FCP)
+* Time To Interactive (TTI)
+* Total Blocking Time (TBT)
+* Speed Index
+* Render-blocking resources
+* Largest JS chunks
+* Largest CSS chunks
+* Slowest images
+* Main-thread blocking tasks
+* Long tasks above 50ms
+* Fonts delaying rendering
+* APIs delaying page readiness
+* Waterfall bottlenecks
+* Duplicate downloads
+* Unused CSS
+* Unused JavaScript
+
+Do NOT guess.
+
+Collect actual evidence.
+
+---
+
+# STEP 2 — HERO IMAGE OPTIMIZATION
+
+Audit every hero image.
+
+Check:
+
+* preload
+* preconnect
+* dns-prefetch
+* image priority
+* fetchpriority
+* decoding
+* responsive srcset
+* sizes attribute
+* image dimensions
+* layout stability
+
+Implement:
+
+* proper preload
+* preconnect to image CDN
+* responsive loading
+* async decoding where appropriate
+* prevent layout shifts
+
+Ensure the hero image starts downloading immediately.
+
+---
+
+# STEP 3 — FONT LOADING OPTIMIZATION
+
+Audit every font.
+
+Check:
+
+* blocking fonts
+* duplicate font weights
+* unnecessary font families
+* preload opportunities
+
+Implement:
+
+* font-display: swap
+* preload critical fonts
+* eliminate unused weights
+* reduce font payload
+* prevent FOIT
+
+Fonts must never delay rendering.
+
+---
+
+# STEP 4 — JAVASCRIPT EXECUTION REDUCTION
+
+Measure:
+
+* JS parse time
+* JS compile time
+* JS execution time
+
+Find:
+
+* large startup modules
+* unnecessary startup imports
+* heavy synchronous initialization
+* expensive provider initialization
+
+Move non-critical work out of startup.
+
+Delay anything that is not immediately required.
+
+Use:
+
+* requestIdleCallback
+* lazy initialization
+* deferred loading
+
+Do NOT execute unnecessary code during initial page load.
+
+---
+
+# STEP 5 — CRITICAL CSS
+
+Audit CSS loading.
+
+Identify:
+
+* render-blocking CSS
+* unused CSS
+* duplicated CSS
+* non-critical styles
+
+Ensure:
+
+* above-the-fold CSS loads first
+* below-the-fold styling does not block rendering
+* unnecessary CSS is removed
+
+---
+
+# STEP 6 — ROUTE PREFETCHING
+
+Audit navigation.
+
+Verify:
+
+* JS chunks
+* route chunks
+* dynamic imports
+
+Implement intelligent prefetching:
+
+* idle-time prefetch
+* hover prefetch
+* viewport prefetch
+
+Only prefetch routes likely to be visited.
+
+Do not waste bandwidth.
+
+---
+
+# STEP 7 — API PREFETCHING
+
+Audit startup requests.
+
+Find:
+
+* settings
+* homepage products
+* categories
+* best sellers
+* flash sales
+* exchange rates
+
+Determine which data can safely be prefetched.
+
+Warm React Query cache before navigation when possible.
+
+Avoid duplicate requests.
+
+---
+
+# STEP 8 — IMAGE LOADING STRATEGY
+
+Audit every image in the project.
+
+Verify:
+
+* lazy loading
+* eager loading
+* fetch priority
+* decoding strategy
+* placeholder behavior
+* dimensions
+
+Ensure:
+
+Above-the-fold:
+
+* eager
+* high priority
+
+Below-the-fold:
+
+* lazy
+* browser scheduled
+
+Prevent unnecessary image downloads.
+
+---
+
+# STEP 9 — NETWORK WATERFALL OPTIMIZATION
+
+Analyze request order.
+
+Find:
+
+* serial requests
+* blocking dependencies
+* duplicated requests
+* unnecessary startup fetches
+
+Parallelize wherever possible.
+
+Reduce request chains.
+
+---
+
+# STEP 10 — BUNDLE ENTRY ANALYSIS
+
+Measure startup bundle.
+
+Identify:
+
+* largest modules
+* duplicate libraries
+* heavy dependencies
+* dead imports
+
+Do NOT remove functionality.
+
+Only reduce startup cost.
+
+---
+
+# STEP 11 — RESOURCE PRIORITY TUNING
+
+Audit:
+
+* preload
+* prefetch
+* preconnect
+* dns-prefetch
+
+Ensure browser priorities are optimal.
+
+Critical resources first.
+
+Everything else later.
+
+---
+
+# STEP 12 — MAIN THREAD BLOCKING
+
+Use Chrome Performance.
+
+Find every task over 50ms.
+
+For each one:
+
+* identify source
+* explain cause
+* split work
+* defer work
+* eliminate blocking
+
+No long tasks should remain if avoidable.
+
+---
+
+# STEP 13 — VERIFY EVERYTHING
+
+After all optimizations:
+
+Run Lighthouse again.
+
+Run Performance recording again.
+
+Run Network waterfall again.
+
+Verify:
+
+* LCP improved
+* FCP improved
+* TTI improved
+* TBT improved
+* Speed Index improved
+* fewer blocking resources
+* fewer startup requests
+* smaller initial execution cost
+
+---
+
+# STRICT COMPLETION RULE
+
+DO NOT say the task is complete until ALL of the following are true:
+
+□ Every optimization above has been individually completed.
+
+□ Every optimization has been measured before and after.
+
+□ Any ineffective optimization has been reverted.
+
+□ The application still behaves exactly the same.
+
+□ TypeScript has zero errors.
+
+□ Browser console has zero errors.
+
+□ All workflows run correctly.
+
+□ Final report includes BEFORE and AFTER metrics for:
+
+* LCP
+* FCP
+* TTI
+* TBT
+* Speed Index
+* JS transferred
+* CSS transferred
+* Initial requests
+* Main-thread blocking time
+
+If any single item above is missing, the task is NOT complete.
+
+Work methodically.
+Do not skip steps.
+Do not make assumptions.
+Do not move to the next phase until the current one is fully implemented, tested, and verified.

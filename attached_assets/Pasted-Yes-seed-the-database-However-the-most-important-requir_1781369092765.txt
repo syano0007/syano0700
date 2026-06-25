@@ -1,0 +1,172 @@
+Yes, seed the database.
+
+However, the most important requirement is product images.
+
+Do NOT create products without images.
+
+Do NOT use placeholders.
+
+Do NOT use broken image URLs.
+
+Do NOT use generic gray boxes.
+
+---
+
+# SEEDING REQUIREMENTS
+
+Create realistic marketplace seed data.
+
+Include:
+
+* products
+* stores
+* categories
+* orders
+* reviews
+* wishlists
+* recently viewed
+* hot deals
+* trending products
+* new arrivals
+
+---
+
+# PRODUCT IMAGES (CRITICAL)
+
+Every seeded product MUST have a real image.
+
+Priority:
+
+1. Existing project assets
+2. Existing uploaded marketplace images
+3. Existing seed assets in repository
+4. High-quality royalty-free images if already available in the project
+
+Do NOT leave products without images.
+
+Image coverage target:
+
+100%.
+
+Every seeded product must display correctly inside:
+
+* homepage
+* categories
+* search
+* product page
+* wishlist
+* recently viewed
+* hot deals
+* trending
+* new arrivals
+
+---
+
+# PRODUCT VARIETY
+
+Create realistic Syrian marketplace inventory.
+
+Examples:
+
+Electronics:
+
+* Phones
+* Headphones
+* Smart Watches
+* Accessories
+
+Fashion:
+
+* Dresses
+* Men's Clothing
+* Shoes
+* Bags
+
+Home:
+
+* Furniture
+* Decor
+* Kitchen
+
+Beauty:
+
+* Perfumes
+* Cosmetics
+
+Sports:
+
+* Fitness Accessories
+
+---
+
+# REALISTIC DATA
+
+Generate:
+
+* prices
+* stock
+* ratings
+* reviews
+* sellers
+
+that look realistic.
+
+No fake 5.0 ratings everywhere.
+
+Use natural distribution.
+
+---
+
+# HOMEPAGE POPULATION
+
+After seeding verify that:
+
+✅ Hot Deals displays products
+
+✅ Trending displays products
+
+✅ New Arrivals displays products
+
+✅ Categories contain products
+
+✅ Search returns products
+
+✅ Wishlist can contain products
+
+✅ Recently Viewed can display products
+
+---
+
+# IMAGE VALIDATION
+
+Before finishing:
+
+Verify every seeded product card displays:
+
+✅ Image
+
+✅ Title
+
+✅ Price
+
+✅ Currency conversion
+
+No missing thumbnails.
+
+No broken images.
+
+No empty cards.
+
+---
+
+# FINAL REPORT
+
+Provide:
+
+* number of products seeded
+* number of stores seeded
+* number of images attached
+* categories populated
+* homepage sections populated
+
+Only finish when all seeded products have working images.
