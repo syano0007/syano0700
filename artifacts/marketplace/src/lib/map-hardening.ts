@@ -112,6 +112,84 @@ export async function prefetchTilesAround(
   }
 }
 
+// ── Nominatim local geocoding cache ──────────────────────────────────────────
+
+export interface GeocodeCacheValue {
+  zoneId:         number | null;
+  address:        string;
+  isOutsideSyria: boolean;
+}
+
+interface GeocodeCacheEntry extends GeocodeCacheValue { ts: number }
+
+const GC_DECIMALS = 3;                     // 3 dp ≈ 111 m ("same city block")
+const GC_MAX      = 500;                   // LRU cap
+const GC_TTL_MS   = 30 * 60 * 1_000;      // 30-minute TTL
+const GC_LS_KEY   = "syano:geocode-cache"; // localStorage key
+
+function _gcKey(lat: number, lng: number): string {
+  const f = Math.pow(10, GC_DECIMALS);
+  return `${Math.round(lat * f) / f},${Math.round(lng * f) / f}`;
+}
+
+class _GeocodeCache {
+  private mem = new Map<string, GeocodeCacheEntry>();
+
+  constructor() { this._hydrate(); }
+
+  private _hydrate(): void {
+    if (typeof localStorage === "undefined") return;
+    try {
+      const raw = localStorage.getItem(GC_LS_KEY);
+      if (!raw) return;
+      const stored = JSON.parse(raw) as Record<string, GeocodeCacheEntry>;
+      const now = Date.now();
+      for (const [k, e] of Object.entries(stored)) {
+        if (now - e.ts < GC_TTL_MS) this.mem.set(k, e);
+      }
+    } catch { /* corrupt storage */ }
+  }
+
+  private _flush(): void {
+    if (typeof localStorage === "undefined") return;
+    try {
+      const obj: Record<string, GeocodeCacheEntry> = {};
+      for (const [k, e] of this.mem) obj[k] = e;
+      localStorage.setItem(GC_LS_KEY, JSON.stringify(obj));
+    } catch { /* quota exceeded */ }
+  }
+
+  get(lat: number, lng: number): GeocodeCacheValue | null {
+    const key = _gcKey(lat, lng);
+    const e   = this.mem.get(key);
+    if (!e) return null;
+    if (Date.now() - e.ts > GC_TTL_MS) { this.mem.delete(key); return null; }
+    return { zoneId: e.zoneId, address: e.address, isOutsideSyria: e.isOutsideSyria };
+  }
+
+  set(lat: number, lng: number, value: GeocodeCacheValue): void {
+    if (this.mem.size >= GC_MAX) {
+      const oldest = this.mem.keys().next().value;
+      if (oldest !== undefined) this.mem.delete(oldest);
+    }
+    this.mem.set(_gcKey(lat, lng), { ...value, ts: Date.now() });
+    this._flush();
+  }
+}
+
+/**
+ * Singleton in-memory + localStorage geocoding cache.
+ * Resolution: 3 dp ≈ 111 m ("same city block").
+ * Survives page reloads via localStorage. TTL: 30 min. Cap: 500 entries.
+ *
+ * Usage:
+ *   const hit = geocodeCache.get(lat, lng);
+ *   if (hit) { applyHit(hit); return; }
+ *   // fetch Nominatim, then:
+ *   geocodeCache.set(lat, lng, { zoneId, address, isOutsideSyria });
+ */
+export const geocodeCache = new _GeocodeCache();
+
 // ── SW tile cache invalidation ────────────────────────────────────────────────
 
 /**

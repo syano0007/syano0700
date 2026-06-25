@@ -1,12 +1,16 @@
+import { useState, lazy, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import { AdminLayout } from "@/components/AdminLayout";
 import {
   MapPin, Wifi, WifiOff, Package, Navigation, Gauge, Target,
-  Clock, RefreshCw, AlertTriangle, CheckCircle2,
+  Clock, RefreshCw, AlertTriangle, CheckCircle2, Table2, Map,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { CourierPin } from "@/components/AdminCourierMap";
+
+const AdminCourierMap = lazy(() => import("@/components/AdminCourierMap"));
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -89,6 +93,9 @@ export default function AdminCourierLocations() {
   const { t, i18n } = useTranslation();
   const { token } = useAuth();
   const isRtl = i18n.language === "ar";
+  const [viewMode, setViewMode] = useState<"table" | "map">("table");
+
+  void t;
 
   const { data, isLoading, isFetching, refetch, dataUpdatedAt } = useQuery<LiveLocationsResponse>({
     queryKey: ["admin", "couriers", "live-locations"],
@@ -105,6 +112,21 @@ export default function AdminCourierLocations() {
   const couriers = data?.couriers ?? [];
   const lastUpdate = dataUpdatedAt ? new Date(dataUpdatedAt).toLocaleTimeString() : "—";
 
+  const mapPins: CourierPin[] = couriers
+    .filter(c => c.lat !== null && c.lng !== null)
+    .map(c => ({
+      courierId:          c.courierId,
+      name:               c.name,
+      phone:              c.phone,
+      vehicleType:        c.vehicleType,
+      availabilityStatus: c.availabilityStatus,
+      lat:                c.lat as number,
+      lng:                c.lng as number,
+      isFresh:            c.isFresh,
+      ageSeconds:         c.ageSeconds,
+      accuracy:           c.accuracy,
+    }));
+
   return (
     <AdminLayout>
       <div className="p-6 space-y-6">
@@ -120,21 +142,49 @@ export default function AdminCourierLocations() {
                 {isRtl ? "مواقع المندوبين المباشرة" : "Live Courier Locations"}
               </h1>
               <p className="text-sm text-muted-foreground">
-                {isRtl
-                  ? "تشخيص GPS المباشر — لا توجد خريطة بعد"
-                  : "GPS diagnostics dashboard — map coming in A4/A5"}
+                {isRtl ? "تحديث كل 10 ثوانٍ" : "Refreshes every 10 seconds"}
               </p>
             </div>
           </div>
 
-          <button
-            onClick={() => refetch()}
-            disabled={isFetching}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border border-white/10 bg-white/5 text-muted-foreground hover:text-foreground hover:border-white/20 transition-colors disabled:opacity-50"
-          >
-            <RefreshCw className={cn("w-3.5 h-3.5", isFetching && "animate-spin")} />
-            {isRtl ? `آخر تحديث: ${lastUpdate}` : `Updated: ${lastUpdate}`}
-          </button>
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* View toggle */}
+            <div className="flex rounded-lg border border-white/10 overflow-hidden">
+              <button
+                onClick={() => setViewMode("table")}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors",
+                  viewMode === "table"
+                    ? "bg-primary/10 text-primary"
+                    : "bg-white/5 text-muted-foreground hover:text-foreground hover:bg-white/10",
+                )}
+              >
+                <Table2 className="w-3.5 h-3.5" />
+                {isRtl ? "جدول" : "Table"}
+              </button>
+              <button
+                onClick={() => setViewMode("map")}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors border-s border-white/10",
+                  viewMode === "map"
+                    ? "bg-primary/10 text-primary"
+                    : "bg-white/5 text-muted-foreground hover:text-foreground hover:bg-white/10",
+                )}
+              >
+                <Map className="w-3.5 h-3.5" />
+                {isRtl ? "خريطة" : "Map"}
+              </button>
+            </div>
+
+            <button
+              onClick={() => refetch()}
+              disabled={isFetching}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border border-white/10 bg-white/5 text-muted-foreground hover:text-foreground hover:border-white/20 transition-colors disabled:opacity-50"
+            >
+              <RefreshCw className={cn("w-3.5 h-3.5", isFetching && "animate-spin")} />
+              {isRtl ? `آخر تحديث: ${lastUpdate}` : `Updated: ${lastUpdate}`}
+            </button>
+          </div>
         </div>
 
         {/* ── Summary strip ────────────────────────────────────────────── */}
@@ -149,8 +199,27 @@ export default function AdminCourierLocations() {
           </div>
         )}
 
+        {/* ── Map view ─────────────────────────────────────────────────── */}
+        {viewMode === "map" && (
+          <div className="rounded-xl border border-white/5 bg-card overflow-hidden" style={{ height: 520 }}>
+            {isLoading ? (
+              <div className="h-full flex items-center justify-center bg-white/5 animate-pulse">
+                <MapPin className="w-8 h-8 text-muted-foreground opacity-30" />
+              </div>
+            ) : (
+              <Suspense fallback={
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+                </div>
+              }>
+                <AdminCourierMap couriers={mapPins} isRtl={isRtl} />
+              </Suspense>
+            )}
+          </div>
+        )}
+
         {/* ── Table ────────────────────────────────────────────────────── */}
-        {isLoading ? (
+        {viewMode === "table" && (isLoading ? (
           <div className="space-y-2">
             {[...Array(3)].map((_, i) => (
               <div key={i} className="h-16 rounded-xl bg-white/5 animate-pulse" />
@@ -270,13 +339,13 @@ export default function AdminCourierLocations() {
               })}
             </div>
           </div>
-        )}
+        ))}
 
         {/* ── Footer note ──────────────────────────────────────────────── */}
         <p className="text-xs text-muted-foreground text-center">
           {isRtl
-            ? "يُعتبر الموقع حديثاً إذا تم تحديثه خلال آخر 60 ثانية • الخريطة المباشرة قادمة في المرحلة A4/A5"
-            : "Location is fresh if updated within the last 60 seconds • Live map coming in Phase A4/A5"}
+            ? "يُعتبر الموقع حديثاً إذا تم تحديثه خلال آخر 60 ثانية"
+            : "Location is considered fresh if updated within the last 60 seconds"}
         </p>
 
       </div>

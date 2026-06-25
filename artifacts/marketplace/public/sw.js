@@ -81,7 +81,8 @@ async function evictOldTiles() {
 
 // ── Install: precache critical assets ────────────────────────────────────────
 
-const PRECACHE_URLS = ["fonts/inter-latin.woff2"];
+/* v4.1: also precache index.html (app shell) so navigation works offline */
+const PRECACHE_URLS = ["fonts/inter-latin.woff2", ""];
 
 self.addEventListener("install", (event) => {
   const scope = self.registration.scope;
@@ -189,7 +190,28 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  /* ④ Everything else (API, navigation, SSE, external images) — network only.
+  /* ④ Same-origin navigation — SPA shell fallback.
+     Try network first; if offline, serve the cached index.html shell
+     so the app stays usable without a connection. */
+  if (
+    event.request.mode === "navigate" &&
+    url.hostname === self.location.hostname
+  ) {
+    event.respondWith(
+      fetch(event.request).catch(() =>
+        caches
+          .open(CACHE_ASSETS)
+          .then((cache) =>
+            cache.match(new Request(self.registration.scope)) ||
+            cache.match(new Request(self.registration.scope + "index.html")),
+          )
+          .then((shell) => shell || fetch(event.request)),
+      ),
+    );
+    return;
+  }
+
+  /* ⑤ Everything else (API, SSE, external images) — network only.
      External images rely on CDN Cache-Control headers (Pexels/Unsplash → long TTL).
      API caching is handled by TanStack Query. */
 });

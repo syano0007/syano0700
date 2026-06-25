@@ -18,7 +18,7 @@
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
-import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
+import { Circle, MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
 import { X, MapPin, Loader2, Search, LocateFixed, AlertCircle, WifiOff } from "lucide-react";
 import { useGetDeliveryZones } from "@workspace/api-client-react";
 import { useTranslation } from "react-i18next";
@@ -32,6 +32,7 @@ import {
   injectMapHardeningCSS,
   getKeepBuffer,
   prefetchTilesAround,
+  geocodeCache,
 } from "@/lib/map-hardening";
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -256,6 +257,10 @@ export function LocationMapModal({ open, onClose }: Props) {
     if (staleTimerRef.current) clearTimeout(staleTimerRef.current);
   }, []);
 
+  useEffect(() => () => {
+    if (accuracyWarnTimer.current) clearTimeout(accuracyWarnTimer.current);
+  }, []);
+
   /* Map state */
   const [center, setCenter]           = useState<[number, number]>(ALEPPO);
   const [flyToTarget, setFlyToTarget] = useState<[number, number] | null>(null);
@@ -271,7 +276,11 @@ export function LocationMapModal({ open, onClose }: Props) {
 
   /* Geolocation state */
   type GeoStatus = "idle" | "loading" | "success" | "denied";
-  const [geoStatus, setGeoStatus] = useState<GeoStatus>("idle");
+  const [geoStatus, setGeoStatus]                  = useState<GeoStatus>("idle");
+  const [gpsAccuracy, setGpsAccuracy]              = useState<number | null>(null);
+  const [gpsPosition, setGpsPosition]              = useState<[number, number] | null>(null);
+  const [showAccuracyWarning, setShowAccuracyWarning] = useState(false);
+  const accuracyWarnTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   /* Search state */
   const [searchQuery, setSearchQuery]       = useState("");
@@ -306,6 +315,9 @@ export function LocationMapModal({ open, onClose }: Props) {
     setFlyToTarget(initialCenter);
     setSaving(false);
     setGeoStatus("idle");
+    setGpsPosition(null);
+    setGpsAccuracy(null);
+    setShowAccuracyWarning(false);
     setSearchQuery("");
     setSearchResults([]);
     setSearchOpen(false);
@@ -331,6 +343,13 @@ export function LocationMapModal({ open, onClose }: Props) {
         setFlyToTarget(target);
         setCenter(target);
         setGeoStatus("success");
+        setGpsPosition(target);
+        setGpsAccuracy(pos.coords.accuracy);
+        if (pos.coords.accuracy > 100) {
+          setShowAccuracyWarning(true);
+          if (accuracyWarnTimer.current) clearTimeout(accuracyWarnTimer.current);
+          accuracyWarnTimer.current = setTimeout(() => setShowAccuracyWarning(false), 4000);
+        }
       },
       () => setGeoStatus("denied"),
       { timeout: 8000, maximumAge: 60000, enableHighAccuracy: false },
@@ -390,6 +409,16 @@ export function LocationMapModal({ open, onClose }: Props) {
       return;
     }
 
+    /* ② Local geocode cache — 3 dp ≈ 111 m resolution, 30-min TTL */
+    const cached = geocodeCache.get(lat, lng);
+    if (cached) {
+      setIsOutsideSyria(cached.isOutsideSyria);
+      setSelectedZoneId(cached.zoneId);
+      setResolvedAddress(cached.address);
+      setAutoMatching(false);
+      return;
+    }
+
     /* Abort any in-flight request from a previous pan */
     geocodeAbortRef.current?.abort();
     const controller = new AbortController();
@@ -404,7 +433,7 @@ export function LocationMapModal({ open, onClose }: Props) {
       .then((data: { address?: NominatimAddress; display_name?: string }) => {
         const addr = data.address;
 
-        /* ② Strict country_code check */
+        /* ③ Strict country_code check */
         const countryCode = addr?.country_code?.toLowerCase() ?? "";
         const countryName = addr?.country?.toLowerCase() ?? "";
         const isSyria =
@@ -417,23 +446,28 @@ export function LocationMapModal({ open, onClose }: Props) {
           setIsOutsideSyria(true);
           setSelectedZoneId(null);
           setResolvedAddress("");
+          geocodeCache.set(lat, lng, { zoneId: null, address: "", isOutsideSyria: true });
           return;
         }
 
-        /* ③ Inside Syria — resolve governorate zone */
+        /* ④ Inside Syria — resolve governorate zone */
         setIsOutsideSyria(false);
         const parts = addr ? extractAddressParts(addr) : [];
-        setSelectedZoneId(resolveZone(parts, zones));
+        const zoneId = resolveZone(parts, zones);
+        setSelectedZoneId(zoneId);
 
+        let resolvedAddr = "";
         if (addr) {
           const shortParts = [
             addr.suburb || addr.neighbourhood || addr.quarter || addr.city_district,
             cleanStateToken(addr.state || addr.city || addr.county || ""),
           ].filter(Boolean);
-          setResolvedAddress(shortParts.join("، ") || (data.display_name?.split(",")[0] ?? ""));
+          resolvedAddr = shortParts.join("، ") || (data.display_name?.split(",")[0] ?? "");
         } else {
-          setResolvedAddress(data.display_name?.split(",")[0] ?? "");
+          resolvedAddr = data.display_name?.split(",")[0] ?? "";
         }
+        setResolvedAddress(resolvedAddr);
+        geocodeCache.set(lat, lng, { zoneId, address: resolvedAddr, isOutsideSyria: false });
       })
       .catch(err => {
         /* Ignore AbortError — it's intentional (rapid pan); keep previous state */
@@ -510,6 +544,13 @@ export function LocationMapModal({ open, onClose }: Props) {
         setFlyToTarget(target);
         setCenter(target);
         setGeoStatus("success");
+        setGpsPosition(target);
+        setGpsAccuracy(pos.coords.accuracy);
+        if (pos.coords.accuracy > 100) {
+          setShowAccuracyWarning(true);
+          if (accuracyWarnTimer.current) clearTimeout(accuracyWarnTimer.current);
+          accuracyWarnTimer.current = setTimeout(() => setShowAccuracyWarning(false), 4000);
+        }
       },
       () => setGeoStatus("denied"),
       { timeout: 8000, enableHighAccuracy: false },
@@ -607,7 +648,49 @@ export function LocationMapModal({ open, onClose }: Props) {
               <InvalidateSizeOnOpen />
               <CenterTracker onMove={handleMapMove} />
               <MapController flyToTarget={flyToTarget} onFlown={() => setFlyToTarget(null)} />
+
+              {/* GPS accuracy ring — blue semi-transparent circle, radius = accuracy in metres */}
+              {gpsPosition && gpsAccuracy !== null && (
+                <Circle
+                  center={gpsPosition}
+                  radius={gpsAccuracy}
+                  pathOptions={{ color: "#3b82f6", weight: 1, fillColor: "#3b82f6", fillOpacity: 0.12 }}
+                />
+              )}
             </MapContainer>
+
+            {/* ── GPS weak signal toast (auto-dismiss after 4 s) ───────── */}
+            {showAccuracyWarning && (
+              <div
+                aria-live="polite"
+                style={{
+                  position:      "absolute",
+                  top:           72,
+                  left:          "50%",
+                  transform:     "translateX(-50%)",
+                  zIndex:        1001,
+                  display:       "flex",
+                  alignItems:    "center",
+                  gap:           8,
+                  background:    "rgba(234,179,8,0.96)",
+                  backdropFilter:"blur(8px)",
+                  color:         "#1c1917",
+                  padding:       "8px 14px",
+                  borderRadius:  "0.75rem",
+                  fontSize:      12,
+                  fontFamily:    "'Cairo', sans-serif",
+                  fontWeight:    600,
+                  boxShadow:     "0 4px 20px rgba(0,0,0,0.25)",
+                  whiteSpace:    "nowrap",
+                  pointerEvents: "none",
+                }}
+              >
+                <AlertCircle style={{ width: 14, height: 14, flexShrink: 0 }} />
+                {isRtl
+                  ? `إشارة GPS ضعيفة (±${Math.round(gpsAccuracy ?? 0)} م) — اضبط الدبوس يدوياً`
+                  : `Weak GPS (±${Math.round(gpsAccuracy ?? 0)} m) — adjust pin manually`}
+              </div>
+            )}
 
             {/* ── Offline overlay ───────────────────────────────────── */}
             {isOffline && (
