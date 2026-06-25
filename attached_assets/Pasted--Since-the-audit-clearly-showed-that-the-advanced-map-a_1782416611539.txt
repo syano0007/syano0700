@@ -1,0 +1,39 @@
+"Since the audit clearly showed that the advanced map architecture we discussed previously (the 6-layer fix, SW v4, LRU caching, and geofencing) was never actually integrated or was completely lost, we need to rebuild and deploy the entire hardened map ecosystem properly from scratch.
+
+Please implement the complete, fully-featured Map & Caching Engine by delivering the following specifications:
+
+1. Re-Implement the 6-Layer Gray Tile Elimination:
+
+Layer 1: Inject the warm earth tone background (#e8e0d5 !important) into document.head to replace Leaflet's default gray container.
+
+Layer 2: Add linear CSS transitions to .leaflet-tile and .leaflet-layer for a smooth fade-in effect.
+
+Layer 3 & 4: Set updateWhenZooming={false} and updateWhenIdle={true} (to prevent request flooding). Dynamically set keepBuffer to 6 for mobile and 10 for desktop to completely fix the 276MB RAM critical issue.
+
+Layer 5: Implement the dual TileLayer provider crossfade using a temporary stale layer (key=stale-${id}, zIndex=1) that reliably unmounts after 3 seconds when providers switch.
+
+Layer 6: Build the custom MapResizeObserver using ResizeObserver + invalidateSize({ pan: false }) so device rotation doesn't wipe existing tiles.
+
+2. Build the True SW v4 Tile Caching Layer (CRITICAL-1 & OPT-1):
+
+Upgrade public/sw.js to v4. Use a strict Cache First strategy for cross-origin map tiles with mode: 'cors'.
+
+Implement the parallel metadata cache (syano-tile-meta-v1) to track {ts: lastAccessMs} per tile.
+
+Enable the background LRU eviction process (capped at 500–1000 tiles) running every 50 writes without blocking the main UI thread.
+
+Implement the runtime cache invalidation via postMessage (INVALIDATE_TILE_CACHE).
+
+3. Add Fallback Provider, Offline UI & AbortControllers (CRITICAL-2, CRITICAL-3 & WARNING-3):
+
+Register tileerror handlers on the TileLayer. If OSM fails, automatically fallback to CartoDB Voyager. If both fail, render a clean absolute overlay UI with a WifiOff message.
+
+Refactor LocationMapModal.tsx so that MapContainer is never unmounted when !open. Use CSS visibility/display toggling so the Leaflet instance stays alive, making subsequent opens instant and fixing the sluggish remounting.
+
+Add an AbortController to Nominatim reverse geocoding fetches to kill stale state overrides during rapid pans.
+
+4. Deploy the Geofence Prefetch Queue (OPT-3):
+
+Implement the throttled 3×3 tile prefetch queue for zoom levels 13–16 around the saved delivery/courier location. Throttle requests (e.g., 100ms intervals) to respect OSM usage policies and use caches.match() to deduplicate.
+
+Build this entire unified system cleanly, verify there are absolutely no memory leaks, and notify me as soon as the live link is ready for full testing. Let's get this done right."

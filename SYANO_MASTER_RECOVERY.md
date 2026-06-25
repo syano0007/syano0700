@@ -366,15 +366,23 @@ Two-stage validation on every pin move (debounced 300 ms):
 
 #### Service Worker (sw.js)
 
-**Current version: v3** · Cache name: `syano-assets-v2`
+**Current version: v4** · Asset cache: `syano-assets-v2` · Tile cache: `syano-tile-cache-v1` · Metadata cache: `syano-tile-meta-v1`
 
 | Strategy | Applies to | Notes |
 |---|---|---|
+| Cache-First | OSM + CartoDB tiles (cross-origin) | Fetched with `mode:'cors'`; LRU eviction at cap 750 tiles |
 | Cache-First | Hashed JS/CSS chunks (`/assets/*-[hash].(js\|css)`) | Content-addressed — safe to cache forever |
 | Stale-While-Revalidate | Same-origin statics (fonts, icons, manifest, images) | Inter font is precached at install time |
-| Network-only | Everything else (API, navigation, SSE, cross-origin) | OSM tile caching is handled by the browser HTTP cache via OSM CDN `Cache-Control` headers — intentionally not in the SW |
+| Network-only | Everything else (API, navigation, SSE) | TanStack Query handles API caching in JS |
 
-**OSM tiles are NOT cached by the SW.** They are served by the browser's HTTP cache using the OSM CDN's `Cache-Control: max-age=604800` headers. This is intentional — SW tile caching would create stale-map problems and exceed storage quotas for Arabic/Syrian tile sets.
+**v4 additions over v3:**
+- `syano-tile-cache-v1` — OSM/CartoDB tiles cached with Cache First (mode: cors)
+- `syano-tile-meta-v1` — parallel metadata cache tracking `{ts: lastAccessMs}` per tile
+- Background LRU eviction — runs every 50 tile writes, evicts oldest tiles until under cap (750)
+- `postMessage({ type: 'INVALIDATE_TILE_CACHE' })` — runtime flush of both tile caches
+- Tile URL regex: `/^https:\/\/[a-d]\.(?:tile\.openstreetmap\.org|basemaps\.cartocdn\.com)\//`
+
+**`invalidateSWTileCache()` in `src/lib/map-hardening.ts`** — sends the postMessage with a MessageChannel for ACK.
 
 ---
 

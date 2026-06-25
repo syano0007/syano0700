@@ -1,14 +1,38 @@
+/**
+ * LocationMapModal.tsx — Hardened location picker
+ *
+ * Persistent mount: MapContainer is NEVER unmounted — CSS visibility toggling
+ * keeps the Leaflet instance alive for instant re-opens (no tile reload).
+ *
+ * Layer 1: Warm earth-tone background (#e8e0d5) injected into document.head
+ * Layer 2: CSS fade-in transitions on .leaflet-tile / .leaflet-layer
+ * Layer 3: updateWhenZooming={false}
+ * Layer 4: Dynamic keepBuffer (6 mobile / 10 desktop), updateWhenIdle={true}
+ * Layer 5: Dual TileLayer crossfade — stale OSM layer stays 3 s on CartoDB switch
+ * Layer 6: MapResizeObserver via ResizeObserver + invalidateSize
+ *
+ * AbortController: every Nominatim reverse-geocode request is aborted on rapid pan.
+ * Geofence prefetch: on location confirm, 3×3 tile grid at zoom 13–16 is prefetched.
+ */
+
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
-import { X, MapPin, Loader2, Search, LocateFixed, AlertCircle } from "lucide-react";
+import { X, MapPin, Loader2, Search, LocateFixed, AlertCircle, WifiOff } from "lucide-react";
 import { useGetDeliveryZones } from "@workspace/api-client-react";
 import { useTranslation } from "react-i18next";
 import { useDebounce } from "@/hooks/use-debounce";
 import {
   ZONE_KEY, COORDS_KEY, ADDR_KEY, loadSavedCoords, loadSavedZoneId,
 } from "@/lib/location-storage";
+import {
+  TILE_PROVIDERS,
+  type TileProvider,
+  injectMapHardeningCSS,
+  getKeepBuffer,
+  prefetchTilesAround,
+} from "@/lib/map-hardening";
 
 /* ─────────────────────────────────────────────────────────────────── */
 /* Constants                                                           */
@@ -16,13 +40,11 @@ import {
 const ALEPPO: [number, number] = [36.2021047, 37.1342839];
 const SYRIA_CATCHALL_ID = 999;
 
-/* Syria strict geographic bounding box (WGS-84) */
 const SYRIA_LAT_MIN = 32.3;
 const SYRIA_LAT_MAX = 37.4;
 const SYRIA_LNG_MIN = 35.6;
 const SYRIA_LNG_MAX = 42.4;
 
-/** Fast pre-check before even hitting Nominatim */
 function isInsideSyriaBBox(lat: number, lng: number): boolean {
   return (
     lat >= SYRIA_LAT_MIN && lat <= SYRIA_LAT_MAX &&
@@ -36,62 +58,34 @@ function isInsideSyriaBBox(lat: number, lng: number): boolean {
 interface Zone { id: number; nameEn: string; nameAr: string; fee: number }
 
 interface NominatimAddress {
-  suburb?: string;
-  neighbourhood?: string;
-  city_district?: string;
-  residential?: string;
-  quarter?: string;
-  borough?: string;
-  county?: string;
-  city?: string;
-  town?: string;
-  village?: string;
-  state?: string;
-  province?: string;
-  region?: string;
-  country?: string;
-  country_code?: string;
+  suburb?: string; neighbourhood?: string; city_district?: string;
+  residential?: string; quarter?: string; borough?: string;
+  county?: string; city?: string; town?: string; village?: string;
+  state?: string; province?: string; region?: string;
+  country?: string; country_code?: string;
 }
 interface NominatimResult {
-  place_id: number;
-  display_name: string;
-  lat: string;
-  lon: string;
-  address?: NominatimAddress;
+  place_id: number; display_name: string;
+  lat: string; lon: string; address?: NominatimAddress;
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
 /* Part 1 — Smart Syrian Geocoding Resolver                            */
-/* Extracts all address tokens (suburb → state) and fuzzy-matches     */
-/* against the delivery_zones table. Falls back to zone 999 if no     */
-/* match is found (catches rural / unrecognized Syrian locations).     */
 /* ─────────────────────────────────────────────────────────────────── */
 
-/** Strip governorate prefix/suffix noise so "محافظة حلب" → "حلب" etc. */
 function cleanStateToken(s: string): string {
   return s
-    .replace(/محافظة\s*/gi, "")
-    .replace(/محافظه\s*/gi, "")
-    .replace(/\s*Governorate/gi, "")
-    .replace(/\s*Province/gi, "")
+    .replace(/محافظة\s*/gi, "").replace(/محافظه\s*/gi, "")
+    .replace(/\s*Governorate/gi, "").replace(/\s*Province/gi, "")
     .trim();
 }
 
 function extractAddressParts(addr: NominatimAddress): string[] {
   const raw = [
-    addr.state,
-    addr.province,
-    addr.region,
-    addr.county,
-    addr.city,
-    addr.town,
-    addr.village,
-    addr.suburb,
-    addr.neighbourhood,
-    addr.quarter,
-    addr.city_district,
-    addr.residential,
-    addr.borough,
+    addr.state, addr.province, addr.region, addr.county,
+    addr.city, addr.town, addr.village, addr.suburb,
+    addr.neighbourhood, addr.quarter, addr.city_district,
+    addr.residential, addr.borough,
   ].filter((s): s is string => !!s && s.trim().length > 0);
 
   const cleaned: string[] = [];
@@ -108,7 +102,7 @@ function bestZoneMatch(addressParts: string[], zones: Zone[]): Zone | null {
   let best: Zone | null = null;
   let bestScore = 0;
   for (const zone of zones) {
-    if (zone.id === SYRIA_CATCHALL_ID) continue; // never auto-pick the catch-all
+    if (zone.id === SYRIA_CATCHALL_ID) continue;
     const arLc = zone.nameAr.toLowerCase();
     const enLc = zone.nameEn.toLowerCase();
     let score = 0;
@@ -123,7 +117,6 @@ function bestZoneMatch(addressParts: string[], zones: Zone[]): Zone | null {
   return bestScore >= 4 ? best : null;
 }
 
-/** Main resolver: geocode center → zone. Falls back to zone 999. */
 function resolveZone(parts: string[], zones: Zone[]): number | null {
   const match = bestZoneMatch(parts, zones);
   if (match) return match.id;
@@ -135,10 +128,25 @@ function resolveZone(parts: string[], zones: Zone[]): number | null {
 /* Inner Leaflet helpers                                               */
 /* ─────────────────────────────────────────────────────────────────── */
 
-/** Fires onFirstLoad once when Leaflet signals all initial tiles ready.
- *  Also handles the cached-tile race: if tiles load before this component
- *  mounts, map._loading is already false and the "load" event never fires.
- *  The 80ms post-mount check catches that case. */
+/** Layer 6: ResizeObserver — fixes blank tiles on device rotation */
+function MapResizeObserver() {
+  const map = useMap();
+  useEffect(() => {
+    const container = map.getContainer();
+    const observer = new ResizeObserver(() => {
+      map.invalidateSize({ pan: false } as Parameters<typeof map.invalidateSize>[0]);
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [map]);
+  return null;
+}
+
+/**
+ * TileLoadTracker: fires onFirstLoad once Leaflet signals all initial tiles ready.
+ * 80ms post-mount check handles the cached-tile race (tiles load before component
+ * mounts → "load" event never fires — this catch handles that edge case).
+ */
 function TileLoadTracker({ onFirstLoad }: { onFirstLoad: () => void }) {
   const map = useMap();
   const firedRef = useRef(false);
@@ -149,8 +157,6 @@ function TileLoadTracker({ onFirstLoad }: { onFirstLoad: () => void }) {
   useMapEvents({ load: fire });
 
   useEffect(() => {
-    /* 80 ms delay lets Leaflet finish initializing tile requests;
-       if nothing is loading at that point, tiles were already cached */
     const id = setTimeout(() => {
       if (!(map as unknown as Record<string, unknown>)["_loading"]) fire();
     }, 80);
@@ -178,21 +184,23 @@ function CenterTracker({ onMove }: { onMove: (lat: number, lng: number) => void 
 function InvalidateSizeOnOpen() {
   const map = useMap();
   useEffect(() => {
-    // Immediate call — ensures Leaflet draws tiles right on open
     map.invalidateSize({ animate: false });
-    // Safety re-trigger after layout paint completes
     const t = setTimeout(() => map.invalidateSize({ animate: false }), 150);
     return () => clearTimeout(t);
   }, [map]);
   return null;
 }
 
-function MapController({ flyToTarget, onFlown }: { flyToTarget: [number, number] | null; onFlown: () => void }) {
+function MapController({
+  flyToTarget, onFlown,
+}: { flyToTarget: [number, number] | null; onFlown: () => void }) {
   const map = useMap();
   const prev = useRef<[number, number] | null>(null);
   useEffect(() => {
     if (!flyToTarget) return;
-    if (prev.current && prev.current[0] === flyToTarget[0] && prev.current[1] === flyToTarget[1]) return;
+    if (prev.current &&
+        prev.current[0] === flyToTarget[0] &&
+        prev.current[1] === flyToTarget[1]) return;
     prev.current = flyToTarget;
     map.flyTo(flyToTarget, 15, { animate: true, duration: 1.5 });
     onFlown();
@@ -210,21 +218,55 @@ export function LocationMapModal({ open, onClose }: Props) {
   const isRtl = i18n.language === "ar";
   const { data: zones = [] } = useGetDeliveryZones();
 
+  // ── Layer 1 + 2: inject hardening CSS once ───────────────────────────
+  useEffect(() => { injectMapHardeningCSS(); }, []);
+
+  // ── Layer 4: dynamic keepBuffer ──────────────────────────────────────
+  const [keepBuffer, setKeepBuffer] = useState(() => getKeepBuffer());
+  useEffect(() => {
+    const handler = () => setKeepBuffer(getKeepBuffer());
+    window.addEventListener("resize", handler, { passive: true });
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+
+  // ── Layer 5: tile provider + crossfade ───────────────────────────────
+  const [provider, setProvider]           = useState<TileProvider>("osm");
+  const [staleProvider, setStaleProvider] = useState<TileProvider | null>(null);
+  const [staleKey, setStaleKey]           = useState(0);
+  const [isOffline, setIsOffline]         = useState(false);
+  const errorCountRef = useRef(0);
+  const staleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTileError = useCallback((): void => {
+    errorCountRef.current++;
+    if (errorCountRef.current < 3) return;
+    errorCountRef.current = 0;
+    if (provider === "osm") {
+      setStaleProvider("osm");
+      setStaleKey((k) => k + 1);
+      setProvider("carto");
+      if (staleTimerRef.current) clearTimeout(staleTimerRef.current);
+      staleTimerRef.current = setTimeout(() => setStaleProvider(null), 3000);
+    } else {
+      setIsOffline(true);
+    }
+  }, [provider]);
+
+  useEffect(() => () => {
+    if (staleTimerRef.current) clearTimeout(staleTimerRef.current);
+  }, []);
+
   /* Map state */
-  const [center, setCenter] = useState<[number, number]>(ALEPPO);
+  const [center, setCenter]           = useState<[number, number]>(ALEPPO);
   const [flyToTarget, setFlyToTarget] = useState<[number, number] | null>(null);
   const [tilesLoaded, setTilesLoaded] = useState(false);
   const handleFirstLoad = useCallback(() => setTilesLoaded(true), []);
 
   /* Zone / confirm state */
   const [selectedZoneId, setSelectedZoneId] = useState<number | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [autoMatching, setAutoMatching] = useState(false);
-
-  /* Resolved address text for footer */
+  const [saving, setSaving]                 = useState(false);
+  const [autoMatching, setAutoMatching]     = useState(false);
   const [resolvedAddress, setResolvedAddress] = useState<string>("");
-
-  /* Geofencing — true when pin is outside Syrian borders */
   const [isOutsideSyria, setIsOutsideSyria] = useState(false);
 
   /* Geolocation state */
@@ -232,29 +274,33 @@ export function LocationMapModal({ open, onClose }: Props) {
   const [geoStatus, setGeoStatus] = useState<GeoStatus>("idle");
 
   /* Search state */
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<NominatimResult[]>([]);
-  const [searchLoading, setSearchLoading] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const debouncedQuery = useDebounce(searchQuery, 500);
-  const debouncedCenter = useDebounce(center, 300);
+  const [searchQuery, setSearchQuery]       = useState("");
+  const [searchResults, setSearchResults]   = useState<NominatimResult[]>([]);
+  const [searchLoading, setSearchLoading]   = useState(false);
+  const [searchOpen, setSearchOpen]         = useState(false);
+  const searchRef                           = useRef<HTMLDivElement>(null);
+  const debouncedQuery                      = useDebounce(searchQuery, 500);
+  const debouncedCenter                     = useDebounce(center, 300);
 
-  /* Reset on open — fly to saved position instead of remounting the map */
+  /* AbortController ref for Nominatim reverse geocoding */
+  const geocodeAbortRef = useRef<AbortController | null>(null);
+
+  /* Reset on open — fly to saved position without remounting the map */
   useEffect(() => {
     if (!open) return;
     const saved = loadSavedCoords();
-    // Strict guard: never allow [0,0] — always fall back to ALEPPO
     const isSafeCoord = (c: { lat: number; lng: number } | null): c is { lat: number; lng: number } =>
       c != null && Math.abs(c.lat) > 0.001 && Math.abs(c.lng) > 0.001;
-    const initialCenter: [number, number] = isSafeCoord(saved) ? [saved.lat, saved.lng] : ALEPPO;
+    const initialCenter: [number, number] = isSafeCoord(saved)
+      ? [saved.lat, saved.lng]
+      : ALEPPO;
     setCenter(initialCenter);
     setSelectedZoneId(loadSavedZoneId());
     setResolvedAddress("");
     setIsOutsideSyria(false);
     /*
       IMPORTANT: set flyToTarget instead of null — MapController.flyTo() handles
-      navigation smoothly via the Leaflet API without triggering a remount.
+      navigation smoothly via Leaflet API without triggering a remount.
       Previously setMapKey incremented here, causing a double-mount (gray tiles bug).
     */
     setFlyToTarget(initialCenter);
@@ -267,8 +313,7 @@ export function LocationMapModal({ open, onClose }: Props) {
     setTilesLoaded(false);
   }, [open]);
 
-  /* Safety net: force shimmer away after 800 ms in case the Leaflet "load"
-     event never fires (network stall, ad-blocker blocking tiles, etc.) */
+  /* Safety net: force shimmer away after 800 ms */
   useEffect(() => {
     if (!open || tilesLoaded) return;
     const id = setTimeout(() => setTilesLoaded(true), 800);
@@ -331,7 +376,7 @@ export function LocationMapModal({ open, onClose }: Props) {
       .finally(() => setSearchLoading(false));
   }, [debouncedQuery, isRtl]);
 
-  /* Part 1 + Geofencing — reverse geocode with strict Syria validation */
+  /* Part 1 + Geofencing — reverse geocode with AbortController + strict Syria validation */
   useEffect(() => {
     if (!zones.length) return;
     const [lat, lng] = debouncedCenter;
@@ -345,21 +390,26 @@ export function LocationMapModal({ open, onClose }: Props) {
       return;
     }
 
+    /* Abort any in-flight request from a previous pan */
+    geocodeAbortRef.current?.abort();
+    const controller = new AbortController();
+    geocodeAbortRef.current = controller;
+
     setAutoMatching(true);
     fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=ar,en&zoom=16`,
-      { headers: { "Accept-Language": "ar,en" } },
+      { signal: controller.signal, headers: { "Accept-Language": "ar,en" } },
     )
       .then(r => r.json())
       .then((data: { address?: NominatimAddress; display_name?: string }) => {
         const addr = data.address;
 
-        /* ② Strict country_code check — "sy" = Syria */
+        /* ② Strict country_code check */
         const countryCode = addr?.country_code?.toLowerCase() ?? "";
         const countryName = addr?.country?.toLowerCase() ?? "";
         const isSyria =
           countryCode === "sy" ||
-          countryName.includes("syria") ||
+          countryName.includes("syria")  ||
           countryName.includes("سوريا") ||
           countryName.includes("سورية");
 
@@ -375,7 +425,6 @@ export function LocationMapModal({ open, onClose }: Props) {
         const parts = addr ? extractAddressParts(addr) : [];
         setSelectedZoneId(resolveZone(parts, zones));
 
-        /* Build short address text for footer */
         if (addr) {
           const shortParts = [
             addr.suburb || addr.neighbourhood || addr.quarter || addr.city_district,
@@ -386,12 +435,25 @@ export function LocationMapModal({ open, onClose }: Props) {
           setResolvedAddress(data.display_name?.split(",")[0] ?? "");
         }
       })
-      .catch(() => { /* keep previous state on network error */ })
+      .catch(err => {
+        /* Ignore AbortError — it's intentional (rapid pan); keep previous state */
+        if ((err as Error).name !== "AbortError") {
+          /* Network error — keep previous zone/address state */
+        }
+      })
       .finally(() => setAutoMatching(false));
+
+    return () => {
+      controller.abort();
+      setAutoMatching(false);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedCenter, zones]);
 
-  /* Confirm handler */
+  /* Cleanup abort controller on unmount */
+  useEffect(() => () => { geocodeAbortRef.current?.abort(); }, []);
+
+  /* Confirm handler — saves location + fires geofence tile prefetch */
   const handleConfirm = useCallback(() => {
     setSaving(true);
     try {
@@ -402,14 +464,18 @@ export function LocationMapModal({ open, onClose }: Props) {
         localStorage.setItem(ADDR_KEY, JSON.stringify({
           ...existing,
           zoneId: selectedZoneId,
-          lat: center[0],
-          lng: center[1],
+          lat:    center[0],
+          lng:    center[1],
           address: resolvedAddress,
         }));
       } catch { /* ignore */ }
       window.dispatchEvent(new CustomEvent("syano:location-updated", {
         detail: { zoneId: selectedZoneId, lat: center[0], lng: center[1] },
       }));
+
+      /* OPT-3: prefetch tile grid around confirmed location (non-blocking) */
+      prefetchTilesAround(center[0], center[1]);
+
       onClose();
     } finally { setSaving(false); }
   }, [selectedZoneId, center, resolvedAddress, onClose]);
@@ -431,12 +497,10 @@ export function LocationMapModal({ open, onClose }: Props) {
     setSearchOpen(false);
   }, []);
 
-  /* Stable map-move handler — memoized so CenterTracker never re-binds */
   const handleMapMove = useCallback((lat: number, lng: number) => {
     setCenter([lat, lng]);
   }, []);
 
-  /* Geolocate button */
   const handleGeolocate = useCallback(() => {
     if (!("geolocation" in navigator)) return;
     setGeoStatus("loading");
@@ -453,20 +517,28 @@ export function LocationMapModal({ open, onClose }: Props) {
   }, []);
 
   /* Derived */
-  const selectedZone = zones.find(z => z.id === selectedZoneId) ?? null;
+  const selectedZone    = zones.find(z => z.id === selectedZoneId) ?? null;
   const footerAddressLine = resolvedAddress
     || (selectedZone ? (isRtl ? selectedZone.nameAr : selectedZone.nameEn) : "");
-
-  if (!open) return null;
 
   /* ── Part 2 — Noon-Style Floating Modal UI ─────────────────────── */
   const modal = (
     <div
-      className="fixed inset-0 z-[9999]"
-      aria-modal="true"
-      role="dialog"
+      role={open ? "dialog" : undefined}
+      aria-modal={open || undefined}
       aria-label={isRtl ? "تحديد موقعك" : "Select your location"}
       dir={isRtl ? "rtl" : "ltr"}
+      style={{
+        position:      "fixed",
+        inset:         0,
+        zIndex:        open ? 9999 : -1,
+        /* visibility:hidden preserves layout dimensions so Leaflet keeps
+           tiles in memory — subsequent opens are instant (no tile reload) */
+        visibility:    open ? "visible" : "hidden",
+        opacity:       open ? 1 : 0,
+        pointerEvents: open ? "auto" : "none",
+        transition:    "opacity 0.2s ease",
+      }}
     >
       {/* Backdrop */}
       <div
@@ -474,7 +546,7 @@ export function LocationMapModal({ open, onClose }: Props) {
         onClick={onClose}
       />
 
-      {/* Dialog shell — Noon-style: max-w-4xl, no inner card frame around map */}
+      {/* Dialog shell */}
       <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
         <div
           className="pointer-events-auto relative w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
@@ -492,37 +564,76 @@ export function LocationMapModal({ open, onClose }: Props) {
             <X className="h-4 w-4" />
           </button>
 
-          {/* ── Map section — fills edge-to-edge, no inner margins ─── */}
+          {/* ── Map section ────────────────────────────────────────── */}
           <div className="relative flex-1 min-h-0">
             <MapContainer
               center={center}
               zoom={15}
-              style={{ height: "100%", width: "100%", position: "absolute", inset: 0, zIndex: 0 }}
+              style={{ height: "100%", width: "100%", position: "absolute", inset: 0, zIndex: 0, background: "#e8e0d5" }}
               zoomControl={false}
               attributionControl={false}
               scrollWheelZoom={true}
               trackResize={true}
             >
-              {/* OpenStreetMap — maxNativeZoom prevents gray tiles on deep zoom */}
+              {/* Layer 5 — Stale TileLayer: stays 3 s during provider switch */}
+              {staleProvider && (
+                <TileLayer
+                  key={`stale-${staleKey}`}
+                  url={TILE_PROVIDERS[staleProvider]}
+                  zIndex={1}
+                  maxZoom={19}
+                  maxNativeZoom={19}
+                />
+              )}
+
+              {/* Layers 3 & 4 — Active TileLayer with dynamic keepBuffer */}
               <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                key={provider}
+                url={TILE_PROVIDERS[provider]}
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                zIndex={2}
                 maxZoom={19}
                 maxNativeZoom={19}
                 minZoom={3}
-                keepBuffer={12}
+                keepBuffer={keepBuffer}
                 updateWhenZooming={false}
-                updateWhenIdle={false}
+                updateWhenIdle={true}
+                eventHandlers={{ tileerror: handleTileError }}
               />
+
               <TileLoadTracker onFirstLoad={handleFirstLoad} />
+              {/* Layer 6 */}
+              <MapResizeObserver />
               <InvalidateSizeOnOpen />
               <CenterTracker onMove={handleMapMove} />
               <MapController flyToTarget={flyToTarget} onFlown={() => setFlyToTarget(null)} />
             </MapContainer>
 
-            {/* ── Frosted-glass tile-loading shimmer ───────────────
-                Fades out (0.6s) once TileLoadTracker signals ready.
-                pointer-events:none keeps controls fully interactive.  */}
+            {/* ── Offline overlay ───────────────────────────────────── */}
+            {isOffline && (
+              <div style={{
+                position:       "absolute",
+                inset:          0,
+                zIndex:         900,
+                display:        "flex",
+                flexDirection:  "column",
+                alignItems:     "center",
+                justifyContent: "center",
+                gap:            12,
+                background:     "rgba(248,250,252,0.95)",
+                backdropFilter: "blur(4px)",
+              }}>
+                <WifiOff style={{ width: 36, height: 36, color: "#94a3b8" }} />
+                <p style={{
+                  color: "#475569", fontSize: 14,
+                  fontFamily: "'Cairo', sans-serif", fontWeight: 600,
+                }}>
+                  {isRtl ? "الخريطة غير متاحة — تحقق من الاتصال" : "Map unavailable — check your connection"}
+                </p>
+              </div>
+            )}
+
+            {/* ── Frosted-glass tile-loading shimmer ─────────────────── */}
             <style>{`
               @keyframes syano-modal-shimmer {
                 0%   { background-position: 200% center; }
@@ -532,79 +643,60 @@ export function LocationMapModal({ open, onClose }: Props) {
             <div
               aria-hidden="true"
               style={{
-                position: "absolute",
-                inset: 0,
-                zIndex: 500,
+                position:      "absolute",
+                inset:         0,
+                zIndex:        500,
                 pointerEvents: "none",
-                opacity: tilesLoaded ? 0 : 1,
-                transition: "opacity 0.6s ease",
-                borderRadius: "inherit",
-                overflow: "hidden",
+                opacity:       tilesLoaded ? 0 : 1,
+                transition:    "opacity 0.6s ease",
+                borderRadius:  "inherit",
+                overflow:      "hidden",
               }}
             >
-              {/* Frosted white shimmer — matches modal background */}
               <div style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(120deg, #f8fafc 0%, #e2e8f0 40%, #d1fae5 50%, #e2e8f0 60%, #f8fafc 100%)",
+                position:       "absolute",
+                inset:          0,
+                background:     "linear-gradient(120deg,#f8fafc 0%,#e2e8f0 40%,#d1fae5 50%,#e2e8f0 60%,#f8fafc 100%)",
                 backgroundSize: "300% 100%",
-                animation: "syano-modal-shimmer 1.8s linear infinite",
+                animation:      "syano-modal-shimmer 1.8s linear infinite",
               }} />
 
-              {/* Emerald pulsing beacon — centred */}
               <div style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
+                position:       "absolute",
+                inset:          0,
+                display:        "flex",
+                alignItems:     "center",
                 justifyContent: "center",
-                flexDirection: "column",
-                gap: 14,
+                flexDirection:  "column",
+                gap:            14,
               }}>
                 <div style={{ position: "relative", width: 52, height: 52 }}>
-                  {/* Outer ping ring */}
                   <div style={{
-                    position: "absolute",
-                    inset: 0,
-                    borderRadius: "50%",
-                    border: "2px solid #059669",
-                    opacity: 0.5,
+                    position: "absolute", inset: 0, borderRadius: "50%",
+                    border: "2px solid #059669", opacity: 0.5,
                     animation: "ping 1.2s cubic-bezier(0,0,.2,1) infinite",
                   }} />
-                  {/* Mid ring */}
                   <div style={{
-                    position: "absolute",
-                    inset: "20%",
-                    borderRadius: "50%",
-                    border: "1.5px solid #059669",
-                    opacity: 0.3,
+                    position: "absolute", inset: "20%", borderRadius: "50%",
+                    border: "1.5px solid #059669", opacity: 0.3,
                   }} />
-                  {/* Inner dot */}
                   <div style={{
-                    position: "absolute",
-                    inset: "35%",
-                    borderRadius: "50%",
-                    background: "#059669",
-                    boxShadow: "0 0 16px rgba(5,150,105,0.5)",
+                    position: "absolute", inset: "35%", borderRadius: "50%",
+                    background: "#059669", boxShadow: "0 0 16px rgba(5,150,105,0.5)",
                   }} />
                 </div>
                 <span style={{
-                  color: "#64748b",
-                  fontSize: 12,
-                  fontFamily: "'Cairo', sans-serif",
-                  letterSpacing: "0.04em",
+                  color: "#64748b", fontSize: 12,
+                  fontFamily: "'Cairo', sans-serif", letterSpacing: "0.04em",
                 }}>
                   {isRtl ? "جارٍ تحميل الخريطة..." : "Loading map..."}
                 </span>
               </div>
             </div>
 
-            {/* ── Part 2 — Floating top control row ─────────────── */}
-            {/* z-[1000] floats cleanly above Leaflet tile layers     */}
-            <div
-              className="absolute top-4 start-4 end-14 z-[1000] flex items-center gap-3"
-            >
-              {/* "استخدم موقعك الحالي" button */}
+            {/* ── Floating top control row ────────────────────────────── */}
+            <div className="absolute top-4 start-4 end-14 z-[1000] flex items-center gap-3">
+              {/* Geolocate button */}
               <button
                 type="button"
                 onClick={handleGeolocate}
@@ -624,9 +716,7 @@ export function LocationMapModal({ open, onClose }: Props) {
                 ) : (
                   <LocateFixed className="h-4 w-4" />
                 )}
-                <span className="hidden sm:inline">
-                  {t("map.locate_me")}
-                </span>
+                <span className="hidden sm:inline">{t("map.locate_me")}</span>
               </button>
 
               {/* Address search input */}
@@ -652,14 +742,15 @@ export function LocationMapModal({ open, onClose }: Props) {
                         setSearchOpen(false);
                       }
                     }}
-                    placeholder={isRtl ? "ابحث عن موقعك، الحي، أو المبنى..." : "Search your area, district, or building..."}
+                    placeholder={isRtl
+                      ? "ابحث عن موقعك، الحي، أو المبنى..."
+                      : "Search your area, district, or building..."}
                     className="w-full h-11 ps-9 pe-3 bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
                     style={{ fontFamily: "'Cairo', sans-serif" }}
                     dir={isRtl ? "rtl" : "ltr"}
                   />
                 </div>
 
-                {/* Search results dropdown */}
                 {searchOpen && searchResults.length > 0 && (
                   <div className="absolute top-full start-0 end-0 bg-white border border-t-0 border-emerald-400 rounded-b-xl shadow-xl max-h-52 overflow-y-auto z-[1001]">
                     {searchResults.map(r => (
@@ -680,57 +771,38 @@ export function LocationMapModal({ open, onClose }: Props) {
               </div>
             </div>
 
-            {/* ── Part 2 — Custom Center Pin + "مكان توصيل طلبك هنا" capsule ── */}
+            {/* ── Custom Center Pin ───────────────────────────────────── */}
             <div
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
               style={{ zIndex: 400 }}
             >
               <div className="flex flex-col items-center" style={{ transform: "translateY(-50%)" }}>
-                {/* Dark floating capsule tooltip */}
                 <div
                   className="mb-2 px-3 py-1.5 rounded-full shadow-xl text-white text-xs font-bold whitespace-nowrap"
-                  style={{
-                    background: "#0a0a0a",
-                    fontFamily: "'Cairo', sans-serif",
-                    letterSpacing: "0.01em",
-                  }}
+                  style={{ background: "#0a0a0a", fontFamily: "'Cairo', sans-serif", letterSpacing: "0.01em" }}
                 >
                   {t("map.deliver_here")}
                 </div>
 
-                {/* Pin icon */}
                 <div className="relative">
                   <svg
-                    viewBox="0 0 24 24"
-                    width={52}
-                    height={52}
-                    fill="#059669"
-                    style={{
-                      display: "block",
-                      filter: "drop-shadow(0 4px 14px rgba(5,150,105,0.55)) drop-shadow(0 2px 4px rgba(0,0,0,0.30))",
-                    }}
+                    viewBox="0 0 24 24" width={52} height={52} fill="#059669"
+                    style={{ display: "block", filter: "drop-shadow(0 4px 14px rgba(5,150,105,0.55)) drop-shadow(0 2px 4px rgba(0,0,0,0.30))" }}
                   >
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
                     <circle cx="12" cy="9" r="3" fill="white" />
                   </svg>
-                  {/* Shadow ellipse */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: -4,
-                      insetInlineStart: "50%",
-                      transform: "translateX(-50%)",
-                      width: 22,
-                      height: 7,
-                      borderRadius: "50%",
-                      background: "radial-gradient(ellipse, rgba(5,150,105,0.30) 0%, transparent 70%)",
-                    }}
-                  />
+                  <div style={{
+                    position: "absolute", bottom: -4,
+                    insetInlineStart: "50%", transform: "translateX(-50%)",
+                    width: 22, height: 7, borderRadius: "50%",
+                    background: "radial-gradient(ellipse,rgba(5,150,105,0.30) 0%,transparent 70%)",
+                  }} />
                 </div>
               </div>
             </div>
 
-            {/* Coord + auto-matching readout */}
+            {/* Zone-matching readout */}
             {autoMatching && (
               <div
                 className="absolute bottom-3 start-3 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm rounded-lg px-2.5 py-1.5 border border-gray-200 shadow-sm"
@@ -742,48 +814,43 @@ export function LocationMapModal({ open, onClose }: Props) {
                 </p>
               </div>
             )}
+
+            {/* Provider badge */}
+            {provider === "carto" && !isOffline && (
+              <div
+                className="absolute bottom-3 end-3 flex items-center gap-1 bg-white/80 backdrop-blur-sm rounded-md px-2 py-1 border border-amber-200 shadow-sm"
+                style={{ zIndex: 400 }}
+              >
+                <span className="text-[9px] text-amber-600 font-medium">fallback: CartoDB</span>
+              </div>
+            )}
           </div>
 
-          {/* ── Part 3 — Sticky White Footer ──────────────────────────── */}
-          <div
-            className={`shrink-0 border-t px-5 py-4 flex items-center justify-between gap-4 transition-colors ${
-              isOutsideSyria
-                ? "bg-red-50 border-red-100"
-                : "bg-white border-gray-100"
-            }`}
-          >
-
-            {/* Right side (start) — Address Reading Feedback / Error Banner */}
+          {/* ── Part 3 — Sticky White Footer ───────────────────────────── */}
+          <div className={`shrink-0 border-t px-5 py-4 flex items-center justify-between gap-4 transition-colors ${
+            isOutsideSyria ? "bg-red-50 border-red-100" : "bg-white border-gray-100"
+          }`}>
             <div className="flex items-center gap-3 min-w-0 flex-1">
-              <div
-                className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                  isOutsideSyria ? "bg-red-100" : "bg-emerald-50"
-                }`}
-              >
-                <MapPin
-                  className={`h-5 w-5 transition-colors ${
-                    isOutsideSyria ? "text-red-500" : "text-emerald-600"
-                  }`}
-                />
+              <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                isOutsideSyria ? "bg-red-100" : "bg-emerald-50"
+              }`}>
+                <MapPin className={`h-5 w-5 transition-colors ${
+                  isOutsideSyria ? "text-red-500" : "text-emerald-600"
+                }`} />
               </div>
               <div className="min-w-0">
                 {isOutsideSyria ? (
-                  /* ── Geofencing rejection banner ── */
                   <>
                     <p className="text-[11px] font-semibold text-red-400 uppercase tracking-wide leading-none mb-0.5">
                       {isRtl ? "موقع غير مدعوم" : "Unsupported Location"}
                     </p>
-                    <p
-                      className="text-sm font-semibold text-red-600 leading-snug"
-                      style={{ fontFamily: "'Cairo', sans-serif" }}
-                    >
+                    <p className="text-sm font-semibold text-red-600 leading-snug" style={{ fontFamily: "'Cairo', sans-serif" }}>
                       {isRtl
                         ? "عذراً، التوصيل مدعوم فقط داخل الأراضي السورية حالياً"
                         : "Delivery is only available inside Syria"}
                     </p>
                   </>
                 ) : (
-                  /* ── Normal address display ── */
                   <>
                     <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide leading-none mb-0.5">
                       {t("map.current_address_label")}
@@ -803,7 +870,6 @@ export function LocationMapModal({ open, onClose }: Props) {
               </div>
             </div>
 
-            {/* Left side (end) — Confirm button (disabled + gray when outside Syria) */}
             <button
               type="button"
               onClick={handleConfirm}
@@ -815,9 +881,7 @@ export function LocationMapModal({ open, onClose }: Props) {
               }`}
               style={{ fontFamily: "'Cairo', sans-serif" }}
             >
-              {saving ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : null}
+              {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               {isRtl ? "تأكيد الموقع" : "Confirm Location"}
             </button>
           </div>
@@ -827,5 +891,11 @@ export function LocationMapModal({ open, onClose }: Props) {
     </div>
   );
 
+  /*
+   * Always render via createPortal — never return null.
+   * The CSS visibility/opacity/pointer-events controls visibility.
+   * The Leaflet instance stays alive across open/close cycles,
+   * making subsequent opens instant (tiles already in memory).
+   */
   return createPortal(modal, document.body);
 }

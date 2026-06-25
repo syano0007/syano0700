@@ -1,70 +1,156 @@
-/* Syano Service Worker v3
- * v1 → v2: Added cache-first strategy for hashed static assets and same-origin
- *          static files. Old cache cleanup on activate. Push handling unchanged.
- * v2 → v3: Install-time precache for the self-hosted Inter font so it is
- *          available from SW cache on EVERY page load after the first visit
- *          (not just once it has been fetched lazily). Cache name kept as v2
- *          to avoid invalidating users' existing hashed JS/CSS chunk caches.
+/* Syano Service Worker v4
+ * v1 → v2: Cache-first for hashed JS/CSS chunks; stale-while-revalidate for same-origin statics.
+ * v2 → v3: Install-time precache for Inter font.
+ * v3 → v4: Cross-origin OSM/CartoDB tile caching (Cache First, mode: cors).
+ *          Parallel metadata cache (syano-tile-meta-v1) for LRU eviction tracking.
+ *          Background LRU eviction every 50 tile writes (cap: 750 tiles).
+ *          Runtime cache invalidation via postMessage({ type: 'INVALIDATE_TILE_CACHE' }).
  *
- * Caching strategy:
+ * Caching strategies:
+ *   OSM / CartoDB tiles   → Cache First (cross-origin, new in v4)
  *   Hashed JS/CSS chunks  → Cache First (content-addressed, safe to cache forever)
- *   Same-origin static    → Stale While Revalidate (icons, fonts, manifest)
+ *   Same-origin statics   → Stale While Revalidate (fonts, icons, manifest)
  *   Everything else       → Network only (API, navigation, SSE)
  *
- * Deliberately NOT caching API responses in the SW — TanStack Query provides a
- * superior stale-while-revalidate strategy in JS with smarter cache invalidation.
+ * API caching deliberately omitted — TanStack Query provides superior
+ * stale-while-revalidate with smarter invalidation in JS land.
  */
 
 const CACHE_ASSETS = "syano-assets-v2";
-const ALL_CACHES   = [CACHE_ASSETS];
+const CACHE_TILES  = "syano-tile-cache-v1";
+const CACHE_META   = "syano-tile-meta-v1";
+const ALL_CACHES   = [CACHE_ASSETS, CACHE_TILES, CACHE_META];
 
-// Assets to warm into the cache during SW install so they are instantly
-// available on all subsequent page loads — no conditional network request.
-// Paths are relative to the SW registration scope (e.g. /marketplace/).
-const PRECACHE_URLS = [
-  "fonts/inter-latin.woff2",
-];
+const TILE_MAX    = 750;  // maximum tiles kept in cache (LRU eviction after this)
+const EVICT_EVERY = 50;   // run LRU eviction check every N tile writes
 
-/* ── Install: precache critical assets, then skip waiting ──────── */
+/* Matches OSM subdomains a/b/c and CartoDB subdomains a/b/c/d */
+const TILE_ORIGIN_RE =
+  /^https:\/\/[a-d]\.(?:tile\.openstreetmap\.org|basemaps\.cartocdn\.com)\//;
+
+let tileWriteCount = 0;
+
+// ── Metadata helpers ──────────────────────────────────────────────────────────
+
+async function updateTileMeta(url) {
+  try {
+    const cache = await caches.open(CACHE_META);
+    await cache.put(
+      new Request(url),
+      new Response(String(Date.now()), {
+        headers: { "Content-Type": "text/plain" },
+      }),
+    );
+  } catch { /* ignore */ }
+}
+
+// ── LRU eviction — runs in background, never blocks fetch ─────────────────────
+
+async function evictOldTiles() {
+  try {
+    const [tileCache, metaCache] = await Promise.all([
+      caches.open(CACHE_TILES),
+      caches.open(CACHE_META),
+    ]);
+
+    const metaKeys = await metaCache.keys();
+    if (metaKeys.length <= TILE_MAX) return; // still within cap
+
+    const entries = await Promise.all(
+      metaKeys.map(async (req) => {
+        const res = await metaCache.match(req);
+        const ts = res ? parseInt(await res.text(), 10) : 0;
+        return { url: req.url, ts };
+      }),
+    );
+
+    /* Sort oldest-first, evict the excess */
+    entries.sort((a, b) => a.ts - b.ts);
+    const excess = entries.slice(0, entries.length - TILE_MAX);
+
+    await Promise.all(
+      excess.map(({ url }) =>
+        Promise.all([
+          tileCache.delete(new Request(url)),
+          metaCache.delete(new Request(url)),
+        ]),
+      ),
+    );
+  } catch { /* ignore eviction errors */ }
+}
+
+// ── Install: precache critical assets ────────────────────────────────────────
+
+const PRECACHE_URLS = ["fonts/inter-latin.woff2"];
+
 self.addEventListener("install", (event) => {
-  const scope = self.registration.scope; // e.g. "https://app.replit.app/"
-  const precache = caches.open(CACHE_ASSETS)
+  const scope = self.registration.scope;
+  const precache = caches
+    .open(CACHE_ASSETS)
     .then((cache) =>
-      cache.addAll(PRECACHE_URLS.map((p) => scope + p))
+      cache.addAll(PRECACHE_URLS.map((p) => scope + p)),
     )
-    .catch(() => {}); // swallow failures — font is not critical for SW install
+    .catch(() => {});
 
-  event.waitUntil(
-    precache.then(() => self.skipWaiting())
-  );
+  event.waitUntil(precache.then(() => self.skipWaiting()));
 });
 
-/* ── Activate: purge caches from old SW versions ───────────────── */
+// ── Activate: purge old caches ────────────────────────────────────────────────
+
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys()
+    caches
+      .keys()
       .then((keys) =>
         Promise.all(
           keys
             .filter((k) => !ALL_CACHES.includes(k))
-            .map((k) => caches.delete(k))
-        )
+            .map((k) => caches.delete(k)),
+        ),
       )
-      .then(() => self.clients.claim())
+      .then(() => self.clients.claim()),
   );
 });
 
-/* ── Fetch handler ─────────────────────────────────────────────── */
+// ── Fetch handler ─────────────────────────────────────────────────────────────
+
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
 
-  /* 1. Hashed JS/CSS chunks — Cache First, no expiry.
-     Pattern: /assets/name-[8+hex].(js|css)
-     These are content-addressed: the hash changes whenever the file changes,
-     so it is safe to cache them indefinitely. First visit hits network and
-     populates the cache; every subsequent visit is instant from disk cache. */
+  /* ① OSM / CartoDB tiles — Cache First (v4 addition)
+     Re-issued with mode:'cors' so we get a transparent (inspectable) response.
+     Both OSM and CartoDB send Access-Control-Allow-Origin: * so this is safe.
+     On hit: update metadata access timestamp (fire-and-forget).
+     On miss: fetch, store, increment write counter, trigger LRU if needed. */
+  if (TILE_ORIGIN_RE.test(event.request.url)) {
+    event.respondWith(
+      caches.open(CACHE_TILES).then(async (tileCache) => {
+        const cached = await tileCache.match(event.request, { ignoreVary: true });
+        if (cached) {
+          updateTileMeta(event.request.url); /* fire-and-forget */
+          return cached;
+        }
+
+        const corsReq = new Request(event.request.url, { mode: "cors" });
+        const res = await fetch(corsReq);
+        if (res.ok) {
+          tileCache.put(event.request, res.clone());
+          await updateTileMeta(event.request.url);
+          tileWriteCount++;
+          if (tileWriteCount % EVICT_EVERY === 0) {
+            evictOldTiles(); /* non-blocking — no await */
+          }
+        }
+        return res;
+      }),
+    );
+    return;
+  }
+
+  /* ② Hashed JS/CSS chunks — Cache First, no expiry.
+     Content-addressed: the hash changes when file changes → safe to cache forever. */
   if (/\/assets\/[^/?]+-[0-9a-f]{8,}\.(js|css)(\?.*)?$/.test(url.pathname)) {
     event.respondWith(
       caches.open(CACHE_ASSETS).then(async (cache) => {
@@ -73,23 +159,23 @@ self.addEventListener("fetch", (event) => {
         const res = await fetch(event.request);
         if (res.ok) cache.put(event.request, res.clone());
         return res;
-      })
+      }),
     );
     return;
   }
 
-  /* 2. Same-origin static assets — Stale While Revalidate.
-     Covers fonts, icons, manifest, and other non-hashed statics.
-     Serves the cached version immediately while refreshing in the background. */
+  /* ③ Same-origin statics — Stale While Revalidate.
+     Fonts, icons, manifest, images: serve from cache, refresh in background. */
   if (
     url.hostname === self.location.hostname &&
-    /\.(woff2?|ttf|otf|ico|png|svg|webmanifest|webp|jpg|jpeg|gif)(\?.*)?$/.test(url.pathname)
+    /\.(woff2?|ttf|otf|ico|png|svg|webmanifest|webp|jpg|jpeg|gif)(\?.*)?$/.test(
+      url.pathname,
+    )
   ) {
     event.respondWith(
       caches.open(CACHE_ASSETS).then(async (cache) => {
         const hit = await cache.match(event.request);
         if (hit) {
-          /* Refresh in background — fire-and-forget */
           fetch(event.request)
             .then((res) => { if (res.ok) cache.put(event.request, res); })
             .catch(() => {});
@@ -98,18 +184,18 @@ self.addEventListener("fetch", (event) => {
         const res = await fetch(event.request);
         if (res.ok) cache.put(event.request, res.clone());
         return res;
-      })
+      }),
     );
     return;
   }
 
-  /* Everything else (API, navigation, SSE, cross-origin): network only.
-     API caching is handled by TanStack Query (staleTime / gcTime).
-     External images are cached by the browser's built-in HTTP cache based on
-     the CDN's Cache-Control headers (Pexels/Unsplash send proper long-lived headers). */
+  /* ④ Everything else (API, navigation, SSE, external images) — network only.
+     External images rely on CDN Cache-Control headers (Pexels/Unsplash → long TTL).
+     API caching is handled by TanStack Query. */
 });
 
-/* ── Push event (unchanged from v1) ───────────────────────────── */
+// ── Push notifications (unchanged from v3) ────────────────────────────────────
+
 self.addEventListener("push", (event) => {
   if (!event.data) return;
 
@@ -122,29 +208,25 @@ self.addEventListener("push", (event) => {
 
   const { title, body, icon, badge, data, tag, priority } = payload;
 
-  const notificationOptions = {
-    body:               body ?? "",
-    icon:               icon  ?? "/favicon.svg",
-    badge:              badge ?? "/favicon.svg",
-    data:               data  ?? {},
-    tag:                tag   ?? "syano-notif",
-    renotify:           true,
-    requireInteraction: priority === "critical",
-    vibrate:            priority === "critical"
-      ? [200, 100, 200, 100, 200]
-      : [100, 50, 100],
-    timestamp: Date.now(),
-  };
-
   event.waitUntil(
-    self.registration.showNotification(title ?? "Syano", notificationOptions)
+    self.registration.showNotification(title ?? "Syano", {
+      body:               body  ?? "",
+      icon:               icon  ?? "/favicon.svg",
+      badge:              badge ?? "/favicon.svg",
+      data:               data  ?? {},
+      tag:                tag   ?? "syano-notif",
+      renotify:           true,
+      requireInteraction: priority === "critical",
+      vibrate:            priority === "critical"
+        ? [200, 100, 200, 100, 200]
+        : [100, 50, 100],
+      timestamp: Date.now(),
+    }),
   );
 });
 
-/* ── Notification click (unchanged from v1) ────────────────────── */
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-
   const link      = event.notification.data?.link;
   const targetUrl = link
     ? (link.startsWith("http") ? link : `https://syano.online${link}`)
@@ -160,16 +242,24 @@ self.addEventListener("notificationclick", (event) => {
             return client.focus();
           }
         }
-        if (self.clients.openWindow) {
-          return self.clients.openWindow(targetUrl);
-        }
-      })
+        if (self.clients.openWindow) return self.clients.openWindow(targetUrl);
+      }),
   );
 });
 
-/* ── Background sync (unchanged from v1) ──────────────────────── */
 self.addEventListener("sync", (event) => {
-  if (event.tag === "syano-sync") {
-    event.waitUntil(Promise.resolve());
+  if (event.tag === "syano-sync") event.waitUntil(Promise.resolve());
+});
+
+// ── postMessage: runtime tile cache invalidation (v4 addition) ────────────────
+
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "INVALIDATE_TILE_CACHE") {
+    Promise.all([
+      caches.delete(CACHE_TILES),
+      caches.delete(CACHE_META),
+    ])
+      .then(() => event.ports?.[0]?.postMessage({ ok: true }))
+      .catch(() => event.ports?.[0]?.postMessage({ ok: false }));
   }
 });
