@@ -247,6 +247,208 @@ pnpm --filter @workspace/marketplace add leaflet react-leaflet @types/leaflet
 
 ---
 
+## MAP SYSTEM MANIFEST
+
+> Audited: 2026-06-25. All layers verified present and correctly configured.  
+> Reference implementation files: `artifacts/marketplace/src/components/TrackingMap.tsx` · `artifacts/marketplace/src/components/LocationMapModal.tsx`
+
+---
+
+### Map Engine Architecture
+
+The SYANO map system is a hardened, multi-layer Leaflet engine used in two contexts:
+
+| Component | File | Purpose |
+|---|---|---|
+| `TrackingMap` | `src/components/TrackingMap.tsx` | Live courier tracking — read-only, auto-pan, real-road polyline |
+| `LocationMapModal` | `src/components/LocationMapModal.tsx` | Delivery address picker — interactive crosshair, zone auto-detection |
+
+Both components share the same hardened `TileLayer` configuration and shimmer-loading pattern. They are independent React trees (not shared instances).
+
+**Routing engine:** OSRM (`router.project-osrm.org`) via `artifacts/api-server/src/services/osrmService.ts`.  
+**Fallback routing:** Haversine straight-line when OSRM is unreachable.  
+**Route cache:** `artifacts/api-server/src/services/routeCacheService.ts` — 60 s TTL, invalidates if courier moves > 100 m.
+
+---
+
+### Configuration Hardening
+
+These are the **critical parameters** that must be preserved in every migration. Changing any of them causes gray tiles, blank maps, or layout breaks.
+
+#### TileLayer (both TrackingMap and LocationMapModal)
+
+```tsx
+<TileLayer
+  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  maxZoom={19}
+  maxNativeZoom={19}
+  minZoom={3}
+  keepBuffer={12}
+  updateWhenZooming={false}
+  updateWhenIdle={false}
+/>
+```
+
+| Parameter | Value | Why it must not change |
+|---|---|---|
+| `url` | `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png` | OSM CDN with subdomains `a/b/c` — load-balances tile requests |
+| `maxZoom` | `19` | Leaflet render limit — must match `maxNativeZoom` |
+| `maxNativeZoom` | `19` | Prevents gray/blurry tiles when user zooms past native tile resolution |
+| `minZoom` | `3` | Guards against extreme zoom-out breaking tile coordinates |
+| `keepBuffer` | `12` | Pre-loads 12 tiles outside the visible viewport — prevents blank edges on fast pan |
+| `updateWhenZooming` | `false` | Suppresses mid-zoom tile requests — eliminates flicker during pinch/scroll |
+| `updateWhenIdle` | `false` | Loads tiles continuously during pan, not only after the pan stops |
+
+#### MapContainer settings
+
+| Component | Critical settings |
+|---|---|
+| `TrackingMap` | `zoom={14}` · `attributionControl={false}` · `zoomControl` |
+| `LocationMapModal` | `zoom={15}` · `zoomControl={false}` · `attributionControl={false}` · `scrollWheelZoom={true}` · `trackResize={true}` |
+
+#### Inner helper components (must not be removed)
+
+| Helper | Component | Purpose |
+|---|---|---|
+| `TileLoadTracker` | Both | Fires shimmer-dismiss only when Leaflet signals all tiles ready. Also has an 80 ms post-mount check for the cached-tile race (tiles load before the component mounts → "load" event never fires) |
+| `AutoPan` | TrackingMap | Smooth `panTo` on each courier GPS update (1.2 s animation) |
+| `AutoFit` | TrackingMap | `fitBounds` to route/markers on first load only (guarded by `fittedRef`) |
+| `MapController` | LocationMapModal | `flyTo(target, 15, 1.5s)` for search results and GPS locate — uses `flyToTarget` state instead of re-mounting the map |
+| `InvalidateSizeOnOpen` | LocationMapModal | Calls `map.invalidateSize()` immediately + after 150 ms when modal opens — prevents blank/collapsed tile grid inside flex containers |
+| `CenterTracker` | LocationMapModal | Debounced (200 ms) map-move handler — feeds center state for reverse geocoding |
+
+#### Shimmer overlay (both components)
+
+Both maps show a branded shimmer loading state until tiles are ready. Key rules:
+- `opacity` transitions from `1 → 0` over 0.6–0.65 s (CSS `transition: opacity`)
+- `pointer-events: none` — map stays fully interactive while shimmer is visible
+- Safety net: `setTimeout(800ms)` forces shimmer away if the Leaflet "load" event never fires (network stall, ad-blocker)
+- `zIndex: 500–800` — above Leaflet tiles but below map controls (z-index 1000+)
+
+#### LocationMapModal persistence (must not regress)
+
+```
+localStorage key  ZONE_KEY   → JSON number   (selected zone ID)
+localStorage key  COORDS_KEY → JSON { lat, lng }
+localStorage key  ADDR_KEY   → JSON { zoneId, lat, lng, address }
+```
+
+- On open: reads saved coords via `loadSavedCoords()` — falls back to `ALEPPO [36.2021047, 37.1342839]` if saved coords are `null` or `[0,0]`
+- On confirm: writes all 3 keys + dispatches `syano:location-updated` CustomEvent
+- **CRITICAL — no mapKey re-mount:** the modal uses `flyToTarget` state + `MapController.flyTo()` to navigate without unmounting the map. If `mapKey` or any other increment-on-open pattern is added, it causes a double-mount that produces gray tiles. Do not revert this.
+
+#### Syria geofence (LocationMapModal)
+
+```typescript
+const SYRIA_LAT_MIN = 32.3,  SYRIA_LAT_MAX = 37.4;
+const SYRIA_LNG_MIN = 35.6,  SYRIA_LNG_MAX = 42.4;
+const SYRIA_CATCHALL_ID = 999;   // zone ID for "All Syrian Provinces"
+```
+
+Two-stage validation on every pin move (debounced 300 ms):
+1. Fast bounding-box pre-check (`isInsideSyriaBBox`) — immediate rejection without Nominatim
+2. Nominatim reverse geocode → strict `country_code === "sy"` check
+- Outside Syria: disables the confirm button, shows warning, clears zone selection
+- Unrecognized Syrian location: falls back to zone 999 (never leaves the user without a valid zone)
+
+#### LRU caches (backend)
+
+| Cache | File | Max entries | TTL | Invalidation |
+|---|---|---|---|---|
+| `searchCache` | `searchCache.ts` | 500 | none (LRU eviction only) | Evicted when full |
+| `productsCache` | `cacheService.ts` | 200 | 60 s | TTL expiry |
+| `productDetailCache` | `cacheService.ts` | 500 | 5 min | TTL expiry + explicit bust on mutation |
+| `categoriesCache` | `cacheService.ts` | 10 | 1 hr | TTL expiry |
+| `sellersCache` | `cacheService.ts` | 100 | 2 min | TTL expiry |
+| Route cache | `routeCacheService.ts` | unbounded (Map) | 60 s | TTL expiry + courier moves > 100 m |
+
+`searchCache` uses a doubly-linked list + Map for O(1) get/set/evict — do not replace with a plain `Map`.
+
+#### Service Worker (sw.js)
+
+**Current version: v3** · Cache name: `syano-assets-v2`
+
+| Strategy | Applies to | Notes |
+|---|---|---|
+| Cache-First | Hashed JS/CSS chunks (`/assets/*-[hash].(js\|css)`) | Content-addressed — safe to cache forever |
+| Stale-While-Revalidate | Same-origin statics (fonts, icons, manifest, images) | Inter font is precached at install time |
+| Network-only | Everything else (API, navigation, SSE, cross-origin) | OSM tile caching is handled by the browser HTTP cache via OSM CDN `Cache-Control` headers — intentionally not in the SW |
+
+**OSM tiles are NOT cached by the SW.** They are served by the browser's HTTP cache using the OSM CDN's `Cache-Control: max-age=604800` headers. This is intentional — SW tile caching would create stale-map problems and exceed storage quotas for Arabic/Syrian tile sets.
+
+---
+
+### Map Health Check (run after any migration, code pull, or environment move)
+
+```bash
+# 1. Verify Leaflet packages are installed
+pnpm --filter @workspace/marketplace ls leaflet react-leaflet @types/leaflet
+# Must show: leaflet ^1.9.4, react-leaflet ^5.0.0, @types/leaflet ^1.9.x
+
+# 2. Verify CSS import is present
+grep -n "leaflet/dist/leaflet.css" artifacts/marketplace/src/components/TrackingMap.tsx
+# Must return: line 14→import "leaflet/dist/leaflet.css";
+
+# 3. Verify TileLayer keepBuffer value
+grep -n "keepBuffer" artifacts/marketplace/src/components/TrackingMap.tsx
+# Must return: keepBuffer={12}
+
+grep -n "keepBuffer" artifacts/marketplace/src/components/LocationMapModal.tsx
+# Must return: keepBuffer={12}
+
+# 4. Verify maxNativeZoom is set (gray-tile guard)
+grep -n "maxNativeZoom" artifacts/marketplace/src/components/TrackingMap.tsx artifacts/marketplace/src/components/LocationMapModal.tsx
+# Both must return: maxNativeZoom={19}
+
+# 5. Verify flyToTarget pattern is intact (no mapKey re-mount)
+grep -n "flyToTarget\|mapKey\|setMapKey" artifacts/marketplace/src/components/LocationMapModal.tsx
+# Must show flyToTarget — must NOT show mapKey or setMapKey
+
+# 6. Verify geofence constants
+grep -n "SYRIA_LAT_MIN\|SYRIA_LAT_MAX\|SYRIA_LNG_MIN\|SYRIA_LNG_MAX" artifacts/marketplace/src/components/LocationMapModal.tsx
+# Must show: 32.3, 37.4, 35.6, 42.4
+
+# 7. Verify service worker version
+grep -n "Syano Service Worker\|CACHE_ASSETS" artifacts/marketplace/public/sw.js
+# Must show: v3, syano-assets-v2
+
+# 8. Live map smoke test (manual)
+# Login as courier (delewatiamer9@gmail.com / 00Amer00)
+# Navigate to /courier → OSM tiles must be visible (not blank gray)
+# Open location picker → pin must default to Aleppo, zone auto-detect must fire
+```
+
+**Checklist (tick all before declaring map health OK):**
+
+```
+[ ] leaflet, react-leaflet, @types/leaflet all installed at correct versions
+[ ] import "leaflet/dist/leaflet.css" present in TrackingMap.tsx (line 14)
+[ ] TileLayer keepBuffer={12} in TrackingMap.tsx
+[ ] TileLayer keepBuffer={12} in LocationMapModal.tsx
+[ ] maxNativeZoom={19} in both map components
+[ ] updateWhenZooming={false} + updateWhenIdle={false} in both map components
+[ ] TileLoadTracker helper present in both components
+[ ] InvalidateSizeOnOpen helper present in LocationMapModal
+[ ] LocationMapModal uses flyToTarget (NOT mapKey increment) on open
+[ ] ALEPPO [0,0] guard in LocationMapModal open handler
+[ ] Syria geofence constants correct (32.3/37.4 lat, 35.6/42.4 lng)
+[ ] Zone 999 catchall logic present
+[ ] ZONE_KEY / COORDS_KEY / ADDR_KEY localStorage persistence intact
+[ ] syano:location-updated CustomEvent dispatched on confirm
+[ ] sw.js version v3, cache name syano-assets-v2
+[ ] Route cache TTL = 60 s, movement threshold = 100 m (routeCacheService.ts)
+[ ] searchCache MAX_SIZE = 500 (searchCache.ts)
+[ ] /courier page shows OSM tiles (not blank gray) — live smoke test
+[ ] LocationMapModal opens, shows shimmer, then tiles load — live smoke test
+```
+
+**Fix if map packages are missing:**
+```bash
+pnpm --filter @workspace/marketplace add leaflet react-leaflet @types/leaflet
+```
+
+---
+
 ## SEARCH
 
 **Pipeline:** 13-step NLP (Arabic + English normalization → tokenization → FTS via GIN index + pgvector similarity → RRF blend)  
